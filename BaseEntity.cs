@@ -103,7 +103,7 @@ namespace CAF
                     customerValidator = ValidationFactory.CreateValidator<T>();
                     v = customerValidator.Validate(item);
 
-                    Errors = new List<string>();
+                    (Errors == null).IfIsTrue(() => Errors = new List<string>());
                     for (int i = 0; i < v.Count; i++)
                     {
                         Errors.Add(v.ElementAt(i).Message);

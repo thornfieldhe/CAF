@@ -23,7 +23,7 @@ using System.Linq;
 
 namespace <%= this.ClassNamespace %>
 {
-    using CAF.Data; 
+    using CAF.Data;
     using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
@@ -115,13 +115,13 @@ namespace <%= this.ClassNamespace %>
         {
             get
             {
-                if (IsDirty && !<%= GetListMember2(item)%>.IsValueCreated)
+                if (!<%= GetListMember2(item)%>.IsValueCreated)
                 {
                     <%= GetListMember1(item)%> = <%= GetListMember2(item)%>.Value;
                 }
                 return <%= GetListMember1(item)%>;
             }
-            set
+            internal set
             {
                 <%= GetListMember1(item)%> = value;
             }
@@ -133,7 +133,7 @@ namespace <%= this.ClassNamespace %>
         {
             get
             {
-                if (IsDirty && !<%= GetListMember3(item)%>.IsValueCreated)
+                if (!<%= GetListMember3(item)%>.IsValueCreated)
                 {
                     <%= GetListMember4(item)%> = <%= GetListMember3(item)%>.Value;
                 }
@@ -150,7 +150,7 @@ namespace <%= this.ClassNamespace %>
         {
             get
             {
-                if (IsDirty && !<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated)
+                if (!<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated)
                 {
                     <%= GetListMember1(GetRelationshipItem(item))%> = <%= GetListMember2(GetRelationshipItem(item))%>.Value;
                 }
@@ -169,7 +169,6 @@ namespace <%= this.ClassNamespace %>
             {
                 bool isValid = true;
                 bool baseValid = base.IsValid;
-                Errors = new List<string>();
                 <%foreach(string item in this.Children){ %>
                 foreach (var item in <%=item%>s)
                 {
@@ -240,8 +239,7 @@ namespace <%= this.ClassNamespace %>
                 {
                     item.MarkOld();
                     <%foreach(string item in this.Children){ %>
-                    item.<%=item%>s=<%= item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(id);
-                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(id), isThreadSafe: true);
+                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
                     <%} %>
                     <%foreach(string item in this.Child){ %>
                     item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(id), isThreadSafe: true);
@@ -264,7 +262,7 @@ namespace <%= this.ClassNamespace %>
                 {
                     item.MarkOld();
                     <%foreach(string item in this.Children){ %>
-                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);                
+                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
                     <%} %>
                     <%foreach(string item in this.Child){ %>
                     item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
@@ -290,7 +288,7 @@ namespace <%= this.ClassNamespace %>
                 {
                     item.MarkOld();
                     <%foreach(string item in this.Children){ %>
-                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);                   
+					item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);                 
                     <%} %>
                     <%foreach(string item in this.Child){ %>
             		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
@@ -316,7 +314,7 @@ namespace <%= this.ClassNamespace %>
                 {
                     item.MarkOld();
                     <%foreach(string item in this.Children){ %>
-                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
+                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
                     <%} %>
                     <%foreach(string item in this.Child){ %>
             		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
@@ -342,7 +340,7 @@ namespace <%= this.ClassNamespace %>
                 {
                     item.MarkOld();
                     <%foreach(string item in this.Children){ %>
-                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);                   
+                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);                 
                     <%} %>
                     <%foreach(string item in this.Child){ %>
             		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
@@ -380,10 +378,10 @@ namespace <%= this.ClassNamespace %>
 		{
 			var item= new <%= GetClassName(SourceTable)%>();
 			<%foreach(string item in this.Children){ %>
-             item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);           
+            item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);          
             <%} %>
             <%foreach(string item in this.Child){ %>
-    		    		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
+    		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
             <%} %> 
             <%foreach(string item in this.WithMany){ %>
     		item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
@@ -462,25 +460,34 @@ namespace <%= this.ClassNamespace %>
 		<%foreach(string item in this.WithMany){ %>
 		protected  int AddRelationshipWith<%=GetRelationshipItem(item)%>(IDbConnection conn, IDbTransaction transaction)
         {
-            foreach (var <%=GetRelationshipItem(item).ToLower()%> in this.<%=GetRelationshipItem(item)%>s)
+            foreach (var <%=this.GetCamelCaseName(GetRelationshipItem(item))%> in this.<%=GetRelationshipItem(item)%>s)
             {
-                var isExist = conn.Query<int>(QUERY_CONTAINS<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> , new { <%= GetClassName(SourceTable)%>Id = this.Id, <%=GetRelationshipItem(item)%>Id = <%=GetRelationshipItem(item).ToLower()%>.Id }).Single() >= 1;
-                if (<%=GetRelationshipItem(item).ToLower()%>.IsNew && !isExist)
+                var isExist = conn.Query<int>(QUERY_CONTAINS<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> , new { <%= GetClassName(SourceTable)%>Id = this.Id, <%=GetRelationshipItem(item)%>Id = <%=this.GetCamelCaseName(GetRelationshipItem(item))%>.Id }).Single() >= 1;
+                if (<%=this.GetCamelCaseName(GetRelationshipItem(item))%>.IsNew && !isExist)
                 {
-                    _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { <%= GetClassName(SourceTable)%>Id = this.Id, <%=GetRelationshipItem(item)%>Id = <%=GetRelationshipItem(item).ToLower()%>.Id }, transaction, null, null);
+                    _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { <%= GetClassName(SourceTable)%>Id = this.Id, <%=GetRelationshipItem(item)%>Id = <%=this.GetCamelCaseName(GetRelationshipItem(item))%>.Id }, transaction, null, null);
                 }
             }
             return _changedRows;
         }
 
-        protected static <%=GetRelationshipItem(item)%>List Init<%=GetRelationshipItem(item)%>s(<%= GetClassName(SourceTable)%> <%= GetClassName(SourceTable).ToLower()%>)
+        protected static <%=GetRelationshipItem(item)%>List Init<%=GetRelationshipItem(item)%>s(<%= GetClassName(SourceTable)%> <%=this.GetCamelCaseName(GetClassName(SourceTable))%>)
         {
-            var <%=GetRelationshipItem(item).ToLower()%>List = <%=GetRelationshipItem(item)%>.GetAllBy<%= GetClassName(SourceTable)%>Id(<%= GetClassName(SourceTable).ToLower()%>.Id);
-            <%=GetRelationshipItem(item).ToLower()%>List.OnSaved += <%= GetClassName(SourceTable).ToLower()%>.AddRelationshipWith<%=GetRelationshipItem(item)%>;
-            return <%=GetRelationshipItem(item).ToLower()%>List;
+            var <%=GetCamelCaseName(GetRelationshipItem(item))%>List = <%=GetRelationshipItem(item)%>.GetAllBy<%= GetClassName(SourceTable)%>Id(<%= this.GetCamelCaseName(GetClassName(SourceTable))%>.Id);
+            <%=this.GetCamelCaseName(GetRelationshipItem(item))%>List.OnSaved += <%= this.GetCamelCaseName(GetClassName(SourceTable))%>.AddRelationshipWith<%=GetRelationshipItem(item)%>;
+            return <%=this.GetCamelCaseName(GetRelationshipItem(item))%>List;
         }
-		<%} %>
 		
+		<%} %>
+		<%foreach(string item in this.Children){ %>
+		protected static <%=item%>List Init<%=item%>s(<%=GetClassName(SourceTable)%> <%=this.GetCamelCaseName(GetClassName(SourceTable))%>)
+        {
+            var <%=this.GetCamelCaseName(item)%>List = <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(<%=this.GetCamelCaseName(GetClassName(SourceTable))%>.Id);
+            <%=this.GetCamelCaseName(item)%>List.OnMarkDirty += <%=this.GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;
+            return <%=this.GetCamelCaseName(item)%>List;
+        }
+		
+		<%} %>
 		#endregion
 				
 	}
@@ -551,7 +558,7 @@ public bool IsRecurrence(ColumnSchema column)
 /// <returns></returns>
 public string GetListMember1(string column)
 {
-	return string.Format(" _{0}List", column.ToLower());
+	return string.Format(" _{0}List", this.GetCamelCaseName(column));
 }
 /// <summary>
 ///private Lazy<UserList> _userListInitalizer;
@@ -560,15 +567,15 @@ public string GetListMember1(string column)
 /// <returns></returns>
 public string GetListMember2(string column)
 {
-	return string.Format(" _{0}ListInitalizer", column.ToLower());
+	return string.Format(" _{0}ListInitalizer", this.GetCamelCaseName(column));
 }
 public string GetListMember3(string column)
 {
-	return string.Format(" _{0}Initalizer", column.ToLower());
+	return string.Format(" _{0}Initalizer", this.GetCamelCaseName(column));
 }
 public string GetListMember4(string column)
 {
-	return string.Format(" _{0}", column.ToLower());
+	return string.Format(" _{0}", this.GetCamelCaseName(column));
 }
 
 

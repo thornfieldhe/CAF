@@ -30,8 +30,8 @@ namespace CAF.Model
         private string _phoneNum = String.Empty;
         private Guid _organizeId = Guid.Empty;
         private string _email = String.Empty;
-        private UserSetting _usersetting;
-        private Lazy<UserSetting> _usersettingInitalizer;
+        private UserSetting _userSetting;
+        private Lazy<UserSetting> _userSettingInitalizer;
         private RoleList _roleList;
         private Lazy<RoleList> _roleListInitalizer;
 
@@ -124,22 +124,22 @@ namespace CAF.Model
         {
             get
             {
-                if (IsDirty && !_usersettingInitalizer.IsValueCreated)
+                if (!_userSettingInitalizer.IsValueCreated)
                 {
-                    _usersetting = _usersettingInitalizer.Value;
+                    _userSetting = _userSettingInitalizer.Value;
                 }
-                return _usersetting;
+                return _userSetting;
             }
             set
             {
-                _usersetting = value;
+                _userSetting = value;
             }
         }
         public RoleList Roles
         {
             get
             {
-                if (IsDirty && !_roleListInitalizer.IsValueCreated)
+                if (!_roleListInitalizer.IsValueCreated)
                 {
                     _roleList = _roleListInitalizer.Value;
                 }
@@ -156,7 +156,6 @@ namespace CAF.Model
             {
                 bool isValid = true;
                 bool baseValid = base.IsValid;
-                Errors = new List<string>();
                 if (this.UserSetting != null && !this.UserSetting.IsValid)
                 {
                     this.Errors.AddRange(this.UserSetting.Errors);
@@ -204,7 +203,7 @@ namespace CAF.Model
                 if (item != null)
                 {
                     item.MarkOld();
-                    item._usersettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(id), isThreadSafe: true);
+                    item._userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(id), isThreadSafe: true);
                     item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                 }
                 return item;
@@ -220,7 +219,7 @@ namespace CAF.Model
                 foreach (User item in items)
                 {
                     item.MarkOld();
-                    item._usersettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(item.Id), isThreadSafe: true);
+                    item._userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(item.Id), isThreadSafe: true);
                     item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                     list.Add(item);
                 }
@@ -238,7 +237,7 @@ namespace CAF.Model
                 foreach (User item in items)
                 {
                     item.MarkOld();
-                    item._usersettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(item.Id), isThreadSafe: true);
+                    item._userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(item.Id), isThreadSafe: true);
                     item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                     list.Add(item);
                 }
@@ -257,7 +256,7 @@ namespace CAF.Model
                 foreach (User item in items)
                 {
                     item.MarkOld();
-                    item._usersettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(item.Id), isThreadSafe: true);
+                    item._userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(item.Id), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkOld();
@@ -289,7 +288,7 @@ namespace CAF.Model
         public static User New()
         {
             var item = new User();
-            item._usersettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(item.Id), isThreadSafe: true);
+            item._userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(item.Id), isThreadSafe: true);
             item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
             return item;
         }

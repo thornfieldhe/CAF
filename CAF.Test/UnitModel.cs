@@ -89,6 +89,7 @@ namespace CAF.Test
         public void TestMethod5()
         {
             User u = CreateUser();
+            u.OrganizeId = Guid.NewGuid();
             if (u.IsValid)
             {
                 u.Create();//创建
@@ -110,7 +111,7 @@ namespace CAF.Test
         [TestMethod]
         public void TestMethod6()
         {
-            //新增with子项
+            //新增with子项列表
             Organize o = Organize.New();
             o.Sort = 0;
             o.Name = "o1";
@@ -125,7 +126,7 @@ namespace CAF.Test
             }
             var o1 = Organize.Get(o.Id);
             Assert.AreEqual(o1.Users.Count, 1);
-            //新增子项
+            //新增子项列表中子项
             User u1 = CreateUser();
             u1.OrganizeId = o1.Id;
             //todo 未实现增加子项
@@ -136,24 +137,55 @@ namespace CAF.Test
             }
             var o2 = Organize.Get(o.Id);
             Assert.AreEqual(o2.Users.Count, 2);//检查用户信息是否延迟加载
-            //编辑with子项
+            //编辑子项列表中子项
             o2.Users[0].Note = "ttttttttt";//检查用户信息是否延迟加载
             if (o2.IsValid)
             {
                 o2.Save();
             }
-            //编辑子项
+            //编辑with子项列表中的子项
             var o3 = Organize.Get(o.Id);
-            o3.Users[1].Note = "ppppppp";//检查用户信息是否延迟加载
+            o3.Users[1].Note = "kkk";//检查用户信息是否延迟加载
+            o3.Note = "12345";
             if (o3.IsValid)
             {
                 o3.Save();
             }
-            //删除子项
-            o3.Users.RemoveAt(1);
-            o3.Save();
             var o4 = Organize.Get(o.Id);
-            Assert.AreEqual(o4.Users.Count, 1);
+            Assert.AreEqual(o4.Users[1].Note, "kkk");
+            Assert.AreEqual(o4.Note, "12345");
+            //删除子项
+            o4.Users.RemoveAt(1);
+            o4.Save();
+            var o5 = Organize.Get(o.Id);
+            Assert.AreEqual(o5.Users.Count, 1);
+        }
+
+        /// <summary>
+        /// 1：1关系
+        /// </summary>
+        [TestMethod]
+        public void TestMethod7()
+        {
+            //新增with子项
+            User o = CreateUser();
+            o.UserSetting = UserSetting.New();
+            o.UserSetting.Settings = "nomal";
+            if (o.IsValid)
+            {
+                o.Create();
+            }
+            var o1 = User.Get(o.Id);
+            Assert.AreEqual(o1.UserSetting.Settings, "nomal");
+            //编辑子项
+            var o3 = User.Get(o.Id);
+            o3.UserSetting.Note = "ppppppp";//检查用户信息是否延迟加载
+            if (o3.IsValid)
+            {
+                o3.Save();
+            }
+            var o2 = User.Get(o.Id);
+            Assert.AreEqual(o2.UserSetting.Note, "ppppppp");
         }
 
         private static User CreateUser()

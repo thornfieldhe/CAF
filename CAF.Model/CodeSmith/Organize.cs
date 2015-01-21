@@ -5,7 +5,6 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
-    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
 
@@ -45,7 +44,6 @@ namespace CAF.Model
         /// <summary>
         /// 父部门Id
         /// </summary>
-        [GuidRequired(ErrorMessage = "父部门不允许为空")]
         public Guid ParentId
         {
             get { return _parentId; }
@@ -103,7 +101,7 @@ namespace CAF.Model
                 }
                 return _userList;
             }
-            set
+            internal set
             {
                 _userList = value;
             }
@@ -115,7 +113,6 @@ namespace CAF.Model
             {
                 bool isValid = true;
                 bool baseValid = base.IsValid;
-                Errors = new List<string>();
                 foreach (var item in Users)
                 {
                     if (!item.IsValid)
