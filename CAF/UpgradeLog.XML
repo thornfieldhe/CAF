@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="CAF">
+</Property><Property Name="Solution File" Value="F:\PROJECT\CAF\CAF.sln">
+</Property><Property Name="Date" Value="2010年6月8日">
+</Property><Property Name="Time" Value="20:13">
+</Property></Properties><Event ErrorLevel="0" Project="CAF" Source="CAF\CAF.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="CAF" Source="CAF\CAF.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="TestCAF" Source="TestCAF\TestCAF.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="TestCAF" Source="TestCAF\TestCAF.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="CAF.Extension" Source="CAF.Extension\CAF.Extension.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="CAF.Extension" Source="CAF.Extension\CAF.Extension.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="CAF.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="CAF.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="CAF" Source="CAF\CAF.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="3" Project="" Source="CAF.vsmdi" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="CAF.vsmdi" Description="The file was converted to the current format.">
+</Event><Event ErrorLevel="3" Project="" Source="LocalTestRun.testrunconfig" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="LocalTestRun.testrunconfig" Description="The file was converted to the current format.">
+</Event><Event ErrorLevel="0" Project="TestCAF" Source="TestCAF\TestCAF.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="CAF.Extension" Source="CAF.Extension\CAF.Extension.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

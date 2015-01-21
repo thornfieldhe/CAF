@@ -1,0 +1,194 @@
+D:\Projects\YZYW\CAF\bin\Release\CAF.dll
+D:\Projects\YZYW\CAF\bin\Release\CAF.pdb
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.dll
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.ServiceLocation.dll
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.Configuration.dll
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.dll
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.Interception.dll
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.xml
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.pdb
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.pdb
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.xml
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.pdb
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.Configuration.pdb
+D:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.Interception.pdb
+D:\Projects\YZYW\CAF\obj\Release\ResolveAssemblyReference.cache
+D:\Projects\YZYW\CAF\obj\Release\CAF.dll
+D:\Projects\YZYW\CAF\obj\Release\CAF.pdb
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\CAF.dll
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\CAF.pdb
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.dll
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.ServiceLocation.dll
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.Configuration.dll
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.dll
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.Interception.dll
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.xml
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.pdb
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.pdb
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.xml
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.pdb
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.Configuration.pdb
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.Interception.pdb
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\obj\Release\ResolveAssemblyReference.cache
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\obj\Release\CAF.dll
+x:\My Works\我的文件\有汁有味零食店\收银系统\YZYW\CAF\obj\Release\CAF.pdb
+E:\Projects\YZYW\CAF\bin\Release\CAF.dll
+E:\Projects\YZYW\CAF\bin\Release\CAF.pdb
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.dll
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.ServiceLocation.dll
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.Configuration.dll
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.dll
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.Interception.dll
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.xml
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.pdb
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.pdb
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.xml
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.pdb
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.Configuration.pdb
+E:\Projects\YZYW\CAF\bin\Release\Microsoft.Practices.Unity.Interception.pdb
+E:\Projects\YZYW\CAF\obj\Release\ResolveAssemblyReference.cache
+E:\Projects\YZYW\CAF\obj\Release\CAF.dll
+E:\Projects\YZYW\CAF\obj\Release\CAF.pdb
+C:\MyProjects\SmartEAI\CAF\bin\Release\CAF.dll
+C:\MyProjects\SmartEAI\CAF\bin\Release\CAF.pdb
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.dll
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.ServiceLocation.dll
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.Unity.Configuration.dll
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.Unity.dll
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.Unity.Interception.dll
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.xml
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.pdb
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.pdb
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.xml
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.Unity.pdb
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.Unity.Configuration.pdb
+C:\MyProjects\SmartEAI\CAF\bin\Release\Microsoft.Practices.Unity.Interception.pdb
+C:\MyProjects\SmartEAI\CAF\obj\Release\CAF.dll
+C:\MyProjects\SmartEAI\CAF\obj\Release\CAF.pdb
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\CAF.dll
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\CAF.pdb
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.dll
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.ServiceLocation.dll
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.Configuration.dll
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.dll
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.Interception.dll
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.xml
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.pdb
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.pdb
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.xml
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.pdb
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.Configuration.pdb
+d:\WorkStation\Program\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.Interception.pdb
+d:\WorkStation\Program\SweetDessert\CAF\obj\Release\CAF.csprojResolveAssemblyReference.cache
+d:\WorkStation\Program\SweetDessert\CAF\obj\Release\CAF.dll
+d:\WorkStation\Program\SweetDessert\CAF\obj\Release\CAF.pdb
+d:\Temp\SweetDessert\SweetDessert\CAF\obj\Release\CAF.csprojResolveAssemblyReference.cache
+d:\Temp\SweetDessert\SweetDessert\CAF\obj\Release\CAF.dll
+d:\Temp\SweetDessert\SweetDessert\CAF\obj\Release\CAF.pdb
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\CAF.dll
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\CAF.pdb
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.dll
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.ServiceLocation.dll
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.Configuration.dll
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.dll
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.Interception.dll
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.xml
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.pdb
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.pdb
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.xml
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.pdb
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.Configuration.pdb
+d:\Temp\SweetDessert\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.Interception.pdb
+C:\MyProjects\SweetDessert\CAF\bin\Release\CAF.dll
+C:\MyProjects\SweetDessert\CAF\bin\Release\CAF.pdb
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.dll
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.ServiceLocation.dll
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.Configuration.dll
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.dll
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.Interception.dll
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.xml
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.pdb
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.pdb
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.EnterpriseLibrary.Validation.xml
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.pdb
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.Configuration.pdb
+C:\MyProjects\SweetDessert\CAF\bin\Release\Microsoft.Practices.Unity.Interception.pdb
+C:\MyProjects\SweetDessert\CAF\obj\Release\CAF.dll
+C:\MyProjects\SweetDessert\CAF\obj\Release\CAF.pdb

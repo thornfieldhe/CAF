@@ -1,0 +1,691 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{04320AFC-C9EA-4E4F-9D29-BC43219AB3FB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CAF.Web</RootNamespace>
+    <AssemblyName>CAF.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\CAF\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\CAF\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAF\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAF\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAF\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\CAF\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAF\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAF\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAF\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAF\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebGrease">
+      <HintPath>..\CAF\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="metronic\admin\layout\css\custom.css" />
+    <Content Include="metronic\admin\layout\css\layout.css" />
+    <Content Include="metronic\admin\layout\css\themes\blue.css" />
+    <Content Include="metronic\admin\layout\css\themes\darkblue.css" />
+    <Content Include="metronic\admin\layout\css\themes\default.css" />
+    <Content Include="metronic\admin\layout\css\themes\grey.css" />
+    <Content Include="metronic\admin\layout\css\themes\light.css" />
+    <Content Include="metronic\admin\layout\css\themes\light2.css" />
+    <Content Include="metronic\admin\layout\img\avatar.png" />
+    <Content Include="metronic\admin\layout\img\avatar1.jpg" />
+    <Content Include="metronic\admin\layout\img\avatar10.jpg" />
+    <Content Include="metronic\admin\layout\img\avatar11.jpg" />
+    <Content Include="metronic\admin\layout\img\avatar2.jpg" />
+    <Content Include="metronic\admin\layout\img\avatar3.jpg" />
+    <Content Include="metronic\admin\layout\img\avatar3_small.jpg" />
+    <Content Include="metronic\admin\layout\img\avatar4.jpg" />
+    <Content Include="metronic\admin\layout\img\avatar6.jpg" />
+    <Content Include="metronic\admin\layout\img\avatar7.jpg" />
+    <Content Include="metronic\admin\layout\img\avatar8.jpg" />
+    <Content Include="metronic\admin\layout\img\avatar9.jpg" />
+    <Content Include="metronic\admin\layout\img\icon-color-close.png" />
+    <Content Include="metronic\admin\layout\img\icon-color.png" />
+    <Content Include="metronic\admin\layout\img\loading.gif" />
+    <Content Include="metronic\admin\layout\img\logo-big.png" />
+    <Content Include="metronic\admin\layout\img\logo-invert.png" />
+    <Content Include="metronic\admin\layout\img\logo.png" />
+    <Content Include="metronic\admin\layout\img\sidebar_inline_toggler_icon_blue.jpg" />
+    <Content Include="metronic\admin\layout\img\sidebar_inline_toggler_icon_darkblue.jpg" />
+    <Content Include="metronic\admin\layout\img\sidebar_inline_toggler_icon_default.jpg" />
+    <Content Include="metronic\admin\layout\img\sidebar_inline_toggler_icon_grey.jpg" />
+    <Content Include="metronic\admin\layout\img\sidebar_inline_toggler_icon_light.jpg" />
+    <Content Include="metronic\admin\layout\img\sidebar_inline_toggler_icon_light2.jpg" />
+    <Content Include="metronic\admin\layout\img\sidebar_toggler_icon_blue.png" />
+    <Content Include="metronic\admin\layout\img\sidebar_toggler_icon_darkblue.png" />
+    <Content Include="metronic\admin\layout\img\sidebar_toggler_icon_default.png" />
+    <Content Include="metronic\admin\layout\img\sidebar_toggler_icon_grey.png" />
+    <Content Include="metronic\admin\layout\img\sidebar_toggler_icon_light.png" />
+    <Content Include="metronic\admin\layout\img\sidebar_toggler_icon_light2.png" />
+    <Content Include="metronic\admin\layout\scripts\demo.js" />
+    <Content Include="metronic\admin\layout\scripts\layout.js" />
+    <Content Include="metronic\admin\layout\scripts\quick-sidebar.js" />
+    <Content Include="metronic\admin\pages\css\about-us.css" />
+    <Content Include="metronic\admin\pages\css\blog.css" />
+    <Content Include="metronic\admin\pages\css\coming-soon.css" />
+    <Content Include="metronic\admin\pages\css\error.css" />
+    <Content Include="metronic\admin\pages\css\image-crop.css" />
+    <Content Include="metronic\admin\pages\css\inbox.css" />
+    <Content Include="metronic\admin\pages\css\invoice.css" />
+    <Content Include="metronic\admin\pages\css\lock.css" />
+    <Content Include="metronic\admin\pages\css\login-soft.css" />
+    <Content Include="metronic\admin\pages\css\login.css" />
+    <Content Include="metronic\admin\pages\css\news.css" />
+    <Content Include="metronic\admin\pages\css\portfolio.css" />
+    <Content Include="metronic\admin\pages\css\pricing-table.css" />
+    <Content Include="metronic\admin\pages\css\profile.css" />
+    <Content Include="metronic\admin\pages\css\search.css" />
+    <Content Include="metronic\admin\pages\css\tasks.css" />
+    <Content Include="metronic\admin\pages\css\timeline.css" />
+    <Content Include="metronic\admin\pages\img\bg-white-lock.png" />
+    <Content Include="metronic\admin\pages\img\bg-white.png" />
+    <Content Include="metronic\admin\pages\img\inbox-nav-arrow-blue.png" />
+    <Content Include="metronic\admin\pages\media\bg\1.jpg" />
+    <Content Include="metronic\admin\pages\media\bg\2.jpg" />
+    <Content Include="metronic\admin\pages\media\bg\3.jpg" />
+    <Content Include="metronic\admin\pages\media\bg\4.jpg" />
+    <Content Include="metronic\admin\pages\media\blog\1.jpg" />
+    <Content Include="metronic\admin\pages\media\blog\10.jpg" />
+    <Content Include="metronic\admin\pages\media\blog\11.jpg" />
+    <Content Include="metronic\admin\pages\media\blog\2.jpg" />
+    <Content Include="metronic\admin\pages\media\blog\3.jpg" />
+    <Content Include="metronic\admin\pages\media\blog\4.jpg" />
+    <Content Include="metronic\admin\pages\media\blog\5.jpg" />
+    <Content Include="metronic\admin\pages\media\blog\6.jpg" />
+    <Content Include="metronic\admin\pages\media\blog\7.jpg" />
+    <Content Include="metronic\admin\pages\media\blog\8.jpg" />
+    <Content Include="metronic\admin\pages\media\blog\9.jpg" />
+    <Content Include="metronic\admin\pages\media\email\article.png" />
+    <Content Include="metronic\admin\pages\media\email\iphone.png" />
+    <Content Include="metronic\admin\pages\media\email\photo1.jpg" />
+    <Content Include="metronic\admin\pages\media\email\photo2.jpg" />
+    <Content Include="metronic\admin\pages\media\email\social_facebook.png" />
+    <Content Include="metronic\admin\pages\media\email\social_googleplus.png" />
+    <Content Include="metronic\admin\pages\media\email\social_linkedin.png" />
+    <Content Include="metronic\admin\pages\media\email\social_rss.png" />
+    <Content Include="metronic\admin\pages\media\email\social_twitter.png" />
+    <Content Include="metronic\admin\pages\media\gallery\image1.jpg" />
+    <Content Include="metronic\admin\pages\media\gallery\image2.jpg" />
+    <Content Include="metronic\admin\pages\media\gallery\image3.jpg" />
+    <Content Include="metronic\admin\pages\media\gallery\image4.jpg" />
+    <Content Include="metronic\admin\pages\media\gallery\image5.jpg" />
+    <Content Include="metronic\admin\pages\media\gallery\item_img.jpg" />
+    <Content Include="metronic\admin\pages\media\gallery\item_img1.jpg" />
+    <Content Include="metronic\admin\pages\media\invoice\walmart.png" />
+    <Content Include="metronic\admin\pages\media\pages\2.jpg" />
+    <Content Include="metronic\admin\pages\media\pages\3.jpg" />
+    <Content Include="metronic\admin\pages\media\pages\earth.jpg" />
+    <Content Include="metronic\admin\pages\media\profile\avatar1.jpg" />
+    <Content Include="metronic\admin\pages\media\profile\avatar2.jpg" />
+    <Content Include="metronic\admin\pages\media\profile\avatar3.jpg" />
+    <Content Include="metronic\admin\pages\media\profile\logo_azteca.jpg" />
+    <Content Include="metronic\admin\pages\media\profile\logo_conquer.jpg" />
+    <Content Include="metronic\admin\pages\media\profile\logo_metronic.jpg" />
+    <Content Include="metronic\admin\pages\media\profile\photo1.jpg" />
+    <Content Include="metronic\admin\pages\media\profile\photo2.jpg" />
+    <Content Include="metronic\admin\pages\media\profile\profile-img.png" />
+    <Content Include="metronic\admin\pages\media\profile\profile.jpg" />
+    <Content Include="metronic\admin\pages\media\search\1.jpg" />
+    <Content Include="metronic\admin\pages\media\works\img1.jpg" />
+    <Content Include="metronic\admin\pages\media\works\img2.jpg" />
+    <Content Include="metronic\admin\pages\media\works\img3.jpg" />
+    <Content Include="metronic\admin\pages\media\works\img4.jpg" />
+    <Content Include="metronic\admin\pages\media\works\img5.jpg" />
+    <Content Include="metronic\admin\pages\media\works\img6.jpg" />
+    <Content Include="metronic\admin\pages\scripts\calendar.js" />
+    <Content Include="metronic\admin\pages\scripts\charts.js" />
+    <Content Include="metronic\admin\pages\scripts\coming-soon.js" />
+    <Content Include="metronic\admin\pages\scripts\components-dropdowns.js" />
+    <Content Include="metronic\admin\pages\scripts\components-editors.js" />
+    <Content Include="metronic\admin\pages\scripts\components-form-tools.js" />
+    <Content Include="metronic\admin\pages\scripts\components-ion-sliders.js" />
+    <Content Include="metronic\admin\pages\scripts\components-jqueryui-sliders.js" />
+    <Content Include="metronic\admin\pages\scripts\components-knob-dials.js" />
+    <Content Include="metronic\admin\pages\scripts\components-nouisliders.js" />
+    <Content Include="metronic\admin\pages\scripts\components-pickers.js" />
+    <Content Include="metronic\admin\pages\scripts\contact-us.js" />
+    <Content Include="metronic\admin\pages\scripts\ecommerce-index.js" />
+    <Content Include="metronic\admin\pages\scripts\ecommerce-orders-view.js" />
+    <Content Include="metronic\admin\pages\scripts\ecommerce-orders.js" />
+    <Content Include="metronic\admin\pages\scripts\ecommerce-products-edit.js" />
+    <Content Include="metronic\admin\pages\scripts\ecommerce-products.js" />
+    <Content Include="metronic\admin\pages\scripts\form-dropzone.js" />
+    <Content Include="metronic\admin\pages\scripts\form-editable.js" />
+    <Content Include="metronic\admin\pages\scripts\form-fileupload.js" />
+    <Content Include="metronic\admin\pages\scripts\form-image-crop.js" />
+    <Content Include="metronic\admin\pages\scripts\form-samples.js" />
+    <Content Include="metronic\admin\pages\scripts\form-validation.js" />
+    <Content Include="metronic\admin\pages\scripts\form-wizard.js" />
+    <Content Include="metronic\admin\pages\scripts\inbox.js" />
+    <Content Include="metronic\admin\pages\scripts\index.js" />
+    <Content Include="metronic\admin\pages\scripts\lock.js" />
+    <Content Include="metronic\admin\pages\scripts\login-soft.js" />
+    <Content Include="metronic\admin\pages\scripts\login.js" />
+    <Content Include="metronic\admin\pages\scripts\maps-google.js" />
+    <Content Include="metronic\admin\pages\scripts\maps-vector.js" />
+    <Content Include="metronic\admin\pages\scripts\portfolio.js" />
+    <Content Include="metronic\admin\pages\scripts\portlet-draggable.js" />
+    <Content Include="metronic\admin\pages\scripts\search.js" />
+    <Content Include="metronic\admin\pages\scripts\table-advanced.js" />
+    <Content Include="metronic\admin\pages\scripts\table-ajax.js" />
+    <Content Include="metronic\admin\pages\scripts\table-editable.js" />
+    <Content Include="metronic\admin\pages\scripts\table-managed.js" />
+    <Content Include="metronic\admin\pages\scripts\tasks.js" />
+    <Content Include="metronic\admin\pages\scripts\ui-alert-dialog-api.js" />
+    <Content Include="metronic\admin\pages\scripts\ui-blockui.js" />
+    <Content Include="metronic\admin\pages\scripts\ui-datepaginator.js" />
+    <Content Include="metronic\admin\pages\scripts\ui-extended-modals.js" />
+    <Content Include="metronic\admin\pages\scripts\ui-general.js" />
+    <Content Include="metronic\admin\pages\scripts\ui-idletimeout.js" />
+    <Content Include="metronic\admin\pages\scripts\ui-nestable.js" />
+    <Content Include="metronic\admin\pages\scripts\ui-notific8.js" />
+    <Content Include="metronic\admin\pages\scripts\ui-toastr.js" />
+    <Content Include="metronic\admin\pages\scripts\ui-tree.js" />
+    <Content Include="metronic\global\plugins\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="metronic\global\plugins\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="metronic\global\plugins\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="metronic\global\plugins\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="metronic\global\plugins\font-awesome\fonts\fontawesome-webfont.eot_v=4.1.0" />
+    <Content Include="metronic\global\plugins\font-awesome\fonts\fontawesome-webfont.svg_v=4.1.0" />
+    <Content Include="metronic\global\plugins\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="metronic\global\plugins\font-awesome\fonts\fontawesome-webfont.ttf_v=4.1.0" />
+    <Content Include="metronic\global\plugins\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="metronic\global\plugins\font-awesome\fonts\fontawesome-webfont.woff_v=4.1.0" />
+    <Content Include="metronic\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.eot" />
+    <Content Include="metronic\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="metronic\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.woff" />
+    <None Include="Scripts\jquery-1.9.0.intellisense.js" />
+    <Content Include="metronic\global\css\components.css" />
+    <Content Include="metronic\global\css\plugins.css" />
+    <Content Include="metronic\global\img\accordion-plusminus.png" />
+    <Content Include="metronic\global\img\datatable-row-openclose.png" />
+    <Content Include="metronic\global\img\flags\de.png" />
+    <Content Include="metronic\global\img\flags\es.png" />
+    <Content Include="metronic\global\img\flags\fr.png" />
+    <Content Include="metronic\global\img\flags\ru.png" />
+    <Content Include="metronic\global\img\flags\us.png" />
+    <Content Include="metronic\global\img\input-spinner.gif" />
+    <Content Include="metronic\global\img\loading-spinner-grey.gif" />
+    <Content Include="metronic\global\img\portlet-collapse-icon-white.png" />
+    <Content Include="metronic\global\img\portlet-collapse-icon.png" />
+    <Content Include="metronic\global\img\portlet-config-icon-white.png" />
+    <Content Include="metronic\global\img\portlet-config-icon.png" />
+    <Content Include="metronic\global\img\portlet-expand-icon-white.png" />
+    <Content Include="metronic\global\img\portlet-expand-icon.png" />
+    <Content Include="metronic\global\img\portlet-reload-icon-white.png" />
+    <Content Include="metronic\global\img\portlet-reload-icon.png" />
+    <Content Include="metronic\global\img\portlet-remove-icon-white.png" />
+    <Content Include="metronic\global\img\portlet-remove-icon.png" />
+    <Content Include="metronic\global\img\remove-icon-small.png" />
+    <Content Include="metronic\global\img\social\aboutme.png" />
+    <Content Include="metronic\global\img\social\amazon.png" />
+    <Content Include="metronic\global\img\social\behance.png" />
+    <Content Include="metronic\global\img\social\blogger.png" />
+    <Content Include="metronic\global\img\social\deviantart.png" />
+    <Content Include="metronic\global\img\social\dribbble.png" />
+    <Content Include="metronic\global\img\social\dropbox.png" />
+    <Content Include="metronic\global\img\social\evernote.png" />
+    <Content Include="metronic\global\img\social\facebook.png" />
+    <Content Include="metronic\global\img\social\flickr.png" />
+    <Content Include="metronic\global\img\social\forrst.png" />
+    <Content Include="metronic\global\img\social\foursquare.png" />
+    <Content Include="metronic\global\img\social\github.png" />
+    <Content Include="metronic\global\img\social\googleplus.png" />
+    <Content Include="metronic\global\img\social\gravatar.png" />
+    <Content Include="metronic\global\img\social\instagram.png" />
+    <Content Include="metronic\global\img\social\jolicloud.png" />
+    <Content Include="metronic\global\img\social\klout.png" />
+    <Content Include="metronic\global\img\social\last-fm.png" />
+    <Content Include="metronic\global\img\social\linkedin.png" />
+    <Content Include="metronic\global\img\social\myspace.png" />
+    <Content Include="metronic\global\img\social\picasa.png" />
+    <Content Include="metronic\global\img\social\pintrest.png" />
+    <Content Include="metronic\global\img\social\quora.png" />
+    <Content Include="metronic\global\img\social\reddit.png" />
+    <Content Include="metronic\global\img\social\rss.png" />
+    <Content Include="metronic\global\img\social\skype.png" />
+    <Content Include="metronic\global\img\social\spotify.png" />
+    <Content Include="metronic\global\img\social\stumbleupon.png" />
+    <Content Include="metronic\global\img\social\tumblr.png" />
+    <Content Include="metronic\global\img\social\twitter.png" />
+    <Content Include="metronic\global\img\social\vimeo.png" />
+    <Content Include="metronic\global\img\social\vk.png" />
+    <Content Include="metronic\global\img\social\wordpress.png" />
+    <Content Include="metronic\global\img\social\xing.png" />
+    <Content Include="metronic\global\img\social\yahoo.png" />
+    <Content Include="metronic\global\img\social\youtube.png" />
+    <Content Include="metronic\global\img\syncfusion-icons-white.png" />
+    <Content Include="metronic\global\img\syncfusion-icons.png" />
+    <Content Include="metronic\global\plugins\backstretch\jquery.backstretch.min.js" />
+    <Content Include="metronic\global\plugins\bootbox\bootbox.min.js" />
+    <Content Include="metronic\global\plugins\bootstrap-colorpicker\css\colorpicker.css" />
+    <Content Include="metronic\global\plugins\bootstrap-colorpicker\img\alpha.png" />
+    <Content Include="metronic\global\plugins\bootstrap-colorpicker\img\hue.png" />
+    <Content Include="metronic\global\plugins\bootstrap-colorpicker\img\saturation.png" />
+    <Content Include="metronic\global\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js" />
+    <Content Include="metronic\global\plugins\bootstrap-datepaginator\bootstrap-datepaginator.min.js" />
+    <Content Include="metronic\global\plugins\bootstrap-datepicker\css\datepicker.css" />
+    <Content Include="metronic\global\plugins\bootstrap-datepicker\css\datepicker3.css" />
+    <Content Include="metronic\global\plugins\bootstrap-datepicker\js\bootstrap-datepicker.js" />
+    <Content Include="metronic\global\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.zh-CN.js" />
+    <Content Include="metronic\global\plugins\bootstrap-daterangepicker\daterangepicker-bs3.css" />
+    <Content Include="metronic\global\plugins\bootstrap-daterangepicker\daterangepicker.js" />
+    <Content Include="metronic\global\plugins\bootstrap-daterangepicker\moment.min.js" />
+    <Content Include="metronic\global\plugins\bootstrap-datetimepicker\css\datetimepicker.css" />
+    <Content Include="metronic\global\plugins\bootstrap-datetimepicker\js\bootstrap-datetimepicker.min.js" />
+    <Content Include="metronic\global\plugins\bootstrap-editable\bootstrap-editable\css\bootstrap-editable.css" />
+    <Content Include="metronic\global\plugins\bootstrap-editable\bootstrap-editable\img\clear.png" />
+    <Content Include="metronic\global\plugins\bootstrap-editable\bootstrap-editable\img\loading.gif" />
+    <Content Include="metronic\global\plugins\bootstrap-editable\bootstrap-editable\js\bootstrap-editable.js" />
+    <Content Include="metronic\global\plugins\bootstrap-editable\inputs-ext\address\address.css" />
+    <Content Include="metronic\global\plugins\bootstrap-editable\inputs-ext\address\address.js" />
+    <Content Include="metronic\global\plugins\bootstrap-editable\inputs-ext\wysihtml5\wysihtml5.js" />
+    <Content Include="metronic\global\plugins\bootstrap-fileinput\bootstrap-fileinput.css" />
+    <Content Include="metronic\global\plugins\bootstrap-fileinput\bootstrap-fileinput.js" />
+    <Content Include="metronic\global\plugins\bootstrap-hover-dropdown\bootstrap-hover-dropdown.min.js" />
+    <Content Include="metronic\global\plugins\bootstrap-markdown\css\bootstrap-markdown.min.css" />
+    <Content Include="metronic\global\plugins\bootstrap-markdown\js\bootstrap-markdown.js" />
+    <Content Include="metronic\global\plugins\bootstrap-markdown\lib\markdown.js" />
+    <Content Include="metronic\global\plugins\bootstrap-maxlength\bootstrap-maxlength.min.js" />
+    <Content Include="metronic\global\plugins\bootstrap-modal\css\bootstrap-modal-bs3patch.css" />
+    <Content Include="metronic\global\plugins\bootstrap-modal\css\bootstrap-modal.css" />
+    <Content Include="metronic\global\plugins\bootstrap-modal\js\bootstrap-modal.js" />
+    <Content Include="metronic\global\plugins\bootstrap-modal\js\bootstrap-modalmanager.js" />
+    <Content Include="metronic\global\plugins\bootstrap-pwstrength\pwstrength-bootstrap.min.js" />
+    <Content Include="metronic\global\plugins\bootstrap-select\bootstrap-select.min.css" />
+    <Content Include="metronic\global\plugins\bootstrap-select\bootstrap-select.min.js" />
+    <Content Include="metronic\global\plugins\bootstrap-sessiontimeout\jquery.sessionTimeout.min.js" />
+    <Content Include="metronic\global\plugins\bootstrap-summernote\summernote.css" />
+    <Content Include="metronic\global\plugins\bootstrap-summernote\summernote.min.js" />
+    <Content Include="metronic\global\plugins\bootstrap-switch\css\bootstrap-switch.min.css" />
+    <Content Include="metronic\global\plugins\bootstrap-switch\js\bootstrap-switch.min.js" />
+    <Content Include="metronic\global\plugins\bootstrap-timepicker\css\bootstrap-timepicker.min.css" />
+    <Content Include="metronic\global\plugins\bootstrap-timepicker\js\bootstrap-timepicker.min.js" />
+    <Content Include="metronic\global\plugins\bootstrap-toastr\toastr.min.css" />
+    <Content Include="metronic\global\plugins\bootstrap-toastr\toastr.min.js" />
+    <Content Include="metronic\global\plugins\bootstrap-touchspin\bootstrap.touchspin.js" />
+    <Content Include="metronic\global\plugins\bootstrap-wizard\jquery.bootstrap.wizard.min.js" />
+    <Content Include="metronic\global\plugins\bootstrap-wysihtml5\bootstrap-wysihtml5.css" />
+    <Content Include="metronic\global\plugins\bootstrap-wysihtml5\bootstrap-wysihtml5.js" />
+    <Content Include="metronic\global\plugins\bootstrap-wysihtml5\wysihtml5-0.3.0.js" />
+    <Content Include="metronic\global\plugins\bootstrap-wysihtml5\wysiwyg-color.css" />
+    <Content Include="metronic\global\plugins\bootstrap\css\bootstrap.min.css" />
+    <Content Include="metronic\global\plugins\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="metronic\global\plugins\bootstrap\js\bootstrap.min.js" />
+    <Content Include="metronic\global\plugins\ckeditor\ckeditor.js" />
+    <Content Include="metronic\global\plugins\ckeditor\config.js" />
+    <Content Include="metronic\global\plugins\ckeditor\lang\zh-cn.js" />
+    <Content Include="metronic\global\plugins\ckeditor\skins\moono\editor_gecko.css" />
+    <Content Include="metronic\global\plugins\ckeditor\skins\moono\icons.png" />
+    <Content Include="metronic\global\plugins\ckeditor\skins\moono\icons_hidpi.png" />
+    <Content Include="metronic\global\plugins\ckeditor\skins\moono\images\arrow.png" />
+    <Content Include="metronic\global\plugins\clockface\css\clockface.css" />
+    <Content Include="metronic\global\plugins\clockface\js\clockface.js" />
+    <Content Include="metronic\global\plugins\countdown\jquery.countdown.min.js" />
+    <Content Include="metronic\global\plugins\datatables\extensions\ColReorder\css\dataTables.colReorder.min.css" />
+    <Content Include="metronic\global\plugins\datatables\extensions\ColReorder\js\dataTables.colReorder.min.js" />
+    <Content Include="metronic\global\plugins\datatables\extensions\Scroller\css\dataTables.scroller.min.css" />
+    <Content Include="metronic\global\plugins\datatables\extensions\Scroller\images\loading-background.png" />
+    <Content Include="metronic\global\plugins\datatables\extensions\Scroller\js\dataTables.scroller.min.js" />
+    <Content Include="metronic\global\plugins\datatables\extensions\TableTools\js\dataTables.tableTools.min.js" />
+    <Content Include="metronic\global\plugins\datatables\media\images\sort_asc.png" />
+    <Content Include="metronic\global\plugins\datatables\media\images\sort_asc_disabled.png" />
+    <Content Include="metronic\global\plugins\datatables\media\images\sort_both.png" />
+    <Content Include="metronic\global\plugins\datatables\media\images\sort_desc.png" />
+    <Content Include="metronic\global\plugins\datatables\media\images\sort_desc_disabled.png" />
+    <Content Include="metronic\global\plugins\datatables\media\js\jquery.dataTables.min.js" />
+    <Content Include="metronic\global\plugins\datatables\plugins\bootstrap\dataTables.bootstrap.css" />
+    <Content Include="metronic\global\plugins\datatables\plugins\bootstrap\dataTables.bootstrap.js" />
+    <Content Include="metronic\global\plugins\dropzone\css\dropzone.css" />
+    <Content Include="metronic\global\plugins\dropzone\dropzone.js" />
+    <Content Include="metronic\global\plugins\dropzone\images\spritemap%402x.png" />
+    <Content Include="metronic\global\plugins\dropzone\images\spritemap.png" />
+    <Content Include="metronic\global\plugins\excanvas.min.js" />
+    <Content Include="metronic\global\plugins\fancybox\source\blank.gif" />
+    <Content Include="metronic\global\plugins\fancybox\source\fancybox_loading.gif" />
+    <Content Include="metronic\global\plugins\fancybox\source\fancybox_overlay.png" />
+    <Content Include="metronic\global\plugins\fancybox\source\fancybox_sprite.png" />
+    <Content Include="metronic\global\plugins\fancybox\source\jquery.fancybox.css" />
+    <Content Include="metronic\global\plugins\fancybox\source\jquery.fancybox.pack.js" />
+    <Content Include="metronic\global\plugins\flot\jquery.flot.categories.js" />
+    <Content Include="metronic\global\plugins\flot\jquery.flot.categories.min.js" />
+    <Content Include="metronic\global\plugins\flot\jquery.flot.crosshair.min.js" />
+    <Content Include="metronic\global\plugins\flot\jquery.flot.js" />
+    <Content Include="metronic\global\plugins\flot\jquery.flot.min.js" />
+    <Content Include="metronic\global\plugins\flot\jquery.flot.pie.min.js" />
+    <Content Include="metronic\global\plugins\flot\jquery.flot.resize.js" />
+    <Content Include="metronic\global\plugins\flot\jquery.flot.resize.min.js" />
+    <Content Include="metronic\global\plugins\flot\jquery.flot.stack.min.js" />
+    <Content Include="metronic\global\plugins\font-awesome\css\font-awesome.min.css" />
+    <Content Include="metronic\global\plugins\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="metronic\global\plugins\fuelux\js\spinner.min.js" />
+    <Content Include="metronic\global\plugins\fullcalendar\fullcalendar\fullcalendar.css" />
+    <Content Include="metronic\global\plugins\fullcalendar\fullcalendar\fullcalendar.min.js" />
+    <Content Include="metronic\global\plugins\gmaps\gmaps.min.js" />
+    <Content Include="metronic\global\plugins\gritter\css\jquery.gritter.css" />
+    <Content Include="metronic\global\plugins\gritter\images\gritter-light.png" />
+    <Content Include="metronic\global\plugins\gritter\images\gritter.png" />
+    <Content Include="metronic\global\plugins\gritter\images\ie-spacer.gif" />
+    <Content Include="metronic\global\plugins\gritter\js\jquery.gritter.js" />
+    <Content Include="metronic\global\plugins\holder.js" />
+    <Content Include="metronic\global\plugins\ion.rangeslider\css\ion.rangeSlider.css" />
+    <Content Include="metronic\global\plugins\ion.rangeslider\css\ion.rangeSlider.Metronic.css" />
+    <Content Include="metronic\global\plugins\ion.rangeslider\js\ion-rangeSlider\ion.rangeSlider.min.js" />
+    <Content Include="metronic\global\plugins\jcrop\css\Jcrop.gif" />
+    <Content Include="metronic\global\plugins\jcrop\css\jquery.Jcrop.min.css" />
+    <Content Include="metronic\global\plugins\jcrop\demos\demo_files\image1.jpg" />
+    <Content Include="metronic\global\plugins\jcrop\demos\demo_files\image2.jpg" />
+    <Content Include="metronic\global\plugins\jcrop\demos\demo_files\image3.jpg" />
+    <Content Include="metronic\global\plugins\jcrop\demos\demo_files\image4.jpg" />
+    <Content Include="metronic\global\plugins\jcrop\demos\demo_files\image5.jpg" />
+    <Content Include="metronic\global\plugins\jcrop\js\jquery.color.js" />
+    <Content Include="metronic\global\plugins\jcrop\js\jquery.Jcrop.min.js" />
+    <Content Include="metronic\global\plugins\jquery-1.11.0.min.js" />
+    <Content Include="metronic\global\plugins\jquery-bootpag\jquery.bootpag.min.js" />
+    <Content Include="metronic\global\plugins\jquery-easypiechart\jquery.easypiechart.js" />
+    <Content Include="metronic\global\plugins\jquery-easypiechart\jquery.easypiechart.min.js" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\blueimp-gallery\blueimp-gallery.min.css" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\blueimp-gallery\jquery.blueimp-gallery.min.js" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\css\jquery.fileupload-ui.css" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\css\jquery.fileupload.css" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\img\loading.gif" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\img\progressbar.gif" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\js\jquery.fileupload-audio.js" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\js\jquery.fileupload-image.js" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\js\jquery.fileupload-process.js" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\js\jquery.fileupload-ui.js" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\js\jquery.fileupload-validate.js" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\js\jquery.fileupload-video.js" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\js\jquery.fileupload.js" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\js\jquery.iframe-transport.js" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\js\vendor\canvas-to-blob.min.js" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\js\vendor\jquery.ui.widget.js" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\js\vendor\load-image.min.js" />
+    <Content Include="metronic\global\plugins\jquery-file-upload\js\vendor\tmpl.min.js" />
+    <Content Include="metronic\global\plugins\jquery-idle-timeout\jquery.idletimeout.js" />
+    <Content Include="metronic\global\plugins\jquery-idle-timeout\jquery.idletimer.js" />
+    <Content Include="metronic\global\plugins\jquery-inputmask\jquery.inputmask.bundle.min.js" />
+    <Content Include="metronic\global\plugins\jquery-knob\js\jquery.knob.js" />
+    <Content Include="metronic\global\plugins\jquery-migrate-1.2.1.min.js" />
+    <Content Include="metronic\global\plugins\jquery-mixitup\jquery.mixitup.min.js" />
+    <Content Include="metronic\global\plugins\jquery-multi-select\css\multi-select.css" />
+    <Content Include="metronic\global\plugins\jquery-multi-select\img\switch.png" />
+    <Content Include="metronic\global\plugins\jquery-multi-select\js\jquery.multi-select.js" />
+    <Content Include="metronic\global\plugins\jquery-nestable\jquery.nestable.css" />
+    <Content Include="metronic\global\plugins\jquery-nestable\jquery.nestable.js" />
+    <Content Include="metronic\global\plugins\jquery-notific8\jquery.notific8.min.css" />
+    <Content Include="metronic\global\plugins\jquery-notific8\jquery.notific8.min.js" />
+    <Content Include="metronic\global\plugins\jquery-slimscroll\jquery.slimscroll.min.js" />
+    <Content Include="metronic\global\plugins\jquery-tags-input\jquery.tagsinput.css" />
+    <Content Include="metronic\global\plugins\jquery-tags-input\jquery.tagsinput.min.js" />
+    <Content Include="metronic\global\plugins\jquery-ui-touch-punch\jquery.ui.touch-punch.min.js" />
+    <Content Include="metronic\global\plugins\jquery-ui\images\animated-overlay.gif" />
+    <Content Include="metronic\global\plugins\jquery-ui\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="metronic\global\plugins\jquery-ui\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="metronic\global\plugins\jquery-ui\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="metronic\global\plugins\jquery-ui\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="metronic\global\plugins\jquery-ui\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="metronic\global\plugins\jquery-ui\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="metronic\global\plugins\jquery-ui\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="metronic\global\plugins\jquery-ui\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="metronic\global\plugins\jquery-ui\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="metronic\global\plugins\jquery-ui\images\ui-icons_222222_256x240.png" />
+    <Content Include="metronic\global\plugins\jquery-ui\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="metronic\global\plugins\jquery-ui\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="metronic\global\plugins\jquery-ui\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="metronic\global\plugins\jquery-ui\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="metronic\global\plugins\jquery-ui\jquery-ui-1.10.3.custom.min.css" />
+    <Content Include="metronic\global\plugins\jquery-ui\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="metronic\global\plugins\jquery-validation\js\additional-methods.min.js" />
+    <Content Include="metronic\global\plugins\jquery-validation\js\jquery.validate.min.js" />
+    <Content Include="metronic\global\plugins\jquery.blockui.min.js" />
+    <Content Include="metronic\global\plugins\jquery.cokie.min.js" />
+    <Content Include="metronic\global\plugins\jquery.input-ip-address-control-1.0.min.js" />
+    <Content Include="metronic\global\plugins\jquery.mockjax.js" />
+    <Content Include="metronic\global\plugins\jquery.pulsate.min.js" />
+    <Content Include="metronic\global\plugins\jquery.sparkline.min.js" />
+    <Content Include="metronic\global\plugins\jqvmap\jqvmap\data\jquery.vmap.sampledata.js" />
+    <Content Include="metronic\global\plugins\jqvmap\jqvmap\jquery.vmap.js" />
+    <Content Include="metronic\global\plugins\jqvmap\jqvmap\jqvmap.css" />
+    <Content Include="metronic\global\plugins\jqvmap\jqvmap\maps\jquery.vmap.europe.js" />
+    <Content Include="metronic\global\plugins\jqvmap\jqvmap\maps\jquery.vmap.germany.js" />
+    <Content Include="metronic\global\plugins\jqvmap\jqvmap\maps\jquery.vmap.russia.js" />
+    <Content Include="metronic\global\plugins\jqvmap\jqvmap\maps\jquery.vmap.usa.js" />
+    <Content Include="metronic\global\plugins\jqvmap\jqvmap\maps\jquery.vmap.world.js" />
+    <Content Include="metronic\global\plugins\jstree\dist\jstree.min.js" />
+    <Content Include="metronic\global\plugins\jstree\dist\themes\default\32px.png" />
+    <Content Include="metronic\global\plugins\jstree\dist\themes\default\40px.png" />
+    <Content Include="metronic\global\plugins\jstree\dist\themes\default\style.min.css" />
+    <Content Include="metronic\global\plugins\jstree\dist\themes\default\throbber.gif" />
+    <Content Include="metronic\global\plugins\moment.min.js" />
+    <Content Include="metronic\global\plugins\nouislider\jquery.nouislider.css" />
+    <Content Include="metronic\global\plugins\nouislider\jquery.nouislider.min.js" />
+    <Content Include="metronic\global\plugins\pace\pace.min.js" />
+    <Content Include="metronic\global\plugins\pace\themes\pace-theme-barber-shop.css" />
+    <Content Include="metronic\global\plugins\pace\themes\pace-theme-big-counter.css" />
+    <Content Include="metronic\global\plugins\pace\themes\pace-theme-flash.css" />
+    <Content Include="metronic\global\plugins\pace\themes\pace-theme-minimal.css" />
+    <Content Include="metronic\global\plugins\plupload\js\plupload.full.min.js" />
+    <Content Include="metronic\global\plugins\respond.min.js" />
+    <Content Include="metronic\global\plugins\select2\select2-spinner.gif" />
+    <Content Include="metronic\global\plugins\select2\select2.css" />
+    <Content Include="metronic\global\plugins\select2\select2.min.js" />
+    <Content Include="metronic\global\plugins\select2\select2.png" />
+    <Content Include="metronic\global\plugins\select2\select2x2.png" />
+    <Content Include="metronic\global\plugins\simple-line-icons\fonts\Simple-Line-Icons.svg" />
+    <Content Include="metronic\global\plugins\simple-line-icons\simple-line-icons.min.css" />
+    <Content Include="metronic\global\plugins\typeahead\handlebars.min.js" />
+    <Content Include="metronic\global\plugins\typeahead\typeahead.bundle.min.js" />
+    <Content Include="metronic\global\plugins\typeahead\typeahead.css" />
+    <Content Include="metronic\global\plugins\uniform\css\uniform.default.css" />
+    <Content Include="metronic\global\plugins\uniform\images\bg-input-focus.png" />
+    <Content Include="metronic\global\plugins\uniform\images\bg-input.png" />
+    <Content Include="metronic\global\plugins\uniform\images\sprite.png" />
+    <Content Include="metronic\global\plugins\uniform\jquery.uniform.min.js" />
+    <Content Include="metronic\global\scripts\datatable.js" />
+    <Content Include="metronic\global\scripts\metronic.js" />
+    <Content Include="Scripts\app\config.js" />
+    <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\hello.js" />
+    <Content Include="Scripts\app\manage.js" />
+    <Content Include="Scripts\jquery-1.9.0.js" />
+    <Content Include="Scripts\jquery-1.9.0.min.js" />
+    <Content Include="Scripts\jquery-1.9.0.min.map" />
+    <Content Include="HtmlPage1.html" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\utility\base.js" />
+    <Content Include="Scripts\zTree\css\demo.css" />
+    <Content Include="Scripts\zTree\css\zTreeStyle\img\diy\1_close.png" />
+    <Content Include="Scripts\zTree\css\zTreeStyle\img\diy\1_open.png" />
+    <Content Include="Scripts\zTree\css\zTreeStyle\img\diy\2.png" />
+    <Content Include="Scripts\zTree\css\zTreeStyle\img\diy\3.png" />
+    <Content Include="Scripts\zTree\css\zTreeStyle\img\diy\4.png" />
+    <Content Include="Scripts\zTree\css\zTreeStyle\img\diy\5.png" />
+    <Content Include="Scripts\zTree\css\zTreeStyle\img\diy\6.png" />
+    <Content Include="Scripts\zTree\css\zTreeStyle\img\diy\7.png" />
+    <Content Include="Scripts\zTree\css\zTreeStyle\img\diy\8.png" />
+    <Content Include="Scripts\zTree\css\zTreeStyle\img\diy\9.png" />
+    <Content Include="Scripts\zTree\css\zTreeStyle\img\line_conn.gif" />
+    <Content Include="Scripts\zTree\css\zTreeStyle\img\loading.gif" />
+    <Content Include="Scripts\zTree\css\zTreeStyle\img\zTreeStandard.gif" />
+    <Content Include="Scripts\zTree\css\zTreeStyle\img\zTreeStandard.png" />
+    <Content Include="Scripts\zTree\css\zTreeStyle\zTreeStyle.css" />
+    <Content Include="Scripts\zTree\js\jquery-1.4.4.min.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.all-3.5.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.all-3.5.min.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.core-3.5.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.core-3.5.min.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.excheck-3.5.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.excheck-3.5.min.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.exedit-3.5.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.exedit-3.5.min.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.exhide-3.5.js" />
+    <Content Include="Scripts\zTree\js\jquery.ztree.exhide-3.5.min.js" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\web.config" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\Users.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="Scripts\backbone.epoxy.min.js" />
+    <Content Include="Scripts\backbone.js" />
+    <Content Include="Scripts\backbone.min.js" />
+    <Content Include="Scripts\backbone.min.map" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
+    <Content Include="Test.html" />
+    <Content Include="Web.config" />
+    <Content Include="Scripts\underscore.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CAF.Model\CAF.Model.csproj">
+      <Project>{08BB19E7-C84F-4FF1-B3E9-DD7018EDD6C7}</Project>
+      <Name>CAF.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAF\CAF.csproj">
+      <Project>{690F29B2-D2A9-4E0B-A7E1-454C93BD5296}</Project>
+      <Name>CAF</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2583</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2583/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
