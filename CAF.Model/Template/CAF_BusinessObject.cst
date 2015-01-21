@@ -156,7 +156,7 @@ namespace <%= this.ClassNamespace %>
                 }
                 return <%= GetListMember1(GetRelationshipItem(item))%>;
             }
-            set
+            internal set
             {
                 <%= GetListMember1(GetRelationshipItem(item))%> = value;
             }
