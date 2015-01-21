@@ -130,9 +130,9 @@ namespace CAF.Test
             u1.OrganizeId = o1.Id;
             //todo 未实现增加子项
             o1.Users.Add(u1);
-            if (o.IsValid)
+            if (o1.IsValid)
             {
-                o.Save();
+                o1.Save();
             }
             var o2 = Organize.Get(o.Id);
             Assert.AreEqual(o2.Users.Count, 2);//检查用户信息是否延迟加载

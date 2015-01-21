@@ -23,7 +23,7 @@ using System.Linq;
 
 namespace <%= this.ClassNamespace %>
 {
-    using CAF.Data;
+    using CAF.Data; 
     using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;

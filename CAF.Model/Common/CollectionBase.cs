@@ -42,6 +42,8 @@ namespace CAF
         //属性改变事件，用于通知列表，修改状态为Dity
         public delegate int OnSaveHandler(IDbConnection conn, IDbTransaction transaction);
         public event OnSaveHandler OnSaved;
+        public delegate void OnDirtyHandler();
+        public event OnDirtyHandler OnMarkDirty;
 
         internal virtual void MarkNew()
         {
@@ -64,6 +66,10 @@ namespace CAF
         internal virtual void MarkDirty()
         {
             _isDirty = true;
+            if (OnMarkDirty != null)
+            {
+                OnMarkDirty();
+            }
         }
 
         #endregion

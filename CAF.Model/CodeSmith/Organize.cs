@@ -45,6 +45,7 @@ namespace CAF.Model
         /// <summary>
         /// 父部门Id
         /// </summary>
+        [GuidRequired(ErrorMessage = "父部门不允许为空")]
         public Guid ParentId
         {
             get { return _parentId; }
@@ -96,7 +97,7 @@ namespace CAF.Model
         {
             get
             {
-                if (IsDirty && !_userListInitalizer.IsValueCreated)
+                if (!_userListInitalizer.IsValueCreated)
                 {
                     _userList = _userListInitalizer.Value;
                 }
@@ -152,8 +153,7 @@ namespace CAF.Model
                 if (item != null)
                 {
                     item.MarkOld();
-                    item.Users = User.GetAllByOrganizeId(id);
-                    item._userListInitalizer = new Lazy<UserList>(() => User.GetAllByOrganizeId(id), isThreadSafe: true);
+                    item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                 }
                 return item;
             }
@@ -168,7 +168,7 @@ namespace CAF.Model
                 foreach (Organize item in items)
                 {
                     item.MarkOld();
-                    item._userListInitalizer = new Lazy<UserList>(() => User.GetAllByOrganizeId(item.Id), isThreadSafe: true);
+                    item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkOld();
@@ -200,7 +200,7 @@ namespace CAF.Model
         public static Organize New()
         {
             var item = new Organize();
-            item._userListInitalizer = new Lazy<UserList>(() => User.GetAllByOrganizeId(item.Id), isThreadSafe: true);
+            item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
             return item;
         }
 
@@ -242,6 +242,12 @@ namespace CAF.Model
 
         #region 私有方法
 
+        protected static UserList InitUsers(Organize organize)
+        {
+            var userList = User.GetAllByOrganizeId(organize.Id);
+            userList.OnMarkDirty += organize.MarkDirty;
+            return userList;
+        }
 
         #endregion
 
