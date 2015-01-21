@@ -1,0 +1,754 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C#" Description="Generates a very simple business object." %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="BusinessObjects" Description="" %>
+<%@ Property Name="Children" Type="List<String>"  Optional="True" Category="Options"  Description="子对象集合（适用于1对多）" %>
+<%@ Property Name="Child" Type="List<String>"  Optional="True" Category="Options"  Description="子对象（适用于1对1）" %>
+<%@ Property Name="AsChildren" Type="List<String>"  Optional="True" Category="Options"  Description="作为子对象集合（适用于1对多）" %>
+<%@ Property Name="AsChild" Type="List<String>"  Optional="True" Category="Options"  Description="作为子对象（适用于1对1）" %>
+<%@ Property Name="WithMany" Type="List<String>"  Optional="True" Category="Options"  Description="实现多对多映射" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Map Name="SqlCSharp" Src="Sql-CSharp" Description="System to C# Type Map" %>
+<%@ Map Name="DbDataReader" Src="DbType-DataReaderMethod" Description="DbType to DataReader Method Map" %>
+<%@ Map Name="SqlNativeSqlDb" Src="SqlNativeType-SqlDbType" Description="SqlNativeType to SqlDbType Map" %>
+<%@ Map Name="DbTypeCSharp" Src="DbType-CSharp" Description="DbType to CSharp Map" %>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace <%= this.ClassNamespace %>
+{
+    using CAF.Data;
+    using CAF.Validation;
+    using System.ComponentModel.DataAnnotations;
+    using System.Data;
+
+    [Serializable]
+	public partial class <%= GetClassName(SourceTable) %> :  BaseEntity<<%= GetClassName(SourceTable) %>>
+	{   
+        private <%= GetClassName(SourceTable) %>():this(Guid.NewGuid()){}	
+		
+		public <%= GetClassName(SourceTable) %>(Guid id): base(id)
+        {
+            base.MarkNew();
+            <%foreach(string item in this.Children){ %>
+            <%=item%>s= new <%=item%>List();        
+            <%} %>
+			<%foreach(string item in this.WithMany){ %>
+            <%=GetRelationshipItem(item)%>s= new <%=GetRelationshipItem(item)%>List();        
+            <%} %>
+        }
+            
+		#region 公共属性
+
+		<% foreach (ColumnSchema column in SourceTable.NonPrimaryKeyColumns) { %>
+		<%if( !IsSystemFiled(column)){%>
+        <%= GetMemberVariableDeclarationStatement(column)%>
+		<% }} %> 
+        <%foreach(string item in this.Children){ %>
+        private <%=item%>List <%= GetListMember1(item)%>;
+        private Lazy<<%=item%>List> <%= GetListMember2(item)%>;       
+        <%} %>
+        <%foreach(string item in this.Child){ %>
+        private <%=item%> <%= GetListMember4(item)%>;
+        private Lazy<<%=item%>> <%= GetListMember3(item)%>;       
+        <%} %>
+		<%foreach(string item in this.WithMany){ %>
+        private <%=GetRelationshipItem(item)%>List <%= GetListMember1(GetRelationshipItem(item))%>;
+        private Lazy<<%=GetRelationshipItem(item)%>List> <%= GetListMember2(GetRelationshipItem(item))%>;       
+        <%} %>
+        
+		<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+        <%  ColumnSchema  column=SourceTable.NonPrimaryKeyColumns[i];%>
+        <% if(!IsSystemFiled(column)) {%>
+        <% if(GetDescription(column)!="") { %>
+        /// <summary>
+        /// <%= GetDescription(column) %>
+        /// </summary>
+        <% } %>
+        <% if(!column.AllowDBNull) { %>
+        [Required(ErrorMessage="<%if(GetDescription(column)!="") {%><%= GetDescription(column).Replace("Id","") %><% }else{%><%= GetPropertyName(column).Replace("Id","") %><%}%>不允许为空")]
+        <%}%>
+          <% if(ColumnIsString(column) && column.Size>-1) { %>
+        [StringLength(<%=column.Size %>,ErrorMessage="<%if(GetDescription(column)!="") {%><%= GetDescription(column) %><% }else{%><%= GetPropertyName(column) %><%}%>长度不能超过<%=column.Size %>")]
+        <%}%>
+        <% if(ColumnIsGuid(column) ) { %>
+        [GuidRequired(ErrorMessage="<%if(GetDescription(column)!="") {%><%= GetDescription(column).Replace("Id","") %><% }else{%><%= GetPropertyName(column).Replace("Id","") %><%}%>不允许为空")]
+        <%}%>
+        <% if(ColumnIsDateTime(column) ) { %>
+        [DateTimeRequired(ErrorMessage="<%if(GetDescription(column)!="") {%><%= GetDescription(column).Replace("Id","") %><% }else{%><%= GetPropertyName(column).Replace("Id","") %><%}%>不允许为空")]
+        <%}%>
+		public <%= GetCSharpVariableType(column) %> <%= GetPropertyName(column) %>
+		{
+			get {return <%= GetMemberVariableName(column) %>;} 
+            set {SetProperty("<%= GetPropertyName(column) %>",ref <%=this.GetMemberVariableName(column)%>, value);}           	
+		}
+        
+        <% if (GetPropertyName(column).EndsWith("Id")){ %>	
+        <% if(GetDescription(column)!="") { %>
+        /// <summary>
+        /// <%= GetDescription(column) %>
+        /// </summary>
+        <% } %>
+        <%if(IsRecurrence(column)) {%>
+        public <%= GetClassName(SourceTable) %> <%= GetPropertyName(column).Replace("Id","") %>
+		{
+			get{ return <%= GetClassName(SourceTable) %>.Get(this.<%= GetPropertyName(column)%>);}        	
+		}
+        <%}else{ %>
+        public <%= GetPropertyName(column).Replace("Id","")%> <%= GetPropertyName(column).Replace("Id","") %>
+		{
+			get{ return <%= GetPropertyName(column).Replace("Id","") %>.Get(this.<%= GetPropertyName(column)%>);}        	
+		}
+        <%} %>
+
+        
+        <% }  %>  
+		<% }} %>        
+        <%foreach(string item in this.Children){ %>
+        public <%=item%>List <%= item %>s
+        {
+            get
+            {
+                if (IsDirty && !<%= GetListMember2(item)%>.IsValueCreated)
+                {
+                    <%= GetListMember1(item)%> = <%= GetListMember2(item)%>.Value;
+                }
+                return <%= GetListMember1(item)%>;
+            }
+            set
+            {
+                <%= GetListMember1(item)%> = value;
+            }
+        }
+        
+        <%} %>
+        <%foreach(string item in this.Child){ %>
+        public <%=item%> <%= item %>
+        {
+            get
+            {
+                if (IsDirty && !<%= GetListMember3(item)%>.IsValueCreated)
+                {
+                    <%= GetListMember4(item)%> = <%= GetListMember3(item)%>.Value;
+                }
+                return <%= GetListMember4(item)%>;
+            }
+            set
+            {
+                <%= GetListMember4(item)%> = value;
+            }
+        }
+        <%} %>    
+		<%foreach(string item in this.WithMany){ %>
+        public <%=GetRelationshipItem(item)%>List <%= GetRelationshipItem(item) %>s
+        {
+            get
+            {
+                if (IsDirty && !<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated)
+                {
+                    <%= GetListMember1(GetRelationshipItem(item))%> = <%= GetListMember2(GetRelationshipItem(item))%>.Value;
+                }
+                return <%= GetListMember1(GetRelationshipItem(item))%>;
+            }
+            set
+            {
+                <%= GetListMember1(GetRelationshipItem(item))%> = value;
+            }
+        }
+        <%} %>   
+        <%if(this.Child.Count>0 || this.Children.Count>0||this.WithMany.Count>0){%>        
+        public override bool IsValid
+        {
+            get
+            {
+                bool isValid = true;
+                bool baseValid = base.IsValid;
+                Errors = new List<string>();
+                <%foreach(string item in this.Children){ %>
+                foreach (var item in <%=item%>s)
+                {
+                    if (!item.IsValid)
+                    {
+                        this.Errors.AddRange(item.Errors);
+                        isValid = false;
+                    }
+                }
+                <%} %>
+                <%foreach(string item in this.Child){ %>
+                if (this.<%=item%>!=null && !this.<%=item%>.IsValid)
+                {
+                    this.Errors.AddRange(this.<%=item%>.Errors);
+                    isValid = false;
+                }
+                <%} %>
+				<%foreach(string item in this.WithMany){ %>
+				<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfIsTrue(
+                () =>
+                {
+                    foreach (var item in this.<%=GetRelationshipItem(item)%>s.Where(item => !item.IsValid))
+                    {
+                        this.Errors.AddRange(item.Errors);
+                        isValid = false;
+                    }
+                });
+                <%} %>
+               return baseValid && isValid;
+            }
+            protected set { _isValid = value; }
+        }
+        
+        <%} %>
+        
+		#endregion
+        
+        #region 常量定义
+        
+        const string QUERY_GETBYID = "SELECT Top 1 * FROM <%= SourceTable.Name %> WHERE Id = @Id  AND Status!=-1";
+        const string QUERY_GETAll = "SELECT * FROM <%= SourceTable.Name %> WHERE  Status!=-1";
+        const string QUERY_DELETE = "UPDATE <%= SourceTable.Name %> SET Status=-1 WHERE Id = @Id AND  Status!=-1";
+        const string QUERY_EXISTS = "SELECT Count(*) FROM <%= SourceTable.Name %> WHERE Id = @Id";
+        <%foreach(string item in this.AsChildren){ %>
+        const string QUERY_GETALLBY<%=item.ToUpper()%> = "SELECT * FROM <%= SourceTable.Name %> WHERE  Status!=-1 And <%=item%>=@<%=item%>";
+        <%} %>
+       <%foreach(string item in this.AsChild){ %>
+        const string QUERY_GETBY<%=item.ToUpper()%> = "SELECT Top 1 * FROM <%= SourceTable.Name %> WHERE Status!=-1 And <%=item%>=@<%=item%>";
+        <%} %>
+		<%foreach(string item in this.WithMany){ %>
+        const string QUERY_GETALLBY<%=GetRelationshipItem(item).ToUpper()%>ID = "SELECT t1.* FROM <%= SourceTable.Name %> t1 INNER JOIN <%=item%> t2 on t1.Id=t2.<%= GetClassName(SourceTable)%>Id  where t2.<%=GetRelationshipItem(item)%>Id=@<%=GetRelationshipItem(item)%>Id AND t1.Status!=-1";
+        const string QUERY_CONTAINS<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> = "SELECT COUNT(*) FROM <%=item%> WHERE  <%= GetClassName(SourceTable)%>Id = @Id AND <%=GetRelationshipItem(item)%>Id=@<%=GetRelationshipItem(item)%>Id";
+        const string QUERY_ADDRELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> = "INSERT INTO <%=item%> (<%= GetClassName(SourceTable)%>Id,<%=GetRelationshipItem(item)%>Id)VALUES(@<%= GetClassName(SourceTable)%>Id, @<%=GetRelationshipItem(item)%>Id)";
+		<%} %>
+        const string QUERY_INSERT="<%=GetInsertQueryString() %>";
+        const string QUERY_UPDATE = "UPDATE <%= SourceTable.Name %> SET {0} WHERE  <%= SourceTable.PrimaryKey.MemberColumns[0].Name %> = @<%= SourceTable.PrimaryKey.MemberColumns[0].Name %>";
+                
+        #endregion
+        		
+        #region 静态方法
+        
+		public static <%= GetClassName(SourceTable) %> Get(<%= GetPrimaryKeyType(SourceTable) %> id)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                <%= GetClassName(SourceTable) %> item= conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<<%= GetClassName(SourceTable) %>>();
+                if (item != null)
+                {
+                    item.MarkOld();
+                    <%foreach(string item in this.Children){ %>
+                    item.<%=item%>s=<%= item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(id);
+                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(id), isThreadSafe: true);
+                    <%} %>
+                    <%foreach(string item in this.Child){ %>
+                    item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(id), isThreadSafe: true);
+                    <%} %>  
+					<%foreach(string item in this.WithMany){ %>
+                    item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
+                    <%} %>  
+                }                
+                return item;
+            }
+		}
+		 
+		public static <%= GetCollectionClassName(SourceTable) %> GetAll()
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
+            {               
+                List<<%= GetClassName(SourceTable) %>> items = conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETAll, null).ToList();                
+                <%= GetCollectionClassName(SourceTable) %> list=new <%= GetCollectionClassName(SourceTable) %>();
+                foreach (<%= GetClassName(SourceTable) %> item in items)
+                {
+                    item.MarkOld();
+                    <%foreach(string item in this.Children){ %>
+                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);                
+                    <%} %>
+                    <%foreach(string item in this.Child){ %>
+                    item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
+                    <%} %> 
+					<%foreach(string item in this.WithMany){ %>
+                     item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
+                    <%} %> 
+                    list.Add(item);
+                }
+                list.MarkOld();
+                return list;
+            }
+		}        
+		
+       <%foreach(string childItem in this.AsChildren){ %>
+       public static <%= GetCollectionClassName(SourceTable) %> GetAllBy<%=childItem%>(Guid <%=GetCamelCaseName(childItem)%>)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
+            {                
+                List<<%= GetClassName(SourceTable) %>> items = conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETALLBY<%=childItem.ToUpper()%>, new { <%=childItem%> = <%=GetCamelCaseName(childItem)%> }).ToList();
+              	<%= GetCollectionClassName(SourceTable) %> list=new <%= GetCollectionClassName(SourceTable) %>();
+                foreach (<%= GetClassName(SourceTable) %> item in items)
+                {
+                    item.MarkOld();
+                    <%foreach(string item in this.Children){ %>
+                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);                   
+                    <%} %>
+                    <%foreach(string item in this.Child){ %>
+            		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
+                    <%} %> 
+					<%foreach(string item in this.WithMany){ %>
+                     item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
+                    <%} %> 
+                    list.Add(item);
+                }
+				list.MarkOld();
+                return list;
+            }
+		}
+		
+        <%} %>
+       <%foreach(string childItem in this.AsChild){ %>
+		public static <%= GetClassName(SourceTable) %> GetBy<%=childItem%>(Guid <%=GetCamelCaseName(childItem)%>)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
+            {                
+                <%= GetClassName(SourceTable) %> item= conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETBY<%=childItem.ToUpper()%>, new { <%=childItem%> = <%=GetCamelCaseName(childItem)%> }).SingleOrDefault<<%= GetClassName(SourceTable) %>>();
+                if (item != null)
+                {
+                    item.MarkOld();
+                    <%foreach(string item in this.Children){ %>
+                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
+                    <%} %>
+                    <%foreach(string item in this.Child){ %>
+            		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
+                    <%} %> 
+					<%foreach(string item in this.WithMany){ %>
+                    item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
+                    <%} %> 
+                }                
+                return item;
+            }
+		}
+		
+        <%} %>
+	<%foreach(string childItem in this.WithMany){ %>
+       public static <%= GetCollectionClassName(SourceTable) %> GetAllBy<%=GetRelationshipItem(childItem)%>Id(Guid <%=GetCamelCaseName(GetRelationshipItem(childItem))%>Id)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
+            {                
+                List<<%= GetClassName(SourceTable) %>> items = conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETALLBY<%=GetRelationshipItem(childItem).ToUpper()%>ID, new { <%=GetRelationshipItem(childItem)%>Id = <%=GetCamelCaseName(GetRelationshipItem(childItem))%>Id }).ToList();
+                
+                <%= GetCollectionClassName(SourceTable) %> list=new <%= GetCollectionClassName(SourceTable) %>();
+                foreach (<%= GetClassName(SourceTable) %> item in items)
+                {
+                    item.MarkOld();
+                    <%foreach(string item in this.Children){ %>
+                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);                   
+                    <%} %>
+                    <%foreach(string item in this.Child){ %>
+            		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
+                    <%} %>   
+                    list.Add(item);
+                }
+				list.MarkOld();
+                return list;
+            }
+		}
+		
+        <%} %>
+        
+        /// <summary>
+        /// 直接删除
+        /// </summary>
+        /// <returns></returns>
+		public static int Delete(<%= GetPrimaryKeyType(SourceTable) %> id)
+		{
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {                
+                return conn.Execute(QUERY_DELETE, new { Id = id });
+            }
+		}   
+        
+        public static bool Exists(Guid id)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {                
+                return conn.Query<int>(QUERY_EXISTS, new { Id = id }).Single() >= 1;
+            }
+        }
+        
+		public static <%=GetClassName(SourceTable) %> New()
+		{
+			var item= new <%= GetClassName(SourceTable)%>();
+			<%foreach(string item in this.Children){ %>
+             item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);           
+            <%} %>
+            <%foreach(string item in this.Child){ %>
+    		    		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
+            <%} %> 
+            <%foreach(string item in this.WithMany){ %>
+    		item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
+            <%} %> 
+            return item;
+		}
+        
+        #endregion
+		
+		internal override int Delete(IDbConnection conn, IDbTransaction transaction)
+		{
+            base.MarkDelete();
+            return conn.Execute(QUERY_DELETE, new { Id = this.Id }, transaction, null, null);
+		}
+		
+		internal override int Update(IDbConnection conn, IDbTransaction transaction)
+		{
+             if (this.IsDirty)
+             {
+                _updateParameters+=", ChangedDate = GetDate()";
+                _updateParameters+=", Status = @Status";
+    			string query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
+    			_changedRows+= conn.Execute(query, this, transaction, null, null);
+	            <%foreach(string item in this.Children){ %>
+	    		<%= GetListMember2(item)%>.IsValueCreated.IfIsTrue(
+				() =>
+	            {
+	 				_changedRows+=<%=item%>s.SaveChanges(conn,transaction);
+	            });
+	            <%} %> 
+	            <%foreach(string item in this.Child){ %>
+				if(<%=item%>!=null) 
+	            {
+	 				_changedRows += <%=item%>.SaveChange(conn, transaction);
+	            }
+	            <%} %> 
+				<%foreach(string item in this.WithMany){ %>
+				<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfIsTrue(
+	            () =>
+	            {
+	 				_changedRows+=<%=GetRelationshipItem(item)%>s.SaveChanges(conn,transaction);
+	            });
+	            <%} %>
+            }  
+            return _changedRows;
+		}
+		
+		internal override int Insert(IDbConnection conn, IDbTransaction transaction)
+		{
+            _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
+            <%foreach(string item in this.Children){ %>
+    		<%= GetListMember2(item)%>.IsValueCreated.IfIsTrue(
+			() =>
+            {
+ 				_changedRows+=<%=item%>s.SaveChanges(conn,transaction);
+            });
+            <%} %> 
+            <%foreach(string item in this.Child){ %>    		
+			if(<%=item%>!=null) 
+            {
+ 				_changedRows += <%=item%>.SaveChange(conn, transaction);
+            }
+            <%} %> 
+			<%foreach(string item in this.WithMany){ %>
+			<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfIsTrue(
+            () =>
+            {
+ 				_changedRows+=<%=GetRelationshipItem(item)%>s.SaveChanges(conn,transaction);
+            });
+            <%} %>
+            return _changedRows;
+		}
+		
+		#region 私有方法
+		
+		<%foreach(string item in this.WithMany){ %>
+		protected  int AddRelationshipWith<%=GetRelationshipItem(item)%>(IDbConnection conn, IDbTransaction transaction)
+        {
+            foreach (var <%=GetRelationshipItem(item).ToLower()%> in this.<%=GetRelationshipItem(item)%>s)
+            {
+                var isExist = conn.Query<int>(QUERY_CONTAINS<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> , new { <%= GetClassName(SourceTable)%>Id = this.Id, <%=GetRelationshipItem(item)%>Id = <%=GetRelationshipItem(item).ToLower()%>.Id }).Single() >= 1;
+                if (<%=GetRelationshipItem(item).ToLower()%>.IsNew && !isExist)
+                {
+                    _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { <%= GetClassName(SourceTable)%>Id = this.Id, <%=GetRelationshipItem(item)%>Id = <%=GetRelationshipItem(item).ToLower()%>.Id }, transaction, null, null);
+                }
+            }
+            return _changedRows;
+        }
+
+        protected static <%=GetRelationshipItem(item)%>List Init<%=GetRelationshipItem(item)%>s(<%= GetClassName(SourceTable)%> <%= GetClassName(SourceTable).ToLower()%>)
+        {
+            var <%=GetRelationshipItem(item).ToLower()%>List = <%=GetRelationshipItem(item)%>.GetAllBy<%= GetClassName(SourceTable)%>Id(<%= GetClassName(SourceTable).ToLower()%>.Id);
+            <%=GetRelationshipItem(item).ToLower()%>List.OnSaved += <%= GetClassName(SourceTable).ToLower()%>.AddRelationshipWith<%=GetRelationshipItem(item)%>;
+            return <%=GetRelationshipItem(item).ToLower()%>List;
+        }
+		<%} %>
+		
+		#endregion
+				
+	}
+    
+	[Serializable]
+    public class <%= GetCollectionClassName(SourceTable) %>:CollectionBase<<%= GetCollectionClassName(SourceTable) %>,<%= GetClassName(SourceTable) %>>
+    {
+        public <%= GetCollectionClassName(SourceTable) %>() { }
+
+        protected const string tableName = "<%= SourceTable.Name %>";
+        
+        public static <%= GetCollectionClassName(SourceTable) %> Query(Object dynamicObj, string query = " AND 1=1")
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                List<<%= GetClassName(SourceTable) %>> items = conn.Query<<%= GetClassName(SourceTable) %>>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
+
+                <%= GetCollectionClassName(SourceTable) %> list = new <%= GetCollectionClassName(SourceTable) %>();
+                foreach (<%= GetClassName(SourceTable) %> item in items)
+                {
+                    item.MarkOld();
+                    list.Add(item);
+                }
+                return list;
+            }
+        }
+
+        public static int QueryCount(Object dynamicObj, string query = " AND 1=1")
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single();
+            }
+        }
+
+        public static bool Exists(Object dynamicObj, string query = " AND 1=1")
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+               return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single()>0;
+            }
+        }
+    }
+}
+
+
+<script runat="template">
+
+public string GetRelationshipItem(string tableName)
+{
+	return tableName.Replace("Sys_R_","").Replace("_","").Replace(GetClassName(SourceTable),"");
+}
+			
+public string GetMemberVariableDeclarationStatement(ColumnSchema column)
+{
+	return GetMemberVariableDeclarationStatement("private", column);
+}
+
+public bool IsRecurrence(ColumnSchema column)
+{
+    return column.Name=="ParentId";
+}
+
+/// <summary>
+///private UserList _userList;
+/// </summary>
+/// <param name="column"></param>
+/// <returns></returns>
+public string GetListMember1(string column)
+{
+	return string.Format(" _{0}List", column.ToLower());
+}
+/// <summary>
+///private Lazy<UserList> _userListInitalizer;
+/// </summary>
+/// <param name="column"></param>
+/// <returns></returns>
+public string GetListMember2(string column)
+{
+	return string.Format(" _{0}ListInitalizer", column.ToLower());
+}
+public string GetListMember3(string column)
+{
+	return string.Format(" _{0}Initalizer", column.ToLower());
+}
+public string GetListMember4(string column)
+{
+	return string.Format(" _{0}", column.ToLower());
+}
+
+
+public string GetCollectionClassName(TableSchema SourceTable)
+{
+	return GetClassName(SourceTable)+"List";
+}
+
+
+public string GetMemberVariableDeclarationStatement(string protectionLevel, ColumnSchema column)
+{
+	string statement = protectionLevel + " ";
+	statement += GetCSharpVariableType(column) + " " + GetMemberVariableName(column);
+	
+	string defaultValue = GetMemberVariableDefaultValue(column);
+	if (defaultValue != "")
+	{
+		statement += " = " + defaultValue;
+	}
+	
+	statement += ";";
+	
+	return statement;
+}
+
+public bool IsSystemFiled(ColumnSchema column)
+{
+   string name= GetPropertyName(column);
+    return name=="CreatedDate" || name=="ChangedDate" || name=="Status"|| name=="CreatedBy"|| name=="ModifyBy" ||name=="Note";
+}
+
+public bool ColumnIsString(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="string" ;
+}
+
+public bool ColumnIsGuid(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="Guid" ;
+}
+
+public bool ColumnIsDateTime(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="DateTime" ;
+}
+
+
+public string GetReaderAssignmentStatement(ColumnSchema column, int index)
+{
+	string statement = "if (!reader.IsDBNull(" + index.ToString() + ")) ";
+	statement += GetMemberVariableName(column) + " = ";
+	
+	if (column.Name.EndsWith("TypeCode")) statement += "(" + column.Name + ")";
+	
+	statement += "reader." + GetReaderMethod(column) + "(" + index.ToString() + ");";
+	
+	return statement;
+}
+
+public string GetCamelCaseName(string value)
+{
+	return value.Substring(0, 1).ToLower() + value.Substring(1);
+}
+
+public string GetDescription(ColumnSchema column)
+{
+	string description = column.Description;
+	
+	if (description == "") return "";
+	if (description == null) return "";	
+	return description;
+}
+
+public string GetMemberVariableName(ColumnSchema column)
+{
+	string propertyName = GetPropertyName(column);
+	string memberVariableName = "_" + GetCamelCaseName(propertyName);
+	
+	return memberVariableName;
+}
+
+public string GetPropertyName(ColumnSchema column)
+{
+	string propertyName = column.Name;
+	
+	if (propertyName == column.Table.Name + "Name") return "Name";
+	if (propertyName == column.Table.Name + "Description") return "Description";
+	
+	if (propertyName.EndsWith("TypeCode")) propertyName = propertyName.Substring(0, propertyName.Length - 4);
+	
+	return propertyName;
+}
+		
+public string GetMemberVariableDefaultValue(ColumnSchema column)
+{
+	switch (column.DataType)
+	{
+		case DbType.Guid:
+		{
+			return "Guid.Empty";
+		}
+		case DbType.AnsiString:
+		case DbType.AnsiStringFixedLength:
+		case DbType.String:
+		case DbType.StringFixedLength:
+		{
+			return "String.Empty";
+		}
+		default:
+		{
+			return "";
+		}
+	}
+}
+
+public string GetCSharpVariableType(ColumnSchema column)
+{
+	if (column.Name.EndsWith("TypeCode")) return column.Name;
+
+	return DbTypeCSharp[column.DataType.ToString()];	
+}
+
+public string GetReaderMethod(ColumnSchema column)
+{
+	return DbDataReader[column.DataType.ToString()];
+}
+
+public string GetClassName(TableSchema table)
+{
+    int pre = table.Name.IndexOf("_");
+	if (table.Name.EndsWith("s"))
+	{
+		return table.Name.Substring(pre+1, table.Name.Length - pre-2);
+	}
+	else
+	{
+		return table.Name.Substring(pre+1);
+	}
+}
+
+public string GetSqlDbType(ColumnSchema column)
+{
+	return SqlNativeSqlDb[column.NativeType.ToString()];
+}
+
+public string GetPrimaryKeyType(TableSchema table)
+{
+	if (table.PrimaryKey != null)
+	{
+		if (table.PrimaryKey.MemberColumns.Count == 1)
+		{
+			return GetCSharpVariableType(table.PrimaryKey.MemberColumns[0]);
+		}
+		else
+		{
+			throw new ApplicationException("This template will not work on primary keys with more than one member column.");
+		}
+	}
+	else
+	{
+		throw new ApplicationException("This template will only work on tables with a primary key.");
+	}
+}
+
+public override string GetFileName()
+{
+	return this.GetClassName(this.SourceTable) + ".cs";
+}
+
+public string GetInsertQueryString()
+{
+	  StringBuilder queryParameters = new StringBuilder();
+      queryParameters.Append("@"+SourceTable.PrimaryKey.MemberColumns[0].Name);
+	  for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++)
+      {
+       		queryParameters.Append(", @"+GetPropertyName(SourceTable.NonPrimaryKeyColumns[i]));
+      }
+      return String.Format("INSERT INTO "+SourceTable.Name +" ({0}) VALUES ({1})", queryParameters.ToString().Replace("@", ""), queryParameters.ToString());
+}
+</script>

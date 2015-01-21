@@ -1,0 +1,77 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C#" Description="Generates a very simple business object." %>
+<%@ Property Name="SourceView" Type="SchemaExplorer.ViewSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="BusinessObjects" Description="" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Map Name="SqlCSharp" Src="Sql-CSharp" Description="System to C# Type Map" %>
+<%@ Map Name="DbDataReader" Src="DbType-DataReaderMethod" Description="DbType to DataReader Method Map" %>
+<%@ Map Name="SqlNativeSqlDb" Src="SqlNativeType-SqlDbType" Description="SqlNativeType to SqlDbType Map" %>
+<%@ Map Name="DbTypeCSharp" Src="DbType-CSharp" Description="DbType to CSharp Map" %>
+using System;
+
+namespace <%= this.ClassNamespace %>
+{
+	using CAF;
+	
+    public class <%= GetClassName(SourceView) %>  : ReadOnlyCollectionBase<<%= GetViewClassName(SourceView) %>,<%= GetClassName(SourceView) %>>
+	{           
+        public <%= GetClassName(SourceView) %>():base("<%=SourceView.Name%>"){}
+    }
+    
+    [Serializable]
+    public class <%= GetViewClassName(SourceView) %> 
+    {        
+<% foreach (ViewColumnSchema column in SourceView.Columns) { %> 
+		public <%= GetCSharpVariableType(column) %> <%= GetPropertyName(column) %>{get;internal set;}      
+<% } %>
+    }
+}
+<script runat="template">
+public string GetClassName(ViewSchema table)
+{
+	if (table.Name.EndsWith("s"))
+	{
+		return "ReadOnly"+table.Name.Substring(0, table.Name.Length - 1).Replace("V_","")+"List";
+	}
+	else
+	{
+		return "ReadOnly"+table.Name.Replace("V_","")+"List";
+	}
+}
+
+public string GetViewClassName(ViewSchema table)
+{
+	if (table.Name.EndsWith("s"))
+	{
+		return "ReadOnly"+table.Name.Substring(0, table.Name.Length - 1).Replace("V_","");
+	}
+	else
+	{
+		return table.Name.Replace("_","");
+	}
+}
+
+public string GetCSharpVariableType(ViewColumnSchema column)
+{
+	if (column.Name.EndsWith("TypeCode")) return column.Name;
+
+	return DbTypeCSharp[column.DataType.ToString()];	
+}
+
+public string GetPropertyName(ViewColumnSchema column)
+{
+	string propertyName = column.Name;
+	
+	if (propertyName == column.View.Name + "Name") return "Name";
+	if (propertyName == column.View.Name + "Description") return "Description";
+	
+	if (propertyName.EndsWith("TypeCode")) propertyName = propertyName.Substring(0, propertyName.Length - 4);
+	
+	return propertyName;
+}
+
+</script>
