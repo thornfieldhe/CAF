@@ -170,6 +170,7 @@ namespace CAF.Test
             User o = CreateUser();
             o.UserSetting = UserSetting.New();
             o.UserSetting.Settings = "nomal";
+            o.OrganizeId = Guid.NewGuid();
             if (o.IsValid)
             {
                 o.Create();

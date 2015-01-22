@@ -5,6 +5,7 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
+    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
 
@@ -33,6 +34,7 @@ namespace CAF.Model
         /// <summary>
         /// 部门名称
         /// </summary>
+        [Required(ErrorMessage = "部门名称不允许为空")]
         [StringLength(50, ErrorMessage = "部门名称长度不能超过50")]
         public string Name
         {
@@ -61,6 +63,7 @@ namespace CAF.Model
         /// <summary>
         /// 排序
         /// </summary>
+        [Required(ErrorMessage = "排序不允许为空")]
         public int Sort
         {
             get { return _sort; }
@@ -70,6 +73,7 @@ namespace CAF.Model
         /// <summary>
         /// 部门层级
         /// </summary>
+        [Required(ErrorMessage = "部门层级不允许为空")]
         [StringLength(20, ErrorMessage = "部门层级长度不能超过20")]
         public string Level
         {
@@ -80,6 +84,7 @@ namespace CAF.Model
         /// <summary>
         /// 编码
         /// </summary>
+        [Required(ErrorMessage = "编码不允许为空")]
         [StringLength(50, ErrorMessage = "编码长度不能超过50")]
         public string Code
         {
@@ -248,6 +253,7 @@ namespace CAF.Model
         {
             user.OrganizeId = this.Id;
         }
+
         #endregion
 
     }

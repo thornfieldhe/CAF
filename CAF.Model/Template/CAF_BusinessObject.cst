@@ -71,7 +71,7 @@ namespace <%= this.ClassNamespace %>
         /// <%= GetDescription(column) %>
         /// </summary>
         <% } %>
-        <% if(!column.AllowDBNull && ColumnIsGuid(column)) { %>
+        <% if(!column.AllowDBNull && !ColumnIsGuid(column)) { %>
         [Required(ErrorMessage="<%if(GetDescription(column)!="") {%><%= GetDescription(column).Replace("Id","") %><% }else{%><%= GetPropertyName(column).Replace("Id","") %><%}%>不允许为空")]
         <%}%>
           <% if(ColumnIsString(column) && column.Size>-1) { %>
@@ -141,7 +141,16 @@ namespace <%= this.ClassNamespace %>
             }
             set
             {
+                if (!<%= GetListMember3(item)%>.IsValueCreated)
+                {
+                    <%= GetListMember4(item)%> = <%= GetListMember3(item)%>.Value;
+                }
                 <%= GetListMember4(item)%> = value;
+				if (<%= GetListMember4(item)%> != null)
+                {
+                    <%= GetListMember4(item)%>.OnPropertyChange += MarkDirty;
+                    <%= GetListMember4(item)%>.<%= GetClassName(SourceTable) %>Id = Id;
+                }
             }
         }
         <%} %>    
@@ -243,7 +252,7 @@ namespace <%= this.ClassNamespace %>
                     item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
                     <%} %>
                     <%foreach(string item in this.Child){ %>
-                    item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(id), isThreadSafe: true);
+					item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => Init<%=item%>(item), isThreadSafe: true);                   
                     <%} %>  
 					<%foreach(string item in this.WithMany){ %>
                     item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
@@ -265,9 +274,9 @@ namespace <%= this.ClassNamespace %>
                     <%foreach(string item in this.Children){ %>
                     item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
                     <%} %>
-                    <%foreach(string item in this.Child){ %>
-                    item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
-                    <%} %> 
+                    <%foreach(string item in this.Child){ %>                    
+                    item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => Init<%=item%>(item), isThreadSafe: true);      
+					<%} %> 
 					<%foreach(string item in this.WithMany){ %>
                      item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
                     <%} %> 
@@ -292,7 +301,7 @@ namespace <%= this.ClassNamespace %>
 					item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);                 
                     <%} %>
                     <%foreach(string item in this.Child){ %>
-            		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
+            		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => Init<%=item%>(item), isThreadSafe: true);      
                     <%} %> 
 					<%foreach(string item in this.WithMany){ %>
                      item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
@@ -318,7 +327,7 @@ namespace <%= this.ClassNamespace %>
                     item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
                     <%} %>
                     <%foreach(string item in this.Child){ %>
-            		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
+            		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => Init<%=item%>(item), isThreadSafe: true);      
                     <%} %> 
 					<%foreach(string item in this.WithMany){ %>
                     item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
@@ -344,7 +353,7 @@ namespace <%= this.ClassNamespace %>
                     item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);                 
                     <%} %>
                     <%foreach(string item in this.Child){ %>
-            		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
+            		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => Init<%=item%>(item), isThreadSafe: true);      
                     <%} %>   
                     list.Add(item);
                 }
@@ -492,6 +501,18 @@ namespace <%= this.ClassNamespace %>
 		protected  void PostAdd<%=item%>(<%=item%> <%=this.GetCamelCaseName(item)%>)
         {
 			<%=this.GetCamelCaseName(item)%>.<%=GetClassName(SourceTable)%>Id=this.Id;
+        }
+		
+		<%} %>
+		<%foreach(string item in this.Child){ %>		
+        protected static <%=item%> InitUserSetting(<%=GetClassName(SourceTable)%> <%=this.GetCamelCaseName(GetClassName(SourceTable))%>)
+        {
+            var <%=this.GetCamelCaseName(item)%> = <%=item%>.GetByUserId(<%=this.GetCamelCaseName(GetClassName(SourceTable))%>.Id);
+            if (<%=this.GetCamelCaseName(item)%> != null)
+            {
+                <%=this.GetCamelCaseName(item)%>.OnPropertyChange += <%=this.GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;
+            }
+            return <%=this.GetCamelCaseName(item)%>;
         }
 		<%} %>
 		#endregion

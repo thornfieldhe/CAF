@@ -5,6 +5,7 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
+    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
 
@@ -91,6 +92,7 @@ namespace CAF.Model
         /// <summary>
         /// 组织架构Id
         /// </summary>
+        [GuidRequired(ErrorMessage = "组织架构不允许为空")]
         public Guid OrganizeId
         {
             get { return _organizeId; }
@@ -129,7 +131,16 @@ namespace CAF.Model
             }
             set
             {
+                if (!_userSettingInitalizer.IsValueCreated)
+                {
+                    _userSetting = _userSettingInitalizer.Value;
+                }
                 _userSetting = value;
+                if (_userSetting != null)
+                {
+                    _userSetting.OnPropertyChange += MarkDirty;
+                    _userSetting.UserId = Id;
+                }
             }
         }
         public RoleList Roles
@@ -201,7 +212,7 @@ namespace CAF.Model
                 if (item != null)
                 {
                     item.MarkOld();
-                    item._userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(id), isThreadSafe: true);
+                    item._userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);
                     item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                 }
                 return item;
@@ -217,7 +228,7 @@ namespace CAF.Model
                 foreach (User item in items)
                 {
                     item.MarkOld();
-                    item._userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(item.Id), isThreadSafe: true);
+                    item._userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);
                     item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                     list.Add(item);
                 }
@@ -235,7 +246,7 @@ namespace CAF.Model
                 foreach (User item in items)
                 {
                     item.MarkOld();
-                    item._userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(item.Id), isThreadSafe: true);
+                    item._userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);
                     item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                     list.Add(item);
                 }
@@ -254,7 +265,7 @@ namespace CAF.Model
                 foreach (User item in items)
                 {
                     item.MarkOld();
-                    item._userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(item.Id), isThreadSafe: true);
+                    item._userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkOld();
@@ -357,6 +368,15 @@ namespace CAF.Model
             return roleList;
         }
 
+        protected static UserSetting InitUserSetting(User user)
+        {
+            var userSetting = UserSetting.GetByUserId(user.Id);
+            if (userSetting != null)
+            {
+                userSetting.OnPropertyChange += user.MarkDirty;
+            }
+            return userSetting;
+        }
         #endregion
 
     }

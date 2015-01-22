@@ -37,7 +37,6 @@ namespace CAF.Model
         /// <summary>
         /// 用户Id
         /// </summary>
-        [Required(ErrorMessage = "用户不允许为空")]
         [GuidRequired(ErrorMessage = "用户不允许为空")]
         public Guid UserId
         {
@@ -167,7 +166,6 @@ namespace CAF.Model
         }
 
         #region 私有方法
-
 
         #endregion
 
