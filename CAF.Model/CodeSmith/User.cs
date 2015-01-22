@@ -132,7 +132,12 @@ namespace CAF.Model
             }
             set
             {
+                _userSetting = _userSettingInitalizer.Value;
                 _userSetting = value;
+                if (_userSetting!=null)
+                {
+                    _userSetting.UserId = this.Id;
+                }
             }
         }
         public RoleList Roles
@@ -154,6 +159,7 @@ namespace CAF.Model
         {
             get
             {
+                this.Errors=new List<string>();
                 bool isValid = true;
                 bool baseValid = base.IsValid;
                 if (_userSettingInitalizer.IsValueCreated && this.UserSetting != null && !this.UserSetting.IsValid)

@@ -161,7 +161,7 @@ namespace CAF.Test
         }
 
         /// <summary>
-        /// 1：1关系
+        /// 1：1关系 父：子
         /// </summary>
         [TestMethod]
         public void TestMethod7()

@@ -167,6 +167,7 @@ namespace <%= this.ClassNamespace %>
         {
             get
             {
+			    this.Errors=new List<string>();
                 bool isValid = true;
                 bool baseValid = base.IsValid;
                 <%foreach(string item in this.Children){ %>
