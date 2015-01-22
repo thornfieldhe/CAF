@@ -46,7 +46,7 @@ namespace <%= this.ClassNamespace %>
             
 		#region 公共属性
 
-		<% foreach (ColumnSchema column in SourceTable.NonPrimaryKeyColumns) { %>
+		<% foreach (ColumnSchema column in SourceTable.NonPrimaryKeyColumns) { %>	
 		<%if( !IsSystemFiled(column)){%>
         <%= GetMemberVariableDeclarationStatement(column)%>
 		<% }} %> 
@@ -71,14 +71,14 @@ namespace <%= this.ClassNamespace %>
         /// <%= GetDescription(column) %>
         /// </summary>
         <% } %>
-        <% if(!column.AllowDBNull) { %>
+        <% if(!column.AllowDBNull && ColumnIsGuid(column)) { %>
         [Required(ErrorMessage="<%if(GetDescription(column)!="") {%><%= GetDescription(column).Replace("Id","") %><% }else{%><%= GetPropertyName(column).Replace("Id","") %><%}%>不允许为空")]
         <%}%>
           <% if(ColumnIsString(column) && column.Size>-1) { %>
         [StringLength(<%=column.Size %>,ErrorMessage="<%if(GetDescription(column)!="") {%><%= GetDescription(column) %><% }else{%><%= GetPropertyName(column) %><%}%>长度不能超过<%=column.Size %>")]
         <%}%>
-        <% if(ColumnIsGuid(column) ) { %>
-        [GuidRequired(ErrorMessage="<%if(GetDescription(column)!="") {%><%= GetDescription(column).Replace("Id","") %><% }else{%><%= GetPropertyName(column).Replace("Id","") %><%}%>不允许为空")]
+        <% if(ColumnIsGuid(column) && !column.AllowDBNull) { %>
+        [GuidRequired(ErrorMessage="<%if(GetDescription(column)!="") { %><%= GetDescription(column).Replace("Id","") %><% }else{%><%= GetPropertyName(column).Replace("Id","") %><%}%>不允许为空")]
         <%}%>
         <% if(ColumnIsDateTime(column) ) { %>
         [DateTimeRequired(ErrorMessage="<%if(GetDescription(column)!="") {%><%= GetDescription(column).Replace("Id","") %><% }else{%><%= GetPropertyName(column).Replace("Id","") %><%}%>不允许为空")]
