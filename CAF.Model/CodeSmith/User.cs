@@ -145,7 +145,7 @@ namespace CAF.Model
                 }
                 return _roleList;
             }
-            set
+            internal set
             {
                 _roleList = value;
             }
@@ -156,7 +156,7 @@ namespace CAF.Model
             {
                 bool isValid = true;
                 bool baseValid = base.IsValid;
-                if (this.UserSetting != null && !this.UserSetting.IsValid)
+                if (_userSettingInitalizer.IsValueCreated && this.UserSetting != null && !this.UserSetting.IsValid)
                 {
                     this.Errors.AddRange(this.UserSetting.Errors);
                     isValid = false;
@@ -309,7 +309,7 @@ namespace CAF.Model
                 _updateParameters += ", Status = @Status";
                 string query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
                 _changedRows += conn.Execute(query, this, transaction, null, null);
-                if (UserSetting != null)
+                if (_userSettingInitalizer.IsValueCreated && this.UserSetting != null)
                 {
                     _changedRows += UserSetting.SaveChange(conn, transaction);
                 }
@@ -325,7 +325,7 @@ namespace CAF.Model
         internal override int Insert(IDbConnection conn, IDbTransaction transaction)
         {
             _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-            if (UserSetting != null)
+            if (_userSettingInitalizer.IsValueCreated && this.UserSetting != null)
             {
                 _changedRows += UserSetting.SaveChange(conn, transaction);
             }

@@ -180,7 +180,7 @@ namespace <%= this.ClassNamespace %>
                 }
                 <%} %>
                 <%foreach(string item in this.Child){ %>
-                if (this.<%=item%>!=null && !this.<%=item%>.IsValid)
+                if (<%= GetListMember3(item)%>.IsValueCreated && this.<%=item%>!=null && !this.<%=item%>.IsValid)
                 {
                     this.Errors.AddRange(this.<%=item%>.Errors);
                     isValid = false;
@@ -413,7 +413,7 @@ namespace <%= this.ClassNamespace %>
 	            });
 	            <%} %> 
 	            <%foreach(string item in this.Child){ %>
-				if(<%=item%>!=null) 
+				if(<%= GetListMember3(item)%>.IsValueCreated && this.<%=item%>!=null) 
 	            {
 	 				_changedRows += <%=item%>.SaveChange(conn, transaction);
 	            }
@@ -440,7 +440,7 @@ namespace <%= this.ClassNamespace %>
             });
             <%} %> 
             <%foreach(string item in this.Child){ %>    		
-			if(<%=item%>!=null) 
+			if(<%= GetListMember3(item)%>.IsValueCreated && this.<%=item%>!=null) 
             {
  				_changedRows += <%=item%>.SaveChange(conn, transaction);
             }
@@ -490,7 +490,7 @@ namespace <%= this.ClassNamespace %>
 		
 		protected  void PostAdd<%=item%>(<%=item%> <%=this.GetCamelCaseName(item)%>)
         {
-			item.<%=GetClassName(SourceTable)%>Id=this.Id;
+			<%=this.GetCamelCaseName(item)%>.<%=GetClassName(SourceTable)%>Id=this.Id;
         }
 		<%} %>
 		#endregion

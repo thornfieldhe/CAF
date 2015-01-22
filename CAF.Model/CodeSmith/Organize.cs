@@ -5,6 +5,7 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
+    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
 
@@ -44,7 +45,7 @@ namespace CAF.Model
         /// <summary>
         /// 父部门Id
         /// </summary>
-        public Guid ParentId
+ public Guid ParentId
         {
             get { return _parentId; }
             set { SetProperty("ParentId", ref _parentId, value); }
@@ -247,11 +248,10 @@ namespace CAF.Model
             return userList;
         }
 
-        protected  void  PostAddUser(User user)
+        protected void PostAddUser(User user)
         {
             user.OrganizeId = this.Id;
         }
-
         #endregion
 
     }
