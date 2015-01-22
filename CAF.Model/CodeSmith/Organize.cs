@@ -243,7 +243,13 @@ namespace CAF.Model
         {
             var userList = User.GetAllByOrganizeId(organize.Id);
             userList.OnMarkDirty += organize.MarkDirty;
+            userList.OnInsert += organize.PostAddUser;
             return userList;
+        }
+
+        protected  void  PostAddUser(User user)
+        {
+            user.OrganizeId = this.Id;
         }
 
         #endregion

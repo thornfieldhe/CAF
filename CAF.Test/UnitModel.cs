@@ -118,7 +118,6 @@ namespace CAF.Test
             o.Level = "01";
             o.Code = "00001";
             User u = CreateUser();
-            u.OrganizeId = o.Id;
             o.Users.Add(u);
             if (o.IsValid)
             {

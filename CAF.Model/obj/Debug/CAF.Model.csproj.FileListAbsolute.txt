@@ -90,3 +90,4 @@ D:\WorkStation\MyGitHub\CAF.Model\bin\Debug\Microsoft.Practices.Unity.Intercepti
 D:\WorkStation\MyGitHub\CAF.Model\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
 D:\WorkStation\MyGitHub\CAF.Model\obj\Debug\CAF.Model.dll
 D:\WorkStation\MyGitHub\CAF.Model\obj\Debug\CAF.Model.pdb
+D:\WorkStation\MyGitHub\CAF.Model\obj\Debug\CAF.Model.csprojResolveAssemblyReference.cache

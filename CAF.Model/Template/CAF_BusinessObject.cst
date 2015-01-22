@@ -484,9 +484,14 @@ namespace <%= this.ClassNamespace %>
         {
             var <%=this.GetCamelCaseName(item)%>List = <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(<%=this.GetCamelCaseName(GetClassName(SourceTable))%>.Id);
             <%=this.GetCamelCaseName(item)%>List.OnMarkDirty += <%=this.GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;
+			<%=this.GetCamelCaseName(item)%>List.OnInsert += <%=this.GetCamelCaseName(GetClassName(SourceTable))%>.PostAdd<%=item%>;
             return <%=this.GetCamelCaseName(item)%>List;
         }
 		
+		protected  void PostAdd<%=item%>(<%=item%> <%=this.GetCamelCaseName(item)%>)
+        {
+			item.<%=GetClassName(SourceTable)%>Id=this.Id;
+        }
 		<%} %>
 		#endregion
 				

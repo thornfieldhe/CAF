@@ -39,11 +39,13 @@ namespace CAF
 
         internal bool IsDirty { get { return _isDirty; } set { _isDirty = value; } }
 
-        //属性改变事件，用于通知列表，修改状态为Dity
-        public delegate int OnSaveHandler(IDbConnection conn, IDbTransaction transaction);
+
+        public delegate int OnSaveHandler(IDbConnection conn, IDbTransaction transaction);        //属性改变事件，用于通知列表，修改状态为Dity
         public event OnSaveHandler OnSaved;
-        public delegate void OnDirtyHandler();
+        public delegate void OnDirtyHandler();//更新当前Dirty属性同时更新订阅的父对象的Dity属性
         public event OnDirtyHandler OnMarkDirty;
+        public delegate void OnInsertHandler(TMember member);//插入集合对象时执行父对象的PostInsert方法
+        public event OnInsertHandler OnInsert;
 
         internal virtual void MarkNew()
         {
@@ -89,6 +91,10 @@ namespace CAF
         public virtual void Add(TMember member)
         {
             _items.Add(member);
+            if (OnInsert!=null)
+            {
+                OnInsert(member);
+            }
             member.OnPropertyChange += MarkDirty;
             MarkDirty();
         }
