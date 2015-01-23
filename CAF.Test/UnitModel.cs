@@ -206,6 +206,10 @@ namespace CAF.Test
             o.Create();
             var u2 = User.Get(u.Id);
             Assert.IsNotNull(u2.Organize);
+            u2.Organize.Name = "xxx";
+            u2.Save();//不支持在子对象中更新父对象
+            Organize o2 = Organize.Get(u2.OrganizeId);
+            Assert.AreEqual(o2.Name,"o1");
         }
 
         /// <summary>
