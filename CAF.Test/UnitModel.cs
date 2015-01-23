@@ -188,6 +188,41 @@ namespace CAF.Test
             Assert.AreEqual(o2.UserSetting.Note, "ppppppp");
         }
 
+        /// <summary>
+        /// n：1关系 只允许读取父对象，不允许在子对象中更新父对象
+        /// </summary>
+        [TestMethod]
+        public void TestMethod8()
+        {
+            Organize o = Organize.New();
+            o.Sort = 0;
+            o.Name = "o1";
+            o.Level = "01";
+            o.Code = "00001";
+            User u = CreateUser();
+            User u1 = CreateUser();
+            o.Users.Add(u);
+            o.Users.Add(u1);
+            o.Create();
+            var u2 = User.Get(u.Id);
+            Assert.IsNotNull(u2.Organize);
+        }
+
+        /// <summary>
+        /// 1：1 子：父关系 只允许读取父对象，不允许在子对象中更新父对象
+        /// </summary>
+        [TestMethod]
+        public void TestMethod9()
+        {
+            User u = CreateUser();
+            u.UserSetting = UserSetting.New();
+            u.UserSetting.Settings = "s1";
+            u.OrganizeId = Guid.NewGuid();
+            u.Create();
+            var s = UserSetting.Get(u.UserSetting.Id);
+            Assert.IsNotNull(s.User);
+        }
+
         private static User CreateUser()
         {
             User u = User.New();

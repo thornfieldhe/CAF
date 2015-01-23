@@ -100,11 +100,14 @@ namespace CAF.Model
         }
 
         /// <summary>
-        /// 组织架构Id
+        /// 组织架构
         /// </summary>
         public Organize Organize
         {
-            get { return Organize.Get(this.OrganizeId); }
+            get
+            {
+                return Organize.Get(this.OrganizeId);
+            }
         }
 
 
@@ -373,6 +376,7 @@ namespace CAF.Model
             var userSetting = UserSetting.GetByUserId(user.Id);
             if (userSetting != null)
             {
+                userSetting.UserId = user.Id;
                 userSetting.OnPropertyChange += user.MarkDirty;
             }
             return userSetting;
