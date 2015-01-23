@@ -5,7 +5,6 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
-    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
 
@@ -24,7 +23,7 @@ namespace CAF.Model
         #region 公共属性
 
         private string _name = String.Empty;
-        private Guid _parentId = Guid.Empty;
+        private Guid? _parentId = Guid.Empty;
         private int _sort;
         private string _level = String.Empty;
         private string _code = String.Empty;
@@ -45,18 +44,21 @@ namespace CAF.Model
         /// <summary>
         /// 父部门Id
         /// </summary>
-        public Guid ParentId
+        public Guid? ParentId
         {
             get { return _parentId; }
             set { SetProperty("ParentId", ref _parentId, value); }
         }
 
         /// <summary>
-        /// 父部门Id
+        /// 父部门
         /// </summary>
         public Organize Parent
         {
-            get { return Organize.Get(this.ParentId); }
+            get
+            {
+                return !this.ParentId.HasValue ? null : Organize.Get(this.ParentId.Value);
+            }
         }
 
 

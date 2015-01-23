@@ -83,7 +83,7 @@ namespace <%= this.ClassNamespace %>
         <% if(ColumnIsDateTime(column) ) { %>
         [DateTimeRequired(ErrorMessage="<%if(GetDescription(column)!="") {%><%= GetDescription(column).Replace("Id","") %><% }else{%><%= GetPropertyName(column).Replace("Id","") %><%}%>不允许为空")]
         <%}%>
-		public <%= GetCSharpVariableType(column) %> <%= GetPropertyName(column) %>
+		public <%= GetCSharpVariableType(column) %><%=IsSystemNullAble(column)%> <%= GetPropertyName(column) %>
 		{
 			get {return <%= GetMemberVariableName(column) %>;} 
             set {SetProperty("<%= GetPropertyName(column) %>",ref <%=this.GetMemberVariableName(column)%>, value);}           	
@@ -92,18 +92,32 @@ namespace <%= this.ClassNamespace %>
         <% if (GetPropertyName(column).EndsWith("Id")){ %>	
         <% if(GetDescription(column)!="") { %>
         /// <summary>
-        /// <%= GetDescription(column) %>
+        /// <%= GetDescription(column).Replace("Id","") %>
         /// </summary>
         <% } %>
         <%if(IsRecurrence(column)) {%>
         public <%= GetClassName(SourceTable) %> <%= GetPropertyName(column).Replace("Id","") %>
 		{
-			get{ return <%= GetClassName(SourceTable) %>.Get(this.<%= GetPropertyName(column)%>);}        	
+			get
+			{ 
+				<%if(column.AllowDBNull){%>
+				return !this.<%= GetPropertyName(column)%>.HasValue ? null : <%= GetClassName(SourceTable) %>.Get(this.<%= GetPropertyName(column)%>.Value);
+				<%}else{%>
+				return <%= GetClassName(SourceTable) %>.Get(this.<%= GetPropertyName(column)%>);
+				<%} %>
+			}        	
 		}
         <%}else{ %>
         public <%= GetPropertyName(column).Replace("Id","")%> <%= GetPropertyName(column).Replace("Id","") %>
 		{
-			get{ return <%= GetPropertyName(column).Replace("Id","") %>.Get(this.<%= GetPropertyName(column)%>);}        	
+			get
+			{ 
+				<%if(column.AllowDBNull){%>
+				return !this.<%= GetPropertyName(column)%>.HasValue ? null : <%= GetPropertyName(column).Replace("Id","") %>.Get(this.<%= GetPropertyName(column)%>.Value);
+				<%}else{%>
+				return <%= GetPropertyName(column).Replace("Id","") %>.Get(this.<%= GetPropertyName(column)%>);
+				<%} %>
+			}        	
 		}
         <%} %>
 
@@ -615,7 +629,7 @@ public string GetCollectionClassName(TableSchema SourceTable)
 public string GetMemberVariableDeclarationStatement(string protectionLevel, ColumnSchema column)
 {
 	string statement = protectionLevel + " ";
-	statement += GetCSharpVariableType(column) + " " + GetMemberVariableName(column);
+	statement += GetCSharpVariableType(column) +IsSystemNullAble(column)+ " " + GetMemberVariableName(column);
 	
 	string defaultValue = GetMemberVariableDefaultValue(column);
 	if (defaultValue != "")
@@ -784,5 +798,18 @@ public string GetInsertQueryString()
        		queryParameters.Append(", @"+GetPropertyName(SourceTable.NonPrimaryKeyColumns[i]));
       }
       return String.Format("INSERT INTO "+SourceTable.Name +" ({0}) VALUES ({1})", queryParameters.ToString().Replace("@", ""), queryParameters.ToString());
+}
+
+public string IsSystemNullAble(ColumnSchema column)
+{
+	   string type= GetCSharpVariableType(column) ;
+    if( (type=="Guid" ||type=="int"
+		||type=="double"|| type=="decimal"
+		||type=="bool"||type=="DateTime") 
+		&& column.AllowDBNull)
+	{
+		return "?";
+	}
+	return "";
 }
 </script>
