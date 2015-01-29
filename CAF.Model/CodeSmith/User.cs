@@ -198,7 +198,7 @@ namespace CAF.Model
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_Users WHERE Id = @Id";
         const string QUERY_GETALLBYORGANIZEID = "SELECT * FROM Sys_Users WHERE  Status!=-1 And OrganizeId=@OrganizeId";
         const string QUERY_GETALLBYROLEID = "SELECT t1.* FROM Sys_Users t1 INNER JOIN Sys_R_User_Role t2 on t1.Id=t2.UserId  where t2.RoleId=@RoleId AND t1.Status!=-1";
-        const string QUERY_CONTAINSUSERROLE = "SELECT COUNT(*) FROM Sys_R_User_Role WHERE  UserId = @Id AND RoleId=@RoleId";
+        const string QUERY_CONTAINSUSERROLE = "SELECT COUNT(*) FROM Sys_R_User_Role WHERE  UserId = @UserId AND RoleId=@RoleId";
         const string QUERY_ADDRELARIONSHIPWITHUSERROLE = "INSERT INTO Sys_R_User_Role (UserId,RoleId)VALUES(@UserId, @RoleId)";
         const string QUERY_INSERT = "INSERT INTO Sys_Users (Id, Status, CreatedDate, ChangedDate, Note, LoginName, Abb, Name, Pass, PhoneNum, OrganizeId, Email) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @LoginName, @Abb, @Name, @Pass, @PhoneNum, @OrganizeId, @Email)";
         const string QUERY_UPDATE = "UPDATE Sys_Users SET {0} WHERE  Id = @Id";
@@ -269,6 +269,7 @@ namespace CAF.Model
                 {
                     item.MarkOld();
                     item._userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);
+                    item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkOld();
@@ -355,8 +356,8 @@ namespace CAF.Model
         {
             foreach (var role in this.Roles)
             {
-                var isExist = conn.Query<int>(QUERY_CONTAINSUSERROLE, new { UserId = this.Id, RoleId = role.Id }).Single() >= 1;
-                if (role.IsNew && !isExist)
+                var isExist = conn.Query<int>(QUERY_CONTAINSUSERROLE, new { UserId = this.Id, RoleId = role.Id }, transaction).Single() >= 1;
+                if (!isExist)
                 {
                     _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHUSERROLE, new { UserId = this.Id, RoleId = role.Id }, transaction, null, null);
                 }
@@ -368,6 +369,7 @@ namespace CAF.Model
         {
             var roleList = Role.GetAllByUserId(user.Id);
             roleList.OnSaved += user.AddRelationshipWithRole;
+            roleList.OnMarkDirty += user.MarkDirty;
             return roleList;
         }
 

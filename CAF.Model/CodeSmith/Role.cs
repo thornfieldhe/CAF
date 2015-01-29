@@ -24,7 +24,7 @@ namespace CAF.Model
         #region 公共属性
 
         private string _name = String.Empty;
-        private Guid _parentId = Guid.Empty;
+        private Guid? _parentId = Guid.Empty;
         private UserList _userList;
         private Lazy<UserList> _userListInitalizer;
 
@@ -41,19 +41,21 @@ namespace CAF.Model
         /// <summary>
         /// 父角色Id
         /// </summary>
-        [GuidRequired(ErrorMessage = "父角色不允许为空")]
-        public Guid ParentId
+        public Guid? ParentId
         {
             get { return _parentId; }
             set { SetProperty("ParentId", ref _parentId, value); }
         }
 
         /// <summary>
-        /// 父角色Id
+        /// 父角色
         /// </summary>
         public Role Parent
         {
-            get { return Role.Get(this.ParentId); }
+            get
+            {
+                return !this.ParentId.HasValue ? null : Role.Get(this.ParentId.Value);
+            }
         }
 
 
@@ -61,13 +63,13 @@ namespace CAF.Model
         {
             get
             {
-                if (IsDirty && !_userListInitalizer.IsValueCreated)
+                if (!_userListInitalizer.IsValueCreated)
                 {
                     _userList = _userListInitalizer.Value;
                 }
                 return _userList;
             }
-            set
+            internal set
             {
                 _userList = value;
             }
@@ -76,9 +78,9 @@ namespace CAF.Model
         {
             get
             {
+                this.Errors = new List<string>();
                 bool isValid = true;
                 bool baseValid = base.IsValid;
-                Errors = new List<string>();
                 _userListInitalizer.IsValueCreated.IfIsTrue(
                () =>
                {
@@ -103,7 +105,7 @@ namespace CAF.Model
         const string QUERY_DELETE = "UPDATE Sys_Role SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_Role WHERE Id = @Id";
         const string QUERY_GETALLBYUSERID = "SELECT t1.* FROM Sys_Role t1 INNER JOIN Sys_R_User_Role t2 on t1.Id=t2.RoleId  where t2.UserId=@UserId AND t1.Status!=-1";
-        const string QUERY_CONTAINSUSERROLE = "SELECT COUNT(*) FROM Sys_R_User_Role WHERE  RoleId = @Id AND UserId=@UserId";
+        const string QUERY_CONTAINSUSERROLE = "SELECT COUNT(*) FROM Sys_R_User_Role WHERE  RoleId = @RoleId AND UserId=@UserId";
         const string QUERY_ADDRELARIONSHIPWITHUSERROLE = "INSERT INTO Sys_R_User_Role (RoleId,UserId)VALUES(@RoleId, @UserId)";
         const string QUERY_INSERT = "INSERT INTO Sys_Role (Id, Status, CreatedDate, ChangedDate, Note, Name, ParentId) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name, @ParentId)";
         const string QUERY_UPDATE = "UPDATE Sys_Role SET {0} WHERE  Id = @Id";
@@ -153,6 +155,7 @@ namespace CAF.Model
                 foreach (Role item in items)
                 {
                     item.MarkOld();
+                    item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkOld();
@@ -230,8 +233,8 @@ namespace CAF.Model
         {
             foreach (var user in this.Users)
             {
-                var isExist = conn.Query<int>(QUERY_CONTAINSUSERROLE, new { RoleId = this.Id, UserId = user.Id }).Single() >= 1;
-                if (user.IsNew && !isExist)
+                var isExist = conn.Query<int>(QUERY_CONTAINSUSERROLE, new { RoleId = this.Id, UserId = user.Id }, transaction).Single() >= 1;
+                if (!isExist)
                 {
                     _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHUSERROLE, new { RoleId = this.Id, UserId = user.Id }, transaction, null, null);
                 }
@@ -243,6 +246,7 @@ namespace CAF.Model
         {
             var userList = User.GetAllByRoleId(role.Id);
             userList.OnSaved += role.AddRelationshipWithUser;
+            userList.OnMarkDirty += role.MarkDirty;
             return userList;
         }
 

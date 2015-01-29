@@ -334,6 +334,6 @@ D:\WorkStation\MyGitHub\CAF\bin\Debug\Microsoft.Practices.Unity.pdb
 D:\WorkStation\MyGitHub\CAF\bin\Debug\Microsoft.Practices.Unity.Configuration.pdb
 D:\WorkStation\MyGitHub\CAF\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
 D:\WorkStation\MyGitHub\CAF\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
-D:\WorkStation\MyGitHub\CAF\obj\Debug\CAF.csprojResolveAssemblyReference.cache
 D:\WorkStation\MyGitHub\CAF\obj\Debug\CAF.dll
 D:\WorkStation\MyGitHub\CAF\obj\Debug\CAF.pdb
+D:\WorkStation\MyGitHub\CAF\obj\Debug\CAF.csprojResolveAssemblyReference.cache

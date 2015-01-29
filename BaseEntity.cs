@@ -133,6 +133,8 @@ namespace CAF
 
         internal bool IsDirty { get { return _isDirty; } set { _isDirty = value; } }
 
+        internal bool IsClean { get { return !_isDirty && !_isNew; } }
+
         internal virtual void MarkNew()
         {
             _isNew = true;
@@ -173,6 +175,10 @@ namespace CAF
         {
             _isDelete = true;
             MarkDirty();
+            if (OnPropertyChange != null)
+            {
+                OnPropertyChange();
+            }
         }
 
         #endregion
@@ -299,7 +305,7 @@ namespace CAF
                 {
                     _deleteDelegate(conn, transaction);
                     transaction.Commit();
-                    MarkOld();
+                    MarkDelete();
                 }
                 catch (Exception ex)
                 {
@@ -342,25 +348,22 @@ namespace CAF
         /// <returns></returns>
         internal virtual int SaveChange(IDbConnection conn, IDbTransaction transaction)
         {
-            if (IsDirty)
+            if (this.IsDelete)
             {
-                if (this.IsDelete)
+                _deleteDelegate(conn, transaction);
+                MarkOld();
+            }
+            else if (IsValid)
+            {
+                if (this.IsNew)
                 {
-                    _deleteDelegate(conn, transaction);
-                    MarkOld();
+                    _insertDelegate(conn, transaction);
+                    MarkClean();
                 }
-                else if (IsValid)
+                else if (this.IsDirty || IsClean)
                 {
-                    if (this.IsNew)
-                    {
-                        _insertDelegate(conn, transaction);
-                        MarkClean();
-                    }
-                    else if (this.IsDirty)
-                    {
-                        _updateDelegate(conn, transaction);
-                        MarkOld();
-                    }
+                    _updateDelegate(conn, transaction);
+                    MarkOld();
                 }
             }
             return _changedRows;

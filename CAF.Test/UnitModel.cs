@@ -3,6 +3,7 @@ using System;
 
 namespace CAF.Test
 {
+
     using CAF.Model;
     using System.Collections.Generic;
 
@@ -209,7 +210,7 @@ namespace CAF.Test
             u2.Organize.Name = "xxx";
             u2.Save();//不支持在子对象中更新父对象
             Organize o2 = Organize.Get(u2.OrganizeId);
-            Assert.AreEqual(o2.Name,"o1");
+            Assert.AreEqual(o2.Name, "o1");
         }
 
         /// <summary>
@@ -226,6 +227,42 @@ namespace CAF.Test
             var s = UserSetting.Get(u.UserSetting.Id);
             Assert.IsNotNull(s.User);
         }
+
+        /// <summary>
+        /// 测试n:n关系
+        /// </summary>
+        [TestMethod]
+        public void TestMethod10()
+        {
+            User u = CreateUser();
+            u.OrganizeId = Guid.NewGuid();
+            Role r = Role.New();
+            r.Name = "r1";
+            u.Roles.Add(r);
+            if (u.IsValid)
+            {
+                u.Create();
+            }
+
+            var u1 = User.Get(u.Id);
+            Assert.AreEqual(u1.Roles.Count, 1);//create with new item
+            var u2 = CreateUser();
+            u2.OrganizeId = Guid.NewGuid();
+            var r1 = Role.Get(u1.Roles[0].Id);
+            u2.Roles.Add(r1);
+            u2.Create();
+            var u3 = User.Get(u2.Id);
+            Assert.AreEqual(u3.Roles.Count, 1);//create with exist item
+            u3.Roles[0].Name = "r2";
+            u3.Save();
+            var u4 = User.Get(u3.Id);
+            Assert.AreEqual(u4.Roles[0].Name, "r2");//update item
+            u4.Roles[0].MarkDelete();//delete item 列表内删除使用markdelet，实体删除调用delete
+            u4.Save();
+            var u5 = User.Get(u4.Id);
+            Assert.AreEqual(u5.Roles.Count, 0);
+        }
+
 
         private static User CreateUser()
         {

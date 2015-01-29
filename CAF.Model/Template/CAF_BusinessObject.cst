@@ -244,7 +244,7 @@ namespace <%= this.ClassNamespace %>
         <%} %>
 		<%foreach(string item in this.WithMany){ %>
         const string QUERY_GETALLBY<%=GetRelationshipItem(item).ToUpper()%>ID = "SELECT t1.* FROM <%= SourceTable.Name %> t1 INNER JOIN <%=item%> t2 on t1.Id=t2.<%= GetClassName(SourceTable)%>Id  where t2.<%=GetRelationshipItem(item)%>Id=@<%=GetRelationshipItem(item)%>Id AND t1.Status!=-1";
-        const string QUERY_CONTAINS<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> = "SELECT COUNT(*) FROM <%=item%> WHERE  <%= GetClassName(SourceTable)%>Id = @Id AND <%=GetRelationshipItem(item)%>Id=@<%=GetRelationshipItem(item)%>Id";
+        const string QUERY_CONTAINS<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> = "SELECT COUNT(*) FROM <%=item%> WHERE  <%= GetClassName(SourceTable)%>Id = @<%= GetClassName(SourceTable)%>Id AND <%=GetRelationshipItem(item)%>Id=@<%=GetRelationshipItem(item)%>Id";
         const string QUERY_ADDRELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> = "INSERT INTO <%=item%> (<%= GetClassName(SourceTable)%>Id,<%=GetRelationshipItem(item)%>Id)VALUES(@<%= GetClassName(SourceTable)%>Id, @<%=GetRelationshipItem(item)%>Id)";
 		<%} %>
         const string QUERY_INSERT="<%=GetInsertQueryString() %>";
@@ -317,7 +317,7 @@ namespace <%= this.ClassNamespace %>
                     <%foreach(string item in this.Child){ %>
             		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => Init<%=item%>(item), isThreadSafe: true);      
                     <%} %> 
-					<%foreach(string item in this.WithMany){ %>
+					<%foreach(string item in this.WithMany){ %>					
                      item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
                     <%} %> 
                     list.Add(item);
@@ -369,6 +369,9 @@ namespace <%= this.ClassNamespace %>
                     <%foreach(string item in this.Child){ %>
             		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => Init<%=item%>(item), isThreadSafe: true);      
                     <%} %>   
+					<%foreach(string item in this.WithMany){ %>
+                    item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
+                    <%} %> 
                     list.Add(item);
                 }
 				list.MarkOld();
@@ -486,8 +489,8 @@ namespace <%= this.ClassNamespace %>
         {
             foreach (var <%=this.GetCamelCaseName(GetRelationshipItem(item))%> in this.<%=GetRelationshipItem(item)%>s)
             {
-                var isExist = conn.Query<int>(QUERY_CONTAINS<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> , new { <%= GetClassName(SourceTable)%>Id = this.Id, <%=GetRelationshipItem(item)%>Id = <%=this.GetCamelCaseName(GetRelationshipItem(item))%>.Id }).Single() >= 1;
-                if (<%=this.GetCamelCaseName(GetRelationshipItem(item))%>.IsNew && !isExist)
+                var isExist = conn.Query<int>(QUERY_CONTAINS<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> , new { <%= GetClassName(SourceTable)%>Id = this.Id, <%=GetRelationshipItem(item)%>Id = <%=this.GetCamelCaseName(GetRelationshipItem(item))%>.Id },transaction).Single() >= 1;
+                if (!isExist)
                 {
                     _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { <%= GetClassName(SourceTable)%>Id = this.Id, <%=GetRelationshipItem(item)%>Id = <%=this.GetCamelCaseName(GetRelationshipItem(item))%>.Id }, transaction, null, null);
                 }
@@ -499,7 +502,8 @@ namespace <%= this.ClassNamespace %>
         {
             var <%=GetCamelCaseName(GetRelationshipItem(item))%>List = <%=GetRelationshipItem(item)%>.GetAllBy<%= GetClassName(SourceTable)%>Id(<%= this.GetCamelCaseName(GetClassName(SourceTable))%>.Id);
             <%=this.GetCamelCaseName(GetRelationshipItem(item))%>List.OnSaved += <%= this.GetCamelCaseName(GetClassName(SourceTable))%>.AddRelationshipWith<%=GetRelationshipItem(item)%>;
-            return <%=this.GetCamelCaseName(GetRelationshipItem(item))%>List;
+            <%=this.GetCamelCaseName(GetRelationshipItem(item))%>List.OnMarkDirty += <%= this.GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;			
+			return <%=this.GetCamelCaseName(GetRelationshipItem(item))%>List;
         }
 		
 		<%} %>
@@ -524,7 +528,8 @@ namespace <%= this.ClassNamespace %>
             var <%=this.GetCamelCaseName(item)%> = <%=item%>.GetByUserId(<%=this.GetCamelCaseName(GetClassName(SourceTable))%>.Id);
             if (<%=this.GetCamelCaseName(item)%> != null)
             {
-                <%=this.GetCamelCaseName(item)%>.OnPropertyChange += <%=this.GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;
+                <%=this.GetCamelCaseName(item)%>.<%=GetClassName(SourceTable)%>Id = <%=this.GetCamelCaseName(GetClassName(SourceTable))%>.Id;
+				<%=this.GetCamelCaseName(item)%>.OnPropertyChange += <%=this.GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;
             }
             return <%=this.GetCamelCaseName(item)%>;
         }
