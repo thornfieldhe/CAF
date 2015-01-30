@@ -5,6 +5,7 @@ namespace CAF.Test
 {
 
     using CAF.Model;
+    using CAF_Model;
     using System.Collections.Generic;
 
     [TestClass]
@@ -263,6 +264,73 @@ namespace CAF.Test
             Assert.AreEqual(u5.Roles.Count, 0);
         }
 
+        /// <summary>
+        /// 测试列表增减项
+        /// </summary>
+        [TestMethod]
+        public void TestMethod11()
+        {
+            UserList list = new UserList();
+            User b = User.New();
+            b.Name = "name1";
+            User c = User.New();
+            b.Name = "name1";
+            list.Add(b);
+            list.Add(c);
+            Assert.AreEqual(list.Count, 2);
+            list.RemoveAt(1);
+            Assert.AreEqual(list.Count, 1);
+        }
+
+        /// <summary>
+        /// 集合列表查询
+        /// </summary>
+        [TestMethod]
+        public void TestCollectionQuery()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                User u = CreateUser();
+                u.Name = "user" + i;
+                u.OrganizeId = Guid.NewGuid();
+                if (u.IsValid)
+                {
+                    u.Create();
+                }
+            }
+            UserList list = UserList.Query(new { Name = "user" }, " Name Like @Name+'%'");
+            Assert.AreEqual(list.Count, 5);
+            int count = UserList.QueryCount(new { Name = "user" }, " Name Like @Name+'%'");
+            Assert.AreEqual(count,5);
+            bool hasone = UserList.Exists(new { Name = "user" }, " Name Like @Name+'%'");
+            Assert.IsTrue(hasone);
+        }
+
+        /// <summary>
+        /// 只读列表分页查询
+        /// </summary>
+        [TestMethod]
+        public void TestReadonlyList()
+        {
+            Organize o = Organize.New();
+            o.Name = "o1";
+            o.Level = "01";
+            o.Code = "0001";
+            for (int i = 0; i < 10; i++)
+            {
+                User u = CreateUser();
+                u.Name = "user" + i;
+                u.OrganizeId = Guid.NewGuid();
+                o.Users.Add(u);
+            }
+         o.IsValid.IfIsTrue(()=>o.Create());
+         var readOlyBookList = ReadOnlyUserList.Instance.Query("Name", 2, new { OrganizeId = o.Id },
+                sum: "Status", average: "Status", queryWhere: "   OrganizeId =@OrganizeId", pageIndex: 2);
+            Assert.AreEqual(10, readOlyBookList.TotalCount);
+            Assert.AreEqual(2, readOlyBookList.Result.Count);
+            Assert.AreEqual(10, readOlyBookList.Sum["Status"]);
+            Assert.AreEqual(1, readOlyBookList.Average["Status"]);
+        }
 
         private static User CreateUser()
         {

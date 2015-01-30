@@ -78,8 +78,8 @@ namespace CAF
 
         #region 表达式
 
-        protected const string QUERY = "SELECT * FROM {0} Where Status!=-1 {1} ";
-        protected const string COUNT = "SELECT COUNT(*) AS COUNT FROM {0} Where Status!=-1 {1} ";
+        protected const string QUERY = "SELECT * FROM {0} Where Status!=-1 AND {1} ";
+        protected const string COUNT = "SELECT COUNT(*) AS COUNT FROM {0} Where Status!=-1 AND {1} ";
 
 
         #endregion

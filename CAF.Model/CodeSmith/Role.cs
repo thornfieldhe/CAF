@@ -261,7 +261,7 @@ namespace CAF.Model
 
         protected const string tableName = "Sys_Role";
 
-        public static RoleList Query(Object dynamicObj, string query = " AND 1=1")
+        public static RoleList Query(Object dynamicObj, string query = "  1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
@@ -277,7 +277,7 @@ namespace CAF.Model
             }
         }
 
-        public static int QueryCount(Object dynamicObj, string query = " AND 1=1")
+        public static int QueryCount(Object dynamicObj, string query = "  1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
@@ -285,7 +285,7 @@ namespace CAF.Model
             }
         }
 
-        public static bool Exists(Object dynamicObj, string query = " AND 1=1")
+        public static bool Exists(Object dynamicObj, string query = "  1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
