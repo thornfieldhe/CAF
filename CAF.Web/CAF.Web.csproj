@@ -628,7 +628,7 @@
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Test.html" />
     <Content Include="Web.config" />
-    <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Scripts\underscore-min.map" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />

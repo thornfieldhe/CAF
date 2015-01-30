@@ -53,16 +53,13 @@
     <Compile Include="CodeSmith\UserSetting.cs" />
     <Compile Include="Common\ReadOnlyCollectionQueryResult.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Temp\Book.cs" />
     <Compile Include="CodeSmith\Organize.cs" />
-    <Compile Include="Temp\ReadOnlyBookList.cs" />
     <Compile Include="CodeSmith\User.cs" />
     <Compile Include="Common\CollectionBase.cs" />
     <Compile Include="Common\ReadOnlyCollectionBase.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\SqlService.cs" />
-    <Compile Include="Temp\Store.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CAF\CAF.csproj">

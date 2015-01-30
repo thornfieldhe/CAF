@@ -155,9 +155,14 @@ var QuickSidebar = function () {
             settingsList.attr("data-height", settingsListHeight);
             Metronic.initSlimScroll(settingsList);
         }
-
         initSettingsSlimScroll();
         Metronic.addResizeHandler(initSettingsSlimScroll); // reinitialize on window resize
+    }
+
+    var handleSiderbarSelect = function () {
+        $('.page-sidebar-menu').find('a').click(function () {
+            $(this).sidebarOnSelect();
+        });
     }
 
     return {
@@ -168,6 +173,7 @@ var QuickSidebar = function () {
             handleQuickSidebarChat(); // handles quick sidebar's chats
             handleQuickSidebarAlerts(); // handles quick sidebar's alerts
             handleQuickSidebarSettings(); // handles quick sidebar's setting
+            handleSiderbarSelect();//ÇÐ»»Ñ¡ÖÐ²Ëµ¥
         }
     };
 

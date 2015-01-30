@@ -1121,8 +1121,8 @@ Page sidebar
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: 100% 3px;
-  height1: 20px;
-  line-height1: 20px;
+  height: 20px;
+  line-height: 20px;
 }
 .page-sidebar .sidebar-search .input-group .input-group-btn .btn > i,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn .btn > i {
