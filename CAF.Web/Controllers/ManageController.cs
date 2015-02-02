@@ -2,7 +2,6 @@
 
 namespace CAF.Web.Controllers
 {
-    using CAF.Model;
 
     using CAF_Model;
 
@@ -13,6 +12,11 @@ namespace CAF.Web.Controllers
     public class ManageController : BaseController
     {
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Organizes()
         {
             return View();
         }

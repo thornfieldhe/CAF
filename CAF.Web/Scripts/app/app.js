@@ -1,5 +1,1 @@
-﻿define([], function() {
-     return {
-          hello: function () { alert("hello, app~"); }
-     }
-});
+﻿var appManage = angular.module('Manage', [ 'ngRoute', 'ngResource']);

@@ -9,8 +9,10 @@
     <title>CAF管理后台</title>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css">
-    @Styles.Render("~/bundles/semantic.css")
-    @Scripts.Render("~/bundles/semantic.js")
+    @Styles.Render("~/bundles/semantic/css")
+    @Scripts.Render("~/bundles/semantic/js")
+    @Scripts.Render("~/Scripts/angular")
+    @Scripts.Render("~/Scripts/app")
     <!-- END THEME STYLES -->
 
 </head>
@@ -610,21 +612,6 @@
         </div>
         <div class="page-content-wrapper">
             <div class="page-content">
-
-                <h3 class="page-title">
-                    主页 <small>控制台</small>
-                </h3>
-                <div class="page-bar">
-                    <ul class="page-breadcrumb">
-                        <li>
-                            <i class="fa fa-home"></i>
-                            @Html.ActionLink("主页", "Index", "Manage")
-                            <i class="fa fa-angle-right"></i>
-                        </li>
-                    </ul>
-                </div>
-                <div class="clearfix">
-                </div>
                 @RenderBody()
             </div>
         </div>
@@ -649,5 +636,6 @@
         });
     </script>
 @RenderSection("scripts", required: false)
+
 </body>
 </html>
