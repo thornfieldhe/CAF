@@ -1,4 +1,5 @@
-﻿<div ng-controller="organizeController">
+﻿<link href="~/metronic/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" />
+<div ng-controller="organizeController">
     <h3 class="page-title">
         组织架构 <small>管理</small>
     </h3>
@@ -16,7 +17,63 @@
     </div>
     <div>
         <div class="row">
-
+            <div class="col-md-3">
+                <div class="portlet blue-hoki box">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>组织架构
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"></a>
+                            <a href="javascript:;" class="reload">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div id="tree_3" class="tree-demo jstree jstree-3 jstree-default" role="tree" aria-activedescendant="j3_6">
+                            <ul class="jstree-container-ul">
+                                <li role="treeitem" aria-expanded="true" id="j3_1" class="jstree-node  jstree-open" aria-selected="false">
+                                    <i class="jstree-icon jstree-ocl"></i>
+                                    <a class="jstree-anchor" href="#">
+                                        <i class="jstree-icon jstree-themeicon fa fa-folder icon-state-warning icon-lg jstree-themeicon-custom"></i>
+                                        Parent Node
+                                    </a>
+                                    <ul role="group" class="jstree-children">
+                                        <li role="treeitem" id="j3_2" class="jstree-node  jstree-leaf" aria-selected="false">
+                                            <i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor jstree-clicked" href="#">
+                                                                                      <i class="jstree-icon jstree-themeicon fa fa-folder icon-state-warning icon-lg jstree-themeicon-custom">
+                                                                                      </i>Initially selected
+                                                                                  </a>
+                                        </li><li role="treeitem" id="j3_3" class="jstree-node  jstree-leaf" aria-selected="false">
+                                                 <i class="jstree-icon jstree-ocl">
+                                                 </i>
+                                                 <a class="jstree-anchor" href="#">
+                                                     <i class="jstree-icon jstree-themeicon fa fa-warning icon-state-danger jstree-themeicon-custom">
+                                                     </i>Custom Icon
+                                                 </a>
+                                             </li>
+                                        <li role="treeitem" aria-expanded="true" id="j3_4" class="jstree-node  jstree-open" aria-selected="false">
+                                            <i class="jstree-icon jstree-ocl"></i>
+                                            <a class="jstree-anchor" href="#">
+                                                <i class="jstree-icon jstree-themeicon fa fa-folder icon-state-success jstree-themeicon-custom"></i>
+                                                Initially open
+                                            </a>
+                                            <ul role="group" class="jstree-children"><li role="treeitem" id="j3_5" class="jstree-node  jstree-leaf jstree-last" aria-selected="false"><i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor" href="#"><i class="jstree-icon jstree-themeicon fa fa-file icon-state-warning jstree-themeicon-custom"></i>Another node</a></li></ul>
+                                        </li><li role="treeitem" id="j3_6" class="jstree-node  jstree-leaf" aria-selected="false"><i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor" href="#"><i class="jstree-icon jstree-themeicon fa fa-warning icon-state-warning jstree-themeicon-custom"></i>Another Custom Icon</a></li><li role="treeitem" id="j3_7" class="jstree-node  jstree-leaf" aria-selected="false"><i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor  jstree-disabled" href="#"><i class="jstree-icon jstree-themeicon fa fa-check icon-state-success jstree-themeicon-custom"></i>Disabled Node</a></li><li role="treeitem" aria-expanded="false" id="j3_8" class="jstree-node  jstree-closed jstree-last" aria-selected="false"><i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor" href="#"><i class="jstree-icon jstree-themeicon fa fa-folder icon-state-danger jstree-themeicon-custom"></i>Sub Nodes</a></li>
+                                    </ul>
+                                </li><li role="treeitem" id="j3_14" class="jstree-node  jstree-leaf jstree-last" aria-selected="false"><i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor" href="#"><i class="jstree-icon jstree-themeicon fa fa-folder icon-state-warning icon-lg jstree-themeicon-custom"></i>Another Node</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script src="~/metronic/global/plugins/jstree/dist/jstree.min.js"></script>
+<script src="~/metronic/admin/pages/scripts/ui-tree.js"></script>
+<script>
+    jQuery(document).ready(function () {
+        UITree.init();
+    });
+</script>

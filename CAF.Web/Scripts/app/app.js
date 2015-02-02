@@ -2,17 +2,18 @@
 
 appManage.config(function($routeProvider) {
     $routeProvider.when("/organizes", {
-        controller: "organizeController",
-        templateUrl: "/Manage/Organizes"
-    });
+            controller: "organizeController",
+            templateUrl: "/Manage/Organizes"
+        })
+        .when("/index", {
+            controller: "indexController",
+            templateUrl: "/Manage/Index"
+        })
+        .when("/users", {
+            controller: "userController",
+            templateUrl: "/Manage/Users"
+        })
+        .otherwise({ redirectTo: '#' });
 
-    $routeProvider.when("/index", {
-        controller: "indexController",
-        templateUrl: "/Manage/Index"
-    });
 
-    $routeProvider.when("/users", {
-        controller: "userController",
-        templateUrl: "/Manage/Users"
-    });
 });
