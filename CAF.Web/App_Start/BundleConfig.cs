@@ -31,14 +31,15 @@ namespace CAF.Web
 
             bundles.Add(new ScriptBundle("~/Scripts/angular")
                 .Include("~/Scripts/angular.js")
+                .Include("~/Scripts/angular-route.js")
                 .Include("~/Scripts/angular-resource.js")
                 .Include("~/Scripts/angular-messages.js")
                 .Include("~/Scripts/restangular.js"));
 
-            bundles.Add(new ScriptBundle("~/Scripts/app")
-                .Include("~/Scripts/app/*.js")
-                 .Include("~/Scripts/app/controllers/*.js")
-                  .Include("~/Scripts/app/services/*.js"));
+            bundles.Add(new ScriptBundle("~/app")
+                .Include("~/Scripts/app/app.js")
+                 .Include("~/Scripts/controllers/organizeController.js")
+                  .Include("~/Scripts/services/organizeService.js"));
         }
     }
 }

@@ -12,7 +12,7 @@
     @Styles.Render("~/bundles/semantic/css")
     @Scripts.Render("~/bundles/semantic/js")
     @Scripts.Render("~/Scripts/angular")
-    @Scripts.Render("~/Scripts/app")
+
     <!-- END THEME STYLES -->
 
 </head>
@@ -628,12 +628,21 @@
     </div>
     <script src="~/Scripts/underscore.min.js"></script>
     <script src="~/Scripts/utility/base.js"></script>
+    @Scripts.Render("~/app")
     <script>
         jQuery(document).ready(function () {
             Metronic.init(); // init metronic core componets
             Layout.init(); // init layout
             QuickSidebar.init(); // init quick sidebar
         });
+    </script>
+    <script type="text/javascript">
+
+
+   
+
+
+ 
     </script>
 @RenderSection("scripts", required: false)
 

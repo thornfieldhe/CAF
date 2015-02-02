@@ -104,3 +104,9 @@ D:\WorkStation\MyGitHub\CAF.Web\bin\Microsoft.Practices.ServiceLocation.pdb
 D:\WorkStation\MyGitHub\CAF.Web\obj\Debug\CAF.Web.csprojResolveAssemblyReference.cache
 D:\WorkStation\MyGitHub\CAF.Web\obj\Debug\CAF.Web.dll
 D:\WorkStation\MyGitHub\CAF.Web\obj\Debug\CAF.Web.pdb
+D:\WorkStation\MyGitHub\CAF.Web\bin\System.Net.Http.Formatting.dll
+D:\WorkStation\MyGitHub\CAF.Web\bin\System.Web.Http.dll
+D:\WorkStation\MyGitHub\CAF.Web\bin\System.Web.Http.WebHost.dll
+D:\WorkStation\MyGitHub\CAF.Web\bin\System.Net.Http.Formatting.xml
+D:\WorkStation\MyGitHub\CAF.Web\bin\System.Web.Http.xml
+D:\WorkStation\MyGitHub\CAF.Web\bin\System.Web.Http.WebHost.xml

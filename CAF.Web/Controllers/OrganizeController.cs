@@ -1,23 +1,17 @@
 ﻿
 namespace CAF.Web.Controllers
 {
-    using CAF.Model;
-    using System.Web.Mvc;
+    using System.Web.Http;
 
 
-    public class OrganizeController : BaseController
+
+    public class OrganizeController : ApiController
     {
-        public JsonResult Get()
+        public string[] Get()
         {
-            var organizes = Organize.GetAll();
-            return Json("", JsonRequestBehavior.AllowGet);
+            return new string[] { "1", "2" };
         }
 
-        [HttpPut]
-        public JsonResult Put()
-        {
-            var organizes = Organize.GetAll();
-            return Json("");
-        }
+
     }
 }

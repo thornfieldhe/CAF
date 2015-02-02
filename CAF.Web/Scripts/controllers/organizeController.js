@@ -1,7 +1,6 @@
-﻿var appManage = angular.module('Manage');
-
-appManage.controller('organizeController',
-    ['$scope','organizeResource',
-        function ($scope, $routeParams, organizeController) {
-            $scope.organize = organizeController.list({ key: '1'});
-        }]);
+﻿appManage.controller('organizeController',
+         function ($scope, organizeService) {
+             $scope.test = function () {
+                 $scope.getOrganizes = organizeService.getOrganizes();
+             }
+         });

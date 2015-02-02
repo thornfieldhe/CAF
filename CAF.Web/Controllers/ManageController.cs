@@ -16,7 +16,7 @@ namespace CAF.Web.Controllers
             return View();
         }
 
-        public ActionResult Organizes()
+        public ActionResult Organize()
         {
             return View();
         }

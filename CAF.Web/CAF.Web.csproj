@@ -605,7 +605,7 @@
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\restangular.js" />
     <Content Include="Scripts\restangular.min.js" />
-    <Content Include="Scripts\services\organizeResource.js" />
+    <Content Include="Scripts\services\organizeService.js" />
     <Content Include="Scripts\utility\base.js" />
     <Content Include="Scripts\utility\caf.js" />
     <Content Include="Scripts\zTree\css\demo.css" />
@@ -641,7 +641,7 @@
     <Content Include="Views\web.config" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\Users.cshtml" />
-    <Content Include="Views\Manage\Organizes.cshtml" />
+    <Content Include="Views\Manage\Organize.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

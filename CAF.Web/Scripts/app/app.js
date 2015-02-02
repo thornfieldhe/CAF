@@ -1,1 +1,1 @@
-﻿var appManage = angular.module('Manage', [ 'ngRoute', 'ngResource']);
+﻿var appManage = angular.module('Manage', ['ngRoute', 'restangular']);
