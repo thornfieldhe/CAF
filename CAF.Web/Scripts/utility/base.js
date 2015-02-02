@@ -1,4 +1,5 @@
-﻿(function () {
+﻿//jquery扩展
+(function () {
     $.fn.extend({
         sidebarOnSelect: function () {
             if ($(this).children('[class=arrow]').length==0) {
