@@ -593,7 +593,7 @@
     <Content Include="metronic\global\scripts\metronic.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\app\app.js" />
-    <Content Include="Scripts\controllers\organizeController.js" />
+    <Content Include="Scripts\app\controllers\organizeController.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />
     <Content Include="Scripts\jquery-1.9.0.min.map" />
@@ -605,7 +605,7 @@
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\restangular.js" />
     <Content Include="Scripts\restangular.min.js" />
-    <Content Include="Scripts\services\organizeService.js" />
+    <Content Include="Scripts\app\services\organizeService.js" />
     <Content Include="Scripts\utility\base.js" />
     <Content Include="Scripts\utility\caf.js" />
     <Content Include="Scripts\zTree\css\demo.css" />
@@ -637,11 +637,11 @@
     <Content Include="Scripts\zTree\js\jquery.ztree.exhide-3.5.min.js" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\web.config" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\Users.cshtml" />
-    <Content Include="Views\Manage\Organize.cshtml" />
+    <Content Include="Views\Manage\Organizes.cshtml" />
+    <Content Include="Views\Manage\Dashboard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

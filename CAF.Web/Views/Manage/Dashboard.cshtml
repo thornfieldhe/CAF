@@ -552,7 +552,7 @@
                                     <i class="icon-direction"></i>组织架构<span class="arrow"></span>
                                     <ul class="sub-menu">
                                         <li>
-                                            <a href="#/orgnizes">组织架构设置</a>
+                                            <a href="#/organizes">组织架构设置</a>
                                         </li>
                                     </ul>
                                 </a>
@@ -612,7 +612,6 @@
         </div>
         <div class="page-content-wrapper">
             <div class="page-content" >
-                @RenderBody() 
                 <div ng-view></div>
             </div>
         </div>
@@ -637,15 +636,5 @@
             QuickSidebar.init(); // init quick sidebar
         });
     </script>
-    <script type="text/javascript">
-
-
-
-
-
-
-    </script>
-    @RenderSection("scripts", required: false)
-
 </body>
 </html>

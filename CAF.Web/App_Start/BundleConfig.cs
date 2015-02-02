@@ -38,8 +38,8 @@ namespace CAF.Web
 
             bundles.Add(new ScriptBundle("~/app")
                 .Include("~/Scripts/app/app.js")
-                 .Include("~/Scripts/controllers/organizeController.js")
-                  .Include("~/Scripts/services/organizeService.js"));
+                 .Include("~/Scripts/app/controllers/organizeController.js")
+                  .Include("~/Scripts/app/services/organizeService.js"));
         }
     }
 }
