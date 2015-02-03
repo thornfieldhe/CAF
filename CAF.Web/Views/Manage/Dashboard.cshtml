@@ -14,7 +14,7 @@
     @Scripts.Render("~/Scripts/angular")
 
     <!-- END THEME STYLES -->
-
+    <base href='/Manage/' />
 </head>
 <body class="page-header-fixed " ng-app="RouteApp">
     <!-- BEGIN HEADER -->
@@ -23,7 +23,7 @@
         <div class="">
             <!-- BEGIN LOGO -->
             <div class="page-logo ">
-                <a href="#/index">
+                <a href="#!index">
                     <img src="~/metronic/admin/layout/img/logo.png" alt="logo" class="logo-default">
                 </a>
 
@@ -552,7 +552,7 @@
                                     <i class="icon-direction"></i>组织架构<span class="arrow"></span>
                                     <ul class="sub-menu">
                                         <li>
-                                            <a href="#/organizes">组织架构设置</a>
+                                            <a href="#!organizes">组织架构设置</a>
                                         </li>
                                     </ul>
                                 </a>
@@ -563,10 +563,10 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li>
-                                        <a href="#"><i class="icon-user"></i>用户管理 </a>
+                                        <a href="#!users"><i class="icon-user"></i>用户管理 </a>
                                     </li>
                                     <li>
-                                        <a href="#/users">用户角色设置 </a>
+                                        <a href="#">用户角色设置 </a>
                                     </li>
                                 </ul>
                             </li>

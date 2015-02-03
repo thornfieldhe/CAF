@@ -1,6 +1,9 @@
 ﻿var appManage = angular.module('RouteApp', ['ngRoute', 'restangular']);
 
-appManage.config(function($routeProvider) {
+
+appManage.config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+
+    $locationProvider.hashPrefix('!');
     $routeProvider.when("/organizes", {
             controller: "organizeController",
             templateUrl: "/Manage/Organizes"
@@ -13,7 +16,5 @@ appManage.config(function($routeProvider) {
             controller: "userController",
             templateUrl: "/Manage/Users"
         })
-        .otherwise({ redirectTo: '#' });
-
-
-});
+        .otherwise({ redirectTo: '/' });
+}]);
