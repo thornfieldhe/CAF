@@ -1,4 +1,5 @@
 ﻿<link href="~/metronic/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" />
+<link href="~/metronic/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" />
 <div ng-controller="organizeController">
     <h3 class="page-title">
         组织架构 <small>管理</small>
@@ -63,6 +64,83 @@
                                     </ul>
                                 </li><li role="treeitem" id="j3_14" class="jstree-node  jstree-leaf jstree-last" aria-selected="false"><i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor" href="#"><i class="jstree-icon jstree-themeicon fa fa-folder icon-state-warning icon-lg jstree-themeicon-custom"></i>Another Node</a></li>
                             </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="portlet blue box tabbable ">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>编辑
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="portlet-tabs">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#protlet_tab1" data-toggle="tab">部门角色设置</a>     
+                                </li>
+                                <li >
+                                    <a href="#protlet_tab2"   data-toggle="tab">基本信息</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="protlet_tab1">
+                                    <p>
+                                        Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent.
+                                    </p>
+                                    <div class="alert alert-warning">
+                                        <p>
+                                            There is a known issue where the dropdown menu appears to be a clipping if it placed in tabbed content. By far there is no flaxible fix for this issue as per discussion here: <a target="_blank" href="https://github.com/twitter/bootstrap/issues/3661">
+                                                https://github.com/twitter/bootstrap/issues/3661
+                                            </a>
+                                        </p>
+                                        <p>
+                                            But you can check out the below dropdown menu. Don't worry it won't get chopped out by the tab content. Instead it will be opened as dropup menu
+                                        </p>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a class="btn purple" href="#" data-toggle="dropdown">
+                                            <i class="fa fa-user"></i> Settings <i class="fa fa-angle-down"></i>
+                                        </a>
+                                        <ul class="dropdown-menu bottom-up">
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-plus"></i> Add
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-trash-o"></i> Edit
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-times"></i> Delete
+                                                </a>
+                                            </li>
+                                            <li class="divider">
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="i"></i> Full Settings
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="tab-pane " id="protlet_tab2">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo.
+                                    </p>
+                                    <p>
+                                        <a class="btn red" href="ui_tabs_accordions_navs.html#portlet_tab2" target="_blank">
+                                            Activate this tab via URL
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
