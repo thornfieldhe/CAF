@@ -18,7 +18,7 @@
     </div>
     <div>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="portlet blue-hoki box">
                     <div class="portlet-title">
                         <div class="caption">
@@ -27,6 +27,14 @@
                         <div class="tools">
                             <a href="javascript:;" class="collapse"></a>
                             <a href="javascript:;" class="reload">
+                            </a>
+                        </div>
+                        <div class="actions">
+                            <a href="#stack1" class="btn btn-default btn-sm" data-toggle="modal">
+                                <i class="fa fa-plus"></i> 新增
+                            </a>
+                            <a href="#" class="btn btn-default btn-sm">
+                                <i class="fa fa-minus"></i> 批量删除
                             </a>
                         </div>
                     </div>
@@ -68,7 +76,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <div class="portlet blue box tabbable ">
                     <div class="portlet-title">
                         <div class="caption">
@@ -77,12 +85,12 @@
                     </div>
                     <div class="portlet-body">
                         <div class="portlet-tabs">
-                            <ul class="nav nav-tabs">
+                            <ul class="nav nav-tabs ">
                                 <li class="active">
-                                    <a href="#protlet_tab1" data-toggle="tab">部门角色设置</a>     
+                                    <a href="#protlet_tab1" data-toggle="tab">用户列表</a>
                                 </li>
-                                <li >
-                                    <a href="#protlet_tab2"   data-toggle="tab">基本信息</a>
+                                <li>
+                                    <a href="#protlet_tab2" data-toggle="tab">基本信息</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
@@ -93,8 +101,8 @@
                                     <div class="alert alert-warning">
                                         <p>
                                             There is a known issue where the dropdown menu appears to be a clipping if it placed in tabbed content. By far there is no flaxible fix for this issue as per discussion here: <a target="_blank" href="https://github.com/twitter/bootstrap/issues/3661">
-                                                https://github.com/twitter/bootstrap/issues/3661
-                                            </a>
+                                                                                                                                                                                                                               https://github.com/twitter/bootstrap/issues/3661
+                                                                                                                                                                                                                           </a>
                                         </p>
                                         <p>
                                             But you can check out the below dropdown menu. Don't worry it won't get chopped out by the tab content. Instead it will be opened as dropup menu
@@ -130,16 +138,107 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="tab-pane " id="protlet_tab2">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo.
-                                    </p>
-                                    <p>
-                                        <a class="btn red" href="ui_tabs_accordions_navs.html#portlet_tab2" target="_blank">
-                                            Activate this tab via URL
-                                        </a>
-                                    </p>
+                                <div class="tab-pane form" id="protlet_tab2">
+      
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="stack1" class="modal fade " tabindex="-1" data-width="300" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title">新增部门</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form action="#" id="form_editOrganize" class="form-horizontal" novalidate="novalidate">
+                                    <div class="form-body">
+                                        <div class="alert alert-danger display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            You have some form errors. Please check below.
+                                        </div>
+                                        <div class="alert alert-success display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            Your form validation is successful!
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label class="control-label col-md-3">
+                                                部门名称 <span class="required" aria-required="true">
+                                                    *
+                                                </span>
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <i class="fa fa-check" data-original-title=""></i>
+                                                    <input type="text" class="form-control" name="name" aria-required="true" aria-invalid="false">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label class="control-label col-md-3">
+                                                部门编码 <span class="required" aria-required="true">
+                                                    *
+                                                </span>
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <i class="fa fa-check" data-original-title=""></i>
+                                                    <input type="text" class="form-control" name="number" aria-required="true" aria-invalid="false">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label class="control-label col-md-3">
+                                                部门层级
+                                            </label>
+                                                    <label class="control-label  col-md-9">123456</label>
+                                        </div>
+                                        <div class="form-group has-error">
+                                            <label class="control-label col-md-3">
+                                                排序 <span class="required" aria-required="true">
+                                                    *
+                                                </span>
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-icon right">
+                                                    <i class="fa fa-warning" data-original-title="Please enter a valid URL."></i>
+                                                    <input type="number" class="form-control" name="url" aria-required="true" aria-invalid="true">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label class="control-label col-md-3">
+                                                父部门 
+                                            </label>
+                                            <label class="control-label  col-md-9">集团公司</label>
+                                        </div>
+                                        <div class="form-group has-error">
+                                            <label class="control-label col-md-3">
+                                                备注
+                                            </label>
+                                            <div class="col-md-9">
+                                                <textarea class="form-control" name="creditcard" >    </textarea>
+                                                <span class="help-block">
+                                                    描述信息
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-offset-3 col-md-9 modal-footer">
+                                                <button type="submit" class="btn green">新增</button>
+                                                <button type="button" data-dismiss="modal" class="btn">取消</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

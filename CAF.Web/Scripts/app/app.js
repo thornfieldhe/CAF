@@ -3,19 +3,20 @@
 
 appManage.config([
         '$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-            $locationProvider.html5Mode(false).hashPrefix('!');
-            $routeProvider.when("/organizes", {
-                    controller: "organizeController",
-                    templateUrl: "/Manage/Organizes"
-                })
-                .when("/index", {
-                    controller: "indexController",
-                    templateUrl: "/Manage/Index"
-                })
-                .when("/users", {
-                    controller: "userController",
-                    templateUrl: "/Manage/Users"
-                })
-                .otherwise({ redorectTo: "/" });
-        }
+            //            $locationProvider.html5Mode(false).hashPrefix('!');
+        $locationProvider.html5Mode(true);
+        $routeProvider.when("/Organizes", {
+                controller: "organizeController",
+                templateUrl: "/Manage/Organizes",
+                reloadOnSearch: false
+            })
+            .when("/Index", {
+                controller: "indexController",
+                templateUrl: "/Manage/Index"
+            })
+            .when("/Users", {
+                controller: "userController",
+                templateUrl: "/Manage/Users"
+            });
+    }
     ]);
