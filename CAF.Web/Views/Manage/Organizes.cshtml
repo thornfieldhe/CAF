@@ -1,5 +1,8 @@
 ﻿<link href="~/metronic/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" />
 <link href="~/metronic/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" />
+<script src="~/metronic/global/plugins/jstree/dist/jstree.min.js"></script>
+<script src="~/metronic/admin/pages/scripts/ui-tree.js"></script>
+<script src="~/metronic/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js"></script>
 <div ng-controller="organizeController">
     <h3 class="page-title">
         组织架构 <small>管理</small>
@@ -8,9 +11,9 @@
         <ul class="page-breadcrumb">
             <li>
                 <i class="fa fa-home"></i>
-                <a href="#/index">主页</a>
+                <a href="Dashboard">主页</a>
                 <i class="fa fa-angle-right"></i>
-                <a href="#/organizes">组织架构</a>
+                <a href="Organizes">组织架构</a>
             </li>
         </ul>
     </div>
@@ -30,7 +33,7 @@
                             </a>
                         </div>
                         <div class="actions">
-                            <a href="#stack1" class="btn btn-default btn-sm" data-toggle="modal">
+                            <a href="#stack1" class="btn btn-default btn-sm" data-toggle="modal" ng-click="newOrganize()">
                                 <i class="fa fa-plus"></i> 新增
                             </a>
                             <a href="#" class="btn btn-default btn-sm">
@@ -50,17 +53,18 @@
                                     <ul role="group" class="jstree-children">
                                         <li role="treeitem" id="j3_2" class="jstree-node  jstree-leaf" aria-selected="false">
                                             <i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor jstree-clicked" href="#">
-                                                                                      <i class="jstree-icon jstree-themeicon fa fa-folder icon-state-warning icon-lg jstree-themeicon-custom">
-                                                                                      </i>Initially selected
-                                                                                  </a>
-                                        </li><li role="treeitem" id="j3_3" class="jstree-node  jstree-leaf" aria-selected="false">
-                                                 <i class="jstree-icon jstree-ocl">
-                                                 </i>
-                                                 <a class="jstree-anchor" href="#">
-                                                     <i class="jstree-icon jstree-themeicon fa fa-warning icon-state-danger jstree-themeicon-custom">
-                                                     </i>Custom Icon
-                                                 </a>
-                                             </li>
+                                                <i class="jstree-icon jstree-themeicon fa fa-folder icon-state-warning icon-lg jstree-themeicon-custom">
+                                                </i>Initially selected
+                                            </a>
+                                        </li>
+                                        <li role="treeitem" id="j3_3" class="jstree-node  jstree-leaf" aria-selected="false">
+                                            <i class="jstree-icon jstree-ocl">
+                                            </i>
+                                            <a class="jstree-anchor" href="#">
+                                                <i class="jstree-icon jstree-themeicon fa fa-warning icon-state-danger jstree-themeicon-custom">
+                                                </i>Custom Icon
+                                            </a>
+                                        </li>
                                         <li role="treeitem" aria-expanded="true" id="j3_4" class="jstree-node  jstree-open" aria-selected="false">
                                             <i class="jstree-icon jstree-ocl"></i>
                                             <a class="jstree-anchor" href="#">
@@ -68,9 +72,13 @@
                                                 Initially open
                                             </a>
                                             <ul role="group" class="jstree-children"><li role="treeitem" id="j3_5" class="jstree-node  jstree-leaf jstree-last" aria-selected="false"><i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor" href="#"><i class="jstree-icon jstree-themeicon fa fa-file icon-state-warning jstree-themeicon-custom"></i>Another node</a></li></ul>
-                                        </li><li role="treeitem" id="j3_6" class="jstree-node  jstree-leaf" aria-selected="false"><i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor" href="#"><i class="jstree-icon jstree-themeicon fa fa-warning icon-state-warning jstree-themeicon-custom"></i>Another Custom Icon</a></li><li role="treeitem" id="j3_7" class="jstree-node  jstree-leaf" aria-selected="false"><i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor  jstree-disabled" href="#"><i class="jstree-icon jstree-themeicon fa fa-check icon-state-success jstree-themeicon-custom"></i>Disabled Node</a></li><li role="treeitem" aria-expanded="false" id="j3_8" class="jstree-node  jstree-closed jstree-last" aria-selected="false"><i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor" href="#"><i class="jstree-icon jstree-themeicon fa fa-folder icon-state-danger jstree-themeicon-custom"></i>Sub Nodes</a></li>
+                                        </li>
+                                        <li role="treeitem" id="j3_6" class="jstree-node  jstree-leaf" aria-selected="false"><i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor" href="#"><i class="jstree-icon jstree-themeicon fa fa-warning icon-state-warning jstree-themeicon-custom"></i>Another Custom Icon</a></li>
+                                        <li role="treeitem" id="j3_7" class="jstree-node  jstree-leaf" aria-selected="false"><i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor  jstree-disabled" href="#"><i class="jstree-icon jstree-themeicon fa fa-check icon-state-success jstree-themeicon-custom"></i>Disabled Node</a></li>
+                                        <li role="treeitem" aria-expanded="false" id="j3_8" class="jstree-node  jstree-closed jstree-last" aria-selected="false"><i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor" href="#"><i class="jstree-icon jstree-themeicon fa fa-folder icon-state-danger jstree-themeicon-custom"></i>Sub Nodes</a></li>
                                     </ul>
-                                </li><li role="treeitem" id="j3_14" class="jstree-node  jstree-leaf jstree-last" aria-selected="false"><i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor" href="#"><i class="jstree-icon jstree-themeicon fa fa-folder icon-state-warning icon-lg jstree-themeicon-custom"></i>Another Node</a></li>
+                                </li>
+                                <li role="treeitem" id="j3_14" class="jstree-node  jstree-leaf jstree-last" aria-selected="false"><i class="jstree-icon jstree-ocl"></i><a class="jstree-anchor" href="#"><i class="jstree-icon jstree-themeicon fa fa-folder icon-state-warning icon-lg jstree-themeicon-custom"></i>Another Node</a></li>
                             </ul>
                         </div>
                     </div>
@@ -101,8 +109,8 @@
                                     <div class="alert alert-warning">
                                         <p>
                                             There is a known issue where the dropdown menu appears to be a clipping if it placed in tabbed content. By far there is no flaxible fix for this issue as per discussion here: <a target="_blank" href="https://github.com/twitter/bootstrap/issues/3661">
-                                                                                                                                                                                                                               https://github.com/twitter/bootstrap/issues/3661
-                                                                                                                                                                                                                           </a>
+                                                https://github.com/twitter/bootstrap/issues/3661
+                                            </a>
                                         </p>
                                         <p>
                                             But you can check out the below dropdown menu. Don't worry it won't get chopped out by the tab content. Instead it will be opened as dropup menu
@@ -139,7 +147,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane form" id="protlet_tab2">
-      
+
                                 </div>
                             </div>
                         </div>
@@ -147,99 +155,101 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div id="stack1" class="modal fade " tabindex="-1" data-width="300" aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                <h4 class="modal-title">新增部门</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form action="#" id="form_editOrganize" class="form-horizontal" novalidate="novalidate">
-                                    <div class="form-body">
-                                        <div class="alert alert-danger display-hide">
-                                            <button class="close" data-close="alert"></button>
-                                            You have some form errors. Please check below.
+        <div>
+            <div id="stack1" class="modal fade " tabindex="-1" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog " style="width:400px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">{{Organize.Title}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="#" id="form_editOrganize" name="form_editOrganize"  class="form-horizontal" >
+                                <div class="form-body">
+                                    <div class="alert alert-danger display-hide">
+                                        <button class="close" data-close="alert"></button>
+                                        You have some form errors. Please check below.
+                                    </div>
+                                    <div class="alert alert-success display-hide">
+                                        <button class="close" data-close="alert"></button>
+                                        Your form validation is successful!
+                                    </div>
+                                    <div class="form-group " ng-class="{'has-error': form_editOrganize.organizeName.$dirty && form_editOrganize.organizeName.$invalid}">
+                                        <label class="control-label col-md-4 ">
+                                            部门名称 <span class="required">
+                                                     *
+                                                 </span>
+                                        </label>
+                                        <div class="col-md-8 input-icon input-medium">
+                                            <input type="text" class="form-control" ng-model="Organize.Name" required ng-minlength="2" name="organizeName">
+                                            <span class="help-block " ng-show="form_editOrganize.organizeName.$dirty && form_editOrganize.organizeName.$error.required">名称不能为空.</span>
+                                            <span class="help-block " ng-show="form_editOrganize.organizeName.$dirty && form_editOrganize.organizeName.$error.minlength">请输入最少2个汉字.</span>
                                         </div>
-                                        <div class="alert alert-success display-hide">
-                                            <button class="close" data-close="alert"></button>
-                                            Your form validation is successful!
+                                    </div>
+                                    <div class="form-group " ng-class="{'has-error': form_editOrganize.organizeCode.$dirty && form_editOrganize.organizeCode.$invalid}">
+                                        <label class="control-label col-md-4">
+                                            部门编码 <span class="required">
+                                                *
+                                            </span>
+                                        </label>
+                                        <div class="col-md-8 input-medium">
+                                            <input type="text" class="form-control" ng-model="Organize.Code" required ng-pattern="/^\d{4}$/" name="organizeCode">
+                                            <span class="help-block " ng-show="form_editOrganize.organizeCode.$dirty && form_editOrganize.organizeCode.$error.required">名称不能为空.</span>
+                                            <span class="help-block " ng-show="form_editOrganize.organizeCode.$dirty && form_editOrganize.organizeCode.$error.pattern">请输入4位数字.</span>
                                         </div>
-                                        <div class="form-group has-success">
-                                            <label class="control-label col-md-3">
-                                                部门名称 <span class="required" aria-required="true">
-                                                    *
-                                                </span>
-                                            </label>
-                                            <div class="col-md-9">
-                                                <div class="input-icon right">
-                                                    <i class="fa fa-check" data-original-title=""></i>
-                                                    <input type="text" class="form-control" name="name" aria-required="true" aria-invalid="false">
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="control-label col-md-4">
+                                            部门层级
+                                        </label>
+                                        <label class="control-label  col-md-8 input-medium">{{Organize.Level}}</label>
+                                    </div>
+                                    <div class="form-group " ng-class="{'has-error': form_editOrganize.organizeSort.$dirty && form_editOrganize.organizeSort.$invalid}">
+                                        <label class="control-label col-md-4">
+                                            排序 <span class="required" >
+                                                *
+                                            </span>
+                                        </label>
+                                        <div class="col-md-8 input-medium">
+                                            <input type="text" ng-model="Organize.Sort" required ng-pattern="/^(\d)+$/" name="organizeSort" class="form-control input-medium">
+                                            <span class="help-block " ng-show="form_editOrganize.organizeSort.$dirty && form_editOrganize.organizeSort.$error.required">排序不能为空.</span>
+                                            <span class="help-block " ng-show="form_editOrganize.organizeSort.$dirty && form_editOrganize.organizeSort.$error.pattern">请输入数字.</span>
+                                            <div class="input-inline ">
+                                                <div class="input-group bootstrap-touchspin" style="width:150px">
+                                                    <span class="input-group-btn"><button class="btn green bootstrap-touchspin-down" type="button">-</button></span>
+                                                    <input id="touchspin_demo1" type="text" value="55" name="demo1" class="form-control" style="display: block;">
+                                                    <span class="input-group-btn"><button class="btn green bootstrap-touchspin-up" type="button">+</button></span>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group has-success">
-                                            <label class="control-label col-md-3">
-                                                部门编码 <span class="required" aria-required="true">
-                                                    *
-                                                </span>
-                                            </label>
-                                            <div class="col-md-9">
-                                                <div class="input-icon right">
-                                                    <i class="fa fa-check" data-original-title=""></i>
-                                                    <input type="text" class="form-control" name="number" aria-required="true" aria-invalid="false">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group ">
-                                            <label class="control-label col-md-3">
-                                                部门层级
-                                            </label>
-                                                    <label class="control-label  col-md-9">123456</label>
-                                        </div>
-                                        <div class="form-group has-error">
-                                            <label class="control-label col-md-3">
-                                                排序 <span class="required" aria-required="true">
-                                                    *
-                                                </span>
-                                            </label>
-                                            <div class="col-md-9">
-                                                <div class="input-icon right">
-                                                    <i class="fa fa-warning" data-original-title="Please enter a valid URL."></i>
-                                                    <input type="number" class="form-control" name="url" aria-required="true" aria-invalid="true">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group has-success">
-                                            <label class="control-label col-md-3">
-                                                父部门 
-                                            </label>
-                                            <label class="control-label  col-md-9">集团公司</label>
-                                        </div>
-                                        <div class="form-group has-error">
-                                            <label class="control-label col-md-3">
-                                                备注
-                                            </label>
-                                            <div class="col-md-9">
-                                                <textarea class="form-control" name="creditcard" >    </textarea>
-                                                <span class="help-block">
-                                                    描述信息
-                                                </span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-actions">
-                                        <div class="row">
-                                            <div class="col-md-offset-3 col-md-9 modal-footer">
-                                                <button type="submit" class="btn green">新增</button>
-                                                <button type="button" data-dismiss="modal" class="btn">取消</button>
-                                            </div>
+                                    <div class="form-group ">
+                                        <label class="control-label col-md-4">
+                                            父部门
+                                        </label>
+                                        <label class="control-label  col-md-8 input-medium">{{Organize.Parent}}</label>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="control-label col-md-4">
+                                            备注
+                                        </label>
+                                        <div class="col-md-8 input-medium">
+                                            <textarea class="form-control" name="creditcard">    </textarea>
+                                            <small class="help-block">
+                                                描述信息
+                                            </small>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-9 modal-footer">
+                                            <button type="submit" class="btn green" data-dismiss="modal">新增</button>
+                                            <button type="button" data-dismiss="modal" class="btn">取消</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -247,8 +257,7 @@
         </div>
     </div>
 </div>
-<script src="~/metronic/global/plugins/jstree/dist/jstree.min.js"></script>
-<script src="~/metronic/admin/pages/scripts/ui-tree.js"></script>
+
 <script>
     jQuery(document).ready(function () {
         UITree.init();

@@ -1,7 +1,10 @@
 ﻿appManage.controller('organizeController',
          function ($scope, organizeService) {
-             $scope.test = function () {
-                 console.log('ddd');
-                 $scope.getOrganizes = organizeService.getOrganizes();
+             $scope.newOrganize = function () {
+                 console.log("xxx");
+                 $scope.Organize = organizeService.newOrganize();
+                 $scope.$watch("Organize.Level", function(newAccount) {
+                     console.log(123);
+                 });
              }
          });

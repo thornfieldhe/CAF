@@ -1,4 +1,4 @@
-﻿var appManage = angular.module('RouteApp', ['ngRoute', 'restangular']);
+﻿var appManage = angular.module('RouteApp', ['ngMessages','ngRoute', 'restangular']);
 
 
 appManage.config([
