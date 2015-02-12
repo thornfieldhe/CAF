@@ -85,171 +85,118 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <div class="portlet blue box tabbable ">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <i class="fa fa-cogs"></i>编辑
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-                        <div class="portlet-tabs">
-                            <ul class="nav nav-tabs ">
-                                <li class="active">
-                                    <a href="#protlet_tab1" data-toggle="tab">用户列表</a>
-                                </li>
-                                <li>
-                                    <a href="#protlet_tab2" data-toggle="tab">基本信息</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="protlet_tab1">
-                                    <p>
-                                        Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent.
-                                    </p>
-                                    <div class="alert alert-warning">
-                                        <p>
-                                            There is a known issue where the dropdown menu appears to be a clipping if it placed in tabbed content. By far there is no flaxible fix for this issue as per discussion here: <a target="_blank" href="https://github.com/twitter/bootstrap/issues/3661">
-                                                https://github.com/twitter/bootstrap/issues/3661
-                                            </a>
-                                        </p>
-                                        <p>
-                                            But you can check out the below dropdown menu. Don't worry it won't get chopped out by the tab content. Instead it will be opened as dropup menu
-                                        </p>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a class="btn purple" href="#" data-toggle="dropdown">
-                                            <i class="fa fa-user"></i> Settings <i class="fa fa-angle-down"></i>
-                                        </a>
-                                        <ul class="dropdown-menu bottom-up">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-plus"></i> Add
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-trash-o"></i> Edit
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-times"></i> Delete
-                                                </a>
-                                            </li>
-                                            <li class="divider">
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="i"></i> Full Settings
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="tab-pane form" id="protlet_tab2">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <div>
             <div id="stack1" class="modal fade " tabindex="-1" aria-hidden="true" style="display: none;">
-                <div class="modal-dialog " style="width:400px">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                            <h4 class="modal-title">{{Organize.Title}}</h4>
+                <div class="modal-dialog " style="width:500px">
+                    <div class="portlet blue-hoki box  ">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-gift"></i>{{Organize.Title}}
+                            </div>
+                            <div class="tools">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <form action="#" id="form_editOrganize" name="form_editOrganize"  class="form-horizontal" >
-                                <div class="form-body">
-                                    <div class="alert alert-danger display-hide">
-                                        <button class="close" data-close="alert"></button>
-                                        You have some form errors. Please check below.
-                                    </div>
-                                    <div class="alert alert-success display-hide">
-                                        <button class="close" data-close="alert"></button>
-                                        Your form validation is successful!
-                                    </div>
-                                    <div class="form-group " ng-class="{'has-error': form_editOrganize.organizeName.$dirty && form_editOrganize.organizeName.$invalid}">
-                                        <label class="control-label col-md-4 ">
-                                            部门名称 <span class="required">
-                                                     *
-                                                 </span>
-                                        </label>
-                                        <div class="col-md-8 input-icon input-medium">
-                                            <input type="text" class="form-control" ng-model="Organize.Name" required ng-minlength="2" name="organizeName">
-                                            <span class="help-block " ng-show="form_editOrganize.organizeName.$dirty && form_editOrganize.organizeName.$error.required">名称不能为空.</span>
-                                            <span class="help-block " ng-show="form_editOrganize.organizeName.$dirty && form_editOrganize.organizeName.$error.minlength">请输入最少2个汉字.</span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group " ng-class="{'has-error': form_editOrganize.organizeCode.$dirty && form_editOrganize.organizeCode.$invalid}">
-                                        <label class="control-label col-md-4">
-                                            部门编码 <span class="required">
-                                                *
-                                            </span>
-                                        </label>
-                                        <div class="col-md-8 input-medium">
-                                            <input type="text" class="form-control" ng-model="Organize.Code" required ng-pattern="/^\d{4}$/" name="organizeCode">
-                                            <span class="help-block " ng-show="form_editOrganize.organizeCode.$dirty && form_editOrganize.organizeCode.$error.required">名称不能为空.</span>
-                                            <span class="help-block " ng-show="form_editOrganize.organizeCode.$dirty && form_editOrganize.organizeCode.$error.pattern">请输入4位数字.</span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label class="control-label col-md-4">
-                                            部门层级
-                                        </label>
-                                        <label class="control-label  col-md-8 input-medium">{{Organize.Level}}</label>
-                                    </div>
-                                    <div class="form-group " ng-class="{'has-error': form_editOrganize.organizeSort.$dirty && form_editOrganize.organizeSort.$invalid}">
-                                        <label class="control-label col-md-4">
-                                            排序 <span class="required" >
-                                                *
-                                            </span>
-                                        </label>
-                                        <div class="col-md-8 input-medium">
-                                            <input type="text" ng-model="Organize.Sort" required ng-pattern="/^(\d)+$/" name="organizeSort" class="form-control input-medium">
-                                            <span class="help-block " ng-show="form_editOrganize.organizeSort.$dirty && form_editOrganize.organizeSort.$error.required">排序不能为空.</span>
-                                            <span class="help-block " ng-show="form_editOrganize.organizeSort.$dirty && form_editOrganize.organizeSort.$error.pattern">请输入数字.</span>
-                                            <div class="input-inline ">
-                                                <div class="input-group bootstrap-touchspin" style="width:150px">
-                                                    <span class="input-group-btn"><button class="btn green bootstrap-touchspin-down" type="button">-</button></span>
-                                                    <input id="touchspin_demo1" type="text" value="55" name="demo1" class="form-control" style="display: block;">
-                                                    <span class="input-group-btn"><button class="btn green bootstrap-touchspin-up" type="button">+</button></span>
+                        <div class="portlet-body tabbable-custom">
+                            <ul class="nav nav-tabs tabs-reversed">
+                                <li>
+                                    <a href="#protlet_tab1" data-toggle="tab">部门角色设置</a>
+                                </li>
+                                <li class="active">
+                                    <a href="#protlet_tab2" data-toggle="tab">基本信息</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade " id="protlet_tab1">
+
+                                </div>
+                                <div class="tab-pane fade active in " id="protlet_tab2">
+                                            <form action="#" id="form_editOrganize" name="form_editOrganize" class=" form-horizontal ">
+                                                <div class=" form form-body  ">
+                                                    <div class="alert alert-danger display-hide form-group">
+                                                        <button class="close" data-close="alert"></button>
+                                                        You have some form errors. Please check below.
+                                                    </div>
+                                                    <div class="alert alert-success display-hide form-group">
+                                                        <button class="close" data-close="alert"></button>
+                                                        Your form validation is successful!
+                                                    </div>
+                                                    <div class="form-group " ng-class="{'has-error': form_editOrganize.organizeName.$dirty && form_editOrganize.organizeName.$invalid}">
+                                                        <div class="control-label col-md-3">
+                                                            部门名称 <span class="required">*</span>
+                                                        </div>
+                                                        <div class="col-md-6 input-medium">
+                                                            <input type="text" class="form-control input-sm" ng-model="Organize.Name" required ng-minlength="2" name="organizeName">
+                                                            <span class="help-block " ng-show="form_editOrganize.organizeName.$dirty && form_editOrganize.organizeName.$error.required">名称不能为空.</span>
+                                                            <span class="help-block " ng-show="form_editOrganize.organizeName.$dirty && form_editOrganize.organizeName.$error.minlength">请输入最少2个汉字.</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group " ng-class="{'has-error': form_editOrganize.organizeCode.$dirty && form_editOrganize.organizeCode.$invalid}">
+                                                        <div class="control-label col-md-3">
+                                                            部门编码 <span class="required">*</span>
+                                                        </div>
+                                                        <div class="col-md-6 input-medium">
+                                                            <input type="text" class="form-control input-sm" ng-model="Organize.Code" required ng-pattern="/^\d{4}$/" name="organizeCode">
+                                                            <span class="help-block " ng-show="form_editOrganize.organizeCode.$dirty && form_editOrganize.organizeCode.$error.required">名称不能为空.</span>
+                                                            <span class="help-block " ng-show="form_editOrganize.organizeCode.$dirty && form_editOrganize.organizeCode.$error.pattern">请输入4位数字.</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="control-label col-md-3">
+                                                            部门层级&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        </div>
+                                                        <div class=" col-md-6 input-medium">
+                                                            <input type="text" class="form-control input-sm" ng-model="Organize.Level" readonly="readonly" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group " ng-class="{'has-error': form_editOrganize.organizeSort.$dirty && form_editOrganize.organizeSort.$invalid}">
+                                                        <div class="control-label col-md-3">
+                                                            排序 <span class="required">*</span>
+                                                        </div>
+                                                        <div class="col-md-6 ">
+                                                            <div class="input-inline input-medium">
+                                                                <div class="input-group bootstrap-touchspin" style="width:150px">
+                                                                    <span class="input-group-btn "></span>
+                                                                    <input id="organizeSort" type="text" ng-model="Organize.Sort" required ng-pattern="/^(\d)+$/" name="organizeSort" class="form-control ">
+                                                                    <span class="input-group-btn "></span>
+                                                                </div>
+                                                            </div>
+                                                            <span class="help-block " ng-show="form_editOrganize.organizeSort.$dirty && form_editOrganize.organizeSort.$error.required">排序不能为空.</span>
+                                                            <span class="help-block " ng-show="form_editOrganize.organizeSort.$dirty && form_editOrganize.organizeSort.$error.pattern">请输入数字.</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <div class="control-label col-md-3">
+                                                            父部门&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        </div>
+                                                        <div class="col-md-6 input-medium"><input type="text" class="form-control input-sm" ng-model="Organize.Parent" readonly="readonly" /></div>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <div class="control-label col-md-3">
+                                                            备注&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        </div>
+                                                        <div class="col-md-6 ">
+                                                            <textarea class="form-control" name="OrganizeNote" ng-model="Organize.Note">    </textarea>
+                                                            <small class="help-block">
+                                                                描述信息
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <h6 class="form-section"></h6>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label class="control-label col-md-4">
-                                            父部门
-                                        </label>
-                                        <label class="control-label  col-md-8 input-medium">{{Organize.Parent}}</label>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label class="control-label col-md-4">
-                                            备注
-                                        </label>
-                                        <div class="col-md-8 input-medium">
-                                            <textarea class="form-control" name="creditcard">    </textarea>
-                                            <small class="help-block">
-                                                描述信息
-                                            </small>
-                                        </div>
-                                    </div>
+                                                <div class="form-actions">
+                                                    <div class="row">
+                                                        <div class="col-md-offset-3 col-md-9">
+                                                            <button type="submit" class="btn blue btn-sm"><i class="fa fa-check"></i> 新增</button>
+                                                            <button type="button" class="btn default btn-sm" data-dismiss="modal" aria-hidden="true">关闭</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
                                 </div>
-                                <div class="form-actions">
-                                    <div class="row">
-                                        <div class="col-md-offset-3 col-md-9 modal-footer">
-                                            <button type="submit" class="btn green" data-dismiss="modal">新增</button>
-                                            <button type="button" data-dismiss="modal" class="btn">取消</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -261,5 +208,14 @@
 <script>
     jQuery(document).ready(function () {
         UITree.init();
+
+        $("#organizeSort").TouchSpin({
+            buttondown_class: 'btn green',
+            buttonup_class: 'btn green',
+            min: 0,
+            max: 1000000000,
+            stepinterval: 1,
+            maxboostedstep: 10000000
+        });
     });
 </script>
