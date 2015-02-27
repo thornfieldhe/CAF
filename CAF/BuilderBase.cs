@@ -1,9 +1,5 @@
-﻿using System;
+﻿using CAF.Core;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
-using CAF.Core;
 namespace CAF
 {
     public class BuilderBase
@@ -17,17 +13,17 @@ namespace CAF
         /// </summary>
         private void DiscoveryBuildSteps()
         {
-            IList<MethodInfo> methods = AttributeHelper.GetMethodsWithCustomAttribute<BuildStepAttribute>(this.GetType());
+            var methods = AttributeHelper.GetMethodsWithCustomAttribute<BuildStepAttribute>(this.GetType());
             if (methods != null && methods.Count > 0)
             {
-                BuildStepAttribute[] attributes = new BuildStepAttribute[methods.Count];
-                Dictionary<Type, IList<BuildStepAttribute>> buildSetupAttributes = SingletonBase<CAFConfiguration>.Instance.ObjectBuilders;
-                for (int i = 0; i < methods.Count; i++)
+                var attributes = new BuildStepAttribute[methods.Count];
+                var buildSetupAttributes = SingletonBase<CAFConfiguration>.Instance.ObjectBuilders;
+                for (var i = 0; i < methods.Count; i++)
                 {
-                    BuildStepAttribute attribute = AttributeHelper.GetMethodCustomAttribute<BuildStepAttribute>(methods[i]);
+                    var attribute = AttributeHelper.GetMethodCustomAttribute<BuildStepAttribute>(methods[i]);
                     IList<BuildStepAttribute> steps = new List<BuildStepAttribute>();
                     buildSetupAttributes.TryGetValue(this.GetType(), out steps);
-                    foreach (BuildStepAttribute item in steps)
+                    foreach (var item in steps)
                     {
                         if (item.Name == attribute.Name)
                         {
@@ -39,9 +35,9 @@ namespace CAF
                 }
                 if (attributes != null)
                 {
-                    foreach (BuildStepAttribute attribute in attributes)
+                    foreach (var attribute in attributes)
                     {
-                        for (int i = 0; i < attribute.Times; i++)
+                        for (var i = 0; i < attribute.Times; i++)
                         {
                             attribute.Handler.Invoke(this, null);
                         }

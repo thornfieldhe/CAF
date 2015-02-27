@@ -42,14 +42,14 @@ namespace CAF.Utility
             //对数组进行随机排序的算法:随机选择两个位置，将两个位置上的值交换
 
             //交换的次数,这里使用数组的长度作为交换次数
-            int count = arr.Length;
+            var count = arr.Length;
 
             //开始交换
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 //生成两个随机数位置
-                int randomNum1 = GetRandomInt(0, arr.Length);
-                int randomNum2 = GetRandomInt(0, arr.Length);
+                var randomNum1 = GetRandomInt(0, arr.Length);
+                var randomNum2 = GetRandomInt(0, arr.Length);
 
                 //定义临时变量
                 T temp;
@@ -66,14 +66,14 @@ namespace CAF.Utility
         private static int rep = 0;
         public static string GenerateCheckCodeNum(int codeCount)
         {
-            int rep = 0;
-            string str = string.Empty;
-            long num2 = DateTime.Now.Ticks + rep;
+            var rep = 0;
+            var str = string.Empty;
+            var num2 = DateTime.Now.Ticks + rep;
             rep++;
-            Random random = new Random(((int)(((ulong)num2) & 0xffffffffL)) | ((int)(num2 >> rep)));
-            for (int i = 0; i < codeCount; i++)
+            var random = new Random(((int)(((ulong)num2) & 0xffffffffL)) | ((int)(num2 >> rep)));
+            for (var i = 0; i < codeCount; i++)
             {
-                int num = random.Next();
+                var num = random.Next();
                 str = str + ((char)(0x30 + ((ushort)(num % 10)))).ToString();
             }
             return str;
@@ -82,14 +82,14 @@ namespace CAF.Utility
         //方法二：随机生成字符串（数字和字母混和）
         public static string GenerateCheckCode(int codeCount)
         {
-            string str = string.Empty;
-            long num2 = DateTime.Now.Ticks + rep;
+            var str = string.Empty;
+            var num2 = DateTime.Now.Ticks + rep;
             rep++;
-            Random random = new Random(((int)(((ulong)num2) & 0xffffffffL)) | ((int)(num2 >> rep)));
-            for (int i = 0; i < codeCount; i++)
+            var random = new Random(((int)(((ulong)num2) & 0xffffffffL)) | ((int)(num2 >> rep)));
+            for (var i = 0; i < codeCount; i++)
             {
                 char ch;
-                int num = random.Next();
+                var num = random.Next();
                 if ((num % 2) == 0)
                 {
                     ch = (char)(0x30 + ((ushort)(num % 10)));
@@ -118,18 +118,18 @@ namespace CAF.Utility
             {
                 allChar = "1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,i,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z";
             }
-            string[] allCharArray = allChar.Split(',');
-            string randomCode = "";
-            int temp = -1;
+            var allCharArray = allChar.Split(',');
+            var randomCode = "";
+            var temp = -1;
             var rand = new Random(Guid.NewGuid().GetHashCode());
-            for (int i = 0; i < codeCount; i++)
+            for (var i = 0; i < codeCount; i++)
             {
                 if (temp != -1)
                 {
                     rand = new Random(temp * i * ((int)DateTime.Now.Ticks));
                 }
 
-                int t = rand.Next(allCharArray.Length - 1);
+                var t = rand.Next(allCharArray.Length - 1);
 
                 while (temp == t)
                 {
@@ -150,7 +150,7 @@ namespace CAF.Utility
         /// <returns></returns>
         public static string GetDateRnd()
         {
-            DateTime dtTmp = DateTime.Now;
+            var dtTmp = DateTime.Now;
             return dtTmp.ToString("yyMMddhhmmss") + GetRndNum(3);
         }
 
@@ -158,7 +158,7 @@ namespace CAF.Utility
         /// <returns></returns>
         public static string GetRndKey()
         {
-            DateTime dtTmp = DateTime.Now;
+            var dtTmp = DateTime.Now;
             return dtTmp.ToString("yyMMddhhmmss") + GetRndNum(3, true);
         }
 
@@ -168,16 +168,16 @@ namespace CAF.Utility
         /// <returns></returns>
         public static string GetRndNum(int n, bool isStr = false)
         {
-            string cChar = "0123456789";
+            var cChar = "0123456789";
             if (isStr)
             {
                 cChar = "abcdefghijklmnopqrstuvwxyz0123456789";
             }
 
-            int cLen = cChar.Length;
-            string sRet = "";
+            var cLen = cChar.Length;
+            var sRet = "";
             var rnd = new Random(Guid.NewGuid().GetHashCode());
-            for (int i = 0; i < n; i++)
+            for (var i = 0; i < n; i++)
             {
                 sRet += cChar[rnd.Next(0, cLen)].ToString();
             }
@@ -191,7 +191,7 @@ namespace CAF.Utility
         public static int GetRndNext(int min, int max)
         {
             var rnd = new Random(Guid.NewGuid().GetHashCode());
-            int t = 0;
+            var t = 0;
             if (min > max)
             {
                 t = min;

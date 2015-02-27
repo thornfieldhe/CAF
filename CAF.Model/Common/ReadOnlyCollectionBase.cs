@@ -88,11 +88,11 @@ namespace CAF
         /// <returns></returns>
         protected Dictionary<string, object> Compute(IDbConnection conn, string fileds, string methodType)
         {
-            Dictionary<string, object> method = new Dictionary<string, object>();
+            var method = new Dictionary<string, object>();
             if (!string.IsNullOrWhiteSpace(fileds))
             {
                 var paras = fileds.Trim().Split(',');
-                for (int i = 0; i < paras.Length; i++)
+                for (var i = 0; i < paras.Length; i++)
                 {
                     paras[i] = string.Format(" {1} ({0}) AS {0},", paras[i], methodType);
                 }

@@ -17,8 +17,8 @@ namespace CAF.Ext
         /// <returns></returns>
         public static string XmlSerialize<T>(this object entity) where T : class
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-            StringWriter writer = new StringWriter();
+            var serializer = new XmlSerializer(typeof(T));
+            var writer = new StringWriter();
             serializer.Serialize(writer, entity);
             return writer.ToString();
         }
@@ -32,7 +32,7 @@ namespace CAF.Ext
         public static T XmleDserialize<T>(string xml) where T : class
         {
             XmlReader rdr = new System.Xml.XmlTextReader(xml);
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            var serializer = new XmlSerializer(typeof(T));
             return (T)serializer.Deserialize(rdr);
         }
     }

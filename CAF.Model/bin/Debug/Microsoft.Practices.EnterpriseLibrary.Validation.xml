@@ -18,13 +18,10 @@
              <seealso cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatorFactory"/>
              <seealso cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.CompositeValidatorFactory"/>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory.#ctor">
             <summary>
              Initializes a ValidatorFactory factory.
             </summary>
-             <param name="instrumentationProvider">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider"/>
-             to attach to created validators.  Validators will gain this instrumentation behavior
-             automatically when they are wrapped with <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.GenericValidatorWrapper`1"/></param>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory.WrapAndInstrumentValidator(Microsoft.Practices.EnterpriseLibrary.Validation.Validator,System.Type)">
             <summary>
@@ -93,17 +90,10 @@
              Clears the internal validator cache.
             </summary>
         </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory.InstrumentationProvider">
-            <summary>
-             The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider"/> to attach to validators.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.AttributeValidatorFactory.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.AttributeValidatorFactory.#ctor">
             <summary>
              Initializes an AttributeValidatorFactory
             </summary>
-             <param name="instrumentationProvider">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider"/> 
-             to provide to validators for instrumentation purposes.</param>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.AttributeValidatorFactory.InnerCreateValidator(System.Type,System.String,Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory)">
             <summary>
@@ -127,12 +117,11 @@
             <param name="configurationSource"></param>
             <returns>A new ConfigurationValidatorFactory</returns>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorFactory.#ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorFactory.#ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
             <summary>
              Initializes a <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorFactory"/>.
             </summary>
             <param name="configurationSource">The configuration source containing the validation rules to create validators from.</param>
-            <param name="instrumentationProvider">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider"/> provider to use for instrumentation purposes.</param>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorFactory.InnerCreateValidator(System.Type,System.String,Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory)">
             <summary>
@@ -2176,7 +2165,7 @@
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidatedTypeReferenceAssemblyNameDescription">
             <summary>
-              Looks up a localized string similar used to resolve the reference type at design time. This property is ignored at runtime..
+              Looks up a localized string similar to Used to resolve the reference type at design time. This property is ignored at runtime..
             </summary>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidatedTypeReferenceAssemblyNameDisplayName">
@@ -2232,70 +2221,6 @@
         <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidatedTypeReferenceRulesetsDisplayName">
             <summary>
               Looks up a localized string similar to Rule Sets.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidationCallHandlerDataDescription">
-             <summary>
-               Looks up a localized string similar to A Call Handler that provides the capability to test whether the value provided for the selected property, or the values specified for the parameters of the selected method, are valid against specific rules. 
-            This handler uses the Validation Application Block to perform the validation..
-             </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidationCallHandlerDataDisplayName">
-            <summary>
-              Looks up a localized string similar to Validation Call Handler.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidationCallHandlerDataNameDescription">
-            <summary>
-              Looks up a localized string similar to The name of the Validation Call Handler..
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidationCallHandlerDataNameDisplayName">
-            <summary>
-              Looks up a localized string similar to Name.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidationCallHandlerDataOrderDescription">
-             <summary>
-               Looks up a localized string similar to The position of the handler within the policy handler chain, starting from 1. 
-            The default value is zero, which means that there is no explicit order specified for the handler in relation to other handlers in the same handler chain..
-             </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidationCallHandlerDataOrderDisplayName">
-            <summary>
-              Looks up a localized string similar to Order.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidationCallHandlerDataRuleSetDescription">
-             <summary>
-               Looks up a localized string similar to The name of the rule set to use for all target object types, as configured in the Validation Application Block. 
-            An empty string causes the handler to use the default rule set..
-             </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidationCallHandlerDataRuleSetDisplayName">
-            <summary>
-              Looks up a localized string similar to Rule Set.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidationCallHandlerDataSpecificationSourceDescription">
-             <summary>
-               Looks up a localized string similar to A value from the SpecificationSource enumeration that defines the locations where the handler will look for validation rules. 
-            Valid values are Attributes, Configuration, ParameterAttributesOnly, and Both..
-             </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidationCallHandlerDataSpecificationSourceDisplayName">
-            <summary>
-              Looks up a localized string similar to Rule Source.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidationCallHandlerDataTypeNameDescription">
-            <summary>
-              Looks up a localized string similar to The fully qualified type name of the Validation Call Handler..
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidationCallHandlerDataTypeNameDisplayName">
-            <summary>
-              Looks up a localized string similar to Type.
             </summary>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.ValidationRulesetDataCollectionDescription">
@@ -2749,363 +2674,6 @@
             Gets or sets the name of the property that the represented <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.PropertyComparisonValidator"/> will use to retrieve the value to compare.
             </summary>
         </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.InjectionValidationSource">
-            <summary>
-            An object that can be passed to <see cref="M:Microsoft.Practices.Unity.IUnityContainer.RegisterType(System.Type,System.Type,System.String,Microsoft.Practices.Unity.LifetimeManager,Microsoft.Practices.Unity.InjectionMember[])"/> in order
-            to specify where validation comes from: config, attribute, data annotations,or
-            some combination thereof.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.InjectionValidationSource.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource)">
-            <summary>
-            Create a new instance of <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.InjectionValidationSource"/>, specifying
-            the validation source.
-            </summary>
-            <param name="source">Source of validation metadata.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.InjectionValidationSource.AddPolicies(System.Type,System.Type,System.String,Microsoft.Practices.ObjectBuilder2.IPolicyList)">
-            <summary>
-            Add policies to the <paramref name="policies"/> to configure the
-                        container to call this constructor with the appropriate parameter values.
-            </summary>
-            <param name="serviceType">Type of interface being registered. If no interface,
-                        this will be null.</param><param name="implementationType">Type of concrete type being registered.</param><param name="name">Name used to resolve the type object.</param><param name="policies">Policy list to add policies to.</param>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.InjectionValidationSource.Source">
-            <summary>
-            The current source of validation metadata.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationBlockExtension">
-            <summary>
-             A <see cref="T:Microsoft.Practices.Unity.UnityContainerExtension"/> that allows the container
-             to directly resolve <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validator`1"/> instances.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationBlockExtension.Initialize">
-            <summary>
-            Ensure that this container has been configured to resolve Validation
-            block objects.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationConfigExtension">
-            <summary>
-            A configuration section extension that adds the validator element
-            to the Unity configuration schema.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationConfigExtension.AddExtensions(Microsoft.Practices.Unity.Configuration.SectionExtensionContext)">
-            <summary>
-            Add alaises and elements to the unity section configuration schema.
-            </summary>
-            <param name="context">Context to make the add calls on.</param>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationSourceElement">
-            <summary>
-            A configuration element that can be used in a Unity configuration
-            section when specifying a parameter value. This one lets you
-            specify the validation source (attributes, config, and so forth) to be
-            used when creating the validators.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationSourceElement.GetInjectionParameterValue(Microsoft.Practices.Unity.IUnityContainer,System.Type)">
-            <summary>
-            Generate an <see cref="T:Microsoft.Practices.Unity.InjectionParameterValue"/> object
-            that will be used to configure the container for a type registration.
-            </summary>
-            <param name="container">Container that is being configured. Supplied in order
-            to let custom implementations retrieve services; do not configure the container
-            directly in this method.</param>
-            <param name="parameterType">Type of the target parameter that will recieve this value.</param>
-            <returns>The created <see cref="T:Microsoft.Practices.Unity.InjectionParameterValue"/>.</returns>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationSourceElement.RuleSet">
-            <summary>
-            Ruleset to use when creating validator.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationSourceElement.ValidationSource">
-            <summary>
-            The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource"/> to use when creating the
-            validator.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationSpecificationSourcePolicy">
-            <summary>
-             A small objectbuilder policy used to pass the requested
-             <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource"/> along to the
-             <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorCreationStrategy"/>.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationSpecificationSourcePolicy.#ctor">
-            <summary>
-            Create a new instance of <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationSpecificationSourcePolicy"/>
-            with the <see cref="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationSpecificationSourcePolicy.Source"/> property initialized to All.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationSpecificationSourcePolicy.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource)">
-            <summary>
-            Create a new instance of <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationSpecificationSourcePolicy"/>
-            with the <see cref="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationSpecificationSourcePolicy.Source"/> property initialized to the given value.
-            </summary>
-            <param name="source">The desired <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource"/>.</param>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationSpecificationSourcePolicy.Source">
-            <summary>
-             The desired <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource"/>.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorCreationStrategy">
-            <summary>
-             A <see cref="T:Microsoft.Practices.ObjectBuilder2.BuilderStrategy"/> for Unity that lets the container
-             resolve <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validator`1"/> objects directly.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorCreationStrategy.PreBuildUp(Microsoft.Practices.ObjectBuilder2.IBuilderContext)">
-            <summary>
-            Called during the chain of responsibility for a build operation. The
-                        PreBuildUp method is called when the chain is being executed in the
-                        forward direction.
-            </summary>
-            <param name="context">Context of the build operation.</param>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorDependencyAttribute">
-            <summary>
-            An attribute used when injecting dependencies that are <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validator`1"/>
-            that allows you to specify the ruleset and an optional <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource"/>.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorDependencyAttribute.#ctor">
-            <summary>
-            A new <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorDependencyAttribute"/> instance with the default
-            rule set and a ValidationSpecificationSource of all.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorDependencyAttribute.#ctor(System.String)">
-            <summary>
-            A new <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorDependencyAttribute"/> instance with the given
-            rule set and a ValidationSpecificationSource of all.
-            </summary>
-            <param name="ruleSetName">Name of the rule set used to resolve this
-            validator.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorDependencyAttribute.CreateResolver(System.Type)">
-            <summary>
-            Create an instance of <see cref="T:Microsoft.Practices.ObjectBuilder2.IDependencyResolverPolicy"/> that
-                        will be used to get the value for the member this attribute is
-                        applied to.
-            </summary>
-            <param name="typeToResolve">Type of parameter or property that
-                        this attribute is decoration.</param>
-            <returns>
-            The resolver object.
-            </returns>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorDependencyAttribute.RuleSet">
-            <summary>
-            Rule set name to resolve with.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorDependencyAttribute.ValidationSource">
-            <summary>
-            The source for the validation configuration: configuration, attributes,
-            data annotations, or some combination thereof.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter">
-            <summary>
-            An <see cref="T:Microsoft.Practices.Unity.InjectionParameterValue"/> class that can be passed
-            as the value for a dependency in the Unity RegisterType API.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter.#ctor(System.Type)">
-            <summary>
-            Creates the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter"/> object, which resolves
-            the default ruleset and all sources.
-            </summary>
-            <param name="typeToValidate">Type to construct a validator for.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter.#ctor(System.Type,System.String)">
-            <summary>
-            Creates the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter"/> object which resolves
-            using the given <paramref name="ruleSet"/> and all sources.
-            </summary>
-            <param name="typeToValidate">Type to construct a validator for.</param>
-            <param name="ruleSet">Rule set to use.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter.#ctor(System.Type,Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource)">
-            <summary>
-            Creates the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter"/> object which resolves
-            using the default rule set and the given <paramref name="validationSource"/>.
-            </summary>
-            <param name="typeToValidate">Type to construct a validator for.</param>
-            <param name="validationSource"><see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource"/> controlling which
-            set of validator to retrieve.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter.#ctor(System.Type,System.String,Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource)">
-            <summary>
-            Resolve a validator with the given ruleset and validation source.
-            </summary>
-            <param name="typeToValidate">Type to construct a validator for.</param>
-            <param name="ruleSet">Ruleset to use, or null for the default.</param>
-            <param name="validationSource"><see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource"/> controlling which
-            set of validator to retrieve.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter.MatchesType(System.Type)">
-            <summary>
-            Test to see if this parameter value has a matching type for the given type.
-            </summary>
-            <param name="t">Type to check.</param>
-            <returns>
-            True if this parameter value is compatible with type <paramref name="t"/>,
-                        false if not.
-            </returns>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter.GetResolverPolicy(System.Type)">
-            <summary>
-            Return a <see cref="T:Microsoft.Practices.ObjectBuilder2.IDependencyResolverPolicy"/> instance that will
-                        return this types value for the parameter.
-            </summary>
-            <param name="typeToBuild">Type that contains the member that needs this parameter. Used
-                        to resolve open generic parameters.</param>
-            <returns>
-            The <see cref="T:Microsoft.Practices.ObjectBuilder2.IDependencyResolverPolicy"/>.
-            </returns>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter.ParameterTypeName">
-            <summary>
-            Name for the type represented by this <see cref="T:Microsoft.Practices.Unity.InjectionParameterValue"/>.
-                        This may be an actual type name or a generic argument name.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter`1">
-            <summary>
-            A version of <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter"/> that lets you specify the type to
-            validate using generic syntax.
-            </summary>
-            <typeparam name="T">Type to construct a validator for.</typeparam>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter`1.#ctor">
-            <summary>
-            Creates the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter"/> object, which resolves
-            the default ruleset and all sources.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter`1.#ctor(System.String)">
-            <summary>
-            Creates the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter"/> object which resolves
-            using the given <paramref name="ruleSet"/> and all sources.
-            </summary>
-            <param name="ruleSet">Rule set to use.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter`1.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource)">
-            <summary>
-            Creates the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter"/> object which resolves
-            using the default rule set and the given <paramref name="validationSource"/>.
-            </summary>
-            <param name="validationSource"><see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource"/> controlling which
-            set of validator to retrieve.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter`1.#ctor(System.String,Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource)">
-            <summary>
-            Resolve a validator with the given ruleset and validation source.
-            </summary>
-            <param name="ruleSet">Ruleset to use, or null for the default.</param>
-            <param name="validationSource"><see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource"/> controlling which
-            set of validator to retrieve.</param>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorResolver">
-            <summary>
-            A <see cref="T:Microsoft.Practices.ObjectBuilder2.IDependencyResolverPolicy"/> object that will resolve a
-            <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validator`1"/>.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorResolver.#ctor(System.String,Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource,System.Type)">
-            <summary>
-            Create a new instance of <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorResolver"/> with the given
-            parameters.
-            </summary>
-            <param name="ruleSet">Rule set name, or null to use default.</param>
-            <param name="validationSource"><see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource"/> to use when resolving.</param>
-            <param name="validatorType">Type of validator to resolve.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorResolver.Resolve(Microsoft.Practices.ObjectBuilder2.IBuilderContext)">
-            <summary>
-            Get the value for a dependency.
-            </summary>
-            <param name="context">Current build context.</param>
-            <returns>
-            The value for the dependency.
-            </returns>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationCallHandlerData">
-            <summary>
-            A configuration element class that stores the configuration data for
-            the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler"/>.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationCallHandlerData.#ctor">
-            <summary>
-            Create a new <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationCallHandlerData"/> instance.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationCallHandlerData.#ctor(System.String)">
-            <summary>
-            Create a new <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationCallHandlerData"/> instance.
-            </summary>
-            <param name="handlerName">Name of handler in configuration.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationCallHandlerData.#ctor(System.String,System.Int32)">
-            <summary>
-            Create a new <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationCallHandlerData"/> instance.
-            </summary>
-            <param name="handlerName">Name of handler in configuration.</param>
-            <param name="handlerOrder">Order of handler in configuration.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationCallHandlerData.GetRegistrations(System.String)">
-            <summary>
-            Get the set of <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> objects needed to
-            register the call handler represented by this config element and its associated objects.
-            </summary>
-            <param name="nameSuffix">A suffix for the names in the generated type registration objects.</param>
-            <returns>The set of <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> objects.</returns>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationCallHandlerData.RuleSet">
-            <summary>
-            The ruleset name to use for all types. Empty string means default ruleset 
-            </summary>
-            <value>The "ruleSet" configuration property.</value>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationCallHandlerData.SpecificationSource">
-            <summary>
-            SpecificationSource (Both | Attributes | Configuration) : Where to look for validation rules. Default is Both.
-            </summary>
-            <value>The "specificationSource" configuration attribute.</value>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationTypeRegistrationProvider">
-            <summary>
-             Provides <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> entries used by 
-             a <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.IContainerConfigurator"/> for the validtion block.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationTypeRegistrationProvider.GetRegistrations(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
-            <summary>
-            Return the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> objects needed to configure
-            the container for the Validation Application Block.
-            </summary>
-            <param name="configurationSource">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource"/> used when creating the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration`1"/> entries.</param>
-            <returns>The sequence of <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> objects.</returns>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationTypeRegistrationProvider.GetUpdatedRegistrations(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
-            <summary>
-            Return the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> objects needed to reconfigure
-            the container after a configuration source has changed.
-            </summary>
-            <remarks>If there are no reregistrations, return an empty sequence.</remarks>
-            <param name="configurationSource">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource"/> containing
-            the configuration information.</param>
-            <returns>The sequence of <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> objects.</returns>
-        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.DataErrorInfoHelper">
             <summary>
             Helper class to implement the <see cref="T:System.ComponentModel.IDataErrorInfo"/> interface using the 
@@ -3139,161 +2707,6 @@
             </summary>
             <param name="columnName">The name of the property whose error message to get. </param>
             <value>The error message for the property. The default is an empty string ("").</value>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ArgumentValidationException">
-            <summary>
-            Exception thrown by the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler"/> if validation fails.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ArgumentValidationException.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValidationResults,System.String)">
-            <summary>
-            Creates a new <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ArgumentValidationException"/>, storing the validation
-            results and the name of the parameter that failed.
-            </summary>
-            <param name="validationResults"><see cref="P:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ArgumentValidationException.ValidationResults"/> returned from the Validation Application Block.</param>
-            <param name="paramName">Parameter that failed validation.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ArgumentValidationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Supporting constructor for cross-appdomain exception handling.
-            </summary>
-            <param name="info">serialization info.</param>
-            <param name="context">serialization context.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ArgumentValidationException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Supporting method for serialization.
-            </summary>
-            <param name="info">serialization info.</param>
-            <param name="context">serialization context.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ArgumentValidationException.ToString">
-            <summary>
-            Creates and returns a string representation of the current exception.
-            </summary>
-            <returns>A string representation of the current exception.</returns>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ArgumentValidationException.ValidationResults">
-            <summary>
-            The validation results for the failure.
-            </summary>
-            <value>ValidationResults for the failure.</value>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler">
-            <summary>
-            An <see cref="T:Microsoft.Practices.Unity.InterceptionExtension.ICallHandler"/> that runs validation of a call's parameters
-            before calling the target.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler.#ctor(System.String,Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource)">
-            <summary>
-            Creates a <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler"/> that uses the given
-            ruleset and <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource"/> to get the validation rules.
-            </summary>
-            <param name="ruleSet">Validation ruleset as specified in configuration.</param>
-            <param name="specificationSource">Should the validation come from config, attributes, or both?</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler.#ctor(System.String,Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource,System.Int32)">
-            <summary>
-            Creates a <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler"/> that uses the given
-            ruleset and <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource"/> to get the validation rules.
-            </summary>
-            <param name="ruleSet">Validation ruleset as specified in configuration.</param>
-            <param name="specificationSource">Should the validation come from config, attributes, or both?</param>
-            <param name="handlerOrder">Order of the handler</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler.#ctor(System.String,Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory,System.Int32)">
-            <summary>
-            Creates a <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler"/> that uses the given
-            ruleset and <see cref="P:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler.ValidatorFactory"/> to get the validation rules.
-            </summary>
-            <param name="ruleSet">Validation ruleset as specified in configuration.</param>
-            <param name="validatorFactory">The <see cref="P:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler.ValidatorFactory"/> to use when building the validator for the 
-            type of a parameter, or <see langword="null"/> if no such validator is desired.</param>
-            <param name="handlerOrder">Order of the handler</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler.Invoke(Microsoft.Practices.Unity.InterceptionExtension.IMethodInvocation,Microsoft.Practices.Unity.InterceptionExtension.GetNextHandlerDelegate)">
-            <summary>
-            Runs the call handler. This does validation on the parameters, and if validation
-            passes it calls the handler. It throws <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ArgumentValidationException"/>
-            if validation fails.
-            </summary>
-            <param name="input"><see cref="T:Microsoft.Practices.Unity.InterceptionExtension.IMethodInvocation"/> containing details of the current call.</param>
-            <param name="getNext">delegate to call to get the next handler in the pipeline.</param>
-            <returns>Return value from the target.</returns>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler.Order">
-            <summary>
-            Gets or sets the order in which the handler will be executed
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler.RuleSet">
-            <summary>
-            Gets the ruleset for this call handler.
-            </summary>
-            <value>Ruleset name.</value>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler.ValidatorFactory">
-            <summary>
-            Factory used to build validators.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource">
-            <summary>
-            Where should the information for validation come from?
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource.Both">
-            <summary>
-            Configuration and type attributes
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource.Attributes">
-            <summary>
-            Type attributes only, ignoring configuration
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource.Configuration">
-            <summary>
-            Configuration only, ignoring type attributes
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource.ParameterAttributesOnly">
-            <summary>
-            Only use attributes on the parameters themselves, ignoring types and configuration
-            </summary>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandlerAttribute">
-            <summary>
-            An attribute that applies the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler"/> to its target.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandlerAttribute.#ctor">
-            <summary>
-            Constructs a new <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandlerAttribute"/> that uses the
-            default ruleset.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandlerAttribute.#ctor(System.String)">
-            <summary>
-            Constructs a new <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandlerAttribute"/> that uses the
-            given ruleset.
-            </summary>
-            <param name="ruleSet">Ruleset name to use.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandlerAttribute.CreateHandler(Microsoft.Practices.Unity.IUnityContainer)">
-            <summary>
-            Derived classes implement this method. When called, it
-            creates a new call handler as specified in the attribute
-            configuration.
-            </summary>
-            <returns>A new call handler object.</returns>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandlerAttribute.SpecificationSource">
-            <summary>
-            <see cref="P:Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandlerAttribute.SpecificationSource"/> determining where to get validation rules.
-            </summary>
-            <value>specification source.</value>
         </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatedElement">
             <summary>
@@ -3514,132 +2927,6 @@
             <param name="type">The type for which the validator should be created.</param>
             <returns>A validator.</returns>
         </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationInstaller">
-            <summary>
-            Let the system know that the InstallUtil.exe tool will be run against this assembly
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationInstaller.#ctor">
-            <summary>
-            Represents the installer for the instrumentation events. Not intended for direct use.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationInstaller.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationInstaller.Dispose(System.Boolean)">
-            <summary> 
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationInstaller.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationProvider">
-            <summary>
-            Provides the concrete instrumentation for the logical events raised through <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider"/>
-            </summary>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider">
-            <summary>
-             Describes the logical notifications raised by various validation classes to which providers will respond.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider.NotifyValidationSucceeded(System.Type)">
-            <summary>
-             Notifies provider that a validation has succeeded.
-            </summary>
-            <param name="typeBeingValidated"></param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider.NotifyValidationFailed(System.Type,Microsoft.Practices.EnterpriseLibrary.Validation.ValidationResults)">
-            <summary>
-             Notifies provider that validation has failed.
-            </summary>
-            <param name="typeBeingValidated"></param>
-            <param name="validationResult"></param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider.NotifyConfigurationFailure(System.Configuration.ConfigurationErrorsException)">
-            <summary>
-             Notifies provider that configuration for validation has failed.
-            </summary>
-            <param name="configurationException"></param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider.NotifyConfigurationCalled(System.Type)">
-            <summary>
-             Notifies provider that a configuration based validation has been called.
-            </summary>
-            <param name="typeBeingValidated"></param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider.NotifyValidationException(System.Type,System.String,System.Exception)">
-            <summary>
-             Notifies provider of a validation exception.
-            </summary>
-            <param name="typeBeingValidated"></param>
-            <param name="errorMessage"></param>
-            <param name="exception"></param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationProvider.FromConfigurationSource(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
-            <summary>
-            </summary>
-            <param name="configurationSource"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationProvider.#ctor(System.Boolean,System.Boolean,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationProvider"/> class.
-            </summary>
-            <param name="performanceCountersEnabled"><code>true</code> if performance counters should be updated.</param>
-            <param name="eventLoggingEnabled"><code>true</code> if event log entries should be written.</param>
-            <param name="applicationInstanceName">The application instance name.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationProvider.#ctor(System.Boolean,System.Boolean,Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.IPerformanceCounterNameFormatter)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationProvider"/> class.
-            </summary>
-            <param name="performanceCountersEnabled"><code>true</code> if performance counters should be updated.</param>
-            <param name="eventLoggingEnabled"><code>true</code> if event log entries should be written.</param>
-            <param name="nameFormatter">Creates unique name for each <see cref="T:System.Diagnostics.PerformanceCounter"/> instance.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationProvider.CreatePerformanceCounters(System.String[])">
-            <summary>
-            Creates the performance counters to instrument the validation events to the instance names.
-            </summary>
-            <param name="instanceNames">The instance names for the performance counters.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationProvider.NotifyValidationSucceeded(System.Type)">
-            <summary>
-            </summary>
-            <param name="typeBeingValidated"></param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationProvider.NotifyValidationFailed(System.Type,Microsoft.Practices.EnterpriseLibrary.Validation.ValidationResults)">
-            <summary>
-            </summary>
-            <param name="typeBeingValidated"></param>
-            <param name="validationResult"></param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationProvider.NotifyConfigurationFailure(System.Configuration.ConfigurationErrorsException)">
-            <summary>
-            </summary>
-            <param name="configurationException"></param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationProvider.NotifyConfigurationCalled(System.Type)">
-            <summary>
-            </summary>
-            <param name="typeBeingValidated"></param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationProvider.NotifyValidationException(System.Type,System.String,System.Exception)">
-            <summary>
-            </summary>
-            <param name="typeBeingValidated"></param>
-            <param name="errorMessage"></param>
-            <param name="exception"></param>
-        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.MemberValueAccessBuilder">
             <summary>
             Creates <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccess"/> objects for member descriptors.
@@ -3806,26 +3093,23 @@
              An instance factory for creating validators based on other validtor factories.
             </summary>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.CompositeValidatorFactory.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider,System.Collections.Generic.IEnumerable{Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory})">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.CompositeValidatorFactory.#ctor(System.Collections.Generic.IEnumerable{Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory})">
             <summary>
              Initializes a composite validator factory from an array of <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory"/> instances.
             </summary>
-            <param name="instrumentationProvider">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider"/> to use when instrumenting validators.</param>
             <param name="validatorFactories">One or more validator factories to compose from.</param>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.CompositeValidatorFactory.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider,Microsoft.Practices.EnterpriseLibrary.Validation.AttributeValidatorFactory,Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorFactory)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.CompositeValidatorFactory.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.AttributeValidatorFactory,Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorFactory)">
             <summary>
              Initializes a composite validator factory from attribute and configuration validator factories
             </summary>
-            <param name="instrumentationProvider">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider"/> to use when instrumenting validators.</param>
             <param name="attributeValidatorFactory">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.AttributeValidatorFactory"/> to composite.</param>
             <param name="configurationValidatorFactory">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorFactory"/> to composite.</param>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.CompositeValidatorFactory.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider,Microsoft.Practices.EnterpriseLibrary.Validation.AttributeValidatorFactory,Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorFactory,Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatorFactory)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.CompositeValidatorFactory.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.AttributeValidatorFactory,Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorFactory,Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatorFactory)">
             <summary>
              Initializes a composite validator factory from attribute and configuration validator factories
             </summary>
-            <param name="instrumentationProvider">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider"/> to use when instrumenting validators.</param>
             <param name="attributeValidatorFactory">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.AttributeValidatorFactory"/> to composite.</param>
             <param name="configurationValidatorFactory">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorFactory"/> to composite.</param>
             <param name="validationAttributeValidatorFactory">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatorFactory"/> to composite.</param>
@@ -3850,11 +3134,10 @@
             </summary>
              <seealso cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory"/>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatorFactory.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider)">
-             <summary>
-             Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatorFactory"/> class.
-             </summary>
-            <param name="instrumentationProvider">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider"/> provider to use for instrumentation purposes.</param>
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatorFactory.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatorFactory"/> class.
+            </summary>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatorFactory.InnerCreateValidator(System.Type,System.String,Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory)">
             <summary>
@@ -4140,17 +3423,15 @@
             <param name="validatorFactory"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorBuilder.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationSettings,Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorBuilder.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationSettings)">
             <summary>
             </summary>
             <param name="validationSettings"></param>
-            <param name="instrumentationProvider"></param>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorBuilder.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationSettings,Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider,Microsoft.Practices.EnterpriseLibrary.Validation.MemberAccessValidatorBuilderFactory,Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorBuilder.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationSettings,Microsoft.Practices.EnterpriseLibrary.Validation.MemberAccessValidatorBuilderFactory,Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory)">
             <summary>
             </summary>
             <param name="validationSettings"></param>
-            <param name="instrumentationProvider"></param>
             <param name="memberAccessValidatorFactory"></param>
             <param name="validatorFactory"></param>
         </member>
@@ -5070,13 +4351,11 @@
             The name used to serialize the configuration section.
             </summary>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationSettings.TryGet(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationSettings.TryGet(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
             <summary>
-             Tries to retrieve the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationSettings"/> and notifies the provided <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider"/>
-             if there is a <see cref="T:System.Configuration.ConfigurationErrorsException"/>.  The exception is rethrown.
+             Tries to retrieve the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationSettings"/>.
             </summary>
             <param name="configurationSource"></param>
-            <param name="instrumentationProvider"></param>
             <returns></returns>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationSettings.Types">
@@ -5990,6 +5269,21 @@
             <remarks>This operation must be overriden by subclasses.</remarks>
             <returns>The created <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharactersValidator"/>.</returns>
         </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharactersValidatorAttribute.CharacterSet">
+            <summary>
+            The character set to be evaluated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharactersValidatorAttribute.ContainsCharacters">
+            <summary>
+            The mode to evaluate the character set.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharactersValidatorAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
+            </summary>
+        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.NullIgnoringValidatorWrapper">
             <summary>
             Validator that succeeds on null values and delegates validation of non-null values to another validator.
@@ -6265,7 +5559,7 @@
             Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.PropertyComparisonValidatorAttribute"/> class.
             </summary>
             <param name="propertyToCompare">The name of the property to use when comparing a value.</param>
-            <param name="comparisonOperator">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator"/> representing the kind of comparison to perform.</param>
+            <param name="comparisonOperator">The <see cref="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.PropertyComparisonValidatorAttribute.ComparisonOperator"/> representing the kind of comparison to perform.</param>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.PropertyComparisonValidatorAttribute.DoCreateValidator(System.Type,System.Type,Microsoft.Practices.EnterpriseLibrary.Validation.MemberValueAccessBuilder,Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory)">
             <summary>
@@ -6295,6 +5589,21 @@
             <see cref="T:System.ComponentModel.DataAnnotations.ValidationAttribute"/> is declared.</param>
             <returns><see langword="true"/> if the specified value is valid; otherwise, <see langword="false"/>.</returns>
             <exception cref="T:System.NotSupportedException">when invoked on an attribute with a non-null ruleset.</exception>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.PropertyComparisonValidatorAttribute.PropertyToCompare">
+            <summary>
+            The name of the property to use when comparing a value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.PropertyComparisonValidatorAttribute.ComparisonOperator">
+            <summary>
+            The <see cref="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.PropertyComparisonValidatorAttribute.ComparisonOperator"/> representing the kind of comparison to perform.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.PropertyComparisonValidatorAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
+            </summary>
         </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.PropertyValueValidator`1">
             <summary>
@@ -6402,22 +5711,42 @@
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeValidatorAttribute.LowerBound">
             <summary>
-            
+            The lower bound
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeValidatorAttribute.EffectiveLowerBound">
+            <summary>
+            The lower bound
             </summary>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeValidatorAttribute.LowerBoundType">
             <summary>
-            
+            The indication of how to perform the lower bound check.
             </summary>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeValidatorAttribute.UpperBound">
             <summary>
-            
+            The upper bound, or <see langword="null"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeValidatorAttribute.EffectiveUpperBound">
+            <summary>
+            The upper bound
             </summary>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeValidatorAttribute.UpperBoundType">
             <summary>
-            
+            The indication of how to perform the upper bound check.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeValidatorAttribute.BoundType">
+            <summary>
+            The type of the validated range.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeValidatorAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
             </summary>
         </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeValidator`1">
@@ -6704,6 +6033,16 @@
             <remarks>This operation must be overriden by subclasses.</remarks>
             <returns>The created <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DomainValidatorAttribute"/>.</returns>
         </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DomainValidatorAttribute.Domain">
+            <summary>
+            List of values to be used in the validation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DomainValidatorAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
+            </summary>
+        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RelativeDateTimeGenerator">
             <summary>
             
@@ -6977,6 +6316,41 @@
             <remarks>This operation must be overriden by subclasses.</remarks>
             <returns>The created <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RelativeDateTimeValidator"/>.</returns>
         </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RelativeDateTimeValidatorAttribute.LowerBound">
+            <summary>
+            The lower bound
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RelativeDateTimeValidatorAttribute.LowerUnit">
+            <summary>
+            The lower bound unit of time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RelativeDateTimeValidatorAttribute.LowerBoundType">
+            <summary>
+            The indication of how to perform the lower bound check.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RelativeDateTimeValidatorAttribute.UpperBound">
+            <summary>
+            The upper bound
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RelativeDateTimeValidatorAttribute.UpperUnit">
+            <summary>
+            The upper bound unit of time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RelativeDateTimeValidatorAttribute.UpperBoundType">
+            <summary>
+            The indication of how to perform the upper bound check.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RelativeDateTimeValidatorAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
+            </summary>
+        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.TypeConversionValidator">
             <summary>
             Validates a string by checking it represents a value for a given type.
@@ -7061,6 +6435,16 @@
             <remarks>This operation must be overriden by subclasses.</remarks>
             <returns>The created <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.TypeConversionValidator"/>.</returns>
         </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.TypeConversionValidatorAttribute.TargetType">
+            <summary>
+            The target type. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.TypeConversionValidatorAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
+            </summary>
+        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.EnumConversionValidator">
             <summary>
             Validates a string by checking it represents a value for a given enum type.
@@ -7143,6 +6527,16 @@
             <param name="targetType">The type of object that will be validated by the validator.</param>
             <remarks>This operation must be overriden by subclasses.</remarks>
             <returns>The created <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.EnumConversionValidator"/>.</returns>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.EnumConversionValidatorAttribute.EnumType">
+            <summary>
+            The type of enum that should be validated. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.EnumConversionValidatorAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
+            </summary>
         </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.HasSelfValidationAttribute">
             <summary>
@@ -7403,6 +6797,16 @@
             Gets the target ruleset for the validated objects.
             </summary>
         </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ObjectCollectionValidatorAttribute.TargetType">
+            <summary>
+            The target type
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ObjectCollectionValidatorAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
+            </summary>
+        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ObjectValidator">
             <summary>
             Performs validation on objects by applying the validation rules specified for a supplied type.
@@ -7519,6 +6923,11 @@
             Gets or set the ruleset for which the self validation method must be included.
             </summary>
         </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.SelfValidationAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
+            </summary>
+        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.SelfValidationValidator">
             <summary>
             Performs validation by invoking a method on the validated object.
@@ -7614,18 +7023,42 @@
             <param name="targetType">The type of object that will be validated by the validator.</param>
             <returns>The created <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validator"/>.</returns>
         </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeRangeValidatorAttribute.LowerBound">
+            <summary>
+            The lower bound.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeRangeValidatorAttribute.LowerBoundType">
+            <summary>
+            The bound type for the lower bound.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeRangeValidatorAttribute.UpperBound">
+            <summary>
+            The upper bound.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeRangeValidatorAttribute.UpperBoundType">
+            <summary>
+            The bound type for the upper bound.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeRangeValidatorAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
+            </summary>
+        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.GenericValidatorWrapper`1">
             <summary>
             Used to provide a generic API over the unknown validators.
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.GenericValidatorWrapper`1.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Validator,Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.GenericValidatorWrapper`1.#ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Validator)">
             <summary>
             
             </summary>
             <param name="wrappedValidator"></param>
-            <param name="instrumentationProvider"></param>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.GenericValidatorWrapper`1.DoValidate(`0,System.Object,System.String,Microsoft.Practices.EnterpriseLibrary.Validation.ValidationResults)">
             <summary>
@@ -8008,6 +7441,31 @@
             <remarks>This operation must be overriden by subclasses.</remarks>
             <returns>The created <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RegexValidator"/>.</returns>
         </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RegexValidatorAttribute.Pattern">
+            <summary>
+            >The pattern to match.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RegexValidatorAttribute.Options">
+            <summary>
+            The <see cref="T:System.Text.RegularExpressions.RegexOptions"/> to use when matching.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RegexValidatorAttribute.PatternResourceName">
+            <summary>
+            The resource name containing the pattern for the regular expression.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RegexValidatorAttribute.PatternResourceType">
+            <summary>
+            The type containing the resource for the regular expression.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RegexValidatorAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
+            </summary>
+        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.StringLengthValidator">
             <summary>
             Performs validation on strings by comparing their lengths to the specified boundaries. 
@@ -8194,6 +7652,31 @@
             <param name="targetType">The type of object that will be validated by the validator.</param>
             <returns>The created <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validator"/>.</returns>
         </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.StringLengthValidatorAttribute.LowerBound">
+            <summary>
+            The lower bound.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.StringLengthValidatorAttribute.LowerBoundType">
+            <summary>
+            The indication of how to perform the lower bound check.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.StringLengthValidatorAttribute.UpperBound">
+            <summary>
+            The upper bound.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.StringLengthValidatorAttribute.UpperBoundType">
+            <summary>
+            The indication of how to perform the upper bound check.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.StringLengthValidatorAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
+            </summary>
+        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ObjectValidatorAttribute">
             <summary>
             Represents an <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ObjectValidator"/>.
@@ -8238,12 +7721,27 @@
             Gets or sets the value indicating whether to validate based on the static type or the actual type.
             </summary>
         </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ObjectValidatorAttribute.TargetRuleset">
+            <summary>
+            The target ruleset.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ObjectValidatorAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
+            </summary>
+        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.IgnoreNullsAttribute">
             <summary>
             Indicates that a <see langword="null"/> value is to be allowed by the validator represented by the validation
             attributes for the language element this attribute is bound.
             </summary>
             <seealso cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValidatorAttribute"/>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.IgnoreNullsAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
+            </summary>
         </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.NotNullValidator">
             <summary>
@@ -8396,6 +7894,16 @@
         <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Properties.Resources.ExceptionContainsNullElements">
             <summary>
               Looks up a localized string similar to Enumerable contains null elements..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Properties.Resources.ExceptionDefaultConfigurationValidatorFactoryAlreadySet">
+            <summary>
+              Looks up a localized string similar to The ValidationFactory already has a default configuration validator factory set. To overwrite it set the throwIfSet parameter to false..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Properties.Resources.ExceptionDefaultConfigurationValidatorFactoryNotSet">
+            <summary>
+              Looks up a localized string similar to Default configuration factory not set. Set it with the ValidationFactory.SetDefaultConfigurationValidatorFactory method..
             </summary>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Properties.Resources.ExceptionIntegrationValidatedPropertyNameNotAvailable">
@@ -8868,81 +8376,81 @@
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidator``1">
             <summary>
-            Returns a validator representing the validation criteria specified for type <typeparamref name="T"/>
-            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the default ruleset.
+            Returns a validator that represents the validation criteria specified for type <typeparamref name="T"/>
+            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the default rule set.
             </summary>
             <typeparam name="T">The type to get the validator for.</typeparam>
             <returns>The validator.</returns>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidator``1(System.String)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <typeparamref name="T"/>
-            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the supplied ruleset.
+            Returns a validator that represents the validation criteria specified for type <typeparamref name="T"/>
+            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the supplied rule set.
             </summary>
             <typeparam name="T">The type to get the validator for.</typeparam>
-            <param name="ruleset">The name of the required ruleset.</param>
+            <param name="ruleset">The name of the required rule set.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="ruleset"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="ruleset"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidator``1(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <typeparamref name="T"/>
-            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the default ruleset
+            Returns a validator that represents the validation criteria specified for type <typeparamref name="T"/>
+            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the default rule set,
             retrieving configuration information from the supplied <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource"/>.
             </summary>
             <typeparam name="T">The type to get the validator for.</typeparam>
-            <param name="configurationSource">The configuration source from where configuration information is to be retrieved.</param>
+            <param name="configurationSource">The configuration source to retrieve configuration information from.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidator``1(System.String,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <typeparamref name="T"/>
-            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the supplied ruleset
+            Returns a validator that represents the validation criteria specified for type <typeparamref name="T"/>
+            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the supplied rule set,
             retrieving configuration information from the supplied <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource"/>.
             </summary>
             <typeparam name="T">The type to get the validator for.</typeparam>
-            <param name="ruleset">The name of the required ruleset.</param>
-            <param name="configurationSource">The configuration source from where configuration information is to be retrieved.</param>
+            <param name="ruleset">The name of the required rule set.</param>
+            <param name="configurationSource">The configuration source to retrieve configuration information from.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="ruleset"/> is <see langword="null"/>.</exception>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="ruleset"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidator(System.Type)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <paramref name="targetType"/>
-            through configuration and aatributes on type <paramref name="targetType"/> and its ancestors for the default ruleset.
+            Returns a validator that represents the validation criteria specified for type <paramref name="targetType"/>
+            through configuration and attributes on type <paramref name="targetType"/> and its ancestors for the default rule set.
             </summary>
             <param name="targetType">The type to get the validator for.</param>
             <returns>The validator.</returns>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidator(System.Type,System.String)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <paramref name="targetType"/>
-            through configuration and attributes on type <paramref name="targetType"/> and its ancestors for the supplied ruleset.
+            Returns a validator that represents the validation criteria specified for type <paramref name="targetType"/>
+            through configuration and attributes on type <paramref name="targetType"/> and its ancestors for the supplied rule set.
             </summary>
             <param name="targetType">The type to get the validator for.</param>
-            <param name="ruleset">The name of the required ruleset.</param>
+            <param name="ruleset">The name of the required rule set.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="ruleset"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="ruleset"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidator(System.Type,System.String,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <paramref name="targetType"/>
-            through configuration and attributes on type <paramref name="targetType"/> and its ancestors for the supplied ruleset
+            Returns a validator that represents the validation criteria specified for type <paramref name="targetType"/>
+            through configuration and attributes on type <paramref name="targetType"/> and its ancestors for the supplied rule set,
             retrieving configuration information from the supplied <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource"/>.
             </summary>
             <param name="targetType">The type to get the validator for.</param>
-            <param name="ruleset">The name of the required ruleset.</param>
-            <param name="configurationSource">The configuration source from where configuration information is to be retrieved.</param>
+            <param name="ruleset">The name of the required rule set.</param>
+            <param name="configurationSource">The configuration source to retrieve configuration information from.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="ruleset"/> is <see langword="null"/>.</exception>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="ruleset"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidator``1(Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <typeparamref name="T"/>
-            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the default ruleset.
+            Returns a validator that represents the validation criteria specified for type <typeparamref name="T"/>
+            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the default rule set.
             </summary>
             <typeparam name="T">The type to get the validator for.</typeparam>
             <param name="source">The source of validation information.</param>
@@ -8950,45 +8458,45 @@
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidator``1(System.String,Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <typeparamref name="T"/>
-            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the supplied ruleset.
+            Returns a validator that represents the validation criteria specified for type <typeparamref name="T"/>
+            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the supplied rule set.
             </summary>
             <typeparam name="T">The type to get the validator for.</typeparam>
-            <param name="ruleset">The name of the required ruleset.</param>
+            <param name="ruleset">The name of the required rule set.</param>
             <param name="source">The source of validation information.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="ruleset"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="ruleset"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidator``1(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <typeparamref name="T"/>
-            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the default ruleset
+            Returns a validator that represents the validation criteria specified for type <typeparamref name="T"/>
+            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the default rule set,
             retrieving configuration information from the supplied <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource"/>.
             </summary>
             <typeparam name="T">The type to get the validator for.</typeparam>
-            <param name="configurationSource">The configuration source from where configuration information is to be retrieved.</param>
+            <param name="configurationSource">The configuration source to retrieve configuration information from.</param>
             <param name="source">The source of validation information.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidator``1(System.String,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <typeparamref name="T"/>
-            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the supplied ruleset
+            Returns a validator that represents the validation criteria specified for type <typeparamref name="T"/>
+            through configuration and attributes on type <typeparamref name="T"/> and its ancestors for the supplied rule set
             retrieving configuration information from the supplied <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource"/>.
             </summary>
             <typeparam name="T">The type to get the validator for.</typeparam>
-            <param name="ruleset">The name of the required ruleset.</param>
-            <param name="configurationSource">The configuration source from where configuration information is to be retrieved.</param>
+            <param name="ruleset">The name of the required rule set.</param>
+            <param name="configurationSource">The configuration source to retrieve configuration information from.</param>
             <param name="source">The source of validation information.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="ruleset"/> is <see langword="null"/>.</exception>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="ruleset"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidator(System.Type,Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <paramref name="targetType"/>
-            through configuration and aatributes on type <paramref name="targetType"/> and its ancestors for the default ruleset.
+            Returns a validator that represents the validation criteria specified for type <paramref name="targetType"/>
+            through configuration and attributes on type <paramref name="targetType"/> and its ancestors for the default rule set.
             </summary>
             <param name="targetType">The type to get the validator for.</param>
             <param name="source">The source of validation information.</param>
@@ -8996,103 +8504,103 @@
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidator(System.Type,System.String,Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <paramref name="targetType"/>
-            through configuration and attributes on type <paramref name="targetType"/> and its ancestors for the supplied ruleset.
+            Returns a validator that represents the validation criteria specified for type <paramref name="targetType"/>
+            through configuration and attributes on type <paramref name="targetType"/> and its ancestors for the supplied rule set.
             </summary>
             <param name="targetType">The type to get the validator for.</param>
-            <param name="ruleset">The name of the required ruleset.</param>
+            <param name="ruleset">The name of the required rule set.</param>
             <param name="source">The source of validation information.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="ruleset"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="ruleset"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidator(System.Type,System.String,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <paramref name="targetType"/>
-            through configuration and attributes on type <paramref name="targetType"/> and its ancestors for the supplied ruleset
+            Returns a validator that represents the validation criteria specified for type <paramref name="targetType"/>
+            through configuration and attributes on type <paramref name="targetType"/> and its ancestors for the supplied rule set,
             retrieving configuration information from the supplied <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource"/>.
             </summary>
             <param name="targetType">The type to get the validator for.</param>
-            <param name="ruleset">The name of the required ruleset.</param>
-            <param name="configurationSource">The configuration source from where configuration information is to be retrieved.</param>
+            <param name="ruleset">The name of the required rule set.</param>
+            <param name="configurationSource">The configuration source to retrieve configuration information from.</param>
             <param name="source">The source of validation information.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="ruleset"/> is <see langword="null"/>.</exception>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="ruleset"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidatorFromAttributes``1">
             <summary>
-            Returns a validator representing the validation criteria specified for type <typeparamref name="T"/>
-            through attributes on type <typeparamref name="T"/> and its ancestors for the default ruleset.
+            Returns a validator that represents the validation criteria specified for type <typeparamref name="T"/>
+            through attributes on type <typeparamref name="T"/> and its ancestors for the default rule set.
             </summary>
             <typeparam name="T">The type to get the validator for.</typeparam>
             <returns>The validator.</returns>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidatorFromAttributes``1(System.String)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <typeparamref name="T"/>
-            through attributes on type <typeparamref name="T"/> and its ancestors for the supplied ruleset.
+            Returns a validator that represents the validation criteria specified for type <typeparamref name="T"/>
+            through attributes on type <typeparamref name="T"/> and its ancestors for the supplied rule set.
             </summary>
             <typeparam name="T">The type to get the validator for.</typeparam>
-            <param name="ruleset">The name of the required ruleset.</param>
+            <param name="ruleset">The name of the required rule set.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="ruleset"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="ruleset"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidatorFromAttributes(System.Type,System.String)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <paramref name="targetType"/>
-            through attributes on type <paramref name="targetType"/> and its ancestors for the supplied ruleset.
+            Returns a validator that represents the validation criteria specified for type <paramref name="targetType"/>
+            through attributes on type <paramref name="targetType"/> and its ancestors for the supplied rule set.
             </summary>
             <param name="targetType">The type to get the validator for.</param>
-            <param name="ruleset">The name of the required ruleset.</param>
+            <param name="ruleset">The name of the required rule set.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="ruleset"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="ruleset"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidatorFromConfiguration``1">
             <summary>
-            Returns a validator representing the validation criteria specified for type <typeparamref name="T"/>
-            through configuration for the default ruleset.
+            Returns a validator that represents the validation criteria specified for type <typeparamref name="T"/>
+            through configuration for the default rule set.
             </summary>
             <typeparam name="T">The type to get the validator for.</typeparam>
             <returns>The validator.</returns>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidatorFromConfiguration``1(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <typeparamref name="T"/>
-            through configuration for the default ruleset
+            Returns a validator that represents the validation criteria specified for type <typeparamref name="T"/>
+            through configuration for the default rule set,
             retrieving configuration information from the supplied <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource"/>.
             </summary>
             <typeparam name="T">The type to get the validator for.</typeparam>
-            <param name="configurationSource">The configuration source from where configuration information is to be retrieved.</param>
+            <param name="configurationSource">The configuration source to retrieve configuration information from.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidatorFromConfiguration``1(System.String)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <typeparamref name="T"/>
-            through configuration for the supplied ruleset.
+            Returns a validator that represents the validation criteria specified for type <typeparamref name="T"/>
+            through configuration for the supplied rule set.
             </summary>
             <typeparam name="T">The type to get the validator for.</typeparam>
-            <param name="ruleset">The name of the required ruleset.</param>
+            <param name="ruleset">The name of the required rule set.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="ruleset"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="ruleset"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidatorFromConfiguration``1(System.String,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <typeparamref name="T"/>
-            through configuration for the supplied ruleset
+            Returns a validator that represents the validation criteria specified for type <typeparamref name="T"/>
+            through configuration for the supplied rule set,
             retrieving configuration information from the supplied <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource"/>.
             </summary>
             <typeparam name="T">The type to get the validator for.</typeparam>
-            <param name="ruleset">The name of the required ruleset.</param>
-            <param name="configurationSource">The configuration source from where configuration information is to be retrieved.</param>
+            <param name="ruleset">The name of the required rule set.</param>
+            <param name="configurationSource">The configuration source to retrieve configuration information from.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="ruleset"/> is <see langword="null"/>.</exception>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="ruleset"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidatorFromConfiguration(System.Type,System.String)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <paramref name="targetType"/>
-            through configuration for the supplied ruleset, retrieving configuration information from
+            Returns a validator that represents the validation criteria specified for type <paramref name="targetType"/>
+            through configuration for the supplied rule set, retrieving configuration information from
             the default configuration source.
             </summary>
             <param name="targetType">The type to get the validator for.</param>
@@ -9101,20 +8609,45 @@
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.CreateValidatorFromConfiguration(System.Type,System.String,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
             <summary>
-            Returns a validator representing the validation criteria specified for type <paramref name="targetType"/>
-            through configuration for the supplied ruleset
+            Returns a validator that represents the validation criteria specified for type <paramref name="targetType"/>
+            through configuration for the supplied rule set,
             retrieving configuration information from the supplied <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource"/>.
             </summary>
             <param name="targetType">The type to get the validator for.</param>
-            <param name="ruleset">The name of the required ruleset.</param>
-            <param name="configurationSource">The configuration source from where configuration information is to be retrieved.</param>
+            <param name="ruleset">The name of the required rule set.</param>
+            <param name="configurationSource">The configuration source to retrieve configuration information from.</param>
             <returns>The validator.</returns>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="ruleset"/> is <see langword="null"/>.</exception>
-            <exception cref="T:System.ArgumentNullException">when the <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="ruleset"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="configurationSource"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.SetDefaultConfigurationValidatorFactory(Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorFactory)">
+            <summary>
+            Sets the default configuration validator factory for the static <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory"/>.
+            </summary>
+            <param name="factory">The configuration validation factory.</param>
+        </member>
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.SetDefaultConfigurationValidatorFactory(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
+            <summary>
+            Sets the default configuration validator factory for the static <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory"/> by using the specified configuration source.
+            </summary>
+            <param name="factoryConfigurationSource">The configuration source for the validation factory.</param>
+        </member>
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.Reset">
+            <summary>
+            Resets the factories.
+            </summary>
+            <remarks>
+            Used for tests.
+            </remarks>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.DefaultCompositeValidatorFactory">
             <summary>
             Gets the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory"/> to use by default.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory.DefaultConfigurationValidatorFactory">
+            <summary>
+            Gets the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory"/> to use by default for configuration.
             </summary>
         </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.ValidationResult">
@@ -9336,6 +8869,11 @@
             <param name="targetType">The type of object that will be validated by the validator.</param>
             <returns>The created <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.NotNullValidator"/>.</returns>
         </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.NotNullValidatorAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
+            </summary>
+        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValidatorCompositionAttribute">
             <summary>
             Indicates that the kind of composition to use when multiple <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValidatorAttribute"/> instances
@@ -9348,6 +8886,16 @@
             Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValidatorCompositionAttribute"/> class.
             </summary>
             <param name="compositionType">The <see cref="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValidatorCompositionAttribute.CompositionType"/> to be used.</param>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValidatorCompositionAttribute.CompositionType">
+            <summary>
+            The <see cref="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValidatorCompositionAttribute.CompositionType"/> to be used.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValidatorCompositionAttribute.TypeId">
+            <summary>
+            Gets a unique identifier for this attribute.
+            </summary>
         </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Validation.Validation">
             <summary>

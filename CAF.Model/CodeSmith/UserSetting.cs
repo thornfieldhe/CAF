@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace CAF.Model
 {
     using CAF.Data;
     using CAF.Validation;
-    using System.ComponentModel.DataAnnotations;
     using System.Data;
 
     [Serializable]
@@ -74,7 +72,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                UserSetting item = conn.Query<UserSetting>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<UserSetting>();
+                var item = conn.Query<UserSetting>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<UserSetting>();
                 if (item != null)
                 {
                     item.MarkOld();
@@ -87,9 +85,9 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                List<UserSetting> items = conn.Query<UserSetting>(QUERY_GETAll, null).ToList();
-                UserSettingList list = new UserSettingList();
-                foreach (UserSetting item in items)
+                var items = conn.Query<UserSetting>(QUERY_GETAll, null).ToList();
+                var list = new UserSettingList();
+                foreach (var item in items)
                 {
                     item.MarkOld();
                     list.Add(item);
@@ -103,7 +101,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                UserSetting item = conn.Query<UserSetting>(QUERY_GETBYUSERID, new { UserId = userId }).SingleOrDefault<UserSetting>();
+                var item = conn.Query<UserSetting>(QUERY_GETBYUSERID, new { UserId = userId }).SingleOrDefault<UserSetting>();
                 if (item != null)
                 {
                     item.MarkOld();
@@ -153,7 +151,7 @@ namespace CAF.Model
             {
                 _updateParameters += ", ChangedDate = GetDate()";
                 _updateParameters += ", Status = @Status";
-                string query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
+                var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
                 _changedRows += conn.Execute(query, this, transaction, null, null);
             }
             return _changedRows;
@@ -182,10 +180,10 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                List<UserSetting> items = conn.Query<UserSetting>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
+                var items = conn.Query<UserSetting>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
 
-                UserSettingList list = new UserSettingList();
-                foreach (UserSetting item in items)
+                var list = new UserSettingList();
+                foreach (var item in items)
                 {
                     item.MarkOld();
                     list.Add(item);

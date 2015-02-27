@@ -31,7 +31,7 @@ namespace CAF.Configuration
         {
             get
             {
-                int result = 1;
+                var result = 1;
                 int.TryParse(this[TimesProperty].ToString(), out result);
                 return result;
             }
@@ -45,7 +45,7 @@ namespace CAF.Configuration
         {
             get
             {
-                int result = 1;
+                var result = 1;
                 int.TryParse(base[SequenceProperty].ToString(), out result);
                 return result;
             }

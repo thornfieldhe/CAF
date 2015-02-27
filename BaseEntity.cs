@@ -68,7 +68,7 @@ namespace CAF
                 || (oldValue != null && oldValue.Equals(newValue)))
             { return false; }
             MarkDirty();
-            string parameter = string.Format(", {0} =  @{0}", propertyName);
+            var parameter = string.Format(", {0} =  @{0}", propertyName);
             if (!_updateParameters.Contains(parameter)) _updateParameters += parameter;
             oldValue = newValue;
             if (OnPropertyChange != null)
@@ -98,13 +98,13 @@ namespace CAF
             {
                 try
                 {
-                    T item = this as T;
+                    var item = this as T;
 
                     customerValidator = ValidationFactory.CreateValidator<T>();
                     v = customerValidator.Validate(item);
 
                     (Errors == null).IfIsTrue(() => Errors = new List<string>());
-                    for (int i = 0; i < v.Count; i++)
+                    for (var i = 0; i < v.Count; i++)
                     {
                         Errors.Add(v.ElementAt(i).Message);
                     }
@@ -247,7 +247,7 @@ namespace CAF
             {
                 using (IDbConnection conn = SqlService.Instance.Connection)
                 {
-                    IDbTransaction transaction = conn.BeginTransaction();
+                    var transaction = conn.BeginTransaction();
                     try
                     {
                         _insertDelegate(conn, transaction);
@@ -263,7 +263,7 @@ namespace CAF
             }
             else
             {
-                for (int i = 0; i < v.Count; i++)
+                for (var i = 0; i < v.Count; i++)
                 {
                     Errors.Add(v.ElementAt(i).Message);
                 }
@@ -278,7 +278,7 @@ namespace CAF
             {
                 using (IDbConnection conn = SqlService.Instance.Connection)
                 {
-                    IDbTransaction transaction = conn.BeginTransaction();
+                    var transaction = conn.BeginTransaction();
                     try
                     {
                         _updateDelegate(conn, transaction);
@@ -300,7 +300,7 @@ namespace CAF
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
                 this._changedRows = 0;
-                IDbTransaction transaction = conn.BeginTransaction();
+                var transaction = conn.BeginTransaction();
                 try
                 {
                     _deleteDelegate(conn, transaction);
@@ -326,7 +326,7 @@ namespace CAF
             _changedRows = 0;
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                IDbTransaction transaction = conn.BeginTransaction();
+                var transaction = conn.BeginTransaction();
                 try
                 {
                     _changedRows += SaveChange(conn, transaction);
@@ -410,7 +410,7 @@ namespace CAF
         /// <returns></returns>
         public T Clone()
         {
-            string graph = SerializationHelper.SerializeObjectToString(this);
+            var graph = SerializationHelper.SerializeObjectToString(this);
             return SerializationHelper.DeserializeStringToObject<T>(graph);
         }
 

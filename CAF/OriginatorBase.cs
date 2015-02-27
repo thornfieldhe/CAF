@@ -22,11 +22,11 @@ namespace CAF
         /// <summary>
         /// 原发器对象的状态
         /// </summary>
-        protected T State{get;set;}
+        protected T State { get; set; }
 
         protected virtual T CreateMemento()
         {
-            T m = ObjectCloner.DeepCopy<T>(this.State);
+            var m = ObjectCloner.DeepCopy<T>(this.State);
             return m;
         }
 
@@ -43,7 +43,7 @@ namespace CAF
         public virtual void Undo()
         {
             if (stack.Count == 0) return;
-            T m = stack.Pop();
+            var m = stack.Pop();
             this.State = m;
         }
     }

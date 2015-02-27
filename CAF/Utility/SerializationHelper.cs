@@ -26,11 +26,11 @@ namespace CAF.Utility
         /// 把对象序列化转换为字符串    
         public static string SerializeObjectToString(object graph, FormatterType formatterType)
         {
-            using (MemoryStream memoryStream = new MemoryStream())
+            using (var memoryStream = new MemoryStream())
             {
-                IRemotingFormatter formatter = GetFormatter(formatterType);
+                var formatter = GetFormatter(formatterType);
                 formatter.Serialize(memoryStream, graph);
-                Byte[] arrGraph = memoryStream.ToArray();
+                var arrGraph = memoryStream.ToArray();
                 return Convert.ToBase64String(arrGraph);
             }
         }
@@ -43,10 +43,10 @@ namespace CAF.Utility
         /// 把已序列化为字符串类型的对象反序列化为指定的类型 
         public static T DeserializeStringToObject<T>(string graph, FormatterType formatterType)
         {
-            Byte[] arrGraph = Convert.FromBase64String(graph);
-            using (MemoryStream memoryStream = new MemoryStream(arrGraph))
+            var arrGraph = Convert.FromBase64String(graph);
+            using (var memoryStream = new MemoryStream(arrGraph))
             {
-                IRemotingFormatter formatter = GetFormatter(formatterType);
+                var formatter = GetFormatter(formatterType);
                 return (T)formatter.Deserialize(memoryStream);
             }
         }

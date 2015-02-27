@@ -235,7 +235,7 @@ namespace CAF
         /// <returns></returns>
         public static string ToAgo(this DateTime date)
         {
-            TimeSpan timeSpan = date.GetTimeSpan(DateTime.Now);
+            var timeSpan = date.GetTimeSpan(DateTime.Now);
             if (timeSpan < TimeSpan.Zero) return "未来";
             if (timeSpan < _OneMinute) return "现在";
             if (timeSpan < _TwoMinutes) return "1 分钟前";
@@ -260,9 +260,9 @@ namespace CAF
         /// <returns></returns>
         public static int WeekOfYear(this DateTime datetime)
         {
-            DateTimeFormatInfo dateinf = new DateTimeFormatInfo();
-            CalendarWeekRule weekrule = dateinf.CalendarWeekRule;
-            DayOfWeek firstDayOfWeek = dateinf.FirstDayOfWeek;
+            var dateinf = new DateTimeFormatInfo();
+            var weekrule = dateinf.CalendarWeekRule;
+            var firstDayOfWeek = dateinf.FirstDayOfWeek;
             return WeekOfYear(datetime, weekrule, firstDayOfWeek);
         }
 
@@ -274,8 +274,8 @@ namespace CAF
         /// <returns></returns>
         public static int WeekOfYear(this DateTime datetime, System.Globalization.CalendarWeekRule weekrule)
         {
-            System.Globalization.DateTimeFormatInfo dateinf = new System.Globalization.DateTimeFormatInfo();
-            DayOfWeek firstDayOfWeek = dateinf.FirstDayOfWeek;
+            var dateinf = new System.Globalization.DateTimeFormatInfo();
+            var firstDayOfWeek = dateinf.FirstDayOfWeek;
             return WeekOfYear(datetime, weekrule, firstDayOfWeek);
         }
 
@@ -287,8 +287,8 @@ namespace CAF
         /// <returns></returns>
         public static int WeekOfYear(this DateTime datetime, DayOfWeek firstDayOfWeek)
         {
-            System.Globalization.DateTimeFormatInfo dateinf = new System.Globalization.DateTimeFormatInfo();
-            System.Globalization.CalendarWeekRule weekrule = dateinf.CalendarWeekRule;
+            var dateinf = new System.Globalization.DateTimeFormatInfo();
+            var weekrule = dateinf.CalendarWeekRule;
             return WeekOfYear(datetime, weekrule, firstDayOfWeek);
         }
 
@@ -301,7 +301,7 @@ namespace CAF
         /// <returns></returns>
         public static int WeekOfYear(this DateTime datetime, System.Globalization.CalendarWeekRule weekrule, DayOfWeek firstDayOfWeek)
         {
-            System.Globalization.CultureInfo ciCurr = System.Globalization.CultureInfo.CurrentCulture;
+            var ciCurr = System.Globalization.CultureInfo.CurrentCulture;
             return ciCurr.Calendar.GetWeekOfYear(datetime, weekrule, firstDayOfWeek);
         }
 
@@ -341,7 +341,7 @@ namespace CAF
         /// <returns></returns>
         public static DateTime GetMonthBegin(this DateTime dt)
         {
-            DateTime monthBegin = dt.AddDays(1 - dt.Day);
+            var monthBegin = dt.AddDays(1 - dt.Day);
             return new DateTime(monthBegin.Year, monthBegin.Month, monthBegin.Day);
         }
 
@@ -352,7 +352,7 @@ namespace CAF
         /// <returns></returns>
         public static DateTime GetMonthEnd(this DateTime dt)
         {
-            DateTime monthEnd = GetMonthBegin(dt).AddMonths(1).AddDays(-1);
+            var monthEnd = GetMonthBegin(dt).AddMonths(1).AddDays(-1);
             return new DateTime(monthEnd.Year, monthEnd.Month, monthEnd.Day);
         }
 
@@ -364,7 +364,7 @@ namespace CAF
         /// <returns></returns>
         public static DateTime AddWeeks(this DateTime dt, int count)
         {
-            DateTime dateBegin = GetWeekday(dt, DayOfWeek.Monday);
+            var dateBegin = GetWeekday(dt, DayOfWeek.Monday);
             return dateBegin.AddDays(7 * count);
         }
     }

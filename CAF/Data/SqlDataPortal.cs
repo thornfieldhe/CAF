@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Reflection;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 
 namespace CAF.Data
 {
@@ -47,25 +47,25 @@ namespace CAF.Data
         //sqlstring
         public int ExecuteNonQueryBySql(string sqlstr, params SqlParameter[] cmdParameters)
         {
-            DbCommand cmd = Db.GetSqlStringCommand(sqlstr);
+            var cmd = Db.GetSqlStringCommand(sqlstr);
             return ExecuteNonQuery(cmd, cmdParameters);
         }
 
         public int ExecuteNonQueryBySql(DbTransaction transaction, string sqlstr, params SqlParameter[] cmdParameters)
         {
-            DbCommand cmd = Db.GetSqlStringCommand(sqlstr);
+            var cmd = Db.GetSqlStringCommand(sqlstr);
             return ExecuteNonQuery(transaction, cmd, cmdParameters);
         }
 
         //dbcommand
         public int ExecuteNonQuery(DbCommand cmd, params SqlParameter[] cmdParameters)
         {
-            int query = 0;
+            var query = 0;
             try
             {
                 if (cmdParameters != null)
                 {
-                    for (int i = 0; i < cmdParameters.Length; i++)
+                    for (var i = 0; i < cmdParameters.Length; i++)
                     {
                         Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
@@ -74,7 +74,7 @@ namespace CAF.Data
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 if (rethrow)
                     throw;
             }
@@ -83,12 +83,12 @@ namespace CAF.Data
 
         public int ExecuteNonQuery(DbTransaction transaction, DbCommand cmd, params SqlParameter[] cmdParameters)
         {
-            int query = 0;
+            var query = 0;
             try
             {
                 if (cmdParameters != null)
                 {
-                    for (int i = 0; i < cmdParameters.Length; i++)
+                    for (var i = 0; i < cmdParameters.Length; i++)
                     {
                         Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
@@ -97,7 +97,7 @@ namespace CAF.Data
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 if (rethrow)
                     throw;
             }
@@ -114,16 +114,16 @@ namespace CAF.Data
 
         public int ExecuteNonQueryBySP(string spName, params object[] parameterValues)
         {
-            int query = 0;
+            var query = 0;
             try
             {
-                DbCommand cmd = Db.GetStoredProcCommand(spName);
+                var cmd = Db.GetStoredProcCommand(spName);
 
                 query = Db.ExecuteNonQuery(spName, parameterValues);
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 //if (rethrow)
                 //throw;
             }
@@ -137,25 +137,25 @@ namespace CAF.Data
         //sqlstring
         public object ExecuteScaleBySql(string sqlstr, params SqlParameter[] cmdParameters)
         {
-            DbCommand cmd = Db.GetSqlStringCommand(sqlstr);
+            var cmd = Db.GetSqlStringCommand(sqlstr);
             return ExecuteScale(cmd, cmdParameters);
         }
 
         public object ExecuteScaleBySql(DbTransaction transaction, string sqlstr, params SqlParameter[] cmdParameters)
         {
-            DbCommand cmd = Db.GetSqlStringCommand(sqlstr);
+            var cmd = Db.GetSqlStringCommand(sqlstr);
             return ExecuteScale(transaction, cmd, cmdParameters);
         }
 
         //dbcommand
         public object ExecuteScale(DbCommand cmd, params SqlParameter[] cmdParameters)
         {
-            object ob = new object();
+            var ob = new object();
             try
             {
                 if (cmdParameters != null)
                 {
-                    for (int i = 0; i < cmdParameters.Length; i++)
+                    for (var i = 0; i < cmdParameters.Length; i++)
                     {
                         Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
@@ -164,7 +164,7 @@ namespace CAF.Data
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 if (rethrow)
                     throw;
             }
@@ -173,12 +173,12 @@ namespace CAF.Data
 
         public object ExecuteScale(DbTransaction transaction, DbCommand cmd, params SqlParameter[] cmdParameters)
         {
-            object ob = new object();
+            var ob = new object();
             try
             {
                 if (cmdParameters != null)
                 {
-                    for (int i = 0; i < cmdParameters.Length; i++)
+                    for (var i = 0; i < cmdParameters.Length; i++)
                     {
                         Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
@@ -187,7 +187,7 @@ namespace CAF.Data
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 if (rethrow)
                     throw;
             }
@@ -197,14 +197,14 @@ namespace CAF.Data
         //sp
         public object ExecuteScaleBySP(DbTransaction transaction, string spName, params object[] parameters)
         {
-            object ob = new object();
+            var ob = new object();
             try
             {
                 ob = Db.ExecuteScalar(transaction, spName, parameters);
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 if (rethrow)
                     throw;
             }
@@ -213,14 +213,14 @@ namespace CAF.Data
 
         public object ExecuteScaleBySP(string spName, params object[] paramers)
         {
-            object ob = new object();
+            var ob = new object();
             try
             {
                 ob = Db.ExecuteScalar(spName, paramers);
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 if (rethrow)
                     throw;
             }
@@ -234,25 +234,25 @@ namespace CAF.Data
         //sqlstr
         public DataSet GetDataSetBySql(string sqlstr, params SqlParameter[] cmdParameters)
         {
-            DbCommand cmd = Db.GetSqlStringCommand(sqlstr);
+            var cmd = Db.GetSqlStringCommand(sqlstr);
             return GetDataSet(cmd, cmdParameters);
         }
 
         public DataSet GetDataSetBySql(DbTransaction transaction, string sqlstr, params SqlParameter[] cmdParameters)
         {
-            DbCommand cmd = Db.GetSqlStringCommand(sqlstr);
+            var cmd = Db.GetSqlStringCommand(sqlstr);
             return GetDataSet(transaction, cmd, cmdParameters);
         }
 
         //dbcommand
         public DataSet GetDataSet(DbTransaction transaction, DbCommand cmd, params SqlParameter[] cmdParameters)
         {
-            DataSet ds = new DataSet();
+            var ds = new DataSet();
             try
             {
                 if (cmdParameters != null)
                 {
-                    for (int i = 0; i < cmdParameters.Length; i++)
+                    for (var i = 0; i < cmdParameters.Length; i++)
                     {
                         Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
@@ -261,7 +261,7 @@ namespace CAF.Data
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 if (rethrow)
                     throw;
             }
@@ -270,12 +270,12 @@ namespace CAF.Data
 
         public DataSet GetDataSet(DbCommand cmd, params SqlParameter[] cmdParameters)
         {
-            DataSet ds = new DataSet();
+            var ds = new DataSet();
             try
             {
                 if (cmdParameters != null)
                 {
-                    for (int i = 0; i < cmdParameters.Length; i++)
+                    for (var i = 0; i < cmdParameters.Length; i++)
                     {
                         Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
@@ -284,7 +284,7 @@ namespace CAF.Data
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 if (rethrow)
                     throw;
             }
@@ -294,14 +294,14 @@ namespace CAF.Data
         //sp
         public DataSet GetDataSetBySP(string spName, params object[] parameterValues)
         {
-            DataSet ds = new DataSet();
+            var ds = new DataSet();
             try
             {
                 ds = Db.ExecuteDataSet(spName, parameterValues);
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 if (rethrow)
                     throw;
             }
@@ -310,14 +310,14 @@ namespace CAF.Data
 
         public DataSet GetDataSetBySP(DbTransaction transaction, string spName, params object[] parameterValues)
         {
-            DataSet ds = new DataSet();
+            var ds = new DataSet();
             try
             {
                 ds = Db.ExecuteDataSet(transaction, spName, parameterValues);
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 if (rethrow)
                     throw;
             }
@@ -331,13 +331,13 @@ namespace CAF.Data
         //sqlstr
         public IDataReader GetReaderBySql(string sqlstr, params SqlParameter[] cmdParameters)
         {
-            DbCommand cmd = Db.GetSqlStringCommand(sqlstr);
+            var cmd = Db.GetSqlStringCommand(sqlstr);
             return GetReader(cmd, cmdParameters);
         }
 
         public IDataReader GetReaderBySql(DbTransaction transaction, string sqlstr, params SqlParameter[] cmdParameters)
         {
-            DbCommand cmd = Db.GetSqlStringCommand(sqlstr);
+            var cmd = Db.GetSqlStringCommand(sqlstr);
             return GetReader(transaction, cmd, cmdParameters);
         }
 
@@ -348,7 +348,7 @@ namespace CAF.Data
             {
                 if (cmdParameters != null)
                 {
-                    for (int i = 0; i < cmdParameters.Length; i++)
+                    for (var i = 0; i < cmdParameters.Length; i++)
                     {
                         Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
@@ -357,7 +357,7 @@ namespace CAF.Data
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 if (rethrow)
                     throw;
             }
@@ -370,7 +370,7 @@ namespace CAF.Data
             {
                 if (cmdParameters != null)
                 {
-                    for (int i = 0; i < cmdParameters.Length; i++)
+                    for (var i = 0; i < cmdParameters.Length; i++)
                     {
                         Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
@@ -379,7 +379,7 @@ namespace CAF.Data
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 if (rethrow)
                     throw;
             }
@@ -391,12 +391,12 @@ namespace CAF.Data
         {
             try
             {
-                DbCommand cmd = Db.GetStoredProcCommand(spName);
+                var cmd = Db.GetStoredProcCommand(spName);
                 return Db.ExecuteReader(spName, parameterValues);
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 if (rethrow)
                     throw;
             }
@@ -411,7 +411,7 @@ namespace CAF.Data
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 if (rethrow)
                     throw;
             }
@@ -422,9 +422,9 @@ namespace CAF.Data
 
         public List<string> DiscoverParameters(string spName)
         {
-            DbCommand cmd = Db.GetStoredProcCommand(spName);
+            var cmd = Db.GetStoredProcCommand(spName);
             Db.DiscoverParameters(cmd);
-            List<string> parametersNames = new List<string>();
+            var parametersNames = new List<string>();
             foreach (DbParameter parameter in cmd.Parameters)
             {
                 if (parameter.Direction == ParameterDirection.Input)
@@ -439,37 +439,37 @@ namespace CAF.Data
 
         public virtual List<T> LoadBySp<T>(string spName, params object[] parameters) where T : class
         {
-            IDataReader reader = GetReaderBySP(spName, parameters);
+            var reader = GetReaderBySP(spName, parameters);
             return Load<T>(reader);
         }
 
         public virtual List<T> LoadBySp<T>(DbTransaction transaction, string spName, params object[] parameters) where T : class
         {
-            IDataReader reader = GetReaderBySP(spName, parameters);
+            var reader = GetReaderBySP(spName, parameters);
             return Load<T>(reader);
         }
 
         public virtual List<T> LoadBySql<T>(string sqlstr, params SqlParameter[] parameters) where T : class
         {
-            IDataReader reader = GetReaderBySql(sqlstr, parameters);
+            var reader = GetReaderBySql(sqlstr, parameters);
             return Load<T>(reader);
         }
 
         public virtual List<T> LoadBySql<T>(DbTransaction transaction, string sqlstr, params SqlParameter[] parameters) where T : class
         {
-            IDataReader reader = GetReaderBySql(transaction, sqlstr, parameters);
+            var reader = GetReaderBySql(transaction, sqlstr, parameters);
             return Load<T>(reader);
         }
 
         public virtual List<T> LoadByCmd<T>(DbCommand cmd, params SqlParameter[] parameters) where T : class
         {
-            IDataReader reader = GetReader(cmd, parameters);
+            var reader = GetReader(cmd, parameters);
             return Load<T>(reader);
         }
 
         public virtual List<T> LoadByCmd<T>(DbTransaction transaction, DbCommand cmd, params SqlParameter[] parameters) where T : class
         {
-            IDataReader reader = GetReader(transaction, cmd, parameters);
+            var reader = GetReader(transaction, cmd, parameters);
             return Load<T>(reader);
         }
 
@@ -479,31 +479,31 @@ namespace CAF.Data
         public virtual List<T> Load<T>(IDataReader reader) where T : class
         {
             List<string> set = null;
-            Type t = typeof(T);
-            List<T> entities = new List<T>();
+            var t = typeof(T);
+            var entities = new List<T>();
             try
             {
                 using (reader)
                 {
                     while (reader.Read())
                     {
-                        T entity = Activator.CreateInstance<T>();
-                        foreach (PropertyInfo info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
+                        var entity = Activator.CreateInstance<T>();
+                        foreach (var info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
                         {
                             // Auto load fields which has a DbFieldAttribute
-                            DbPropertyAttribute attr =
+                            var attr =
                                 Attribute.GetCustomAttribute(info, typeof(DbPropertyAttribute)) as DbPropertyAttribute;
                             if (attr != null)
                             {
                                 if (set == null)
                                 {
-                                    DataTable schema = reader.GetSchemaTable();
+                                    var schema = reader.GetSchemaTable();
                                     set = new List<string>(schema.Rows.Count);
 
                                     foreach (DataRow row in schema.Rows)
                                     {
-                                        DataColumn prop = schema.Columns["ColumnName"];
-                                        string colName = row[prop].ToString().ToLower();
+                                        var prop = schema.Columns["ColumnName"];
+                                        var colName = row[prop].ToString().ToLower();
                                         set.Add(colName);
                                     }
                                 }
@@ -520,7 +520,7 @@ namespace CAF.Data
             }
             catch (Exception exception1)
             {
-                bool rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
+                var rethrow = ExceptionPolicy.HandleException(exception1, "DataBaseException Policy");
                 if (rethrow)
                     throw;
             }
@@ -560,7 +560,7 @@ namespace CAF.Data
             }
             catch (FormatException ex)
             {
-                string message =
+                var message =
                     string.Format(
                         "System.FormatException: Input ({0}) was not in a correct format of type ({1}) when loading field ({2})",
                         value.ToString(), type.ToString(), fieldName);
@@ -571,15 +571,15 @@ namespace CAF.Data
 
         private SqlParameter[] CreateParameters<T>(T entity)
         {
-            List<SqlParameter> parameters = new List<SqlParameter>();
-            Type t = entity.GetType();
-            foreach (PropertyInfo info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
+            var parameters = new List<SqlParameter>();
+            var t = entity.GetType();
+            foreach (var info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
             {
-                DbPropertyAttribute attr =
+                var attr =
                     Attribute.GetCustomAttribute(info, typeof(DbPropertyAttribute)) as DbPropertyAttribute;
                 if (attr != null)
                 {
-                    SqlParameter parameter = new SqlParameter(attr.FieldName, info.GetValue(entity, null));
+                    var parameter = new SqlParameter(attr.FieldName, info.GetValue(entity, null));
                     parameters.Add(parameter);
                 }
             }

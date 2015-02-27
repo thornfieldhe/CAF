@@ -31,18 +31,26 @@ namespace <%= this.ClassNamespace %>
     [Serializable]
 	public partial class <%= GetClassName(SourceTable) %> :  BaseEntity<<%= GetClassName(SourceTable) %>>
 	{   
-        private <%= GetClassName(SourceTable) %>():this(Guid.NewGuid()){}	
-		
-		public <%= GetClassName(SourceTable) %>(Guid id): base(id)
-        {
+        public <%= GetClassName(SourceTable) %>()
+		{			
             base.MarkNew();
+			<%foreach(string item in this.Children){ %>
+            this.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(this), isThreadSafe: true);          
+            <%} %>
+            <%foreach(string item in this.Child){ %>
+    		this.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(Id), isThreadSafe: true);
+            <%} %> 
+            <%foreach(string item in this.WithMany){ %>
+    		this.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(this), isThreadSafe: true);
+            <%} %> 
             <%foreach(string item in this.Children){ %>
             <%=item%>s= new <%=item%>List();        
             <%} %>
 			<%foreach(string item in this.WithMany){ %>
             <%=GetRelationshipItem(item)%>s= new <%=GetRelationshipItem(item)%>List();        
             <%} %>
-        }
+		}
+		
             
 		#region 公共属性
 
@@ -160,11 +168,12 @@ namespace <%= this.ClassNamespace %>
                     <%= GetListMember4(item)%> = <%= GetListMember3(item)%>.Value;
                 }
                 <%= GetListMember4(item)%> = value;
-				if (<%= GetListMember4(item)%> != null)
+				if (<%= GetListMember4(item)%> == null)
                 {
-                    <%= GetListMember4(item)%>.OnPropertyChange += MarkDirty;
-                    <%= GetListMember4(item)%>.<%= GetClassName(SourceTable) %>Id = Id;
+                    return;
                 }
+                <%= GetListMember4(item)%>.OnPropertyChange += MarkDirty;
+                <%= GetListMember4(item)%>.<%= GetClassName(SourceTable) %>Id = Id;
             }
         }
         <%} %>    
@@ -191,8 +200,8 @@ namespace <%= this.ClassNamespace %>
             get
             {
 			    this.Errors=new List<string>();
-                bool isValid = true;
-                bool baseValid = base.IsValid;
+                var isValid = true;
+                var baseValid = base.IsValid;
                 <%foreach(string item in this.Children){ %>
                 foreach (var item in <%=item%>s)
                 {
@@ -258,20 +267,21 @@ namespace <%= this.ClassNamespace %>
 		{
 			using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                <%= GetClassName(SourceTable) %> item= conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<<%= GetClassName(SourceTable) %>>();
-                if (item != null)
+                var item= conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<<%= GetClassName(SourceTable) %>>();
+                if (item == null)
                 {
-                    item.MarkOld();
-                    <%foreach(string item in this.Children){ %>
-                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
-                    <%} %>
-                    <%foreach(string item in this.Child){ %>
-					item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => Init<%=item%>(item), isThreadSafe: true);                   
-                    <%} %>  
-					<%foreach(string item in this.WithMany){ %>
-                    item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
-                    <%} %>  
-                }                
+                    return null;
+                }
+                item.MarkOld();
+                <%foreach(string item in this.Children){ %>
+                item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
+                <%} %>
+                <%foreach(string item in this.Child){ %>
+				item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => Init<%=item%>(item), isThreadSafe: true);                   
+                <%} %>  
+				<%foreach(string item in this.WithMany){ %>
+                item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
+                <%} %>  
                 return item;
             }
 		}
@@ -280,9 +290,9 @@ namespace <%= this.ClassNamespace %>
 		{
 			using (IDbConnection conn = SqlService.Instance.Connection)
             {               
-                List<<%= GetClassName(SourceTable) %>> items = conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETAll, null).ToList();                
-                <%= GetCollectionClassName(SourceTable) %> list=new <%= GetCollectionClassName(SourceTable) %>();
-                foreach (<%= GetClassName(SourceTable) %> item in items)
+                var items = conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETAll, null).ToList();                
+                var list=new <%= GetCollectionClassName(SourceTable) %>();
+                foreach (var item in items)
                 {
                     item.MarkOld();
                     <%foreach(string item in this.Children){ %>
@@ -301,14 +311,14 @@ namespace <%= this.ClassNamespace %>
             }
 		}        
 		
-       <%foreach(string childItem in this.AsChildren){ %>
+       <%foreach(var childItem in this.AsChildren){ %>
        public static <%= GetCollectionClassName(SourceTable) %> GetAllBy<%=childItem%>(Guid <%=GetCamelCaseName(childItem)%>)
 		{
 			using (IDbConnection conn = SqlService.Instance.Connection)
             {                
-                List<<%= GetClassName(SourceTable) %>> items = conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETALLBY<%=childItem.ToUpper()%>, new { <%=childItem%> = <%=GetCamelCaseName(childItem)%> }).ToList();
-              	<%= GetCollectionClassName(SourceTable) %> list=new <%= GetCollectionClassName(SourceTable) %>();
-                foreach (<%= GetClassName(SourceTable) %> item in items)
+                var items = conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETALLBY<%=childItem.ToUpper()%>, new { <%=childItem%> = <%=GetCamelCaseName(childItem)%> }).ToList();
+              	var list=new <%= GetCollectionClassName(SourceTable) %>();
+                foreach (var item in items)
                 {
                     item.MarkOld();
                     <%foreach(string item in this.Children){ %>
@@ -328,12 +338,12 @@ namespace <%= this.ClassNamespace %>
 		}
 		
         <%} %>
-       <%foreach(string childItem in this.AsChild){ %>
+       <%foreach(var childItem in this.AsChild){ %>
 		public static <%= GetClassName(SourceTable) %> GetBy<%=childItem%>(Guid <%=GetCamelCaseName(childItem)%>)
 		{
 			using (IDbConnection conn = SqlService.Instance.Connection)
             {                
-                <%= GetClassName(SourceTable) %> item= conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETBY<%=childItem.ToUpper()%>, new { <%=childItem%> = <%=GetCamelCaseName(childItem)%> }).SingleOrDefault<<%= GetClassName(SourceTable) %>>();
+                var item= conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETBY<%=childItem.ToUpper()%>, new { <%=childItem%> = <%=GetCamelCaseName(childItem)%> }).SingleOrDefault<<%= GetClassName(SourceTable) %>>();
                 if (item != null)
                 {
                     item.MarkOld();
@@ -357,19 +367,19 @@ namespace <%= this.ClassNamespace %>
 		{
 			using (IDbConnection conn = SqlService.Instance.Connection)
             {                
-                List<<%= GetClassName(SourceTable) %>> items = conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETALLBY<%=GetRelationshipItem(childItem).ToUpper()%>ID, new { <%=GetRelationshipItem(childItem)%>Id = <%=GetCamelCaseName(GetRelationshipItem(childItem))%>Id }).ToList();
+                var items = conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETALLBY<%=GetRelationshipItem(childItem).ToUpper()%>ID, new { <%=GetRelationshipItem(childItem)%>Id = <%=GetCamelCaseName(GetRelationshipItem(childItem))%>Id }).ToList();
                 
-                <%= GetCollectionClassName(SourceTable) %> list=new <%= GetCollectionClassName(SourceTable) %>();
-                foreach (<%= GetClassName(SourceTable) %> item in items)
+                var list=new <%= GetCollectionClassName(SourceTable) %>();
+                foreach (var item in items)
                 {
                     item.MarkOld();
-                    <%foreach(string item in this.Children){ %>
+                    <%foreach(var item in this.Children){ %>
                     item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);                 
                     <%} %>
-                    <%foreach(string item in this.Child){ %>
+                    <%foreach(var item in this.Child){ %>
             		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => Init<%=item%>(item), isThreadSafe: true);      
                     <%} %>   
-					<%foreach(string item in this.WithMany){ %>
+					<%foreach(var item in this.WithMany){ %>
                     item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
                     <%} %> 
                     list.Add(item);
@@ -399,24 +409,10 @@ namespace <%= this.ClassNamespace %>
             {                
                 return conn.Query<int>(QUERY_EXISTS, new { Id = id }).Single() >= 1;
             }
-        }
-        
-		public static <%=GetClassName(SourceTable) %> New()
-		{
-			var item= new <%= GetClassName(SourceTable)%>();
-			<%foreach(string item in this.Children){ %>
-            item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);          
-            <%} %>
-            <%foreach(string item in this.Child){ %>
-    		item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(item.Id), isThreadSafe: true);
-            <%} %> 
-            <%foreach(string item in this.WithMany){ %>
-    		item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
-            <%} %> 
-            return item;
-		}
+        }      
         
         #endregion
+        
 		
 		internal override int Delete(IDbConnection conn, IDbTransaction transaction)
 		{
@@ -426,40 +422,41 @@ namespace <%= this.ClassNamespace %>
 		
 		internal override int Update(IDbConnection conn, IDbTransaction transaction)
 		{
-             if (this.IsDirty)
+             if (!this.IsDirty)
              {
-                _updateParameters+=", ChangedDate = GetDate()";
-                _updateParameters+=", Status = @Status";
-    			string query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
-    			_changedRows+= conn.Execute(query, this, transaction, null, null);
-	            <%foreach(string item in this.Children){ %>
-	    		<%= GetListMember2(item)%>.IsValueCreated.IfIsTrue(
-				() =>
-	            {
-	 				_changedRows+=<%=item%>s.SaveChanges(conn,transaction);
-	            });
-	            <%} %> 
-	            <%foreach(string item in this.Child){ %>
-				if(<%= GetListMember3(item)%>.IsValueCreated && this.<%=item%>!=null) 
-	            {
-	 				_changedRows += <%=item%>.SaveChange(conn, transaction);
-	            }
-	            <%} %> 
-				<%foreach(string item in this.WithMany){ %>
-				<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfIsTrue(
-	            () =>
-	            {
-	 				_changedRows+=<%=GetRelationshipItem(item)%>s.SaveChanges(conn,transaction);
-	            });
-	            <%} %>
-            }  
+                return _changedRows;
+             }  
+            _updateParameters+=", ChangedDate = GetDate()";
+            _updateParameters+=", Status = @Status";
+			var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
+			_changedRows+= conn.Execute(query, this, transaction, null, null);
+            <%foreach(var item in this.Children){ %>
+    		<%= GetListMember2(item)%>.IsValueCreated.IfIsTrue(
+			() =>
+            {
+ 				_changedRows+=<%=item%>s.SaveChanges(conn,transaction);
+            });
+            <%} %> 
+            <%foreach(var item in this.Child){ %>
+			if(<%= GetListMember3(item)%>.IsValueCreated && this.<%=item%>!=null) 
+            {
+ 				_changedRows += <%=item%>.SaveChange(conn, transaction);
+            }
+            <%} %> 
+			<%foreach(var item in this.WithMany){ %>
+			<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfIsTrue(
+            () =>
+            {
+ 				_changedRows+=<%=GetRelationshipItem(item)%>s.SaveChanges(conn,transaction);
+            });
+            <%} %>
             return _changedRows;
 		}
 		
 		internal override int Insert(IDbConnection conn, IDbTransaction transaction)
 		{
             _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-            <%foreach(string item in this.Children){ %>
+            <%foreach(var item in this.Children){ %>
     		<%= GetListMember2(item)%>.IsValueCreated.IfIsTrue(
 			() =>
             {
@@ -549,10 +546,10 @@ namespace <%= this.ClassNamespace %>
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                List<<%= GetClassName(SourceTable) %>> items = conn.Query<<%= GetClassName(SourceTable) %>>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
+                var items = conn.Query<<%= GetClassName(SourceTable) %>>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
 
-                <%= GetCollectionClassName(SourceTable) %> list = new <%= GetCollectionClassName(SourceTable) %>();
-                foreach (<%= GetClassName(SourceTable) %> item in items)
+                var list = new <%= GetCollectionClassName(SourceTable) %>();
+                foreach (var item in items)
                 {
                     item.MarkOld();
                     list.Add(item);

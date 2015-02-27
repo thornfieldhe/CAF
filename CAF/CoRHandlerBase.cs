@@ -1,6 +1,6 @@
 ﻿using CAF.Core;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 namespace CAF
 {
     public abstract class CoRHandlerBase<Request> where Request : ICorRequest
@@ -34,7 +34,7 @@ namespace CAF
 
             if (Successors != null)
             {
-                foreach (CoRHandlerBase<Request> successor in Successors)
+                foreach (var successor in Successors)
                 {
                     successor.HandleRequest(request);
                 }
@@ -70,9 +70,9 @@ namespace CAF
         {
             yield return this;
             if ((Successors != null) && (Successors.Count > 0))
-                foreach (CoRHandlerBase<Request> child in Successors)
+                foreach (var child in Successors)
                 {
-                    foreach (CoRHandlerBase<Request> item in child.Enumerate())
+                    foreach (var item in child.Enumerate())
                         yield return item;
                 }
         }
@@ -91,9 +91,9 @@ namespace CAF
             else
             {
                 if ((Successors != null) && (Successors.Count > 0))
-                    foreach (CoRHandlerBase<Request> child in Successors)
+                    foreach (var child in Successors)
                     {
-                        foreach (CoRHandlerBase<Request> item in child.Enumerate())
+                        foreach (var item in child.Enumerate())
                         {
                             if (item.Contex == type)
                             {

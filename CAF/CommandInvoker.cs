@@ -1,10 +1,5 @@
-﻿using System;
+﻿using Microsoft.Practices.Unity;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
-using CAF.Core;
 
 namespace CAF
 {
@@ -12,7 +7,7 @@ namespace CAF
     /// <summary>
     /// 命令调用者
     /// </summary>
-    public class CommandInvoker<T> 
+    public class CommandInvoker<T>
     {
         protected List<T> _plugins;
 
@@ -24,12 +19,12 @@ namespace CAF
         public List<T> GetPlugins(string containerName)
         {
             IUnityContainer container = new UnityContainer();
-            UnityConfigurationSection section = SingletonBase<CAFConfiguration>.Instance.Unity;
-            section.Configure(container,containerName);
+            var section = SingletonBase<CAFConfiguration>.Instance.Unity;
+            section.Configure(container, containerName);
 
-            foreach (ContainerElement type in section.Containers)
+            foreach (var type in section.Containers)
             {
-                T item = container.Resolve<T>(type.Name);
+                var item = container.Resolve<T>(type.Name);
                 _plugins.Add(item);
             }
             return _plugins;

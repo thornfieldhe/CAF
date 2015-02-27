@@ -612,7 +612,7 @@ namespace CAF
         /// <returns></returns>
         public static string ToCamel(this string name)
         {
-            string clone = name.TrimStart('_');
+            var clone = name.TrimStart('_');
             clone = RemoveSpaces(ToProperCase(clone));
             return String.Format("{0}{1}", Char.ToLower(clone[0]), clone.Substring(1, clone.Length - 1));
         }
@@ -624,7 +624,7 @@ namespace CAF
         /// <returns></returns>
         public static string ToCapit(this string name)
         {
-            string clone = name.TrimStart('_');
+            var clone = name.TrimStart('_');
             return RemoveSpaces(ToProperCase(clone));
         }
 
@@ -653,7 +653,7 @@ namespace CAF
             {
                 return source;
             }
-            int c = source.LastIndexOf(",", System.StringComparison.Ordinal);
+            var c = source.LastIndexOf(",", System.StringComparison.Ordinal);
             if (c > 0)
             {
                 source = source.Substring(0, source.Length - (source.Length - c));
@@ -680,12 +680,12 @@ namespace CAF
         /// <returns></returns>
         public static string ToProperCase(this string source)
         {
-            string revised = "";
+            var revised = "";
             if (source.Length <= 0)
             {
                 return revised;
             }
-            string firstLetter = source.Substring(0, 1).ToUpper(new CultureInfo("en-US"));
+            var firstLetter = source.Substring(0, 1).ToUpper(new CultureInfo("en-US"));
             revised = firstLetter + source.Substring(1, source.Length - 1);
             return revised;
         }
@@ -710,14 +710,14 @@ namespace CAF
         /// <returns></returns>
         public static string Cut(this string source, int len)
         {
-            string result = string.Empty;// 最终返回的结果
-            int byteLen = System.Text.Encoding.Default.GetByteCount(source);// 单字节字符长度
-            int charLen = source.Length;// 把字符平等对待时的字符串长度
-            int byteCount = 0;// 记录读取进度
-            int pos = 0;// 记录截取位置
+            var result = string.Empty;// 最终返回的结果
+            var byteLen = System.Text.Encoding.Default.GetByteCount(source);// 单字节字符长度
+            var charLen = source.Length;// 把字符平等对待时的字符串长度
+            var byteCount = 0;// 记录读取进度
+            var pos = 0;// 记录截取位置
             if (byteLen > len)
             {
-                for (int i = 0; i < charLen; i++)
+                for (var i = 0; i < charLen; i++)
                 {
                     if (Convert.ToInt32(source.ToCharArray()[i]) > 255)// 按中文字符计算加2
                         byteCount += 2;
@@ -751,10 +751,10 @@ namespace CAF
         /// <returns></returns>
         public static int StrLength(string inputString)
         {
-            System.Text.ASCIIEncoding ascii = new System.Text.ASCIIEncoding();
-            int tempLen = 0;
-            byte[] s = ascii.GetBytes(inputString);
-            for (int i = 0; i < s.Length; i++)
+            var ascii = new System.Text.ASCIIEncoding();
+            var tempLen = 0;
+            var s = ascii.GetBytes(inputString);
+            for (var i = 0; i < s.Length; i++)
             {
                 if ((int)s[i] == 63)
                     tempLen += 2;
@@ -774,7 +774,7 @@ namespace CAF
         /// <returns></returns>
         public static bool IsInArryString(this string str, string stringList, char separator)
         {
-            string[] list = stringList.Split(separator);
+            var list = stringList.Split(separator);
             return list.Any(t => t.Equals(str));
         }
 
@@ -787,8 +787,8 @@ namespace CAF
         {
             if (string.IsNullOrEmpty(strText))
                 return strText;
-            StringBuilder myStr = new StringBuilder();
-            foreach (char vChar in strText)
+            var myStr = new StringBuilder();
+            foreach (var vChar in strText)
             {
                 // 若是字母则直接输出
                 if ((vChar >= 'a' && vChar <= 'z') || (vChar >= 'A' && vChar <= 'Z'))
@@ -800,8 +800,8 @@ namespace CAF
                 else if ((int)vChar >= 19968 && (int)vChar <= 40869)
                 {
                     // 若字符Unicode编码在编码范围则 查汉字列表进行转换输出
-                    char c = vChar;
-                    foreach (string strList in strChineseCharList.Where(strList => strList.IndexOf(c) > 0))
+                    var c = vChar;
+                    foreach (var strList in strChineseCharList.Where(strList => strList.IndexOf(c) > 0))
                     {
                         myStr.Append(strList[0]);
                         break;
@@ -818,12 +818,12 @@ namespace CAF
         /// <returns>转换后的拼音字符串</returns>
         public static string ConvertCh(this string Chstr)
         {
-            Regex reg = new Regex("^[\u4e00-\u9fa5]$");//验证是否输入汉字
-            byte[] arr = new byte[2];
-            string pystr = "";
+            var reg = new Regex("^[\u4e00-\u9fa5]$");//验证是否输入汉字
+            var arr = new byte[2];
+            var pystr = "";
             int asc = 0, M1 = 0, M2 = 0;
-            char[] mChar = Chstr.ToCharArray();//获取汉字对应的字符数组
-            for (int j = 0; j < mChar.Length; j++)
+            var mChar = Chstr.ToCharArray();//获取汉字对应的字符数组
+            for (var j = 0; j < mChar.Length; j++)
             {
                 //如果输入的是汉字
                 if (reg.IsMatch(mChar[j].ToString()))
@@ -863,7 +863,7 @@ namespace CAF
                             case -5659:
                                 pystr += "Tian"; break;
                             default:
-                                for (int i = (getValue.Length - 1); i >= 0; i--)
+                                for (var i = (getValue.Length - 1); i >= 0; i--)
                                 {
                                     if (getValue[i] <= asc) //判断汉字的拼音区编码是否在指定范围内
                                     {
@@ -892,13 +892,13 @@ namespace CAF
         /// <returns></returns>
         private static IEnumerable<Match> FindSubstring(string strText, string matchPattern, bool findAllUnique)
         {
-            SortedList uniqueMatches = new SortedList();
+            var uniqueMatches = new SortedList();
             Match[] retArry = null;
-            Regex re = new Regex(matchPattern, RegexOptions.Multiline);
-            MatchCollection theMatches = re.Matches(strText);
+            var re = new Regex(matchPattern, RegexOptions.Multiline);
+            var theMatches = re.Matches(strText);
             if (findAllUnique)
             {
-                for (int counter = 0; counter < theMatches.Count; counter++)
+                for (var counter = 0; counter < theMatches.Count; counter++)
                 {
                     if (!uniqueMatches.ContainsKey(theMatches[counter].Value))
                     {
@@ -925,7 +925,7 @@ namespace CAF
         /// <returns></returns>
         public static List<string> FindSubstringAsString(this string strText, string matchPattern, bool findAllUnique)
         {
-            IEnumerable<Match> matchArry = FindSubstring(strText, matchPattern, findAllUnique);
+            var matchArry = FindSubstring(strText, matchPattern, findAllUnique);
             var retArry = from match in matchArry
                           select match.Value;
             return retArry.ToList<string>();
@@ -941,7 +941,7 @@ namespace CAF
         /// <returns></returns>
         public static List<string> FindSubstringAsString(this string strText, string matchPattern, int groupId, bool findAllUnique)
         {
-            IEnumerable<Match> matchArry = FindSubstring(strText, matchPattern, findAllUnique);
+            var matchArry = FindSubstring(strText, matchPattern, findAllUnique);
             var retArry = from match in matchArry
                           select match.Groups[groupId].Value;
             return retArry.ToList<string>();
@@ -956,7 +956,7 @@ namespace CAF
         /// <returns></returns>
         public static List<int> FindSubstringAsSInt(this string strText, string matchPattern, bool findAllUnique)
         {
-            IEnumerable<Match> matchArry = FindSubstring(strText, matchPattern, findAllUnique);
+            var matchArry = FindSubstring(strText, matchPattern, findAllUnique);
             var retArry = from match in matchArry
                           select int.Parse(match.Value);
             return retArry.ToList<int>();
@@ -971,7 +971,7 @@ namespace CAF
         /// <returns></returns>
         public static List<double> FindSubstringAsDouble(this string strText, string matchPattern, bool findAllUnique)
         {
-            IEnumerable<Match> matchArry = FindSubstring(strText, matchPattern, findAllUnique);
+            var matchArry = FindSubstring(strText, matchPattern, findAllUnique);
             var retArry = from match in matchArry
                           select double.Parse(match.Value);
             return retArry.ToList<double>();
@@ -986,7 +986,7 @@ namespace CAF
         /// <returns></returns>
         public static List<decimal> FindSubstringAsDecimal(this string strText, string matchPattern, bool findAllUnique)
         {
-            IEnumerable<Match> matchArry = FindSubstring(strText, matchPattern, findAllUnique);
+            var matchArry = FindSubstring(strText, matchPattern, findAllUnique);
             var retArry = from match in matchArry
                           select decimal.Parse(match.Value);
             return retArry.ToList<decimal>();
@@ -1002,15 +1002,15 @@ namespace CAF
         /// <returns></returns>
         public static string ReplaceReg(this string strText, string pattern, string target, int groupId)
         {
-            MatchEvaluator myEvaluator = new MatchEvaluator(delegate(Match match) { return CustomReplace(match, groupId, target); });
-            Regex reg = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            var myEvaluator = new MatchEvaluator(delegate(Match match) { return CustomReplace(match, groupId, target); });
+            var reg = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Multiline);
             return reg.Replace(strText, myEvaluator);
         }
 
         private static string CustomReplace(Match m, int groupId, string target)
         {
-            int index = m.Groups[groupId].Index;
-            int length = m.Groups[groupId].Length;
+            var index = m.Groups[groupId].Index;
+            var length = m.Groups[groupId].Length;
             return m.Value.Substring(m.Index - m.Index, index - m.Index) + target + m.Value.Substring(index + length - m.Index, m.Index + m.Length - (index + length));
         }
 
@@ -1032,7 +1032,7 @@ namespace CAF
         /// <param name="source">数据</param>
         public static int ToInt(this string source)
         {
-            int target = 0;
+            var target = 0;
             int.TryParse(source, out target);
             return target;
         }
@@ -1046,7 +1046,7 @@ namespace CAF
             if (source == null)
                 return null;
             int target;
-            bool isValid = int.TryParse(source.ToString(), out target);
+            var isValid = int.TryParse(source.ToString(), out target);
             if (isValid)
                 return target;
             return null;
@@ -1058,7 +1058,7 @@ namespace CAF
         /// <param name="source">数据</param>
         public static double ToDouble(this string source)
         {
-            double target = 0.0;
+            var target = 0.0;
             double.TryParse(source, out target);
             return target;
         }
@@ -1072,7 +1072,7 @@ namespace CAF
             if (source == null)
                 return null;
             double target;
-            bool isValid = double.TryParse(source.ToString(), out target);
+            var isValid = double.TryParse(source.ToString(), out target);
             if (isValid)
                 return target;
             return null;
@@ -1084,7 +1084,7 @@ namespace CAF
         /// <param name="source">数据</param>
         public static decimal ToDecimal(this string source)
         {
-            decimal target = 0.0M;
+            var target = 0.0M;
             decimal.TryParse(source, out target);
             return target;
         }
@@ -1098,7 +1098,7 @@ namespace CAF
             if (source == null)
                 return null;
             decimal target;
-            bool isValid = decimal.TryParse(source, out target);
+            var isValid = decimal.TryParse(source, out target);
             if (isValid)
                 return target;
             return null;
@@ -1124,7 +1124,7 @@ namespace CAF
             if (source == null)
                 return null;
             DateTime target;
-            bool isValid = DateTime.TryParse(source.ToString(), out target);
+            var isValid = DateTime.TryParse(source.ToString(), out target);
             if (isValid)
                 return target;
             return null;
@@ -1136,7 +1136,7 @@ namespace CAF
         /// <param name="source">数据</param>
         public static Guid ToGuid(this string source)
         {
-            Guid target = Guid.Empty;
+            var target = Guid.Empty;
             Guid.TryParse(source, out target);
             return target;
         }
@@ -1150,7 +1150,7 @@ namespace CAF
             if (source == null)
                 return null;
             Guid target;
-            bool isValid = Guid.TryParse(source.ToString(), out target);
+            var isValid = Guid.TryParse(source.ToString(), out target);
             if (isValid)
                 return target;
             return null;
@@ -1179,7 +1179,7 @@ namespace CAF
         {
             if (source == null)
                 return false;
-            bool? value = GetBool(source);
+            var value = GetBool(source);
             if (value != null)
                 return value.Value;
             bool result;
@@ -1222,11 +1222,11 @@ namespace CAF
         {
             if (source == null)
                 return null;
-            bool? value = GetBool(source);
+            var value = GetBool(source);
             if (value != null)
                 return value.Value;
             bool result;
-            bool isValid = bool.TryParse(source, out result);
+            var isValid = bool.TryParse(source, out result);
             if (isValid)
                 return result;
             return null;
@@ -1242,11 +1242,11 @@ namespace CAF
         {
             try
             {
-                int intValue = Convert.ToInt32(value, from);  //先转成10进制
-                string result = Convert.ToString(intValue, to);  //再转成目标进制
+                var intValue = Convert.ToInt32(value, from);  //先转成10进制
+                var result = Convert.ToString(intValue, to);  //再转成目标进制
                 if (to == 2)
                 {
-                    int resultLength = result.Length;  //获取二进制的长度
+                    var resultLength = result.Length;  //获取二进制的长度
                     switch (resultLength)
                     {
                         case 7:

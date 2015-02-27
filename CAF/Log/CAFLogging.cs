@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Practices.EnterpriseLibrary.Logging;
+using System;
 using System.Diagnostics;
-using Microsoft.Practices.EnterpriseLibrary.Logging;
 
 namespace CAF.Log
 {
@@ -10,8 +10,8 @@ namespace CAF.Log
 
         public void Base(string message, TraceEventType eventType, string title, string[] targets)
         {
-            LogEntry log = new LogEntry();
-            foreach (string target in targets)
+            var log = new LogEntry();
+            foreach (var target in targets)
             {
                 log.Categories.Add(target);
             }

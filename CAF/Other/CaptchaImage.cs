@@ -113,7 +113,7 @@ namespace CAF.Other
             // If the named font is not installed, default to a system font.
             try
             {
-                Font font = new Font(this.familyName, 13F);
+                var font = new Font(this.familyName, 13F);
                 this.familyName = familyName;
                 font.Dispose();
             }
@@ -129,15 +129,15 @@ namespace CAF.Other
         private void GenerateImage()
         {
             // Create a new 32-bit bitmap image.
-            Bitmap bitmap = new Bitmap(this.width, this.height, PixelFormat.Format32bppArgb);
+            var bitmap = new Bitmap(this.width, this.height, PixelFormat.Format32bppArgb);
 
             // Create a graphics object for drawing.
-            Graphics g = Graphics.FromImage(bitmap);
+            var g = Graphics.FromImage(bitmap);
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            Rectangle rect = new Rectangle(0, 0, this.width, this.height);
+            var rect = new Rectangle(0, 0, this.width, this.height);
 
             // Fill in the background.
-            HatchBrush hatchBrush = new HatchBrush(HatchStyle.SmallConfetti, Color.LightGray, Color.White);
+            var hatchBrush = new HatchBrush(HatchStyle.SmallConfetti, Color.LightGray, Color.White);
             g.FillRectangle(hatchBrush, rect);
 
             // Set up the text font.
@@ -153,14 +153,14 @@ namespace CAF.Other
             } while (size.Width > rect.Width);
 
             // Set up the text format.
-            StringFormat format = new StringFormat();
+            var format = new StringFormat();
             format.Alignment = StringAlignment.Center;
             format.LineAlignment = StringAlignment.Center;
 
             // Create a path using the text and warp it randomly.
-            GraphicsPath path = new GraphicsPath();
+            var path = new GraphicsPath();
             path.AddString(this.text, font.FontFamily, (int)font.Style, font.Size, rect, format);
-            float v = 8F;
+            var v = 8F;
             PointF[] points =
 			{
 				new PointF(this.random.Next(rect.Width) / v, this.random.Next(rect.Height) / v),
@@ -168,7 +168,7 @@ namespace CAF.Other
 				new PointF(this.random.Next(rect.Width) / v, rect.Height - this.random.Next(rect.Height) / v),
 				new PointF(rect.Width - this.random.Next(rect.Width) / v, rect.Height - this.random.Next(rect.Height) / v)
 			};
-            Matrix matrix = new Matrix();
+            var matrix = new Matrix();
             matrix.Translate(0F, 0F);
             path.Warp(points, rect, matrix, WarpMode.Perspective, 0F);
 
@@ -177,13 +177,13 @@ namespace CAF.Other
             g.FillPath(hatchBrush, path);
 
             // Add some random noise.
-            int m = Math.Max(rect.Width, rect.Height);
-            for (int i = 0; i < (int)(rect.Width * rect.Height / 30F); i++)
+            var m = Math.Max(rect.Width, rect.Height);
+            for (var i = 0; i < (int)(rect.Width * rect.Height / 30F); i++)
             {
-                int x = this.random.Next(rect.Width);
-                int y = this.random.Next(rect.Height);
-                int w = this.random.Next(m / 50);
-                int h = this.random.Next(m / 50);
+                var x = this.random.Next(rect.Width);
+                var y = this.random.Next(rect.Height);
+                var w = this.random.Next(m / 50);
+                var h = this.random.Next(m / 50);
                 g.FillEllipse(hatchBrush, x, y, w, h);
             }
 

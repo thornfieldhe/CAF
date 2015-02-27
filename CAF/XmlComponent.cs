@@ -78,7 +78,7 @@ namespace CAF
         public virtual void Remove(XmlComponent child)
         {
             Children.Remove(child);
-            foreach (XElement item in this.WElement.Elements(XName.Get(child.TagName)))
+            foreach (var item in this.WElement.Elements(XName.Get(child.TagName)))
             {
                 if (!string.IsNullOrEmpty(child.TagName) && item.Name == child.TagName)
                 {
@@ -95,7 +95,7 @@ namespace CAF
         /// <typeparam name="T">对象类型</typeparam>
         public virtual List<T> Elements<T>() where T : XmlComponent
         {
-            IEnumerable<T> lists = Enumerate<T>();
+            var lists = Enumerate<T>();
             return new List<T>(lists);
         }
 
@@ -112,7 +112,7 @@ namespace CAF
             }
             else
             {
-                IEnumerable<T> lists = GetOneLevelMember<T>();
+                var lists = GetOneLevelMember<T>();
                 return new List<T>(lists);
             }
         }
@@ -124,7 +124,7 @@ namespace CAF
         ///<param name="name">对象Name属性名称</param>
         public virtual T Element<T>(string name) where T : XmlComponent
         {
-            IEnumerable<T> lists = GetComponentByName<T>(name);
+            var lists = GetComponentByName<T>(name);
             return new List<T>(lists)[0];
         }
 
@@ -174,7 +174,7 @@ namespace CAF
         /// <returns></returns>
         protected Guid? GetAttributeValueAsGuid(string attributeName)
         {
-            Guid result = new Guid();
+            var result = new Guid();
             if (this.WElement.Attribute(attributeName.ToLower()) != null)
             {
                 try
@@ -265,7 +265,7 @@ namespace CAF
         {
             if (this.WElement.Attribute(attributeName.ToLower()) != null)
             {
-                string value = this.WElement.Attribute(XName.Get(attributeName.ToLower())).Value;
+                var value = this.WElement.Attribute(XName.Get(attributeName.ToLower())).Value;
                 return Enum.Parse(enumType, value);
             }
             else
@@ -294,7 +294,7 @@ namespace CAF
             if (IsMatch<T>(this))
                 yield return this as T;
             if ((Children != null) && (Children.Count > 0))
-                foreach (XmlComponent child in Children)
+                foreach (var child in Children)
                     foreach (XmlComponent item in child.Enumerate<T>())
                         if (IsMatch<T>(item))
                             yield return item as T;
@@ -310,7 +310,7 @@ namespace CAF
             if (IsMatch<T>(this))
                 yield return this as T;
             if ((Children != null) && (Children.Count > 0))
-                foreach (XmlComponent child in Children)
+                foreach (var child in Children)
                     if (IsMatch<T>(child))
                         yield return child as T;
         }
@@ -324,7 +324,7 @@ namespace CAF
         private IEnumerable<T> GetComponentByName<T>(string name) where T : XmlComponent
         {
             if ((Children != null) && (Children.Count > 0))
-                foreach (XmlComponent child in Children)
+                foreach (var child in Children)
                     if (IsMatch<T>(child) && child.Name == name)
                         yield return child as T;
         }
@@ -346,14 +346,14 @@ namespace CAF
         /// <param name="xel"></param>
         private void BindChildren(XElement xel)
         {
-            foreach (Type item in componentTypes)
+            foreach (var item in componentTypes)
             {
                 if (item.IsSubclassOf(typeof(XmlComponent)))
                 {
-                    XmlComponent component = Activator.CreateInstance(item) as XmlComponent;
+                    var component = Activator.CreateInstance(item) as XmlComponent;
 
-                    List<XElement> eles = new List<XElement>(xel.Elements(component.TagName));
-                    foreach (XElement xe in eles)
+                    var eles = new List<XElement>(xel.Elements(component.TagName));
+                    foreach (var xe in eles)
                     {
                         try
                         {

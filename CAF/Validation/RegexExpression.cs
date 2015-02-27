@@ -57,20 +57,20 @@ namespace CAF
         {
             context.Matches.Clear();
             context.Groups.Clear();
-            MatchCollection coll = regex.Matches(context.Content);
+            var coll = regex.Matches(context.Content);
             if (coll.Count == 0)
             {
                 return;
             }
-            int groupCount = 0;
+            var groupCount = 0;
             foreach (Match match in coll)
             {
                 context.Matches.Add(match.Value);
                 GetMaxInt(match.Groups.Count, ref groupCount);
             }
-            for (int i = 0; i < groupCount; i++)
+            for (var i = 0; i < groupCount; i++)
             {
-                List<string> groupItems = new List<string>();
+                var groupItems = new List<string>();
                 foreach (Match match in coll)
                 {
                     if (match.Groups[i] != null)

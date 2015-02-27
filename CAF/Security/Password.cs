@@ -19,11 +19,11 @@ namespace CAF.Security
         /// <returns></returns>
         public static string GetNewPassword(int pwdlen)
         {
-            string randomchars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            string tmpstr = "";
+            var randomchars = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var tmpstr = "";
             int iRandNum;
-            Random rnd = new Random();
-            for (int i = 0; i < pwdlen; i++)
+            var rnd = new Random();
+            for (var i = 0; i < pwdlen; i++)
             {
                 iRandNum = rnd.Next(randomchars.Length);
                 tmpstr += randomchars[iRandNum];
@@ -43,10 +43,10 @@ namespace CAF.Security
             try
             {
                 byKey = System.Text.Encoding.UTF8.GetBytes(strEncrKey.Substring(0, 8));
-                DESCryptoServiceProvider des = new DESCryptoServiceProvider();
-                byte[] inputByteArray = System.Text.Encoding.UTF8.GetBytes(strText);
-                MemoryStream ms = new MemoryStream();
-                CryptoStream cs = new CryptoStream(ms, des.CreateEncryptor(byKey, IV), CryptoStreamMode.Write);
+                var des = new DESCryptoServiceProvider();
+                var inputByteArray = System.Text.Encoding.UTF8.GetBytes(strText);
+                var ms = new MemoryStream();
+                var cs = new CryptoStream(ms, des.CreateEncryptor(byKey, IV), CryptoStreamMode.Write);
                 cs.Write(inputByteArray, 0, inputByteArray.Length);
                 cs.FlushFinalBlock();
                 return Convert.ToBase64String(ms.ToArray());
@@ -66,14 +66,14 @@ namespace CAF.Security
         {
             byte[] byKey = null;
             byte[] IV = { 0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF };
-            byte[] inputByteArray = new Byte[strText.Length];
+            var inputByteArray = new Byte[strText.Length];
             try
             {
                 byKey = System.Text.Encoding.UTF8.GetBytes(strEncrKey.Substring(0, 8));
-                DESCryptoServiceProvider des = new DESCryptoServiceProvider();
+                var des = new DESCryptoServiceProvider();
                 inputByteArray = Convert.FromBase64String(strText);
-                MemoryStream ms = new MemoryStream();
-                CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(byKey, IV), CryptoStreamMode.Write);
+                var ms = new MemoryStream();
+                var cs = new CryptoStream(ms, des.CreateDecryptor(byKey, IV), CryptoStreamMode.Write);
                 cs.Write(inputByteArray, 0, inputByteArray.Length);
                 cs.FlushFinalBlock();
                 System.Text.Encoding encoding = new System.Text.UTF8Encoding();
@@ -92,11 +92,11 @@ namespace CAF.Security
         /// <returns></returns>
         public static string GetMD5Hash(string input)
         {
-            MD5 md5 = System.Security.Cryptography.MD5.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
-            byte[] hash = md5.ComputeHash(inputBytes);
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < hash.Length; i++)
+            var md5 = System.Security.Cryptography.MD5.Create();
+            var inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+            var hash = md5.ComputeHash(inputBytes);
+            var sb = new StringBuilder();
+            for (var i = 0; i < hash.Length; i++)
             {
                 sb.Append(hash[i].ToString("X2"));
             }

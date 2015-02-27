@@ -21,7 +21,7 @@ namespace CAF.Core
             {
                 throw new ArgumentNullException("type");
             }
-            T[] attributes = (T[])(type.GetCustomAttributes(typeof(T), false));
+            var attributes = (T[])(type.GetCustomAttributes(typeof(T), false));
             return (attributes.Length == 0) ? null : new List<T>(attributes);
         }
 
@@ -33,19 +33,19 @@ namespace CAF.Core
         /// <returns></returns>
         internal static IList<MethodInfo> GetMethodsWithCustomAttribute<T>(Type type) where T : Attribute
         {
-            if (type==null)
+            if (type == null)
             {
-                throw new ArgumentNullException("type");  
+                throw new ArgumentNullException("type");
             }
-            MethodInfo[] methods = type.GetMethods();
-            if ((methods==null)||(methods.Length==0))
+            var methods = type.GetMethods();
+            if ((methods == null) || (methods.Length == 0))
             {
                 return null;
             }
             IList<MethodInfo> result = new List<MethodInfo>();
-            foreach (MethodInfo method in methods)
+            foreach (var method in methods)
             {
-                if (method.IsDefined(typeof(T),false))
+                if (method.IsDefined(typeof(T), false))
                 {
                     result.Add(method);
                 }
@@ -61,11 +61,11 @@ namespace CAF.Core
         /// <returns></returns>
         internal static IList<T> GetMethodCustomAttributes<T>(MethodInfo method) where T : Attribute
         {
-            if (method==null)
+            if (method == null)
             {
                 throw new ArgumentNullException("method");
             }
-            T[] attributes = (T[])(method.GetCustomAttributes(typeof(T), false));
+            var attributes = (T[])(method.GetCustomAttributes(typeof(T), false));
             return (attributes.Length == 0) ? null : new List<T>(attributes);
         }
 
@@ -77,7 +77,7 @@ namespace CAF.Core
         /// <returns></returns>
         internal static T GetMethodCustomAttribute<T>(MethodInfo method) where T : Attribute
         {
-            IList<T> attributes = GetMethodCustomAttributes<T>(method);
+            var attributes = GetMethodCustomAttributes<T>(method);
             return (attributes == null) ? null : attributes[0];
         }
 
@@ -91,10 +91,10 @@ namespace CAF.Core
         {
             try
             {
-                T cStatus = (T)Enum.Parse(typeof(T), value);
-                Type enumType = typeof(T);
+                var cStatus = (T)Enum.Parse(typeof(T), value);
+                var enumType = typeof(T);
 
-                DisplayNameAttribute att = enumType.GetField(cStatus.ToString()).GetCustomAttributes(typeof(DisplayNameAttribute), true)[0] as DisplayNameAttribute;
+                var att = enumType.GetField(cStatus.ToString()).GetCustomAttributes(typeof(DisplayNameAttribute), true)[0] as DisplayNameAttribute;
                 return att.DisplayName;
             }
             catch

@@ -31,7 +31,7 @@ namespace CAF
                 {
                     return null;
                 }
-                NameBasedDictionary cache = GetCache();
+                var cache = GetCache();
                 if (cache.Count <= 0)
                 {
                     return null;
@@ -50,7 +50,7 @@ namespace CAF
                 {
                     return;
                 }
-                NameBasedDictionary cache = GetCache();
+                var cache = GetCache();
                 object temp;
                 if (cache.TryGetValue(name, out temp))
                 {
@@ -91,8 +91,8 @@ namespace CAF
 
         public static bool CheckWhetherIsWeb()
         {
-            bool result = false;
-            AppDomain domain = AppDomain.CurrentDomain;
+            var result = false;
+            var domain = AppDomain.CurrentDomain;
             try
             {
                 if (domain.ShadowCopyFiles)

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using CAF.Configuration;
+﻿using CAF.Configuration;
 using CAF.Core;
 using CAF.ObjectPool;
 using Microsoft.Practices.Unity.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
 
 namespace CAF
 {
@@ -40,7 +40,7 @@ namespace CAF
             {
                 config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             }
-            NamedConfigurationSectionGroup group = (NamedConfigurationSectionGroup)config.GetSectionGroup(GroupName);
+            var group = (NamedConfigurationSectionGroup)config.GetSectionGroup(GroupName);
 
             //Unity
             Unity = group.Unity;
@@ -54,7 +54,7 @@ namespace CAF
             ObjectPoolCache = new Dictionary<Type, PoolableConfigurationElement>();
             foreach (PoolableConfigurationElement element in group.ObjectBuilder.ObjectPool)
             {
-                Type type = Type.GetType(Unity.TypeAliases[element.Name]);
+                var type = Type.GetType(Unity.TypeAliases[element.Name]);
 
                 if (typeof(IPoolable).IsAssignableFrom(type))
                     ObjectPoolCache.Add(type, _objectBuilderElement.ObjectPool[element.Name]);
@@ -67,9 +67,9 @@ namespace CAF
         {
             foreach (ObjectBuilderConfigurationElement builder in _objectBuilderElement.Builders)
             {
-                Type type = Type.GetType(Unity.TypeAliases[builder.Name]);
-                BuildStepAttribute[] attributes = new BuildStepAttribute[builder.Steps.Count];
-                for (int i = 0; i < builder.Steps.Count; i++)
+                var type = Type.GetType(Unity.TypeAliases[builder.Name]);
+                var attributes = new BuildStepAttribute[builder.Steps.Count];
+                for (var i = 0; i < builder.Steps.Count; i++)
                 {
                     attributes[i] = new BuildStepAttribute() { Sequence = builder.Steps[i].Sequence, Times = builder.Steps[i].Times, Name = builder.Steps[i].Name };
                 }

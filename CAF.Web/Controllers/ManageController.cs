@@ -41,7 +41,7 @@ namespace CAF.Web.Controllers
         [HttpPost]
         public JsonResult GetUsers(string name, Guid? organizeId, Guid? ruleId)
         {
-            string whereStr = " 1=1 ";
+            var whereStr = " 1=1 ";
 
             whereStr += organizeId.IfNotNull(o => "And OrganizeId=@OrganizeId");
             whereStr += ruleId.IfNotNull(o => "And RuleId=@RuleId");

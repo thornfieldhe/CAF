@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Reflection;
 
 namespace CAF
 {
@@ -9,17 +8,17 @@ namespace CAF
     {
         public static string GetDescription(System.Enum obj)
         {
-            string objName = obj.ToString();
-            Type t = obj.GetType();
-            FieldInfo fi = t.GetField(objName);
-            DescriptionAttribute[] arrDesc = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+            var objName = obj.ToString();
+            var t = obj.GetType();
+            var fi = t.GetField(objName);
+            var arrDesc = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
             return arrDesc[0].Description;
         }
 
         public static T GetEnumFromFlagsEnum<T>(long value) where T : struct
         {
-            T[] values = (T[])System.Enum.GetValues(typeof(T));
+            var values = (T[])System.Enum.GetValues(typeof(T));
 
             foreach (var itemValue in values)
             {
@@ -45,7 +44,7 @@ namespace CAF
 
         public static List<RichEnumContent> Get(Type enumType)
         {
-            List<RichEnumContent> items = new List<RichEnumContent>();
+            var items = new List<RichEnumContent>();
 
             foreach (Enum s in Enum.GetValues(enumType))
             {
@@ -55,7 +54,7 @@ namespace CAF
                     Text = s.ToString()
                 });
             }
-            int i = 0;
+            var i = 0;
             foreach (int s in Enum.GetValues(enumType))
             {
                 items[i].Value = s;

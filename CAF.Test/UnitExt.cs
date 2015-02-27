@@ -14,7 +14,7 @@ namespace CAF.Test
         public void TestDateString()
         {
             Assert.AreEqual(new DateTime(2014, 2, 3), ("2014-2-3").ToDate());
-            DateTime d = DateTime.Now;
+            var d = DateTime.Now;
             Assert.AreEqual(d.GetCountDaysOfMonth(), 31);
             Assert.AreEqual(d.GetFirstDayOfMonth(), new DateTime(2015, 1, 1));
             Assert.AreEqual(d.GetFirstDayOfWeek().Date, new DateTime(2015, 1, 25));

@@ -13,7 +13,7 @@ namespace CAF.Ext
 
             pagingInfo.TotalRecords = query.Count();
 
-            List<T> list = query.Skip(pagingInfo.PageIndex * pagingInfo.PageSize).Take(pagingInfo.PageSize).ToList();
+            var list = query.Skip(pagingInfo.PageIndex * pagingInfo.PageSize).Take(pagingInfo.PageSize).ToList();
 
             if (list == null || list.Count == 0)
             {

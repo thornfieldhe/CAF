@@ -12,7 +12,7 @@ namespace CAF
         /// <returns></returns>
         public static decimal ToFixed(decimal d, int s)
         {
-            decimal sp = Convert.ToDecimal(Math.Pow(10, s));
+            var sp = Convert.ToDecimal(Math.Pow(10, s));
 
             if (d < 0)
                 return Math.Truncate(d) + Math.Ceiling((d - Math.Truncate(d)) * sp) / sp;

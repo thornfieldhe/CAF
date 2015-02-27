@@ -1,6 +1,5 @@
-﻿using System;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
+﻿using Microsoft.Practices.Unity;
+using System;
 
 namespace CAF
 {
@@ -48,7 +47,7 @@ namespace CAF
         public static T BuildUp<T>(string registerName)
         {
             IUnityContainer container = new UnityContainer();
-            UnityConfigurationSection section = SingletonBase<CAFConfiguration>.Instance.Unity;
+            var section = SingletonBase<CAFConfiguration>.Instance.Unity;
             section.Configure(container);
             return container.Resolve<T>(registerName);
         }
@@ -61,7 +60,7 @@ namespace CAF
         public static T BuildUp<T>(string containerName, string registerName)
         {
             IUnityContainer container = new UnityContainer();
-            UnityConfigurationSection section = SingletonBase<CAFConfiguration>.Instance.Unity;
+            var section = SingletonBase<CAFConfiguration>.Instance.Unity;
             section.Configure(container, containerName);
 
             return container.Resolve<T>(registerName);
@@ -77,7 +76,7 @@ namespace CAF
             try
             {
                 IUnityContainer container = new UnityContainer();
-                UnityConfigurationSection section = SingletonBase<CAFConfiguration>.Instance.Unity;
+                var section = SingletonBase<CAFConfiguration>.Instance.Unity;
                 section.Configure(container);
 
                 return container;

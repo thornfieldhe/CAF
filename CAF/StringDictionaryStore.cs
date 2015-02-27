@@ -1,8 +1,6 @@
-﻿using System;
+﻿using CAF.Core;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CAF.Core;
 
 namespace CAF
 {
@@ -36,7 +34,7 @@ namespace CAF
                     break;
                 case 'T':
                     value = contex.Value;
-                    foreach (string key in Data.Keys)
+                    foreach (var key in Data.Keys)
                     {
                         if (string.Equals(Data[key], value))
                         {

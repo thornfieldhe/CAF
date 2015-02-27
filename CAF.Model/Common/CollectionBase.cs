@@ -91,7 +91,7 @@ namespace CAF
         public virtual void Add(TMember member)
         {
             _items.Add(member);
-            if (OnInsert!=null)
+            if (OnInsert != null)
             {
                 OnInsert(member);
             }
@@ -106,12 +106,12 @@ namespace CAF
         /// <param name="container">被合并的集合</param>
         public virtual void AddRange(TCollection container)
         {
-            CollectionBase<TCollection, TMember> collection = container as CollectionBase<TCollection, TMember>;
+            var collection = container as CollectionBase<TCollection, TMember>;
             if (collection == null || (collection.Count <= 0))
             {
                 return;
             }
-            foreach (TMember member in collection)
+            foreach (var member in collection)
             {
                 _items.Add(member);
                 member.OnPropertyChange += MarkDirty;
@@ -127,7 +127,7 @@ namespace CAF
         {
             if (members != null && members.Length > 0)
             {
-                foreach (TMember member in members)
+                foreach (var member in members)
                 {
                     _items.Add(member);
                     member.OnPropertyChange += MarkDirty;
@@ -142,7 +142,7 @@ namespace CAF
         /// <param name="members">成员列表</param>
         public virtual void AddRange(List<TMember> members)
         {
-            foreach (TMember member in members)
+            foreach (var member in members)
             {
                 _items.Add(member);
                 member.OnPropertyChange += MarkDirty;
@@ -272,12 +272,12 @@ namespace CAF
 
         public int Save()
         {
-            int i = 0;
+            var i = 0;
             if (IsDirty)
             {
                 using (IDbConnection conn = SqlService.Instance.Connection)
                 {
-                    IDbTransaction transaction = conn.BeginTransaction();
+                    var transaction = conn.BeginTransaction();
                     try
                     {
                         i = SaveChanges(conn, transaction);
@@ -296,7 +296,7 @@ namespace CAF
 
         public int SaveChanges(IDbConnection conn, IDbTransaction transaction)
         {
-            int i = 0;
+            var i = 0;
             if (IsDirty)
             {
                 i += PreSubmit(conn, transaction);
@@ -317,10 +317,10 @@ namespace CAF
 
         protected virtual int Submit(IDbConnection conn, IDbTransaction transaction)
         {
-            int rows = 0;
+            var rows = 0;
             if (_isDirty)
             {
-                bool isValid = true;
+                var isValid = true;
                 this._items.ForEach(
                     member =>
                     {

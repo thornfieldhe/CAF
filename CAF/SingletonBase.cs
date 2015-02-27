@@ -19,7 +19,7 @@ namespace CAF
             {
                 if (GenericContex.CheckWhetherIsWeb())
                 {
-                    T instance = (T)HttpContext.Current.Items[typeof(T).FullName];
+                    var instance = (T)HttpContext.Current.Items[typeof(T).FullName];
                     if (instance == null)
                     {
                         instance = SinglentonCreator.instance;

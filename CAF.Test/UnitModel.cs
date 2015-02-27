@@ -17,10 +17,10 @@ namespace CAF.Test
         [TestMethod]
         public void TestMethod1()
         {
-            Guid id = Guid.NewGuid();
-            User u1 = new User(id) { Name = "u1" };
-            User u2 = new User(id) { Name = "u2" };
-            List<User> users = new List<User> { u2 };
+            var id = Guid.NewGuid();
+            var u1 = new User(id) { Name = "u1" };
+            var u2 = new User(id) { Name = "u2" };
+            var users = new List<User> { u2 };
             Assert.AreEqual(u1, u2);//Id相等即为相等
             Assert.IsTrue(u1 == u2);
             Assert.IsFalse(u1 != u2);
@@ -34,16 +34,16 @@ namespace CAF.Test
         public void TestMethod2()
         {
             User u1 = User.New();
-            Role r1 = Role.New();
+            var r1 = Role.New();
             r1.Name = "r1";
             u1.Roles.Add(r1);
             u1.Name = "u1";
             Assert.AreEqual(u1.Roles[0].Name, "r1");
-            User u2 = u1.GetShallowCopy();
+            var u2 = u1.GetShallowCopy();
             u2.Roles[0].Name = "r2";
             Assert.AreEqual(u2.Roles[0].Name, "r2");
             Assert.AreEqual(u2.Roles[0].Name, u1.Roles[0].Name);//浅拷贝引用相等
-            User u3 = u1.Clone();
+            var u3 = u1.Clone();
             u3.Roles[0].Name = "r3";
             Assert.AreEqual(u3.Roles[0].Name, "r3");
             Assert.AreNotEqual(u3.Roles[0].Name, u1.Roles[0].Name);//深拷贝引用不等
@@ -90,7 +90,7 @@ namespace CAF.Test
         [TestMethod]
         public void TestMethod5()
         {
-            User u = CreateUser();
+            var u = CreateUser();
             u.OrganizeId = Guid.NewGuid();
             if (u.IsValid)
             {
@@ -114,12 +114,12 @@ namespace CAF.Test
         public void TestMethod6()
         {
             //新增with子项列表
-            Organize o = Organize.New();
+            var o = Organize.New();
             o.Sort = 0;
             o.Name = "o1";
             o.Level = "01";
             o.Code = "00001";
-            User u = CreateUser();
+            var u = CreateUser();
             o.Users.Add(u);
             if (o.IsValid)
             {
@@ -128,7 +128,7 @@ namespace CAF.Test
             var o1 = Organize.Get(o.Id);
             Assert.AreEqual(o1.Users.Count, 1);
             //新增子项列表中子项
-            User u1 = CreateUser();
+            var u1 = CreateUser();
             u1.OrganizeId = o1.Id;
             //todo 未实现增加子项
             o1.Users.Add(u1);
@@ -169,7 +169,7 @@ namespace CAF.Test
         public void TestMethod7()
         {
             //新增with子项
-            User o = CreateUser();
+            var o = CreateUser();
             o.UserSetting = UserSetting.New();
             o.UserSetting.Settings = "nomal";
             o.OrganizeId = Guid.NewGuid();
@@ -196,13 +196,13 @@ namespace CAF.Test
         [TestMethod]
         public void TestMethod8()
         {
-            Organize o = Organize.New();
+            var o = Organize.New();
             o.Sort = 0;
             o.Name = "o1";
             o.Level = "01";
             o.Code = "00001";
-            User u = CreateUser();
-            User u1 = CreateUser();
+            var u = CreateUser();
+            var u1 = CreateUser();
             o.Users.Add(u);
             o.Users.Add(u1);
             o.Create();
@@ -210,7 +210,7 @@ namespace CAF.Test
             Assert.IsNotNull(u2.Organize);
             u2.Organize.Name = "xxx";
             u2.Save();//不支持在子对象中更新父对象
-            Organize o2 = Organize.Get(u2.OrganizeId);
+            var o2 = Organize.Get(u2.OrganizeId);
             Assert.AreEqual(o2.Name, "o1");
         }
 
@@ -220,7 +220,7 @@ namespace CAF.Test
         [TestMethod]
         public void TestMethod9()
         {
-            User u = CreateUser();
+            var u = CreateUser();
             u.UserSetting = UserSetting.New();
             u.UserSetting.Settings = "s1";
             u.OrganizeId = Guid.NewGuid();
@@ -235,9 +235,9 @@ namespace CAF.Test
         [TestMethod]
         public void TestMethod10()
         {
-            User u = CreateUser();
+            var u = CreateUser();
             u.OrganizeId = Guid.NewGuid();
-            Role r = Role.New();
+            var r = Role.New();
             r.Name = "r1";
             u.Roles.Add(r);
             if (u.IsValid)
@@ -270,7 +270,7 @@ namespace CAF.Test
         [TestMethod]
         public void TestMethod11()
         {
-            UserList list = new UserList();
+            var list = new UserList();
             User b = User.New();
             b.Name = "name1";
             User c = User.New();
@@ -288,9 +288,9 @@ namespace CAF.Test
         [TestMethod]
         public void TestCollectionQuery()
         {
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
             {
-                User u = CreateUser();
+                var u = CreateUser();
                 u.Name = "user" + i;
                 u.OrganizeId = Guid.NewGuid();
                 if (u.IsValid)
@@ -298,11 +298,11 @@ namespace CAF.Test
                     u.Create();
                 }
             }
-            UserList list = UserList.Query(new { Name = "user" }, " Name Like @Name+'%'");
+            var list = UserList.Query(new { Name = "user" }, " Name Like @Name+'%'");
             Assert.AreEqual(list.Count, 5);
-            int count = UserList.QueryCount(new { Name = "user" }, " Name Like @Name+'%'");
-            Assert.AreEqual(count,5);
-            bool hasone = UserList.Exists(new { Name = "user" }, " Name Like @Name+'%'");
+            var count = UserList.QueryCount(new { Name = "user" }, " Name Like @Name+'%'");
+            Assert.AreEqual(count, 5);
+            var hasone = UserList.Exists(new { Name = "user" }, " Name Like @Name+'%'");
             Assert.IsTrue(hasone);
         }
 
@@ -312,20 +312,20 @@ namespace CAF.Test
         [TestMethod]
         public void TestReadonlyList()
         {
-            Organize o = Organize.New();
+            var o = Organize.New();
             o.Name = "o1";
             o.Level = "01";
             o.Code = "0001";
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
-                User u = CreateUser();
+                var u = CreateUser();
                 u.Name = "user" + i;
                 u.OrganizeId = Guid.NewGuid();
                 o.Users.Add(u);
             }
-         o.IsValid.IfIsTrue(()=>o.Create());
-         var readOlyBookList = ReadOnlyUserList.Instance.Query("Name", 2, new { OrganizeId = o.Id },
-                sum: "Status", average: "Status", queryWhere: "   OrganizeId =@OrganizeId", pageIndex: 2);
+            o.IsValid.IfIsTrue(() => o.Create());
+            var readOlyBookList = ReadOnlyUserList.Instance.Query("Name", 2, new { OrganizeId = o.Id },
+                   sum: "Status", average: "Status", queryWhere: "   OrganizeId =@OrganizeId", pageIndex: 2);
             Assert.AreEqual(10, readOlyBookList.TotalCount);
             Assert.AreEqual(2, readOlyBookList.Result.Count);
             Assert.AreEqual(10, readOlyBookList.Sum["Status"]);

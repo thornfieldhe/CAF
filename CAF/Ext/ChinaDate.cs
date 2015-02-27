@@ -247,7 +247,7 @@ namespace CAF.Ext
         /// </summary>
         private static String cyclical(int y)
         {
-            int num = y - 1900 + 36;
+            var num = y - 1900 + 36;
             return (cyclicalm(num));
         }
 
@@ -256,12 +256,12 @@ namespace CAF.Ext
         /// </summary>
         private long[] Lunar(int y, int m)
         {
-            long[] nongDate = new long[7];
+            var nongDate = new long[7];
             int i = 0, temp = 0, leap = 0;
-            DateTime baseDate = new DateTime(1900 + 1900, 2, 31);
-            DateTime objDate = new DateTime(y + 1900, m + 1, 1);
-            TimeSpan ts = objDate - baseDate;
-            long offset = (long)ts.TotalDays;
+            var baseDate = new DateTime(1900 + 1900, 2, 31);
+            var objDate = new DateTime(y + 1900, m + 1, 1);
+            var ts = objDate - baseDate;
+            var offset = (long)ts.TotalDays;
             if (y < 2000)
                 offset += year19[m - 1];
             if (y > 2000)
@@ -339,15 +339,15 @@ namespace CAF.Ext
         /// </summary>
         private static long[] calElement(int y, int m, int d)
         {
-            long[] nongDate = new long[7];
+            var nongDate = new long[7];
             int i = 0, temp = 0, leap = 0;
 
-            DateTime baseDate = new DateTime(1900, 1, 31);
+            var baseDate = new DateTime(1900, 1, 31);
 
-            DateTime objDate = new DateTime(y, m, d);
-            TimeSpan ts = objDate - baseDate;
+            var objDate = new DateTime(y, m, d);
+            var ts = objDate - baseDate;
 
-            long offset = (long)ts.TotalDays;
+            var offset = (long)ts.TotalDays;
 
             nongDate[5] = offset + 40;
             nongDate[4] = 14;
@@ -417,14 +417,14 @@ namespace CAF.Ext
 
         private static String getChinaDate(int day)
         {
-            String a = "";
+            var a = "";
             if (day == 10)
                 return "初十";
             if (day == 20)
                 return "二十";
             if (day == 30)
                 return "三十";
-            int two = (int)((day) / 10);
+            var two = (int)((day) / 10);
             if (two == 0)
                 a = "初";
             if (two == 1)
@@ -433,7 +433,7 @@ namespace CAF.Ext
                 a = "廿";
             if (two == 3)
                 a = "三";
-            int one = (int)(day % 10);
+            var one = (int)(day % 10);
             switch (one)
             {
                 case 1:
@@ -469,9 +469,9 @@ namespace CAF.Ext
 
         private static DateTime sTerm(int y, int n)
         {
-            double ms = 31556925974.7 * (y - 1900);
+            var ms = 31556925974.7 * (y - 1900);
             double ms1 = sTermInfo[n];
-            DateTime offDate = new DateTime(1900, 1, 6, 2, 5, 0);
+            var offDate = new DateTime(1900, 1, 6, 2, 5, 0);
             offDate = offDate.AddMilliseconds(ms);
             offDate = offDate.AddMinutes(ms1);
             return offDate;
@@ -489,7 +489,7 @@ namespace CAF.Ext
         /// </summary>
         public static int GetDaysByMonth(int y, int m)
         {
-            int[] days = new int[] { 31, DateTime.IsLeapYear(y) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+            var days = new int[] { 31, DateTime.IsLeapYear(y) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
             return days[m - 1];
         }
 
@@ -519,11 +519,11 @@ namespace CAF.Ext
         /// </summary>
         public static CNDate getChinaDate(DateTime dt)
         {
-            CNDate cd = new CNDate();
-            int year = dt.Year;
-            int month = dt.Month;
-            int date = dt.Day;
-            long[] l = calElement(year, month, date);
+            var cd = new CNDate();
+            var year = dt.Year;
+            var month = dt.Month;
+            var date = dt.Day;
+            var l = calElement(year, month, date);
             cd.cnIntYear = (int)l[0];
             cd.cnIntMonth = (int)l[1];
             cd.cnIntDay = (int)l[2];
@@ -531,30 +531,30 @@ namespace CAF.Ext
             cd.cnAnm = AnimalsYear(year);
             cd.cnStrMonth = nStr1[(int)l[1]];
             cd.cnStrDay = getChinaDate((int)(l[2]));
-            string smd = dt.ToString("MMdd");
+            var smd = dt.ToString("MMdd");
 
-            string lmd = FormatDate(cd.cnIntMonth, cd.cnIntDay);
-            for (int i = 0; i < solarTerm.Length; i++)
+            var lmd = FormatDate(cd.cnIntMonth, cd.cnIntDay);
+            for (var i = 0; i < solarTerm.Length; i++)
             {
-                string s1 = sTerm(dt.Year, i).ToString("MMdd");
+                var s1 = sTerm(dt.Year, i).ToString("MMdd");
                 if (s1.Equals(dt.ToString("MMdd")))
                 {
                     cd.cnSolarTerm = solarTerm[i];
                     break;
                 }
             }
-            foreach (string s in sFtv)
+            foreach (var s in sFtv)
             {
-                string s1 = s.Substring(0, 4);
+                var s1 = s.Substring(0, 4);
                 if (s1.Equals(smd))
                 {
                     cd.cnFtvs = s.Substring(4, s.Length - 4);
                     break;
                 }
             }
-            foreach (string s in lFtv)
+            foreach (var s in lFtv)
             {
-                string s1 = s.Substring(0, 4);
+                var s1 = s.Substring(0, 4);
                 if (s1.Equals(lmd))
                 {
                     cd.cnFtvl = s.Substring(4, s.Length - 4);
@@ -862,7 +862,7 @@ namespace CAF.Ext
             temp = 0;
 
             //计算两天的基本差距
-            TimeSpan ts = _date - ChineseCalendar.MinDay;
+            var ts = _date - ChineseCalendar.MinDay;
             offset = ts.Days;
 
             for (i = MinYear; i <= MaxYear; i++)
@@ -1094,7 +1094,7 @@ namespace CAF.Ext
             info = LunarDateArray[year - MinYear] & 0x0FFFF;
 
             //计算12个月中有多少天为30天
-            for (int m = 0; m < 12; m++)
+            for (var m = 0; m < 12; m++)
             {
                 f = info & i;
                 if (f != 0)
@@ -1128,7 +1128,7 @@ namespace CAF.Ext
             //zhiHour = zhiStr[offset].ToString();
 
             //计算天干
-            TimeSpan ts = this._date - GanZhiStartDay;
+            var ts = this._date - GanZhiStartDay;
             i = ts.Days % 60;
 
             //ganStr[i % 10] 为日的天干,(n*2-1) %10得出地支对应,n从1开始
@@ -1172,7 +1172,7 @@ namespace CAF.Ext
             {
                 throw new Exception("非法农历日期");
             }
-            int leap = GetChineseLeapMonth(year);// 计算该年应该闰哪个月
+            var leap = GetChineseLeapMonth(year);// 计算该年应该闰哪个月
             if ((leapMonth == true) && (month != leap))
             {
                 throw new Exception("非法农历日期");
@@ -1224,7 +1224,7 @@ namespace CAF.Ext
             if ((bitpostion > 31) || (bitpostion < 0))
                 throw new Exception("Error Param: bitpostion[0-31]:" + bitpostion.ToString());
 
-            int bit = 1 << bitpostion;
+            var bit = 1 << bitpostion;
 
             if ((num & bit) == 0)
             {
@@ -1271,15 +1271,15 @@ namespace CAF.Ext
         /// </summary>
         private bool CompareWeekDayHoliday(DateTime date, int month, int week, int day)
         {
-            bool ret = false;
+            var ret = false;
 
             if (date.Month == month) //月份相同
             {
                 if (ConvertDayOfWeek(date.DayOfWeek) == day) //星期几相同
                 {
-                    DateTime firstDay = new DateTime(date.Year, date.Month, 1);//生成当月第一天
-                    int i = ConvertDayOfWeek(firstDay.DayOfWeek);
-                    int firWeekDays = 7 - ConvertDayOfWeek(firstDay.DayOfWeek) + 1; //计算第一周剩余天数
+                    var firstDay = new DateTime(date.Year, date.Month, 1);//生成当月第一天
+                    var i = ConvertDayOfWeek(firstDay.DayOfWeek);
+                    var firWeekDays = 7 - ConvertDayOfWeek(firstDay.DayOfWeek) + 1; //计算第一周剩余天数
 
                     if (i > day)
                     {
@@ -1313,10 +1313,10 @@ namespace CAF.Ext
         {
             get
             {
-                string tempStr = "";
+                var tempStr = "";
                 if (this._cIsLeapMonth == false) //闰月不计算节日
                 {
-                    foreach (LunarHolidayStruct lh in lHolidayInfo)
+                    foreach (var lh in lHolidayInfo)
                     {
                         if ((lh.Month == this._cMonth) && (lh.Day == this._cDay))
                         {
@@ -1330,7 +1330,7 @@ namespace CAF.Ext
                     //对除夕进行特别处理
                     if (this._cMonth == 12)
                     {
-                        int i = GetChineseMonthDays(this._cYear, 12); //计算当年农历12月的总天数
+                        var i = GetChineseMonthDays(this._cYear, 12); //计算当年农历12月的总天数
                         if (this._cDay == i) //如果为最后一天
                         {
                             tempStr = "除夕";
@@ -1350,8 +1350,8 @@ namespace CAF.Ext
         {
             get
             {
-                string tempStr = "";
-                foreach (WeekHolidayStruct wh in wHolidayInfo)
+                var tempStr = "";
+                foreach (var wh in wHolidayInfo)
                 {
                     if (CompareWeekDayHoliday(_date, wh.Month, wh.WeekAtMonth, wh.WeekDay))
                     {
@@ -1372,9 +1372,9 @@ namespace CAF.Ext
         {
             get
             {
-                string tempStr = "";
+                var tempStr = "";
 
-                foreach (SolarHolidayStruct sh in sHolidayInfo)
+                foreach (var sh in sHolidayInfo)
                 {
                     if ((sh.Month == _date.Month) && (sh.Day == _date.Day))
                     {
@@ -1473,10 +1473,10 @@ namespace CAF.Ext
         {
             get
             {
-                int offset = 0;
-                int modStarDay = 0;
+                var offset = 0;
+                var modStarDay = 0;
 
-                TimeSpan ts = this._date - ChineseConstellationReferDay;
+                var ts = this._date - ChineseConstellationReferDay;
                 offset = ts.Days;
                 modStarDay = offset % 28;
                 return (modStarDay >= 0 ? _chineseConstellationName[modStarDay] : _chineseConstellationName[27 + modStarDay]);
@@ -1600,9 +1600,9 @@ namespace CAF.Ext
         {
             get
             {
-                string tempStr = "";
-                string num = this._cYear.ToString();
-                for (int i = 0; i < 4; i++)
+                var tempStr = "";
+                var num = this._cYear.ToString();
+                for (var i = 0; i < 4; i++)
                 {
                     tempStr += ConvertNumToChineseNum(num[i]);
                 }
@@ -1647,15 +1647,15 @@ namespace CAF.Ext
         {
             get
             {
-                DateTime baseDateAndTime = new DateTime(1900, 1, 6, 2, 5, 0); //#1/6/1900 2:05:00 AM#
+                var baseDateAndTime = new DateTime(1900, 1, 6, 2, 5, 0); //#1/6/1900 2:05:00 AM#
                 DateTime newDate;
                 double num;
                 int y;
-                string tempStr = "";
+                var tempStr = "";
 
                 y = this._date.Year;
 
-                for (int i = 1; i <= 24; i++)
+                for (var i = 1; i <= 24; i++)
                 {
                     num = 525948.76 * (y - 1900) + sTermInfo[i - 1];
 
@@ -1675,15 +1675,15 @@ namespace CAF.Ext
         {
             get
             {
-                DateTime baseDateAndTime = new DateTime(1900, 1, 6, 2, 5, 0); //#1/6/1900 2:05:00 AM#
+                var baseDateAndTime = new DateTime(1900, 1, 6, 2, 5, 0); //#1/6/1900 2:05:00 AM#
                 DateTime newDate;
                 double num;
                 int y;
-                string tempStr = "";
+                var tempStr = "";
 
                 y = this._date.Year;
 
-                for (int i = 24; i >= 1; i--)
+                for (var i = 24; i >= 1; i--)
                 {
                     num = 525948.76 * (y - 1900) + sTermInfo[i - 1];
 
@@ -1706,15 +1706,15 @@ namespace CAF.Ext
         {
             get
             {
-                DateTime baseDateAndTime = new DateTime(1900, 1, 6, 2, 5, 0); //#1/6/1900 2:05:00 AM#
+                var baseDateAndTime = new DateTime(1900, 1, 6, 2, 5, 0); //#1/6/1900 2:05:00 AM#
                 DateTime newDate;
                 double num;
                 int y;
-                string tempStr = "";
+                var tempStr = "";
 
                 y = this._date.Year;
 
-                for (int i = 1; i <= 24; i++)
+                for (var i = 1; i <= 24; i++)
                 {
                     num = 525948.76 * (y - 1900) + sTermInfo[i - 1];
 
@@ -1741,7 +1741,7 @@ namespace CAF.Ext
         {
             get
             {
-                int index = 0;
+                var index = 0;
                 int y, m, d;
                 y = _date.Year;
                 m = _date.Month;
@@ -1777,7 +1777,7 @@ namespace CAF.Ext
         {
             get
             {
-                int offset = _date.Year - AnimalStartYear;
+                var offset = _date.Year - AnimalStartYear;
                 return (offset % 12) + 1;
             }
         }
@@ -1791,7 +1791,7 @@ namespace CAF.Ext
         {
             get
             {
-                int offset = _date.Year - AnimalStartYear; //阳历计算
+                var offset = _date.Year - AnimalStartYear; //阳历计算
                 //int offset = this._cYear - AnimalStartYear;　农历计算
                 return animalStr[offset % 12].ToString();
             }
@@ -1809,7 +1809,7 @@ namespace CAF.Ext
             get
             {
                 string tempStr;
-                int i = (this._cYear - GanZhiStartYear) % 60; //计算干支
+                var i = (this._cYear - GanZhiStartYear) % 60; //计算干支
                 tempStr = ganStr[i % 10].ToString() + zhiStr[i % 12].ToString() + "年";
                 return tempStr;
             }
@@ -1838,9 +1838,9 @@ namespace CAF.Ext
                 zhi = zhiStr[zhiIndex - 1].ToString();
 
                 //根据当年的干支年的干来计算月干的第一个
-                int ganIndex = 1;
+                var ganIndex = 1;
                 string gan;
-                int i = (this._cYear - GanZhiStartYear) % 60; //计算干支
+                var i = (this._cYear - GanZhiStartYear) % 60; //计算干支
                 switch (i % 10)
                 {
                     #region ...
@@ -1892,7 +1892,7 @@ namespace CAF.Ext
             get
             {
                 int i, offset;
-                TimeSpan ts = this._date - GanZhiStartDay;
+                var ts = this._date - GanZhiStartDay;
                 offset = ts.Days;
                 i = offset % 60;
                 return ganStr[i % 10].ToString() + zhiStr[i % 12].ToString() + "日";

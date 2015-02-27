@@ -12,14 +12,14 @@ namespace CAF.Model
     [Serializable]
     public partial class User : BaseEntity<User>
     {
-        private User() : this(Guid.NewGuid()) { }
-
-        public User(Guid id)
-            : base(id)
+        public User()
         {
             base.MarkNew();
+            this._userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(Id), isThreadSafe: true);
+            this._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(this), isThreadSafe: true);
             Roles = new RoleList();
         }
+
 
         #region 公共属性
 
@@ -139,11 +139,12 @@ namespace CAF.Model
                     _userSetting = _userSettingInitalizer.Value;
                 }
                 _userSetting = value;
-                if (_userSetting != null)
+                if (_userSetting == null)
                 {
-                    _userSetting.OnPropertyChange += MarkDirty;
-                    _userSetting.UserId = Id;
+                    return;
                 }
+                _userSetting.OnPropertyChange += MarkDirty;
+                _userSetting.UserId = Id;
             }
         }
         public RoleList Roles
@@ -166,8 +167,8 @@ namespace CAF.Model
             get
             {
                 this.Errors = new List<string>();
-                bool isValid = true;
-                bool baseValid = base.IsValid;
+                var isValid = true;
+                var baseValid = base.IsValid;
                 if (_userSettingInitalizer.IsValueCreated && this.UserSetting != null && !this.UserSetting.IsValid)
                 {
                     this.Errors.AddRange(this.UserSetting.Errors);
@@ -211,13 +212,14 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                User item = conn.Query<User>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<User>();
-                if (item != null)
+                var item = conn.Query<User>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<User>();
+                if (item == null)
                 {
-                    item.MarkOld();
-                    item._userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);
-                    item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
+                    return null;
                 }
+                item.MarkOld();
+                item._userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);
+                item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                 return item;
             }
         }
@@ -226,9 +228,9 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                List<User> items = conn.Query<User>(QUERY_GETAll, null).ToList();
-                UserList list = new UserList();
-                foreach (User item in items)
+                var items = conn.Query<User>(QUERY_GETAll, null).ToList();
+                var list = new UserList();
+                foreach (var item in items)
                 {
                     item.MarkOld();
                     item._userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);
@@ -244,9 +246,9 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                List<User> items = conn.Query<User>(QUERY_GETALLBYORGANIZEID, new { OrganizeId = organizeId }).ToList();
-                UserList list = new UserList();
-                foreach (User item in items)
+                var items = conn.Query<User>(QUERY_GETALLBYORGANIZEID, new { OrganizeId = organizeId }).ToList();
+                var list = new UserList();
+                foreach (var item in items)
                 {
                     item.MarkOld();
                     item._userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);
@@ -262,10 +264,10 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                List<User> items = conn.Query<User>(QUERY_GETALLBYROLEID, new { RoleId = roleId }).ToList();
+                var items = conn.Query<User>(QUERY_GETALLBYROLEID, new { RoleId = roleId }).ToList();
 
-                UserList list = new UserList();
-                foreach (User item in items)
+                var list = new UserList();
+                foreach (var item in items)
                 {
                     item.MarkOld();
                     item._userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);
@@ -298,15 +300,8 @@ namespace CAF.Model
             }
         }
 
-        public static User New()
-        {
-            var item = new User();
-            item._userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(item.Id), isThreadSafe: true);
-            item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
-            return item;
-        }
-
         #endregion
+
 
         internal override int Delete(IDbConnection conn, IDbTransaction transaction)
         {
@@ -316,22 +311,23 @@ namespace CAF.Model
 
         internal override int Update(IDbConnection conn, IDbTransaction transaction)
         {
-            if (this.IsDirty)
+            if (!this.IsDirty)
             {
-                _updateParameters += ", ChangedDate = GetDate()";
-                _updateParameters += ", Status = @Status";
-                string query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
-                _changedRows += conn.Execute(query, this, transaction, null, null);
-                if (_userSettingInitalizer.IsValueCreated && this.UserSetting != null)
-                {
-                    _changedRows += UserSetting.SaveChange(conn, transaction);
-                }
-                _roleListInitalizer.IsValueCreated.IfIsTrue(
-               () =>
-               {
-                   _changedRows += Roles.SaveChanges(conn, transaction);
-               });
+                return _changedRows;
             }
+            _updateParameters += ", ChangedDate = GetDate()";
+            _updateParameters += ", Status = @Status";
+            string query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
+            _changedRows += conn.Execute(query, this, transaction, null, null);
+            if (_userSettingInitalizer.IsValueCreated && this.UserSetting != null)
+            {
+                _changedRows += UserSetting.SaveChange(conn, transaction);
+            }
+            _roleListInitalizer.IsValueCreated.IfIsTrue(
+           () =>
+           {
+               _changedRows += Roles.SaveChanges(conn, transaction);
+           });
             return _changedRows;
         }
 
@@ -394,14 +390,14 @@ namespace CAF.Model
 
         protected const string tableName = "Sys_Users";
 
-        public static UserList Query(Object dynamicObj, string query = "  1=1")
+        public static UserList Query(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                List<User> items = conn.Query<User>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
+                var items = conn.Query<User>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
 
-                UserList list = new UserList();
-                foreach (User item in items)
+                var list = new UserList();
+                foreach (var item in items)
                 {
                     item.MarkOld();
                     list.Add(item);
@@ -410,7 +406,7 @@ namespace CAF.Model
             }
         }
 
-        public static int QueryCount(Object dynamicObj, string query = "  1=1")
+        public static int QueryCount(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
@@ -418,7 +414,7 @@ namespace CAF.Model
             }
         }
 
-        public static bool Exists(Object dynamicObj, string query = "  1=1")
+        public static bool Exists(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {

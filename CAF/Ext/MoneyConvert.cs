@@ -18,7 +18,7 @@ namespace CAF
                 return "输入的不是正数字！";
             if (Double.Parse(str) > 999999999999.99)
                 return "数字太大，无法换算，请输入一万亿元以下的金额";
-            char[] ch = new char[1];
+            var ch = new char[1];
             ch[0] = '.'; //小数点
             string[] splitstr = null; //定义按小数点分割后的字符串数组
             splitstr = str.Replace(",", "").Split(ch[0]); //按小数点分割字符串
@@ -60,9 +60,9 @@ namespace CAF
         ///<returns>转换成中文大写后的字符串</returns>
         private static string ConvertData(string str)
         {
-            string tmpstr = "";
-            string rstr = "";
-            int strlen = str.Length;
+            var tmpstr = "";
+            var rstr = "";
+            var strlen = str.Length;
             if (strlen <= 4) //数字长度小于四位
             {
                 rstr = ConvertDigit(str);
@@ -123,7 +123,7 @@ namespace CAF
         /// <returns>转换成中文大写后的字符串</returns>
         private static string ConvertXiaoShu(string str)
         {
-            int strlen = str.Length;
+            var strlen = str.Length;
             string rstr;
             if (strlen == 1)
             {
@@ -132,7 +132,7 @@ namespace CAF
             }
             else if (strlen > 0)
             {
-                string tmpstr = str.Substring(0, 1);
+                var tmpstr = str.Substring(0, 1);
                 rstr = ConvertChinese(tmpstr) + "角";
                 tmpstr = str.Substring(1, 1);
                 rstr += ConvertChinese(tmpstr) + "分";
@@ -150,8 +150,8 @@ namespace CAF
         /// <returns>转换后的字符串</returns>
         private static string ConvertDigit(string str)
         {
-            int strlen = str.Length;
-            string rstr = "";
+            var strlen = str.Length;
+            var rstr = "";
             switch (strlen)
             {
                 case 1:
@@ -180,11 +180,11 @@ namespace CAF
         /// <returns>转换后的字符串</returns>
         private static string Convert4Digit(string str)
         {
-            string str1 = str.Substring(0, 1);
-            string str2 = str.Substring(1, 1);
-            string str3 = str.Substring(2, 1);
-            string str4 = str.Substring(3, 1);
-            string rstring = "";
+            var str1 = str.Substring(0, 1);
+            var str2 = str.Substring(1, 1);
+            var str3 = str.Substring(2, 1);
+            var str4 = str.Substring(3, 1);
+            var rstring = "";
             rstring += ConvertChinese(str1) + "仟";
             rstring += ConvertChinese(str2) + "佰";
             rstring += ConvertChinese(str3) + "拾";
@@ -205,10 +205,10 @@ namespace CAF
         /// <returns>转换后的字符串</returns>
         private static string Convert3Digit(string str)
         {
-            string str1 = str.Substring(0, 1);
-            string str2 = str.Substring(1, 1);
-            string str3 = str.Substring(2, 1);
-            string rstring = "";
+            var str1 = str.Substring(0, 1);
+            var str2 = str.Substring(1, 1);
+            var str3 = str.Substring(2, 1);
+            var rstring = "";
             rstring += ConvertChinese(str1) + "佰";
             rstring += ConvertChinese(str2) + "拾";
             rstring += ConvertChinese(str3);
@@ -226,9 +226,9 @@ namespace CAF
         /// <returns>转换后的字符串</returns>
         private static string Convert2Digit(string str)
         {
-            string str1 = str.Substring(0, 1);
-            string str2 = str.Substring(1, 1);
-            string rstring = "";
+            var str1 = str.Substring(0, 1);
+            var str2 = str.Substring(1, 1);
+            var rstring = "";
             rstring += ConvertChinese(str1) + "拾";
             rstring += ConvertChinese(str2);
             rstring = rstring.Replace("零拾", "零");
@@ -244,7 +244,7 @@ namespace CAF
         private static string ConvertChinese(string str)
         {
             //"零壹贰叁肆伍陆柒捌玖拾佰仟万亿元整角分"
-            string cstr = "";
+            var cstr = "";
             switch (str)
             {
                 case "0":

@@ -11,14 +11,13 @@ namespace CAF.Model
     [Serializable]
     public partial class Organize : BaseEntity<Organize>
     {
-        private Organize() : this(Guid.NewGuid()) { }
-
-        public Organize(Guid id)
-            : base(id)
+        public Organize()
         {
             base.MarkNew();
+            this._userListInitalizer = new Lazy<UserList>(() => InitUsers(this), isThreadSafe: true);
             Users = new UserList();
         }
+
 
         #region 公共属性
 
@@ -115,15 +114,12 @@ namespace CAF.Model
             get
             {
                 this.Errors = new List<string>();
-                bool isValid = true;
-                bool baseValid = base.IsValid;
-                foreach (var item in Users)
+                var isValid = true;
+                var baseValid = base.IsValid;
+                foreach (var item in Users.Where(item => !item.IsValid))
                 {
-                    if (!item.IsValid)
-                    {
-                        this.Errors.AddRange(item.Errors);
-                        isValid = false;
-                    }
+                    this.Errors.AddRange(item.Errors);
+                    isValid = false;
                 }
                 return baseValid && isValid;
             }
@@ -150,12 +146,13 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                Organize item = conn.Query<Organize>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<Organize>();
-                if (item != null)
+                var item = conn.Query<Organize>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<Organize>();
+                if (item == null)
                 {
-                    item.MarkOld();
-                    item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                    return null;
                 }
+                item.MarkOld();
+                item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                 return item;
             }
         }
@@ -164,9 +161,9 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                List<Organize> items = conn.Query<Organize>(QUERY_GETAll, null).ToList();
-                OrganizeList list = new OrganizeList();
-                foreach (Organize item in items)
+                var items = conn.Query<Organize>(QUERY_GETAll, null).ToList();
+                var list = new OrganizeList();
+                foreach (var item in items)
                 {
                     item.MarkOld();
                     item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
@@ -198,14 +195,8 @@ namespace CAF.Model
             }
         }
 
-        public static Organize New()
-        {
-            var item = new Organize();
-            item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
-            return item;
-        }
-
         #endregion
+
 
         internal override int Delete(IDbConnection conn, IDbTransaction transaction)
         {
@@ -215,18 +206,19 @@ namespace CAF.Model
 
         internal override int Update(IDbConnection conn, IDbTransaction transaction)
         {
-            if (this.IsDirty)
+            if (!this.IsDirty)
             {
-                _updateParameters += ", ChangedDate = GetDate()";
-                _updateParameters += ", Status = @Status";
-                string query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
-                _changedRows += conn.Execute(query, this, transaction, null, null);
-                _userListInitalizer.IsValueCreated.IfIsTrue(
-               () =>
-               {
-                   _changedRows += Users.SaveChanges(conn, transaction);
-               });
+                return _changedRows;
             }
+            _updateParameters += ", ChangedDate = GetDate()";
+            _updateParameters += ", Status = @Status";
+            var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
+            _changedRows += conn.Execute(query, this, transaction, null, null);
+            _userListInitalizer.IsValueCreated.IfIsTrue(
+           () =>
+           {
+               _changedRows += Users.SaveChanges(conn, transaction);
+           });
             return _changedRows;
         }
 
@@ -267,14 +259,14 @@ namespace CAF.Model
 
         protected const string tableName = "Sys_Organize";
 
-        public static OrganizeList Query(Object dynamicObj, string query = "  1=1")
+        public static OrganizeList Query(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                List<Organize> items = conn.Query<Organize>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
+                var items = conn.Query<Organize>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
 
-                OrganizeList list = new OrganizeList();
-                foreach (Organize item in items)
+                var list = new OrganizeList();
+                foreach (var item in items)
                 {
                     item.MarkOld();
                     list.Add(item);
@@ -283,7 +275,7 @@ namespace CAF.Model
             }
         }
 
-        public static int QueryCount(Object dynamicObj, string query = "  1=1")
+        public static int QueryCount(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
@@ -291,7 +283,7 @@ namespace CAF.Model
             }
         }
 
-        public static bool Exists(Object dynamicObj, string query = "  1=1")
+        public static bool Exists(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {

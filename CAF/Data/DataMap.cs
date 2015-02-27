@@ -11,13 +11,13 @@ namespace CAF.Data
             where T : class
             where K : class
         {
-            Type t = typeof(T);
-            Type k = typeof(K);
+            var t = typeof(T);
+            var k = typeof(K);
             //K target = Activator.CreateInstance<K>();
             if (source != null)
             {
-                K target = (K)Activator.CreateInstance(k, true);
-                foreach (PropertyInfo info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
+                var target = (K)Activator.CreateInstance(k, true);
+                foreach (var info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
                 {
                     if (k.GetProperty(info.Name) != null && k.GetProperty(info.Name).CanWrite && info.CanWrite && info.Name != "Item")
                     {
@@ -34,11 +34,11 @@ namespace CAF.Data
             where T : class
             where K : class
         {
-            Type t = typeof(T);
-            Type k = typeof(K);
+            var t = typeof(T);
+            var k = typeof(K);
             if (source != null)
             {
-                foreach (PropertyInfo info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.NonPublic))
+                foreach (var info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.NonPublic))
                 {
                     if (k.GetProperty(info.Name) != null && k.GetProperty(info.Name).CanWrite && info.CanWrite && info.Name != "Item")
                     {
@@ -55,16 +55,16 @@ namespace CAF.Data
             where T : class
             where K : class
         {
-            List<K> targets = new List<K>();
+            var targets = new List<K>();
             if (sources != null)
             {
-                foreach (T source in sources)
+                foreach (var source in sources)
                 {
-                    Type t = typeof(T);
-                    Type k = typeof(K);
+                    var t = typeof(T);
+                    var k = typeof(K);
                     //K target = Activator.CreateInstance<K>();
-                    K target = (K)Activator.CreateInstance(k, true);
-                    foreach (PropertyInfo info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
+                    var target = (K)Activator.CreateInstance(k, true);
+                    foreach (var info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
                     {
                         if (k.GetProperty(info.Name) != null && k.GetProperty(info.Name).CanWrite && info.Name != "Item")
                         {
@@ -79,10 +79,10 @@ namespace CAF.Data
 
         public static K Map<K>(IDictionary<string, string> source, K target) where K : class
         {
-            Type k = typeof(K);
+            var k = typeof(K);
             if (source != null)
             {
-                foreach (KeyValuePair<string, string> item in source)
+                foreach (var item in source)
                 {
                     if (k.GetProperty(item.Key) != null && k.GetProperty(item.Key).CanWrite)
                     {
@@ -96,7 +96,7 @@ namespace CAF.Data
 
         public static DataTable Map<T>(IEnumerable<T> varlist)
         {
-            DataTable dtReturn = new DataTable();
+            var dtReturn = new DataTable();
 
             // column names
             PropertyInfo[] oProps = null;
@@ -104,14 +104,14 @@ namespace CAF.Data
             if (varlist == null)
                 return dtReturn;
 
-            foreach (T rec in varlist)
+            foreach (var rec in varlist)
             {
                 if (oProps == null)
                 {
                     oProps = ((Type)rec.GetType()).GetProperties();
-                    foreach (PropertyInfo pi in oProps)
+                    foreach (var pi in oProps)
                     {
-                        Type colType = pi.PropertyType;
+                        var colType = pi.PropertyType;
 
                         if ((colType.IsGenericType) && (colType.GetGenericTypeDefinition()
                              == typeof(Nullable<>)))
@@ -123,9 +123,9 @@ namespace CAF.Data
                     }
                 }
 
-                DataRow dr = dtReturn.NewRow();
+                var dr = dtReturn.NewRow();
 
-                foreach (PropertyInfo pi in oProps)
+                foreach (var pi in oProps)
                 {
                     dr[pi.Name] = pi.GetValue(rec, null) == null ? DBNull.Value : pi.GetValue
                     (rec, null);
@@ -159,7 +159,7 @@ namespace CAF.Data
                     {
                         val = "0";
                     }
-                    int temp = 0;
+                    var temp = 0;
                     int.TryParse(val, out temp);
                     return temp;
                 }
@@ -171,13 +171,13 @@ namespace CAF.Data
                 }
                 else if (Info.PropertyType.Equals(typeof(decimal)) || Info.PropertyType.Equals(typeof(decimal?)))
                 {
-                    decimal temp = 0m;
+                    var temp = 0m;
                     decimal.TryParse(val, out temp);
                     return temp;
                 }
                 else if (Info.PropertyType.Equals(typeof(DateTime)) || Info.PropertyType.Equals(typeof(DateTime?)))
                 {
-                    DateTime temp = new DateTime(2000, 1, 1);
+                    var temp = new DateTime(2000, 1, 1);
                     if (DateTime.TryParse(val, out temp))
                     {
                         return temp;
@@ -189,7 +189,7 @@ namespace CAF.Data
                 }
                 else if (Info.PropertyType.Equals(typeof(double)) || Info.PropertyType.Equals(typeof(double?)))
                 {
-                    double temp = 0.0d;
+                    var temp = 0.0d;
                     double.TryParse(val, out temp);
                     return temp;
                 }
@@ -199,7 +199,7 @@ namespace CAF.Data
                 }
                 else if (Info.PropertyType.Equals(typeof(Guid)) || Info.PropertyType.Equals(typeof(Guid?)))
                 {
-                    Guid temp = new Guid();
+                    var temp = new Guid();
                     if (Guid.TryParse(val, out temp))
                     {
                         return temp;

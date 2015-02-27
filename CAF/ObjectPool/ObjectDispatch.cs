@@ -22,12 +22,12 @@ namespace CAF.ObjectPool
             T item = null;
             bool increasable;
 
-            ObjectCache cache = ObjectCache.Instance;
+            var cache = ObjectCache.Instance;
             if (!(cache.TryToAcquire<T>(out item, out increasable)))
             {
                 if (increasable)
                 {
-                    item = TypeCreater.BuildUp<T>();           
+                    item = TypeCreater.BuildUp<T>();
                     cache.Cache<T>(item);
                 }
             }
@@ -41,7 +41,7 @@ namespace CAF.ObjectPool
         /// </summary>
         internal static bool Available
         {
-            get { return available; } 
+            get { return available; }
         }
     }
 }

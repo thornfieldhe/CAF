@@ -12,14 +12,13 @@ namespace CAF.Model
     [Serializable]
     public partial class Role : BaseEntity<Role>
     {
-        private Role() : this(Guid.NewGuid()) { }
-
-        public Role(Guid id)
-            : base(id)
+        public Role()
         {
             base.MarkNew();
+            _userListInitalizer = new Lazy<UserList>(() => InitUsers(this), isThreadSafe: true);
             Users = new UserList();
         }
+
 
         #region 公共属性
 
@@ -54,7 +53,7 @@ namespace CAF.Model
         {
             get
             {
-                return !this.ParentId.HasValue ? null : Role.Get(this.ParentId.Value);
+                return !ParentId.HasValue ? null : Role.Get(ParentId.Value);
             }
         }
 
@@ -78,15 +77,15 @@ namespace CAF.Model
         {
             get
             {
-                this.Errors = new List<string>();
-                bool isValid = true;
-                bool baseValid = base.IsValid;
+                Errors = new List<string>();
+                var isValid = true;
+                var baseValid = base.IsValid;
                 _userListInitalizer.IsValueCreated.IfIsTrue(
                () =>
                {
-                   foreach (var item in this.Users.Where(item => !item.IsValid))
+                   foreach (var item in Users.Where(item => !item.IsValid))
                    {
-                       this.Errors.AddRange(item.Errors);
+                       Errors.AddRange(item.Errors);
                        isValid = false;
                    }
                });
@@ -118,12 +117,13 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                Role item = conn.Query<Role>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<Role>();
-                if (item != null)
+                var item = conn.Query<Role>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<Role>();
+                if (item == null)
                 {
-                    item.MarkOld();
-                    item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                    return null;
                 }
+                item.MarkOld();
+                item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                 return item;
             }
         }
@@ -132,9 +132,9 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                List<Role> items = conn.Query<Role>(QUERY_GETAll, null).ToList();
-                RoleList list = new RoleList();
-                foreach (Role item in items)
+                var items = conn.Query<Role>(QUERY_GETAll, null).ToList();
+                var list = new RoleList();
+                foreach (var item in items)
                 {
                     item.MarkOld();
                     item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
@@ -149,10 +149,10 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                List<Role> items = conn.Query<Role>(QUERY_GETALLBYUSERID, new { UserId = userId }).ToList();
+                var items = conn.Query<Role>(QUERY_GETALLBYUSERID, new { UserId = userId }).ToList();
 
-                RoleList list = new RoleList();
-                foreach (Role item in items)
+                var list = new RoleList();
+                foreach (var item in items)
                 {
                     item.MarkOld();
                     item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
@@ -184,35 +184,30 @@ namespace CAF.Model
             }
         }
 
-        public static Role New()
-        {
-            var item = new Role();
-            item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
-            return item;
-        }
-
         #endregion
+
 
         internal override int Delete(IDbConnection conn, IDbTransaction transaction)
         {
             base.MarkDelete();
-            return conn.Execute(QUERY_DELETE, new { Id = this.Id }, transaction, null, null);
+            return conn.Execute(QUERY_DELETE, new { Id = Id }, transaction, null, null);
         }
 
         internal override int Update(IDbConnection conn, IDbTransaction transaction)
         {
-            if (this.IsDirty)
+            if (!IsDirty)
             {
-                _updateParameters += ", ChangedDate = GetDate()";
-                _updateParameters += ", Status = @Status";
-                string query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
-                _changedRows += conn.Execute(query, this, transaction, null, null);
-                _userListInitalizer.IsValueCreated.IfIsTrue(
-               () =>
-               {
-                   _changedRows += Users.SaveChanges(conn, transaction);
-               });
+                return _changedRows;
             }
+            _updateParameters += ", ChangedDate = GetDate()";
+            _updateParameters += ", Status = @Status";
+            var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
+            _changedRows += conn.Execute(query, this, transaction, null, null);
+            _userListInitalizer.IsValueCreated.IfIsTrue(
+           () =>
+           {
+               _changedRows += Users.SaveChanges(conn, transaction);
+           });
             return _changedRows;
         }
 
@@ -231,12 +226,12 @@ namespace CAF.Model
 
         protected int AddRelationshipWithUser(IDbConnection conn, IDbTransaction transaction)
         {
-            foreach (var user in this.Users)
+            foreach (var user in Users)
             {
-                var isExist = conn.Query<int>(QUERY_CONTAINSUSERROLE, new { RoleId = this.Id, UserId = user.Id }, transaction).Single() >= 1;
+                var isExist = conn.Query<int>(QUERY_CONTAINSUSERROLE, new { RoleId = Id, UserId = user.Id }, transaction).Single() >= 1;
                 if (!isExist)
                 {
-                    _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHUSERROLE, new { RoleId = this.Id, UserId = user.Id }, transaction, null, null);
+                    _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHUSERROLE, new { RoleId = Id, UserId = user.Id }, transaction, null, null);
                 }
             }
             return _changedRows;
@@ -261,14 +256,14 @@ namespace CAF.Model
 
         protected const string tableName = "Sys_Role";
 
-        public static RoleList Query(Object dynamicObj, string query = "  1=1")
+        public static RoleList Query(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                List<Role> items = conn.Query<Role>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
+                var items = conn.Query<Role>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
 
-                RoleList list = new RoleList();
-                foreach (Role item in items)
+                var list = new RoleList();
+                foreach (var item in items)
                 {
                     item.MarkOld();
                     list.Add(item);
@@ -277,7 +272,7 @@ namespace CAF.Model
             }
         }
 
-        public static int QueryCount(Object dynamicObj, string query = "  1=1")
+        public static int QueryCount(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
@@ -285,7 +280,7 @@ namespace CAF.Model
             }
         }
 
-        public static bool Exists(Object dynamicObj, string query = "  1=1")
+        public static bool Exists(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {

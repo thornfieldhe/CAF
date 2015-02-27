@@ -14,7 +14,7 @@ namespace CAF.Test
         [TestMethod]
         public void TestBuilder()
         {
-            Product product = new Product();
+            var product = new Product();
 
             Assert.AreEqual(product.Name, ",1,1,2,3");
             product.TearDown();
@@ -27,9 +27,9 @@ namespace CAF.Test
         [TestMethod]
         public void TestFactory()
         {
-            IProduct p = TypeCreater.BuildUp<IProduct>("a");
+            var p = TypeCreater.BuildUp<IProduct>("a");
             Assert.AreEqual(p.ProductName, "zzzz");
-            IProduct p2 = TypeCreater.BuildUp<IProduct>("p2", "b");
+            var p2 = TypeCreater.BuildUp<IProduct>("p2", "b");
             Assert.AreEqual(p2.ProductName, "this is B");
         }
     }

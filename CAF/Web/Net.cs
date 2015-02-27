@@ -13,8 +13,8 @@
             System.Net.IPHostEntry localhost;
             hostname = System.Net.Dns.GetHostName();
             localhost = System.Net.Dns.GetHostEntry(hostname);
-            string ip = localhost.AddressList[0].ToString();
-            int i = 1;
+            var ip = localhost.AddressList[0].ToString();
+            var i = 1;
             while (ip.Contains(":"))
             {
                 if (i == localhost.AddressList.Length)
