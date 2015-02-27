@@ -91,7 +91,6 @@ D:\WorkStation\MyGitHub\CAF.Model\bin\Debug\Microsoft.Practices.ServiceLocation.
 D:\WorkStation\MyGitHub\CAF.Model\obj\Debug\CAF.Model.dll
 D:\WorkStation\MyGitHub\CAF.Model\obj\Debug\CAF.Model.pdb
 D:\WorkStation\MyGitHub\CAF.Model\obj\Debug\CAF.Model.csprojResolveAssemblyReference.cache
-D:\WorkStation\CAF\CAF.Model\obj\Debug\CAF.Model.csprojResolveAssemblyReference.cache
 D:\WorkStation\CAF\CAF.Model\bin\Debug\CAF.Model.dll.config
 D:\WorkStation\CAF\CAF.Model\bin\Debug\CAF.Model.dll
 D:\WorkStation\CAF\CAF.Model\bin\Debug\CAF.Model.pdb
@@ -112,5 +111,8 @@ D:\WorkStation\CAF\CAF.Model\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Dat
 D:\WorkStation\CAF\CAF.Model\bin\Debug\Microsoft.Practices.Unity.xml
 D:\WorkStation\CAF\CAF.Model\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml
 D:\WorkStation\CAF\CAF.Model\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+D:\WorkStation\CAF\CAF.Model\obj\Debug\CAF.Model.csprojResolveAssemblyReference.cache
+D:\WorkStation\CAF\CAF.Model\obj\Debug\CAF.Model.Resource.resources
+D:\WorkStation\CAF\CAF.Model\obj\Debug\CAF.Model.csproj.GenerateResource.Cache
 D:\WorkStation\CAF\CAF.Model\obj\Debug\CAF.Model.dll
 D:\WorkStation\CAF\CAF.Model\obj\Debug\CAF.Model.pdb
