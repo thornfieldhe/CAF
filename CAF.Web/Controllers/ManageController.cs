@@ -3,9 +3,8 @@
 namespace CAF.Web.Controllers
 {
 
+    using CAF.Ext;
     using CAF_Model;
-
-    using Microsoft.Ajax.Utilities;
     using System;
     using System.Net;
 
@@ -43,8 +42,8 @@ namespace CAF.Web.Controllers
         {
             var whereStr = " 1=1 ";
 
-            whereStr += organizeId.IfNotNull(o => "And OrganizeId=@OrganizeId");
-            whereStr += ruleId.IfNotNull(o => "And RuleId=@RuleId");
+            organizeId.IfNotNull(o => whereStr += "And OrganizeId=@OrganizeId");
+            ruleId.IfNotNull(o => whereStr = "And RuleId=@RuleId");
             name.IfIsNotNullOrEmpty(a => whereStr += " And Name Like %@Name%");
 
             return this.Json(ReadOnlyUserList.Instance.Query("Name", 20, new { Name = name, OrganizeId = organizeId, RuleId = ruleId }, whereStr));

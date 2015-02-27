@@ -34,7 +34,7 @@ namespace CAF
         internal delegate void PropertyChangeHandler();
         internal event PropertyChangeHandler OnPropertyChange;
 
-        public Guid Id { get { return _id; } protected set { SetProperty("Id", ref _id, value); } }
+        public Guid Id { get { return _id; } set { SetProperty("Id", ref _id, value); } }
         public int Status { get { return _status; } protected set { SetProperty("Status", ref _status, value); } }
         public DateTime CreatedDate { get { return _createdDate; } protected set { SetProperty("CreatedDate", ref _createdDate, value); } }
         public DateTime ChangedDate { get { return _changedDate; } protected set { SetProperty("ChangedDate", ref _changedDate, value); } }

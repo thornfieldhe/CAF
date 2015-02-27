@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAF.Web", "CAF.Web\CAF.Web.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAF.Test", "CAF.Test\CAF.Test.csproj", "{D41E520F-E75E-47B7-B4AB-98C771591D2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAF.Web.WebForm", "CAF.Web.WebForm\CAF.Web.WebForm.csproj", "{ED5CE7E2-3513-46B0-8B90-0DFCD043309E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D41E520F-E75E-47B7-B4AB-98C771591D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D41E520F-E75E-47B7-B4AB-98C771591D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D41E520F-E75E-47B7-B4AB-98C771591D2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED5CE7E2-3513-46B0-8B90-0DFCD043309E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED5CE7E2-3513-46B0-8B90-0DFCD043309E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED5CE7E2-3513-46B0-8B90-0DFCD043309E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED5CE7E2-3513-46B0-8B90-0DFCD043309E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

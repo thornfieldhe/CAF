@@ -4,9 +4,9 @@ namespace CAF.Ext
 {
     public static class ObjExt
     {
-        public static void IfIsNotNull(this object allowExcuteAction, Action action)
+        public static void IfNotNull<T, K>(this T obj, Func<T, K> func)
         {
-            if (allowExcuteAction != null) { action.Invoke(); }
+            if (obj != null) { func.Invoke(obj); }
         }
     }
 }

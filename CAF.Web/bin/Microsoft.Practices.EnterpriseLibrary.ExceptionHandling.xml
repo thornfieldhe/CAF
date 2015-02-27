@@ -60,59 +60,6 @@
               Looks up a localized string similar to Type.
             </summary>
         </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.DesignResources.ExceptionCallHandlerDataDescription">
-             <summary>
-               Looks up a localized string similar to A Call Handler that provides the capability to manage and process exceptions in a standard way. 
-            This handler uses the Exception Handling Application Block to handle exceptions raised by the target object..
-             </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.DesignResources.ExceptionCallHandlerDataDisplayName">
-            <summary>
-              Looks up a localized string similar to Exception Handling Call Handler.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.DesignResources.ExceptionCallHandlerDataExceptionPolicyNameDescription">
-            <summary>
-              Looks up a localized string similar to The name of the exception handling policy to use, as configured in the Exception Handling Application Block..
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.DesignResources.ExceptionCallHandlerDataExceptionPolicyNameDisplayName">
-            <summary>
-              Looks up a localized string similar to Exception Policy Name.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.DesignResources.ExceptionCallHandlerDataNameDescription">
-            <summary>
-              Looks up a localized string similar to The name of the Exception Handling Call Handler..
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.DesignResources.ExceptionCallHandlerDataNameDisplayName">
-            <summary>
-              Looks up a localized string similar to Name.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.DesignResources.ExceptionCallHandlerDataOrderDescription">
-             <summary>
-               Looks up a localized string similar to The position of the handler within the policy handler chain, starting from 1. 
-            The default value is zero, which means that there is no explicit order specified for the handler in relation to other 
-            handlers in the same handler chain..
-             </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.DesignResources.ExceptionCallHandlerDataOrderDisplayName">
-            <summary>
-              Looks up a localized string similar to Order.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.DesignResources.ExceptionCallHandlerDataTypeNameDescription">
-            <summary>
-              Looks up a localized string similar to The fully qualified type name of the Exception Handling Call Handler..
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.DesignResources.ExceptionCallHandlerDataTypeNameDisplayName">
-            <summary>
-              Looks up a localized string similar to Type.
-            </summary>
-        </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.DesignResources.ExceptionHandlerDataDescription">
              <summary>
                Looks up a localized string similar to Handles an exception passed to the block and performs an action on it, such as wrapping or logging it, 
@@ -392,51 +339,6 @@
               Looks up a localized string similar to Wrap Exception Type.
             </summary>
         </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionCallHandlerData">
-            <summary>
-            Configuration element storing configuration information for the
-            <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler"/> class.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionCallHandlerData.#ctor">
-            <summary>
-            Construct a new <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionCallHandlerData"/>.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionCallHandlerData.#ctor(System.String)">
-            <summary>
-            Construct a new <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionCallHandlerData"/>.
-            </summary>
-            <param name="handlerName">Name of the handler.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionCallHandlerData.#ctor(System.String,System.String)">
-            <summary>
-            Construct a new <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionCallHandlerData"/>.
-            </summary>
-            <param name="handlerName">Name of the handler.</param>
-            <param name="exceptionPolicyName">Exception policy name to use in handler.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionCallHandlerData.#ctor(System.String,System.Int32)">
-            <summary>
-            Construct a new <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionCallHandlerData"/>.
-            </summary>
-            <param name="handlerName">Name of the handler.</param>
-            <param name="handlerOrder">Order to use in handler.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionCallHandlerData.GetRegistrations(System.String)">
-            <summary>
-            Get the set of <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> objects needed to
-            register the call handler represented by this config element and its associated objects.
-            </summary>
-            <param name="nameSuffix">A suffix for the names in the generated type registration objects.</param>
-            <returns>The set of <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> objects.</returns>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionCallHandlerData.ExceptionPolicyName">
-            <summary>
-            The exception policy name as defined in configuration for the Exception Handling Application Block.
-            </summary>
-            <value>The "exceptionPolicyName" attribute in configuration</value>
-        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ExceptionHandlingConfigurationSourceBuilderExtensions">
             <summary>
             <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSourceBuilder"/> extensions to support creation of exception handling configuration sections.
@@ -577,24 +479,11 @@
             The configured <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.IExceptionHandler"/> type.
             </param>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlerData.GetRegistrations(System.String)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlerData.BuildExceptionHandler">
             <summary>
-            Returns the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> for the exception handler data provided.
+            Builds the exception handler represented by this configuration object.
             </summary>
-            <remarks>
-            The method at the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlerData"/> should not be called directly and is expected to
-            be implemented by inheritors.  Since the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlerData"/> requires a default constructor for 
-            serialization purposes, the class could not be made abstract.
-            </remarks>
-            <param name="namePrefix">The prefix to use when building references to child elements.</param>
-            <returns>A <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> for the exception handler data</returns>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlerData.BuildName(System.String)">
-            <summary>
-            Builds a name with the supplied prefix. 
-            </summary>
-            <param name="prefix">Prefix to use when building a name</param>
-            <returns>A name as string</returns>
+            <returns>An <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.IExceptionHandler"/>.</returns>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.CustomHandlerData.#ctor">
             <summary>
@@ -663,12 +552,11 @@
         <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.CustomHandlerData.Microsoft#Practices#EnterpriseLibrary#Common#Configuration#IHelperAssistedCustomConfigurationData{Microsoft#Practices#EnterpriseLibrary#ExceptionHandling#Configuration#CustomHandlerData}#BaseIsModified">
             <summary>Invokes the inherited behavior.</summary>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.CustomHandlerData.GetRegistrations(System.String)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.CustomHandlerData.BuildExceptionHandler">
             <summary>
-            Retrieves the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> container configuration model for custom exception handling data.
+            Builds the exception handler represented by this configuration object.
             </summary>
-            <param name="namePrefix">The child prefix to use when reference child elements</param>
-            <returns>The type registration for the custom exception handler</returns>
+            <returns>An <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.IExceptionHandler"/>.</returns>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.CustomHandlerData.TypeName">
             <summary>
@@ -747,13 +635,6 @@
             the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IExceptionConfigurationForExceptionTypeOrPostHandling"/> and <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IExceptionHandlerExtension"/> interfaces.
             </remarks>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ExceptionHandlerConfigurationExtension.Microsoft#Practices#EnterpriseLibrary#Common#IFluentInterface#GetType">
-            <summary>
-            Provides a base extensible class for handler configuration extensions.  This class eases the handling 
-            of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IExceptionConfigurationAddExceptionHandlers"/> that is the typical entry point
-            for most exception handler's fluent configuration interface.
-            </summary>
-        </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ExceptionHandlerConfigurationExtension.Context">
             <summary>
             The context for the extending handler in the fluent interface.  The extension interface
@@ -788,21 +669,18 @@
             Initializes a new instance of an <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlingSettings"/> class.
             </summary>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlingSettings.GetRegistrations(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlingSettings.BuildExceptionManager">
             <summary>
-            Creates the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> entries to use when configuring a container for Exception Handling
+            Builds a <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager"/> based on the configuration.
             </summary>
-            <returns></returns>
+            <returns>An <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager"/>.</returns>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlingSettings.GetUpdatedRegistrations(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlingSettings.BuildExceptionPolicy(System.String)">
             <summary>
-            Return the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> objects needed to reconfigure
-            the container after a configuration source has changed.
+            Builds an <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition"/> based on the configuration.
             </summary>
-            <remarks>If there are no reregistrations, return an empty sequence.</remarks>
-            <param name="configurationSource">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource"/> containing
-            the configuration information.</param>
-            <returns>The sequence of <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> objects.</returns>
+            <param name="policyName">The policy name.</param>
+            <returns>The policy instance.</returns>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlingSettings.ExceptionPolicies">
             <summary>
@@ -830,11 +708,11 @@
             The name of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionPolicyData"/>.
             </param>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionPolicyData.GetRegistration(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionPolicyData.BuildExceptionPolicy">
             <summary>
-            Retrieves the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> for registering a <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl"/> in the container.
+            Builds an <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition"/> based on the configuration.
             </summary>
-            <returns>A completed <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/></returns>
+            <returns>The policy instance.</returns>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionPolicyData.ExceptionTypes">
             <summary>
@@ -861,7 +739,7 @@
             </summary>
             <param name="name">The name of the configured exception.</param>
             <param name="type">The <see cref="T:System.Exception"/> type.</param>
-            <param name="postHandlingAction">One of the <see cref="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionTypeData.PostHandlingAction"/> values.</param>
+            <param name="postHandlingAction">One of the <see cref="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionTypeData.PostHandlingAction"/> values that specifies the action that should occur after the exception is handled.</param>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionTypeData.#ctor(System.String,System.String,Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PostHandlingAction)">
             <summary>
@@ -869,14 +747,13 @@
             </summary>
             <param name="name">The name of the configured exception.</param>
             <param name="typeName">The fully qualified type name of the <see cref="T:System.Exception"/> type.</param>
-            <param name="postHandlingAction">One of the <see cref="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionTypeData.PostHandlingAction"/> values.</param>
+            <param name="postHandlingAction">One of the <see cref="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionTypeData.PostHandlingAction"/> values that specifies the action that should occur after the exception is handled.</param>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionTypeData.GetRegistration(System.String)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionTypeData.BuildExceptionType">
             <summary>
-            Returns the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> container configuration model to register <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyEntry"/> items with the container.
+            Builds an <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyEntry"/> based on the configuration.
             </summary>
-            <param name="namePrefix"></param>
-            <returns>A <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/></returns>
+            <returns>The policy entry.</returns>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionTypeData.Name">
             <summary>
@@ -949,416 +826,6 @@
              This interface supports the fluent configuration of <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WrapHandler"/>
             </summary>
         </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.CustomHandlerDataManageabilityProvider">
-            <summary>
-            Provides an implementation for <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.CustomHandlerData"/> that
-            processes policy overrides, performing appropriate logging of 
-            policy processing errors.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.CustomHandlerDataManageabilityProvider.ProviderTypePropertyName">
-            <summary>
-            The name of the provider type property.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.CustomHandlerDataManageabilityProvider.AttributesPropertyName">
-            <summary>
-            The name of the attributes property.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.CustomHandlerDataManageabilityProvider.#ctor">
-            <summary>
-            Initialize a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.CustomHandlerDataManageabilityProvider"/> class.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.CustomHandlerDataManageabilityProvider.AddAdministrativeTemplateDirectives(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder,Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.CustomHandlerData,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,System.String)">
-            <summary>
-            Adds the ADM instructions that describe the policies that can be used to override the properties of
-            a specific instance of the configuration element type managed by the receiver.
-            </summary>
-            <param name="contentBuilder">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder"/> to which the Adm instructions are to be appended.</param>
-            <param name="configurationObject">The configuration object instance.</param>
-            <param name="configurationSource">The configuration source from where to get additional configuration
-            information, if necessary.</param>
-            <param name="elementPolicyKeyName">The key for the element's policies.</param>
-            <remarks>
-            The default implementation for this method creates a policy, using 
-            <see cref="P:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1.ElementPolicyNameTemplate"/> to create the policy name and invoking
-            <see cref="M:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1.AddElementAdministrativeTemplateParts(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder,`0,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,System.String)"/>
-            to add the policy parts.
-            Subclasses managing objects that must not create a policy must override this method to just add the parts.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.CustomHandlerDataManageabilityProvider.AddElementAdministrativeTemplateParts(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder,Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.CustomHandlerData,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,System.String)">
-            <summary>
-            Adds the ADM parts that represent the properties of
-            a specific instance of the configuration element type managed by the receiver.
-            </summary>
-            <param name="contentBuilder">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder"/> to which the Adm instructions are to be appended.</param>
-            <param name="configurationObject">The configuration object instance.</param>
-            <param name="configurationSource">The configuration source from where to get additional configuration
-            information, if necessary.</param>
-            <param name="elementPolicyKeyName">The key for the element's policies.</param>
-            <remarks>
-            Subclasses that manage custom provider's configuration objects with additional properties may
-            override this method to add the corresponding parts.
-            </remarks>
-            <seealso cref="M:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1.AddAdministrativeTemplateDirectives(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder,`0,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,System.String)"/>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ExceptionHandlingSettingsManageabilityProvider">
-            <summary>
-            <para>This type supports the Enterprise Library Manageability Extensions infrastructure and is not intended to 
-            be used directly from your code.</para>
-            Represents the behavior required to provide Group Policy updates for the Exception Handling Application Block, and it also manages
-            the creation of the ADM template categories and policies required to edit Group Policy Objects for the block.
-            </summary>
-            <remarks>
-            This class performs the actual Group Policy update for the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlingSettings"/>
-            configuration section and its <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionPolicyData"/> instances together with the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionTypeData"/>
-            objects they contain. Processing for <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlerData"/> instances is delegated to 
-            <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProvider"/> objects registered to the handler data types.
-            </remarks>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ExceptionHandlingSettingsManageabilityProvider.PoliciesKeyName">
-            <summary>
-            The name of the policies property.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ExceptionHandlingSettingsManageabilityProvider.PolicyTypesPropertyName">
-            <summary>
-            The name of the policy types property.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ExceptionHandlingSettingsManageabilityProvider.PolicyTypePostHandlingActionPropertyName">
-            <summary>
-            The name of the policy post handling action property.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ExceptionHandlingSettingsManageabilityProvider.PolicyTypeHandlersPropertyName">
-            <summary>
-            The name of the exception handlers property.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ExceptionHandlingSettingsManageabilityProvider.#ctor(System.Collections.Generic.IDictionary{System.Type,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProvider})">
-            <summary>
-            <para>This method supports the Enterprise Library Manageability Extensions infrastructure and is not intended to 
-            be used directly from your code.</para>
-            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ExceptionHandlingSettingsManageabilityProvider"/> class with a 
-            given set of manageability providers to use when dealing with the configuration for exception handlers.
-            </summary>
-            <param name="subProviders">The mapping from configuration element type to
-            <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProvider"/>.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ExceptionHandlingSettingsManageabilityProvider.AddAdministrativeTemplateDirectives(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder,Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlingSettings,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,System.String)">
-            <summary>
-            <para>This method supports the Enterprise Library Manageability Extensions infrastructure and is not intended to 
-            be used directly from your code.</para>
-            Adds the ADM instructions that describe the policies that can be used to override the configuration
-            information for the Exception Handling Application Block.
-            </summary>
-            <seealso cref="M:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationSectionManageabilityProvider.AddAdministrativeTemplateDirectives(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder,System.Configuration.ConfigurationSection,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,System.String)"/>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ExceptionHandlingSettingsManageabilityProvider.OverrideWithGroupPoliciesForConfigurationSection(Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlingSettings,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IRegistryKey)">
-            <summary>
-            Overrides the <paramref name="configurationSection"/>'s properties with the Group Policy values from 
-            the registry.
-            </summary>
-            <param name="configurationSection">The configuration section that must be managed.</param>
-            <param name="policyKey">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IRegistryKey"/> which holds the Group Policy overrides.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ExceptionHandlingSettingsManageabilityProvider.OverrideWithGroupPoliciesForConfigurationElements(Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlingSettings,System.Boolean,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IRegistryKey,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IRegistryKey)">
-            <summary>
-            Overrides the <paramref name="configurationSection"/>'s configuration elements' properties 
-            with the Group Policy values from the registry, if any.
-            </summary>
-            <param name="configurationSection">The configuration section that must be managed.</param>
-            <param name="readGroupPolicies"><see langword="true"/> if Group Policy overrides must be applied; otherwise, 
-            <see langword="false"/>.</param>
-            <param name="machineKey">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IRegistryKey"/> which holds the Group Policy overrides for the 
-            configuration section at the machine level, or <see langword="null"/> 
-            if there is no such registry key.</param>
-            <param name="userKey">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IRegistryKey"/> which holds the Group Policy overrides for the 
-            configuration section at the user level, or <see langword="null"/> 
-            if there is no such registry key.</param>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ExceptionHandlingSettingsManageabilityProvider.SectionCategoryName">
-            <summary>
-            Gets the name of the category that represents the whole configuration section.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ExceptionHandlingSettingsManageabilityProvider.SectionName">
-            <summary>
-            Gets the name of the managed configuration section.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.CustomHandlerAttributesPartName">
-            <summary>
-              Looks up a localized string similar to Attributes.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.CustomHandlerTypePartName">
-            <summary>
-              Looks up a localized string similar to Type.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.ExceptionTypeHandlersPartName">
-            <summary>
-              Looks up a localized string similar to Handlers.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.ExceptionTypePolicyNameTemplate">
-            <summary>
-              Looks up a localized string similar to Specify settings for exception type &apos;{0}&apos;.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.ExceptionTypePostHandlingActionPartName">
-            <summary>
-              Looks up a localized string similar to Post handling action.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.HandlerPartNameTemplate">
-            <summary>
-              Looks up a localized string similar to Handler: &apos;{0}&apos;.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.ReplaceHandlerExceptionMessagePartName">
-            <summary>
-              Looks up a localized string similar to Exception message.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.ReplaceHandlerExceptionMessageResourceNamePartName">
-            <summary>
-              Looks up a localized string similar to Exception message resource name.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.ReplaceHandlerExceptionMessageResourceTypePartName">
-            <summary>
-              Looks up a localized string similar to Exception message resource type.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.ReplaceHandlerExceptionTypePartName">
-            <summary>
-              Looks up a localized string similar to Exception type.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.SectionCategoryName">
-            <summary>
-              Looks up a localized string similar to Exception handling.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.SectionPolicyName">
-            <summary>
-              Looks up a localized string similar to Specify settings for the Exception Handling Application Block.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.WrapHandlerExceptionMessagePartName">
-            <summary>
-              Looks up a localized string similar to Exception message.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.WrapHandlerExceptionMessageResourceNamePartName">
-            <summary>
-              Looks up a localized string similar to Exception message resource name.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.WrapHandlerExceptionMessageResourceTypePartName">
-            <summary>
-              Looks up a localized string similar to Exception message resource type.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.Properties.Resources.WrapHandlerExceptionTypePartName">
-            <summary>
-              Looks up a localized string similar to Exception type.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ReplaceHandlerDataManageabilityProvider">
-            <summary>
-            Provides an implementation for <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.WrapHandlerData"/> that
-            processes policy overrides, performing appropriate logging of 
-            policy processing errors.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ReplaceHandlerDataManageabilityProvider.ExceptionMessagePropertyName">
-            <summary>
-            The name of the exception message property.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ReplaceHandlerDataManageabilityProvider.ExceptionMessageResourceTypePropertyName">
-            <summary>
-            The name of the exception message resource type property.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ReplaceHandlerDataManageabilityProvider.ExceptionMessageResourceNamePropertyName">
-            <summary>
-            The name of the exception message resource name property.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ReplaceHandlerDataManageabilityProvider.ReplaceExceptionTypePropertyName">
-            <summary>
-            The name of the replace exception type property.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ReplaceHandlerDataManageabilityProvider.#ctor">
-            <summary>
-            Initialize a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ReplaceHandlerDataManageabilityProvider"/> class.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ReplaceHandlerDataManageabilityProvider.AddAdministrativeTemplateDirectives(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder,Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ReplaceHandlerData,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,System.String)">
-            <summary>
-            Adds the ADM instructions that describe the policies that can be used to override the properties of
-            a specific instance of the configuration element type managed by the receiver.
-            </summary>
-            <param name="contentBuilder">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder"/> to which the Adm instructions are to be appended.</param>
-            <param name="configurationObject">The configuration object instance.</param>
-            <param name="configurationSource">The configuration source from where to get additional configuration
-            information, if necessary.</param>
-            <param name="elementPolicyKeyName">The key for the element's policies.</param>
-            <remarks>
-            The default implementation for this method creates a policy, using 
-            <see cref="P:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1.ElementPolicyNameTemplate"/> to create the policy name and invoking
-            <see cref="M:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1.AddElementAdministrativeTemplateParts(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder,`0,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,System.String)"/>
-            to add the policy parts.
-            Subclasses managing objects that must not create a policy must override this method to just add the parts.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ReplaceHandlerDataManageabilityProvider.AddElementAdministrativeTemplateParts(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder,Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ReplaceHandlerData,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,System.String)">
-            <summary>
-            Adds the ADM parts that represent the properties of
-            a specific instance of the configuration element type managed by the receiver.
-            </summary>
-            <param name="contentBuilder">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder"/> to which the Adm instructions are to be appended.</param>
-            <param name="configurationObject">The configuration object instance.</param>
-            <param name="configurationSource">The configuration source from where to get additional configuration
-            information, if necessary.</param>
-            <param name="elementPolicyKeyName">The key for the element's policies.</param>
-            <remarks>
-            Subclasses managing objects that must not create a policy will likely need to include the elements' keys when creating the parts.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ReplaceHandlerDataManageabilityProvider.OverrideWithGroupPolicies(Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ReplaceHandlerData,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IRegistryKey)">
-            <summary>
-            Overrides the <paramref name="configurationObject"/>'s properties with the Group Policy values from the 
-            registry.
-            </summary>
-            <param name="configurationObject">The configuration object for instances that must be managed.</param>
-            <param name="policyKey">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IRegistryKey"/> which holds the Group Policy overrides for the 
-            configuration element.</param>
-            <remarks>Subclasses implementing this method must retrieve all the override values from the registry
-            before making modifications to the <paramref name="configurationObject"/> so any error retrieving
-            the override values will cancel policy processing.</remarks>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.ReplaceHandlerDataManageabilityProvider.ElementPolicyNameTemplate">
-            <summary>
-            Gets the template for the name of the policy associated to the object.
-            </summary>
-            <remarks>
-            Elements that override 
-            <see cref="M:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1.AddAdministrativeTemplateDirectives(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder,`0,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,System.String)"/>
-            to avoid creating a policy must still override this property.
-            </remarks>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.WrapHandlerDataManageabilityProvider">
-            <summary>
-            Provides an implementation for <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.WrapHandlerData"/> that
-            processes policy overrides, performing appropriate logging of 
-            policy processing errors.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.WrapHandlerDataManageabilityProvider.ExceptionMessagePropertyName">
-            <summary>
-            The name of the exception message property.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.WrapHandlerDataManageabilityProvider.ExceptionMessageResourceTypePropertyName">
-            <summary>
-            The name of the exception message resource type property.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.WrapHandlerDataManageabilityProvider.ExceptionMessageResourceNamePropertyName">
-            <summary>
-            The name of the exception message resource name property.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.WrapHandlerDataManageabilityProvider.WrapExceptionTypePropertyName">
-            <summary>
-            The name of the wrap exception type property.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.WrapHandlerDataManageabilityProvider.#ctor">
-            <summary>
-            Initialize a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.WrapHandlerDataManageabilityProvider"/> class.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.WrapHandlerDataManageabilityProvider.AddAdministrativeTemplateDirectives(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder,Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.WrapHandlerData,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,System.String)">
-            <summary>
-            Adds the ADM instructions that describe the policies that can be used to override the properties of
-            a specific instance of the configuration element type managed by the receiver.
-            </summary>
-            <param name="contentBuilder">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder"/> to which the Adm instructions are to be appended.</param>
-            <param name="configurationObject">The configuration object instance.</param>
-            <param name="configurationSource">The configuration source from where to get additional configuration
-            information, if necessary.</param>
-            <param name="elementPolicyKeyName">The key for the element's policies.</param>
-            <remarks>
-            The default implementation for this method creates a policy, using 
-            <see cref="P:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1.ElementPolicyNameTemplate"/> to create the policy name and invoking
-            <see cref="M:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1.AddElementAdministrativeTemplateParts(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder,`0,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,System.String)"/>
-            to add the policy parts.
-            Subclasses managing objects that must not create a policy must override this method to just add the parts.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.WrapHandlerDataManageabilityProvider.AddElementAdministrativeTemplateParts(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder,Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.WrapHandlerData,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,System.String)">
-            <summary>
-            Adds the ADM parts that represent the properties of
-            a specific instance of the configuration element type managed by the receiver.
-            </summary>
-            <param name="contentBuilder">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder"/> to which the Adm instructions are to be appended.</param>
-            <param name="configurationObject">The configuration object instance.</param>
-            <param name="configurationSource">The configuration source from where to get additional configuration
-            information, if necessary.</param>
-            <param name="elementPolicyKeyName">The key for the element's policies.</param>
-            <remarks>
-            Subclasses managing objects that must not create a policy will likely need to include the elements' keys when creating the parts.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.WrapHandlerDataManageabilityProvider.OverrideWithGroupPolicies(Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.WrapHandlerData,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IRegistryKey)">
-            <summary>
-            Overrides the <paramref name="configurationObject"/>'s properties with the Group Policy values from the 
-            registry.
-            </summary>
-            <param name="configurationObject">The configuration object for instances that must be managed.</param>
-            <param name="policyKey">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IRegistryKey"/> which holds the Group Policy overrides for the 
-            configuration element.</param>
-            <remarks>Subclasses implementing this method must retrieve all the override values from the registry
-            before making modifications to the <paramref name="configurationObject"/> so any error retrieving
-            the override values will cancel policy processing.</remarks>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Manageability.WrapHandlerDataManageabilityProvider.ElementPolicyNameTemplate">
-            <summary>
-            Gets the template for the name of the policy associated to the object.
-            </summary>
-            <remarks>
-            Elements that override 
-            <see cref="M:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1.AddAdministrativeTemplateDirectives(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder,`0,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource,System.String)"/>
-            to avoid creating a policy must still override this property.
-            </remarks>
-        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ReplaceHandlerData">
             <summary>
             Represents the configuration data for a <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ReplaceHandler"/>.
@@ -1383,12 +850,11 @@
             The fully qualified assembly name the type of the replacement exception.
             </param>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ReplaceHandlerData.GetRegistrations(System.String)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ReplaceHandlerData.BuildExceptionHandler">
             <summary>
-            A <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> container configuration model for <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ReplaceHandler"/>.
+            Builds the exception handler represented by this configuration object.
             </summary>
-            <param name="namePrefix">The prefix to use when determining references to child elements.</param>
-            <returns>A <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> for registering a <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ReplaceHandler"/> in the container.</returns>
+            <returns>An <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.IExceptionHandler"/>.</returns>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ReplaceHandlerData.ExceptionMessage">
             <summary>
@@ -1435,14 +901,6 @@
             <param name="replacingExceptionType">Replacement <see cref="T:System.Exception"/> type.</param>
             <returns></returns>
         </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Unity.ExceptionHandlingBlockExtension">
-            <summary>
-            Container extension to the policies required to create the Exception Handling Application Block's
-            objects described in the configuration file.
-            </summary>
-            <remarks>This function is now performed directly by the <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.EnterpriseLibraryCoreExtension"/>.
-            This extension is now a noop and is obsolete.</remarks>
-        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.WrapHandlerData">
             <summary>
             Represents the configuration data for a <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WrapHandler"/>.
@@ -1467,12 +925,11 @@
             The fully qualified assembly name of type of the wrapping exception
             </param>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.WrapHandlerData.GetRegistrations(System.String)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.WrapHandlerData.BuildExceptionHandler">
             <summary>
-            Retrieves a container configuration model for a <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WrapHandler"/> based on the data in <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.WrapHandlerData"/>
+            Builds the exception handler represented by this configuration object.
             </summary>
-            <param name="namePrefix">The name to use when building references to child items.</param>
-            <returns>A <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration"/> to register a <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WrapHandler"/> in the container</returns>
+            <returns>An <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.IExceptionHandler"/>.</returns>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.WrapHandlerData.ExceptionMessage">
             <summary>
@@ -1679,33 +1136,6 @@
             thrown).
             </value>
         </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionHandingInstaller">
-            <summary>
-            Let the system know that the InstallUtil.exe tool will be run against this assembly
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionHandingInstaller.#ctor">
-            <summary>
-            Represents the installer for the instrumentation events. Not intended for direct use.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionHandingInstaller.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionHandingInstaller.Dispose(System.Boolean)">
-            <summary> 
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionHandingInstaller.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionHandlingException">
             <summary>
             An exception that occurred during the exception handling process.
@@ -1751,6 +1181,48 @@
             </remarks>
             <seealso cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicy"/>
         </member>
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager.#ctor(Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager"/> class with one or more exception policies.
+            </summary>
+            <param name="exceptionPolicies">The exception policies.</param>
+        </member>
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager.#ctor(System.Collections.Generic.IEnumerable{Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager"/> class with a set of exception policies.
+            </summary>
+            <param name="exceptionPolicies">The complete set of exception policies.</param>
+        </member>
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager.#ctor(System.Collections.Generic.IDictionary{System.String,Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition})">
+            <summary>
+            Initializes a new instance of the class <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager"/> with a set of policies.
+            </summary>
+            <param name="exceptionPolicies">The complete set of exception policies.</param>
+        </member>
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager.HandleException(System.Exception,System.String)">
+            <summary>
+            Handles the specified <see cref="T:System.Exception"/>
+            object according to the rules configured for <paramref name="policyName"/>.
+            </summary>
+            <param name="exceptionToHandle">An <see cref="T:System.Exception"/> object.</param>
+            <param name="policyName">The name of the policy to handle.</param>        
+            <returns><see langword="true"/> if  rethrowing an exception is recommended; otherwise, <see langword="false"/>.</returns>
+            <example>
+            The following code shows the usage of the 
+            exception handling framework.
+            <code>
+            try
+            {
+            	DoWork();
+            }
+            catch (Exception e)
+            {
+            	if (exceptionManager.HandleException(e, name)) throw;
+            }
+            </code>
+            </example>
+            <seealso cref="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager.Process(System.Action,System.String)"/>
+        </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager.HandleException(System.Exception,System.String,System.Exception@)">
             <summary>
             Handles the specified <see cref="T:System.Exception"/>
@@ -1764,9 +1236,7 @@
             then the original exception <paramref name="exceptionToHandle"/> should be rethrown; otherwise,
             the exception returned in <paramref name="exceptionToThrow"/> should be thrown.
             </remarks>
-            <returns>
-            Whether or not a rethrow is recommended. 
-            </returns>
+            <returns><see langword="true"/> if  rethrowing an exception is recommended; otherwise, <see langword="false"/>.</returns>
             <example>
             The following code shows the usage of the 
             exception handling framework.
@@ -1790,35 +1260,9 @@
             </example>
             <seealso cref="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager.HandleException(System.Exception,System.String)"/>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager.HandleException(System.Exception,System.String)">
-            <summary>
-            Handles the specified <see cref="T:System.Exception"/>
-            object according to the rules configured for <paramref name="policyName"/>.
-            </summary>
-            <param name="exceptionToHandle">An <see cref="T:System.Exception"/> object.</param>
-            <param name="policyName">The name of the policy to handle.</param>        
-            <returns>
-            Whether or not a rethrow is recommended.
-            </returns>
-            <example>
-            The following code shows the usage of the 
-            exception handling framework.
-            <code>
-            try
-            {
-            	DoWork();
-            }
-            catch (Exception e)
-            {
-            	if (exceptionManager.HandleException(e, name)) throw;
-            }
-            </code>
-            </example>
-            <seealso cref="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager.Process(System.Action,System.String)"/>
-        </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager.Process(System.Action,System.String)">
             <summary>
-            Executes the supplied delegate <paramref name="action"/> and handles 
+            Excecutes the supplied delegate <paramref name="action"/> and handles 
             any thrown exception according to the rules configured for <paramref name="policyName"/>.
             </summary>
             <param name="action">The delegate to execute.</param>
@@ -1855,211 +1299,54 @@
             <returns>If no exception occurs, returns the result from executing <paramref name="action"/>. If
             an exception occurs and the policy does not re-throw, returns the default value for <typeparamref name="TResult"/>.</returns>
         </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl">
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager.Policies">
             <summary>
-            Non-static entry point to the exception handling functionality.
+            Gets the policies for the exception manager.
             </summary>
-            <remarks>
-            Instances of <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl"/> can be used to replace references to the static <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicy"/>
-            facade.
-            </remarks>
-            <seealso cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicy"/>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl.#ctor(System.Collections.Generic.IEnumerable{Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl},Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.IDefaultExceptionHandlingInstrumentationProvider)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl"/> class with a set
-            of exception policies.
-            </summary>
-            <param name="exceptionPolicies">The complete set of exception policies.</param>
-            <param name="instrumentationProvider">Instrumentation provider used to report errors.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl.#ctor(System.Collections.Generic.IDictionary{System.String,Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl})">
-            <summary>
-            Initializes a new instance of the class <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl"/> with a set of policies
-            and no instrumentation.
-            </summary>
-            <param name="exceptionPolicies">The complete set of exception policies.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl.#ctor(System.Collections.Generic.IDictionary{System.String,Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl},Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.IDefaultExceptionHandlingInstrumentationProvider)">
-            <summary>
-            Initializes a new instance of the class <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl"/> with a set of policies.
-            </summary>
-            <param name="exceptionPolicies">The complete set of exception policies.</param>
-            <param name="instrumentationProvider">Instrumentation provider used to report errors.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl.HandleException(System.Exception,System.String)">
-            <summary>
-            Handles the specified <see cref="T:System.Exception"/>
-            object according to the rules configured for <paramref name="policyName"/>.
-            </summary>
-            <param name="exceptionToHandle">An <see cref="T:System.Exception"/> object.</param>
-            <param name="policyName">The name of the policy to handle.</param>        
-            <returns>
-            Whether or not a rethrow is recommended.
-            </returns>
-            <example>
-            The following code shows the usage of the 
-            exception handling framework.
-            <code>
-            try
-            {
-            	DoWork();
-            }
-            catch (Exception e)
-            {
-            	if (exceptionManager.HandleException(e, name)) throw;
-            }
-            </code>
-            </example>
-            <seealso cref="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl.Process(System.Action,System.String)"/>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl.HandleException(System.Exception,System.String,System.Exception@)">
-            <summary>
-            Handles the specified <see cref="T:System.Exception"/>
-            object according to the rules configured for <paramref name="policyName"/>.
-            </summary>
-            <param name="exceptionToHandle">An <see cref="T:System.Exception"/> object.</param>
-            <param name="policyName">The name of the policy to handle.</param>
-            <param name="exceptionToThrow">The new <see cref="T:System.Exception"/> to throw, if any.</param>
-            <remarks>
-            If a rethrow is recommended and <paramref name="exceptionToThrow"/> is <see langword="null"/>,
-            then the original exception <paramref name="exceptionToHandle"/> should be rethrown; otherwise,
-            the exception returned in <paramref name="exceptionToThrow"/> should be thrown.
-            </remarks>
-            <returns>
-            Whether or not a rethrow is recommended. 
-            </returns>
-            <example>
-            The following code shows the usage of the 
-            exception handling framework.
-            <code>
-            try
-            {
-            	DoWork();
-            }
-            catch (Exception e)
-            {
-                Exception exceptionToThrow;
-            	if (exceptionManager.HandleException(e, name, out exceptionToThrow))
-            	{
-            	  if(exceptionToThrow == null)
-            	    throw;
-            	  else
-            	    throw exceptionToThrow;
-            	}
-            }
-            </code>
-            </example>
-            <seealso cref="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl.HandleException(System.Exception,System.String)"/>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl.Process(System.Action,System.String)">
-            <summary>
-            Excecutes the supplied delegate <paramref name="action"/> and handles 
-            any thrown exception according to the rules configured for <paramref name="policyName"/>.
-            </summary>
-            <param name="action">The delegate to execute.</param>
-            <param name="policyName">The name of the policy to handle.</param>        
-            <example>
-            The following code shows the usage of this method.
-            <code>
-            	exceptionManager.Process(() =&gt; { DoWork(); }, "policy");
-            </code>
-            </example>
-            <seealso cref="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl.HandleException(System.Exception,System.String)"/>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl.Process``1(System.Func{``0},``0,System.String)">
-            <summary>
-            Executes the supplied delegate <paramref name="action"/>, and handles
-            any thrown exception according to the rules configured for <paramref name="policyName"/>.
-            </summary>
-            <typeparam name="TResult">Type of return value from <paramref name="action"/>.</typeparam>
-            <param name="action">The delegate to execute.</param>
-            <param name="defaultResult">The value to return if an exception is thrown and the
-            exception policy swallows it instead of rethrowing.</param>
-            <param name="policyName">The name of the policy to handle.</param>
-            <returns>If no exception occurs, returns the result from executing <paramref name="action"/>. If
-            an exception occurs and the policy does not re-throw, returns <paramref name="defaultResult"/>.</returns>
         </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyFactory">
             <summary>
-            Factory for <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl"/>s. This class is responsible for creating all the internal
-            classes needed to implement a <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl"/>.
+            Factory for <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition"/> objects. This class is responsible for creating all the internal
+            classes needed to implement a <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition"/>.
             </summary>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyFactory.#ctor">
             <summary>
-            <para>Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyFactory"/> class 
-            with the default configuration source.</para>
+            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition"/> class with the default <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource"/> instance.
             </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyFactory.#ctor(Microsoft.Practices.ServiceLocation.IServiceLocator)">
-            <summary>
-            
-            </summary>
-            <param name="serviceLocator"></param>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyFactory.#ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
             <summary>
-            <para>Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyFactory"/> class 
-            with the given configuration source.</para>
+            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition"/> class with the specified <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource"/> instance.
             </summary>
-            <param name="configurationSource">The configuration source that contains information on how to build the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl"/> instances</param>
+            <param name="configurationSource">The source for configuration information.</param>
         </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.DefaultExceptionHandlingEventLogger">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyFactory.#ctor(System.Func{System.String,System.Configuration.ConfigurationSection})">
             <summary>
-            Is the instrumentation gateway when no instances of the objects from the block are involved.
+            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition"/> class with a configuration accessor.
             </summary>
+            <param name="configurationAccessor">The source for configuration information.</param>
         </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.IDefaultExceptionHandlingInstrumentationProvider">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyFactory.CreatePolicy(System.String)">
             <summary>
-            Interface that defines the errors that can be reported when there's a fundamental
-            problem with the Exception Handling Application Block.
+            Creates a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition"/> class based on the information in the configuration section.
             </summary>
+            <param name="name">The name of the required instance.</param>
+            <returns>The created <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition"/> object.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.InvalidOperationException">The configuration section does not exist or cannot be deserialized, or there are no settings for <paramref name="name"/>.</exception>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.IDefaultExceptionHandlingInstrumentationProvider.FireExceptionHandlingErrorOccurred(System.String,System.String)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyFactory.CreateManager">
             <summary>
-            Fires the ExceptionHandlingErrorOccurred"/> event.
+            Creates a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager"/> class based on the information in the configuration section.
             </summary>
-            <param name="policyName">The name of the policy involved with the error.</param>
-            <param name="message">The message that describes the failure.</param>
+            <returns>The created <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager"/> object.</returns>
+            <exception cref="T:System.InvalidOperationException">The configuration section does not exist or cannot be deserialized.</exception>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.DefaultExceptionHandlingEventLogger.#ctor(System.Boolean,System.Boolean,System.String)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyFactory.InitializeExceptionPolicy">
             <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.DefaultExceptionHandlingEventLogger"/> class.
+            Initializes the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicy"/> class with a new <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager"/> instance created based on the information in the configuration section.
             </summary>
-            <param name="performanceCountersEnabled"><code>true</code> if updating performance counters is allowed, <code>false</code> otherwise.</param>
-            <param name="eventLoggingEnabled"><code>true</code> if writing to the event log is allowed, <code>false</code> otherwise.</param>
-            <param name="applicationInstanceName">The application name to use with performance counters.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.DefaultExceptionHandlingEventLogger.#ctor(System.Boolean)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.DefaultExceptionHandlingEventLogger"/> class, specifying whether 
-            logging to the event log is allowed.
-            </summary>
-            <param name="eventLoggingEnabled"><code>true</code> if writing to the event log is allowed, <code>false</code> otherwise.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.DefaultExceptionHandlingEventLogger.LogConfigurationError(System.Exception,System.String)">
-            <summary>
-            Logs the occurrence of a configuration error for the Enterprise Library Exception Handling Application Block through the 
-            available instrumentation mechanisms.
-            </summary>
-            <param name="exception">The exception raised for the configuration error.</param>
-            <param name="policyName">The name of the Exception policy in which the configuration error was detected.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.DefaultExceptionHandlingEventLogger.LogInternalError(System.String,System.String)">
-            <summary>
-            Logs the occurrence of an internal error for the Enterprise Library Exception Handling Application Block through the 
-            available instrumentation mechanisms.
-            </summary>
-            <param name="policyName">The name of the Exception policy in which the error was occurred.</param>
-            <param name="exceptionMessage">The message that represents the exception thrown when the configuration error was detected.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.DefaultExceptionHandlingEventLogger.FireExceptionHandlingErrorOccurred(System.String,System.String)">
-            <summary>
-            Fires the ExceptionHandlingErrorOccurred"/> event.
-            </summary>
-            <param name="policyName">The name of the policy involved with the error.</param>
-            <param name="message">The message that describes the failure.</param>
         </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicy">
             <summary>
@@ -2075,9 +1362,7 @@
             </summary>
             <param name="exceptionToHandle">An <see cref="T:System.Exception"/> object.</param>
             <param name="policyName">The name of the policy to handle.</param>        
-            <returns>
-            Whether or not a rethrow is recommended.
-            </returns>
+            <returns><see langword="true"/> if  rethrowing an exception is recommended; otherwise, <see langword="false"/>.</returns>
             <example>
             The following code shows the usage of the 
             exception handling framework.
@@ -2106,9 +1391,7 @@
             then the original exception <paramref name="exceptionToHandle"/> should be rethrown; otherwise,
             the exception returned in <paramref name="exceptionToThrow"/> should be thrown.
             </remarks>
-            <returns>
-            Whether or not a rethrow is recommended. 
-            </returns>
+            <returns><see langword="true"/> if  rethrowing an exception is recommended; otherwise, <see langword="false"/>.</returns>
             <example>
             The following code shows the usage of the 
             exception handling framework.
@@ -2130,7 +1413,20 @@
             }
             </code>
             </example>
-            <seealso cref="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl.HandleException(System.Exception,System.String)"/>
+            <seealso cref="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager.HandleException(System.Exception,System.String)"/>
+        </member>
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicy.SetExceptionManager(Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManager,System.Boolean)">
+            <summary>
+            Sets the global exception manager.
+            </summary>
+            <param name="exceptionManager">The exception manager.</param>
+            <param name="throwIfSet"><see langword="true"/> to throw an exception if the manager is already set; otherwise, <see langword="false"/>. Defaults to <see langword="true"/>.</param>
+            <exception cref="T:System.InvalidOperationException">The manager is already set and <paramref name="throwIfSet"/> is <see langword="true"/>.</exception>
+        </member>
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicy.Reset">
+            <summary>
+            Resets the global exception manager.
+            </summary>
         </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyEntry">
             <summary>
@@ -2147,15 +1443,6 @@
             <param name="exceptionType">Type of exception this policy refers to.</param>
             <param name="postHandlingAction">What to do after the exception is handled.</param>
             <param name="handlers">Handlers to execute on the exception.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyEntry.#ctor(System.Type,Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PostHandlingAction,System.Collections.Generic.IEnumerable{Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.IExceptionHandler},Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.IExceptionHandlingInstrumentationProvider)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyEntry"/> class.
-            </summary>
-            <param name="exceptionType">Type of exception this policy refers to.</param>
-            <param name="postHandlingAction">What to do after the exception is handled.</param>
-            <param name="handlers">Handlers to execute on the exception.</param>
-            <param name="instrumentationProvider">Instrumentation provider</param>
         </member>
         <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyEntry.Handle(System.Exception)">
             <summary>
@@ -2175,38 +1462,38 @@
              The type of <see cref="T:System.Exception"/> to match this policy entry to.
             </summary>
         </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl">
+        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition">
             <summary>
             Represents a policy for handling exceptions.
             </summary>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl.#ctor(System.String,System.Collections.Generic.IEnumerable{Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyEntry})">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition.#ctor(System.String,System.Collections.Generic.IEnumerable{Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyEntry})">
             <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl"/> class with the policy name and a set of policy entries.
+            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition"/> class with the policy name and a set of policy entries.
             </summary>
             <param name="policyName">The policy name.</param>
             <param name="policyEntries">A set of <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyEntry"/> objects.</param>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl.#ctor(System.String,System.Collections.Generic.IDictionary{System.Type,Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyEntry})">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition.#ctor(System.String,System.Collections.Generic.IDictionary{System.Type,Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyEntry})">
             
             <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl"/> class with the policy name and a dictionary of policy entries.
+            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition"/> class with the policy name and a dictionary of policy entries.
             </summary>
             <param name="policyName">The policy name.</param>
             <param name="policyEntries">A set of <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyEntry"/> objects.</param>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl.HandleException(System.Exception)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition.HandleException(System.Exception)">
             <summary>
             Checks if there is a policy entry that matches
             the type of the exception object specified by the
-            <see cref="T:System.Exception"/> parameter
+            <see cref="T:System.Exception"/> parameter,
             and if so, invokes the handlers associated with that entry.
             </summary>
             <param name="exceptionToHandle">The <c>Exception</c> to handle.</param>
-            <returns>Whether or not a rethrow is recommended.</returns>
+            <returns><see langword="true"/> if  rethrowing an exception is recommended; otherwise, <see langword="false"/>.</returns>
             <remarks>
             The algorithm for matching the exception object to a 
-            set of handlers mimics that of a standard .NET exception policy.
+            set of handlers mimics that of a standard .NET Framework exception policy.
             The specified exception object will be matched to a single 
             exception policy entry by traversing its inheritance hierarchy. 
             This means that if a <c>FileNotFoundException</c>, for example, is 
@@ -2216,19 +1503,19 @@
             <c>FileNotFoundException</c> ultimately derives from <c>System.Exception</c>.
             </remarks>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl.GetPolicyEntry(System.Type)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition.GetPolicyEntry(System.Type)">
             <summary>
             Gets the policy entry associated with the specified key.
             </summary>
             <param name="exceptionType">Type of the exception.</param>
             <returns>The <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyEntry"/> corresponding to this exception type.</returns>
         </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl.FindExceptionPolicyEntry(System.Type)">
+        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition.FindExceptionPolicyEntry(System.Type)">
             <devDoc>
-            Traverses the specified type's inheritance hiearchy
+            Traverses the specified type's inheritance hiearchy.
             </devDoc>
         </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl.PolicyName">
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyDefinition.PolicyName">
             <summary>
             Name of this exception policy.
             </summary>
@@ -2272,183 +1559,6 @@
             <para>The unique ID attached to the handling chain for this handling instance.</para>
             </param>
             <returns><para>Modified exception to pass to the next exceptionHandlerData in the chain.</para></returns>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.IExceptionHandlingInstrumentationProvider">
-            <summary>
-            Interface defining the instrumentation events available from the Exception Handling
-            Application Block.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.IExceptionHandlingInstrumentationProvider.FireExceptionHandledEvent">
-            <summary>
-            Fires the ExceptionHandled event - reported when an exception is handled.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.IExceptionHandlingInstrumentationProvider.FireExceptionHandlerExecutedEvent">
-            <summary>
-            Fires the ExceptionHandlerExecuted - reported when an exception handler executes.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.IExceptionHandlingInstrumentationProvider.FireExceptionHandlingErrorOccurred(System.String)">
-            <summary>
-            Fires the ExceptionHandlingErrorOccurred - reported when there's a problem handling an exception.
-            </summary>
-            <param name="errorMessage">The message that describes the failure.</param>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.ExceptionHandlingInstrumentationProvider">
-            <summary>
-            An implementation of <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.IExceptionHandlingInstrumentationProvider"/> that
-            reports exception handling instrumentation events to perf counters.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.ExceptionHandlingInstrumentationProvider.#ctor(System.String,System.Boolean,System.Boolean,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.ExceptionHandlingInstrumentationProvider"/> class.
-            </summary>
-            <param name="instanceName">The name of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicy"/> this instrumentation listener is bound to.</param>
-            <param name="performanceCountersEnabled"><code>true</code> if performance counters should be updated.</param>
-            <param name="eventLoggingEnabled"><code>true</code> if event log entries should be written.</param>
-            <param name="applicationInstanceName">The application instance name</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.ExceptionHandlingInstrumentationProvider.#ctor(System.String,System.Boolean,System.Boolean,Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.IPerformanceCounterNameFormatter)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.ExceptionHandlingInstrumentationProvider"/> class.
-            </summary>
-            <param name="instanceName">The name of the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicy"/> this instrumentation listener is bound to.</param>
-            <param name="performanceCountersEnabled"><code>true</code> if performance counters should be updated.</param>
-            <param name="eventLoggingEnabled"><code>true</code> if event log entries should be written.</param>
-            <param name="nameFormatter">The <see cref="T:Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.IPerformanceCounterNameFormatter"/> that is used to creates unique name for each <see cref="T:System.Diagnostics.PerformanceCounter"/> instance.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.ExceptionHandlingInstrumentationProvider.FireExceptionHandledEvent">
-            <summary>
-            Report the <see cref="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.IExceptionHandlingInstrumentationProvider.FireExceptionHandledEvent"/> to instrumentation.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.ExceptionHandlingInstrumentationProvider.FireExceptionHandlerExecutedEvent">
-            <summary>
-            Report the <see cref="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.IExceptionHandlingInstrumentationProvider.FireExceptionHandlerExecutedEvent"/> to instrumentation
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.ExceptionHandlingInstrumentationProvider.FireExceptionHandlingErrorOccurred(System.String)">
-            <summary>
-            Report the <see cref="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.IExceptionHandlingInstrumentationProvider.FireExceptionHandlingErrorOccurred(System.String)"/> to instrumentation.
-            </summary>
-            <param name="errorMessage">Message describing the error.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.ExceptionHandlingInstrumentationProvider.CreatePerformanceCounters(System.String[])">
-            <summary>
-            Creates the performance counters to instrument the logging events to the instance names.
-            </summary>
-            <param name="instanceNames">The instance names for the performance counters.</param>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.NullDefaultExceptionHandlingInstrumentationProvider">
-            <summary>
-            A noop implementation of <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.IDefaultExceptionHandlingInstrumentationProvider"/>
-            that does nothing with the instrumentation events.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.NullDefaultExceptionHandlingInstrumentationProvider.FireExceptionHandlingErrorOccurred(System.String,System.String)">
-            <summary>
-            Fires the ExceptionHandlingErrorOccurred"/> event.
-            </summary>
-            <param name="policyName">The name of the policy involved with the error.</param>
-            <param name="message">The message that describes the failure.</param>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.NullExceptionHandlingInstrumentationProvider">
-            <summary>
-            An implementation of <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.IExceptionHandlingInstrumentationProvider"/> that
-            does nothing; an implementation of the Null Object pattern for this interface.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.NullExceptionHandlingInstrumentationProvider.FireExceptionHandledEvent">
-            <summary>
-            Fires the ExceptionHandled event - reported when an exception is handled.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.NullExceptionHandlingInstrumentationProvider.FireExceptionHandlerExecutedEvent">
-            <summary>
-            Fires the ExceptionHandlerExecuted - reported when an exception handler executes.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Instrumentation.NullExceptionHandlingInstrumentationProvider.FireExceptionHandlingErrorOccurred(System.String)">
-            <summary>
-            Fires the ExceptionHandlingErrorOccurred - reported when there's a problem handling an exception.
-            </summary>
-            <param name="errorMessage">The message that describes the failure.</param>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler">
-            <summary>
-            An <see cref="T:Microsoft.Practices.Unity.InterceptionExtension.ICallHandler"/> that runs any exceptions returned from the
-            target through the Exception Handling Application Block.
-            </summary>
-            <remarks>If the exception policy is configured to swallow exceptions,
-            do not configure this call handler on a method with a non-void return value,
-            as the handler doesn't know what value to return if the exception is swallowed.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler.#ctor(Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl)">
-            <summary>
-            Creates a new <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler"/> that processses exceptions
-            using the given exception policy.
-            </summary>
-            <param name="exceptionPolicy">Exception policy.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler.#ctor(Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionPolicyImpl,System.Int32)">
-            <summary>
-            Creates a new <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler"/> that processses exceptions
-            using the given exception policy.
-            </summary>
-            <param name="exceptionPolicy">Exception policy.</param>
-            <param name="order">Order in which the handler will be executed.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler.Invoke(Microsoft.Practices.Unity.InterceptionExtension.IMethodInvocation,Microsoft.Practices.Unity.InterceptionExtension.GetNextHandlerDelegate)">
-            <summary>
-            Processes the method call.
-            </summary>
-            <remarks>This handler does nothing before the call. If there is an exception
-            returned, it runs the exception through the Exception Handling Application Block.</remarks>
-            <param name="input"><see cref="T:Microsoft.Practices.Unity.InterceptionExtension.IMethodInvocation"/> with information about the call.</param>
-            <param name="getNext">delegate to call to get the next handler in the pipeline.</param>
-            <returns>Return value from the target, or the (possibly changed) exceptions.</returns>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler.ExceptionPolicy">
-            <summary>
-            Gets the exception policy used by this handler.
-            </summary>
-            <value>Exception policy.</value>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler.Order">
-            <summary>
-            Gets or sets the order in which the handler will be executed
-            </summary>
-        </member>
-        <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandlerAttribute">
-            <summary>
-            An attribute used to apply the <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandler"/> to the target.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandlerAttribute.#ctor(System.String)">
-            <summary>
-            Creates a new <see cref="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandlerAttribute"/> using the given
-            exception policy name.
-            </summary>
-            <remarks>When using this attribute, the exception policy is always read from
-            the default configuration.</remarks>
-            <param name="policyName">Exception policy name from configuration.</param>
-        </member>
-        <member name="M:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandlerAttribute.CreateHandler(Microsoft.Practices.Unity.IUnityContainer)">
-            <summary>
-            Derived classes implement this method. When called, it
-            creates a new call handler as specified in the attribute
-            configuration.
-            </summary>
-            <returns>A new call handler object.</returns>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PolicyInjection.ExceptionCallHandlerAttribute.PolicyName">
-            <summary>
-            Get or sets the exception policy used by the handler.
-            </summary>
-            <value>exception policy name.</value>
         </member>
         <member name="T:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.PostHandlingAction">
             <summary>
@@ -2571,6 +1681,26 @@
               Looks up a localized string similar to A configuration failure occurred while creating policy ‘{0}’..
             </summary>
         </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.CustomHandlerInvalidTypeException">
+            <summary>
+              Looks up a localized string similar to The type &apos;{3}&apos; for custom exception handler with name &apos;{2}&apos; is not a valid type ({0} line {1})..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.CustomHandlerMissingConstructorException">
+            <summary>
+              Looks up a localized string similar to The type &apos;{3}&apos; for custom exception handler with name &apos;{2}&apos; does not have the expected constructor ({0} line {1})..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.CustomHandlerNotHandlerTypeException">
+            <summary>
+              Looks up a localized string similar to The type &apos;{3}&apos; for custom exception handler with name &apos;{2}&apos; is not a valid handler type ({0} line {1})..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.CustomHandlerNoTypeException">
+            <summary>
+              Looks up a localized string similar to The custom exception handler with name &apos;{2}&apos; does not have a type specified ({0} line {1})..
+            </summary>
+        </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.ErrorHandlingExceptionMessage">
             <summary>
               Looks up a localized string similar to The error occurred while handling an exception for policy &quot;{0}&quot;..
@@ -2581,14 +1711,14 @@
               Looks up a localized string similar to Event id.
             </summary>
         </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.ExceptionHandledHelpResource">
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.ExceptionCannotRetrieveConfiguration">
             <summary>
-              Looks up a localized string similar to Exceptions Handled/sec is the rate at which exceptions were handled..
+              Looks up a localized string similar to Cannot load the exception handling section from the configuration file..
             </summary>
         </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.ExceptionHandlerExecutedHelpResource">
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.ExceptionExceptionHandlingSectionNotFound">
             <summary>
-              Looks up a localized string similar to Exception Handlers Executed/sec is the rate at which exception handlers were executed..
+              Looks up a localized string similar to The configuration section for Exception Handling cannot be found in the configuration source..
             </summary>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.ExceptionHandlersDisplayName">
@@ -2604,6 +1734,16 @@
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.ExceptionHandlerTypeDisplayName">
             <summary>
               Looks up a localized string similar to Custom Handler Type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.ExceptionManagerAlreadySet">
+            <summary>
+              Looks up a localized string similar to The ExceptionManager for the ExceptionPolicy is already set..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.ExceptionManagerNotSet">
+            <summary>
+              Looks up a localized string similar to Must set an ExceptionManager in the ExceptionPolicy class using the SetExceptionManager method..
             </summary>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.ExceptionMessageDisplayName">
@@ -2631,9 +1771,19 @@
               Looks up a localized string similar to Policies.
             </summary>
         </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.ExceptionPolicyNameInvalid">
+            <summary>
+              Looks up a localized string similar to Cannot retrieve policy information.
+            </summary>
+        </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.ExceptionPolicyNotFound">
             <summary>
               Looks up a localized string similar to The policy with name &apos;{0}&apos; cannot be found. Exception handling aborted..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.ExceptionPolicyNotFoundInConfigurationException">
+            <summary>
+              Looks up a localized string similar to The exception handling configuration does not contain a policy with name &apos;{0}&apos;..
             </summary>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.ExceptionStringNullOrEmpty">
@@ -2684,6 +1834,11 @@
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.Message">
             <summary>
               Looks up a localized string similar to Message : {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.MustBeImplementedBySubclassException">
+            <summary>
+              Looks up a localized string similar to Must be implemented by subclasses.
             </summary>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.NameDisplayName">
@@ -2759,16 +1914,6 @@
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.TitleDisplayName">
             <summary>
               Looks up a localized string similar to Title.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.TotalExceptionHandlersExecutedHelpResource">
-            <summary>
-              Looks up a localized string similar to Total Exceptions Handlers Executed is the total number which exception handlers were executed..
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.TotalExceptionsHandledHelpResource">
-            <summary>
-              Looks up a localized string similar to Total Exceptions Handled is the total number of exceptions handled..
             </summary>
         </member>
         <member name="P:Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Properties.Resources.TypeNameDisplayName">

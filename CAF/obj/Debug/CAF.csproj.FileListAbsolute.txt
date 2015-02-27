@@ -365,4 +365,3 @@ D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
 D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
 D:\WorkStation\CAF\CAF\obj\Debug\CAF.dll
 D:\WorkStation\CAF\CAF\obj\Debug\CAF.pdb
-D:\WorkStation\CAF\CAF\obj\Debug\CAF.csprojResolveAssemblyReference.cache

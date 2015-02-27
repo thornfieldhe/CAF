@@ -18,8 +18,8 @@ namespace CAF.Test
         public void TestMethod1()
         {
             var id = Guid.NewGuid();
-            var u1 = new User(id) { Name = "u1" };
-            var u2 = new User(id) { Name = "u2" };
+            var u1 = new User() {Id=id, Name = "u1" };
+            var u2 = new User() { Id = id, Name = "u2" };
             var users = new List<User> { u2 };
             Assert.AreEqual(u1, u2);//Id相等即为相等
             Assert.IsTrue(u1 == u2);
@@ -33,9 +33,8 @@ namespace CAF.Test
         [TestMethod]
         public void TestMethod2()
         {
-            User u1 = User.New();
-            var r1 = Role.New();
-            r1.Name = "r1";
+            var u1 = new User();
+            var r1 = new Role { Name = "r1" };
             u1.Roles.Add(r1);
             u1.Name = "u1";
             Assert.AreEqual(u1.Roles[0].Name, "r1");
@@ -59,7 +58,7 @@ namespace CAF.Test
         [TestMethod]
         public void TestMethod3()
         {
-            User u = User.New();
+            User u =new User();
             Assert.AreNotEqual(u.Id, Guid.Empty);
             Assert.AreEqual(u.Status, 1);
             Assert.AreEqual(u.CreatedDate.ToShortDateString(), DateTime.Now.ToShortDateString());
@@ -72,11 +71,7 @@ namespace CAF.Test
         [TestMethod]
         public void TestMethod4()
         {
-            User u = User.New();
-            u.Abb = "hxh";
-            u.Email = "hxh@126.com";
-            u.OrganizeId = Guid.NewGuid();
-            u.Pass = "pass";
+            User u = new User { Abb = "hxh", Email = "hxh@126.com", OrganizeId = Guid.NewGuid(), Pass = "pass" };
             Assert.IsTrue(!u.IsValid);//未验证
             u.PhoneNum = "13666188693";
             u.Name = "何翔华";
@@ -114,11 +109,7 @@ namespace CAF.Test
         public void TestMethod6()
         {
             //新增with子项列表
-            var o = Organize.New();
-            o.Sort = 0;
-            o.Name = "o1";
-            o.Level = "01";
-            o.Code = "00001";
+            var o = new Organize { Sort = 0, Name = "o1", Level = "01", Code = "00001" };
             var u = CreateUser();
             o.Users.Add(u);
             if (o.IsValid)
@@ -196,11 +187,7 @@ namespace CAF.Test
         [TestMethod]
         public void TestMethod8()
         {
-            var o = Organize.New();
-            o.Sort = 0;
-            o.Name = "o1";
-            o.Level = "01";
-            o.Code = "00001";
+            var o = new Organize { Sort = 0, Name = "o1", Level = "01", Code = "00001" };
             var u = CreateUser();
             var u1 = CreateUser();
             o.Users.Add(u);
@@ -237,8 +224,7 @@ namespace CAF.Test
         {
             var u = CreateUser();
             u.OrganizeId = Guid.NewGuid();
-            var r = Role.New();
-            r.Name = "r1";
+            var r = new Role { Name = "r1" };
             u.Roles.Add(r);
             if (u.IsValid)
             {
@@ -271,9 +257,9 @@ namespace CAF.Test
         public void TestMethod11()
         {
             var list = new UserList();
-            User b = User.New();
+            User b =new User();
             b.Name = "name1";
-            User c = User.New();
+            User c =new User();
             b.Name = "name1";
             list.Add(b);
             list.Add(c);
@@ -312,10 +298,7 @@ namespace CAF.Test
         [TestMethod]
         public void TestReadonlyList()
         {
-            var o = Organize.New();
-            o.Name = "o1";
-            o.Level = "01";
-            o.Code = "0001";
+            var o = new Organize { Name = "o1", Level = "01", Code = "0001" };
             for (var i = 0; i < 10; i++)
             {
                 var u = CreateUser();
@@ -334,13 +317,15 @@ namespace CAF.Test
 
         private static User CreateUser()
         {
-            User u = User.New();
-            u.Abb = "hxh";
-            u.Email = "hxh@126.com";
-            u.Pass = "pass";
-            u.PhoneNum = "13666188693";
-            u.Name = "何翔华";
-            u.LoginName = "00001";
+            User u = new User
+                         {
+                             Abb = "hxh",
+                             Email = "hxh@126.com",
+                             Pass = "pass",
+                             PhoneNum = "13666188693",
+                             Name = "何翔华",
+                             LoginName = "00001"
+                         };
             return u;
         }
     }

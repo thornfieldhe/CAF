@@ -13,7 +13,7 @@
 <%@ Map Name="DbTypeCSharp" Src="DbType-CSharp" Description="DbType to CSharp Map" %>
 using System;
 
-namespace <%= this.ClassNamespace %>
+namespace <%= this.ClassNamespace %>.Model
 {
 	using CAF;
 	
