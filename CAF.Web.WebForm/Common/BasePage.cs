@@ -5,7 +5,9 @@ using System.Web;
 namespace CAF.Web.WebForm.Common
 {
     using CAF.Model;
+    using CAF.Model.Model;
     using System.Web.UI;
+
 
     public class BasePage : Page
     {
@@ -35,24 +37,25 @@ namespace CAF.Web.WebForm.Common
         protected List<Guid> readRule;
         protected string writeRule = "";
 
-        public BasePage(Guid pageId)
+        public BasePage(Guid pageId, string module)
         {
             this.pageId = pageId;
+            this.module = module;
         }
 
-//        protected Model.User LoginUser
-//        {
-//            get
-//            {
-//                return (Model.User)HttpContext.Current.Session["User"];
-//            }
-//        }
+        protected Model.User LoginUser
+        {
+            get
+            {
+                return (Model.User)HttpContext.Current.Session["User"];
+            }
+        }
 
         #region 控件初始化
 
         protected virtual void Page_Load(object sender, EventArgs e)
         {
-            //            this.module = Directory.Get(pageId).Name;
+            this.module = Directory.Get(pageId).Name;
             if (IsPostBack)
             {
                 return;
@@ -107,7 +110,7 @@ namespace CAF.Web.WebForm.Common
             BindScripts();
         }
 
- 
+
 
         /// <summary>
         /// 具体控件绑定工作
@@ -217,28 +220,58 @@ namespace CAF.Web.WebForm.Common
                 if (sender is Button)
                 {
                     var btn = (Button)sender;
+                    string faildMessage;
                     switch (btn.ID)
                     {
                         case "btnAdd":
                             PreAdd();
-                            Add();
-                            PostAdd();
-                            CreateInfoLog(Resource.System_Action_Add);
-                            Alert.ShowInTop(Resource.System_Message_AddSuccess);
+                            faildMessage = Add();
+
+                            if (string.IsNullOrWhiteSpace(faildMessage))
+                            {
+                                PostAdd();
+                                CreateInfoLog(Resource.System_Action_Add);
+                                Alert.ShowInTop(Resource.System_Message_AddSuccess);
+                            }
+                            else
+                            {
+                                Alert.ShowInTop(faildMessage);
+
+                            }
+
                             break;
                         case "btnUpdate":
                             PreUpdate();
-                            Update();
-                            PostUpdate();
-                            CreateInfoLog(Resource.System_Action_Update);
-                            Alert.ShowInTop(Resource.System_Message_UpdateSuccess);
+                            faildMessage = Update();
+
+                            if (string.IsNullOrWhiteSpace(faildMessage))
+                            {
+                                PostUpdate();
+                                CreateInfoLog(Resource.System_Action_Update);
+                                Alert.ShowInTop(Resource.System_Message_UpdateSuccess);
+                            }
+                            else
+                            {
+                                Alert.ShowInTop(faildMessage);
+
+                            }
                             break;
+
                         case "btnDelete":
                             PreDelete();
-                            Delete();
-                            PostDelete();
-                            CreateInfoLog(Resource.System_Action_Delete);
-                            Alert.ShowInTop(Resource.System_Message_DeleteSuccess);
+                            faildMessage = Delete();
+
+                            if (string.IsNullOrWhiteSpace(faildMessage))
+                            {
+                                PostDelete();
+                                CreateInfoLog(Resource.System_Action_Delete);
+                                Alert.ShowInTop(Resource.System_Message_DeleteSuccess);
+                            }
+                            else
+                            {
+                                Alert.ShowInTop(faildMessage);
+
+                            }
                             break;
 
                         case "btnReset":
@@ -250,27 +283,62 @@ namespace CAF.Web.WebForm.Common
                             break;
                         case "btnSave":
                             PreSave();
-                            Save();
-                            PostSave();
-                            CreateInfoLog(Resource.System_Action_Save);
-                            Alert.ShowInTop(Resource.System_Message_SavedSuccess);
+                            faildMessage = Save();
+
+                            if (string.IsNullOrWhiteSpace(faildMessage))
+                            {
+                                PostSave();
+                                CreateInfoLog(Resource.System_Action_Save);
+                                Alert.ShowInTop(Resource.System_Message_SavedSuccess);
+                            }
+                            else
+                            {
+                                Alert.ShowInTop(faildMessage);
+
+                            }
                             break;
                         case "btnSubmit":
                             PreSubmit();
-                            Submit();
-                            PostSubmit();
-                            CreateInfoLog(Resource.System_Action_Save);
-                            Alert.ShowInTop(Resource.System_Message_ConfirmSubmit);
+                            faildMessage = Submit();
+                            if (string.IsNullOrWhiteSpace(faildMessage))
+                            {
+                                PostSubmit();
+                                CreateInfoLog(Resource.System_Action_Save);
+                                Alert.ShowInTop(Resource.System_Message_ConfirmSubmit);
+                            }
+                            else
+                            {
+                                Alert.ShowInTop(faildMessage);
+                            }
+
                             break;
                         case "btnExport":
-                            Export();
-                            CreateInfoLog(Resource.System_Action_Export);
-                            Alert.ShowInTop(Resource.System_Message_ExportSuccess);
+                            faildMessage = Export();
+                            if (string.IsNullOrWhiteSpace(faildMessage))
+                            {
+                                CreateInfoLog(Resource.System_Action_Export);
+                                Alert.ShowInTop(Resource.System_Message_ExportSuccess);
+                            }
+                            else
+                            {
+                                Alert.ShowInTop(faildMessage);
+
+                            }
+
                             break;
                         case "btnInport":
-                            Inport();
-                            CreateInfoLog(Resource.System_Action_Inport);
-                            Alert.ShowInTop(Resource.System_Message_InportSuccess);
+                            faildMessage = Inport();
+                            if (string.IsNullOrWhiteSpace(faildMessage))
+                            {
+                                CreateInfoLog(Resource.System_Action_Inport);
+                                Alert.ShowInTop(Resource.System_Message_InportSuccess);
+                            }
+                            else
+                            {
+                                Alert.ShowInTop(faildMessage);
+
+                            }
+
                             break;
                     }
                 }
@@ -288,34 +356,34 @@ namespace CAF.Web.WebForm.Common
 
         protected void CreateErrorLog(Exception throwEx)
         {
-            //            Sys_ErrorLog log = Sys_ErrorLog.New();
-            //            log.Details = throwEx.StackTrace;
-            //            log.UserName = User.Identity.Name;
-            //            log.Page = pageId;
-            //            log.Ip = CAF.Web.Net.GetClientIP();
-            //            log.PageCode = 0;
-            //            log.Message = throwEx.Message;
-            //            log.Create();
+            var log = new ErrorLog
+                {
+                    Details = throwEx.StackTrace,
+                    UserName = User.Identity.Name,
+                    Ip = Net.GetClientIP(),
+                    PageCode = 0,
+                    Message = throwEx.Message,
+                    Page = module
+                };
+            log.Create();
         }
 
         protected void CreateInfoLog(string action)
         {
-            //            Sys_InfoLog log = Sys_InfoLog.New();
-            //            log.UserName = User.Identity.Name;
-            //            log.Page = pageId;
-            //            log.Action = action.ToString();
-            //            log.Create();
+
+            var log = new InfoLog { UserName = User.Identity.Name, Action = action, Page = module };
+            log.Create();
         }
 
-        protected virtual void Update() { }
+        protected virtual string Update() { return string.Empty; }
 
-        protected virtual void Delete() { }
+        protected virtual string Delete() { return string.Empty; }
 
-        protected virtual void Add() { }
+        protected virtual string Add() { return string.Empty; }
 
-        protected virtual void Save() { }
+        protected virtual string Save() { return string.Empty; }
 
-        protected virtual void Submit() { }
+        protected virtual string Submit() { return string.Empty; }
 
         protected virtual void PreDelete() { }
 
@@ -340,9 +408,9 @@ namespace CAF.Web.WebForm.Common
 
         protected virtual void Query() { }
 
-        protected virtual void Export() { }
+        protected virtual string Export() { return string.Empty; }
 
-        protected virtual void Inport() { }
+        protected virtual string Inport() { return string.Empty; }
 
         #endregion 按钮事件
     }

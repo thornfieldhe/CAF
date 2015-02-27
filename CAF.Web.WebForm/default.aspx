@@ -36,7 +36,7 @@
                         <f:ContentPanel ShowBorder="false" ShowHeader="false" ID="ContentPanel1" CssClass="header"
                             runat="server">
                             <div class="title">
-                                <a href="./default.aspx" style="color: #fff;">FineUI（开源版）空项目</a>
+                                <a href="./default.aspx" style="color: #fff;">CAF管理系统后台</a>
                             </div>
                         </f:ContentPanel>
                     </Items>
