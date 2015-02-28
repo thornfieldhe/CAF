@@ -3,7 +3,10 @@
 namespace CAF.Model
 {
     using CAF.Data;
+    using System;
+    using System.Collections.Generic;
     using System.Data;
+
 
     public partial class Directory
     {
@@ -15,13 +18,13 @@ namespace CAF.Model
         public string GetMaxCode(IDbConnection conn, IDbTransaction transaction)
         {
             //获取当前层级最大编号
-            const string maxCodeQuery = "Select Max(Level) From Sys_Directory Where ParentId=@ParentId";
+            const string maxCodeQuery = "Select Max(Level) From Sys_Directory Where ParentId=@ParentId && Status<>-1";
             var maxCode = conn.Query<string>(maxCodeQuery, new { ParentId = this.ParentId }, transaction).SingleOrDefault();
 
             if (string.IsNullOrWhiteSpace(maxCode))//当前层级没有项目
             {
                 //获取父对象编号
-                const string parentCodeQuery = "Select Level From Sys_Directory Where Id=@ParentId";
+                const string parentCodeQuery = "Select Level From Sys_Directory Where Id=@ParentId && Status<>-1";
                 var parentCode = conn.Query<string>(parentCodeQuery, new { ParentId = this.ParentId }, transaction).SingleOrDefault();
                 if (string.IsNullOrWhiteSpace(parentCode))//父层级不存在,即为第一条数据
                 {
@@ -42,6 +45,25 @@ namespace CAF.Model
                 {
                     return (maxCode.ToInt() + 1).ToString().PadLeft(maxCode.Length, '0');
                 }
+            }
+        }
+
+        /// <summary>
+        /// 获取目录，非自身及子目录
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="conn"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        public static List<SortLevelItem> GetOtherDIrectories(Guid id)
+        {
+            var item = Get(id);
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                const string query = "Select Id,Name,[Level] From Sys_Directory Where Level Not Like '%'+@Level";
+                return conn.Query<SortLevelItem>(query, new { Level = item == null ? "00" : item.Level })
+                    .Select(d => new SortLevelItem { Id = d.Id, Level = d.Level, Name = (new string('-', d.Level.Length * 3)) + d.Name })
+                    .OrderBy(d => d.Level).ToList();
             }
         }
 

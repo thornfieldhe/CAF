@@ -28,7 +28,7 @@
 <body>
     <form id="form1" runat="server">
         <f:PageManager ID="PageManager1" AutoSizePanelID="RegionPanel1" runat="server"></f:PageManager>
-        <f:RegionPanel ID="RegionPanel1" ShowBorder="false" runat="server">
+        <f:RegionPanel ID="RegionPanel1" ShowBorder="false" runat="server" >
             <Regions>
                 <f:Region ID="Region1" ShowBorder="false" Height="50px" ShowHeader="false"
                     Position="Top" Layout="Fit" runat="server">
@@ -60,7 +60,7 @@
                     <Items>
                         <f:TabStrip ID="mainTabStrip" EnableTabCloseMenu="true" ShowBorder="false" runat="server">
                             <Tabs>
-                                <f:Tab ID="Tab1" Title="首页" Layout="Fit" Icon="House" runat="server">
+                                <f:Tab ID="Tab1" Title="首页" Layout="Fit" Icon="House" runat="server" CssStyle="background-color:blueviolet">
                                     <Items>
                                         <f:ContentPanel ID="ContentPanel2" ShowBorder="false" BodyPadding="10px" ShowHeader="false" AutoScroll="true"
                                             runat="server">

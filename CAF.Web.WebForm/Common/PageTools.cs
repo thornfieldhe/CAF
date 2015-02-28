@@ -4,6 +4,8 @@ using System;
 namespace CAF.Web.WebForm.Common
 {
     using CAF.Data;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
     using System.Web.UI;
 
@@ -120,7 +122,7 @@ namespace CAF.Web.WebForm.Common
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("txt", ""));
                     if (Info != null)
                     {
-                        if (!(Info.Name == "Id" && string.IsNullOrWhiteSpace(ctrl.Text)))
+                        if (!(Info.Name == "Id" && (String.IsNullOrWhiteSpace(ctrl.Text) || ctrl.Readonly)))
                         {
                             Info.SetValue(model, DataMap.GetType(Info, ctrl.Text), null);
                         }
@@ -132,7 +134,7 @@ namespace CAF.Web.WebForm.Common
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("lbl", ""));
                     if (Info != null && ctrl.Text != "")
                     {
-                        if (!(Info.Name == "Id" && string.IsNullOrWhiteSpace(ctrl.Text)))
+                        if (!(Info.Name == "Id" && String.IsNullOrWhiteSpace(ctrl.Text)))
                         {
                             Info.SetValue(model, DataMap.GetType(Info, ctrl.Text), null);
                         }
@@ -144,7 +146,7 @@ namespace CAF.Web.WebForm.Common
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("hid", ""));
                     if (Info != null && ctrl.Text != "")
                     {
-                        if (!(Info.Name == "Id" && string.IsNullOrWhiteSpace(ctrl.Text)))
+                        if (!(Info.Name == "Id" && String.IsNullOrWhiteSpace(ctrl.Text)))
                         {
                             Info.SetValue(model, DataMap.GetType(Info, ctrl.Text), null);
                         }
@@ -163,7 +165,7 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (DropDownList)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("drop", ""));
-                    if (Info != null && !string.IsNullOrWhiteSpace(ctrl.SelectedValue))
+                    if (Info != null && !String.IsNullOrWhiteSpace(ctrl.SelectedValue))
                     {
                         Info.SetValue(model, DataMap.GetType(Info, ctrl.SelectedValue), null);
                     }
@@ -293,20 +295,24 @@ namespace CAF.Web.WebForm.Common
         {
             if (!item.HasControls())
             {
+                
                 if (item is RealTextField)
                 {
                     RealTextField ctrl = item as RealTextField;
                     ctrl.Text = "";
+                    ctrl.ClearInvalid();
                 }
                 if (item is Label)
                 {
                     Label ctrl = item as Label;
                     ctrl.Text = "";
+                    ctrl.ClearInvalid();
                 }
                 if (item is DropDownList)
                 {
                     DropDownList ctrl = item as DropDownList;
                     ctrl.SelectedIndex = 0;
+                    ctrl.ClearInvalid();
                 }
                 if (item is Tree)
                 {
@@ -317,20 +323,22 @@ namespace CAF.Web.WebForm.Common
                 {
                     CheckBox ctrl = item as CheckBox;
                     ctrl.Checked = false;
+                    ctrl.ClearInvalid();
                 }
                 if (item is CheckBoxList)
                 {
                     CheckBoxList ctrl = item as CheckBoxList;
-
                     foreach (CheckItem i in ctrl.Items)
                     {
                         i.Selected = false;
                     }
+                    ctrl.ClearInvalid();
                 }
                 if (item is RadioButton)
                 {
                     RadioButton ctrl = item as RadioButton;
                     ctrl.Checked = false;
+                    ctrl.ClearInvalid();
                 }
                 if (item is RadioButtonList)
                 {
@@ -343,6 +351,7 @@ namespace CAF.Web.WebForm.Common
                     {
                         ctrl.Items[0].Selected = true;
                     }
+                    ctrl.ClearInvalid();
                 }
             }
             else
@@ -371,22 +380,34 @@ namespace CAF.Web.WebForm.Common
         /// <returns></returns>
         public static string RadioButtonList(RadioButtonList rbl, string rblValue)
         {
-            string temp = "";
+            var temp = "";
             if (rblValue == "")
             {
                 temp = rbl.SelectedValue;
             }
             else
             {
-                for (int i = 0; i < rbl.Items.Count; i++)
+                foreach (var t in rbl.Items.Where(t => t.Value == rblValue))
                 {
-                    if (rbl.Items[i].Value == rblValue)
-                    {
-                        rbl.Items[i].Selected = true;
-                    }
+                    t.Selected = true;
                 }
             }
             return temp;
+        }
+
+        /// <summary>
+        /// 绑定下拉列表
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="drop"></param>
+        public static void BindDropdownList(List<ListItem> items, DropDownList drop)
+        {
+
+            drop.Items.Clear();
+            var item = new ListItem { Text = "请选择", Value = new Guid().ToString() };
+            drop.Items.Add(item);
+            items.ForEach(i => drop.Items.Add(i));
+
         }
     }
 }

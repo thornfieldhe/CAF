@@ -150,7 +150,6 @@ namespace CAF.Model
             if (this.IsDirty)
             {
                 _updateParameters += ", ChangedDate = GetDate()";
-                _updateParameters += ", Status = @Status";
                 var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
                 _changedRows += conn.Execute(query, this, transaction, null, null);
             }

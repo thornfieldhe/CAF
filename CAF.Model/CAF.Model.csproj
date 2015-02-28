@@ -59,6 +59,7 @@
     <Compile Include="CodeSmith\ReadOnlyUserList.cs" />
     <Compile Include="CodeSmith\Role.cs" />
     <Compile Include="CodeSmith\UserSetting.cs" />
+    <Compile Include="Common\KeyValueItem.cs" />
     <Compile Include="Common\ReadOnlyCollectionQueryResult.cs" />
     <Compile Include="Directory.cs" />
     <Compile Include="Properties\Annotations.cs" />

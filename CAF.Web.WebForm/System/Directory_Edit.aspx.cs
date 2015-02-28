@@ -5,28 +5,34 @@ namespace CAF.Web.WebForm
     using CAF.Model;
     using CAF.Web.WebForm.Common;
     using FineUI;
+    using System.Linq;
 
 
     public partial class Directory_Edit : ItemBase
     {
+
         protected override void OnLoad(EventArgs e)
         {
-            pageId = new Guid("7DDFE30B-AC76-4062-9153-5D4C0E0300C6");
+            if (!IsPostBack)
+            {
+                pageId = new Guid("f66d4ee2-8c93-47bd-83bf-550cab2025da");
+            }
             base.OnLoad(e);
         }
 
         protected override void Bind()
         {
             base.Bind();
-            PageHelper.BindDirs(new Guid(), dropParentId);
+            PageHelper.BindDirectories(txtId.Text.ToGuid(), dropParentId);
             BindTree();
+            txtId.Readonly = false;
         }
 
         protected override string Delete()
         {
-            if (txtId.Text == "")
+            if (txtId.Text.ToGuid() == Guid.Empty)
             {
-                return "请选择目录！";
+                return "未选择目录或目录编码格式不正确！";
             }
             Directory.Delete(new Guid(txtId.Text));
             return "";
@@ -34,56 +40,40 @@ namespace CAF.Web.WebForm
 
         protected override string Update()
         {
-            if (txtId.Text != "")
+            if (txtId.Text.ToGuid() == Guid.Empty)
             {
-                var dir = Directory.Get(new Guid(txtId.Text));
-                PageTools.BindModel(this.Page, dir);
-                if (dir.ParentId == dir.Id)
-                {
-                    return "父目录不能等于自身！";
-                }
-                var rowNum = dir.Save();
-                return rowNum > 0 ? "" : dir.Errors[0];
+                return "未选择目录或目录编码格式不正确！";
             }
-            else
-            {
-                return "请选择目录！";
-            }
+            var dir = Directory.Get(new Guid(txtId.Text));
+            PageTools.BindModel(Page, dir);
+            dir.Save();
+            return dir.Errors.Count == 0 ? "" : dir.Errors[0];
         }
 
         protected override string Add()
         {
-            txtId.Text = "";
+
+            if (string.IsNullOrWhiteSpace(txtId.Text))
+            {
+                return "目录编码格式不正确！";
+            }
             var dir = new Directory();
-            PageTools.BindModel(this.submitForm, dir);
-            var rowNum = dir.Create();
-            return rowNum > 0 ? "" : dir.Errors[0];
+            PageTools.BindModel(submitForm, dir);
+            dir.Create();
+            return dir.Errors.Count == 0 ? "" : dir.Errors[0];
         }
 
-        protected override void PostDelete()
-        {
-            PageHelper.BindDirs(new Guid(), dropParentId);
-            Initialization();
-        }
 
-        protected override void PostUpdate()
-        {
-            PageHelper.BindDirs(new Guid(), dropParentId);
-            Initialization();
-        }
-
-        protected override void PostAdd()
-        {
-            PageHelper.BindDirs(new Guid(), dropParentId);
-            Initialization();
-        }
 
         #region tree
 
         protected void treeDirs_NodeCommand(object sender, FineUI.TreeCommandEventArgs e)
         {
             var dir = Directory.Get(new Guid(e.Node.NodeID));
-            PageTools.BindControls(this.submitForm, dir);
+            txtId.Readonly = true;
+            PageHelper.BindDirectories(txtId.Text.ToGuid(), dropParentId);
+            PageTools.BindControls(submitForm, dir);
+
         }
 
         private void BindTree()
@@ -91,25 +81,27 @@ namespace CAF.Web.WebForm
             var dirs = Directory.GetAll();
             foreach (var item in dirs)
             {
-                if (item.ParentId == new Guid())
+                if (item.ParentId != new Guid())
                 {
-                    var node = CreateNode(item, treeDirs.Nodes);
-                    ResolveSubTree(item, node);
+                    continue;
                 }
+                var node = CreateNode(item, treeDirs.Nodes);
+                ResolveSubTree(item.Id, node);
             }
         }
 
-        private void ResolveSubTree(Directory dir, FineUI.TreeNode treeNode)
+        private void ResolveSubTree(Guid id, TreeNode treeNode)
         {
-            var dirs = Directory.GetAllByParentId(dir.Id);
-            if (dirs.Count > 0)
+            var dirs = Directory.GetAllByParentId(id).OrderBy(d => d.Sort).ToList();
+            if (dirs.Count <= 0)
             {
-                treeNode.Expanded = true;
-                foreach (Directory item in dirs)
-                {
-                    var node = CreateNode(item, treeNode.Nodes);
-                    ResolveSubTree(item, node);
-                }
+                return;
+            }
+            treeNode.Expanded = true;
+            foreach (var item in dirs)
+            {
+                var node = CreateNode(item, treeNode.Nodes);
+                ResolveSubTree(item.Id, node);
             }
         }
 
@@ -122,7 +114,8 @@ namespace CAF.Web.WebForm
                                        item.Name.ToString(),
                                        item.Status == (int)HideStatusEnum.Hide ? "[隐藏]" : ""),
                                NodeID = item.Id.ToString(),
-                               Expanded = true
+                               Expanded = true,
+                               EnableClickEvent = true
                            };
             parent.Add(node);
             return node;

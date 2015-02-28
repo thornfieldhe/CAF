@@ -316,7 +316,6 @@ namespace CAF.Model
                 return _changedRows;
             }
             _updateParameters += ", ChangedDate = GetDate()";
-            _updateParameters += ", Status = @Status";
             string query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
             _changedRows += conn.Execute(query, this, transaction, null, null);
             if (_userSettingInitalizer.IsValueCreated && this.UserSetting != null)
