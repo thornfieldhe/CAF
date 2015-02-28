@@ -2,12 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
-namespace CAF.Web.WebForm.Common
+namespace CAF.Web.WebForm
 {
     using CAF.Model;
     using CAF.Model.Model;
+    using CAF.Web.WebForm.Common;
     using System.Web.UI;
-
 
     public class BasePage : Page
     {
@@ -37,17 +37,19 @@ namespace CAF.Web.WebForm.Common
         protected List<Guid> readRule;
         protected string writeRule = "";
 
-        public BasePage(Guid pageId, string module)
+        public BasePage()
         {
-            this.pageId = pageId;
-            this.module = module;
+            this.pageId = Guid.NewGuid();
+            this.module = string.Empty;
         }
 
-        protected Model.User LoginUser
+
+
+        protected User LoginUser
         {
             get
             {
-                return (Model.User)HttpContext.Current.Session["User"];
+                return (User)HttpContext.Current.Session["User"];
             }
         }
 
@@ -171,32 +173,27 @@ namespace CAF.Web.WebForm.Common
 
         protected virtual bool CanRead()
         {
-            //            List<Guid> items = Sys_Dictionary.GetKeyByCategoryAndValueAndStatus(EnumExt.GetDescription(DictionaryEnum.RoleToDir), pageId, (int)RightStatusEnum.Read);
-            //            return RuleValidate(items);
+            //                        List<Guid> items = Dictionary.GetKeyByCategoryAndValueAndStatus(EnumExt.GetDescription(DictionaryEnum.RoleToDir), pageId, (int)RightStatusEnum.Read);
+            //                        return RuleValidate(items);
             return true;
         }
 
         protected virtual bool CanEdit()
         {
-            //            List<Guid> items = Sys_Dictionary.GetKeyByCategoryAndValueAndStatus(EnumExt.GetDescription(DictionaryEnum.RoleToDir), pageId, (int)RightStatusEnum.Write);
-            //            return RuleValidate(items);
+            //                        List<Guid> items = Dictionary.GetKeyByCategoryAndValueAndStatus(EnumExt.GetDescription(DictionaryEnum.RoleToDir), pageId, (int)RightStatusEnum.Write);
+            //                        return RuleValidate(items);
             return true;
         }
 
         private bool RuleValidate(List<Guid> rules)
         {
-            var result = false;
+            const bool result = false;
             if (rules == null || rules.Count == 0)
             {
                 return false;
             }
-            //            CAFPrincipal principal = (CAFPrincipal)HttpContext.Current.Session["Principal"];
-            foreach (Guid item in rules)
+            foreach (var item in rules)
             {
-                //                if (principal.IsInRole(item.ToString()))
-                //                {
-                //                    return true;
-                //                }
             }
             return result;
         }
@@ -236,7 +233,6 @@ namespace CAF.Web.WebForm.Common
                             else
                             {
                                 Alert.ShowInTop(faildMessage);
-
                             }
 
                             break;

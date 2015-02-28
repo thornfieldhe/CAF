@@ -48,6 +48,7 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Configuration" />
@@ -64,6 +65,7 @@
     <Reference Include="Microsoft.AspNet.FriendlyUrls">
       <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Owin">
@@ -3640,6 +3642,7 @@
     <Content Include="res\icon\zoom.png" />
     <Content Include="res\icon\zoom_in.png" />
     <Content Include="res\icon\zoom_out.png" />
+    <Content Include="System\Directory_List.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -3661,11 +3664,15 @@
       <DependentUpon>captcha.ashx</DependentUpon>
     </Compile>
     <Compile Include="captcha\CaptchaImage.cs" />
-    <Compile Include="Common\BasePage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Include="Common\AuditableBase.cs" />
+    <Compile Include="Common\BasePage.cs" />
     <Compile Include="Common\CAFControl.cs" />
+    <Compile Include="Common\EditableBase.cs" />
+    <Compile Include="Common\EditebleListBase.cs" />
+    <Compile Include="Common\ItemBase.cs" />
+    <Compile Include="Common\ListBase.cs" />
     <Compile Include="Common\PageTools.cs" />
+    <Compile Include="Common\ShowBase.cs" />
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3689,6 +3696,12 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="System\Directory_List.aspx.cs">
+      <DependentUpon>Directory_List.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="System\Directory_List.aspx.designer.cs">
+      <DependentUpon>Directory_List.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

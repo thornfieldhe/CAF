@@ -45,6 +45,14 @@ namespace CAF.Web.WebForm.CAFControl
         public CAFGrid()
         {
             this.DataKeyNames = new string[] { "Id" };
+            this.EnableCheckBoxSelect = true;
+            this.SortDirection = "ASC";
+            this.AllowSorting = true;
+            this.AllowPaging = true;
+            this.PageSize = 35;
+            this.IsDatabasePaging = true;
+            this.EnableFrame = true;
+            this.AutoScroll = true;
         }
     }
 
