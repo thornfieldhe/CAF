@@ -5,40 +5,60 @@ namespace CAF.Web.WebForm.CAFControl
 
     using FineUI;
 
-    public class Container : CollapsablePanel
+    #region CAFPanel
+
+    public class CAFPanel : Panel
     {
-        public Container()
+        public CAFPanel()
         {
-            base.BodyPadding = "5px";
+            base.BodyPadding = "5px 5px 5px 5px";
             base.ShowBorder = false;
             base.ShowHeader = false;
         }
     }
 
-    public class MainPanel : Container
+    public class MainPanel : CAFPanel
     {
         public MainPanel()
         {
             base.BoxConfigAlign = BoxLayoutAlign.Stretch;
             base.BoxConfigPosition = BoxLayoutPosition.Start;
-            base.BodyPadding = "5px 5px 5px 5px";
         }
     }
 
-    public class SubmitPanel : Container
+    public class SubmitPanel : CAFPanel
     {
-        public SubmitPanel()
+        public SubmitPanel() { base.CssClass = "submitpanel"; }
+    }
+
+    #endregion
+
+
+    #region CAFForm
+
+    public class CAFForm : Form
+    {
+        public CAFForm()
         {
-            base.CssClass = "submitpanel";
+            base.BoxConfigAlign = BoxLayoutAlign.Stretch;
+            base.BoxConfigPosition = BoxLayoutPosition.Start;
+            base.BodyPadding = "5px 5px 5px 5px";
+            base.ShowBorder = false;
+            base.ShowHeader = false;
         }
     }
 
-    public class SubmitForm : Container
+    public class SubmitForm : CAFForm
     {
         public SubmitForm()
         {
+
         }
+
     }
+
+    #endregion
+
 
     public class CAFGrid : Grid
     {
@@ -69,8 +89,10 @@ namespace CAF.Web.WebForm.CAFControl
         }
     }
 
-    #region Button
-    public class AddButton : Button
+    #region CAFButton
+
+    public class CAFButton : Button { }
+    public class AddButton : CAFButton
     {
         public AddButton()
         {
@@ -83,8 +105,7 @@ namespace CAF.Web.WebForm.CAFControl
         }
 
     }
-
-    public class NewButton : Button
+    public class NewButton : CAFButton
     {
         public NewButton()
         {
@@ -96,8 +117,7 @@ namespace CAF.Web.WebForm.CAFControl
             this.ValidateForms = new[] { "submitForm" };
         }
     }
-
-    public class DeleteButton : Button
+    public class DeleteButton : CAFButton
     {
         public DeleteButton()
         {
@@ -108,7 +128,7 @@ namespace CAF.Web.WebForm.CAFControl
             this.ConfirmIcon = MessageBoxIcon.Question;
         }
     }
-    public class QueryButton : Button
+    public class QueryButton : CAFButton
     {
         public QueryButton()
         {
@@ -116,7 +136,7 @@ namespace CAF.Web.WebForm.CAFControl
             this.Icon = Icon.Magnifier;
         }
     }
-    public class SubmitButton : Button
+    public class SubmitButton : CAFButton
     {
         public SubmitButton()
         {
@@ -128,7 +148,7 @@ namespace CAF.Web.WebForm.CAFControl
             this.ValidateForms = new[] { "submitForm" };
         }
     }
-    public class EditButton : Button
+    public class EditButton : CAFButton
     {
         public EditButton()
         {
@@ -137,7 +157,7 @@ namespace CAF.Web.WebForm.CAFControl
             this.ValidateForms = new[] { "submitForm" };
         }
     }
-    public class SaveButton : Button
+    public class SaveButton : CAFButton
     {
         public SaveButton()
         {
@@ -149,7 +169,7 @@ namespace CAF.Web.WebForm.CAFControl
             this.ValidateForms = new[] { "submitForm" };
         }
     }
-    public class UpdateButton : Button
+    public class UpdateButton : CAFButton
     {
         public UpdateButton()
         {
@@ -161,7 +181,7 @@ namespace CAF.Web.WebForm.CAFControl
             this.ValidateForms = new[] { "submitForm" };
         }
     }
-    public class ResetButton : Button
+    public class ResetButton : CAFButton
     {
         public ResetButton()
         {
@@ -173,7 +193,7 @@ namespace CAF.Web.WebForm.CAFControl
             this.ValidateForms = new[] { "submitForm" };
         }
     }
-    public class CloseButton : Button
+    public class CloseButton : CAFButton
     {
         public CloseButton()
         {
@@ -185,7 +205,7 @@ namespace CAF.Web.WebForm.CAFControl
             this.ValidateForms = new[] { "submitForm" };
         }
     }
-    public class ExportButton : Button
+    public class ExportButton : CAFButton
     {
         public ExportButton()
         {
@@ -193,7 +213,7 @@ namespace CAF.Web.WebForm.CAFControl
             this.Text = Resource.System_Action_Export;
         }
     }
-    public class InportButton : Button
+    public class InportButton : CAFButton
     {
         public InportButton()
         {

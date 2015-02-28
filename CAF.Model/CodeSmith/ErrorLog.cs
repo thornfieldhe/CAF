@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace CAF.Model.Model
+namespace CAF.Model
 {
     using CAF.Data;
     using CAF.Validation;

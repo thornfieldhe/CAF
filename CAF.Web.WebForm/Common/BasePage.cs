@@ -5,9 +5,9 @@ using System.Web;
 namespace CAF.Web.WebForm
 {
     using CAF.Model;
-    using CAF.Model.Model;
     using CAF.Web.WebForm.Common;
-    using System.Web.UI;
+
+    using global::System.Web.UI;
 
     public class BasePage : Page
     {
@@ -57,14 +57,14 @@ namespace CAF.Web.WebForm
 
         protected virtual void Page_Load(object sender, EventArgs e)
         {
-            this.module = Directory.Get(pageId).Name;
+            //this.module = Directory.Get(pageId).Name;
             if (IsPostBack)
             {
                 return;
             }
             try
             {
-                if (HttpContext.Current.User.Identity.IsAuthenticated)
+                //                if (HttpContext.Current.User.Identity.IsAuthenticated)
                 {
                     var canRead = CanRead();
                     var canEdit = CanEdit();
@@ -89,10 +89,10 @@ namespace CAF.Web.WebForm
                         UnAuthenticated();
                     }
                 }
-                else
-                {
-                    UnAuthenticated();
-                }
+                //                else
+                //                {
+                //                    UnAuthenticated();
+                //                }
             }
             catch (Exception ex)
             {

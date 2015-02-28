@@ -3,10 +3,9 @@ using System;
 
 namespace CAF.Web.WebForm.Common
 {
+    using CAF.Data;
     using System.Reflection;
     using System.Web.UI;
-
-    using CAF.Data;
 
     public class PageTools
     {
@@ -117,7 +116,7 @@ namespace CAF.Web.WebForm.Common
                 PropertyInfo Info;
                 if (item is RealTextField)
                 {
-                    RealTextField ctrl = item as RealTextField;
+                    var ctrl = (RealTextField)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("txt", ""));
                     if (Info != null)
                     {
@@ -129,7 +128,7 @@ namespace CAF.Web.WebForm.Common
                 }
                 if (item is Label)
                 {
-                    Label ctrl = item as Label;
+                    var ctrl = (Label)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("lbl", ""));
                     if (Info != null && ctrl.Text != "")
                     {
@@ -141,7 +140,7 @@ namespace CAF.Web.WebForm.Common
                 }
                 if (item is HiddenField)
                 {
-                    HiddenField ctrl = item as HiddenField;
+                    var ctrl = (HiddenField)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("hid", ""));
                     if (Info != null && ctrl.Text != "")
                     {
@@ -153,7 +152,7 @@ namespace CAF.Web.WebForm.Common
                 }
                 if (item is DatePicker)
                 {
-                    DatePicker ctrl = item as DatePicker;
+                    var ctrl = (DatePicker)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("date", ""));
                     if (Info != null && ctrl.Text != "")
                     {
@@ -162,7 +161,7 @@ namespace CAF.Web.WebForm.Common
                 }
                 if (item is DropDownList)
                 {
-                    DropDownList ctrl = item as DropDownList;
+                    var ctrl = (DropDownList)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("drop", ""));
                     if (Info != null && !string.IsNullOrWhiteSpace(ctrl.SelectedValue))
                     {
@@ -171,37 +170,29 @@ namespace CAF.Web.WebForm.Common
                 }
                 if (item is CheckBox)
                 {
-                    CheckBox ctrl = item as CheckBox;
+                    var ctrl = (CheckBox)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("chk", ""));
                     if (Info != null)
                     {
                         if (ctrl.Checked)
                         {
-                            if (Info.PropertyType == typeof(Boolean))
-                            {
-                                Info.SetValue(model, DataMap.GetType(Info, "True"), null);
-                            }
-                            else
-                            {
-                                Info.SetValue(model, DataMap.GetType(Info, "1"), null);
-                            }
+                            Info.SetValue(model,
+                                Info.PropertyType == typeof(Boolean)
+                                    ? DataMap.GetType(Info, "True")
+                                    : DataMap.GetType(Info, "1"), null);
                         }
                         else
                         {
-                            if (Info.PropertyType == typeof(Boolean))
-                            {
-                                Info.SetValue(model, DataMap.GetType(Info, "False"), null);
-                            }
-                            else
-                            {
-                                Info.SetValue(model, DataMap.GetType(Info, "0"), null);
-                            }
+                            Info.SetValue(model,
+                                Info.PropertyType == typeof(Boolean)
+                                    ? DataMap.GetType(Info, "False")
+                                    : DataMap.GetType(Info, "0"), null);
                         }
                     }
                 }
                 if (item is CheckBoxList)
                 {
-                    CheckBoxList ctrl = item as CheckBoxList;
+                    var ctrl = (CheckBoxList)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("chk", ""));
                     if (Info != null)
                     {
@@ -210,23 +201,17 @@ namespace CAF.Web.WebForm.Common
                 }
                 if (item is RadioButton)
                 {
-                    RadioButton ctrl = item as RadioButton;
+                    var ctrl = (RadioButton)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("radio", ""));
                     if (Info != null)
                     {
-                        if (ctrl.Checked)
-                        {
-                            Info.SetValue(model, DataMap.GetType(Info, "1"), null);
-                        }
-                        else
-                        {
-                            Info.SetValue(model, DataMap.GetType(Info, "0"), null);
-                        }
+                        Info.SetValue(model, ctrl.Checked ? DataMap.GetType(Info, "1") : DataMap.GetType(Info, "0"),
+                            null);
                     }
                 }
                 if (item is RadioButtonList)
                 {
-                    RadioButtonList ctrl = item as RadioButtonList;
+                    var ctrl = (RadioButtonList)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("radio", ""));
                     if (Info != null)
                     {

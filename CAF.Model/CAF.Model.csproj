@@ -60,6 +60,7 @@
     <Compile Include="CodeSmith\Role.cs" />
     <Compile Include="CodeSmith\UserSetting.cs" />
     <Compile Include="Common\ReadOnlyCollectionQueryResult.cs" />
+    <Compile Include="Directory.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="CodeSmith\Organize.cs" />
     <Compile Include="CodeSmith\User.cs" />

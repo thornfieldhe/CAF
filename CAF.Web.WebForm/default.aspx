@@ -49,6 +49,7 @@
                                 <f:TreeNode Text="默认分类" Expanded="true">
                                     <f:TreeNode Text="开始页面" NavigateUrl="~/hello.aspx"></f:TreeNode>
                                     <f:TreeNode Text="登录页面" NavigateUrl="~/login.aspx"></f:TreeNode>
+                                    <f:TreeNode Text="目录" NavigateUrl="~/System/Directory_Edit.aspx"></f:TreeNode>
                                 </f:TreeNode>
                             </Nodes>
                         </f:Tree>

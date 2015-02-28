@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace CAF.Model.Model
+namespace CAF.Model
 {
     using CAF.Data;
     using System.ComponentModel.DataAnnotations;
@@ -95,6 +95,7 @@ namespace CAF.Model.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_Directory WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_Directory SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_Directory WHERE Id = @Id";
+        const string QUERY_GETALLBYPARENTID = "SELECT * FROM Sys_Directory WHERE  Status!=-1 And ParentId=@ParentId";
         const string QUERY_INSERT = "INSERT INTO Sys_Directory (Id, Name, Url, ParentId, Level, Sort, Note, Status, CreatedDate, ChangedDate) VALUES (@Id, @Name, @Url, @ParentId, @Level, @Sort, @Note, @Status, @CreatedDate, @ChangedDate)";
         const string QUERY_UPDATE = "UPDATE Sys_Directory SET {0} WHERE  Id = @Id";
 
@@ -121,6 +122,22 @@ namespace CAF.Model.Model
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
                 var items = conn.Query<Directory>(QUERY_GETAll, null).ToList();
+                var list = new DirectoryList();
+                foreach (var item in items)
+                {
+                    item.MarkOld();
+                    list.Add(item);
+                }
+                list.MarkOld();
+                return list;
+            }
+        }
+
+        public static DirectoryList GetAllByParentId(Guid parentId)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                var items = conn.Query<Directory>(QUERY_GETALLBYPARENTID, new { ParentId = parentId }).ToList();
                 var list = new DirectoryList();
                 foreach (var item in items)
                 {
