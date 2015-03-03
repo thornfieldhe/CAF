@@ -56,12 +56,15 @@
     <Compile Include="CodeSmith\ErrorLog.cs" />
     <Compile Include="CodeSmith\InfoLog.cs" />
     <Compile Include="CodeSmith\LoginLog.cs" />
+    <Compile Include="CodeSmith\ReadOnlyBase.cs" />
     <Compile Include="CodeSmith\ReadOnlyUserList.cs" />
     <Compile Include="CodeSmith\Role.cs" />
     <Compile Include="CodeSmith\UserSetting.cs" />
     <Compile Include="Common\KeyValueItem.cs" />
+    <Compile Include="Common\SortLevelItem.cs" />
     <Compile Include="Common\ReadOnlyCollectionQueryResult.cs" />
     <Compile Include="Directory.cs" />
+    <Compile Include="Organize.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="CodeSmith\Organize.cs" />
     <Compile Include="CodeSmith\User.cs" />
@@ -72,6 +75,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Role.cs" />
     <Compile Include="SystemEnums.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

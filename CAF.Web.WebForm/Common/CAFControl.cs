@@ -74,6 +74,43 @@ namespace CAF.Web.WebForm.CAFControl
             this.EnableFrame = true;
             this.AutoScroll = true;
         }
+
+        /// <summary>
+        /// 绑定数据源
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="orderBy"></param>
+        /// <param name="queryCriteria"></param>
+        /// <param name="where"></param>
+        public void BindDataSource<T>(string orderBy,T queryCriteria,string where) where T:ReadOnlyBase
+        {
+            var result = ReadOnlyCollectionBase<T>.Query("Name", PageSize, queryCriteria, where);
+            RecordCount = result.TotalCount;
+            DataSource = result.Result;
+            DataBind();
+        }
+    }
+
+    public class CAFTree : Tree
+    {
+        public CAFTree()
+        {
+            base.EnableArrows = false;
+            base.ShowHeader = false;
+            base.EnableLines = true;
+            base.ShowBorder = false;
+        }
+
+    }
+
+
+    public class CAFTreeNode : TreeNode
+    {
+        public CAFTreeNode()
+        {
+            base.Expanded = true;
+            base.EnableClickEvent = true;
+        }
     }
 
     public class CAFWindow : FineUI.Window

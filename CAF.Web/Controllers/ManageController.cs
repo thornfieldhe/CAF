@@ -4,9 +4,10 @@ namespace CAF.Web.Controllers
 {
 
     using CAF.Ext;
-    using CAF_Model;
     using System;
     using System.Net;
+
+    using CAF.Model;
 
     public class ManageController : BaseController
     {
@@ -38,15 +39,15 @@ namespace CAF.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetUsers(string name, Guid? organizeId, Guid? ruleId)
+        public JsonResult GetUsers(string name, string level, string ruleId)
         {
             var whereStr = " 1=1 ";
 
-            organizeId.IfNotNull(o => whereStr += "And OrganizeId=@OrganizeId");
+            level.IfNotNull(o => whereStr += "And OrganizeId=@OrganizeId");
             ruleId.IfNotNull(o => whereStr = "And RuleId=@RuleId");
             name.IfIsNotNullOrEmpty(a => whereStr += " And Name Like %@Name%");
 
-            return this.Json(ReadOnlyUserList.Instance.Query("Name", 20, new { Name = name, OrganizeId = organizeId, RuleId = ruleId }, whereStr));
+            return this.Json(ReadOnlyCollectionBase<ReadOnlyUser>.Query("Name", 20, new ReadOnlyUser { Name = name, Level = level, Roles = ruleId }, whereStr));
         }
 
         public ActionResult SaveUser(Model.User user)

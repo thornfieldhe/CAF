@@ -8,55 +8,51 @@ namespace CAF
     using System.Data;
     using System.Linq;
 
-    public class ReadOnlyCollectionBase<K, T> : SingletonBase<T> where T : new()
+    public static class ReadOnlyCollectionBase<K> where K : ReadOnlyBase
     {
-        public ReadOnlyCollectionBase() { }
-        protected readonly string QUERY =
-            "  SELECT * FROM {0} WHERE {1} ORDER BY {2} OFFSET {3} ROWS FETCH NEXT {4} ROWS only ";
+        static readonly string QUERY =
+           "  SELECT * FROM {0} WHERE {1} ORDER BY {2} OFFSET {3} ROWS FETCH NEXT {4} ROWS only ";
         //sqlserver 2012及以下版本使用
-        //        protected readonly string QUERY =
+        //         readonly string QUERY =
         //            "SELECT * FROM(  SELECT ROW_NUMBER() OVER ( ORDER BY {2} ) AS rownum ,* FROM {0} WHERE {1} )t WHERE rownum BETWEEN {3} AND ({3}+{4})";
 
-        protected readonly string COUNT = "  SELECT COUNT(*) FROM {0} WHERE {1}";
+        static readonly string COUNT = "  SELECT COUNT(*) FROM {0} WHERE {1}";
 
-        protected readonly string COMPUTE = "  SELECT {2} FROM {0} WHERE {1}";
+        static readonly string COMPUTE = "  SELECT {2} FROM {0} WHERE {1}";
 
-        protected string _tableName;
+        static string _tableName;
 
-        protected string _queryWhere;
+        static string _queryWhere;
 
-        protected string _orderBy;
+        static string _orderBy;
 
-        protected object _dynamicObj;
+        static object _dynamicObj;
 
-        protected string _sum;
-        protected string _average;
+        static string _sum;
+        static string _average;
 
-        protected ReadOnlyCollectionBase(string tableName)
-        {
-            _tableName = tableName;
-        }
 
-        public ReadOnlyCollectionQueryResult<K> Result { get; set; }
+
+        public static ReadOnlyCollectionQueryResult<K> Result { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="orderBy">排序字段，可以是多字段用","隔开</param>
         /// <param name="pageSize">分页条数</param>
-        /// <param name="dynamicObj">查询对象，如：new{Id=Guid.NewId(),Name="xxx"}</param>
+        /// <param name="readonlyList">查询对象，如：new{Id=Guid.NewId(),Name="xxx"}</param>
         /// <param name="queryWhere">查询条件，如：" Id=@Id And Name=@Name"</param>
         /// <param name="pageIndex">当前页，从第0页开始</param>
         /// <param name="sum">求和字段，可以是多字段用","隔开</param>
         /// <param name="average">求平均字段，可以是多字段用","隔开</param>
         /// <returns></returns>
-        public ReadOnlyCollectionQueryResult<K> Query(string orderBy, int pageSize, object dynamicObj, string queryWhere = " 1=1", int pageIndex = 1, string sum = "", string average = "")
+        public static ReadOnlyCollectionQueryResult<K> Query(string orderBy, int pageSize, K readonlyList, string queryWhere = " 1=1", int pageIndex = 1, string sum = "", string average = "")
         {
             _queryWhere = queryWhere;
             _orderBy = orderBy;
+            _tableName = readonlyList.TableName;
 
-
-            _dynamicObj = dynamicObj;
+            _dynamicObj = readonlyList;
             _average = average;
             _sum = sum;
 
@@ -65,7 +61,7 @@ namespace CAF
             return Result;
         }
 
-        internal void ExtcuteQuery()
+        private static void ExtcuteQuery()
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
@@ -86,7 +82,7 @@ namespace CAF
         /// <param name="fileds"></param>
         /// <param name="methodType"></param>
         /// <returns></returns>
-        protected Dictionary<string, object> Compute(IDbConnection conn, string fileds, string methodType)
+        private static Dictionary<string, object> Compute(IDbConnection conn, string fileds, string methodType)
         {
             var method = new Dictionary<string, object>();
             if (!string.IsNullOrWhiteSpace(fileds))

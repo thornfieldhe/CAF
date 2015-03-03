@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 namespace CAF.Web.WebForm.Common
 {
     using FineUI;
-    using System.Collections.Generic;
+
 
     public class ListItemCompare : IEqualityComparer<ListItem>
     {

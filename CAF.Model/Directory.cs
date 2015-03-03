@@ -52,8 +52,6 @@ namespace CAF.Model
         /// 获取目录，非自身及子目录
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="conn"></param>
-        /// <param name="transaction"></param>
         /// <returns></returns>
         public static List<SortLevelItem> GetOtherDIrectories(Guid id)
         {

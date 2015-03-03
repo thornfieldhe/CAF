@@ -39,6 +39,20 @@ namespace CAF
 
         internal bool IsDirty { get { return _isDirty; } set { _isDirty = value; } }
 
+        internal bool _isChangeRelationship;
+        /// <summary>
+        /// true：只更新关系
+        /// false：标记删除
+        /// </summary>
+        internal bool IsChangeRelationship
+        {
+            get { return _isChangeRelationship; }
+            set
+            {
+                _isChangeRelationship = value;
+                _isChangeRelationship.IfIsTrue(() => this._items.ForEach(i => i.IsChangeRelationship = true));
+            }
+        }
 
         public delegate int OnSaveHandler(IDbConnection conn, IDbTransaction transaction);        //属性改变事件，用于通知列表，修改状态为Dity
         public event OnSaveHandler OnSaved;
@@ -90,6 +104,7 @@ namespace CAF
         /// <param name="member">成员实例</param>
         public virtual void Add(TMember member)
         {
+            member.IsChangeRelationship = this.IsChangeRelationship;
             _items.Add(member);
             if (OnInsert != null)
             {
@@ -113,7 +128,8 @@ namespace CAF
             }
             foreach (var member in collection)
             {
-                _items.Add(member);
+                member.IsChangeRelationship = this.IsChangeRelationship;
+                Add(member);
                 member.OnPropertyChange += MarkDirty;
             }
             MarkDirty();
@@ -129,7 +145,8 @@ namespace CAF
             {
                 foreach (var member in members)
                 {
-                    _items.Add(member);
+                    member.IsChangeRelationship = this.IsChangeRelationship;
+                    Add(member);
                     member.OnPropertyChange += MarkDirty;
                 }
                 MarkDirty();
@@ -144,7 +161,8 @@ namespace CAF
         {
             foreach (var member in members)
             {
-                _items.Add(member);
+                member.IsChangeRelationship = this.IsChangeRelationship;
+                Add(member);
                 member.OnPropertyChange += MarkDirty;
             }
             MarkDirty();

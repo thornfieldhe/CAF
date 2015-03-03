@@ -249,9 +249,10 @@ namespace <%= ClassNamespace %>.Model
         const string QUERY_GETBY<%=item.ToUpper()%> = "SELECT Top 1 * FROM <%= SourceTable.Name %> WHERE Status!=-1 And <%=item%>=@<%=item%>";
         <%} %>
 		<%foreach(string item in WithMany){ %>
-        const string QUERY_GETALLBY<%=GetRelationshipItem(item).ToUpper()%>ID = "SELECT t1.* FROM <%= SourceTable.Name %> t1 INNER JOIN <%=item%> t2 on t1.Id=t2.<%= GetClassName(SourceTable)%>Id  where t2.<%=GetRelationshipItem(item)%>Id=@<%=GetRelationshipItem(item)%>Id AND t1.Status!=-1";
+        const string QUERY_GETALLBY<%=GetRelationshipItem(item).ToUpper()%>ID = "SELECT t1.* FROM <%= SourceTable.Name %> t1 INNER JOIN <%=item%> t2 on t1.Id=t2.<%= GetClassName(SourceTable)%>Id  where t2.<%=GetRelationshipItem(item)%>Id=@<%=GetRelationshipItem(item)%>Id AND t1.Status!=-1 AND t2.Status!=-1";
         const string QUERY_CONTAINS<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> = "SELECT COUNT(*) FROM <%=item%> WHERE  <%= GetClassName(SourceTable)%>Id = @<%= GetClassName(SourceTable)%>Id AND <%=GetRelationshipItem(item)%>Id=@<%=GetRelationshipItem(item)%>Id";
-        const string QUERY_ADDRELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> = "INSERT INTO <%=item%> (<%= GetClassName(SourceTable)%>Id,<%=GetRelationshipItem(item)%>Id)VALUES(@<%= GetClassName(SourceTable)%>Id, @<%=GetRelationshipItem(item)%>Id)";
+        const string QUERY_ADDRELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> = "INSERT INTO <%=item%> (<%= GetClassName(SourceTable)%>Id,<%=GetRelationshipItem(item)%>Id,Status)VALUES(@<%= GetClassName(SourceTable)%>Id, @<%=GetRelationshipItem(item)%>Id,0)";
+        const string QUERY_DELETERELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> = "UPDATE <%=item%> SET Status=0 WHERE <%= GetClassName(SourceTable)%>Id=@<%= GetClassName(SourceTable)%>Id AND <%=GetRelationshipItem(item)%>Id=@<%=GetRelationshipItem(item)%>Id AND Status!=-1)";
 		<%} %>
         const string QUERY_INSERT="<%=GetInsertQueryString() %>";
         const string QUERY_UPDATE = "UPDATE <%= SourceTable.Name %> SET {0} WHERE  <%= SourceTable.PrimaryKey.MemberColumns[0].Name %> = @<%= SourceTable.PrimaryKey.MemberColumns[0].Name %>";
@@ -478,14 +479,21 @@ namespace <%= ClassNamespace %>.Model
 		#region 私有方法
 		
 		<%foreach(string item in WithMany){ %>
-		protected  int AddRelationshipWith<%=GetRelationshipItem(item)%>(IDbConnection conn, IDbTransaction transaction)
+		protected  int RelationshipWith<%=GetRelationshipItem(item)%>(IDbConnection conn, IDbTransaction transaction)
         {
             foreach (var <%=GetCamelCaseName(GetRelationshipItem(item))%> in <%=GetRelationshipItem(item)%>s)
             {
-                var isExist = conn.Query<int>(QUERY_CONTAINS<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> , new { <%= GetClassName(SourceTable)%>Id = Id, <%=GetRelationshipItem(item)%>Id = <%=GetCamelCaseName(GetRelationshipItem(item))%>.Id },transaction).Single() >= 1;
-                if (!isExist)
+                if (role.IsDelete && Roles.IsChangeRelationship)
                 {
-                    _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { <%= GetClassName(SourceTable)%>Id = Id, <%=GetRelationshipItem(item)%>Id = <%=GetCamelCaseName(GetRelationshipItem(item))%>.Id }, transaction, null, null);
+                    _changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { UserId = this.Id, RoleId = role.Id }, transaction, null, null);
+                }
+                else
+                {
+                    var isExist = conn.Query<int>(QUERY_CONTAINS<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> , new { <%= GetClassName(SourceTable)%>Id = Id, <%=GetRelationshipItem(item)%>Id = <%=GetCamelCaseName(GetRelationshipItem(item))%>.Id },transaction).Single() >= 1;
+                    if (!isExist)
+                    {
+                        _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { <%= GetClassName(SourceTable)%>Id = Id, <%=GetRelationshipItem(item)%>Id = <%=GetCamelCaseName(GetRelationshipItem(item))%>.Id }, transaction, null, null);
+                    }
                 }
             }
             return _changedRows;
@@ -494,8 +502,9 @@ namespace <%= ClassNamespace %>.Model
         protected static <%=GetRelationshipItem(item)%>List Init<%=GetRelationshipItem(item)%>s(<%= GetClassName(SourceTable)%> <%=GetCamelCaseName(GetClassName(SourceTable))%>)
         {
             var <%=GetCamelCaseName(GetRelationshipItem(item))%>List = <%=GetRelationshipItem(item)%>.GetAllBy<%= GetClassName(SourceTable)%>Id(<%= GetCamelCaseName(GetClassName(SourceTable))%>.Id);
-            <%=GetCamelCaseName(GetRelationshipItem(item))%>List.OnSaved += <%= GetCamelCaseName(GetClassName(SourceTable))%>.AddRelationshipWith<%=GetRelationshipItem(item)%>;
-            <%=GetCamelCaseName(GetRelationshipItem(item))%>List.OnMarkDirty += <%= GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;			
+            <%=GetCamelCaseName(GetRelationshipItem(item))%>List.OnSaved += <%= GetCamelCaseName(GetClassName(SourceTable))%>.RelationshipWith<%=GetRelationshipItem(item)%>;
+            <%=GetCamelCaseName(GetRelationshipItem(item))%>List.OnMarkDirty += <%= GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;
+            <%=GetCamelCaseName(GetRelationshipItem(item))%>List.IsChangeRelationship = true;
 			return <%=GetCamelCaseName(GetRelationshipItem(item))%>List;
         }
 		
@@ -516,7 +525,7 @@ namespace <%= ClassNamespace %>.Model
 		
 		<%} %>
 		<%foreach(string item in Child){ %>		
-        protected static <%=item%> InitUserSetting(<%=GetClassName(SourceTable)%> <%=GetCamelCaseName(GetClassName(SourceTable))%>)
+        protected static <%=item%> Init<%=item%>(<%=GetClassName(SourceTable)%> <%=GetCamelCaseName(GetClassName(SourceTable))%>)
         {
             var <%=GetCamelCaseName(item)%> = <%=item%>.GetByUserId(<%=GetCamelCaseName(GetClassName(SourceTable))%>.Id);
             if (<%=GetCamelCaseName(item)%> != null)
@@ -748,7 +757,11 @@ public string GetReaderMethod(ColumnSchema column)
 public string GetClassName(TableSchema table)
 {
     int pre = table.Name.IndexOf("_");
-	if (table.Name.EndsWith("s"))
+    if (table.Name.EndsWith("ies"))
+	{
+		return table.Name.Substring(pre+1, table.Name.Length - pre-4)+"y";
+	}
+	else if (table.Name.EndsWith("s"))
 	{
 		return table.Name.Substring(pre+1, table.Name.Length - pre-2);
 	}

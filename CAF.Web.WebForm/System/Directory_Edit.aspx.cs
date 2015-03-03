@@ -1,11 +1,11 @@
 ﻿using System;
-
+using System.Linq;
 namespace CAF.Web.WebForm
 {
     using CAF.Model;
+    using CAF.Web.WebForm.CAFControl;
     using CAF.Web.WebForm.Common;
     using FineUI;
-    using System.Linq;
 
 
     public partial class Directory_Edit : ItemBase
@@ -90,7 +90,7 @@ namespace CAF.Web.WebForm
             }
         }
 
-        private void ResolveSubTree(Guid id, TreeNode treeNode)
+        private void ResolveSubTree(Guid id, CAFTreeNode treeNode)
         {
             var dirs = Directory.GetAllByParentId(id).OrderBy(d => d.Sort).ToList();
             if (dirs.Count <= 0)
@@ -105,17 +105,16 @@ namespace CAF.Web.WebForm
             }
         }
 
-        private TreeNode CreateNode(Directory item, TreeNodeCollection parent)
+        private CAFTreeNode CreateNode(Directory item, TreeNodeCollection parent)
         {
-            var node = new TreeNode
+            var node = new CAFTreeNode
                            {
                                Text =
                                    string.Format("{0}<span style='color: #FF0000'>{1}</span>",
-                                       item.Name.ToString(),
+                                       item.Name,
                                        item.Status == (int)HideStatusEnum.Hide ? "[隐藏]" : ""),
                                NodeID = item.Id.ToString(),
-                               Expanded = true,
-                               EnableClickEvent = true
+
                            };
             parent.Add(node);
             return node;

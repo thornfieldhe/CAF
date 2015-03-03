@@ -3,19 +3,22 @@ namespace CAF.Web.WebForm
 {
     public abstract class ItemBase : BasePage
     {
-        protected override void PostDelete()
+        protected override string PostDelete()
         {
             Initialization();
+            return "";
         }
 
-        protected override void PostUpdate()
+        protected override string PostUpdate()
         {
             Initialization();
+            return "";
         }
 
-        protected override void PostAdd()
+        protected override string PostAdd()
         {
             Initialization();
+            return "";
         }
     }
 }

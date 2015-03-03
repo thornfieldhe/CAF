@@ -207,164 +207,31 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE VIEW [dbo].[V_Users]
+ALTER VIEW [dbo].[V_Users]
 AS
 SELECT   t1.Id, t1.CreatedDate, t1.ChangedDate, t1.Note, t1.LoginName, t1.Name, t1.PhoneNum, t1.OrganizeId, t1.Email, 
-                t2.Name AS OrganizeName, t3.RoleId
+                t2.Name AS OrganizeName,t2.[Level], dbo.F_GetUserRoles(t1.Id)  AS Roles,t1.Status,t1.Abb
 FROM      dbo.Sys_Users AS t1 INNER JOIN
-                dbo.Sys_Organize AS t2 ON t1.OrganizeId = t2.Id INNER JOIN
-                dbo.Sys_R_User_Role AS t3 ON t1.Id = t3.UserId
+                dbo.Sys_Organize AS t2 ON t1.OrganizeId = t2.Id
 WHERE   (t1.Status <> - 1)
 
+
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane1', @value=N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
-Begin DesignProperties = 
-   Begin PaneConfigurations = 
-      Begin PaneConfiguration = 0
-         NumPanes = 4
-         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
-      End
-      Begin PaneConfiguration = 1
-         NumPanes = 3
-         Configuration = "(H (1 [50] 4 [25] 3))"
-      End
-      Begin PaneConfiguration = 2
-         NumPanes = 3
-         Configuration = "(H (1 [50] 2 [25] 3))"
-      End
-      Begin PaneConfiguration = 3
-         NumPanes = 3
-         Configuration = "(H (4 [30] 2 [40] 3))"
-      End
-      Begin PaneConfiguration = 4
-         NumPanes = 2
-         Configuration = "(H (1 [56] 3))"
-      End
-      Begin PaneConfiguration = 5
-         NumPanes = 2
-         Configuration = "(H (2 [66] 3))"
-      End
-      Begin PaneConfiguration = 6
-         NumPanes = 2
-         Configuration = "(H (4 [50] 3))"
-      End
-      Begin PaneConfiguration = 7
-         NumPanes = 1
-         Configuration = "(V (3))"
-      End
-      Begin PaneConfiguration = 8
-         NumPanes = 3
-         Configuration = "(H (1[56] 4[18] 2) )"
-      End
-      Begin PaneConfiguration = 9
-         NumPanes = 2
-         Configuration = "(H (1 [75] 4))"
-      End
-      Begin PaneConfiguration = 10
-         NumPanes = 2
-         Configuration = "(H (1[66] 2) )"
-      End
-      Begin PaneConfiguration = 11
-         NumPanes = 2
-         Configuration = "(H (4 [60] 2))"
-      End
-      Begin PaneConfiguration = 12
-         NumPanes = 1
-         Configuration = "(H (1) )"
-      End
-      Begin PaneConfiguration = 13
-         NumPanes = 1
-         Configuration = "(V (4))"
-      End
-      Begin PaneConfiguration = 14
-         NumPanes = 1
-         Configuration = "(V (2))"
-      End
-      ActivePaneConfig = 0
-   End
-   Begin DiagramPane = 
-      Begin Origin = 
-         Top = 0
-         Left = 0
-      End
-      Begin Tables = 
-         Begin Table = "t2"
-            Begin Extent = 
-               Top = 6
-               Left = 250
-               Bottom = 185
-               Right = 424
-            End
-            DisplayFlags = 280
-            TopColumn = 4
-         End
-         Begin Table = "t1"
-            Begin Extent = 
-               Top = 6
-               Left = 674
-               Bottom = 191
-               Right = 848
-            End
-            DisplayFlags = 280
-            TopColumn = 6
-         End
-         Begin Table = "t3"
-            Begin Extent = 
-               Top = 6
-               Left = 38
-               Bottom = 107
-               Right = 212
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-      End
-   End
-   Begin SQLPane = 
-   End
-   Begin DataPane = 
-      Begin ParameterDefaults = ""
-      End
-      Begin ColumnWidths = 15
-         Width = 284
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 2100
-         Width = 1500
-      End
-   End
-   Begin CriteriaPane = 
-      Begin ColumnWidths = 11
-         Column = 1440
-         Alias = 900
-         Table = 1170
-         Output = 720
-         Append = 1400
-         NewValue = 1170
-         SortType = 1350
-         SortOrder = 1410
-         GroupBy = 1350
-         Filter = 1350
-         Or = 1350
-         Or = 1350
-         Or = 1350
-      End
-   End
-End
-' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'V_Users'
-GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'V_Users'
-GO
 
+
+CREATE  FUNCTION [dbo].[F_GetUserRoles](@UserId uniqueidentifier)
+RETURNS VARCHAR(300)
+AS
+BEGIN
+DECLARE @Roles varchar(300)
+SET @Roles = ''
+-- 通过递归 SELECT 连接指定列存储到临时变量中
+SELECT @Roles = CONVERT(VARCHAR(300), DicValue)+ ',' + @Roles FROM dbo.Sys_User_Role WHERE  UserId=@UserId
+-- 去掉尾巴的 , (逗号)
+IF LEN(@Roles) > 0
+SET @Roles = LEFT(@Roles, LEN(@Roles) - 1)
+--PRINT @Roles
+RETURN @Roles
+END

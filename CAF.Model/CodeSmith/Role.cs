@@ -5,6 +5,7 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
+    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
 
@@ -15,16 +16,19 @@ namespace CAF.Model
         {
             base.MarkNew();
             _userListInitalizer = new Lazy<UserList>(() => InitUsers(this), isThreadSafe: true);
+            _directoryListInitalizer = new Lazy<DirectoryList>(() => InitDirectorys(this), isThreadSafe: true);
             Users = new UserList();
+            Directorys = new DirectoryList();
         }
 
 
         #region 公共属性
 
         private string _name = String.Empty;
-        private Guid? _parentId = Guid.Empty;
         private UserList _userList;
         private Lazy<UserList> _userListInitalizer;
+        private DirectoryList _directoryList;
+        private Lazy<DirectoryList> _directoryListInitalizer;
 
         /// <summary>
         /// 角色名称
@@ -35,27 +39,6 @@ namespace CAF.Model
             get { return _name; }
             set { SetProperty("Name", ref _name, value); }
         }
-
-        /// <summary>
-        /// 父角色Id
-        /// </summary>
-        public Guid? ParentId
-        {
-            get { return _parentId; }
-            set { SetProperty("ParentId", ref _parentId, value); }
-        }
-
-        /// <summary>
-        /// 父角色
-        /// </summary>
-        public Role Parent
-        {
-            get
-            {
-                return !ParentId.HasValue ? null : Role.Get(ParentId.Value);
-            }
-        }
-
 
         public UserList Users
         {
@@ -70,6 +53,21 @@ namespace CAF.Model
             internal set
             {
                 _userList = value;
+            }
+        }
+        public DirectoryList Directorys
+        {
+            get
+            {
+                if (!_directoryListInitalizer.IsValueCreated)
+                {
+                    _directoryList = _directoryListInitalizer.Value;
+                }
+                return _directoryList;
+            }
+            internal set
+            {
+                _directoryList = value;
             }
         }
         public override bool IsValid
@@ -88,6 +86,15 @@ namespace CAF.Model
                        isValid = false;
                    }
                });
+                _directoryListInitalizer.IsValueCreated.IfIsTrue(
+               () =>
+               {
+                   foreach (var item in Directorys.Where(item => !item.IsValid))
+                   {
+                       Errors.AddRange(item.Errors);
+                       isValid = false;
+                   }
+               });
                 return baseValid && isValid;
             }
             protected set { _isValid = value; }
@@ -98,15 +105,20 @@ namespace CAF.Model
 
         #region 常量定义
 
-        const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_Role WHERE Id = @Id  AND Status!=-1";
-        const string QUERY_GETAll = "SELECT * FROM Sys_Role WHERE  Status!=-1";
-        const string QUERY_DELETE = "UPDATE Sys_Role SET Status=-1 WHERE Id = @Id AND  Status!=-1";
-        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_Role WHERE Id = @Id";
-        const string QUERY_GETALLBYUSERID = "SELECT t1.* FROM Sys_Role t1 INNER JOIN Sys_R_User_Role t2 on t1.Id=t2.RoleId  where t2.UserId=@UserId AND t1.Status!=-1";
+        const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_Roles WHERE Id = @Id  AND Status!=-1";
+        const string QUERY_GETAll = "SELECT * FROM Sys_Roles WHERE  Status!=-1";
+        const string QUERY_DELETE = "UPDATE Sys_Roles SET Status=-1 WHERE Id = @Id AND  Status!=-1";
+        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_Roles WHERE Id = @Id";
+        const string QUERY_GETALLBYUSERID = "SELECT t1.* FROM Sys_Roles t1 INNER JOIN Sys_R_User_Role t2 on t1.Id=t2.RoleId  where t2.UserId=@UserId AND t1.Status!=-1 AND t2.Status!=-1";
         const string QUERY_CONTAINSUSERROLE = "SELECT COUNT(*) FROM Sys_R_User_Role WHERE  RoleId = @RoleId AND UserId=@UserId";
-        const string QUERY_ADDRELARIONSHIPWITHUSERROLE = "INSERT INTO Sys_R_User_Role (RoleId,UserId)VALUES(@RoleId, @UserId)";
-        const string QUERY_INSERT = "INSERT INTO Sys_Role (Id, Status, CreatedDate, ChangedDate, Note, Name, ParentId) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name, @ParentId)";
-        const string QUERY_UPDATE = "UPDATE Sys_Role SET {0} WHERE  Id = @Id";
+        const string QUERY_ADDRELARIONSHIPWITHUSERROLE = "INSERT INTO Sys_R_User_Role (RoleId,UserId,Status)VALUES(@RoleId, @UserId,0)";
+        const string QUERY_DELETERELARIONSHIPWITHUSERROLE = "UPDATE Sys_R_User_Role SET Status=0 WHERE RoleId=@RoleId AND UserId=@UserId AND Status!=-1)";
+        const string QUERY_GETALLBYDIRECTORYID = "SELECT t1.* FROM Sys_Roles t1 INNER JOIN Sys_R_Directory_Role t2 on t1.Id=t2.RoleId  where t2.DirectoryId=@DirectoryId AND t1.Status!=-1 AND t2.Status!=-1";
+        const string QUERY_CONTAINSDIRECTORYROLE = "SELECT COUNT(*) FROM Sys_R_Directory_Role WHERE  RoleId = @RoleId AND DirectoryId=@DirectoryId";
+        const string QUERY_ADDRELARIONSHIPWITHDIRECTORYROLE = "INSERT INTO Sys_R_Directory_Role (RoleId,DirectoryId,Status)VALUES(@RoleId, @DirectoryId,0";
+        const string QUERY_DELETERELARIONSHIPWITHDIRECTORYROLE = "UPDATE Sys_R_Directory_Role SET Status=0 WHERE RoleId=@RoleId AND DirectoryId=@DirectoryId AND Status!=-1)";
+        const string QUERY_INSERT = "INSERT INTO Sys_Roles (Id, Status, CreatedDate, ChangedDate, Note, Name) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name)";
+        const string QUERY_UPDATE = "UPDATE Sys_Roles SET {0} WHERE  Id = @Id";
 
         #endregion
 
@@ -123,6 +135,7 @@ namespace CAF.Model
                 }
                 item.MarkOld();
                 item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                item._directoryListInitalizer = new Lazy<DirectoryList>(() => InitDirectorys(item), isThreadSafe: true);
                 return item;
             }
         }
@@ -137,6 +150,7 @@ namespace CAF.Model
                 {
                     item.MarkOld();
                     item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                    item._directoryListInitalizer = new Lazy<DirectoryList>(() => InitDirectorys(item), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkOld();
@@ -155,6 +169,26 @@ namespace CAF.Model
                 {
                     item.MarkOld();
                     item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                    item._directoryListInitalizer = new Lazy<DirectoryList>(() => InitDirectorys(item), isThreadSafe: true);
+                    list.Add(item);
+                }
+                list.MarkOld();
+                return list;
+            }
+        }
+
+        public static RoleList GetAllByDirectoryId(Guid directoryId)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                var items = conn.Query<Role>(QUERY_GETALLBYDIRECTORYID, new { DirectoryId = directoryId }).ToList();
+
+                var list = new RoleList();
+                foreach (var item in items)
+                {
+                    item.MarkOld();
+                    item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                    item._directoryListInitalizer = new Lazy<DirectoryList>(() => InitDirectorys(item), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkOld();
@@ -206,6 +240,11 @@ namespace CAF.Model
            {
                _changedRows += Users.SaveChanges(conn, transaction);
            });
+            _directoryListInitalizer.IsValueCreated.IfIsTrue(
+           () =>
+           {
+               _changedRows += Directorys.SaveChanges(conn, transaction);
+           });
             return _changedRows;
         }
 
@@ -217,19 +256,31 @@ namespace CAF.Model
            {
                _changedRows += Users.SaveChanges(conn, transaction);
            });
+            _directoryListInitalizer.IsValueCreated.IfIsTrue(
+           () =>
+           {
+               _changedRows += Directorys.SaveChanges(conn, transaction);
+           });
             return _changedRows;
         }
 
         #region 私有方法
 
-        protected int AddRelationshipWithUser(IDbConnection conn, IDbTransaction transaction)
+        protected int RelationshipWithUser(IDbConnection conn, IDbTransaction transaction)
         {
             foreach (var user in Users)
             {
-                var isExist = conn.Query<int>(QUERY_CONTAINSUSERROLE, new { RoleId = Id, UserId = user.Id }, transaction).Single() >= 1;
-                if (!isExist)
+                if (user.IsDelete && Users.IsChangeRelationship)
                 {
-                    _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHUSERROLE, new { RoleId = Id, UserId = user.Id }, transaction, null, null);
+                    _changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHUSERROLE, new { UserId = this.Id, RoleId = user.Id }, transaction, null, null);
+                }
+                else
+                {
+                    var isExist = conn.Query<int>(QUERY_CONTAINSUSERROLE, new { RoleId = Id, UserId = user.Id }, transaction).Single() >= 1;
+                    if (!isExist)
+                    {
+                        _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHUSERROLE, new { RoleId = Id, UserId = user.Id }, transaction, null, null);
+                    }
                 }
             }
             return _changedRows;
@@ -238,9 +289,39 @@ namespace CAF.Model
         protected static UserList InitUsers(Role role)
         {
             var userList = User.GetAllByRoleId(role.Id);
-            userList.OnSaved += role.AddRelationshipWithUser;
+            userList.OnSaved += role.RelationshipWithUser;
             userList.OnMarkDirty += role.MarkDirty;
+            userList.IsChangeRelationship = true;
             return userList;
+        }
+
+        protected int RelationshipWithDirectory(IDbConnection conn, IDbTransaction transaction)
+        {
+            foreach (var directory in Directorys)
+            {
+                if (directory.IsDelete && Directorys.IsChangeRelationship)
+                {
+                    _changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHDIRECTORYROLE, new { UserId = this.Id, RoleId = directory.Id }, transaction, null, null);
+                }
+                else
+                {
+                    var isExist = conn.Query<int>(QUERY_CONTAINSDIRECTORYROLE, new { RoleId = Id, DirectoryId = directory.Id }, transaction).Single() >= 1;
+                    if (!isExist)
+                    {
+                        _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHDIRECTORYROLE, new { RoleId = Id, DirectoryId = directory.Id }, transaction, null, null);
+                    }
+                }
+            }
+            return _changedRows;
+        }
+
+        protected static DirectoryList InitDirectorys(Role role)
+        {
+            var directoryList = Directory.GetAllByRoleId(role.Id);
+            directoryList.OnSaved += role.RelationshipWithDirectory;
+            directoryList.OnMarkDirty += role.MarkDirty;
+            directoryList.IsChangeRelationship = true;
+            return directoryList;
         }
 
         #endregion
@@ -252,7 +333,7 @@ namespace CAF.Model
     {
         public RoleList() { }
 
-        protected const string tableName = "Sys_Role";
+        protected const string tableName = "Sys_Roles";
 
         public static RoleList Query(Object dynamicObj, string query = " 1=1")
         {

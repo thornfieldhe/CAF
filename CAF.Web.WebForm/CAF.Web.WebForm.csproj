@@ -3643,6 +3643,8 @@
     <Content Include="res\icon\zoom_in.png" />
     <Content Include="res\icon\zoom_out.png" />
     <Content Include="System\Directory_Edit.aspx" />
+    <Content Include="System\User_Edit.aspx" />
+    <Content Include="System\User_Query.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -3718,6 +3720,20 @@
     </Compile>
     <Compile Include="System\Directory_Edit.aspx.designer.cs">
       <DependentUpon>Directory_Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="System\User_Edit.aspx.cs">
+      <DependentUpon>User_Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\User_Edit.aspx.designer.cs">
+      <DependentUpon>User_Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="System\User_Query.aspx.cs">
+      <DependentUpon>User_Query.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\User_Query.aspx.designer.cs">
+      <DependentUpon>User_Query.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

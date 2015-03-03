@@ -5,19 +5,22 @@ namespace CAF.Web.WebForm
 
     public abstract class EditableBase : ItemBase
     {
-        protected override void PostDelete()
+        protected override string PostDelete()
         {
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+            return "";
         }
 
-        protected override void PostUpdate()
+        protected override string PostUpdate()
         {
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+            return "";
         }
 
-        protected override void PostAdd()
+        protected override string PostAdd()
         {
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+            return "";
         }
     }
 }

@@ -35,7 +35,7 @@ namespace CAF
         internal event PropertyChangeHandler OnPropertyChange;
 
         public Guid Id { get { return _id; } set { SetProperty("Id", ref _id, value); } }
-        public int Status { get { return _status; } protected set { SetProperty("Status", ref _status, value); } }
+        public int Status { get { return _status; } set { SetProperty("Status", ref _status, value); } }
         public DateTime CreatedDate { get { return _createdDate; } protected set { SetProperty("CreatedDate", ref _createdDate, value); } }
         public DateTime ChangedDate { get { return _changedDate; } protected set { SetProperty("ChangedDate", ref _changedDate, value); } }
         public string Note { get { return _note; } set { SetProperty("Note", ref _note, value); } }
@@ -46,6 +46,8 @@ namespace CAF
             _status = 1;
             _createdDate = DateTime.Now;
             _changedDate = DateTime.Now;
+
+            IsChangeRelationship = false;//默认进行标识删除
 
             //初始化方法注册
             _insertDelegate = PreInsert;
@@ -135,6 +137,11 @@ namespace CAF
 
         internal bool IsClean { get { return !_isDirty && !_isNew; } }
 
+        /// <summary>
+        /// true：只更新关系
+        /// false：标记删除
+        /// </summary>
+        internal bool IsChangeRelationship { get; set; }
         internal virtual void MarkNew()
         {
             _isNew = true;
@@ -348,7 +355,7 @@ namespace CAF
         /// <returns></returns>
         internal virtual int SaveChange(IDbConnection conn, IDbTransaction transaction)
         {
-            if (this.IsDelete)
+            if (this.IsDelete && !IsChangeRelationship)
             {
                 _deleteDelegate(conn, transaction);
                 MarkOld();

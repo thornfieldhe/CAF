@@ -1,12 +1,9 @@
 ﻿
 namespace CAF.Model
 {
-    using System;
-
-    public class SortLevelItem
+    public class KeyValueItem<K, T>
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Level { get; set; }
+        public K Key { get; set; }
+        public T Value { get; set; }
     }
 }

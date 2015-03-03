@@ -15,18 +15,14 @@ using System;
 
 namespace <%= this.ClassNamespace %>.Model
 {
-	using CAF;
-	
-    public class <%= GetClassName(SourceView) %>  : ReadOnlyCollectionBase<<%= GetViewClassName(SourceView) %>,<%= GetClassName(SourceView) %>>
-	{           
-        public <%= GetClassName(SourceView) %>():base("<%=SourceView.Name%>"){}
-    }
     
     [Serializable]
-    public class <%= GetViewClassName(SourceView) %> 
+    public class <%= GetViewClassName(SourceView) %> :ReadOnlyBase
     {        
+    
+        public ReadOnlyUser() { TableName = "<%=SourceView.Name%>"; }
 <% foreach (ViewColumnSchema column in SourceView.Columns) { %> 
-		public <%= GetCSharpVariableType(column) %> <%= GetPropertyName(column) %>{get;internal set;}      
+		public <%= GetCSharpVariableType(column) %> <%= GetPropertyName(column) %>{get; set;}      
 <% } %>
     }
 }

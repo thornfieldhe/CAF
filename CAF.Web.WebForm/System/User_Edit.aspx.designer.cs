@@ -10,7 +10,7 @@
 namespace CAF.Web.WebForm {
     
     
-    public partial class Directory_Edit {
+    public partial class User_Edit {
         
         /// <summary>
         /// form1 控件。
@@ -37,7 +37,7 @@ namespace CAF.Web.WebForm {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.MainPanel mainPanel;
+        protected global::FineUI.Panel mainPanel;
         
         /// <summary>
         /// Toolbar1 控件。
@@ -49,13 +49,22 @@ namespace CAF.Web.WebForm {
         protected global::FineUI.Toolbar Toolbar1;
         
         /// <summary>
+        /// btnClose 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUI.Button btnClose;
+        
+        /// <summary>
         /// btnAdd 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.AddButton btnAdd;
+        protected global::FineUI.Button btnAdd;
         
         /// <summary>
         /// btnUpdate 控件。
@@ -64,7 +73,7 @@ namespace CAF.Web.WebForm {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.UpdateButton btnUpdate;
+        protected global::FineUI.Button btnUpdate;
         
         /// <summary>
         /// btnDelete 控件。
@@ -73,16 +82,7 @@ namespace CAF.Web.WebForm {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.DeleteButton btnDelete;
-        
-        /// <summary>
-        /// Panel11 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.CAFPanel Panel11;
+        protected global::FineUI.Button btnDelete;
         
         /// <summary>
         /// submitForm 控件。
@@ -91,16 +91,16 @@ namespace CAF.Web.WebForm {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.SubmitForm submitForm;
+        protected global::FineUI.Form submitForm;
         
         /// <summary>
-        /// txtId 控件。
+        /// txtLoginName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.TextBox txtId;
+        protected global::FineUI.TextBox txtLoginName;
         
         /// <summary>
         /// txtName 控件。
@@ -112,31 +112,40 @@ namespace CAF.Web.WebForm {
         protected global::FineUI.TextBox txtName;
         
         /// <summary>
-        /// dropParentId 控件。
+        /// txtUserPassword 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.DropDownList dropParentId;
+        protected global::FineUI.TextBox txtUserPassword;
         
         /// <summary>
-        /// txtUrl 控件。
+        /// txtConfirmPass 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.TextBox txtUrl;
+        protected global::FineUI.TextBox txtConfirmPass;
         
         /// <summary>
-        /// txtSort 控件。
+        /// txtUserTel 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.NumberBox txtSort;
+        protected global::FineUI.NumberBox txtUserTel;
+        
+        /// <summary>
+        /// dropDepId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUI.DropDownList dropDepId;
         
         /// <summary>
         /// txtNote 控件。
@@ -148,30 +157,39 @@ namespace CAF.Web.WebForm {
         protected global::FineUI.TextArea txtNote;
         
         /// <summary>
-        /// chkStatus 控件。
+        /// radioStatus 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.CheckBox chkStatus;
+        protected global::FineUI.RadioButtonList radioStatus;
         
         /// <summary>
-        /// Panel20 控件。
+        /// txtId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.CAFPanel Panel20;
+        protected global::FineUI.HiddenField txtId;
         
         /// <summary>
-        /// treeDirs 控件。
+        /// GroupPanel1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.CAFTree treeDirs;
+        protected global::FineUI.GroupPanel GroupPanel1;
+        
+        /// <summary>
+        /// chkUserRoles 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUI.CheckBoxList chkUserRoles;
     }
 }

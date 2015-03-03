@@ -1,13 +1,14 @@
 ﻿using FineUI;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Web.UI;
 
 namespace CAF.Web.WebForm.Common
 {
     using CAF.Data;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using System.Web.UI;
+    using CAF.Model;
 
     public class PageTools
     {
@@ -295,7 +296,7 @@ namespace CAF.Web.WebForm.Common
         {
             if (!item.HasControls())
             {
-                
+
                 if (item is RealTextField)
                 {
                     RealTextField ctrl = item as RealTextField;
@@ -396,6 +397,23 @@ namespace CAF.Web.WebForm.Common
         }
 
         /// <summary>
+        /// 绑定单选列表
+        /// </summary>
+        /// <param name="radio"></param>
+        /// <param name="enums"></param>
+        public static void BindRadioButton(Type enums, RadioButtonList radio)
+        {
+            if (radio.Items.Count == 0)
+            {
+                foreach (var item in RichEnumContent.Get(enums))
+                {
+                    radio.Items.Add(new RadioItem() { Text = item.Description, Value = item.Value.ToString() });
+                }
+            }
+            radio.SelectedIndex = 0;
+        }
+
+        /// <summary>
         /// 绑定下拉列表
         /// </summary>
         /// <param name="items"></param>
@@ -408,6 +426,34 @@ namespace CAF.Web.WebForm.Common
             drop.Items.Add(item);
             items.ForEach(i => drop.Items.Add(i));
 
+        }
+
+        /// <summary>
+        /// 绑定下拉列表
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="drop"></param>
+        public static void BindDropdownList(List<KeyValueItem<Guid, string>> items, DropDownList drop)
+        {
+
+            drop.Items.Clear();
+            var item = new ListItem { Text = "请选择", Value = new Guid().ToString() };
+            drop.Items.Add(item);
+            items.ForEach(i => drop.Items.Add(new ListItem { Text = i.Value, Value = i.Key.ToString() }));
+
+        }
+
+        /// <summary>
+        /// 绑定下拉列表
+        /// </summary>
+        /// <param name="enums"></param>
+        /// <param name="drop"></param>
+        public static void BindDropdownList(Type enums, DropDownList drop)
+        {
+            drop.Items.Clear();
+            drop.Items.Add("请选择", "");
+            RichEnumContent.Get(enums).ForEach(i => drop.Items.Add(new ListItem() { Text = i.Description, Value = i.Value.ToString() }));
+            drop.DataBind();
         }
     }
 }

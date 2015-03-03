@@ -15,8 +15,8 @@ namespace CAF.Model
         public User()
         {
             base.MarkNew();
-            this._userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(Id), isThreadSafe: true);
-            this._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(this), isThreadSafe: true);
+            _userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(Id), isThreadSafe: true);
+            _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(this), isThreadSafe: true);
             Roles = new RoleList();
         }
 
@@ -106,7 +106,7 @@ namespace CAF.Model
         {
             get
             {
-                return Organize.Get(this.OrganizeId);
+                return Organize.Get(OrganizeId);
             }
         }
 
@@ -166,20 +166,20 @@ namespace CAF.Model
         {
             get
             {
-                this.Errors = new List<string>();
+                Errors = new List<string>();
                 var isValid = true;
                 var baseValid = base.IsValid;
-                if (_userSettingInitalizer.IsValueCreated && this.UserSetting != null && !this.UserSetting.IsValid)
+                if (_userSettingInitalizer.IsValueCreated && UserSetting != null && !UserSetting.IsValid)
                 {
-                    this.Errors.AddRange(this.UserSetting.Errors);
+                    Errors.AddRange(UserSetting.Errors);
                     isValid = false;
                 }
                 _roleListInitalizer.IsValueCreated.IfIsTrue(
                () =>
                {
-                   foreach (var item in this.Roles.Where(item => !item.IsValid))
+                   foreach (var item in Roles.Where(item => !item.IsValid))
                    {
-                       this.Errors.AddRange(item.Errors);
+                       Errors.AddRange(item.Errors);
                        isValid = false;
                    }
                });
@@ -198,9 +198,10 @@ namespace CAF.Model
         const string QUERY_DELETE = "UPDATE Sys_Users SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_Users WHERE Id = @Id";
         const string QUERY_GETALLBYORGANIZEID = "SELECT * FROM Sys_Users WHERE  Status!=-1 And OrganizeId=@OrganizeId";
-        const string QUERY_GETALLBYROLEID = "SELECT t1.* FROM Sys_Users t1 INNER JOIN Sys_R_User_Role t2 on t1.Id=t2.UserId  where t2.RoleId=@RoleId AND t1.Status!=-1";
+        const string QUERY_GETALLBYROLEID = "SELECT t1.* FROM Sys_Users t1 INNER JOIN Sys_R_User_Role t2 on t1.Id=t2.UserId  where t2.RoleId=@RoleId AND t1.Status!=-1 AND t2.Status!=-1";
         const string QUERY_CONTAINSUSERROLE = "SELECT COUNT(*) FROM Sys_R_User_Role WHERE  UserId = @UserId AND RoleId=@RoleId";
-        const string QUERY_ADDRELARIONSHIPWITHUSERROLE = "INSERT INTO Sys_R_User_Role (UserId,RoleId)VALUES(@UserId, @RoleId)";
+        const string QUERY_ADDRELARIONSHIPWITHUSERROLE = "INSERT INTO Sys_R_User_Role (UserId,RoleId,Status)VALUES(@UserId, @RoleId,0)";
+        const string QUERY_DELETERELARIONSHIPWITHUSERROLE = "UPDATE Sys_R_User_Role SET Status=-1 WHERE UserId=@UserId AND RoleId=@RoleId AND Status!=-1";
         const string QUERY_INSERT = "INSERT INTO Sys_Users (Id, Status, CreatedDate, ChangedDate, Note, LoginName, Abb, Name, Pass, PhoneNum, OrganizeId, Email) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @LoginName, @Abb, @Name, @Pass, @PhoneNum, @OrganizeId, @Email)";
         const string QUERY_UPDATE = "UPDATE Sys_Users SET {0} WHERE  Id = @Id";
 
@@ -306,19 +307,19 @@ namespace CAF.Model
         internal override int Delete(IDbConnection conn, IDbTransaction transaction)
         {
             base.MarkDelete();
-            return conn.Execute(QUERY_DELETE, new { Id = this.Id }, transaction, null, null);
+            return conn.Execute(QUERY_DELETE, new { Id = Id }, transaction, null, null);
         }
 
         internal override int Update(IDbConnection conn, IDbTransaction transaction)
         {
-            if (!this.IsDirty)
+            if (!IsDirty)
             {
                 return _changedRows;
             }
             _updateParameters += ", ChangedDate = GetDate()";
-            string query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
+            var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
             _changedRows += conn.Execute(query, this, transaction, null, null);
-            if (_userSettingInitalizer.IsValueCreated && this.UserSetting != null)
+            if (_userSettingInitalizer.IsValueCreated && UserSetting != null)
             {
                 _changedRows += UserSetting.SaveChange(conn, transaction);
             }
@@ -333,7 +334,7 @@ namespace CAF.Model
         internal override int Insert(IDbConnection conn, IDbTransaction transaction)
         {
             _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-            if (_userSettingInitalizer.IsValueCreated && this.UserSetting != null)
+            if (_userSettingInitalizer.IsValueCreated && UserSetting != null)
             {
                 _changedRows += UserSetting.SaveChange(conn, transaction);
             }
@@ -347,14 +348,21 @@ namespace CAF.Model
 
         #region 私有方法
 
-        protected int AddRelationshipWithRole(IDbConnection conn, IDbTransaction transaction)
+        protected int RelationshipWithRole(IDbConnection conn, IDbTransaction transaction)
         {
-            foreach (var role in this.Roles)
+            foreach (var role in Roles.Members)
             {
-                var isExist = conn.Query<int>(QUERY_CONTAINSUSERROLE, new { UserId = this.Id, RoleId = role.Id }, transaction).Single() >= 1;
-                if (!isExist)
+                if (role.IsDelete && Roles.IsChangeRelationship)
                 {
-                    _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHUSERROLE, new { UserId = this.Id, RoleId = role.Id }, transaction, null, null);
+                    _changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHUSERROLE, new { UserId = this.Id, RoleId = role.Id }, transaction, null, null);
+                }
+                else
+                {
+                    var isExist = conn.Query<int>(QUERY_CONTAINSUSERROLE, new { UserId = Id, RoleId = role.Id }, transaction).Single() >= 1;
+                    if (!isExist)
+                    {
+                        _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHUSERROLE, new { UserId = Id, RoleId = role.Id }, transaction, null, null);
+                    }
                 }
             }
             return _changedRows;
@@ -363,8 +371,9 @@ namespace CAF.Model
         protected static RoleList InitRoles(User user)
         {
             var roleList = Role.GetAllByUserId(user.Id);
-            roleList.OnSaved += user.AddRelationshipWithRole;
+            roleList.OnSaved += user.RelationshipWithRole;
             roleList.OnMarkDirty += user.MarkDirty;
+            roleList.IsChangeRelationship = true;
             return roleList;
         }
 

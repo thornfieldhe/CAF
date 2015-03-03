@@ -1,21 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace CAF.Web.WebForm
 {
-    using System.Text.RegularExpressions;
 
     using CAF.Model;
 
     using FineUI;
 
-    using Newtonsoft.Json.Linq;
 
-    public abstract class ListBase : BasePage
+    public class ListBase : BasePage
     {
-
 
         protected void grid_PageIndexChange(object sender, FineUI.GridPageEventArgs e)
         {
@@ -33,18 +27,13 @@ namespace CAF.Web.WebForm
         /// </summary>
         protected virtual void BindDataSource() { }
 
-        protected virtual void BindQueryCondition() { }
 
-        protected virtual void ExcuteQuery()
-        {
-
-        }
+        protected virtual void ExcuteQuery()  {  }
 
         protected override void Query()
         {
-            BindDataSource();
-            BindQueryCondition();
             ExcuteQuery();
+            BindDataSource();
         }
 
         protected override void Bind()
@@ -52,15 +41,6 @@ namespace CAF.Web.WebForm
             base.Bind();
         }
 
-        /// <summary>
-        /// 获取指定列的汇总数据
-        /// </summary>
-        /// <param name="strFileds"></param>
-        /// <param name="strWhereExt"></param>
-        protected void OutputSummaryData(string strFileds, string strWhereExt = " And 1=1")
-        {
-
-        }
 
         // 删除选中行的脚本
         protected string GetDeleteScript(string okMessage)
@@ -79,8 +59,7 @@ namespace CAF.Web.WebForm
 
         protected virtual void btnExport_Click(object sender, EventArgs e)
         {
-            BindDataSource();
-            BindQueryCondition();
+            ExcuteQuery();
             ExportExcel();
         }
 

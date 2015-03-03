@@ -5,7 +5,6 @@ namespace CAF.Test
 {
 
     using CAF.Model;
-    using CAF_Model;
     using System.Collections.Generic;
 
     [TestClass]
@@ -18,7 +17,7 @@ namespace CAF.Test
         public void TestMethod1()
         {
             var id = Guid.NewGuid();
-            var u1 = new User() {Id=id, Name = "u1" };
+            var u1 = new User() { Id = id, Name = "u1" };
             var u2 = new User() { Id = id, Name = "u2" };
             var users = new List<User> { u2 };
             Assert.AreEqual(u1, u2);//Id相等即为相等
@@ -58,7 +57,7 @@ namespace CAF.Test
         [TestMethod]
         public void TestMethod3()
         {
-            User u =new User();
+            User u = new User();
             Assert.AreNotEqual(u.Id, Guid.Empty);
             Assert.AreEqual(u.Status, 1);
             Assert.AreEqual(u.CreatedDate.ToShortDateString(), DateTime.Now.ToShortDateString());
@@ -226,10 +225,8 @@ namespace CAF.Test
             u.OrganizeId = Guid.NewGuid();
             var r = new Role { Name = "r1" };
             u.Roles.Add(r);
-            if (u.IsValid)
-            {
-                u.Create();
-            }
+            u.Create();
+
 
             var u1 = User.Get(u.Id);
             Assert.AreEqual(u1.Roles.Count, 1);//create with new item
@@ -244,10 +241,12 @@ namespace CAF.Test
             u3.Save();
             var u4 = User.Get(u3.Id);
             Assert.AreEqual(u4.Roles[0].Name, "r2");//update item
-            u4.Roles[0].MarkDelete();//delete item 列表内删除使用markdelet，实体删除调用delete
+            u4.Roles.Remove(u4.Roles[0]);//delete item 多对多应该移除关系
             u4.Save();
             var u5 = User.Get(u4.Id);
             Assert.AreEqual(u5.Roles.Count, 0);
+            var r3 = Role.Get(r.Id);
+            Assert.IsNotNull(r3);
         }
 
         /// <summary>
@@ -257,9 +256,9 @@ namespace CAF.Test
         public void TestMethod11()
         {
             var list = new UserList();
-            User b =new User();
+            User b = new User();
             b.Name = "name1";
-            User c =new User();
+            User c = new User();
             b.Name = "name1";
             list.Add(b);
             list.Add(c);
@@ -307,7 +306,7 @@ namespace CAF.Test
                 o.Users.Add(u);
             }
             o.IsValid.IfIsTrue(() => o.Create());
-            var readOlyBookList = ReadOnlyUserList.Instance.Query("Name", 2, new { OrganizeId = o.Id },
+            var readOlyBookList = ReadOnlyCollectionBase<ReadOnlyUser>.Query("Name", 2, new ReadOnlyUser { OrganizeId = o.Id },
                    sum: "Status", average: "Status", queryWhere: "   OrganizeId =@OrganizeId", pageIndex: 2);
             Assert.AreEqual(10, readOlyBookList.TotalCount);
             Assert.AreEqual(2, readOlyBookList.Result.Count);

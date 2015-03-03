@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+using System.Web.UI;
 namespace CAF.Web.WebForm
 {
     using CAF.Model;
     using CAF.Web.WebForm.Common;
 
-    using global::System.Web.UI;
+
 
     public class BasePage : Page
     {
@@ -381,28 +382,28 @@ namespace CAF.Web.WebForm
 
         protected virtual string Submit() { return string.Empty; }
 
-        protected virtual void PreDelete() { }
+        protected virtual string PreDelete() { return string.Empty; }
 
-        protected virtual void PreUpdate() { }
+        protected virtual string PreUpdate() { return string.Empty; }
 
-        protected virtual void PreAdd() { }
-        protected virtual void PreSubmit() { }
+        protected virtual string PreAdd() { return string.Empty; }
+        protected virtual string PreSubmit() { return string.Empty; }
 
-        protected virtual void PreSave() { }
+        protected virtual string PreSave() { return string.Empty; }
 
-        protected virtual void PostDelete() { }
+        protected virtual string PostDelete() { return string.Empty; }
 
-        protected virtual void PostUpdate() { }
+        protected virtual string PostUpdate() { return string.Empty; }
 
-        protected virtual void PostSubmit() { }
+        protected virtual string PostSubmit() { return string.Empty; }
 
-        protected virtual void PostAdd() { }
+        protected virtual string PostAdd() { return string.Empty; }
 
-        protected virtual void PostSave() { }
+        protected virtual string PostSave() { return string.Empty; }
 
         protected virtual void Reset() { }
 
-        protected virtual void Query() { }
+        protected virtual void Query()  { }
 
         protected virtual string Export() { return string.Empty; }
 
