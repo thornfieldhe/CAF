@@ -16,9 +16,9 @@ namespace CAF.Model
         {
             base.MarkNew();
             _userListInitalizer = new Lazy<UserList>(() => InitUsers(this), isThreadSafe: true);
-            _directoryListInitalizer = new Lazy<DirectoryList>(() => InitDirectorys(this), isThreadSafe: true);
+            _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(this), isThreadSafe: true);
             Users = new UserList();
-            Directorys = new DirectoryList();
+            Organizes = new OrganizeList();
         }
 
 
@@ -27,8 +27,8 @@ namespace CAF.Model
         private string _name = String.Empty;
         private UserList _userList;
         private Lazy<UserList> _userListInitalizer;
-        private DirectoryList _directoryList;
-        private Lazy<DirectoryList> _directoryListInitalizer;
+        private OrganizeList _organizeList;
+        private Lazy<OrganizeList> _organizeListInitalizer;
 
         /// <summary>
         /// 角色名称
@@ -55,19 +55,19 @@ namespace CAF.Model
                 _userList = value;
             }
         }
-        public DirectoryList Directorys
+        public OrganizeList Organizes
         {
             get
             {
-                if (!_directoryListInitalizer.IsValueCreated)
+                if (!_organizeListInitalizer.IsValueCreated)
                 {
-                    _directoryList = _directoryListInitalizer.Value;
+                    _organizeList = _organizeListInitalizer.Value;
                 }
-                return _directoryList;
+                return _organizeList;
             }
             internal set
             {
-                _directoryList = value;
+                _organizeList = value;
             }
         }
         public override bool IsValid
@@ -86,10 +86,10 @@ namespace CAF.Model
                        isValid = false;
                    }
                });
-                _directoryListInitalizer.IsValueCreated.IfIsTrue(
+                _organizeListInitalizer.IsValueCreated.IfIsTrue(
                () =>
                {
-                   foreach (var item in Directorys.Where(item => !item.IsValid))
+                   foreach (var item in Organizes.Where(item => !item.IsValid))
                    {
                        Errors.AddRange(item.Errors);
                        isValid = false;
@@ -112,11 +112,11 @@ namespace CAF.Model
         const string QUERY_GETALLBYUSERID = "SELECT t1.* FROM Sys_Roles t1 INNER JOIN Sys_R_User_Role t2 on t1.Id=t2.RoleId  where t2.UserId=@UserId AND t1.Status!=-1 AND t2.Status!=-1";
         const string QUERY_CONTAINSUSERROLE = "SELECT COUNT(*) FROM Sys_R_User_Role WHERE  RoleId = @RoleId AND UserId=@UserId";
         const string QUERY_ADDRELARIONSHIPWITHUSERROLE = "INSERT INTO Sys_R_User_Role (RoleId,UserId,Status)VALUES(@RoleId, @UserId,0)";
-        const string QUERY_DELETERELARIONSHIPWITHUSERROLE = "UPDATE Sys_R_User_Role SET Status=0 WHERE RoleId=@RoleId AND UserId=@UserId AND Status!=-1)";
-        const string QUERY_GETALLBYDIRECTORYID = "SELECT t1.* FROM Sys_Roles t1 INNER JOIN Sys_R_Directory_Role t2 on t1.Id=t2.RoleId  where t2.DirectoryId=@DirectoryId AND t1.Status!=-1 AND t2.Status!=-1";
-        const string QUERY_CONTAINSDIRECTORYROLE = "SELECT COUNT(*) FROM Sys_R_Directory_Role WHERE  RoleId = @RoleId AND DirectoryId=@DirectoryId";
-        const string QUERY_ADDRELARIONSHIPWITHDIRECTORYROLE = "INSERT INTO Sys_R_Directory_Role (RoleId,DirectoryId,Status)VALUES(@RoleId, @DirectoryId,0";
-        const string QUERY_DELETERELARIONSHIPWITHDIRECTORYROLE = "UPDATE Sys_R_Directory_Role SET Status=0 WHERE RoleId=@RoleId AND DirectoryId=@DirectoryId AND Status!=-1)";
+        const string QUERY_DELETERELARIONSHIPWITHUSERROLE = "UPDATE Sys_R_User_Role SET Status=-1 WHERE RoleId=@RoleId AND UserId=@UserId AND Status!=-1";
+        const string QUERY_GETALLBYORGANIZEID = "SELECT t1.* FROM Sys_Roles t1 INNER JOIN Sys_R_Organize_Role t2 on t1.Id=t2.RoleId  where t2.OrganizeId=@OrganizeId AND t1.Status!=-1 AND t2.Status!=-1";
+        const string QUERY_CONTAINSORGANIZEROLE = "SELECT COUNT(*) FROM Sys_R_Organize_Role WHERE  RoleId = @RoleId AND OrganizeId=@OrganizeId";
+        const string QUERY_ADDRELARIONSHIPWITHORGANIZEROLE = "INSERT INTO Sys_R_Organize_Role (RoleId,OrganizeId,Status)VALUES(@RoleId, @OrganizeId,0)";
+        const string QUERY_DELETERELARIONSHIPWITHORGANIZEROLE = "UPDATE Sys_R_Organize_Role SET Status=-1 WHERE RoleId=@RoleId AND OrganizeId=@OrganizeId AND Status!=-1";
         const string QUERY_INSERT = "INSERT INTO Sys_Roles (Id, Status, CreatedDate, ChangedDate, Note, Name) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name)";
         const string QUERY_UPDATE = "UPDATE Sys_Roles SET {0} WHERE  Id = @Id";
 
@@ -135,7 +135,7 @@ namespace CAF.Model
                 }
                 item.MarkOld();
                 item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
-                item._directoryListInitalizer = new Lazy<DirectoryList>(() => InitDirectorys(item), isThreadSafe: true);
+                item._organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
                 return item;
             }
         }
@@ -150,7 +150,7 @@ namespace CAF.Model
                 {
                     item.MarkOld();
                     item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
-                    item._directoryListInitalizer = new Lazy<DirectoryList>(() => InitDirectorys(item), isThreadSafe: true);
+                    item._organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkOld();
@@ -169,7 +169,7 @@ namespace CAF.Model
                 {
                     item.MarkOld();
                     item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
-                    item._directoryListInitalizer = new Lazy<DirectoryList>(() => InitDirectorys(item), isThreadSafe: true);
+                    item._organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkOld();
@@ -177,18 +177,18 @@ namespace CAF.Model
             }
         }
 
-        public static RoleList GetAllByDirectoryId(Guid directoryId)
+        public static RoleList GetAllByOrganizeId(Guid organizeId)
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                var items = conn.Query<Role>(QUERY_GETALLBYDIRECTORYID, new { DirectoryId = directoryId }).ToList();
+                var items = conn.Query<Role>(QUERY_GETALLBYORGANIZEID, new { OrganizeId = organizeId }).ToList();
 
                 var list = new RoleList();
                 foreach (var item in items)
                 {
                     item.MarkOld();
                     item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
-                    item._directoryListInitalizer = new Lazy<DirectoryList>(() => InitDirectorys(item), isThreadSafe: true);
+                    item._organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkOld();
@@ -240,10 +240,10 @@ namespace CAF.Model
            {
                _changedRows += Users.SaveChanges(conn, transaction);
            });
-            _directoryListInitalizer.IsValueCreated.IfIsTrue(
+            _organizeListInitalizer.IsValueCreated.IfIsTrue(
            () =>
            {
-               _changedRows += Directorys.SaveChanges(conn, transaction);
+               _changedRows += Organizes.SaveChanges(conn, transaction);
            });
             return _changedRows;
         }
@@ -256,10 +256,10 @@ namespace CAF.Model
            {
                _changedRows += Users.SaveChanges(conn, transaction);
            });
-            _directoryListInitalizer.IsValueCreated.IfIsTrue(
+            _organizeListInitalizer.IsValueCreated.IfIsTrue(
            () =>
            {
-               _changedRows += Directorys.SaveChanges(conn, transaction);
+               _changedRows += Organizes.SaveChanges(conn, transaction);
            });
             return _changedRows;
         }
@@ -268,7 +268,7 @@ namespace CAF.Model
 
         protected int RelationshipWithUser(IDbConnection conn, IDbTransaction transaction)
         {
-            foreach (var user in Users)
+            foreach (var user in Users.Members)
             {
                 if (user.IsDelete && Users.IsChangeRelationship)
                 {
@@ -295,33 +295,33 @@ namespace CAF.Model
             return userList;
         }
 
-        protected int RelationshipWithDirectory(IDbConnection conn, IDbTransaction transaction)
+        protected int RelationshipWithOrganize(IDbConnection conn, IDbTransaction transaction)
         {
-            foreach (var directory in Directorys)
+            foreach (var organize in Organizes.Members)
             {
-                if (directory.IsDelete && Directorys.IsChangeRelationship)
+                if (organize.IsDelete && Organizes.IsChangeRelationship)
                 {
-                    _changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHDIRECTORYROLE, new { UserId = this.Id, RoleId = directory.Id }, transaction, null, null);
+                    _changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHORGANIZEROLE, new { UserId = this.Id, RoleId = organize.Id }, transaction, null, null);
                 }
                 else
                 {
-                    var isExist = conn.Query<int>(QUERY_CONTAINSDIRECTORYROLE, new { RoleId = Id, DirectoryId = directory.Id }, transaction).Single() >= 1;
+                    var isExist = conn.Query<int>(QUERY_CONTAINSORGANIZEROLE, new { RoleId = Id, OrganizeId = organize.Id }, transaction).Single() >= 1;
                     if (!isExist)
                     {
-                        _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHDIRECTORYROLE, new { RoleId = Id, DirectoryId = directory.Id }, transaction, null, null);
+                        _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHORGANIZEROLE, new { RoleId = Id, OrganizeId = organize.Id }, transaction, null, null);
                     }
                 }
             }
             return _changedRows;
         }
 
-        protected static DirectoryList InitDirectorys(Role role)
+        protected static OrganizeList InitOrganizes(Role role)
         {
-            var directoryList = Directory.GetAllByRoleId(role.Id);
-            directoryList.OnSaved += role.RelationshipWithDirectory;
-            directoryList.OnMarkDirty += role.MarkDirty;
-            directoryList.IsChangeRelationship = true;
-            return directoryList;
+            var organizeList = Organize.GetAllByRoleId(role.Id);
+            organizeList.OnSaved += role.RelationshipWithOrganize;
+            organizeList.OnMarkDirty += role.MarkDirty;
+            organizeList.IsChangeRelationship = true;
+            return organizeList;
         }
 
         #endregion

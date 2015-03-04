@@ -252,7 +252,7 @@ namespace <%= ClassNamespace %>.Model
         const string QUERY_GETALLBY<%=GetRelationshipItem(item).ToUpper()%>ID = "SELECT t1.* FROM <%= SourceTable.Name %> t1 INNER JOIN <%=item%> t2 on t1.Id=t2.<%= GetClassName(SourceTable)%>Id  where t2.<%=GetRelationshipItem(item)%>Id=@<%=GetRelationshipItem(item)%>Id AND t1.Status!=-1 AND t2.Status!=-1";
         const string QUERY_CONTAINS<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> = "SELECT COUNT(*) FROM <%=item%> WHERE  <%= GetClassName(SourceTable)%>Id = @<%= GetClassName(SourceTable)%>Id AND <%=GetRelationshipItem(item)%>Id=@<%=GetRelationshipItem(item)%>Id";
         const string QUERY_ADDRELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> = "INSERT INTO <%=item%> (<%= GetClassName(SourceTable)%>Id,<%=GetRelationshipItem(item)%>Id,Status)VALUES(@<%= GetClassName(SourceTable)%>Id, @<%=GetRelationshipItem(item)%>Id,0)";
-        const string QUERY_DELETERELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> = "UPDATE <%=item%> SET Status=0 WHERE <%= GetClassName(SourceTable)%>Id=@<%= GetClassName(SourceTable)%>Id AND <%=GetRelationshipItem(item)%>Id=@<%=GetRelationshipItem(item)%>Id AND Status!=-1)";
+        const string QUERY_DELETERELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> = "UPDATE <%=item%> SET Status=-1 WHERE <%= GetClassName(SourceTable)%>Id=@<%= GetClassName(SourceTable)%>Id AND <%=GetRelationshipItem(item)%>Id=@<%=GetRelationshipItem(item)%>Id AND Status!=-1";
 		<%} %>
         const string QUERY_INSERT="<%=GetInsertQueryString() %>";
         const string QUERY_UPDATE = "UPDATE <%= SourceTable.Name %> SET {0} WHERE  <%= SourceTable.PrimaryKey.MemberColumns[0].Name %> = @<%= SourceTable.PrimaryKey.MemberColumns[0].Name %>";
@@ -481,11 +481,11 @@ namespace <%= ClassNamespace %>.Model
 		<%foreach(string item in WithMany){ %>
 		protected  int RelationshipWith<%=GetRelationshipItem(item)%>(IDbConnection conn, IDbTransaction transaction)
         {
-            foreach (var <%=GetCamelCaseName(GetRelationshipItem(item))%> in <%=GetRelationshipItem(item)%>s)
+            foreach (var <%=GetCamelCaseName(GetRelationshipItem(item))%> in <%=GetRelationshipItem(item)%>s.Members)
             {
-                if (role.IsDelete && Roles.IsChangeRelationship)
+                if (<%=GetCamelCaseName(GetRelationshipItem(item))%>.IsDelete && <%=GetRelationshipItem(item)%>s.IsChangeRelationship)
                 {
-                    _changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { UserId = this.Id, RoleId = role.Id }, transaction, null, null);
+                    _changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { UserId = this.Id, RoleId = <%=GetCamelCaseName(GetRelationshipItem(item))%>.Id }, transaction, null, null);
                 }
                 else
                 {

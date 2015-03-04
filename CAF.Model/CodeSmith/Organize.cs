@@ -5,6 +5,7 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
+    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
 
@@ -14,8 +15,10 @@ namespace CAF.Model
         public Organize()
         {
             base.MarkNew();
-            this._userListInitalizer = new Lazy<UserList>(() => InitUsers(this), isThreadSafe: true);
+            _userListInitalizer = new Lazy<UserList>(() => InitUsers(this), isThreadSafe: true);
+            _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(this), isThreadSafe: true);
             Users = new UserList();
+            Roles = new RoleList();
         }
 
 
@@ -28,6 +31,8 @@ namespace CAF.Model
         private string _code = String.Empty;
         private UserList _userList;
         private Lazy<UserList> _userListInitalizer;
+        private RoleList _roleList;
+        private Lazy<RoleList> _roleListInitalizer;
 
         /// <summary>
         /// 部门名称
@@ -56,7 +61,7 @@ namespace CAF.Model
         {
             get
             {
-                return !this.ParentId.HasValue ? null : Organize.Get(this.ParentId.Value);
+                return !ParentId.HasValue ? null : Organize.Get(ParentId.Value);
             }
         }
 
@@ -109,18 +114,42 @@ namespace CAF.Model
             }
         }
 
+        public RoleList Roles
+        {
+            get
+            {
+                if (!_roleListInitalizer.IsValueCreated)
+                {
+                    _roleList = _roleListInitalizer.Value;
+                }
+                return _roleList;
+            }
+            internal set
+            {
+                _roleList = value;
+            }
+        }
         public override bool IsValid
         {
             get
             {
-                this.Errors = new List<string>();
+                Errors = new List<string>();
                 var isValid = true;
                 var baseValid = base.IsValid;
                 foreach (var item in Users.Where(item => !item.IsValid))
                 {
-                    this.Errors.AddRange(item.Errors);
+                    Errors.AddRange(item.Errors);
                     isValid = false;
                 }
+                _roleListInitalizer.IsValueCreated.IfIsTrue(
+               () =>
+               {
+                   foreach (var item in Roles.Where(item => !item.IsValid))
+                   {
+                       Errors.AddRange(item.Errors);
+                       isValid = false;
+                   }
+               });
                 return baseValid && isValid;
             }
             protected set { _isValid = value; }
@@ -131,12 +160,16 @@ namespace CAF.Model
 
         #region 常量定义
 
-        const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_Organize WHERE Id = @Id  AND Status!=-1";
-        const string QUERY_GETAll = "SELECT * FROM Sys_Organize WHERE  Status!=-1";
-        const string QUERY_DELETE = "UPDATE Sys_Organize SET Status=-1 WHERE Id = @Id AND  Status!=-1";
-        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_Organize WHERE Id = @Id";
-        const string QUERY_INSERT = "INSERT INTO Sys_Organize (Id, Status, CreatedDate, ChangedDate, Note, Name, ParentId, Sort, Level, Code) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name, @ParentId, @Sort, @Level, @Code)";
-        const string QUERY_UPDATE = "UPDATE Sys_Organize SET {0} WHERE  Id = @Id";
+        const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_Organizes WHERE Id = @Id  AND Status!=-1";
+        const string QUERY_GETAll = "SELECT * FROM Sys_Organizes WHERE  Status!=-1";
+        const string QUERY_DELETE = "UPDATE Sys_Organizes SET Status=-1 WHERE Id = @Id AND  Status!=-1";
+        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_Organizes WHERE Id = @Id";
+        const string QUERY_GETALLBYROLEID = "SELECT t1.* FROM Sys_Organizes t1 INNER JOIN Sys_R_Organize_Role t2 on t1.Id=t2.OrganizeId  where t2.RoleId=@RoleId AND t1.Status!=-1 AND t2.Status!=-1";
+        const string QUERY_CONTAINSORGANIZEROLE = "SELECT COUNT(*) FROM Sys_R_Organize_Role WHERE  OrganizeId = @OrganizeId AND RoleId=@RoleId";
+        const string QUERY_ADDRELARIONSHIPWITHORGANIZEROLE = "INSERT INTO Sys_R_Organize_Role (OrganizeId,RoleId,Status)VALUES(@OrganizeId, @RoleId,0)";
+        const string QUERY_DELETERELARIONSHIPWITHORGANIZEROLE = "UPDATE Sys_R_Organize_Role SET Status=-1 WHERE OrganizeId=@OrganizeId AND RoleId=@RoleId AND Status!=-1";
+        const string QUERY_INSERT = "INSERT INTO Sys_Organizes (Id, Status, CreatedDate, ChangedDate, Note, Name, ParentId, Sort, Level, Code) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name, @ParentId, @Sort, @Level, @Code)";
+        const string QUERY_UPDATE = "UPDATE Sys_Organizes SET {0} WHERE  Id = @Id";
 
         #endregion
 
@@ -153,6 +186,7 @@ namespace CAF.Model
                 }
                 item.MarkOld();
                 item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                 return item;
             }
         }
@@ -167,6 +201,26 @@ namespace CAF.Model
                 {
                     item.MarkOld();
                     item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                    item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
+                    list.Add(item);
+                }
+                list.MarkOld();
+                return list;
+            }
+        }
+
+        public static OrganizeList GetAllByRoleId(Guid roleId)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                var items = conn.Query<Organize>(QUERY_GETALLBYROLEID, new { RoleId = roleId }).ToList();
+
+                var list = new OrganizeList();
+                foreach (var item in items)
+                {
+                    item.MarkOld();
+                    item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                    item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkOld();
@@ -201,12 +255,12 @@ namespace CAF.Model
         internal override int Delete(IDbConnection conn, IDbTransaction transaction)
         {
             base.MarkDelete();
-            return conn.Execute(QUERY_DELETE, new { Id = this.Id }, transaction, null, null);
+            return conn.Execute(QUERY_DELETE, new { Id = Id }, transaction, null, null);
         }
 
         internal override int Update(IDbConnection conn, IDbTransaction transaction)
         {
-            if (!this.IsDirty)
+            if (!IsDirty)
             {
                 return _changedRows;
             }
@@ -217,6 +271,11 @@ namespace CAF.Model
            () =>
            {
                _changedRows += Users.SaveChanges(conn, transaction);
+           });
+            _roleListInitalizer.IsValueCreated.IfIsTrue(
+           () =>
+           {
+               _changedRows += Roles.SaveChanges(conn, transaction);
            });
             return _changedRows;
         }
@@ -229,10 +288,44 @@ namespace CAF.Model
            {
                _changedRows += Users.SaveChanges(conn, transaction);
            });
+            _roleListInitalizer.IsValueCreated.IfIsTrue(
+           () =>
+           {
+               _changedRows += Roles.SaveChanges(conn, transaction);
+           });
             return _changedRows;
         }
 
         #region 私有方法
+
+        protected int RelationshipWithRole(IDbConnection conn, IDbTransaction transaction)
+        {
+            foreach (var role in Roles.Members)
+            {
+                if (role.IsDelete && Roles.IsChangeRelationship)
+                {
+                    _changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHORGANIZEROLE, new { UserId = this.Id, RoleId = role.Id }, transaction, null, null);
+                }
+                else
+                {
+                    var isExist = conn.Query<int>(QUERY_CONTAINSORGANIZEROLE, new { OrganizeId = Id, RoleId = role.Id }, transaction).Single() >= 1;
+                    if (!isExist)
+                    {
+                        _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHORGANIZEROLE, new { OrganizeId = Id, RoleId = role.Id }, transaction, null, null);
+                    }
+                }
+            }
+            return _changedRows;
+        }
+
+        protected static RoleList InitRoles(Organize organize)
+        {
+            var roleList = Role.GetAllByOrganizeId(organize.Id);
+            roleList.OnSaved += organize.RelationshipWithRole;
+            roleList.OnMarkDirty += organize.MarkDirty;
+            roleList.IsChangeRelationship = true;
+            return roleList;
+        }
 
         protected static UserList InitUsers(Organize organize)
         {
@@ -244,7 +337,7 @@ namespace CAF.Model
 
         protected void PostAddUser(User user)
         {
-            user.OrganizeId = this.Id;
+            user.OrganizeId = Id;
         }
 
         #endregion
@@ -256,7 +349,7 @@ namespace CAF.Model
     {
         public OrganizeList() { }
 
-        protected const string tableName = "Sys_Organize";
+        protected const string tableName = "Sys_Organizes";
 
         public static OrganizeList Query(Object dynamicObj, string query = " 1=1")
         {

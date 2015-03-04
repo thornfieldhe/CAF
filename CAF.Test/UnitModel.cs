@@ -273,6 +273,11 @@ namespace CAF.Test
         [TestMethod]
         public void TestCollectionQuery()
         {
+            var users = User.GetAll();
+            foreach (var user in users)
+            {
+                user.Delete();
+            }
             for (var i = 0; i < 5; i++)
             {
                 var u = CreateUser();

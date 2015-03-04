@@ -5,6 +5,7 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
+    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
 
@@ -14,8 +15,6 @@ namespace CAF.Model
         public Directory()
         {
             base.MarkNew();
-            _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(this), isThreadSafe: true);
-            Roles = new RoleList();
         }
 
 
@@ -26,8 +25,6 @@ namespace CAF.Model
         private Guid? _parentId = Guid.Empty;
         private string _level = String.Empty;
         private int _sort;
-        private RoleList _roleList;
-        private Lazy<RoleList> _roleListInitalizer;
 
         /// <summary>
         /// 名称
@@ -91,42 +88,6 @@ namespace CAF.Model
             set { SetProperty("Sort", ref _sort, value); }
         }
 
-        public RoleList Roles
-        {
-            get
-            {
-                if (!_roleListInitalizer.IsValueCreated)
-                {
-                    _roleList = _roleListInitalizer.Value;
-                }
-                return _roleList;
-            }
-            internal set
-            {
-                _roleList = value;
-            }
-        }
-        public override bool IsValid
-        {
-            get
-            {
-                Errors = new List<string>();
-                var isValid = true;
-                var baseValid = base.IsValid;
-                _roleListInitalizer.IsValueCreated.IfIsTrue(
-               () =>
-               {
-                   foreach (var item in Roles.Where(item => !item.IsValid))
-                   {
-                       Errors.AddRange(item.Errors);
-                       isValid = false;
-                   }
-               });
-                return baseValid && isValid;
-            }
-            protected set { _isValid = value; }
-        }
-
 
         #endregion
 
@@ -136,10 +97,7 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_Directories WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_Directories SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_Directories WHERE Id = @Id";
-        const string QUERY_GETALLBYDIRECTORYID = "SELECT * FROM Sys_Directories WHERE  Status!=-1 And DirectoryId=@DirectoryId";
-        const string QUERY_GETALLBYROLEID = "SELECT t1.* FROM Sys_Directories t1 INNER JOIN Sys_R_Role_Directory t2 on t1.Id=t2.DirectoryId  where t2.RoleId=@RoleId AND t1.Status!=-1";
-        const string QUERY_CONTAINSROLEDIRECTORY = "SELECT COUNT(*) FROM Sys_R_Role_Directory WHERE  DirectoryId = @DirectoryId AND RoleId=@RoleId";
-        const string QUERY_ADDRELARIONSHIPWITHROLEDIRECTORY = "INSERT INTO Sys_R_Role_Directory (DirectoryId,RoleId,Status)VALUES(@DirectoryId, @RoleId,0)";
+        const string QUERY_GETALLBYPARENTID = "SELECT * FROM Sys_Directories WHERE  Status!=-1 And ParentId=@ParentId";
         const string QUERY_INSERT = "INSERT INTO Sys_Directories (Id, Name, Url, ParentId, Level, Sort, Note, Status, CreatedDate, ChangedDate) VALUES (@Id, @Name, @Url, @ParentId, @Level, @Sort, @Note, @Status, @CreatedDate, @ChangedDate)";
         const string QUERY_UPDATE = "UPDATE Sys_Directories SET {0} WHERE  Id = @Id";
 
@@ -157,7 +115,6 @@ namespace CAF.Model
                     return null;
                 }
                 item.MarkOld();
-                item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                 return item;
             }
         }
@@ -171,7 +128,6 @@ namespace CAF.Model
                 foreach (var item in items)
                 {
                     item.MarkOld();
-                    item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkOld();
@@ -179,34 +135,15 @@ namespace CAF.Model
             }
         }
 
-        public static DirectoryList GetAllByDirectoryId(Guid directoryId)
+        public static DirectoryList GetAllByParentId(Guid parentId)
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                var items = conn.Query<Directory>(QUERY_GETALLBYDIRECTORYID, new { DirectoryId = directoryId }).ToList();
+                var items = conn.Query<Directory>(QUERY_GETALLBYPARENTID, new { ParentId = parentId }).ToList();
                 var list = new DirectoryList();
                 foreach (var item in items)
                 {
                     item.MarkOld();
-                    item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
-                    list.Add(item);
-                }
-                list.MarkOld();
-                return list;
-            }
-        }
-
-        public static DirectoryList GetAllByRoleId(Guid roleId)
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                var items = conn.Query<Directory>(QUERY_GETALLBYROLEID, new { RoleId = roleId }).ToList();
-
-                var list = new DirectoryList();
-                foreach (var item in items)
-                {
-                    item.MarkOld();
-                    item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkOld();
@@ -253,47 +190,16 @@ namespace CAF.Model
             _updateParameters += ", ChangedDate = GetDate()";
             var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
             _changedRows += conn.Execute(query, this, transaction, null, null);
-            _roleListInitalizer.IsValueCreated.IfIsTrue(
-           () =>
-           {
-               _changedRows += Roles.SaveChanges(conn, transaction);
-           });
             return _changedRows;
         }
 
         internal override int Insert(IDbConnection conn, IDbTransaction transaction)
         {
             _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-            _roleListInitalizer.IsValueCreated.IfIsTrue(
-           () =>
-           {
-               _changedRows += Roles.SaveChanges(conn, transaction);
-           });
             return _changedRows;
         }
 
         #region 私有方法
-
-        protected int AddRelationshipWithRole(IDbConnection conn, IDbTransaction transaction)
-        {
-            foreach (var role in Roles)
-            {
-                var isExist = conn.Query<int>(QUERY_CONTAINSROLEDIRECTORY, new { DirectoryId = Id, RoleId = role.Id }, transaction).Single() >= 1;
-                if (!isExist)
-                {
-                    _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHROLEDIRECTORY, new { DirectoryId = Id, RoleId = role.Id }, transaction, null, null);
-                }
-            }
-            return _changedRows;
-        }
-
-        protected static RoleList InitRoles(Directory directory)
-        {
-            var roleList = Role.GetAllByDirectoryId(directory.Id);
-            roleList.OnSaved += directory.AddRelationshipWithRole;
-            roleList.OnMarkDirty += directory.MarkDirty;
-            return roleList;
-        }
 
         #endregion
 
@@ -338,43 +244,6 @@ namespace CAF.Model
             }
         }
     }
-
-//    public class RoleDirectory
-//    {
-//        public Guid Id { get; set; }
-//
-//        public RoleList RoleList { get; set; }
-//
-//        public bool Status { get; set; }
-//
-//        public RoleList GetRoleList()
-//        {
-//            using (IDbConnection conn = SqlService.Instance.Connection)
-//            {
-//                var query = "";
-//                var items = conn.Query<Role>(query, new { Id = Id }).ToList();
-//
-//
-//                return (new RoleList());
-//            }
-//        }
-//
-//    }
-//
-//    public class DirectoryRole
-//    {
-//        public Guid Id { get; set; }
-//
-//        public DirectoryList DirectoryList { get; set; }
-//
-//        public bool Status { get; set; }
-//
-//        public static DirectoryList GetDirectoryList()
-//        {
-//
-//        }
-//
-//    }
 }
 
 
