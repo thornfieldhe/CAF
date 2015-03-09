@@ -61,7 +61,7 @@ namespace CAF.Model
         const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_UserSettings WHERE Id = @Id  AND Status!=-1";
         const string QUERY_GETAll = "SELECT * FROM Sys_UserSettings WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_UserSettings SET Status=-1 WHERE Id = @Id AND  Status!=-1";
-        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_UserSettings WHERE Id = @Id";
+        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_UserSettings WHERE Id = @Id AND Status!=-1";
         const string QUERY_GETBYUSERID = "SELECT Top 1 * FROM Sys_UserSettings WHERE Status!=-1 And UserId=@UserId";
         const string QUERY_INSERT = "INSERT INTO Sys_UserSettings (Id, Status, CreatedDate, ChangedDate, Note, Settings, UserId) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Settings, @UserId)";
         const string QUERY_UPDATE = "UPDATE Sys_UserSettings SET {0} WHERE  Id = @Id";

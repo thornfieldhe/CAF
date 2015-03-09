@@ -502,21 +502,21 @@ namespace <%= ClassNamespace %>.Model
 
         protected static <%=GetRelationshipItem(item)%>List Init<%=GetRelationshipItem(item)%>s(<%= GetClassName(SourceTable)%> <%=GetCamelCaseName(GetClassName(SourceTable))%>)
         {
-            var <%=GetCamelCaseName(GetRelationshipItem(item))%>List = <%=GetRelationshipItem(item)%>.GetAllBy<%= GetClassName(SourceTable)%>Id(<%= GetCamelCaseName(GetClassName(SourceTable))%>.Id);
-            <%=GetCamelCaseName(GetRelationshipItem(item))%>List.OnSaved += <%= GetCamelCaseName(GetClassName(SourceTable))%>.RelationshipWith<%=GetRelationshipItem(item)%>;
-            <%=GetCamelCaseName(GetRelationshipItem(item))%>List.OnMarkDirty += <%= GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;
-            <%=GetCamelCaseName(GetRelationshipItem(item))%>List.IsChangeRelationship = true;
-			return <%=GetCamelCaseName(GetRelationshipItem(item))%>List;
+            var list = <%=GetRelationshipItem(item)%>.GetAllBy<%= GetClassName(SourceTable)%>Id(<%= GetCamelCaseName(GetClassName(SourceTable))%>.Id);
+            list.OnSaved += <%= GetCamelCaseName(GetClassName(SourceTable))%>.RelationshipWith<%=GetRelationshipItem(item)%>;
+            list.OnMarkDirty += <%= GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;
+            list.IsChangeRelationship = true;
+			return list;
         }
 		
 		<%} %>
 		<%foreach(string item in Children){ %>
 		protected static <%=item%>List Init<%=item%>s(<%=GetClassName(SourceTable)%> <%=GetCamelCaseName(GetClassName(SourceTable))%>)
         {
-            var <%=GetCamelCaseName(item)%>List = <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(<%=GetCamelCaseName(GetClassName(SourceTable))%>.Id);
-            <%=GetCamelCaseName(item)%>List.OnMarkDirty += <%=GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;
-			<%=GetCamelCaseName(item)%>List.OnInsert += <%=GetCamelCaseName(GetClassName(SourceTable))%>.PostAdd<%=item%>;
-            return <%=GetCamelCaseName(item)%>List;
+            var list = <%=item%>.GetAllBy<%=GetClassName(SourceTable)%>Id(<%=GetCamelCaseName(GetClassName(SourceTable))%>.Id);
+            list.OnMarkDirty += <%=GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;
+			list.OnInsert += <%=GetCamelCaseName(GetClassName(SourceTable))%>.PostAdd<%=item%>;
+            return list;
         }
 		
 		protected  void PostAdd<%=item%>(<%=item%> <%=GetCamelCaseName(item)%>)
@@ -528,13 +528,13 @@ namespace <%= ClassNamespace %>.Model
 		<%foreach(string item in Child){ %>		
         protected static <%=item%> Init<%=item%>(<%=GetClassName(SourceTable)%> <%=GetCamelCaseName(GetClassName(SourceTable))%>)
         {
-            var <%=GetCamelCaseName(item)%> = <%=item%>.GetByUserId(<%=GetCamelCaseName(GetClassName(SourceTable))%>.Id);
-            if (<%=GetCamelCaseName(item)%> != null)
+            var item = <%=item%>.GetByUserId(<%=GetCamelCaseName(GetClassName(SourceTable))%>.Id);
+            if (item != null)
             {
-                <%=GetCamelCaseName(item)%>.<%=GetClassName(SourceTable)%>Id = <%=GetCamelCaseName(GetClassName(SourceTable))%>.Id;
-				<%=GetCamelCaseName(item)%>.OnPropertyChange += <%=GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;
+                item.<%=GetClassName(SourceTable)%>Id = <%=GetCamelCaseName(GetClassName(SourceTable))%>.Id;
+				item.OnPropertyChange += <%=GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;
             }
-            return <%=GetCamelCaseName(item)%>;
+            return item;
         }
 		<%} %>
 		#endregion

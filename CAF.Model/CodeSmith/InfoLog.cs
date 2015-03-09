@@ -78,7 +78,7 @@ namespace CAF.Model
         const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_InfoLogs WHERE Id = @Id  AND Status!=-1";
         const string QUERY_GETAll = "SELECT * FROM Sys_InfoLogs WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_InfoLogs SET Status=-1 WHERE Id = @Id AND  Status!=-1";
-        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_InfoLogs WHERE Id = @Id";
+        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_InfoLogs WHERE Id = @Id AND Status!=-1";
         const string QUERY_INSERT="INSERT INTO Sys_InfoLogs (Id, LogTime, UserName, Page, Action) VALUES (@Id, @LogTime, @UserName, @Page, @Action)";
         const string QUERY_UPDATE = "UPDATE Sys_InfoLogs SET {0} WHERE  Id = @Id";
                 

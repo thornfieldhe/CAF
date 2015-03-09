@@ -107,7 +107,7 @@ public void RenderBusinessObject(TableSchema table)
     businessObject.WithMany=new List<string>();
 
     var fileDirectory=OutputDirectory +"\\CodeSmith\\"+ businessObject.GetClassName(table) +".cs";
-    if(!table.Name.Contains("_R_")&& !table.Name.Contains("_RE_"))
+    if(!table.Name.Contains("_R_"))
     {
         switch(table.Name)
         {

@@ -97,7 +97,7 @@ namespace CAF.Model
         const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_Directories WHERE Id = @Id  AND Status!=-1";
         const string QUERY_GETAll = "SELECT * FROM Sys_Directories WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_Directories SET Status=-1 WHERE Id = @Id AND  Status!=-1";
-        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_Directories WHERE Id = @Id";
+        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_Directories WHERE Id = @Id AND Status!=-1";
         const string QUERY_GETALLBYPARENTID = "SELECT * FROM Sys_Directories WHERE  Status!=-1 And ParentId=@ParentId";
         const string QUERY_INSERT="INSERT INTO Sys_Directories (Id, Name, Url, ParentId, Level, Sort, Note, Status, CreatedDate, ChangedDate) VALUES (@Id, @Name, @Url, @ParentId, @Level, @Sort, @Note, @Status, @CreatedDate, @ChangedDate)";
         const string QUERY_UPDATE = "UPDATE Sys_Directories SET {0} WHERE  Id = @Id";

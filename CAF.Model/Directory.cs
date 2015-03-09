@@ -18,13 +18,13 @@ namespace CAF.Model
         public string GetMaxCode(IDbConnection conn, IDbTransaction transaction)
         {
             //获取当前层级最大编号
-            const string maxCodeQuery = "Select Max(Level) From Sys_Directory Where ParentId=@ParentId && Status<>-1";
+            const string maxCodeQuery = "Select Max(Level) From Sys_Directories Where ParentId=@ParentId AND Status<>-1";
             var maxCode = conn.Query<string>(maxCodeQuery, new { ParentId = this.ParentId }, transaction).SingleOrDefault();
 
             if (string.IsNullOrWhiteSpace(maxCode))//当前层级没有项目
             {
                 //获取父对象编号
-                const string parentCodeQuery = "Select Level From Sys_Directory Where Id=@ParentId && Status<>-1";
+                const string parentCodeQuery = "Select Level From Sys_Directories Where Id=@ParentId AND Status<>-1";
                 var parentCode = conn.Query<string>(parentCodeQuery, new { ParentId = this.ParentId }, transaction).SingleOrDefault();
                 if (string.IsNullOrWhiteSpace(parentCode))//父层级不存在,即为第一条数据
                 {

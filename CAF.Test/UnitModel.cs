@@ -7,6 +7,8 @@ namespace CAF.Test
     using CAF.Model;
     using System.Collections.Generic;
 
+    using CAF.Model.CodeSmith;
+
     [TestClass]
     public class UnitModel
     {
@@ -250,6 +252,36 @@ namespace CAF.Test
         }
 
         /// <summary>
+        /// 测试n:n关系[关系表为有单独属性的实体表]
+        /// </summary>
+        [TestMethod]
+        public void TestMethod12()
+        {
+            var r = new Role { Name = "rr1" };
+            r.Create();
+            var d = new Directory { Level = "00", Name = "testdir" };
+            d.Create();
+            var rd = new Directory_Role(){Status = 1,RoleId=r.Id,DirectoryId=d.Id};
+            rd.Create();
+            var rd2 = Directory_Role.Get(r.Id, d.Id);
+            Assert.IsNotNull(rd2);// create
+            Assert.AreEqual(rd2.Role.Name,"rr1");
+            Assert.AreEqual(rd2.Directory.Name, "testdir");
+            rd2.Status = 4;
+            rd2.Save();
+            var rd4 = Directory_Role.Get(r.Id, d.Id);
+            Assert.AreEqual(4,rd4.Status);//update
+            var roles = Directory_Role.GetRolesByDirectoryId(d.Id);
+            Assert.AreEqual(1, roles.Count);
+            var dirs = Directory_Role.GetDirectoriesByRoleId(r.Id);
+            Assert.AreEqual(1, dirs.Count);
+            rd4.Delete();//delete
+            var rd3 = Directory_Role.Exists(r.Id, d.Id);//exist
+            Assert.AreEqual(rd3, false);
+            
+        }
+
+        /// <summary>
         /// 测试列表增减项
         /// </summary>
         [TestMethod]
@@ -321,7 +353,7 @@ namespace CAF.Test
 
         private static User CreateUser()
         {
-            User u = new User
+            var u = new User
                          {
                              Abb = "hxh",
                              Email = "hxh@126.com",

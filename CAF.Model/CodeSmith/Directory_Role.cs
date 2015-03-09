@@ -97,12 +97,12 @@ namespace CAF.Model.CodeSmith
         #region 常量定义
 
         const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_RE_Directory_Role WHERE RoleId = @RoleId AND DirectoryId=@DirectoryId AND Status!=-1";
-        const string QUERY_GETAllROLES = "SELECT * FROM Sys_Roles WHERE DirectoryId=@DirectoryId AND Status!=-1";
-        const string QUERY_GETAllDIRECTORIES = "SELECT * FROM Sys_Directories WHERE RoleId=@RoleId AND Status!=-1";
-        const string QUERY_DELETE = "UPDATE Sys_Roles SET Status=-1 WHERE RoleId = @RoleId AND DirectoryId=@DirectoryId AND  Status!=-1";
-        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_Roles WHERE RoleId = @RoleId AND DirectoryId=@DirectoryId";
-        const string QUERY_INSERT = "INSERT INTO Sys_RE_Directory_Role (Id, Status, CreatedDate, ChangedDate, Note, DirectoryId,RoleId) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @DirectoryId,@RoleId)";
-        const string QUERY_UPDATE = "UPDATE Sys_Roles SET {0} WHERE  RoleId = @RoleId AND DirectoryId=@DirectoryId";
+        const string QUERY_GETAllROLES = "SELECT t1.* FROM Sys_Roles t1 INNER JOIN Sys_RE_Directory_Role t2 ON t1.ID=t2.RoleId WHERE t2.DirectoryId=@DirectoryId AND t1.Status!=-1 AND t2.Status!=-1";
+        const string QUERY_GETAllDIRECTORIES = "SELECT t1.* FROM Sys_Directories t1 INNER JOIN Sys_RE_Directory_Role t2 ON t1.ID=t2.DirectoryId WHERE t2.RoleId=@RoleId AND t1.Status!=-1 AND t2.Status!=-1";
+        const string QUERY_DELETE = "UPDATE Sys_RE_Directory_Role SET Status=-1 WHERE RoleId = @RoleId AND DirectoryId=@DirectoryId AND  Status!=-1";
+        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_RE_Directory_Role WHERE RoleId = @RoleId AND DirectoryId=@DirectoryId AND  Status!=-1";
+        const string QUERY_INSERT = "INSERT INTO Sys_RE_Directory_Role (Id,Status, CreatedDate, ChangedDate, Note, DirectoryId,RoleId) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @DirectoryId,@RoleId)";
+        const string QUERY_UPDATE = "UPDATE Sys_RE_Directory_Role SET {0} WHERE  RoleId = @RoleId AND DirectoryId=@DirectoryId";
 
         #endregion
 
@@ -126,7 +126,7 @@ namespace CAF.Model.CodeSmith
 
 
 
-        public static Directory_RoleList GetAllByRoleId(Guid roleId)
+        public static Directory_RoleList GetDirectoriesByRoleId(Guid roleId)
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
@@ -145,7 +145,7 @@ namespace CAF.Model.CodeSmith
             }
         }
 
-        public static Directory_RoleList GetAllByDirectoryId(Guid directoryId)
+        public static Directory_RoleList GetRolesByDirectoryId(Guid directoryId)
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
@@ -169,11 +169,11 @@ namespace CAF.Model.CodeSmith
         /// 直接删除
         /// </summary>
         /// <returns></returns>
-        public static int Delete(Guid id)
+        public static int Delete(Guid roleId, Guid directoryId)
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                return conn.Execute(QUERY_DELETE, new { Id = id });
+                return conn.Execute(QUERY_DELETE, new { RoleId = roleId, DirectoryId = directoryId });
             }
         }
 
@@ -191,7 +191,7 @@ namespace CAF.Model.CodeSmith
         internal override int Delete(IDbConnection conn, IDbTransaction transaction)
         {
             base.MarkDelete();
-            return conn.Execute(QUERY_DELETE, new { Id = Id }, transaction, null, null);
+            return conn.Execute(QUERY_DELETE, new { RoleId = RoleId, DirectoryId = DirectoryId }, transaction, null, null);
         }
 
         internal override int Update(IDbConnection conn, IDbTransaction transaction)
@@ -203,32 +203,12 @@ namespace CAF.Model.CodeSmith
             _updateParameters += ", ChangedDate = GetDate()";
             var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
             _changedRows += conn.Execute(query, this, transaction, null, null);
-            _roleInitalizer.IsValueCreated.IfIsTrue(
-           () =>
-           {
-               _changedRows += Role.SaveChange(conn, transaction);
-           });
-            _directoryInitalizer.IsValueCreated.IfIsTrue(
-           () =>
-           {
-               _changedRows += Directory.SaveChange(conn, transaction);
-           });
             return _changedRows;
         }
 
         internal override int Insert(IDbConnection conn, IDbTransaction transaction)
         {
             _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-            _roleInitalizer.IsValueCreated.IfIsTrue(
-           () =>
-           {
-               _changedRows += Role.SaveChange(conn, transaction);
-           });
-            _directoryInitalizer.IsValueCreated.IfIsTrue(
-           () =>
-           {
-               _changedRows += Directory.SaveChange(conn, transaction);
-           });
             return _changedRows;
         }
 
