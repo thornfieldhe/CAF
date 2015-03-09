@@ -53,6 +53,7 @@
       <Link>Common\BaseEntity.cs</Link>
     </Compile>
     <Compile Include="CodeSmith\Directory.cs" />
+    <Compile Include="CodeSmith\Directory_Role.cs" />
     <Compile Include="CodeSmith\ErrorLog.cs" />
     <Compile Include="CodeSmith\InfoLog.cs" />
     <Compile Include="CodeSmith\LoginLog.cs" />
