@@ -13,7 +13,8 @@ namespace CAF.Model
 	public partial class Directory :  BaseEntity<Directory>
 	{   
         public Directory()
-		{			
+		{
+            Connection = SqlService.Instance.Connection;
             base.MarkNew();
 		}
 		

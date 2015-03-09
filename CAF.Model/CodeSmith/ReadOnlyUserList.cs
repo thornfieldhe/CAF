@@ -2,12 +2,12 @@
 
 namespace CAF.Model
 {
-    
-    [Serializable]
-    public class ReadOnlyUser :ReadOnlyBase
-    {        
-    
-        public ReadOnlyUser() { TableName = "V_Users"; }
+	
+	[Serializable]
+	public class ReadOnlyUser :ReadOnlyBase
+	{        
+	
+		public ReadOnlyUser() { TableName = "V_Users"; }
 		public Guid Id{get; set;}      
 		public DateTime CreatedDate{get; set;}      
 		public DateTime ChangedDate{get; set;}      
@@ -22,5 +22,5 @@ namespace CAF.Model
 		public string Roles{get; set;}      
 		public int Status{get; set;}      
 		public string Abb{get; set;}      
-    }
+	}
 }

@@ -13,7 +13,8 @@ namespace CAF.Model
 	public partial class LoginLog :  BaseEntity<LoginLog>
 	{   
         public LoginLog()
-		{			
+		{
+            Connection = SqlService.Instance.Connection;
             base.MarkNew();
 		}
 		

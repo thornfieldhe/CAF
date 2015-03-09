@@ -200,26 +200,12 @@ GO
 USE [CAF]
 GO
 
-/****** Object:  View [dbo].[V_Users]    Script Date: 2015/1/21 22:00:27 ******/
+
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-
-ALTER VIEW [dbo].[V_Users]
-AS
-SELECT   t1.Id, t1.CreatedDate, t1.ChangedDate, t1.Note, t1.LoginName, t1.Name, t1.PhoneNum, t1.OrganizeId, t1.Email, 
-                t2.Name AS OrganizeName,t2.[Level], dbo.F_GetUserRoles(t1.Id)  AS Roles,t1.Status,t1.Abb
-FROM      dbo.Sys_Users AS t1 INNER JOIN
-                dbo.Sys_Organize AS t2 ON t1.OrganizeId = t2.Id
-WHERE   (t1.Status <> - 1)
-
-
-GO
-
-
-
 
 CREATE  FUNCTION [dbo].[F_GetUserRoles](@UserId uniqueidentifier)
 RETURNS VARCHAR(300)
@@ -228,10 +214,21 @@ BEGIN
 DECLARE @Roles varchar(300)
 SET @Roles = ''
 -- 通过递归 SELECT 连接指定列存储到临时变量中
-SELECT @Roles = CONVERT(VARCHAR(300), DicValue)+ ',' + @Roles FROM dbo.Sys_User_Role WHERE  UserId=@UserId
+SELECT @Roles = CONVERT(VARCHAR(300), RoleId)+ ',' + @Roles FROM dbo.Sys_R_User_Role WHERE  UserId=@UserId
 -- 去掉尾巴的 , (逗号)
 IF LEN(@Roles) > 0
 SET @Roles = LEFT(@Roles, LEN(@Roles) - 1)
 --PRINT @Roles
 RETURN @Roles
 END
+
+GO
+
+
+CREATE VIEW [dbo].[V_Users]
+AS
+SELECT   t1.Id, t1.CreatedDate, t1.ChangedDate, t1.Note, t1.LoginName, t1.Name, t1.PhoneNum, t1.OrganizeId, t1.Email, 
+				t2.Name AS OrganizeName,t2.[Level], dbo.F_GetUserRoles(t1.Id)  AS Roles,t1.Status,t1.Abb
+FROM      dbo.Sys_Users AS t1 INNER JOIN
+				dbo.Sys_Organizes AS t2 ON t1.OrganizeId = t2.Id
+WHERE   (t1.Status <> - 1)

@@ -13,7 +13,8 @@ namespace CAF.Model
 	public partial class InfoLog :  BaseEntity<InfoLog>
 	{   
         public InfoLog()
-		{			
+		{
+            Connection = SqlService.Instance.Connection;
             base.MarkNew();
 		}
 		

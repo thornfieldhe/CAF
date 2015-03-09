@@ -160,7 +160,7 @@ namespace CAF.Test
         {
             //新增with子项
             var o = CreateUser();
-            o.UserSetting = UserSetting.New();
+            o.UserSetting =new UserSetting();
             o.UserSetting.Settings = "nomal";
             o.OrganizeId = Guid.NewGuid();
             if (o.IsValid)
@@ -207,7 +207,7 @@ namespace CAF.Test
         public void TestMethod9()
         {
             var u = CreateUser();
-            u.UserSetting = UserSetting.New();
+            u.UserSetting =new UserSetting();
             u.UserSetting.Settings = "s1";
             u.OrganizeId = Guid.NewGuid();
             u.Create();

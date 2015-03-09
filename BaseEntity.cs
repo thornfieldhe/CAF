@@ -6,7 +6,6 @@ using System.Linq;
 
 namespace CAF
 {
-    using CAF.Model;
     using CAF.Utility;
 
     [Serializable]
@@ -17,6 +16,8 @@ namespace CAF
         private DateTime _createdDate;
         private DateTime _changedDate;
         private string _note;
+        [NonSerialized]
+        private IDbConnection _connection;
 
         protected int _changedRows = 0;//影响行
         protected string _updateParameters = "";// 用于拼接更新方法所需字段
@@ -39,6 +40,9 @@ namespace CAF
         public DateTime CreatedDate { get { return _createdDate; } protected set { SetProperty("CreatedDate", ref _createdDate, value); } }
         public DateTime ChangedDate { get { return _changedDate; } protected set { SetProperty("ChangedDate", ref _changedDate, value); } }
         public string Note { get { return _note; } set { SetProperty("Note", ref _note, value); } }
+
+
+        public IDbConnection Connection { get { return _connection; } set { _connection = value; } }
 
         public BaseEntity(Guid id)
         {
@@ -252,7 +256,7 @@ namespace CAF
             _changedRows = 0;
             if (IsValid)
             {
-                using (IDbConnection conn = SqlService.Instance.Connection)
+                using (IDbConnection conn = Connection)
                 {
                     var transaction = conn.BeginTransaction();
                     try
@@ -283,7 +287,7 @@ namespace CAF
             this._changedRows = 0;
             if (IsDirty && IsValid)
             {
-                using (IDbConnection conn = SqlService.Instance.Connection)
+                using (IDbConnection conn = Connection)
                 {
                     var transaction = conn.BeginTransaction();
                     try
@@ -304,7 +308,7 @@ namespace CAF
 
         public virtual int Delete()
         {
-            using (IDbConnection conn = SqlService.Instance.Connection)
+            using (IDbConnection conn = Connection)
             {
                 this._changedRows = 0;
                 var transaction = conn.BeginTransaction();
@@ -331,7 +335,7 @@ namespace CAF
         public virtual int SubmitChange()
         {
             _changedRows = 0;
-            using (IDbConnection conn = SqlService.Instance.Connection)
+            using (IDbConnection conn = Connection)
             {
                 var transaction = conn.BeginTransaction();
                 try

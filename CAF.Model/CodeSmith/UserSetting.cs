@@ -13,7 +13,8 @@ namespace CAF.Model
 	public partial class UserSetting :  BaseEntity<UserSetting>
 	{   
         public UserSetting()
-		{			
+		{
+            Connection = SqlService.Instance.Connection;
             base.MarkNew();
 		}
 		

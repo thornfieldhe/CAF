@@ -13,7 +13,8 @@ namespace CAF.Model
 	public partial class ErrorLog :  BaseEntity<ErrorLog>
 	{   
         public ErrorLog()
-		{			
+		{
+            Connection = SqlService.Instance.Connection;
             base.MarkNew();
 		}
 		

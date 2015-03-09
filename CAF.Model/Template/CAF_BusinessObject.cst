@@ -32,7 +32,8 @@ namespace <%= ClassNamespace %>.Model
 	public partial class <%= GetClassName(SourceTable) %> :  BaseEntity<<%= GetClassName(SourceTable) %>>
 	{   
         public <%= GetClassName(SourceTable) %>()
-		{			
+		{
+            Connection = SqlService.Instance.Connection;
             base.MarkNew();
 			<%foreach(string item in Children){ %>
             <%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(this), isThreadSafe: true);          

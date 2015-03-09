@@ -48,6 +48,53 @@ public void RenderReadOnlyList(ViewSchema view)
     list.RenderToFile(fileDirectory,true);
 }
 
+public void RenderReadEntity(TableSchema table)
+{
+    var businessObject= new BusinessObject();
+    businessObject.SourceTable=table;
+    businessObject.ClassNamespace="CAF";
+    businessObject.AsChildren=new List<string>();
+    businessObject.AsChild=new List<string>();
+    businessObject.Child=new List<string>();
+    businessObject.Children=new List<string>();
+    businessObject.WithMany=new List<string>();
+
+    var fileDirectory=OutputDirectory +"\\CodeSmith\\"+ businessObject.GetClassName(table) +".cs";
+    if(!table.Name.Contains("_R_")&& !table.Name.Contains("_RE_"))
+    {
+        switch(table.Name)
+        {
+            case "Sys_Organizes":
+                businessObject.Children.Add("User");
+                businessObject.WithMany.Add("Sys_R_Organize_Role");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            case "Sys_Users":
+                businessObject.Child.Add("UserSetting");
+                businessObject.WithMany.Add("Sys_R_User_Role");
+                businessObject.AsChildren.Add("OrganizeId");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            case "Sys_Directories":
+                businessObject.AsChildren.Add("ParentId");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            case "Sys_UserSettings":
+                businessObject.AsChild.Add("UserId");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            case "Sys_Roles":
+                businessObject.WithMany.Add("Sys_R_Organize_Role");
+                businessObject.WithMany.Add("Sys_R_User_Role");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            default:
+                businessObject.RenderToFile(fileDirectory,true);
+            break;    
+        }
+    }
+}
+
 public void RenderBusinessObject(TableSchema table)
 {
     var businessObject= new BusinessObject();
@@ -60,7 +107,7 @@ public void RenderBusinessObject(TableSchema table)
     businessObject.WithMany=new List<string>();
 
     var fileDirectory=OutputDirectory +"\\CodeSmith\\"+ businessObject.GetClassName(table) +".cs";
-    if(!table.Name.Contains("_R_"))
+    if(!table.Name.Contains("_R_")&& !table.Name.Contains("_RE_"))
     {
         switch(table.Name)
         {

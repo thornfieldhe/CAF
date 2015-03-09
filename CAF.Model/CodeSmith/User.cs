@@ -13,7 +13,8 @@ namespace CAF.Model
 	public partial class User :  BaseEntity<User>
 	{   
         public User()
-		{			
+		{
+            Connection = SqlService.Instance.Connection;
             base.MarkNew();
     		 _userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(Id), isThreadSafe: true);
     		 _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(this), isThreadSafe: true);
