@@ -56,7 +56,7 @@
     <Compile Include="CodeSmith\ErrorLog.cs" />
     <Compile Include="CodeSmith\InfoLog.cs" />
     <Compile Include="CodeSmith\LoginLog.cs" />
-    <Compile Include="CodeSmith\ReadOnlyBase.cs" />
+    <Compile Include="Common\ReadOnlyBase.cs" />
     <Compile Include="CodeSmith\ReadOnlyUserList.cs" />
     <Compile Include="CodeSmith\Role.cs" />
     <Compile Include="CodeSmith\UserSetting.cs" />
@@ -91,6 +91,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Template\CAF_BusinessObject.cst" />
+    <None Include="Template\CAF_QuickStart.cst" />
     <None Include="Template\CAF_ReadOnlyBusinessObject.cst" />
   </ItemGroup>
   <ItemGroup>

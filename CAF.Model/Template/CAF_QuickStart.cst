@@ -1,0 +1,114 @@
+﻿<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ Template Language="C#" TargetLanguage="Text" Debug="True"%>
+<%@ Property Name="SampleStringProperty" Default="SomeValue" Type="System.String" %>
+<%@ Property Name="SampleBooleanProperty" Default="True" Type="System.Boolean" %>
+<%@ Property Name="Db" Type="SchemaExplorer.DatabaseSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Register Name="BusinessObject" Template="CAF_BusinessObject.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="ReadOnlyBusinessObject" Template="CAF_ReadOnlyBusinessObject.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<% GenerateEntityClasses(); %>
+<script runat="template">
+
+//生成实体Entity类
+private void GenerateEntityClasses()
+{
+    foreach(TableSchema table in this.Db.Tables)
+    {
+        RenderToFileByTable(table);
+    }
+    foreach(ViewSchema view in this.Db.Views)
+    {
+        RenderToFileByView(view);
+    }
+}
+
+public void RenderToFileByTable(TableSchema table)
+{    
+    RenderBusinessObject(table);
+}
+
+public void RenderToFileByView(ViewSchema view)
+{    
+    RenderReadOnlyList(view);
+}
+
+
+public void RenderReadOnlyList(ViewSchema view)
+{
+    var list= new ReadOnlyBusinessObject();
+    list.SourceView=view;
+    list.ClassNamespace="CAF";
+    var fileDirectory=OutputDirectory +"\\CodeSmith\\"+ list.GetClassName(view) +".cs";
+    list.RenderToFile(fileDirectory,true);
+}
+
+public void RenderBusinessObject(TableSchema table)
+{
+    var businessObject= new BusinessObject();
+    businessObject.SourceTable=table;
+    businessObject.ClassNamespace="CAF";
+    businessObject.AsChildren=new List<string>();
+    businessObject.AsChild=new List<string>();
+    businessObject.Child=new List<string>();
+    businessObject.Children=new List<string>();
+    businessObject.WithMany=new List<string>();
+
+    var fileDirectory=OutputDirectory +"\\CodeSmith\\"+ businessObject.GetClassName(table) +".cs";
+    if(!table.Name.Contains("_R_"))
+    {
+        switch(table.Name)
+        {
+            case "Sys_Organizes":
+                businessObject.Children.Add("User");
+                businessObject.WithMany.Add("Sys_R_Organize_Role");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            case "Sys_Users":
+                businessObject.Child.Add("UserSetting");
+                businessObject.WithMany.Add("Sys_R_User_Role");
+                businessObject.AsChildren.Add("OrganizeId");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            case "Sys_Directories":
+                businessObject.AsChildren.Add("ParentId");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            case "Sys_UserSettings":
+                businessObject.AsChild.Add("UserId");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            case "Sys_Roles":
+                businessObject.WithMany.Add("Sys_R_Organize_Role");
+                businessObject.WithMany.Add("Sys_R_User_Role");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            default:
+                businessObject.RenderToFile(fileDirectory,true);
+            break;    
+        }
+    }
+}
+
+private string Directory = String.Empty;
+[Editor(typeof(System.Windows.Forms.Design.FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))] 
+[Optional, NotChecked]
+[DefaultValue("")]
+public string OutputDirectory 
+{ 
+    get
+    {
+        return Directory;
+    }
+    set
+    {
+        if (value.EndsWith("\\")) value = value.Substring(0, value.Length -1);
+        Directory = value;
+    } 
+}
+</script>
