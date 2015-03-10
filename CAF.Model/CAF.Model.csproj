@@ -94,6 +94,7 @@
     <None Include="Template\CAF_BusinessObject.cst" />
     <None Include="Template\CAF_QuickStart.cst" />
     <None Include="Template\CAF_ReadOnlyBusinessObject.cst" />
+    <None Include="Template\CAF_REBusinessObject.cst" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Script\script.sql" />
