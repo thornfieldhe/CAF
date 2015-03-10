@@ -585,17 +585,17 @@ namespace <%= ClassNamespace %>.Model
 
 <script runat="template">
 
-public string GetRelationshipItem(string tableName)
+private string GetRelationshipItem(string tableName)
 {
 	return tableName.Replace("Sys_R_","").Replace("_","").Replace(GetClassName(SourceTable),"");
 }
 			
-public string GetMemberVariableDeclarationStatement(ColumnSchema column)
+private string GetMemberVariableDeclarationStatement(ColumnSchema column)
 {
 	return GetMemberVariableDeclarationStatement("private", column);
 }
 
-public bool IsRecurrence(ColumnSchema column)
+private bool IsRecurrence(ColumnSchema column)
 {
     return column.Name=="ParentId";
 }
@@ -605,7 +605,7 @@ public bool IsRecurrence(ColumnSchema column)
 /// </summary>
 /// <param name="column"></param>
 /// <returns></returns>
-public string GetListMember1(string column)
+private string GetListMember1(string column)
 {
 	return string.Format(" _{0}List", GetCamelCaseName(column));
 }
@@ -614,27 +614,27 @@ public string GetListMember1(string column)
 /// </summary>
 /// <param name="column"></param>
 /// <returns></returns>
-public string GetListMember2(string column)
+private string GetListMember2(string column)
 {
 	return string.Format(" _{0}ListInitalizer", GetCamelCaseName(column));
 }
-public string GetListMember3(string column)
+private string GetListMember3(string column)
 {
 	return string.Format(" _{0}Initalizer", GetCamelCaseName(column));
 }
-public string GetListMember4(string column)
+private string GetListMember4(string column)
 {
 	return string.Format(" _{0}", GetCamelCaseName(column));
 }
 
 
-public string GetCollectionClassName(TableSchema SourceTable)
+private string GetCollectionClassName(TableSchema SourceTable)
 {
 	return GetClassName(SourceTable)+"List";
 }
 
 
-public string GetMemberVariableDeclarationStatement(string protectionLevel, ColumnSchema column)
+private string GetMemberVariableDeclarationStatement(string protectionLevel, ColumnSchema column)
 {
 	string statement = protectionLevel + " ";
 	statement += GetCSharpVariableType(column) +IsSystemNullAble(column)+ " " + GetMemberVariableName(column);
@@ -650,32 +650,32 @@ public string GetMemberVariableDeclarationStatement(string protectionLevel, Colu
 	return statement;
 }
 
-public bool IsSystemFiled(ColumnSchema column)
+private bool IsSystemFiled(ColumnSchema column)
 {
    string name= GetPropertyName(column);
-    return name=="CreatedDate" || name=="ChangedDate" || name=="Status"|| name=="CreatedBy"|| name=="ModifyBy" ||name=="Note";
+    return name=="CreatedDate" || name=="ChangedDate" || name=="Status" ||name=="Note";
 }
 
-public bool ColumnIsString(ColumnSchema column)
+private bool ColumnIsString(ColumnSchema column)
 {
    string type= GetCSharpVariableType(column) ;
     return type=="string" ;
 }
 
-public bool ColumnIsGuid(ColumnSchema column)
+private bool ColumnIsGuid(ColumnSchema column)
 {
    string type= GetCSharpVariableType(column) ;
     return type=="Guid" ;
 }
 
-public bool ColumnIsDateTime(ColumnSchema column)
+private bool ColumnIsDateTime(ColumnSchema column)
 {
    string type= GetCSharpVariableType(column) ;
     return type=="DateTime" ;
 }
 
 
-public string GetReaderAssignmentStatement(ColumnSchema column, int index)
+private string GetReaderAssignmentStatement(ColumnSchema column, int index)
 {
 	string statement = "if (!reader.IsDBNull(" + index.ToString() + ")) ";
 	statement += GetMemberVariableName(column) + " = ";
@@ -687,12 +687,12 @@ public string GetReaderAssignmentStatement(ColumnSchema column, int index)
 	return statement;
 }
 
-public string GetCamelCaseName(string value)
+private string GetCamelCaseName(string value)
 {
 	return value.Substring(0, 1).ToLower() + value.Substring(1);
 }
 
-public string GetDescription(ColumnSchema column)
+private string GetDescription(ColumnSchema column)
 {
 	string description = column.Description;
 	
@@ -701,7 +701,7 @@ public string GetDescription(ColumnSchema column)
 	return description;
 }
 
-public string GetMemberVariableName(ColumnSchema column)
+private string GetMemberVariableName(ColumnSchema column)
 {
 	string propertyName = GetPropertyName(column);
 	string memberVariableName = "_" + GetCamelCaseName(propertyName);
@@ -709,7 +709,7 @@ public string GetMemberVariableName(ColumnSchema column)
 	return memberVariableName;
 }
 
-public string GetPropertyName(ColumnSchema column)
+private string GetPropertyName(ColumnSchema column)
 {
 	string propertyName = column.Name;
 	
@@ -721,7 +721,7 @@ public string GetPropertyName(ColumnSchema column)
 	return propertyName;
 }
 		
-public string GetMemberVariableDefaultValue(ColumnSchema column)
+private string GetMemberVariableDefaultValue(ColumnSchema column)
 {
 	switch (column.DataType)
 	{
@@ -743,14 +743,14 @@ public string GetMemberVariableDefaultValue(ColumnSchema column)
 	}
 }
 
-public string GetCSharpVariableType(ColumnSchema column)
+private string GetCSharpVariableType(ColumnSchema column)
 {
 	if (column.Name.EndsWith("TypeCode")) return column.Name;
 
 	return DbTypeCSharp[column.DataType.ToString()];	
 }
 
-public string GetReaderMethod(ColumnSchema column)
+private string GetReaderMethod(ColumnSchema column)
 {
 	return DbDataReader[column.DataType.ToString()];
 }
@@ -772,12 +772,12 @@ public string GetClassName(TableSchema table)
 	}
 }
 
-public string GetSqlDbType(ColumnSchema column)
+private string GetSqlDbType(ColumnSchema column)
 {
 	return SqlNativeSqlDb[column.NativeType.ToString()];
 }
 
-public string GetPrimaryKeyType(TableSchema table)
+private string GetPrimaryKeyType(TableSchema table)
 {
 	if (table.PrimaryKey != null)
 	{
@@ -801,7 +801,7 @@ public override string GetFileName()
 	return GetClassName(SourceTable) + ".cs";
 }
 
-public string GetInsertQueryString()
+private string GetInsertQueryString()
 {
 	  StringBuilder queryParameters = new StringBuilder();
       queryParameters.Append("@"+SourceTable.PrimaryKey.MemberColumns[0].Name);
@@ -812,7 +812,7 @@ public string GetInsertQueryString()
       return String.Format("INSERT INTO "+SourceTable.Name +" ({0}) VALUES ({1})", queryParameters.ToString().Replace("@", ""), queryParameters.ToString());
 }
 
-public string IsSystemNullAble(ColumnSchema column)
+private string IsSystemNullAble(ColumnSchema column)
 {
 	   string type= GetCSharpVariableType(column) ;
     if( (type=="Guid" ||type=="int"

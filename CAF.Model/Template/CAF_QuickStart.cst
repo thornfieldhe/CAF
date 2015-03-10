@@ -11,6 +11,7 @@ Description:
 <%@ Import Namespace="SchemaExplorer" %>
 <%@ Import Namespace="System.IO" %>
 <%@ Register Name="BusinessObject" Template="CAF_BusinessObject.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="REBusinessObject" Template="CAF_REBusinessObject.cst" MergeProperties="Flase" ExcludeProperties=""%>
 <%@ Register Name="ReadOnlyBusinessObject" Template="CAF_ReadOnlyBusinessObject.cst" MergeProperties="Flase" ExcludeProperties=""%>
 <% GenerateEntityClasses(); %>
 <script runat="template">
@@ -31,6 +32,7 @@ private void GenerateEntityClasses()
 public void RenderToFileByTable(TableSchema table)
 {    
     RenderBusinessObject(table);
+    RenderREBusinessEntity(table);
 }
 
 public void RenderToFileByView(ViewSchema view)
@@ -48,44 +50,20 @@ public void RenderReadOnlyList(ViewSchema view)
     list.RenderToFile(fileDirectory,true);
 }
 
-public void RenderReadEntity(TableSchema table)
+public void RenderREBusinessEntity(TableSchema table)
 {
-    var businessObject= new BusinessObject();
+    var businessObject= new REBusinessObject();
     businessObject.SourceTable=table;
     businessObject.ClassNamespace="CAF";
-    businessObject.AsChildren=new List<string>();
-    businessObject.AsChild=new List<string>();
-    businessObject.Child=new List<string>();
-    businessObject.Children=new List<string>();
-    businessObject.WithMany=new List<string>();
 
     var fileDirectory=OutputDirectory +"\\CodeSmith\\"+ businessObject.GetClassName(table) +".cs";
-    if(!table.Name.Contains("_R_"))
+    if(table.Name.Contains("_RE_"))
     {
         switch(table.Name)
         {
-            case "Sys_Organizes":
-                businessObject.Children.Add("User");
-                businessObject.WithMany.Add("Sys_R_Organize_Role");
-                businessObject.RenderToFile(fileDirectory,true);
-            break;
-            case "Sys_Users":
-                businessObject.Child.Add("UserSetting");
-                businessObject.WithMany.Add("Sys_R_User_Role");
-                businessObject.AsChildren.Add("OrganizeId");
-                businessObject.RenderToFile(fileDirectory,true);
-            break;
-            case "Sys_Directories":
-                businessObject.AsChildren.Add("ParentId");
-                businessObject.RenderToFile(fileDirectory,true);
-            break;
-            case "Sys_UserSettings":
-                businessObject.AsChild.Add("UserId");
-                businessObject.RenderToFile(fileDirectory,true);
-            break;
-            case "Sys_Roles":
-                businessObject.WithMany.Add("Sys_R_Organize_Role");
-                businessObject.WithMany.Add("Sys_R_User_Role");
+            case "Sys_RE_Directory_Role":
+                businessObject.TableA="Role";
+                businessObject.TableB="Directory";
                 businessObject.RenderToFile(fileDirectory,true);
             break;
             default:
@@ -107,7 +85,7 @@ public void RenderBusinessObject(TableSchema table)
     businessObject.WithMany=new List<string>();
 
     var fileDirectory=OutputDirectory +"\\CodeSmith\\"+ businessObject.GetClassName(table) +".cs";
-    if(!table.Name.Contains("_R_"))
+    if(!table.Name.Contains("_R_")&& !table.Name.Contains("_RE_"))
     {
         switch(table.Name)
         {

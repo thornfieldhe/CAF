@@ -7,7 +7,6 @@ namespace CAF.Test
     using CAF.Model;
     using System.Collections.Generic;
 
-    using CAF.Model.CodeSmith;
 
     [TestClass]
     public class UnitModel
@@ -162,7 +161,7 @@ namespace CAF.Test
         {
             //新增with子项
             var o = CreateUser();
-            o.UserSetting =new UserSetting();
+            o.UserSetting = new UserSetting();
             o.UserSetting.Settings = "nomal";
             o.OrganizeId = Guid.NewGuid();
             if (o.IsValid)
@@ -209,7 +208,7 @@ namespace CAF.Test
         public void TestMethod9()
         {
             var u = CreateUser();
-            u.UserSetting =new UserSetting();
+            u.UserSetting = new UserSetting();
             u.UserSetting.Settings = "s1";
             u.OrganizeId = Guid.NewGuid();
             u.Create();
@@ -261,24 +260,24 @@ namespace CAF.Test
             r.Create();
             var d = new Directory { Level = "00", Name = "testdir" };
             d.Create();
-            var rd = new Directory_Role(){Status = 1,RoleId=r.Id,DirectoryId=d.Id};
+            var rd = new Directory_Role() { Status = 1, RoleId = r.Id, DirectoryId = d.Id };
             rd.Create();
             var rd2 = Directory_Role.Get(r.Id, d.Id);
             Assert.IsNotNull(rd2);// create
-            Assert.AreEqual(rd2.Role.Name,"rr1");
+            Assert.AreEqual(rd2.Role.Name, "rr1");
             Assert.AreEqual(rd2.Directory.Name, "testdir");
             rd2.Status = 4;
             rd2.Save();
             var rd4 = Directory_Role.Get(r.Id, d.Id);
-            Assert.AreEqual(4,rd4.Status);//update
-            var roles = Directory_Role.GetRolesByDirectoryId(d.Id);
+            Assert.AreEqual(4, rd4.Status);//update
+            var roles = Directory_Role.GetAllByDirectoryId(d.Id);
             Assert.AreEqual(1, roles.Count);
-            var dirs = Directory_Role.GetDirectoriesByRoleId(r.Id);
+            var dirs = Directory_Role.GetAllByRoleId(r.Id);
             Assert.AreEqual(1, dirs.Count);
             rd4.Delete();//delete
             var rd3 = Directory_Role.Exists(r.Id, d.Id);//exist
             Assert.AreEqual(rd3, false);
-            
+
         }
 
         /// <summary>
