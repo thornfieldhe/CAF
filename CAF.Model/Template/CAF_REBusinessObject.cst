@@ -1,0 +1,469 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C#" Description="Generates a very simple business object." %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="BusinessObjects" Description="" %>
+<%@ Property Name="TableA" Type="String"  Optional="True" Category="Options"  Description="关系表A" %>
+<%@ Property Name="TableB" Type="String"  Optional="True" Category="Options"  Description="关系表B" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Map Name="SqlCSharp" Src="Sql-CSharp" Description="System to C# Type Map" %>
+<%@ Map Name="DbDataReader" Src="DbType-DataReaderMethod" Description="DbType to DataReader Method Map" %>
+<%@ Map Name="SqlNativeSqlDb" Src="SqlNativeType-SqlDbType" Description="SqlNativeType to SqlDbType Map" %>
+<%@ Map Name="DbTypeCSharp" Src="DbType-CSharp" Description="DbType to CSharp Map" %>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace <%= ClassNamespace %>.Model
+{
+    using CAF.Data;
+    using CAF.Validation;
+    using System.ComponentModel.DataAnnotations;
+    using System.Data;
+
+    [Serializable]
+	public partial class <%= GetClassName(SourceTable) %> :  BaseEntity<<%= GetClassName(SourceTable) %>>
+	{   
+        public <%= GetClassName(SourceTable) %>()
+        {
+            Connection = SqlService.Instance.Connection;
+            base.MarkNew();
+            <%= GetPrivateInitalizerFiled(TableA)%> = new Lazy<<%=TableA%>>(() => Init<%=TableA%>(this), isThreadSafe: true);
+            <%= GetPrivateInitalizerFiled(TableB)%> = new Lazy<<%=TableB%>>(() => Init<%=TableB%>(this), isThreadSafe: true);
+        }
+        
+        #region 公共属性
+
+		<% foreach (ColumnSchema column in SourceTable.NonPrimaryKeyColumns) { %>	
+		<%if( !IsSystemFiled(column)){%>
+        <%= GetMemberVariableDeclarationStatement(column)%>
+		<% }} %> 
+        private Lazy<<%=TableA%>> <%= GetPrivateInitalizerFiled(TableA)%>;
+        private <%=TableA%> _<%=TableA.ToLower()%>;
+        private Lazy<<%=TableB%>> <%= GetPrivateInitalizerFiled(TableB)%>;
+        private <%=TableB%> _<%=TableB.ToLower()%>;
+        
+		<% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+        <%  ColumnSchema  column=SourceTable.NonPrimaryKeyColumns[i];%>
+        <% if(!IsSystemFiled(column)) {%>
+        <% if(GetDescription(column)!="") { %>
+        /// <summary>
+        /// <%= GetDescription(column) %>
+        /// </summary>
+        <% } %>
+        <% if(!column.AllowDBNull && !ColumnIsGuid(column)) { %>
+        [Required(ErrorMessage="<%if(GetDescription(column)!="") {%><%= GetDescription(column).Replace("Id","") %><% }else{%><%= GetPropertyName(column).Replace("Id","") %><%}%>不允许为空")]
+        <%}%>
+          <% if(ColumnIsString(column) && column.Size>-1) { %>
+        [StringLength(<%=column.Size %>,ErrorMessage="<%if(GetDescription(column)!="") {%><%= GetDescription(column) %><% }else{%><%= GetPropertyName(column) %><%}%>长度不能超过<%=column.Size %>")]
+        <%}%>
+        <% if(ColumnIsGuid(column) && !column.AllowDBNull) { %>
+        [GuidRequired(ErrorMessage="<%if(GetDescription(column)!="") { %><%= GetDescription(column).Replace("Id","") %><% }else{%><%= GetPropertyName(column).Replace("Id","") %><%}%>不允许为空")]
+        <%}%>
+        <% if(ColumnIsDateTime(column) ) { %>
+        [DateTimeRequired(ErrorMessage="<%if(GetDescription(column)!="") {%><%= GetDescription(column).Replace("Id","") %><% }else{%><%= GetPropertyName(column).Replace("Id","") %><%}%>不允许为空")]
+        <%}%>
+		public <%= GetCSharpVariableType(column) %><%=IsSystemNullAble(column)%> <%= GetPropertyName(column) %>
+		{
+			get {return <%= GetMemberVariableName(column) %>;} 
+            set {SetProperty("<%= GetPropertyName(column) %>",ref <%=GetMemberVariableName(column)%>, value);}           	
+		}
+        
+        <% if (GetPropertyName(column).StartsWith(TableA)){ %>	
+        <% if(GetDescription(column)!="") { %>
+        /// <summary>
+        /// <%= GetDescription(column).Replace("Id","") %>
+        /// </summary>
+        <% } %>
+        public <%=TableA%> <%= TableA %>
+        {
+            get
+            {
+                if (!<%= GetPrivateInitalizerFiled(TableA)%>.IsValueCreated)
+                {
+                    _<%=TableA.ToLower()%> = <%= GetPrivateInitalizerFiled(TableA)%>.Value;
+                }
+                return _<%=TableA.ToLower()%>;
+            }
+        }
+        
+        <% }else if(GetPropertyName(column).StartsWith(TableB)){ %>  
+                <% if(GetDescription(column)!="") { %>
+        /// <summary>
+        /// <%= GetDescription(column).Replace("Id","") %>
+        /// </summary>
+        <% } %>
+        public <%=TableB%> <%= TableB %>
+        {
+            get
+            {
+                if (!<%= GetPrivateInitalizerFiled(TableB)%>.IsValueCreated)
+                {
+                    _<%=TableB.ToLower()%> = <%= GetPrivateInitalizerFiled(TableB)%>.Value;
+                }
+                return _<%=TableB.ToLower()%>;
+            }
+        }
+		<% }}} %>
+        
+		#endregion
+        
+        #region 常量定义
+        
+        const string QUERY_GETBYID = "SELECT Top 1 * FROM <%= SourceTable.Name %> WHERE <%=TableA%>Id = @<%=TableA%>Id  AND <%=TableB%>Id = @<%=TableB%>Id  AND Status!=-1";
+        const string QUERY_GETAllBY<%=TableA.ToUpper()%> = "SELECT * FROM <%= SourceTable.Name %> WHERE <%=TableA%>Id = @<%=TableA%>Id  AND Status!=-1";
+        const string QUERY_GETAllBY<%=TableB.ToUpper()%> = "SELECT * FROM <%= SourceTable.Name %> WHERE <%=TableB%>Id = @<%=TableB%>Id  AND Status!=-1";
+        const string QUERY_DELETE = "UPDATE <%= SourceTable.Name %> SET Status=-1 WHERE <%=TableA%>Id = @<%=TableA%>Id  AND <%=TableB%>Id = @<%=TableB%>Id AND  Status!=-1";
+        const string QUERY_EXISTS = "SELECT Count(*) FROM <%= SourceTable.Name %> WHERE <%=TableA%>Id = @<%=TableA%>Id  AND <%=TableB%>Id = @<%=TableB%>Id AND Status!=-1";        
+        const string QUERY_INSERT="<%=GetInsertQueryString() %>";
+        const string QUERY_UPDATE = "UPDATE <%= SourceTable.Name %> SET {0} WHERE  <%=TableA%>Id = @<%=TableA%>Id  AND <%=TableB%>Id = @<%=TableB%>Id";
+                
+        #endregion
+        
+        #region 静态方法
+        
+        public static <%= GetClassName(SourceTable) %> Get(Guid <%=TableA.ToLower()%>Id,Guid <%=TableB.ToLower()%>Id)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                var item= conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETBYID, new { <%=TableA%>Id = <%=TableA.ToLower()%>Id,<%=TableB%>Id = <%=TableB.ToLower()%>Id }).SingleOrDefault<<%= GetClassName(SourceTable) %>>();
+                if (item == null)
+                {
+                    return null;
+                }
+                item.MarkOld();
+                item.<%= GetPrivateInitalizerFiled(TableA)%> = new Lazy<<%=TableA%>>(() => Init<%=TableA%>(item), isThreadSafe: true);
+                item.<%= GetPrivateInitalizerFiled(TableB)%> = new Lazy<<%=TableB%>>(() => Init<%=TableB%>(item), isThreadSafe: true);
+                return item;
+            }
+		}
+        
+        public static <%= GetCollectionClassName(SourceTable) %> GetAllBy<%=TableA%>Id(Guid <%=TableA.ToLower()%>Id)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                var items = conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETAllBY<%=TableA.ToUpper()%>, new { <%=TableA%>Id = <%=TableA.ToLower()%>Id }).ToList();
+
+                var list = new <%= GetCollectionClassName(SourceTable) %>();
+                foreach (var item in items)
+                {
+                    item.MarkOld();
+                    item.<%= GetPrivateInitalizerFiled(TableA)%> = new Lazy<<%=TableA%>>(() => Init<%=TableA%>(item), isThreadSafe: true);
+                    item.<%= GetPrivateInitalizerFiled(TableB)%> = new Lazy<<%=TableB%>>(() => Init<%=TableB%>(item), isThreadSafe: true);
+                    list.Add(item);
+                }
+                list.MarkOld();
+                return list;
+            }
+        }
+                
+        public static <%= GetCollectionClassName(SourceTable) %> GetAllBy<%=TableB%>Id(Guid <%=TableB.ToLower()%>Id)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                var items = conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETAllBY<%=TableB.ToUpper()%>, new { <%=TableB%>Id = <%=TableB.ToLower()%>Id }).ToList();
+
+                var list = new <%= GetCollectionClassName(SourceTable) %>();
+                foreach (var item in items)
+                {
+                    item.MarkOld();
+                    item.<%= GetPrivateInitalizerFiled(TableA)%> = new Lazy<<%=TableA%>>(() => Init<%=TableA%>(item), isThreadSafe: true);
+                    item.<%= GetPrivateInitalizerFiled(TableB)%> = new Lazy<<%=TableB%>>(() => Init<%=TableB%>(item), isThreadSafe: true);
+                    list.Add(item);
+                }
+                list.MarkOld();
+                return list;
+            }
+        }
+        
+        /// <summary>
+        /// 直接删除
+        /// </summary>
+        /// <returns></returns>
+        public static int Delete(Guid <%=TableA.ToLower()%>Id, Guid <%=TableB.ToLower()%>Id)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                return conn.Execute(QUERY_DELETE, new { <%=TableA%>Id = <%=TableA.ToLower()%>Id, <%=TableB%>Id = <%=TableB.ToLower()%>Id });
+            }
+        }
+
+        public static bool Exists(Guid <%=TableA.ToLower()%>Id, Guid <%=TableB.ToLower()%>Id)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                return conn.Query<int>(QUERY_EXISTS, new {  <%=TableA%>Id = <%=TableA.ToLower()%>Id, <%=TableB%>Id = <%=TableB.ToLower()%>Id }).Single() >= 1;
+            }
+        }
+        
+        #endregion
+        
+        internal override int Delete(IDbConnection conn, IDbTransaction transaction)
+        {
+            base.MarkDelete();
+            return conn.Execute(QUERY_DELETE, this, transaction, null, null);
+        }
+
+        internal override int Update(IDbConnection conn, IDbTransaction transaction)
+        {
+            if (!IsDirty)
+            {
+                return _changedRows;
+            }
+            _updateParameters += ", ChangedDate = GetDate()";
+            var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
+            _changedRows += conn.Execute(query, this, transaction, null, null);
+            return _changedRows;
+        }
+
+        internal override int Insert(IDbConnection conn, IDbTransaction transaction)
+        {
+            _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
+            return _changedRows;
+        }
+        
+        #region 私有方法
+
+        protected static <%=TableA%> Init<%=TableA%>(<%= GetClassName(SourceTable) %> <%= GetClassName(SourceTable).ToLower() %>)
+        {
+            var item = <%=TableA%>.Get(<%= GetClassName(SourceTable).ToLower() %>.<%=TableA%>Id);
+            if (item != null)
+            {
+                item.OnPropertyChange += item.MarkDirty;
+            }
+            return item;
+        }
+
+        protected static <%=TableB%> Init<%=TableB%>(<%= GetClassName(SourceTable) %> <%= GetClassName(SourceTable).ToLower() %>)
+        {
+            var item = <%=TableB%>.Get(<%= GetClassName(SourceTable).ToLower() %>.<%=TableB%>Id);
+            if (item != null)
+            {
+                item.OnPropertyChange += item.MarkDirty;
+            }
+            return item;
+        }
+
+
+        #endregion
+
+    }
+    
+	[Serializable]
+    public class <%= GetCollectionClassName(SourceTable) %>:CollectionBase<<%= GetCollectionClassName(SourceTable) %>,<%= GetClassName(SourceTable) %>>
+    {
+        public <%= GetCollectionClassName(SourceTable) %>() { }
+
+        protected const string tableName = "<%= SourceTable.Name %>";
+        
+        public static <%= GetCollectionClassName(SourceTable) %> Query(Object dynamicObj, string query = " 1=1")
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                var items = conn.Query<<%= GetClassName(SourceTable) %>>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
+
+                var list = new <%= GetCollectionClassName(SourceTable) %>();
+                foreach (var item in items)
+                {
+                    item.MarkOld();
+                    list.Add(item);
+                }
+                return list;
+            }
+        }
+
+        public static int QueryCount(Object dynamicObj, string query = " 1=1")
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single();
+            }
+        }
+
+        public static bool Exists(Object dynamicObj, string query = " 1=1")
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+               return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single()>0;
+            }
+        }
+    }
+}
+
+
+<script runat="template">
+public string GetClassName(TableSchema table)
+{
+    var name=table.Name.Replace("RE_","");
+    int pre = name.IndexOf("_");
+    if (name.EndsWith("ies"))
+	{
+		return name.Substring(pre+1, name.Length - pre-4)+"y";
+	}
+	else if (name.EndsWith("s"))
+	{
+		return name.Substring(pre+1, name.Length - pre-2);
+	}
+	else
+	{
+		return name.Substring(pre+1);
+	}
+}
+
+public override string GetFileName()
+{
+	return GetClassName(SourceTable) + ".cs";
+}
+
+private string GetPrivateInitalizerFiled(string column)
+{
+	return string.Format(" _{0}Initalizer", GetCamelCaseName(column));
+}
+
+private string GetPrivateFiled(string column)
+{
+	return string.Format(" _{0}Id", GetCamelCaseName(column));
+}
+
+private string GetCamelCaseName(string value)
+{
+	return value.Substring(0, 1).ToLower() + value.Substring(1);
+}
+
+private string GetMemberVariableDeclarationStatement(ColumnSchema column)
+{
+	return GetMemberVariableDeclarationStatement("private", column);
+}
+
+private string GetMemberVariableDeclarationStatement(string protectionLevel, ColumnSchema column)
+{
+	string statement = protectionLevel + " ";
+	statement += GetCSharpVariableType(column) +IsSystemNullAble(column)+ " " + GetMemberVariableName(column);
+	
+	string defaultValue = GetMemberVariableDefaultValue(column);
+	if (defaultValue != "")
+	{
+		statement += " = " + defaultValue;
+	}
+	
+	statement += ";";
+	
+	return statement;
+}
+
+private string GetCollectionClassName(TableSchema SourceTable)
+{
+	return GetClassName(SourceTable).Replace("RE_","")+"List";
+}
+
+private string GetCSharpVariableType(ColumnSchema column)
+{
+	if (column.Name.EndsWith("TypeCode")) return column.Name;
+
+	return DbTypeCSharp[column.DataType.ToString()];	
+}
+
+private string IsSystemNullAble(ColumnSchema column)
+{
+	   string type= GetCSharpVariableType(column) ;
+    if( (type=="Guid" ||type=="int"
+		||type=="double"|| type=="decimal"
+		||type=="bool"||type=="DateTime") 
+		&& column.AllowDBNull)
+	{
+		return "?";
+	}
+	return "";
+}
+
+private string GetMemberVariableName(ColumnSchema column)
+{
+	string propertyName = GetPropertyName(column);
+	string memberVariableName = "_" + GetCamelCaseName(propertyName);
+	
+	return memberVariableName;
+}
+
+
+private string GetMemberVariableDefaultValue(ColumnSchema column)
+{
+	switch (column.DataType)
+	{
+		case DbType.Guid:
+		{
+			return "Guid.Empty";
+		}
+		case DbType.AnsiString:
+		case DbType.AnsiStringFixedLength:
+		case DbType.String:
+		case DbType.StringFixedLength:
+		{
+			return "String.Empty";
+		}
+		default:
+		{
+			return "";
+		}
+	}
+}
+
+private string GetPropertyName(ColumnSchema column)
+{
+	string propertyName = column.Name;
+	
+	if (propertyName == column.Table.Name + "Name") return "Name";
+	if (propertyName == column.Table.Name + "Description") return "Description";
+	
+	if (propertyName.EndsWith("TypeCode")) propertyName = propertyName.Substring(0, propertyName.Length - 4);
+	
+	return propertyName;
+}
+
+private bool IsSystemFiled(ColumnSchema column)
+{
+   string name= GetPropertyName(column);
+    return name=="CreatedDate" || name=="ChangedDate" || name=="Status" ||name=="Note";
+}
+
+private string GetDescription(ColumnSchema column)
+{
+	string description = column.Description;
+	
+	if (description == "") return "";
+	if (description == null) return "";	
+	return description;
+}
+
+private bool ColumnIsString(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="string" ;
+}
+
+private bool ColumnIsGuid(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="Guid" ;
+}
+
+private bool ColumnIsDateTime(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="DateTime" ;
+}
+
+private string GetInsertQueryString()
+{
+	  StringBuilder queryParameters = new StringBuilder();
+      queryParameters.Append("@"+SourceTable.PrimaryKey.MemberColumns[0].Name);
+	  for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++)
+      {
+       		queryParameters.Append(", @"+GetPropertyName(SourceTable.NonPrimaryKeyColumns[i]));
+      }
+      return String.Format("INSERT INTO "+SourceTable.Name +" ({0}) VALUES ({1})", queryParameters.ToString().Replace("@", ""), queryParameters.ToString());
+}
+</script>
