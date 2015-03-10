@@ -25,7 +25,7 @@ namespace CAF.Web.WebForm
         protected override void Bind()
         {
             base.Bind();
-            PageHelper.BindOrganizes(new Guid(), dropDepId);
+            PageHelper.BindOrganizes(new Guid(), dropDepId,new Guid().ToString());
             PageTools.BindRadioButton(typeof(UserStatusEnum), radioStatus);
             PageHelper.BindRoles(chkUserRoles);
             var u = Model.User.Get(Id);

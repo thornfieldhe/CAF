@@ -19,8 +19,8 @@ namespace CAF.Web.WebForm
         protected override void Bind()
         {
             base.Bind();
-            PageHelper.BindDirectories(new Guid(), dropDeps);
-            PageTools.BindDropdownList(Role.GetSimpleRoleList(), dropRoles);
+            PageHelper.BindDirectories(new Guid(), dropDeps,new Guid().ToString());
+            PageTools.BindDropdownList(Role.GetSimpleRoleList(), dropRoles, new Guid().ToString());
             PageTools.BindDropdownList(typeof(UserStatusEnum), dropStatus);
             Query();
         }

@@ -23,7 +23,7 @@ namespace CAF.Web.WebForm
         protected override void Bind()
         {
             base.Bind();
-            PageHelper.BindDirectories(txtId.Text.ToGuid(), dropParentId);
+            PageHelper.BindDirectories(txtId.Text.ToGuid(), dropParentId,new Guid().ToString());
             BindTree();
             txtId.Readonly = false;
         }
@@ -71,9 +71,8 @@ namespace CAF.Web.WebForm
         {
             var dir = Directory.Get(new Guid(e.Node.NodeID));
             txtId.Readonly = true;
-            PageHelper.BindDirectories(txtId.Text.ToGuid(), dropParentId);
             PageTools.BindControls(submitForm, dir);
-
+            PageHelper.BindDirectories(txtId.Text.ToGuid(), dropParentId,dir.ParentId.Value.ToString());
         }
 
         private void BindTree()

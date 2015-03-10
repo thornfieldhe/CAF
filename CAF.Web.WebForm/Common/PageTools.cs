@@ -123,7 +123,7 @@ namespace CAF.Web.WebForm.Common
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("txt", ""));
                     if (Info != null)
                     {
-                        if (!(Info.Name == "Id" && (String.IsNullOrWhiteSpace(ctrl.Text) || ctrl.Readonly)))
+                        if (!(item is HiddenField))
                         {
                             Info.SetValue(model, DataMap.GetType(Info, ctrl.Text), null);
                         }
@@ -133,18 +133,6 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (Label)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("lbl", ""));
-                    if (Info != null && ctrl.Text != "")
-                    {
-                        if (!(Info.Name == "Id" && String.IsNullOrWhiteSpace(ctrl.Text)))
-                        {
-                            Info.SetValue(model, DataMap.GetType(Info, ctrl.Text), null);
-                        }
-                    }
-                }
-                if (item is HiddenField)
-                {
-                    var ctrl = (HiddenField)item;
-                    Info = model.GetType().GetProperty(ctrl.ID.Replace("hid", ""));
                     if (Info != null && ctrl.Text != "")
                     {
                         if (!(Info.Name == "Id" && String.IsNullOrWhiteSpace(ctrl.Text)))
@@ -418,14 +406,15 @@ namespace CAF.Web.WebForm.Common
         /// </summary>
         /// <param name="items"></param>
         /// <param name="drop"></param>
-        public static void BindDropdownList(List<ListItem> items, DropDownList drop)
+        /// <param name="selectItem">选中项</param>
+        public static void BindDropdownList(List<ListItem> items, DropDownList drop, string selectItem)
         {
 
             drop.Items.Clear();
             var item = new ListItem { Text = "请选择", Value = new Guid().ToString() };
             drop.Items.Add(item);
             items.ForEach(i => drop.Items.Add(i));
-
+            drop.SelectedValue = selectItem;
         }
 
         /// <summary>
@@ -433,14 +422,14 @@ namespace CAF.Web.WebForm.Common
         /// </summary>
         /// <param name="items"></param>
         /// <param name="drop"></param>
-        public static void BindDropdownList(List<KeyValueItem<Guid, string>> items, DropDownList drop)
+        public static void BindDropdownList(List<KeyValueItem<Guid, string>> items, DropDownList drop, string selectItem)
         {
 
             drop.Items.Clear();
             var item = new ListItem { Text = "请选择", Value = new Guid().ToString() };
             drop.Items.Add(item);
             items.ForEach(i => drop.Items.Add(new ListItem { Text = i.Value, Value = i.Key.ToString() }));
-
+            drop.SelectedValue = selectItem;
         }
 
         /// <summary>

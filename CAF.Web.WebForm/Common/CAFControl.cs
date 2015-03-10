@@ -2,6 +2,7 @@
 namespace CAF.Web.WebForm.CAFControl
 {
     using CAF.Model;
+    using CAF.Web.WebForm.Common;
 
     using FineUI;
 
@@ -55,6 +56,89 @@ namespace CAF.Web.WebForm.CAFControl
 
         }
 
+        public void Create(IBusinessBase business)
+        {
+            if (!this.PreCreate(business))
+            {
+                return;
+            }
+            var created = OnCreate(business);
+            if (created)
+            {
+                PostCreate(business);
+            }
+        }
+        public void Update(IBusinessBase business)
+        {
+            if (!this.PreUpdate(business))
+            {
+                return;
+            }
+            var updated = OnUpdate(business);
+            if (updated)
+            {
+                PostUpdate(business);
+            }
+        }
+        public void Delete(IBusinessBase business)
+        {
+            if (!this.PreDelete(business))
+            {
+                return;
+            }
+            var updated = OnDelete(business);
+            if (updated)
+            {
+                PostDelete(business);
+            }
+        }
+
+
+        public bool PreCreate(IBusinessBase business) { return OnPreCreated == null || OnPreCreated(business); }
+
+        public void PostCreate(IBusinessBase business) { if (OnPostCreated != null) { OnPostCreated(business); } }
+
+        public bool PreDelete(IBusinessBase business) { return OnPreDelete == null || OnPreDelete(business); }
+
+        public void PostDelete(IBusinessBase business) { if (OnPostDelete != null) { OnPostDelete(business); } }
+
+        public bool PreUpdate(IBusinessBase business) { return OnPreUpdated == null || OnPreUpdated(business); }
+
+        public void PostUpdate(IBusinessBase business) { if (OnPostUpdated != null) { OnPostUpdated(business); } }
+
+        public bool OnCreate(IBusinessBase business)
+        {
+            PageTools.BindModel(this, business);
+            business.Create();
+            Alert.ShowInTop(business.Errors.Count > 0 ? business.Errors[0] : Resource.System_Message_AddSuccess);
+            return business.Errors.Count == 0;
+        }
+
+        public bool OnDelete(IBusinessBase business)
+        {
+            PageTools.BindModel(this, business);
+            business.Delete();
+            Alert.ShowInTop(Resource.System_Message_DeleteSuccess);
+            return true;
+        }
+
+        public bool OnUpdate(IBusinessBase business)
+        {
+            PageTools.BindModel(this, business);
+            business.Save();
+            Alert.ShowInTop(business.Errors.Count > 0 ? business.Errors[0] : Resource.System_Message_UpdateSuccess);
+            return business.Errors.Count == 0;
+        }
+
+        public delegate bool PerExcuteHandler(IBusinessBase business);
+        public delegate void PostExcuteHandler(IBusinessBase business);
+        public event PerExcuteHandler OnPreCreated;
+        public event PostExcuteHandler OnPostCreated;
+        public event PerExcuteHandler OnPreDelete;
+        public event PostExcuteHandler OnPostDelete;
+        public event PerExcuteHandler OnPreUpdated;
+        public event PostExcuteHandler OnPostUpdated;
+
     }
 
     #endregion
@@ -82,7 +166,7 @@ namespace CAF.Web.WebForm.CAFControl
         /// <param name="orderBy"></param>
         /// <param name="queryCriteria"></param>
         /// <param name="where"></param>
-        public void BindDataSource<T>(string orderBy,T queryCriteria,string where) where T:ReadOnlyBase
+        public void BindDataSource<T>(string orderBy, T queryCriteria, string where) where T : ReadOnlyBase
         {
             var result = ReadOnlyCollectionBase<T>.Query("Name", PageSize, queryCriteria, where);
             RecordCount = result.TotalCount;

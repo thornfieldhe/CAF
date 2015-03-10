@@ -112,6 +112,7 @@
     <Compile Include="Ext\DecimalExt.cs" />
     <Compile Include="Ext\DoubleExt.cs" />
     <Compile Include="Ext\EnumExt.cs" />
+    <Compile Include="Ext\GuidExt.cs" />
     <Compile Include="Ext\IntExt.cs" />
     <Compile Include="Ext\LinqExt.cs" />
     <Compile Include="Ext\MoneyConvert.cs" />

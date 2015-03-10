@@ -14,10 +14,10 @@ namespace CAF.Web.WebForm.Common
         /// </summary>
         /// <param name="id"></param>
         /// <param name="drop"></param>
-        public static void BindDirectories(Guid id, DropDownList drop)
+        public static void BindDirectories(Guid id, DropDownList drop, string selectItem)
         {
-            var items = Directory.GetOtherDIrectories(id).Select(d => new ListItem { Text = d.Name, Value = d.Id.ToString() }).ToList();
-            PageTools.BindDropdownList(items, drop);
+            var items = Directory.GetOtherDirectories(id).Select(d => new ListItem { Text = d.Name, Value = d.Id.ToString() }).ToList();
+            PageTools.BindDropdownList(items, drop, selectItem);
         }
 
         /// <summary>
@@ -25,10 +25,11 @@ namespace CAF.Web.WebForm.Common
         /// </summary>
         /// <param name="id"></param>
         /// <param name="drop"></param>
-        public static void BindOrganizes(Guid id, DropDownList drop)
+        /// <param name="selectItem"></param>
+        public static void BindOrganizes(Guid id, DropDownList drop, string selectItem)
         {
-            var items = Organize.GetChildrenOrganizes(id).Select(d => new ListItem { Text = d.Name, Value = d.Id.ToString() }).ToList();
-            PageTools.BindDropdownList(items, drop);
+            var items = Organize.GetOtherOrganizes(id).Select(d => new ListItem { Text = d.Name, Value = d.Id.ToString() }).ToList();
+            PageTools.BindDropdownList(items, drop, selectItem);
         }
 
         /// <summary>

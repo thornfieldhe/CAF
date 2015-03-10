@@ -54,15 +54,15 @@ namespace CAF
             IsChangeRelationship = false;//默认进行标识删除
 
             //初始化方法注册
-            _insertDelegate = PreInsert;
-            _insertDelegate += Insert;
-            _insertDelegate += PostInsert;
-            _updateDelegate = PreUpdate;
-            _updateDelegate += Update;
-            _updateDelegate += PostUpdate;
-            _deleteDelegate = PreDelete;
-            _deleteDelegate += Delete;
-            _deleteDelegate += PostDelete;
+            //            _insertDelegate = PreInsert;
+            //            _insertDelegate += Insert;
+            //            _insertDelegate += PostInsert;
+            //            _updateDelegate = PreUpdate;
+            //            _updateDelegate += Update;
+            //            _updateDelegate += PostUpdate;
+            //            _deleteDelegate = PreDelete;
+            //            _deleteDelegate += Delete;
+            //            _deleteDelegate += PostDelete;
         }
 
         internal BaseEntity() : this(Guid.NewGuid()) { }
@@ -254,29 +254,24 @@ namespace CAF
         {
             customerValidator = ValidationFactory.CreateValidator<T>();
             _changedRows = 0;
-            if (IsValid)
+            using (IDbConnection conn = Connection)
             {
-                using (IDbConnection conn = Connection)
+                var transaction = conn.BeginTransaction();
+                try
                 {
-                    var transaction = conn.BeginTransaction();
-                    try
+                    _changedRows += PreInsert(conn, transaction);
+                    if (IsValid)
                     {
-                        _insertDelegate(conn, transaction);
+                        _changedRows += Insert(conn, transaction);
+                        _changedRows += PostInsert(conn, transaction);
                         transaction.Commit();
                         MarkOld();
                     }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw ex;
-                    }
                 }
-            }
-            else
-            {
-                for (var i = 0; i < v.Count; i++)
+                catch (Exception ex)
                 {
-                    Errors.Add(v.ElementAt(i).Message);
+                    transaction.Rollback();
+                    throw ex;
                 }
             }
             return _changedRows;
@@ -285,22 +280,24 @@ namespace CAF
         public virtual int Save()
         {
             this._changedRows = 0;
-            if (IsDirty && IsValid)
+            using (IDbConnection conn = Connection)
             {
-                using (IDbConnection conn = Connection)
+                var transaction = conn.BeginTransaction();
+                try
                 {
-                    var transaction = conn.BeginTransaction();
-                    try
+                    PreUpdate(conn, transaction);
+                    if (IsDirty && IsValid)
                     {
-                        _updateDelegate(conn, transaction);
+                        _changedRows += Update(conn, transaction);
+                        _changedRows += PostUpdate(conn, transaction);
                         transaction.Commit();
                         MarkOld();
                     }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw ex;
-                    }
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
                 }
             }
             return _changedRows;
@@ -314,7 +311,9 @@ namespace CAF
                 var transaction = conn.BeginTransaction();
                 try
                 {
-                    _deleteDelegate(conn, transaction);
+                    _changedRows += PreDelete(conn, transaction);
+                    _changedRows += Delete(conn, transaction);
+                    _changedRows += PostDelete(conn, transaction);
                     transaction.Commit();
                     MarkDelete();
                 }

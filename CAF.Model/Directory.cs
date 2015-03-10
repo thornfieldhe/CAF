@@ -53,12 +53,12 @@ namespace CAF.Model
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static List<SortLevelItem> GetOtherDIrectories(Guid id)
+        public static List<SortLevelItem> GetOtherDirectories(Guid id)
         {
             var item = Get(id);
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                const string query = "Select Id,Name,[Level] From Sys_Directory Where Level Not Like '%'+@Level";
+                const string query = "Select Id,Name,[Level] From Sys_Directories Where Level Not Like '%'+@Level AND Status!=-1";
                 return conn.Query<SortLevelItem>(query, new { Level = item == null ? "00" : item.Level })
                     .Select(d => new SortLevelItem { Id = d.Id, Level = d.Level, Name = (new string('-', d.Level.Length * 3)) + d.Name })
                     .OrderBy(d => d.Level).ToList();
