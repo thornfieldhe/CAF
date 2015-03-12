@@ -25,16 +25,12 @@
                     </f:TextBox>
                     <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
                     </f:ToolbarSeparator>
-                    <f:Button ID="btnNew" Text="新增" Icon="Add" runat="server"  />
-                    <f:QueryButton ID="btnQuery" runat="server" OnClick="btnExcute_Click">
-                    </f:QueryButton>
-                    <f:Button Text="锁定" ID="btnLockRows" runat="server" OnClick="btnLockRows_Click">
-                    </f:Button>
-                    <f:Button Text="解锁" ID="btnUnLockRows" runat="server" OnClick="btnUnLockRows_Click">
-                    </f:Button>
-                    <f:DeleteButton Text="删除" ID="btnDeleteRows" runat="server" OnClick="btnDeleteRows_Click"
-                        ConfirmIcon="Question" ConfirmText="确认删除选定项？">
-                    </f:DeleteButton>
+                    <f:QueryButton ID="btnQuery" runat="server" OnClick="btnQuery_Click"/>
+                    <f:NewButton ID="btnNew"  Icon="Add" runat="server"  />
+                    <f:DeleteButton  ID="btnDeleteRows" runat="server" OnClick="btnDeleteRows_Click"/>
+                    <f:Button Text="锁定" ID="btnLockRows" runat="server" OnClick="btnLockRows_Click"/>
+                    <f:Button Text="解锁" ID="btnUnLockRows" runat="server" OnClick="btnUnLockRows_Click"/>
+                    <f:ToolbarFill ID="ToolbarFill1" runat="server"/>
                 </Items>
             </f:Toolbar>
         </Toolbars>

@@ -8,7 +8,7 @@ namespace CAF.Web.WebForm
     using System.Linq;
 
 
-    public partial class User_Query : ListBase
+    public partial class User_Query : BasePage
     {
         protected override void OnLoad(EventArgs e)
         {
@@ -42,7 +42,7 @@ namespace CAF.Web.WebForm
                 userCriteria.Name = txtName.Text.Trim();
                 userCriteria.Abb = txtName.Text.Trim().ToUpper();
             }
-            grid.BindDataSource( userCriteria, strWhere);
+            grid.BindDataSource(userCriteria, strWhere);
         }
 
         protected override void Bind()
@@ -79,6 +79,11 @@ namespace CAF.Web.WebForm
         }
 
         protected void btnDeleteRows_Click(object sender, EventArgs e)
+        {
+            Update(-1);
+        }
+
+        protected void btnQuery_Click(object sender, EventArgs e)
         {
             Update(-1);
         }

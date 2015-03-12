@@ -9,7 +9,7 @@ namespace CAF.Web.WebForm.Common
 
     using Newtonsoft.Json.Linq;
 
-    public abstract class EditebleListBase : ListBase
+    public abstract class EditebleListBase : BasePage
     {
         protected override void Bind()
         {
@@ -42,7 +42,7 @@ namespace CAF.Web.WebForm.Common
         protected override void BindScripts()
         {
             // 重置表格
-            if (btnReset != null)
+            //if (btnReset != null)
             {
                 //btnReset.OnClientClick = grid.GetRejectChangesReference();
             }
@@ -63,11 +63,6 @@ namespace CAF.Web.WebForm.Common
 
         protected virtual void DeleteRowByID(int rowId) { }
 
-        #region 包含控件
 
-        protected global::FineUI.Button btnSubmit;
-        protected global::FineUI.Button btnReset;
-
-        #endregion 包含控件
     }
 }

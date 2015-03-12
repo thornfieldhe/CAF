@@ -3677,9 +3677,6 @@
     <Compile Include="Common\EditebleListBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Common\ListBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Common\ListItemCompare.cs" />
     <Compile Include="Common\PageHelper.cs" />
     <Compile Include="Common\PageTools.cs" />

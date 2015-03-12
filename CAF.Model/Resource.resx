@@ -225,4 +225,10 @@
   <data name="System_Info_Hint" xml:space="preserve">
     <value>提示</value>
   </data>
+  <data name="System_Message_ConfirmDeleteRow" xml:space="preserve">
+    <value>确认删除选中行？</value>
+  </data>
+  <data name="System_Message_ConfirmReset" xml:space="preserve">
+    <value>确认重置数据?</value>
+  </data>
 </root>

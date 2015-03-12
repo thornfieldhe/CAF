@@ -1,12 +1,10 @@
 ﻿
 namespace CAF.Web.WebForm.CAFControl
 {
-    using System;
-
     using CAF.Model;
     using CAF.Web.WebForm.Common;
-
     using FineUI;
+    using System;
 
     #region CAFPanel
 
@@ -190,7 +188,7 @@ namespace CAF.Web.WebForm.CAFControl
 
         protected override void OnSort(GridSortEventArgs e)
         {
-            base.SortField=e.SortField;
+            base.SortField = e.SortField;
             base.SortDirection = e.SortDirection;
             if (OnQuery != null)
             {
@@ -204,7 +202,7 @@ namespace CAF.Web.WebForm.CAFControl
             var deleteField = base.FindColumn("Delete") as LinkButtonField;
             if (deleteField != null)
             {
-                deleteField.OnClientClick = Confirm.GetShowReference(Resource.System_Message_ConfirmDelete,
+                deleteField.OnClientClick = Confirm.GetShowReference(Resource.System_Message_ConfirmDeleteRow,
                     Resource.System_Action_Delete, MessageBoxIcon.Question, string.Empty, string.Empty);
             }
             base.OnPreDataBound(e);
@@ -219,7 +217,7 @@ namespace CAF.Web.WebForm.CAFControl
         public void BindDataSource<T>(T criteria, string where) where T : ReadOnlyBase
         {
             var result = ReadOnlyCollectionBase<T>
-                .Query(SortField, PageSize, criteria, where, PageIndex,SortDirection);
+                .Query(SortField, PageSize, criteria, where, PageIndex, SortDirection);
             RecordCount = result.TotalCount;
             DataSource = result.Result;
             DataBind();
@@ -284,10 +282,6 @@ namespace CAF.Web.WebForm.CAFControl
         {
             this.Icon = Icon.Add;
             this.Text = Resource.System_Action_Add;
-            this.ConfirmTitle = Resource.System_Info_Hint;
-            this.ConfirmText = Resource.System_Message_ConfirmAdd;
-            this.ConfirmIcon = MessageBoxIcon.Question;
-            this.ValidateForms = new[] { "submitForm" };
         }
     }
     public class DeleteButton : CAFButton
@@ -359,11 +353,10 @@ namespace CAF.Web.WebForm.CAFControl
         public ResetButton()
         {
             this.Icon = Icon.Reload;
-            this.Text = Resource.System_Action_Save;
-            this.ConfirmText = Resource.System_Message_ConfirmSave;
+            this.Text = Resource.System_Action_Reset;
+            this.ConfirmText = Resource.System_Message_ConfirmReset;
             this.ConfirmIcon = MessageBoxIcon.Question;
             this.ConfirmTitle = Resource.System_Info_Hint;
-            this.ValidateForms = new[] { "submitForm" };
         }
     }
     public class CloseButton : CAFButton

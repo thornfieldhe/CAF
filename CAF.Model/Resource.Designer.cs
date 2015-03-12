@@ -277,6 +277,24 @@ namespace CAF.Model {
         }
         
         /// <summary>
+        ///   查找类似 确认删除选中行？ 的本地化字符串。
+        /// </summary>
+        public static string System_Message_ConfirmDeleteRow {
+            get {
+                return ResourceManager.GetString("System_Message_ConfirmDeleteRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确认重置数据? 的本地化字符串。
+        /// </summary>
+        public static string System_Message_ConfirmReset {
+            get {
+                return ResourceManager.GetString("System_Message_ConfirmReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 确认保存? 的本地化字符串。
         /// </summary>
         public static string System_Message_ConfirmSave {
