@@ -1,98 +1,91 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace CAF.Web.WebForm
 {
     using CAF.Model;
-    using CAF.Security;
     using CAF.Web.WebForm.Common;
 
     using FineUI;
 
-    public partial class User_Edit : EditableBase
+    public partial class User_Edit : BasePage
     {
         protected override void OnLoad(EventArgs e)
         {
             pageId = new Guid("5387D9C6-4056-4186-9A86-169DA2D2283A");
             base.OnLoad(e);
             btnClose.OnClientClick = ActiveWindow.GetHidePostBackReference();
+            submitForm.OnPostCreated += submitForm_OnPostExcute;
+            submitForm.OnPostDelete += submitForm_OnPostExcute;
+            submitForm.OnPostUpdated += submitForm_OnPostExcute;
+            submitForm.OnPreCreated += submitForm_OnPreCreated;
+        }
+
+        private bool submitForm_OnPreCreated(IBusinessBase business)
+        {
+            if (!Model.User.Exists(txtLoginName.Text))
+            {
+                return true;
+            }
+            Alert.ShowInTop("用户已存在");
+            return false;
+        }
+
+        private void submitForm_OnPostExcute(IBusinessBase business)
+        {
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
 
         protected override void Bind()
         {
             base.Bind();
-            PageHelper.BindOrganizes(new Guid(), dropDepId,new Guid().ToString());
+            PageHelper.BindOrganizes(new Guid(), dropOrganizeId, new Guid().ToString());
             PageTools.BindRadioButton(typeof(UserStatusEnum), radioStatus);
             PageHelper.BindRoles(chkUserRoles);
             var u = Model.User.Get(Id);
             if (u == null)
             {
-                return;
+                btnDelete.Hidden = true;
+                btnUpdate.Hidden = true;
             }
-            txtLoginName.Enabled = false;
-            txtId.Text = u.Id.ToString();
-            PageTools.BindControls(this.submitForm, u);
+            else
+            {
+                txtLoginName.Enabled = false;
+                submitForm.LoadEntity(u);
+            }
             foreach (var item in chkUserRoles.Items.Where(item => true).Where(item => u.Roles.Count(r => r.Id == new Guid(item.Value)) > 0))
             {
                 item.Selected = true;
             }
-            btnAdd.Visible = false;
-            btnUpdate.Visible = true;
-            btnDelete.Visible = true;
+
         }
 
-        protected override string Update()
+        protected void btnDelete_Click(object sender, EventArgs e)
         {
-            var user = Model.User.Get(new Guid(txtId.Text));
+            var item = Model.User.Get(txtId.Text.ToGuid());
+            submitForm.Delete(item);
+        }
 
-            PageTools.BindModel(this.Page, user);
-            user.Abb = txtName.Text.GetChineseSpell();
-            if (txtUserPassword.Text != "")
-            {
-                user.Pass = Password.DesEncrypt(txtUserPassword.Text);
-            }
+        protected void btnUpdate_Click(object sender, EventArgs e)
+        {
+            var item = Model.User.Get(txtId.Text.ToGuid());
             var ids = chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
-            foreach (var item in ids)
+            foreach (var id in ids)
             {
-                user.Roles.Add(Role.Get(item));
+                item.Roles.Add(Role.Get(id));
             }
-            user.Save();
-            return user.Errors.Count > 0 ? user.Errors[0] : "";
+            submitForm.Update(item);
         }
 
-        protected override string Add()
+        protected void btnAdd_Click(object sender, EventArgs e)
         {
-            if (Model.User.Exists(txtLoginName.Text.Trim()))
+            var item = new User();
+            var ids = chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
+            foreach (var id in ids)
             {
-                return "用户已存在！";
+                item.Roles.Add(Role.Get(id));
             }
-            else
-            {
-                Model.User user =new Model.User();
-                PageTools.BindModel(this.Page, user);
-                user.Abb = txtName.Text.GetChineseSpell();
-                user.Pass = Password.DesEncrypt(txtUserPassword.Text);
-                var ids = chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
-                foreach (var item in ids)
-                {
-                    user.Roles.Add(Role.Get(item));
-                }  
-                user.Create();
-                if (user.Errors.Count>0)
-                {
-                  return user.Errors[0];
-                }
-                return "";
-            }
-        }
-
-        protected override string Delete()
-        {
-            return Model.User.Delete(Id).ToString();
+            submitForm.Create(item);
         }
     }
 }

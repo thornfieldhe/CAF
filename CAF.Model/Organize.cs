@@ -81,19 +81,17 @@ namespace CAF.Model
             }
         }
 
-        protected override int PreInsert(IDbConnection conn, IDbTransaction transaction)
+        protected override void PreInsert(IDbConnection conn, IDbTransaction transaction)
         {
             this.Level = GetMaxCode(conn, transaction);
-            return base.PreInsert(conn, transaction);
         }
 
-        protected override int PreUpdate(IDbConnection conn, IDbTransaction transaction)
+        protected override void PreUpdate(IDbConnection conn, IDbTransaction transaction)
         {
             if (this._updateParameters.Contains("ParentId"))
             {
                 this.Level = GetMaxCode(conn, transaction);
             }
-            return base.PreUpdate(conn, transaction);
         }
     }
 }

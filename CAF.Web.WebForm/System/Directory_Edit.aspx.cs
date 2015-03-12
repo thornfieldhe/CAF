@@ -8,7 +8,7 @@ namespace CAF.Web.WebForm
     using FineUI;
 
 
-    public partial class Directory_Edit : ItemBase
+    public partial class Directory_Edit : BasePage
     {
 
         protected override void OnLoad(EventArgs e)
@@ -18,51 +18,44 @@ namespace CAF.Web.WebForm
                 pageId = new Guid("f66d4ee2-8c93-47bd-83bf-550cab2025da");
             }
             base.OnLoad(e);
+            submitForm.OnPostCreated += submitForm_OnPostExcute;
+            submitForm.OnPostDelete += submitForm_OnPostExcute;
+            submitForm.OnPostUpdated += submitForm_OnPostExcute;
+
+        }
+
+        private void submitForm_OnPostExcute(IBusinessBase business)
+        {
+            Initialization();
         }
 
         protected override void Bind()
         {
             base.Bind();
-            PageHelper.BindDirectories(txtId.Text.ToGuid(), dropParentId,new Guid().ToString());
+            PageHelper.BindDirectories(txtId.Text.ToGuid(), dropParentId, Guid.Empty.ToString());
             BindTree();
             txtId.Readonly = false;
+            btnDelete.Enabled = false;
+            btnUpdate.Enabled = false;
         }
 
-        protected override string Delete()
+        protected void btnDelete_Click(object sender, EventArgs e)
         {
-            if (txtId.Text.ToGuid() == Guid.Empty)
-            {
-                return "未选择目录或目录编码格式不正确！";
-            }
-            Directory.Delete(new Guid(txtId.Text));
-            return "";
+            var item = Directory.Get(txtId.Text.ToGuid());
+            submitForm.Delete(item);
         }
 
-        protected override string Update()
+        protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (txtId.Text.ToGuid() == Guid.Empty)
-            {
-                return "未选择目录或目录编码格式不正确！";
-            }
-            var dir = Directory.Get(new Guid(txtId.Text));
-            PageTools.BindModel(Page, dir);
-            dir.Save();
-            return dir.Errors.Count == 0 ? "" : dir.Errors[0];
+            var item = Directory.Get(txtId.Text.ToGuid());
+            submitForm.Update(item);
         }
 
-        protected override string Add()
+        protected void btnAdd_Click(object sender, EventArgs e)
         {
-
-            if (string.IsNullOrWhiteSpace(txtId.Text))
-            {
-                return "目录编码格式不正确！";
-            }
-            var dir = new Directory();
-            PageTools.BindModel(submitForm, dir);
-            dir.Create();
-            return dir.Errors.Count == 0 ? "" : dir.Errors[0];
+            var item = new Directory();
+            submitForm.Create(item);
         }
-
 
 
         #region tree
@@ -70,9 +63,11 @@ namespace CAF.Web.WebForm
         protected void treeDirs_NodeCommand(object sender, FineUI.TreeCommandEventArgs e)
         {
             var dir = Directory.Get(new Guid(e.Node.NodeID));
-            txtId.Readonly = true;
             PageTools.BindControls(submitForm, dir);
-            PageHelper.BindDirectories(txtId.Text.ToGuid(), dropParentId,dir.ParentId.Value.ToString());
+            PageHelper.BindDirectories(txtId.Text.ToGuid(), dropParentId, dir.ParentId.ToString());
+            btnDelete.Enabled = true;
+            btnUpdate.Enabled = true;
+            txtId.Readonly = true;
         }
 
         private void BindTree()
@@ -89,7 +84,7 @@ namespace CAF.Web.WebForm
             }
         }
 
-        private void ResolveSubTree(Guid id, CAFTreeNode treeNode)
+        private void ResolveSubTree(Guid id, TreeNode treeNode)
         {
             var dirs = Directory.GetAllByParentId(id).OrderBy(d => d.Sort).ToList();
             if (dirs.Count <= 0)
@@ -112,8 +107,7 @@ namespace CAF.Web.WebForm
                                    string.Format("{0}<span style='color: #FF0000'>{1}</span>",
                                        item.Name,
                                        item.Status == (int)HideStatusEnum.Hide ? "[隐藏]" : ""),
-                               NodeID = item.Id.ToString(),
-
+                               NodeID = item.Id.ToString()
                            };
             parent.Add(node);
             return node;

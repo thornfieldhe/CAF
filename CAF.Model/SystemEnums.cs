@@ -54,4 +54,5 @@ namespace CAF.Model
         Fail = -1,
     }
 
+
 }

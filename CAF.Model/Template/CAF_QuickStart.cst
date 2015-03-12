@@ -91,6 +91,7 @@ public void RenderBusinessObject(TableSchema table)
         {
             case "Sys_Organizes":
                 businessObject.Children.Add("User");
+                businessObject.AsChildren.Add("ParentId");
                 businessObject.WithMany.Add("Sys_R_Organize_Role");
                 businessObject.RenderToFile(fileDirectory,true);
             break;

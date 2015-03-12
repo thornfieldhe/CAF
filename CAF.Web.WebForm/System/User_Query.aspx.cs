@@ -14,24 +14,10 @@ namespace CAF.Web.WebForm
         {
             pageId = new Guid("5CCA7546-79EB-4AAE-A7F9-90F9E660A3A6");
             base.OnLoad(e);
+            grid.OnQuery += grid_OnQuery;
         }
 
-        protected override void Bind()
-        {
-            base.Bind();
-            PageHelper.BindDirectories(new Guid(), dropDeps,new Guid().ToString());
-            PageTools.BindDropdownList(Role.GetSimpleRoleList(), dropRoles, new Guid().ToString());
-            PageTools.BindDropdownList(typeof(UserStatusEnum), dropStatus);
-            Query();
-        }
-
-        protected override void BindScripts()
-        {
-            base.BindScripts();
-            btnNew.OnClientClick = winEdit.GetShowReference("User_Edit.aspx", "新增");
-        }
-
-        protected override void ExcuteQuery()
+        private void grid_OnQuery()
         {
             var strWhere = " 1=1";
             var userCriteria = new ReadOnlyUser();
@@ -52,22 +38,35 @@ namespace CAF.Web.WebForm
             }
             if (txtName.Text.Trim() != "")
             {
-                strWhere += " And( UserName Like '%'+@Name+'%' OR Abb Like '%'+@Name+'%')";
+                strWhere += " And(Name Like '%'+@Name+'%' OR Abb Like '%'+@Name+'%')";
                 userCriteria.Name = txtName.Text.Trim();
                 userCriteria.Abb = txtName.Text.Trim().ToUpper();
             }
-            grid.BindDataSource("Name", userCriteria, strWhere);
+            grid.BindDataSource( userCriteria, strWhere);
         }
+
+        protected override void Bind()
+        {
+            base.Bind();
+            PageHelper.BindDirectories(new Guid(), dropDeps, new Guid().ToString(), true);
+            PageTools.BindDropdownList(Role.GetSimpleRoleList(), dropRoles, new Guid().ToString());
+            PageTools.BindDropdownList(typeof(UserStatusEnum), dropStatus);
+            grid_OnQuery();
+        }
+
+        protected override void BindScripts()
+        {
+            base.BindScripts();
+            btnNew.OnClientClick = winEdit.GetShowReference("User_Edit.aspx", "新增");
+        }
+
+
 
         protected string Edit(object id, object name)
         {
             return winEdit.GetShowReference("User_Edit.aspx?Id=" + id, "编辑 - " + name);
         }
 
-        protected string EditRoleDirs(object id, object name)
-        {
-            return winEditRoleDirs.GetShowReference("User_Edit.aspx?Id=" + id, "编辑 - " + name);
-        }
 
         protected void btnLockRows_Click(object sender, EventArgs e)
         {

@@ -1,6 +1,8 @@
 ﻿
 namespace CAF.Web.WebForm.CAFControl
 {
+    using System;
+
     using CAF.Model;
     using CAF.Web.WebForm.Common;
 
@@ -130,6 +132,11 @@ namespace CAF.Web.WebForm.CAFControl
             return business.Errors.Count == 0;
         }
 
+        public void LoadEntity(IBusinessBase business)
+        {
+            PageTools.BindControls(this, business);
+        }
+
         public delegate bool PerExcuteHandler(IBusinessBase business);
         public delegate void PostExcuteHandler(IBusinessBase business);
         public event PerExcuteHandler OnPreCreated;
@@ -141,11 +148,16 @@ namespace CAF.Web.WebForm.CAFControl
 
     }
 
+    public class WindowForm : SubmitForm
+    {
+
+    }
     #endregion
 
 
     public class CAFGrid : Grid
     {
+
         public CAFGrid()
         {
             this.DataKeyNames = new string[] { "Id" };
@@ -157,18 +169,57 @@ namespace CAF.Web.WebForm.CAFControl
             this.IsDatabasePaging = true;
             this.EnableFrame = true;
             this.AutoScroll = true;
+            base.EnableCollapse = true;
+            base.ShowBorder = true;
+            base.ShowHeader = true;
+            base.Columns.Add(new RowNumberField() { EnablePagingNumber = true });
+        }
+
+        public delegate void QueryHandler();
+        public event QueryHandler OnQuery;
+
+        protected override void OnPageIndexChange(GridPageEventArgs e)
+        {
+            base.PageIndex = e.NewPageIndex;
+            if (OnQuery != null)
+            {
+                OnQuery();
+            }
+            base.OnPageIndexChange(e);
+        }
+
+        protected override void OnSort(GridSortEventArgs e)
+        {
+            base.SortField=e.SortField;
+            base.SortDirection = e.SortDirection;
+            if (OnQuery != null)
+            {
+                OnQuery();
+            }
+            base.OnSort(e);
+        }
+
+        protected override void OnPreDataBound(EventArgs e)
+        {
+            var deleteField = base.FindColumn("Delete") as LinkButtonField;
+            if (deleteField != null)
+            {
+                deleteField.OnClientClick = Confirm.GetShowReference(Resource.System_Message_ConfirmDelete,
+                    Resource.System_Action_Delete, MessageBoxIcon.Question, string.Empty, string.Empty);
+            }
+            base.OnPreDataBound(e);
         }
 
         /// <summary>
         /// 绑定数据源
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="orderBy"></param>
-        /// <param name="queryCriteria"></param>
+        /// <param name="criteria"></param>
         /// <param name="where"></param>
-        public void BindDataSource<T>(string orderBy, T queryCriteria, string where) where T : ReadOnlyBase
+        public void BindDataSource<T>(T criteria, string where) where T : ReadOnlyBase
         {
-            var result = ReadOnlyCollectionBase<T>.Query("Name", PageSize, queryCriteria, where);
+            var result = ReadOnlyCollectionBase<T>
+                .Query(SortField, PageSize, criteria, where, PageIndex,SortDirection);
             RecordCount = result.TotalCount;
             DataSource = result.Result;
             DataBind();
@@ -207,6 +258,7 @@ namespace CAF.Web.WebForm.CAFControl
             base.IFrameUrl = "about:blank";
             base.Target = Target.Top;
             base.IsModal = true;
+            base.CloseAction = CloseAction.HidePostBack;
         }
     }
 
@@ -282,7 +334,7 @@ namespace CAF.Web.WebForm.CAFControl
     {
         public SaveButton()
         {
-            this.Icon = Icon.Accept;
+            this.Icon = Icon.Disk;
             this.Text = Resource.System_Action_Save;
             this.ConfirmText = Resource.System_Message_ConfirmSave;
             this.ConfirmIcon = MessageBoxIcon.Question;
@@ -294,7 +346,7 @@ namespace CAF.Web.WebForm.CAFControl
     {
         public UpdateButton()
         {
-            this.Icon = Icon.Accept;
+            this.Icon = Icon.Disk;
             this.Text = Resource.System_Action_Save;
             this.ConfirmText = Resource.System_Message_ConfirmSave;
             this.ConfirmIcon = MessageBoxIcon.Question;
@@ -306,7 +358,7 @@ namespace CAF.Web.WebForm.CAFControl
     {
         public ResetButton()
         {
-            this.Icon = Icon.Accept;
+            this.Icon = Icon.Reload;
             this.Text = Resource.System_Action_Save;
             this.ConfirmText = Resource.System_Message_ConfirmSave;
             this.ConfirmIcon = MessageBoxIcon.Question;
@@ -318,8 +370,8 @@ namespace CAF.Web.WebForm.CAFControl
     {
         public CloseButton()
         {
-            this.Icon = Icon.Accept;
-            this.Text = Resource.System_Action_Save;
+            this.Icon = Icon.SystemClose;
+            this.Text = Resource.System_Action_Close;
             this.ConfirmText = Resource.System_Message_ConfirmSave;
             this.ConfirmIcon = MessageBoxIcon.Question;
             this.ConfirmTitle = Resource.System_Info_Hint;
@@ -330,7 +382,7 @@ namespace CAF.Web.WebForm.CAFControl
     {
         public ExportButton()
         {
-            this.Icon = Icon.PageGo;
+            this.Icon = Icon.DiskDownload;
             this.Text = Resource.System_Action_Export;
         }
     }
@@ -338,7 +390,7 @@ namespace CAF.Web.WebForm.CAFControl
     {
         public InportButton()
         {
-            this.Icon = Icon.Accept;
+            this.Icon = Icon.DiskUpload;
             this.Text = Resource.System_Action_Save;
             this.ConfirmText = Resource.System_Message_ConfirmSave;
             this.ConfirmIcon = MessageBoxIcon.Question;

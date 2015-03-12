@@ -6,7 +6,7 @@ namespace CAF.Web.WebForm
 
     using FineUI;
 
-    public abstract class AuditableBase : ItemBase
+    public abstract class AuditableBase 
     {
         protected void btnApprove_Click(object sender, EventArgs e)
         {

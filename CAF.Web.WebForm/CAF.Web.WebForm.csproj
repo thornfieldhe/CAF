@@ -3668,20 +3668,13 @@
       <DependentUpon>captcha.ashx</DependentUpon>
     </Compile>
     <Compile Include="captcha\CaptchaImage.cs" />
-    <Compile Include="Common\AuditableBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Include="Common\AuditableBase.cs" />
     <Compile Include="Common\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Common\CAFControl.cs" />
-    <Compile Include="Common\EditableBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Include="Common\EditableBase.cs" />
     <Compile Include="Common\EditebleListBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Common\ItemBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Common\ListBase.cs">
@@ -3690,9 +3683,6 @@
     <Compile Include="Common\ListItemCompare.cs" />
     <Compile Include="Common\PageHelper.cs" />
     <Compile Include="Common\PageTools.cs" />
-    <Compile Include="Common\ShowBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

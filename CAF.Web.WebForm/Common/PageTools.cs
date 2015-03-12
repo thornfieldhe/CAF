@@ -407,11 +407,13 @@ namespace CAF.Web.WebForm.Common
         /// <param name="items"></param>
         /// <param name="drop"></param>
         /// <param name="selectItem">选中项</param>
-        public static void BindDropdownList(List<ListItem> items, DropDownList drop, string selectItem)
+        /// <param name="defaultitemValue"></param>
+        public static void BindDropdownList(List<ListItem> items, DropDownList drop, string selectItem,
+            string defaultitemValue = "00000000-0000-0000-0000-000000000000")
         {
 
             drop.Items.Clear();
-            var item = new ListItem { Text = "请选择", Value = new Guid().ToString() };
+            var item = new ListItem { Text = "请选择", Value = defaultitemValue };
             drop.Items.Add(item);
             items.ForEach(i => drop.Items.Add(i));
             drop.SelectedValue = selectItem;
@@ -422,11 +424,14 @@ namespace CAF.Web.WebForm.Common
         /// </summary>
         /// <param name="items"></param>
         /// <param name="drop"></param>
-        public static void BindDropdownList(List<KeyValueItem<Guid, string>> items, DropDownList drop, string selectItem)
+        /// <param name="selectItem"></param>
+        /// <param name="defaultitemValue"></param>
+        public static void BindDropdownList(List<KeyValueItem<Guid, string>> items, DropDownList drop, string selectItem,
+            string defaultitemValue = "00000000-0000-0000-0000-000000000000")
         {
 
             drop.Items.Clear();
-            var item = new ListItem { Text = "请选择", Value = new Guid().ToString() };
+            var item = new ListItem { Text = "请选择", Value = defaultitemValue };
             drop.Items.Add(item);
             items.ForEach(i => drop.Items.Add(new ListItem { Text = i.Value, Value = i.Key.ToString() }));
             drop.SelectedValue = selectItem;
@@ -442,7 +447,6 @@ namespace CAF.Web.WebForm.Common
             drop.Items.Clear();
             drop.Items.Add("请选择", "");
             RichEnumContent.Get(enums).ForEach(i => drop.Items.Add(new ListItem() { Text = i.Description, Value = i.Value.ToString() }));
-            drop.DataBind();
         }
     }
 }

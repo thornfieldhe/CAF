@@ -24,12 +24,12 @@ namespace CAF
 
 
         //方法委托，可以实现Insert，Update，Delete方法扩展
-        protected InsertDelegate _insertDelegate;
-        public delegate int InsertDelegate(IDbConnection conn, IDbTransaction transaction);
-        protected UpdateDelegate _updateDelegate;
-        public delegate int UpdateDelegate(IDbConnection conn, IDbTransaction transaction);
-        protected DeleteDelegate _deleteDelegate;
-        public delegate int DeleteDelegate(IDbConnection conn, IDbTransaction transaction);
+        //        protected InsertDelegate _insertDelegate;
+        //        public delegate int InsertDelegate(IDbConnection conn, IDbTransaction transaction);
+        //        protected UpdateDelegate _updateDelegate;
+        //        public delegate int UpdateDelegate(IDbConnection conn, IDbTransaction transaction);
+        //        protected DeleteDelegate _deleteDelegate;
+        //        public delegate int DeleteDelegate(IDbConnection conn, IDbTransaction transaction);
 
         //属性改变事件，用于通知列表，修改状态为Dity
         internal delegate void PropertyChangeHandler();
@@ -259,11 +259,11 @@ namespace CAF
                 var transaction = conn.BeginTransaction();
                 try
                 {
-                    _changedRows += PreInsert(conn, transaction);
+                    PreInsert(conn, transaction);
                     if (IsValid)
                     {
                         _changedRows += Insert(conn, transaction);
-                        _changedRows += PostInsert(conn, transaction);
+                        PostInsert(conn, transaction);
                         transaction.Commit();
                         MarkOld();
                     }
@@ -289,7 +289,7 @@ namespace CAF
                     if (IsDirty && IsValid)
                     {
                         _changedRows += Update(conn, transaction);
-                        _changedRows += PostUpdate(conn, transaction);
+                        PostUpdate(conn, transaction);
                         transaction.Commit();
                         MarkOld();
                     }
@@ -311,9 +311,9 @@ namespace CAF
                 var transaction = conn.BeginTransaction();
                 try
                 {
-                    _changedRows += PreDelete(conn, transaction);
+                    PreDelete(conn, transaction);
                     _changedRows += Delete(conn, transaction);
-                    _changedRows += PostDelete(conn, transaction);
+                    PostDelete(conn, transaction);
                     transaction.Commit();
                     MarkDelete();
                 }
@@ -360,21 +360,34 @@ namespace CAF
         {
             if (this.IsDelete && !IsChangeRelationship)
             {
-                _deleteDelegate(conn, transaction);
+                PreDelete(conn, transaction);
+                _changedRows += Delete(conn, transaction);
+                PostDelete(conn, transaction);
                 MarkOld();
+                return _changedRows;
             }
-            else if (IsValid)
+            else if (this.IsNew)
             {
-                if (this.IsNew)
+                PreInsert(conn, transaction);
+                if (!IsValid)
                 {
-                    _insertDelegate(conn, transaction);
-                    MarkClean();
+                    return _changedRows;
                 }
-                else if (this.IsDirty || IsClean)
+                Insert(conn, transaction);
+                PostInsert(conn, transaction);
+                MarkOld();
+                return _changedRows;
+            }
+            else if (this.IsDirty)
+            {
+                PreUpdate(conn, transaction);
+                if (!IsValid)
                 {
-                    _updateDelegate(conn, transaction);
-                    MarkOld();
+                    return _changedRows;
                 }
+                _changedRows += Update(conn, transaction);
+                PostUpdate(conn, transaction);
+                MarkOld();
             }
             return _changedRows;
         }
@@ -385,21 +398,21 @@ namespace CAF
 
         internal virtual int Delete(IDbConnection conn, IDbTransaction transaction) { return 0; }
 
-        protected virtual int PreFetch(IDbConnection conn) { return 0; }
+        protected virtual void PreFetch(IDbConnection conn) {  }
 
-        protected virtual int PreInsert(IDbConnection conn, IDbTransaction transaction) { return 0; }
+        protected virtual void PreInsert(IDbConnection conn, IDbTransaction transaction) {  }
 
-        protected virtual int PreUpdate(IDbConnection conn, IDbTransaction transaction) { return 0; }
+        protected virtual void PreUpdate(IDbConnection conn, IDbTransaction transaction) {  }
 
-        protected virtual int PreDelete(IDbConnection conn, IDbTransaction transaction) { return 0; }
+        protected virtual void PreDelete(IDbConnection conn, IDbTransaction transaction) { }
 
-        protected virtual int PostFetch(IDbConnection conn) { return 0; }
+        protected virtual void PostFetch(IDbConnection conn) {  }
 
-        protected virtual int PostUpdate(IDbConnection conn, IDbTransaction transaction) { return 0; }
+        protected virtual void PostUpdate(IDbConnection conn, IDbTransaction transaction) {  }
 
-        protected virtual int PostDelete(IDbConnection conn, IDbTransaction transaction) { return 0; }
+        protected virtual void PostDelete(IDbConnection conn, IDbTransaction transaction) { }
 
-        protected virtual int PostInsert(IDbConnection conn, IDbTransaction transaction) { return 0; }
+        protected virtual void PostInsert(IDbConnection conn, IDbTransaction transaction) {  }
 
         #endregion
 

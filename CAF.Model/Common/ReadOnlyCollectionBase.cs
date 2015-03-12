@@ -10,28 +10,30 @@ namespace CAF
 
     public static class ReadOnlyCollectionBase<K> where K : ReadOnlyBase
     {
-        static readonly string QUERY =
-           "  SELECT * FROM {0} WHERE {1} ORDER BY {2} OFFSET {3} ROWS FETCH NEXT {4} ROWS only ";
+        private static readonly string QUERY =
+            "  SELECT * FROM {0} WHERE {1} ORDER BY {2} {3} OFFSET {4} ROWS FETCH NEXT {5} ROWS only ";
+
         //sqlserver 2012及以下版本使用
         //         readonly string QUERY =
         //            "SELECT * FROM(  SELECT ROW_NUMBER() OVER ( ORDER BY {2} ) AS rownum ,* FROM {0} WHERE {1} )t WHERE rownum BETWEEN {3} AND ({3}+{4})";
 
-        static readonly string COUNT = "  SELECT COUNT(*) FROM {0} WHERE {1}";
+        private static readonly string COUNT = "  SELECT COUNT(*) FROM {0} WHERE {1}";
 
-        static readonly string COMPUTE = "  SELECT {2} FROM {0} WHERE {1}";
+        private static readonly string COMPUTE = "  SELECT {2} FROM {0} WHERE {1}";
 
-        static string _tableName;
+        private static string _tableName;
 
-        static string _queryWhere;
+        private static string _queryWhere;
 
-        static string _orderBy;
+        private static string _orderBy;
 
-        static object _dynamicObj;
+        private static object _dynamicObj;
 
-        static string _sum;
-        static string _average;
+        private static string _sum;
 
+        private static string _average;
 
+        private static string _sortDescription;
 
         public static ReadOnlyCollectionQueryResult<K> Result { get; set; }
 
@@ -43,13 +45,17 @@ namespace CAF
         /// <param name="readonlyList">查询对象，如：new{Id=Guid.NewId(),Name="xxx"}</param>
         /// <param name="queryWhere">查询条件，如：" Id=@Id And Name=@Name"</param>
         /// <param name="pageIndex">当前页，从第0页开始</param>
+        /// <param name="sortDescription"></param>
         /// <param name="sum">求和字段，可以是多字段用","隔开</param>
         /// <param name="average">求平均字段，可以是多字段用","隔开</param>
         /// <returns></returns>
-        public static ReadOnlyCollectionQueryResult<K> Query(string orderBy, int pageSize, K readonlyList, string queryWhere = " 1=1", int pageIndex = 1, string sum = "", string average = "")
+        public static ReadOnlyCollectionQueryResult<K> Query(string orderBy, int pageSize, K readonlyList,
+                                                         string queryWhere = " 1=1", int pageIndex = 0, string sortDescription = "DESC", string sum = "",
+                                                         string average = "")
         {
             _queryWhere = queryWhere;
             _orderBy = orderBy;
+            _sortDescription = sortDescription;
             _tableName = readonlyList.TableName;
 
             _dynamicObj = readonlyList;
@@ -67,8 +73,8 @@ namespace CAF
             {
                 Result.Result =
                     conn.Query<K>(
-                        string.Format(QUERY, _tableName, _queryWhere, _orderBy, Result.PageSize * (Result.PageIndex - 1), Result.PageSize),
-                        _dynamicObj).ToList();
+                        string.Format(QUERY, _tableName, _queryWhere, _orderBy, _sortDescription, Result.PageSize * Result.PageIndex,
+                            Result.PageSize), _dynamicObj).AsEnumerable();
                 Result.TotalCount = conn.Query<int>(string.Format(COUNT, _tableName, _queryWhere), _dynamicObj).Single();
                 Result.Sum = Compute(conn, _sum, "SUM");
                 Result.Average = Compute(conn, _average, "AVG");
@@ -92,7 +98,10 @@ namespace CAF
                 {
                     paras[i] = string.Format(" {1} ({0}) AS {0},", paras[i], methodType);
                 }
-                var result = conn.Query<FastExpando>(string.Format(COMPUTE, _tableName, _queryWhere, string.Join("", paras).Trim(',')), _dynamicObj).Single();
+                var result =
+                    conn.Query<FastExpando>(
+                        string.Format(COMPUTE, _tableName, _queryWhere, string.Join("", paras).Trim(',')), _dynamicObj)
+                        .Single();
                 foreach (var item in result)
                 {
                     method.Add(item.Key, item.Value);

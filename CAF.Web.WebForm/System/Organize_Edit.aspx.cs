@@ -2,6 +2,8 @@
 
 namespace CAF.Web.WebForm
 {
+    using System.Linq;
+
     using CAF.Ext;
     using CAF.Model;
     using CAF.Web.WebForm.CAFControl;
@@ -94,7 +96,7 @@ namespace CAF.Web.WebForm
 
         private void ResolveSubTree(Organize node, TreeNode treeNode)
         {
-            var list = Organize.GetAllByParentId(node.Id);
+            var list = Organize.GetAllByParentId(node.Id).OrderBy(l=>l.Sort).ToList();
             if (list.Count <= 0)
             {
                 return;

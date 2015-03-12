@@ -37,7 +37,7 @@ namespace CAF.Web.WebForm {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.Panel mainPanel;
+        protected global::CAF.Web.WebForm.CAFControl.CAFPanel mainPanel;
         
         /// <summary>
         /// Toolbar1 控件。
@@ -109,7 +109,7 @@ namespace CAF.Web.WebForm {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.Button btnQuery;
+        protected global::CAF.Web.WebForm.CAFControl.QueryButton btnQuery;
         
         /// <summary>
         /// btnLockRows 控件。
@@ -136,7 +136,7 @@ namespace CAF.Web.WebForm {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.Button btnDeleteRows;
+        protected global::CAF.Web.WebForm.CAFControl.DeleteButton btnDeleteRows;
         
         /// <summary>
         /// grid 控件。
@@ -146,15 +146,6 @@ namespace CAF.Web.WebForm {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::CAF.Web.WebForm.CAFControl.CAFGrid grid;
-        
-        /// <summary>
-        /// BoundField1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUI.BoundField BoundField1;
         
         /// <summary>
         /// TemplateField1 控件。
@@ -181,15 +172,6 @@ namespace CAF.Web.WebForm {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.Window winEdit;
-        
-        /// <summary>
-        /// winEditRoleDirs 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUI.Window winEditRoleDirs;
+        protected global::CAF.Web.WebForm.CAFControl.CAFWindow winEdit;
     }
 }

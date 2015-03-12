@@ -30,8 +30,7 @@ namespace CAF.Web.WebForm
         {
             get
             {
-                var id = Guid.NewGuid();
-                return string.IsNullOrWhiteSpace(Request["Id"]) ? id : Guid.Parse(Request["Id"]);
+                return Request["Id"].ToGuid();
             }
         }
 
@@ -403,7 +402,7 @@ namespace CAF.Web.WebForm
 
         protected virtual void Reset() { }
 
-        protected virtual void Query()  { }
+        protected virtual void Query() { }
 
         protected virtual string Export() { return string.Empty; }
 

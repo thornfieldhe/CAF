@@ -3,21 +3,21 @@ namespace CAF.Web.WebForm
 {
     using FineUI;
 
-    public abstract class EditableBase : ItemBase
+    public abstract class EditableBase 
     {
-        protected override string PostDelete()
+        protected  string PostDelete()
         {
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
             return "";
         }
 
-        protected override string PostUpdate()
+        protected  string PostUpdate()
         {
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
             return "";
         }
 
-        protected override string PostAdd()
+        protected  string PostAdd()
         {
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
             return "";

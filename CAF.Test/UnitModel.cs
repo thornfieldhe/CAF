@@ -6,7 +6,7 @@ namespace CAF.Test
 
     using CAF.Model;
     using System.Collections.Generic;
-
+    using System.Linq;
 
     [TestClass]
     public class UnitModel
@@ -334,7 +334,7 @@ namespace CAF.Test
         public void TestReadonlyList()
         {
             var o = new Organize { Name = "o1", Level = "01", Code = "0001" };
-            for (var i = 0; i < 10; i++)
+            for (var i = 0; i < 50; i++)
             {
                 var u = CreateUser();
                 u.Name = "user" + i;
@@ -345,7 +345,7 @@ namespace CAF.Test
             var readOlyBookList = ReadOnlyCollectionBase<ReadOnlyUser>.Query("Name", 2, new ReadOnlyUser { OrganizeId = o.Id },
                    sum: "Status", average: "Status", queryWhere: "   OrganizeId =@OrganizeId", pageIndex: 2);
             Assert.AreEqual(10, readOlyBookList.TotalCount);
-            Assert.AreEqual(2, readOlyBookList.Result.Count);
+            Assert.AreEqual(2, readOlyBookList.Result.Count());
             Assert.AreEqual(10, readOlyBookList.Sum["Status"]);
             Assert.AreEqual(1, readOlyBookList.Average["Status"]);
         }

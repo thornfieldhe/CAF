@@ -14,10 +14,21 @@ namespace CAF.Web.WebForm.Common
         /// </summary>
         /// <param name="id"></param>
         /// <param name="drop"></param>
-        public static void BindDirectories(Guid id, DropDownList drop, string selectItem)
+        /// <param name="selectItem"></param>
+        /// <param name="useLevel"></param>
+        public static void BindDirectories(Guid id, DropDownList drop, string selectItem, bool useLevel = false)
         {
-            var items = Directory.GetOtherDirectories(id).Select(d => new ListItem { Text = d.Name, Value = d.Id.ToString() }).ToList();
-            PageTools.BindDropdownList(items, drop, selectItem);
+            if (!useLevel)
+            {
+                var items = Directory.GetOtherDirectories(id).Select(d => new ListItem { Text = d.Name, Value = d.Id.ToString() }).ToList();
+                PageTools.BindDropdownList(items, drop, selectItem);
+            }
+            else
+            {
+                var items = Directory.GetOtherDirectories(id).Select(d => new ListItem { Text = d.Name, Value = d.Level }).ToList();
+                PageTools.BindDropdownList(items, drop, selectItem, "");
+            }
+
         }
 
         /// <summary>
