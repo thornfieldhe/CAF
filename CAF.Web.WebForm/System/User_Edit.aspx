@@ -40,21 +40,6 @@
                     </f:FormRow>
                     <f:FormRow>
                         <Items>
-                            <f:TextBox ID="txtPass" Label="密码" runat="server" ShowRedStar="true" TextMode="Password"
-                                MinLength="8">
-                            </f:TextBox>
-                        </Items>
-                    </f:FormRow>
-                    <f:FormRow>
-                        <Items>
-                            <f:TextBox ID="txtConfirmPass" Label="确认密码" runat="server" ShowRedStar="true" TextMode="Password"
-                                CompareOperator="Equal" CompareMessage="密码不一致！" CompareControl="txtPass"
-                                MinLength="8">
-                            </f:TextBox>
-                        </Items>
-                    </f:FormRow>
-                    <f:FormRow>
-                        <Items>
                             <f:NumberBox ID="txtPhoneNum" Label="手机" runat="server">
                             </f:NumberBox>
                         </Items>

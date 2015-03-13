@@ -5,6 +5,7 @@ namespace CAF.Web.WebForm.CAFControl
     using CAF.Web.WebForm.Common;
     using FineUI;
     using System;
+    using System.Linq;
 
     #region CAFPanel
 
@@ -124,10 +125,19 @@ namespace CAF.Web.WebForm.CAFControl
 
         public bool OnUpdate(IBusinessBase business)
         {
-            PageTools.BindModel(this, business);
-            business.Save();
-            Alert.ShowInTop(business.Errors.Count > 0 ? business.Errors[0] : Resource.System_Message_UpdateSuccess);
-            return business.Errors.Count == 0;
+            try
+            {
+                PageTools.BindModel(this, business);
+                business.Save();
+                Alert.ShowInTop(business.Errors.Count > 0 ? business.Errors[0] : Resource.System_Message_UpdateSuccess);
+                return business.Errors.Count == 0;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
 
         public void LoadEntity(IBusinessBase business)
@@ -197,16 +207,6 @@ namespace CAF.Web.WebForm.CAFControl
             base.OnSort(e);
         }
 
-        protected override void OnPreDataBound(EventArgs e)
-        {
-            var deleteField = base.FindColumn("Delete") as LinkButtonField;
-            if (deleteField != null)
-            {
-                deleteField.OnClientClick = Confirm.GetShowReference(Resource.System_Message_ConfirmDeleteRow,
-                    Resource.System_Action_Delete, MessageBoxIcon.Question, string.Empty, string.Empty);
-            }
-            base.OnPreDataBound(e);
-        }
 
         /// <summary>
         /// 绑定数据源
@@ -221,6 +221,35 @@ namespace CAF.Web.WebForm.CAFControl
             RecordCount = result.TotalCount;
             DataSource = result.Result;
             DataBind();
+        }
+
+        public void DeleteItems<T>() where T : IBusinessBase
+        {
+            try
+            {
+                var list = SelectedRowIndexArray;
+                if (list.Length == 0)
+                {
+                    Alert.ShowInTop("请选择删除项！");
+                }
+                else
+                {
+                    foreach (var id in list.Select(i => (Rows[i].DataKeys[0].ToString().ToGuid())))
+                    {
+                        var item = (T)Activator.CreateInstance(typeof(T), true);
+                        item.Id = id;
+                        item.Delete();
+                    }
+                    if (OnQuery != null)
+                    {
+                        OnQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Alert.ShowInTop(ex.Message);
+            }
         }
     }
 
@@ -252,6 +281,7 @@ namespace CAF.Web.WebForm.CAFControl
         {
             base.Hidden = true;
             base.EnableIFrame = true;
+            base.EnableResize = false;
             base.CloseAction = CloseAction.HidePostBack;
             base.IFrameUrl = "about:blank";
             base.Target = Target.Top;
@@ -368,7 +398,6 @@ namespace CAF.Web.WebForm.CAFControl
             this.ConfirmText = Resource.System_Message_ConfirmSave;
             this.ConfirmIcon = MessageBoxIcon.Question;
             this.ConfirmTitle = Resource.System_Info_Hint;
-            this.ValidateForms = new[] { "submitForm" };
         }
     }
     public class ExportButton : CAFButton
@@ -389,6 +418,36 @@ namespace CAF.Web.WebForm.CAFControl
             this.ConfirmIcon = MessageBoxIcon.Question;
             this.ConfirmTitle = Resource.System_Info_Hint;
             this.ValidateForms = new[] { "submitForm" };
+        }
+    }
+    #endregion
+
+    #region CAFLinkButtonField
+
+    public class DeleteLinkButtonField : LinkButtonField
+    {
+        public DeleteLinkButtonField()
+        {
+            this.Icon = Icon.Delete;
+            this.ConfirmText = Resource.System_Message_ConfirmDelete;
+            this.ConfirmTitle = Resource.System_Info_Hint;
+            this.ConfirmIcon = MessageBoxIcon.Question;
+            base.Width = 60;
+            this.CommandName = "Delete";
+            this.ConfirmTarget = Target.Top;
+            this.HeaderText = Resource.System_Action_Delete;
+            this.ColumnID = "Delete";
+        }
+    }
+
+    public class EditWindowField : WindowField
+    {
+        public EditWindowField()
+        {
+            this.Icon = Icon.Pencil;
+            base.Width = 60;
+            this.HeaderText = Resource.System_Action_Edit;
+            this.ColumnID = "Edit";
         }
     }
     #endregion

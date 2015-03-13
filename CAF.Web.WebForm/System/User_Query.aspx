@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
+    <title>用户查询</title>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -35,8 +35,11 @@
             </f:Toolbar>
         </Toolbars>
         <Items>
-            <f:CAFGrid ID="grid" runat="server" Title="用户列表" SortField="Name" >
+            <f:CAFGrid ID="grid" runat="server" Title="用户列表" SortField="Name" OnRowCommand="gridRowCommand">
                 <Columns>
+                    <f:EditWindowField WindowID="winEdit"  DataTextFormatString="{0}" DataIFrameUrlFields="Id"
+                    DataIFrameUrlFormatString="User_Edit.aspx?Id={0}" DataWindowTitleField="Name"
+                    DataWindowTitleFormatString="编辑 - {0}"  />
                     <f:BoundField Width="80px" ColumnID="LoginName" SortField="LoginName" DataField="LoginName"
                         HeaderText="登陆名"></f:BoundField>
                     <f:BoundField Width="80px" ColumnID="Name" SortField="Name" DataField="Name"
@@ -56,6 +59,7 @@
                     <f:BoundField Width="140px" ColumnID="ChangedDate" SortField="ChangedDate" DataField="ChangedDate"
                         HeaderText="更新时间"></f:BoundField>
                     <f:BoundField Width="200px" ColumnID="Note" DataField="Note" HeaderText="备注"></f:BoundField>
+                <f:DeleteLinkButtonField  />
                 </Columns>
                 <PageItems>
                     <f:ToolbarSeparator ID="ToolbarSeparator2" runat="server">
@@ -64,9 +68,7 @@
             </f:CAFGrid>
         </Items>
     </f:CAFPanel>
-            <f:CAFWindow ID="winEdit" Title="编辑" runat="server" 
-                Width="600px" Height="600px" OnClose="winEdit_Close">
-    </f:CAFWindow>
+    <f:CAFWindow ID="winEdit" Title="编辑"  runat="server" OnClose="winEdit_Close"  Width="600px" Height="600px"/>
     </form>
 </body>
 </html>

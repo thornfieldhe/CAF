@@ -17,6 +17,42 @@ namespace CAF.Web.WebForm
             grid.OnQuery += grid_OnQuery;
         }
 
+        protected override void Bind()
+        {
+            base.Bind();
+            PageHelper.BindDirectories(new Guid(), dropDeps, new Guid().ToString(), true);
+            PageTools.BindDropdownList(Role.GetSimpleRoleList(), dropRoles, new Guid().ToString());
+            PageTools.BindDropdownList(typeof(UserStatusEnum), dropStatus);
+            grid_OnQuery();
+            btnNew.OnClientClick = winEdit.GetShowReference("User_Edit.aspx", "新增");
+        }
+
+
+        protected void btnDeleteRows_Click(object sender, EventArgs e)
+        {
+            grid.DeleteItems<Model.User>();
+        }
+
+        protected void btnQuery_Click(object sender, EventArgs e)
+        {
+            grid_OnQuery();
+        }
+
+        protected void winEdit_Close(object sender, WindowCloseEventArgs e)
+        {
+            grid_OnQuery();
+        }
+
+        protected void gridRowCommand(object sender,GridCommandEventArgs e)
+        {
+            if (e.CommandName == "Delete")
+            {
+                var id = grid.Rows[e.RowIndex].DataKeys[0].ToString().ToGuid();
+                Model.User.Delete(id);
+            }
+            grid_OnQuery();
+        }
+
         private void grid_OnQuery()
         {
             var strWhere = " 1=1";
@@ -38,60 +74,18 @@ namespace CAF.Web.WebForm
             }
             if (txtName.Text.Trim() != "")
             {
-                strWhere += " And(Name Like '%'+@Name+'%' OR Abb Like '%'+@Name+'%')";
+                strWhere += " And(Name Like '%'+@Name+'%' OR Abb Like '%'+@Abb+'%')";
                 userCriteria.Name = txtName.Text.Trim();
                 userCriteria.Abb = txtName.Text.Trim().ToUpper();
             }
             grid.BindDataSource(userCriteria, strWhere);
         }
 
-        protected override void Bind()
-        {
-            base.Bind();
-            PageHelper.BindDirectories(new Guid(), dropDeps, new Guid().ToString(), true);
-            PageTools.BindDropdownList(Role.GetSimpleRoleList(), dropRoles, new Guid().ToString());
-            PageTools.BindDropdownList(typeof(UserStatusEnum), dropStatus);
-            grid_OnQuery();
-        }
+        #region 特定方法
 
-        protected override void BindScripts()
-        {
-            base.BindScripts();
-            btnNew.OnClientClick = winEdit.GetShowReference("User_Edit.aspx", "新增");
-        }
+        protected void btnLockRows_Click(object sender, EventArgs e) { Update((int)UserStatusEnum.Locked); }
 
-
-
-        protected string Edit(object id, object name)
-        {
-            return winEdit.GetShowReference("User_Edit.aspx?Id=" + id, "编辑 - " + name);
-        }
-
-
-        protected void btnLockRows_Click(object sender, EventArgs e)
-        {
-            Update((int)UserStatusEnum.Locked);
-        }
-
-        protected void btnUnLockRows_Click(object sender, EventArgs e)
-        {
-            Update((int)UserStatusEnum.Normal);
-        }
-
-        protected void btnDeleteRows_Click(object sender, EventArgs e)
-        {
-            Update(-1);
-        }
-
-        protected void btnQuery_Click(object sender, EventArgs e)
-        {
-            Update(-1);
-        }
-
-        protected void winEdit_Close(object sender, WindowCloseEventArgs e)
-        {
-            Query();
-        }
+        protected void btnUnLockRows_Click(object sender, EventArgs e) { Update((int)UserStatusEnum.Normal); }
 
         private void Update(int cmd)
         {
@@ -119,8 +113,11 @@ namespace CAF.Web.WebForm
             {
                 Alert.ShowInTop(ex.Message);
             }
-            Query();
+            grid_OnQuery();
         }
+
+        #endregion
+
 
     }
 }

@@ -91,7 +91,11 @@ namespace CAF
         protected List<string> _errors;
 
 
-        public List<string> Errors { get { return _errors; } protected set { _errors = value; } }
+        public List<string> Errors
+        {
+            get { return _errors ?? (_errors = new List<string>()); }
+            protected set { _errors = value; }
+        }
 
         [NonSerialized]
         Validator<T> customerValidator = ValidationFactory.CreateValidator<T>();
@@ -102,25 +106,18 @@ namespace CAF
         {
             get
             {
-                try
-                {
-                    var item = this as T;
 
-                    customerValidator = ValidationFactory.CreateValidator<T>();
-                    v = customerValidator.Validate(item);
+                var item = this as T;
 
-                    (Errors == null).IfIsTrue(() => Errors = new List<string>());
-                    for (var i = 0; i < v.Count; i++)
-                    {
-                        Errors.Add(v.ElementAt(i).Message);
-                    }
-                    _isValid = v.IsValid;
-                    return _isValid;
-                }
-                catch (Exception rc)
+                customerValidator = ValidationFactory.CreateValidator<T>();
+                v = customerValidator.Validate(item);
+
+                for (var i = 0; i < v.Count; i++)
                 {
-                    throw rc;
+                    Errors.Add(v.ElementAt(i).Message);
                 }
+                _isValid = v.IsValid;
+                return _isValid;
             }
             protected set { _isValid = value; }
         }
@@ -398,21 +395,21 @@ namespace CAF
 
         internal virtual int Delete(IDbConnection conn, IDbTransaction transaction) { return 0; }
 
-        protected virtual void PreFetch(IDbConnection conn) {  }
+        protected virtual void PreFetch(IDbConnection conn) { }
 
-        protected virtual void PreInsert(IDbConnection conn, IDbTransaction transaction) {  }
+        protected virtual void PreInsert(IDbConnection conn, IDbTransaction transaction) { }
 
-        protected virtual void PreUpdate(IDbConnection conn, IDbTransaction transaction) {  }
+        protected virtual void PreUpdate(IDbConnection conn, IDbTransaction transaction) { }
 
         protected virtual void PreDelete(IDbConnection conn, IDbTransaction transaction) { }
 
-        protected virtual void PostFetch(IDbConnection conn) {  }
+        protected virtual void PostFetch(IDbConnection conn) { }
 
-        protected virtual void PostUpdate(IDbConnection conn, IDbTransaction transaction) {  }
+        protected virtual void PostUpdate(IDbConnection conn, IDbTransaction transaction) { }
 
         protected virtual void PostDelete(IDbConnection conn, IDbTransaction transaction) { }
 
-        protected virtual void PostInsert(IDbConnection conn, IDbTransaction transaction) {  }
+        protected virtual void PostInsert(IDbConnection conn, IDbTransaction transaction) { }
 
         #endregion
 

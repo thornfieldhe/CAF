@@ -109,7 +109,6 @@ namespace CAF.Web.WebForm
         {
             PageTools.ClearControls(this.Page);
             Bind();
-            BindScripts();
         }
 
 
@@ -119,10 +118,7 @@ namespace CAF.Web.WebForm
         /// </summary>
         protected virtual void Bind() { }
 
-        /// <summary>
-        /// 绑定脚本
-        /// </summary>
-        protected virtual void BindScripts() { }
+
 
         /// <summary>
         /// 绑定只读模式下控件的状态

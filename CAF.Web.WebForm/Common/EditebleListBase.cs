@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace CAF.Web.WebForm.Common
 {
@@ -14,8 +11,8 @@ namespace CAF.Web.WebForm.Common
         protected override void Bind()
         {
             base.Bind();
-//            grid.AllowCellEditing = true;
-//            grid.ClicksToEdit = 1;
+            //            grid.AllowCellEditing = true;
+            //            grid.ClicksToEdit = 1;
         }
 
         // 删除选中行的脚本
@@ -39,7 +36,7 @@ namespace CAF.Web.WebForm.Common
             deleteField.OnClientClick = GetDeleteScript(grid);
         }
 
-        protected override void BindScripts()
+        protected void BindScripts()
         {
             // 重置表格
             //if (btnReset != null)
@@ -52,12 +49,12 @@ namespace CAF.Web.WebForm.Common
         {
             if (e.CommandName == "Delete")
             {
-//                int rowID = Convert.ToInt32(grid.DataKeys[e.RowIndex][0]);
-//                DeleteRowByID(rowID);
-//
-//                Query();
-//
-//                Alert.ShowInTop("删除数据成功!");
+                //                int rowID = Convert.ToInt32(grid.DataKeys[e.RowIndex][0]);
+                //                DeleteRowByID(rowID);
+                //
+                //                Query();
+                //
+                //                Alert.ShowInTop("删除数据成功!");
             }
         }
 

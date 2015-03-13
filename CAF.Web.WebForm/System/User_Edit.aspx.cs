@@ -50,6 +50,7 @@ namespace CAF.Web.WebForm
             }
             else
             {
+                btnAdd.Hidden = true;
                 txtLoginName.Enabled = false;
                 submitForm.LoadEntity(u);
             }
