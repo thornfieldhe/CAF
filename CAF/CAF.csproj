@@ -79,8 +79,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\BaseEntity.cs">
+      <Link>ObjectBusiness\BaseEntity.cs</Link>
+    </Compile>
     <Compile Include="BuilderBase.cs" />
-    <Compile Include="BusinessBase.cs" />
     <Compile Include="BusinessChangedEventArgs.cs" />
     <Compile Include="CAFConfiguration.cs" />
     <Compile Include="CommandInvoker.cs" />
@@ -115,6 +117,7 @@
     <Compile Include="Ext\GuidExt.cs" />
     <Compile Include="Ext\IntExt.cs" />
     <Compile Include="Ext\LinqExt.cs" />
+    <Compile Include="Ext\ListExt.cs" />
     <Compile Include="Ext\MoneyConvert.cs" />
     <Compile Include="Ext\BoolExt.cs" />
     <Compile Include="Ext\ObjExt.cs" />
@@ -123,6 +126,12 @@
     <Compile Include="Ext\XmlExt.cs" />
     <Compile Include="GenericContex.cs" />
     <Compile Include="Log\CAFLogging.cs" />
+    <Compile Include="ObjectBusiness\CollectionBase.cs" />
+    <Compile Include="ObjectBusiness\KeyValueItem.cs" />
+    <Compile Include="ObjectBusiness\ReadOnlyBase.cs" />
+    <Compile Include="ObjectBusiness\ReadOnlyCollectionBase.cs" />
+    <Compile Include="ObjectBusiness\ReadOnlyCollectionQueryResult.cs" />
+    <Compile Include="ObjectBusiness\SortLevelItem.cs" />
     <Compile Include="ObjectCloner.cs" />
     <Compile Include="ObjectPool\ActivatedState.cs" />
     <Compile Include="ObjectPool\ConstructedState.cs" />

@@ -123,7 +123,9 @@ namespace CAF.Web.WebForm.Common
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("txt", ""));
                     if (Info != null)
                     {
-                        if (!(item is HiddenField))
+                        if (!(item is HiddenField) 
+                            && ((Info.Name == "Id" && ctrl.Text.ToGuid()!=Guid.Empty)
+                            || Info.Name!="Id"))
                         {
                             Info.SetValue(model, DataMap.GetType(Info, ctrl.Text), null);
                         }

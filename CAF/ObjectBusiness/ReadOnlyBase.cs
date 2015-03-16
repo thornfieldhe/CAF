@@ -1,4 +1,4 @@
-namespace CAF.Model
+namespace CAF
 {
     public class ReadOnlyBase
     {

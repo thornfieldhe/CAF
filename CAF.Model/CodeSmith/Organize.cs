@@ -109,7 +109,7 @@ namespace CAF.Model
                 }
                 return  _userList;
             }
-            internal set
+            set
             {
                  _userList = value;
             }
@@ -125,7 +125,7 @@ namespace CAF.Model
                 }
                 return  _roleList;
             }
-            internal set
+             set
             {
                  _roleList = value;
             }
@@ -272,13 +272,13 @@ namespace CAF.Model
         #endregion
         
 		
-		internal override int Delete(IDbConnection conn, IDbTransaction transaction)
+		public override int Delete(IDbConnection conn, IDbTransaction transaction)
 		{
             base.MarkDelete();
             return conn.Execute(QUERY_DELETE, new { Id = Id }, transaction, null, null);
 		}
 		
-		internal override int Update(IDbConnection conn, IDbTransaction transaction)
+		public override int Update(IDbConnection conn, IDbTransaction transaction)
 		{
              if (!IsDirty)
              {
@@ -300,7 +300,7 @@ namespace CAF.Model
             return _changedRows;
 		}
 		
-		internal override int Insert(IDbConnection conn, IDbTransaction transaction)
+		public override int Insert(IDbConnection conn, IDbTransaction transaction)
 		{
             _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
     		 _userListInitalizer.IsValueCreated.IfIsTrue(

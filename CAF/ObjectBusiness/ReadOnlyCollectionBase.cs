@@ -3,7 +3,6 @@ namespace CAF
 {
 
     using CAF.Data;
-    using CAF.Model;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
@@ -34,6 +33,10 @@ namespace CAF
         private static string _average;
 
         private static string _sortDescription;
+
+        private static IDbConnection _connection;
+        public static IDbConnection Connection { get { return _connection; } set { _connection = value; } }
+
 
         public static ReadOnlyCollectionQueryResult<K> Result { get; set; }
 
@@ -69,7 +72,7 @@ namespace CAF
 
         private static void ExtcuteQuery()
         {
-            using (IDbConnection conn = SqlService.Instance.Connection)
+            using (IDbConnection conn = Connection)
             {
                 Result.Result =
                     conn.Query<K>(

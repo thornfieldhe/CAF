@@ -1,5 +1,5 @@
 ﻿
-namespace CAF.Model
+namespace CAF
 {
     public class KeyValueItem<K, T>
     {

@@ -3,6 +3,8 @@ using System;
 
 namespace CAF.Test
 {
+    using CAF.Ext;
+    using System.Collections.Generic;
 
     [TestClass]
     public class ModelTest
@@ -21,6 +23,17 @@ namespace CAF.Test
             Assert.AreEqual(d.GetLastDayOfMonth(), new DateTime(2015, 1, 31));
             Assert.AreEqual(new DateTime(2014, 11, 1).ToAgo(), "2 月前");
             Assert.AreEqual(d.WeekOfYear(), 5);
+        }
+
+                [TestMethod]
+        public void TestExt()
+        {
+            var list = new List<int>();
+            Assert.IsTrue(!list.HasItem());
+            list = null;
+            Assert.IsTrue(!list.HasItem());
+            list = new List<int>() { 2 };
+            Assert.IsTrue(list.HasItem());
         }
     }
 

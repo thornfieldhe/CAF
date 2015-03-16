@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace CAF
 {
-    using CAF.Model;
     using System.Data;
     using System.Linq;
 
@@ -31,6 +30,11 @@ namespace CAF
             _items = items;
         }
 
+        [NonSerialized]
+        protected IDbConnection _connection;
+        public IDbConnection Connection { get { return _connection; } set { _connection = value; } }
+
+
         #region 基本状态
         internal bool _isNew = false;
         internal bool _isDirty = false;
@@ -44,7 +48,7 @@ namespace CAF
         /// true：只更新关系
         /// false：标记删除
         /// </summary>
-        internal bool IsChangeRelationship
+        public bool IsChangeRelationship
         {
             get { return _isChangeRelationship; }
             set
@@ -61,25 +65,25 @@ namespace CAF
         public delegate void OnInsertHandler(TMember member);//插入集合对象时执行父对象的PostInsert方法
         public event OnInsertHandler OnInsert;
 
-        internal virtual void MarkNew()
+        public virtual void MarkNew()
         {
             _isNew = true;
             MarkDirty();
         }
 
 
-        internal virtual void MarkOld()
+        public virtual void MarkOld()
         {
             _isNew = false;
             MarkClean();
         }
 
-        internal virtual void MarkClean()
+        public virtual void MarkClean()
         {
             _isDirty = false;
         }
 
-        internal virtual void MarkDirty()
+        public virtual void MarkDirty()
         {
             _isDirty = true;
             if (OnMarkDirty != null)
@@ -293,7 +297,7 @@ namespace CAF
             var i = 0;
             if (IsDirty)
             {
-                using (IDbConnection conn = SqlService.Instance.Connection)
+                using (IDbConnection conn = Connection)
                 {
                     var transaction = conn.BeginTransaction();
                     try

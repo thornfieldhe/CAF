@@ -31,7 +31,7 @@
                         <Rows>
                                                         <f:FormRow>
                                 <Items>
-                                    <f:TextBox ID="txtId" Label="编码(GUID)" Required="true" runat="server" ShowRedStar="true">
+                                    <f:TextBox ID="txtId" Label="编码(GUID)"  runat="server" >
                                     </f:TextBox>
                                 </Items>
                             </f:FormRow>

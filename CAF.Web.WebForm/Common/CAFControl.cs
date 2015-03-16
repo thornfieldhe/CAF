@@ -87,8 +87,8 @@ namespace CAF.Web.WebForm.CAFControl
             {
                 return;
             }
-            var updated = OnDelete(business);
-            if (updated)
+            var delete = OnDelete(business);
+            if (delete)
             {
                 PostDelete(business);
             }

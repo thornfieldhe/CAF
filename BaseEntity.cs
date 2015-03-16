@@ -12,12 +12,12 @@ namespace CAF
     public class BaseEntity<T> : IEqualityComparer<T>, IBusinessBase where T : class,IBusinessBase
     {
         protected Guid _id;
-        private int _status;
-        private DateTime _createdDate;
-        private DateTime _changedDate;
-        private string _note;
+        protected int _status;
+        protected DateTime _createdDate;
+        protected DateTime _changedDate;
+        protected string _note;
         [NonSerialized]
-        private IDbConnection _connection;
+        protected IDbConnection _connection;
 
         protected int _changedRows = 0;//影响行
         protected string _updateParameters = "";// 用于拼接更新方法所需字段
@@ -32,8 +32,8 @@ namespace CAF
         //        public delegate int DeleteDelegate(IDbConnection conn, IDbTransaction transaction);
 
         //属性改变事件，用于通知列表，修改状态为Dity
-        internal delegate void PropertyChangeHandler();
-        internal event PropertyChangeHandler OnPropertyChange;
+        public delegate void PropertyChangeHandler();
+        public event PropertyChangeHandler OnPropertyChange;
 
         public Guid Id { get { return _id; } set { SetProperty("Id", ref _id, value); } }
         public int Status { get { return _status; } set { SetProperty("Status", ref _status, value); } }
@@ -65,7 +65,7 @@ namespace CAF
             //            _deleteDelegate += PostDelete;
         }
 
-        internal BaseEntity() : this(Guid.NewGuid()) { }
+        public BaseEntity() : this(Guid.NewGuid()) { }
 
 
         protected bool SetProperty<K>(string propertyName, ref K oldValue, K newValue)
@@ -124,54 +124,54 @@ namespace CAF
         #endregion
 
         #region 基本状态
-        internal bool _isNew = false;
-        internal bool _isDirty = false;
-        internal bool _isDelete = false;
-        internal bool _isChild = false;
-        internal bool _isRoot = false;
+        protected bool _isNew = false;
+        protected bool _isDirty = false;
+        protected bool _isDelete = false;
+        protected bool _isChild = false;
+        protected bool _isRoot = false;
 
-        internal bool IsNew { get { return _isNew; } set { _isNew = value; } }
+        public bool IsNew { get { return _isNew; } set { _isNew = value; } }
 
-        internal bool IsDelete { get { return _isDelete; } set { _isDelete = value; } }
+        public bool IsDelete { get { return _isDelete; } set { _isDelete = value; } }
 
-        internal bool IsDirty { get { return _isDirty; } set { _isDirty = value; } }
+        public bool IsDirty { get { return _isDirty; } set { _isDirty = value; } }
 
-        internal bool IsClean { get { return !_isDirty && !_isNew; } }
+        public bool IsClean { get { return !_isDirty && !_isNew; } }
 
         /// <summary>
         /// true：只更新关系
         /// false：标记删除
         /// </summary>
-        internal bool IsChangeRelationship { get; set; }
-        internal virtual void MarkNew()
+        public bool IsChangeRelationship { get; set; }
+        public virtual void MarkNew()
         {
             _isNew = true;
             MarkDirty();
         }
 
-        internal virtual void MarkChild()
+        public virtual void MarkChild()
         {
             _isChild = true;
         }
 
-        internal virtual void MarkRoot()
+        public virtual void MarkRoot()
         {
             _isChild = true;
         }
 
-        internal virtual void MarkOld()
+        public virtual void MarkOld()
         {
             _isNew = false;
             _updateParameters = "";
             MarkClean();
         }
 
-        internal virtual void MarkClean()
+        public virtual void MarkClean()
         {
             _isDirty = false;
         }
 
-        internal virtual void MarkDirty()
+        public virtual void MarkDirty()
         {
             _isDirty = true;
         }
@@ -353,7 +353,7 @@ namespace CAF
         /// 和不需要知道元素状态的更新
         /// </summary>
         /// <returns></returns>
-        internal virtual int SaveChange(IDbConnection conn, IDbTransaction transaction)
+        public virtual int SaveChange(IDbConnection conn, IDbTransaction transaction)
         {
             if (this.IsDelete && !IsChangeRelationship)
             {
@@ -389,11 +389,11 @@ namespace CAF
             return _changedRows;
         }
 
-        internal virtual int Update(IDbConnection conn, IDbTransaction transaction) { return 0; }
+        public virtual int Update(IDbConnection conn, IDbTransaction transaction) { return 0; }
 
-        internal virtual int Insert(IDbConnection conn, IDbTransaction transaction) { return 0; }
+        public virtual int Insert(IDbConnection conn, IDbTransaction transaction) { return 0; }
 
-        internal virtual int Delete(IDbConnection conn, IDbTransaction transaction) { return 0; }
+        public virtual int Delete(IDbConnection conn, IDbTransaction transaction) { return 0; }
 
         protected virtual void PreFetch(IDbConnection conn) { }
 

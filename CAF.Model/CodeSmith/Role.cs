@@ -10,20 +10,20 @@ namespace CAF.Model
     using System.Data;
 
     [Serializable]
-	public partial class Role :  BaseEntity<Role>
-	{   
+    public partial class Role :  BaseEntity<Role>
+    {   
         public Role()
-		{
+        {
             Connection = SqlService.Instance.Connection;
             base.MarkNew();
-    		 _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(this), isThreadSafe: true);
-    		 _userListInitalizer = new Lazy<UserList>(() => InitUsers(this), isThreadSafe: true);
+             _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(this), isThreadSafe: true);
+             _userListInitalizer = new Lazy<UserList>(() => InitUsers(this), isThreadSafe: true);
             Organizes= new OrganizeList();        
             Users= new UserList();        
-		}
-		
+        }
+        
             
-		#region 公共属性
+        #region 公共属性
 
         private string _name = String.Empty;
         private OrganizeList  _organizeList;
@@ -35,11 +35,11 @@ namespace CAF.Model
         /// 角色名称
         /// </summary>
         [StringLength(20,ErrorMessage="角色名称长度不能超过20")]
-		public string Name
-		{
-			get {return _name;} 
+        public string Name
+        {
+            get {return _name;} 
             set {SetProperty("Name",ref _name, value);}           	
-		}
+        }
         
         public OrganizeList Organizes
         {
@@ -51,7 +51,7 @@ namespace CAF.Model
                 }
                 return  _organizeList;
             }
-            internal set
+             set
             {
                  _organizeList = value;
             }
@@ -66,7 +66,7 @@ namespace CAF.Model
                 }
                 return  _userList;
             }
-            internal set
+             set
             {
                  _userList = value;
             }
@@ -75,10 +75,10 @@ namespace CAF.Model
         {
             get
             {
-			    Errors=new List<string>();
+                Errors=new List<string>();
                 var isValid = true;
                 var baseValid = base.IsValid;
-				 _organizeListInitalizer.IsValueCreated.IfIsTrue(
+                 _organizeListInitalizer.IsValueCreated.IfIsTrue(
                 () =>
                 {
                     foreach (var item in Organizes.Where(item => !item.IsValid))
@@ -87,7 +87,7 @@ namespace CAF.Model
                         isValid = false;
                     }
                 });
-				 _userListInitalizer.IsValueCreated.IfIsTrue(
+                 _userListInitalizer.IsValueCreated.IfIsTrue(
                 () =>
                 {
                     foreach (var item in Users.Where(item => !item.IsValid))
@@ -102,7 +102,7 @@ namespace CAF.Model
         }
         
         
-		#endregion
+        #endregion
         
         #region 常量定义
         
@@ -122,12 +122,12 @@ namespace CAF.Model
         const string QUERY_UPDATE = "UPDATE Sys_Roles SET {0} WHERE  Id = @Id";
                 
         #endregion
-        		
+                
         #region 静态方法
         
-		public static Role Get(Guid id)
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
+        public static Role Get(Guid id)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
             {
                 var item= conn.Query<Role>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<Role>();
                 if (item == null)
@@ -139,11 +139,11 @@ namespace CAF.Model
                 item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                 return item;
             }
-		}
-		 
-		public static RoleList GetAll()
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
+        }
+         
+        public static RoleList GetAll()
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
             {               
                 var items = conn.Query<Role>(QUERY_GETAll, null).ToList();                
                 var list=new RoleList();
@@ -157,11 +157,11 @@ namespace CAF.Model
                 list.MarkOld();
                 return list;
             }
-		}        
-		
+        }        
+        
        public static RoleList GetAllByOrganizeId(Guid organizeId)
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
             {                
                 var items = conn.Query<Role>(QUERY_GETALLBYORGANIZEID, new { OrganizeId = organizeId }).ToList();
                 
@@ -173,14 +173,14 @@ namespace CAF.Model
                     item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                     list.Add(item);
                 }
-				list.MarkOld();
+                list.MarkOld();
                 return list;
             }
-		}
-		
+        }
+        
        public static RoleList GetAllByUserId(Guid userId)
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
             {                
                 var items = conn.Query<Role>(QUERY_GETALLBYUSERID, new { UserId = userId }).ToList();
                 
@@ -192,23 +192,23 @@ namespace CAF.Model
                     item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                     list.Add(item);
                 }
-				list.MarkOld();
+                list.MarkOld();
                 return list;
             }
-		}
-		
+        }
+        
         
         /// <summary>
         /// 直接删除
         /// </summary>
         /// <returns></returns>
-		public static int Delete(Guid id)
-		{
+        public static int Delete(Guid id)
+        {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {                
                 return conn.Execute(QUERY_DELETE, new { Id = id });
             }
-		}   
+        }   
         
         public static bool Exists(Guid id)
         {
@@ -220,54 +220,54 @@ namespace CAF.Model
         
         #endregion
         
-		
-		internal override int Delete(IDbConnection conn, IDbTransaction transaction)
-		{
+        
+        public override int Delete(IDbConnection conn, IDbTransaction transaction)
+        {
             base.MarkDelete();
             return conn.Execute(QUERY_DELETE, new { Id = Id }, transaction, null, null);
-		}
-		
-		internal override int Update(IDbConnection conn, IDbTransaction transaction)
-		{
+        }
+        
+        public override int Update(IDbConnection conn, IDbTransaction transaction)
+        {
              if (!IsDirty)
              {
                 return _changedRows;
              }  
             _updateParameters+=", ChangedDate = GetDate()";
-			var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
-			_changedRows+= conn.Execute(query, this, transaction, null, null);
-			 _organizeListInitalizer.IsValueCreated.IfIsTrue(
+            var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
+            _changedRows+= conn.Execute(query, this, transaction, null, null);
+             _organizeListInitalizer.IsValueCreated.IfIsTrue(
             () =>
             {
- 				_changedRows+=Organizes.SaveChanges(conn,transaction);
+                _changedRows+=Organizes.SaveChanges(conn,transaction);
             });
-			 _userListInitalizer.IsValueCreated.IfIsTrue(
+             _userListInitalizer.IsValueCreated.IfIsTrue(
             () =>
             {
- 				_changedRows+=Users.SaveChanges(conn,transaction);
+                _changedRows+=Users.SaveChanges(conn,transaction);
             });
             return _changedRows;
-		}
-		
-		internal override int Insert(IDbConnection conn, IDbTransaction transaction)
-		{
+        }
+        
+        public override int Insert(IDbConnection conn, IDbTransaction transaction)
+        {
             _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-			 _organizeListInitalizer.IsValueCreated.IfIsTrue(
+             _organizeListInitalizer.IsValueCreated.IfIsTrue(
             () =>
             {
- 				_changedRows+=Organizes.SaveChanges(conn,transaction);
+                _changedRows+=Organizes.SaveChanges(conn,transaction);
             });
-			 _userListInitalizer.IsValueCreated.IfIsTrue(
+             _userListInitalizer.IsValueCreated.IfIsTrue(
             () =>
             {
- 				_changedRows+=Users.SaveChanges(conn,transaction);
+                _changedRows+=Users.SaveChanges(conn,transaction);
             });
             return _changedRows;
-		}
-		
-		#region 私有方法
-		
-		protected  int RelationshipWithOrganize(IDbConnection conn, IDbTransaction transaction)
+        }
+        
+        #region 私有方法
+        
+        protected  int RelationshipWithOrganize(IDbConnection conn, IDbTransaction transaction)
         {
             foreach (var organize in Organizes.Members)
             {
@@ -293,10 +293,10 @@ namespace CAF.Model
             list.OnSaved += role.RelationshipWithOrganize;
             list.OnMarkDirty += role.MarkDirty;
             list.IsChangeRelationship = true;
-			return list;
+            return list;
         }
-		
-		protected  int RelationshipWithUser(IDbConnection conn, IDbTransaction transaction)
+        
+        protected  int RelationshipWithUser(IDbConnection conn, IDbTransaction transaction)
         {
             foreach (var user in Users.Members)
             {
@@ -322,14 +322,14 @@ namespace CAF.Model
             list.OnSaved += role.RelationshipWithUser;
             list.OnMarkDirty += role.MarkDirty;
             list.IsChangeRelationship = true;
-			return list;
+            return list;
         }
-		
-		#endregion
-				
-	}
+        
+        #endregion
+                
+    }
     
-	[Serializable]
+    [Serializable]
     public class RoleList:CollectionBase<RoleList,Role>
     {
         public RoleList() { }

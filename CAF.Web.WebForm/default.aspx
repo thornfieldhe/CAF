@@ -52,6 +52,7 @@
                                     <f:TreeNode Text="目录" NavigateUrl="~/System/Directory_Edit.aspx"></f:TreeNode>
                                     <f:TreeNode Text="用户查询" NavigateUrl="~/System/User_Query.aspx"></f:TreeNode>
                                     <f:TreeNode Text="部门编辑" NavigateUrl="~/System/Organize_Edit.aspx"></f:TreeNode>
+                                    <f:TreeNode Text="角色编辑" NavigateUrl="~/System/Role_Edit.aspx"></f:TreeNode>
                                 </f:TreeNode>
                             </Nodes>
                         </f:Tree>

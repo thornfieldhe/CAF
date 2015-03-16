@@ -1111,8 +1111,7 @@ namespace CAF
         public static DateTime ToDate(this string source)
         {
             DateTime target;
-            DateTime.TryParse(source, out target);
-            return target;
+            return DateTime.TryParse(source, out target) ? target : DateTime.Now;
         }
 
         /// <summary>

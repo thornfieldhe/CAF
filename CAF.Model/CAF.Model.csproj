@@ -49,28 +49,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\BaseEntity.cs">
-      <Link>Common\BaseEntity.cs</Link>
-    </Compile>
     <Compile Include="CodeSmith\Directory.cs" />
     <Compile Include="CodeSmith\Directory_Role.cs" />
     <Compile Include="CodeSmith\ErrorLog.cs" />
     <Compile Include="CodeSmith\InfoLog.cs" />
     <Compile Include="CodeSmith\LoginLog.cs" />
-    <Compile Include="Common\ReadOnlyBase.cs" />
     <Compile Include="CodeSmith\ReadOnlyUserList.cs" />
     <Compile Include="CodeSmith\Role.cs" />
     <Compile Include="CodeSmith\UserSetting.cs" />
-    <Compile Include="Common\KeyValueItem.cs" />
-    <Compile Include="Common\SortLevelItem.cs" />
-    <Compile Include="Common\ReadOnlyCollectionQueryResult.cs" />
     <Compile Include="Directory.cs" />
     <Compile Include="Organize.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="CodeSmith\Organize.cs" />
     <Compile Include="CodeSmith\User.cs" />
-    <Compile Include="Common\CollectionBase.cs" />
-    <Compile Include="Common\ReadOnlyCollectionBase.cs" />
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

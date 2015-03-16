@@ -4,263 +4,263 @@ using System.Linq;
 
 namespace CAF.Model
 {
-    using CAF.Data;
-    using CAF.Validation;
-    using System.ComponentModel.DataAnnotations;
-    using System.Data;
+	using CAF.Data;
+	using CAF.Validation;
+	using System.ComponentModel.DataAnnotations;
+	using System.Data;
 
-    [Serializable]
-    public partial class Directory_Role : BaseEntity<Directory_Role>
-    {
-        public Directory_Role()
-        {
-            Connection = SqlService.Instance.Connection;
-            base.MarkNew();
-            _roleInitalizer = new Lazy<Role>(() => InitRole(this), isThreadSafe: true);
-            _directoryInitalizer = new Lazy<Directory>(() => InitDirectory(this), isThreadSafe: true);
-        }
+	[Serializable]
+	public partial class Directory_Role :  BaseEntity<Directory_Role>
+	{   
+		public Directory_Role()
+		{
+			Connection = SqlService.Instance.Connection;
+			base.MarkNew();
+			 _roleInitalizer = new Lazy<Role>(() => InitRole(this), isThreadSafe: true);
+			 _directoryInitalizer = new Lazy<Directory>(() => InitDirectory(this), isThreadSafe: true);
+		}
+		
+		#region 公共属性
 
-        #region 公共属性
+		private Guid _roleId = Guid.Empty;
+		private Guid _directoryId = Guid.Empty;
+		private Lazy<Role>  _roleInitalizer;
+		private Role _role;
+		private Lazy<Directory>  _directoryInitalizer;
+		private Directory _directory;
+		
+		/// <summary>
+		/// 角色Id
+		/// </summary>
+		[GuidRequired(ErrorMessage="角色不允许为空")]
+		public Guid RoleId
+		{
+			get {return _roleId;} 
+			set {SetProperty("RoleId",ref _roleId, value);}           	
+		}
+		
+		/// <summary>
+		/// 角色
+		/// </summary>
+		public Role Role
+		{
+			get
+			{
+				if (! _roleInitalizer.IsValueCreated)
+				{
+					_role =  _roleInitalizer.Value;
+				}
+				return _role;
+			}
+		}
+		
+		/// <summary>
+		/// 目录Id
+		/// </summary>
+		[GuidRequired(ErrorMessage="目录不允许为空")]
+		public Guid DirectoryId
+		{
+			get {return _directoryId;} 
+			set {SetProperty("DirectoryId",ref _directoryId, value);}           	
+		}
+		
+		/// <summary>
+		/// 目录
+		/// </summary>
+		public Directory Directory
+		{
+			get
+			{
+				if (! _directoryInitalizer.IsValueCreated)
+				{
+					_directory =  _directoryInitalizer.Value;
+				}
+				return _directory;
+			}
+		}
+		
+		#endregion
+		
+		#region 常量定义
+		
+		const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_RE_Directory_Role WHERE RoleId = @RoleId  AND DirectoryId = @DirectoryId  AND Status!=-1";
+		const string QUERY_GETAllBYROLE = "SELECT * FROM Sys_RE_Directory_Role WHERE RoleId = @RoleId  AND Status!=-1";
+		const string QUERY_GETAllBYDIRECTORY = "SELECT * FROM Sys_RE_Directory_Role WHERE DirectoryId = @DirectoryId  AND Status!=-1";
+		const string QUERY_DELETE = "UPDATE Sys_RE_Directory_Role SET Status=-1 WHERE RoleId = @RoleId  AND DirectoryId = @DirectoryId AND  Status!=-1";
+		const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_RE_Directory_Role WHERE RoleId = @RoleId  AND DirectoryId = @DirectoryId AND Status!=-1";        
+		const string QUERY_INSERT="INSERT INTO Sys_RE_Directory_Role (Id, Status, CreatedDate, ChangedDate, Note, RoleId, DirectoryId) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @RoleId, @DirectoryId)";
+		const string QUERY_UPDATE = "UPDATE Sys_RE_Directory_Role SET {0} WHERE  RoleId = @RoleId  AND DirectoryId = @DirectoryId";
+				
+		#endregion
+		
+		#region 静态方法
+		
+		public static Directory_Role Get(Guid roleId,Guid directoryId)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
+			{
+				var item= conn.Query<Directory_Role>(QUERY_GETBYID, new { RoleId = roleId,DirectoryId = directoryId }).SingleOrDefault<Directory_Role>();
+				if (item == null)
+				{
+					return null;
+				}
+				item.MarkOld();
+				item. _roleInitalizer = new Lazy<Role>(() => InitRole(item), isThreadSafe: true);
+				item. _directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
+				return item;
+			}
+		}
+		
+		public static Directory_RoleList GetAllByRoleId(Guid roleId)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
+			{
+				var items = conn.Query<Directory_Role>(QUERY_GETAllBYROLE, new { RoleId = roleId }).ToList();
 
-        private Guid _roleId = Guid.Empty;
-        private Guid _directoryId = Guid.Empty;
-        private Lazy<Role> _roleInitalizer;
-        private Role _role;
-        private Lazy<Directory> _directoryInitalizer;
-        private Directory _directory;
+				var list = new Directory_RoleList();
+				foreach (var item in items)
+				{
+					item.MarkOld();
+					item. _roleInitalizer = new Lazy<Role>(() => InitRole(item), isThreadSafe: true);
+					item. _directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
+					list.Add(item);
+				}
+				list.MarkOld();
+				return list;
+			}
+		}
+				
+		public static Directory_RoleList GetAllByDirectoryId(Guid directoryId)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
+			{
+				var items = conn.Query<Directory_Role>(QUERY_GETAllBYDIRECTORY, new { DirectoryId = directoryId }).ToList();
 
-        /// <summary>
-        /// 角色Id
-        /// </summary>
-        [GuidRequired(ErrorMessage = "角色不允许为空")]
-        public Guid RoleId
-        {
-            get { return _roleId; }
-            set { SetProperty("RoleId", ref _roleId, value); }
-        }
+				var list = new Directory_RoleList();
+				foreach (var item in items)
+				{
+					item.MarkOld();
+					item. _roleInitalizer = new Lazy<Role>(() => InitRole(item), isThreadSafe: true);
+					item. _directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
+					list.Add(item);
+				}
+				list.MarkOld();
+				return list;
+			}
+		}
+		
+		/// <summary>
+		/// 直接删除
+		/// </summary>
+		/// <returns></returns>
+		public static int Delete(Guid roleId, Guid directoryId)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
+			{
+				return conn.Execute(QUERY_DELETE, new { RoleId = roleId, DirectoryId = directoryId });
+			}
+		}
 
-        /// <summary>
-        /// 角色
-        /// </summary>
-        public Role Role
-        {
-            get
-            {
-                if (!_roleInitalizer.IsValueCreated)
-                {
-                    _role = _roleInitalizer.Value;
-                }
-                return _role;
-            }
-        }
+		public static bool Exists(Guid roleId, Guid directoryId)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
+			{
+				return conn.Query<int>(QUERY_EXISTS, new {  RoleId = roleId, DirectoryId = directoryId }).Single() >= 1;
+			}
+		}
+		
+		#endregion
+		
+		public override int Delete(IDbConnection conn, IDbTransaction transaction)
+		{
+			base.MarkDelete();
+			return conn.Execute(QUERY_DELETE, this, transaction, null, null);
+		}
 
-        /// <summary>
-        /// 目录Id
-        /// </summary>
-        [GuidRequired(ErrorMessage = "目录不允许为空")]
-        public Guid DirectoryId
-        {
-            get { return _directoryId; }
-            set { SetProperty("DirectoryId", ref _directoryId, value); }
-        }
+		public override int Update(IDbConnection conn, IDbTransaction transaction)
+		{
+			if (!IsDirty)
+			{
+				return _changedRows;
+			}
+			_updateParameters += ", ChangedDate = GetDate()";
+			var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
+			_changedRows += conn.Execute(query, this, transaction, null, null);
+			return _changedRows;
+		}
 
-        /// <summary>
-        /// 目录
-        /// </summary>
-        public Directory Directory
-        {
-            get
-            {
-                if (!_directoryInitalizer.IsValueCreated)
-                {
-                    _directory = _directoryInitalizer.Value;
-                }
-                return _directory;
-            }
-        }
+		public override int Insert(IDbConnection conn, IDbTransaction transaction)
+		{
+			_changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
+			return _changedRows;
+		}
+		
+		#region 私有方法
 
-        #endregion
+		protected static Role InitRole(Directory_Role directory_role)
+		{
+			var item = Role.Get(directory_role.RoleId);
+			if (item != null)
+			{
+				item.OnPropertyChange += item.MarkDirty;
+			}
+			return item;
+		}
 
-        #region 常量定义
-
-        const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_RE_Directory_Role WHERE RoleId = @RoleId  AND DirectoryId = @DirectoryId  AND Status!=-1";
-        const string QUERY_GETAllBYROLE = "SELECT * FROM Sys_RE_Directory_Role WHERE RoleId = @RoleId  AND Status!=-1";
-        const string QUERY_GETAllBYDIRECTORY = "SELECT * FROM Sys_RE_Directory_Role WHERE DirectoryId = @DirectoryId  AND Status!=-1";
-        const string QUERY_DELETE = "UPDATE Sys_RE_Directory_Role SET Status=-1 WHERE RoleId = @RoleId  AND DirectoryId = @DirectoryId AND  Status!=-1";
-        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_RE_Directory_Role WHERE RoleId = @RoleId  AND DirectoryId = @DirectoryId AND Status!=-1";
-        const string QUERY_INSERT = "INSERT INTO Sys_RE_Directory_Role (Id, Status, CreatedDate, ChangedDate, Note, RoleId, DirectoryId) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @RoleId, @DirectoryId)";
-        const string QUERY_UPDATE = "UPDATE Sys_RE_Directory_Role SET {0} WHERE  RoleId = @RoleId  AND DirectoryId = @DirectoryId";
-
-        #endregion
-
-        #region 静态方法
-
-        public static Directory_Role Get(Guid roleId, Guid directoryId)
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                var item = conn.Query<Directory_Role>(QUERY_GETBYID, new { RoleId = roleId, DirectoryId = directoryId }).SingleOrDefault<Directory_Role>();
-                if (item == null)
-                {
-                    return null;
-                }
-                item.MarkOld();
-                item._roleInitalizer = new Lazy<Role>(() => InitRole(item), isThreadSafe: true);
-                item._directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
-                return item;
-            }
-        }
-
-        public static Directory_RoleList GetAllByRoleId(Guid roleId)
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                var items = conn.Query<Directory_Role>(QUERY_GETAllBYROLE, new { RoleId = roleId }).ToList();
-
-                var list = new Directory_RoleList();
-                foreach (var item in items)
-                {
-                    item.MarkOld();
-                    item._roleInitalizer = new Lazy<Role>(() => InitRole(item), isThreadSafe: true);
-                    item._directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
-                    list.Add(item);
-                }
-                list.MarkOld();
-                return list;
-            }
-        }
-
-        public static Directory_RoleList GetAllByDirectoryId(Guid directoryId)
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                var items = conn.Query<Directory_Role>(QUERY_GETAllBYDIRECTORY, new { DirectoryId = directoryId }).ToList();
-
-                var list = new Directory_RoleList();
-                foreach (var item in items)
-                {
-                    item.MarkOld();
-                    item._roleInitalizer = new Lazy<Role>(() => InitRole(item), isThreadSafe: true);
-                    item._directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
-                    list.Add(item);
-                }
-                list.MarkOld();
-                return list;
-            }
-        }
-
-        /// <summary>
-        /// 直接删除
-        /// </summary>
-        /// <returns></returns>
-        public static int Delete(Guid roleId, Guid directoryId)
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                return conn.Execute(QUERY_DELETE, new { RoleId = roleId, DirectoryId = directoryId });
-            }
-        }
-
-        public static bool Exists(Guid roleId, Guid directoryId)
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                return conn.Query<int>(QUERY_EXISTS, new { RoleId = roleId, DirectoryId = directoryId }).Single() >= 1;
-            }
-        }
-
-        #endregion
-
-        internal override int Delete(IDbConnection conn, IDbTransaction transaction)
-        {
-            base.MarkDelete();
-            return conn.Execute(QUERY_DELETE, this, transaction, null, null);
-        }
-
-        internal override int Update(IDbConnection conn, IDbTransaction transaction)
-        {
-            if (!IsDirty)
-            {
-                return _changedRows;
-            }
-            _updateParameters += ", ChangedDate = GetDate()";
-            var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
-            _changedRows += conn.Execute(query, this, transaction, null, null);
-            return _changedRows;
-        }
-
-        internal override int Insert(IDbConnection conn, IDbTransaction transaction)
-        {
-            _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-            return _changedRows;
-        }
-
-        #region 私有方法
-
-        protected static Role InitRole(Directory_Role directory_role)
-        {
-            var item = Role.Get(directory_role.RoleId);
-            if (item != null)
-            {
-                item.OnPropertyChange += item.MarkDirty;
-            }
-            return item;
-        }
-
-        protected static Directory InitDirectory(Directory_Role directory_role)
-        {
-            var item = Directory.Get(directory_role.DirectoryId);
-            if (item != null)
-            {
-                item.OnPropertyChange += item.MarkDirty;
-            }
-            return item;
-        }
+		protected static Directory InitDirectory(Directory_Role directory_role)
+		{
+			var item = Directory.Get(directory_role.DirectoryId);
+			if (item != null)
+			{
+				item.OnPropertyChange += item.MarkDirty;
+			}
+			return item;
+		}
 
 
-        #endregion
+		#endregion
 
-    }
+	}
+	
+	[Serializable]
+	public class Directory_RoleList:CollectionBase<Directory_RoleList,Directory_Role>
+	{
+		public Directory_RoleList() { }
 
-    [Serializable]
-    public class Directory_RoleList : CollectionBase<Directory_RoleList, Directory_Role>
-    {
-        public Directory_RoleList() { }
+		protected const string tableName = "Sys_RE_Directory_Role";
+		
+		public static Directory_RoleList Query(Object dynamicObj, string query = " 1=1")
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
+			{
+				var items = conn.Query<Directory_Role>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
 
-        protected const string tableName = "Sys_RE_Directory_Role";
+				var list = new Directory_RoleList();
+				foreach (var item in items)
+				{
+					item.MarkOld();
+					list.Add(item);
+				}
+				return list;
+			}
+		}
 
-        public static Directory_RoleList Query(Object dynamicObj, string query = " 1=1")
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                var items = conn.Query<Directory_Role>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
+		public static int QueryCount(Object dynamicObj, string query = " 1=1")
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
+			{
+				return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single();
+			}
+		}
 
-                var list = new Directory_RoleList();
-                foreach (var item in items)
-                {
-                    item.MarkOld();
-                    list.Add(item);
-                }
-                return list;
-            }
-        }
-
-        public static int QueryCount(Object dynamicObj, string query = " 1=1")
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single();
-            }
-        }
-
-        public static bool Exists(Object dynamicObj, string query = " 1=1")
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single() > 0;
-            }
-        }
-    }
+		public static bool Exists(Object dynamicObj, string query = " 1=1")
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
+			{
+			   return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single()>0;
+			}
+		}
+	}
 }
 
 

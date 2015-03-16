@@ -17,10 +17,10 @@ namespace <%= this.ClassNamespace %>.Model
 {
     
     [Serializable]
-    public class <%= GetViewClassName(SourceView) %> :ReadOnlyBase
+    public partial class <%= GetViewClassName(SourceView) %> :ReadOnlyBase
     {        
     
-        public ReadOnlyUser() { TableName = "<%=SourceView.Name%>"; }
+        public <%= GetViewClassName(SourceView) %>() { TableName = "<%=SourceView.Name%>"; }
 <% foreach (ViewColumnSchema column in SourceView.Columns) { %> 
 		public <%= GetCSharpVariableType(column) %> <%= GetPropertyName(column) %>{get; set;}      
 <% } %>
