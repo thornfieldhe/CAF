@@ -30,5 +30,23 @@ namespace CAF
         {
             return Math.Round(d, s);
         }
+
+
+        /// <summary>
+        /// 是否在范围之间
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="max"></param>
+        /// <param name="min"></param>
+        /// <param name="allowEqual">是否包含等于</param>
+        /// <returns></returns>
+        public static bool IsBetween(this decimal obj, decimal max, decimal min, bool allowEqual=false)
+        {
+            if (allowEqual)
+            {
+                return obj >= min && obj <= max;
+            }
+            return obj > min && obj < max;
+        }
     }
 }

@@ -1024,6 +1024,27 @@ namespace CAF
             if (!string.IsNullOrWhiteSpace(source)) { action.Invoke(source.Trim()); }
         }
 
+        /// <summary>
+        /// 取左边n个字符串
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static string Left(this string obj, int length) { return obj.Substring(0, length); }
+
+
+        /// <summary>
+        /// 取右边n个字符串
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static string Right(this string obj, int length)
+        {
+            return obj.Substring(obj.Length-length, length);
+        }
+
+
         #region 字符串转换
 
         /// <summary>

@@ -1,14 +1,14 @@
 ﻿using System;
+// ReSharper disable All
 
 namespace CAF.Web.WebForm
 {
-    using System.Linq;
-
     using CAF.Ext;
     using CAF.Model;
     using CAF.Web.WebForm.CAFControl;
     using CAF.Web.WebForm.Common;
     using FineUI;
+    using System.Linq;
 
     public partial class Organize_Edit : BasePage
     {
@@ -96,7 +96,7 @@ namespace CAF.Web.WebForm
 
         private void ResolveSubTree(Organize node, TreeNode treeNode)
         {
-            var list = Organize.GetAllByParentId(node.Id).OrderBy(l=>l.Sort).ToList();
+            var list = Organize.GetAllByParentId(node.Id).OrderBy(l => l.Sort).ToList();
             if (list.Count <= 0)
             {
                 return;

@@ -12,5 +12,14 @@ namespace CAF
             if (allowExcuteAction) { action.Invoke(); }
         }
 
+        /// <summary>
+        /// 转换成int值
+        /// true:1
+        /// false:0
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int ToInt(this bool obj) { return obj ? 1 : 0; }
+
     }
 }
