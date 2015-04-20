@@ -11,10 +11,11 @@
 <body >
     <form id="form1" runat="server">
     <f:PageManager ID="manager" runat="server" AutoSizePanelID="mainPanel" />
-    <f:MainPanel ID="mainPanel" Layout="HBox" runat="server">
-        <toolbars>
+    <f:CAFPanel ID="mainPanel" runat="server">
+        <Toolbars>
             <f:Toolbar ID="Toolbar1" runat="server">
                 <Items>
+                    <f:CloseButton ID="btnClose" runat="server" />
                     <f:AddButton ID="btnAdd" runat="server" OnClick="btnAdd_Click">
                     </f:AddButton>
                     <f:UpdateButton ID="btnUpdate" runat="server" OnClick="btnUpdate_Click">
@@ -23,13 +24,11 @@
                     </f:DeleteButton>
                 </Items>
             </f:Toolbar>
-        </toolbars>
+        </Toolbars>
         <items>
-            <f:CAFPanel ID="Panel11" BoxFlex="10" runat="server" Margin="10px;10px;10px;10px;">
-                <Items>
-                    <f:SubmitForm Width="350px" ID="submitForm" runat="server" >
+            <f:SubmitForm Width="350px" ID="submitForm" runat="server" >
                         <Rows>
-                                                        <f:FormRow>
+                            <f:FormRow>
                                 <Items>
                                     <f:TextBox ID="txtId" Label="编码(GUID)"  runat="server" >
                                     </f:TextBox>
@@ -74,16 +73,8 @@
                             </f:FormRow>
                         </Rows>
                     </f:SubmitForm>
-                </Items>
-            </f:CAFPanel>
-            <f:CAFPanel ID="Panel20" BoxFlex="10"  runat="server" AutoScroll="true">
-                <Items>
-                    <f:CAFTree ID="treeDirs"  runat="server" OnNodeCommand="treeDirs_NodeCommand">
-                    </f:CAFTree>
-                </Items>
-            </f:CAFPanel>
         </items>
-    </f:MainPanel>
+    </f:CAFPanel>
     </form>
 </body>
 </html>

@@ -7,10 +7,10 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace CAF.Web.WebForm {
+namespace CAF.Web.WebForm.System {
     
     
-    public partial class Directory_Edit {
+    public partial class Directory_Query {
         
         /// <summary>
         /// form1 控件。
@@ -49,111 +49,66 @@ namespace CAF.Web.WebForm {
         protected global::FineUI.Toolbar Toolbar1;
         
         /// <summary>
-        /// btnClose 控件。
+        /// ToolbarSeparator1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.CloseButton btnClose;
+        protected global::FineUI.ToolbarSeparator ToolbarSeparator1;
         
         /// <summary>
-        /// btnAdd 控件。
+        /// btnNew 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.AddButton btnAdd;
+        protected global::CAF.Web.WebForm.CAFControl.NewButton btnNew;
         
         /// <summary>
-        /// btnUpdate 控件。
+        /// btnDeleteRows 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.UpdateButton btnUpdate;
+        protected global::CAF.Web.WebForm.CAFControl.DeleteButton btnDeleteRows;
         
         /// <summary>
-        /// btnDelete 控件。
+        /// ToolbarFill1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.DeleteButton btnDelete;
+        protected global::FineUI.ToolbarFill ToolbarFill1;
         
         /// <summary>
-        /// submitForm 控件。
+        /// grid 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.SubmitForm submitForm;
+        protected global::CAF.Web.WebForm.CAFControl.CAFGrid grid;
         
         /// <summary>
-        /// txtId 控件。
+        /// ToolbarSeparator2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.TextBox txtId;
+        protected global::FineUI.ToolbarSeparator ToolbarSeparator2;
         
         /// <summary>
-        /// txtName 控件。
+        /// winEdit 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.TextBox txtName;
-        
-        /// <summary>
-        /// dropParentId 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUI.DropDownList dropParentId;
-        
-        /// <summary>
-        /// txtUrl 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUI.TextBox txtUrl;
-        
-        /// <summary>
-        /// txtSort 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUI.NumberBox txtSort;
-        
-        /// <summary>
-        /// txtNote 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUI.TextArea txtNote;
-        
-        /// <summary>
-        /// chkStatus 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUI.CheckBox chkStatus;
+        protected global::CAF.Web.WebForm.CAFControl.CAFWindow winEdit;
     }
 }

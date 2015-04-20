@@ -22,26 +22,26 @@ namespace CAF
 
         public CollectionBase()
         {
-            _items = new List<TMember>();
+            this._items = new List<TMember>();
         }
 
         internal CollectionBase(List<TMember> items)
         {
-            _items = items;
+            this._items = items;
         }
 
         [NonSerialized]
         protected IDbConnection _connection;
-        public IDbConnection Connection { get { return _connection; } set { _connection = value; } }
+        public IDbConnection Connection { get { return this._connection; } set { this._connection = value; } }
 
 
         #region 基本状态
         internal bool _isNew = false;
         internal bool _isDirty = false;
 
-        internal bool IsNew { get { return _isNew; } set { _isNew = value; } }
+        internal bool IsNew { get { return this._isNew; } set { this._isNew = value; } }
 
-        internal bool IsDirty { get { return _isDirty; } set { _isDirty = value; } }
+        internal bool IsDirty { get { return this._isDirty; } set { this._isDirty = value; } }
 
         internal bool _isChangeRelationship;
         /// <summary>
@@ -50,11 +50,11 @@ namespace CAF
         /// </summary>
         public bool IsChangeRelationship
         {
-            get { return _isChangeRelationship; }
+            get { return this._isChangeRelationship; }
             set
             {
-                _isChangeRelationship = value;
-                _isChangeRelationship.IfIsTrue(() => this._items.ForEach(i => i.IsChangeRelationship = true));
+                this._isChangeRelationship = value;
+                this._isChangeRelationship.IfIsTrue(() => this._items.ForEach(i => i.IsChangeRelationship = true));
             }
         }
 
@@ -67,28 +67,28 @@ namespace CAF
 
         public virtual void MarkNew()
         {
-            _isNew = true;
-            MarkDirty();
+            this._isNew = true;
+            this.MarkDirty();
         }
 
 
         public virtual void MarkOld()
         {
-            _isNew = false;
-            MarkClean();
+            this._isNew = false;
+            this.MarkClean();
         }
 
         public virtual void MarkClean()
         {
-            _isDirty = false;
+            this._isDirty = false;
         }
 
         public virtual void MarkDirty()
         {
-            _isDirty = true;
-            if (OnMarkDirty != null)
+            this._isDirty = true;
+            if (this.OnMarkDirty != null)
             {
-                OnMarkDirty();
+                this.OnMarkDirty();
             }
         }
 
@@ -109,13 +109,13 @@ namespace CAF
         public virtual void Add(TMember member)
         {
             member.IsChangeRelationship = this.IsChangeRelationship;
-            _items.Add(member);
-            if (OnInsert != null)
+            this._items.Add(member);
+            if (this.OnInsert != null)
             {
-                OnInsert(member);
+                this.OnInsert(member);
             }
-            member.OnPropertyChange += MarkDirty;
-            MarkDirty();
+            member.OnPropertyChange += this.MarkDirty;
+            this.MarkDirty();
         }
 
         /// <summary>
@@ -133,10 +133,10 @@ namespace CAF
             foreach (var member in collection)
             {
                 member.IsChangeRelationship = this.IsChangeRelationship;
-                Add(member);
-                member.OnPropertyChange += MarkDirty;
+                this.Add(member);
+                member.OnPropertyChange += this.MarkDirty;
             }
-            MarkDirty();
+            this.MarkDirty();
         }
 
         /// <summary>
@@ -150,10 +150,10 @@ namespace CAF
                 foreach (var member in members)
                 {
                     member.IsChangeRelationship = this.IsChangeRelationship;
-                    Add(member);
-                    member.OnPropertyChange += MarkDirty;
+                    this.Add(member);
+                    member.OnPropertyChange += this.MarkDirty;
                 }
-                MarkDirty();
+                this.MarkDirty();
             }
         }
 
@@ -166,10 +166,10 @@ namespace CAF
             foreach (var member in members)
             {
                 member.IsChangeRelationship = this.IsChangeRelationship;
-                Add(member);
-                member.OnPropertyChange += MarkDirty;
+                this.Add(member);
+                member.OnPropertyChange += this.MarkDirty;
             }
-            MarkDirty();
+            this.MarkDirty();
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace CAF
             {
                 return false;
             }
-            MarkDirty();
+            this.MarkDirty();
             member.MarkDelete();
             return true;
         }
@@ -192,35 +192,35 @@ namespace CAF
         /// </summary>
         public virtual void Clear()
         {
-            _items.ForEach(
+            this._items.ForEach(
                 member =>
                 {
                     member.MarkDelete();
                 });
-            MarkDirty();
+            this.MarkDirty();
         }
 
         public void Insert(int index, TMember member)
         {
-            _items.Insert(index, member);
-            member.OnPropertyChange += MarkDirty;
-            MarkDirty();
+            this._items.Insert(index, member);
+            member.OnPropertyChange += this.MarkDirty;
+            this.MarkDirty();
         }
 
         public void RemoveAt(int index)
         {
-            var member = _items[index];
+            var member = this._items[index];
             if (member == null)
             {
                 return;
             }
             member.MarkDelete();
-            MarkDirty();
+            this.MarkDirty();
         }
 
         public void CopyTo(TMember[] array, int arrayIndex)
         {
-            _items.CopyTo(array, arrayIndex);
+            this._items.CopyTo(array, arrayIndex);
         }
 
         /// <summary>
@@ -228,8 +228,8 @@ namespace CAF
         /// </summary>
         public TMember[] Members
         {
-            get { return _items.ToArray(); }
-            set { _items = value.ToList(); }
+            get { return this._items.ToArray(); }
+            set { this._items = value.ToList(); }
         }
 
         /// <summary>
@@ -241,12 +241,12 @@ namespace CAF
         {
             get
             {
-                var normalItems = _items.Where(member => !member.IsDelete).ToList();
+                var normalItems = this._items.Where(member => !member.IsDelete).ToList();
                 return normalItems[index];
             }
             set
             {
-                _items[index] = value;
+                this._items[index] = value;
             }
         }
 
@@ -267,7 +267,7 @@ namespace CAF
         /// <returns></returns>
         public bool Contains(TMember member)
         {
-            return _items.Where(item => !item.IsDelete).Contains(member);
+            return this._items.Where(item => !item.IsDelete).Contains(member);
         }
 
         /// <summary>
@@ -276,17 +276,17 @@ namespace CAF
         /// <returns></returns>
         IEnumerator<TMember> IEnumerable<TMember>.GetEnumerator()
         {
-            return _items.Where(item => !item.IsDelete).GetEnumerator();
+            return this._items.Where(item => !item.IsDelete).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _items.Where(item => !item.IsDelete).GetEnumerator();
+            return this._items.Where(item => !item.IsDelete).GetEnumerator();
         }
 
         public int IndexOf(TMember member)
         {
-            return _items.IndexOf(member);
+            return this._items.IndexOf(member);
         }
 
 
@@ -295,14 +295,14 @@ namespace CAF
         public int Save()
         {
             var i = 0;
-            if (IsDirty)
+            if (this.IsDirty)
             {
-                using (IDbConnection conn = Connection)
+                using (IDbConnection conn = this.Connection)
                 {
                     var transaction = conn.BeginTransaction();
                     try
                     {
-                        i = SaveChanges(conn, transaction);
+                        i = this.SaveChanges(conn, transaction);
                         transaction.Commit();
                         return i;
                     }
@@ -319,14 +319,14 @@ namespace CAF
         public int SaveChanges(IDbConnection conn, IDbTransaction transaction)
         {
             var i = 0;
-            if (IsDirty)
+            if (this.IsDirty)
             {
-                i += PreSubmit(conn, transaction);
-                i += Submit(conn, transaction);
-                i += PostSubmit(conn, transaction);
-                if (OnSaved != null)
+                i += this.PreSubmit(conn, transaction);
+                i += this.Submit(conn, transaction);
+                i += this.PostSubmit(conn, transaction);
+                if (this.OnSaved != null)
                 {
-                    i += OnSaved(conn, transaction);
+                    i += this.OnSaved(conn, transaction);
                 }
             }
             return i;
@@ -340,7 +340,7 @@ namespace CAF
         protected virtual int Submit(IDbConnection conn, IDbTransaction transaction)
         {
             var rows = 0;
-            if (_isDirty)
+            if (this._isDirty)
             {
                 var isValid = true;
                 this._items.ForEach(
@@ -353,7 +353,7 @@ namespace CAF
                     });
                 if (isValid)
                 {
-                    _items.ForEach(
+                    this._items.ForEach(
                         member =>
                         {
                             rows += member.SaveChange(conn, transaction);

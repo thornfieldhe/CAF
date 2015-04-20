@@ -25,7 +25,7 @@
                     </f:TextBox>
                     <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
                     </f:ToolbarSeparator>
-                    <f:QueryButton ID="btnQuery" runat="server" OnClick="btnQuery_Click"/>
+                    <f:QueryButton ID="btnQuery" runat="server" />
                     <f:NewButton ID="btnNew"  Icon="Add" runat="server"  />
                     <f:DeleteButton  ID="btnDeleteRows" runat="server" OnClick="btnDeleteRows_Click"/>
                     <f:Button Text="锁定" ID="btnLockRows" runat="server" OnClick="btnLockRows_Click"/>
@@ -68,7 +68,7 @@
             </f:CAFGrid>
         </Items>
     </f:CAFPanel>
-    <f:CAFWindow ID="winEdit" Title="编辑"  runat="server" OnClose="winEdit_Close"  Width="600px" Height="600px"/>
+    <f:CAFWindow ID="winEdit" Title="编辑"  runat="server" Width="450px" Height="400px"/>
     </form>
 </body>
 </html>

@@ -12,18 +12,18 @@ namespace CAF.Web.WebForm
     {
         protected override void OnLoad(EventArgs e)
         {
-            pageId = new Guid("5387D9C6-4056-4186-9A86-169DA2D2283A");
+            this.pageId = new Guid("5387D9C6-4056-4186-9A86-169DA2D2283A");
             base.OnLoad(e);
-            btnClose.OnClientClick = ActiveWindow.GetHidePostBackReference();
-            submitForm.OnPostCreated += submitForm_OnPostExcute;
-            submitForm.OnPostDelete += submitForm_OnPostExcute;
-            submitForm.OnPostUpdated += submitForm_OnPostExcute;
-            submitForm.OnPreCreated += submitForm_OnPreCreated;
+            this.btnClose.OnClientClick = ActiveWindow.GetHidePostBackReference();
+            this.submitForm.OnPostCreated += this.submitForm_OnPostExcute;
+            this.submitForm.OnPostDelete += this.submitForm_OnPostExcute;
+            this.submitForm.OnPostUpdated += this.submitForm_OnPostExcute;
+            this.submitForm.OnPreCreated += this.submitForm_OnPreCreated;
         }
 
         private bool submitForm_OnPreCreated(IBusinessBase business)
         {
-            if (!Model.User.Exists(txtLoginName.Text))
+            if (!Model.User.Exists(this.txtLoginName.Text))
             {
                 return true;
             }
@@ -39,22 +39,22 @@ namespace CAF.Web.WebForm
         protected override void Bind()
         {
             base.Bind();
-            PageHelper.BindOrganizes(new Guid(), dropOrganizeId, new Guid().ToString());
-            PageTools.BindRadioButton(typeof(UserStatusEnum), radioStatus);
-            PageHelper.BindRoles(chkUserRoles);
-            var u = Model.User.Get(Id);
+            PageHelper.BindOrganizes(new Guid(), this.dropOrganizeId, new Guid().ToString());
+            PageTools.BindRadioButton(typeof(UserStatusEnum), this.radioStatus);
+            PageHelper.BindRoles(this.chkUserRoles);
+            var u = Model.User.Get(this.Id);
             if (u == null)
             {
-                btnDelete.Hidden = true;
-                btnUpdate.Hidden = true;
+                this.btnDelete.Hidden = true;
+                this.btnUpdate.Hidden = true;
             }
             else
             {
-                btnAdd.Hidden = true;
-                txtLoginName.Enabled = false;
-                submitForm.LoadEntity(u);
+                this.btnAdd.Hidden = true;
+                this.txtLoginName.Enabled = false;
+                this.submitForm.LoadEntity(u);
             }
-            foreach (var item in chkUserRoles.Items.Where(item => true).Where(item => u.Roles.Count(r => r.Id == new Guid(item.Value)) > 0))
+            foreach (var item in this.chkUserRoles.Items.Where(item => true).Where(item => u.Roles.Count(r => r.Id == new Guid(item.Value)) > 0))
             {
                 item.Selected = true;
             }
@@ -63,30 +63,30 @@ namespace CAF.Web.WebForm
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            var item = Model.User.Get(txtId.Text.ToGuid());
-            submitForm.Delete(item);
+            var item = Model.User.Get(this.txtId.Text.ToGuid());
+            this.submitForm.Delete(item);
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            var item = Model.User.Get(txtId.Text.ToGuid());
-            var ids = chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
+            var item = Model.User.Get(this.txtId.Text.ToGuid());
+            var ids = this.chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
             foreach (var id in ids)
             {
                 item.Roles.Add(Role.Get(id));
             }
-            submitForm.Update(item);
+            this.submitForm.Update(item);
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             var item = new User();
-            var ids = chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
+            var ids = this.chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
             foreach (var id in ids)
             {
                 item.Roles.Add(Role.Get(id));
             }
-            submitForm.Create(item);
+            this.submitForm.Create(item);
         }
     }
 }

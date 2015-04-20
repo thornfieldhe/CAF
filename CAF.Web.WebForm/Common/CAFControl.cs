@@ -4,8 +4,10 @@ namespace CAF.Web.WebForm.CAFControl
     using CAF.Model;
     using CAF.Web.WebForm.Common;
     using FineUI;
-    using System;
-    using System.Linq;
+
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Linq;
 
     #region CAFPanel
 
@@ -13,9 +15,9 @@ namespace CAF.Web.WebForm.CAFControl
     {
         public CAFPanel()
         {
-            base.BodyPadding = "5px 5px 5px 5px";
-            base.ShowBorder = false;
-            base.ShowHeader = false;
+            this.BodyPadding = "5px 5px 5px 5px";
+            this.ShowBorder = false;
+            this.ShowHeader = false;
         }
     }
 
@@ -23,14 +25,14 @@ namespace CAF.Web.WebForm.CAFControl
     {
         public MainPanel()
         {
-            base.BoxConfigAlign = BoxLayoutAlign.Stretch;
-            base.BoxConfigPosition = BoxLayoutPosition.Start;
+            this.BoxConfigAlign = BoxLayoutAlign.Stretch;
+            this.BoxConfigPosition = BoxLayoutPosition.Start;
         }
     }
 
     public class SubmitPanel : CAFPanel
     {
-        public SubmitPanel() { base.CssClass = "submitpanel"; }
+        public SubmitPanel() { this.CssClass = "submitpanel"; }
     }
 
     #endregion
@@ -42,11 +44,11 @@ namespace CAF.Web.WebForm.CAFControl
     {
         public CAFForm()
         {
-            base.BoxConfigAlign = BoxLayoutAlign.Stretch;
-            base.BoxConfigPosition = BoxLayoutPosition.Start;
-            base.BodyPadding = "5px 5px 5px 5px";
-            base.ShowBorder = false;
-            base.ShowHeader = false;
+            this.BoxConfigAlign = BoxLayoutAlign.Stretch;
+            this.BoxConfigPosition = BoxLayoutPosition.Start;
+            this.BodyPadding = "5px 5px 5px 5px";
+            this.ShowBorder = false;
+            this.ShowHeader = false;
         }
     }
 
@@ -63,10 +65,10 @@ namespace CAF.Web.WebForm.CAFControl
             {
                 return;
             }
-            var created = OnCreate(business);
+            var created = this.OnCreate(business);
             if (created)
             {
-                PostCreate(business);
+                this.PostCreate(business);
             }
         }
         public void Update(IBusinessBase business)
@@ -75,10 +77,10 @@ namespace CAF.Web.WebForm.CAFControl
             {
                 return;
             }
-            var updated = OnUpdate(business);
+            var updated = this.OnUpdate(business);
             if (updated)
             {
-                PostUpdate(business);
+                this.PostUpdate(business);
             }
         }
         public void Delete(IBusinessBase business)
@@ -87,25 +89,25 @@ namespace CAF.Web.WebForm.CAFControl
             {
                 return;
             }
-            var delete = OnDelete(business);
+            var delete = this.OnDelete(business);
             if (delete)
             {
-                PostDelete(business);
+                this.PostDelete(business);
             }
         }
 
 
-        public bool PreCreate(IBusinessBase business) { return OnPreCreated == null || OnPreCreated(business); }
+        public bool PreCreate(IBusinessBase business) { return this.OnPreCreated == null || this.OnPreCreated(business); }
 
-        public void PostCreate(IBusinessBase business) { if (OnPostCreated != null) { OnPostCreated(business); } }
+        public void PostCreate(IBusinessBase business) { if (this.OnPostCreated != null) { this.OnPostCreated(business); } }
 
-        public bool PreDelete(IBusinessBase business) { return OnPreDelete == null || OnPreDelete(business); }
+        public bool PreDelete(IBusinessBase business) { return this.OnPreDelete == null || this.OnPreDelete(business); }
 
-        public void PostDelete(IBusinessBase business) { if (OnPostDelete != null) { OnPostDelete(business); } }
+        public void PostDelete(IBusinessBase business) { if (this.OnPostDelete != null) { this.OnPostDelete(business); } }
 
-        public bool PreUpdate(IBusinessBase business) { return OnPreUpdated == null || OnPreUpdated(business); }
+        public bool PreUpdate(IBusinessBase business) { return this.OnPreUpdated == null || this.OnPreUpdated(business); }
 
-        public void PostUpdate(IBusinessBase business) { if (OnPostUpdated != null) { OnPostUpdated(business); } }
+        public void PostUpdate(IBusinessBase business) { if (this.OnPostUpdated != null) { this.OnPostUpdated(business); } }
 
         public bool OnCreate(IBusinessBase business)
         {
@@ -180,33 +182,33 @@ namespace CAF.Web.WebForm.CAFControl
             base.EnableCollapse = true;
             base.ShowBorder = true;
             base.ShowHeader = true;
+            base.ShowPagingMessage = true;
             base.Columns.Add(new RowNumberField() { EnablePagingNumber = true });
         }
 
-        public delegate void QueryHandler();
+        public delegate void QueryHandler(object sender = null, EventArgs e = null);
         public event QueryHandler OnQuery;
 
         protected override void OnPageIndexChange(GridPageEventArgs e)
         {
-            base.PageIndex = e.NewPageIndex;
-            if (OnQuery != null)
+            this.PageIndex = e.NewPageIndex;
+            if (this.OnQuery != null)
             {
-                OnQuery();
+                this.OnQuery();
             }
             base.OnPageIndexChange(e);
         }
 
         protected override void OnSort(GridSortEventArgs e)
         {
-            base.SortField = e.SortField;
-            base.SortDirection = e.SortDirection;
-            if (OnQuery != null)
+            this.SortField = e.SortField;
+            this.SortDirection = e.SortDirection;
+            if (this.OnQuery != null)
             {
-                OnQuery();
+                this.OnQuery();
             }
             base.OnSort(e);
         }
-
 
         /// <summary>
         /// 绑定数据源
@@ -214,35 +216,47 @@ namespace CAF.Web.WebForm.CAFControl
         /// <typeparam name="T"></typeparam>
         /// <param name="criteria"></param>
         /// <param name="where"></param>
-        public void BindDataSource<T>(T criteria, string where) where T : ReadOnlyBase
+        public void BindDataSource<T>(T criteria, string where = " 1=1") where T : ReadOnlyBase
         {
+            ReadOnlyCollectionBase<T>.Connection = SqlService.Instance.Connection;
             var result = ReadOnlyCollectionBase<T>
-                .Query(SortField, PageSize, criteria, where, PageIndex, SortDirection);
-            RecordCount = result.TotalCount;
-            DataSource = result.Result;
-            DataBind();
+                .Query(this.SortField, this.PageSize, criteria, where, this.PageIndex, this.SortDirection);
+            this.RecordCount = result.TotalCount;
+            this.DataSource = result.Result;
+            this.DataBind();
         }
 
-        public void DeleteItems<T>() where T : IBusinessBase
+        /// <summary>
+        /// 绑定数据源
+        /// </summary>
+        /// <param name="items"></param>
+        public void BindDataSource<T>(IList<T> items)
+        {
+            this.RecordCount = items.Count;
+            this.DataSource = items;
+            this.DataBind();
+        }
+
+        public void Delete<T>() where T : IBusinessBase
         {
             try
             {
-                var list = SelectedRowIndexArray;
+                var list = this.SelectedRowIndexArray;
                 if (list.Length == 0)
                 {
                     Alert.ShowInTop("请选择删除项！");
                 }
                 else
                 {
-                    foreach (var id in list.Select(i => (Rows[i].DataKeys[0].ToString().ToGuid())))
+                    foreach (var id in list.Select(i => (this.Rows[i].DataKeys[0].ToString().ToGuid())))
                     {
                         var item = (T)Activator.CreateInstance(typeof(T), true);
                         item.Id = id;
                         item.Delete();
                     }
-                    if (OnQuery != null)
+                    if (this.OnQuery != null)
                     {
-                        OnQuery();
+                        this.OnQuery();
                     }
                 }
             }
@@ -251,15 +265,33 @@ namespace CAF.Web.WebForm.CAFControl
                 Alert.ShowInTop(ex.Message);
             }
         }
+
+        public void Excute<T>(GridCommandEventArgs e) where T : IBusinessBase
+        {
+            switch (e.CommandName)
+            {
+                case "Delete":
+                    var id = this.Rows[e.RowIndex].DataKeys[0].ToString().ToGuid();
+                    var item = (T)Activator.CreateInstance(typeof(T), true);
+                    item.Id = id;
+                    item.Delete();
+                    break;
+            }
+            if (this.OnQuery != null)
+            {
+                this.OnQuery();
+            }
+
+        }
     }
 
     public class CAFTree : Tree
     {
         public CAFTree()
         {
-            base.EnableArrows = false;
+            this.EnableArrows = false;
             base.ShowHeader = false;
-            base.EnableLines = true;
+            this.EnableLines = true;
             base.ShowBorder = false;
         }
 
@@ -270,23 +302,23 @@ namespace CAF.Web.WebForm.CAFControl
     {
         public CAFTreeNode()
         {
-            base.Expanded = true;
-            base.EnableClickEvent = true;
+            this.Expanded = true;
+            this.EnableClickEvent = true;
         }
     }
 
-    public class CAFWindow : FineUI.Window
+    public class CAFWindow : Window
     {
         public CAFWindow()
         {
             base.Hidden = true;
             base.EnableIFrame = true;
-            base.EnableResize = false;
-            base.CloseAction = CloseAction.HidePostBack;
+            this.EnableResize = false;
+            this.CloseAction = CloseAction.HidePostBack;
             base.IFrameUrl = "about:blank";
-            base.Target = Target.Top;
-            base.IsModal = true;
-            base.CloseAction = CloseAction.HidePostBack;
+            this.Target = Target.Top;
+            this.IsModal = true;
+            this.CloseAction = CloseAction.HidePostBack;
         }
     }
 
@@ -432,7 +464,7 @@ namespace CAF.Web.WebForm.CAFControl
             this.ConfirmText = Resource.System_Message_ConfirmDelete;
             this.ConfirmTitle = Resource.System_Info_Hint;
             this.ConfirmIcon = MessageBoxIcon.Question;
-            base.Width = 60;
+            this.Width = 60;
             this.CommandName = "Delete";
             this.ConfirmTarget = Target.Top;
             this.HeaderText = Resource.System_Action_Delete;
@@ -445,7 +477,7 @@ namespace CAF.Web.WebForm.CAFControl
         public EditWindowField()
         {
             this.Icon = Icon.Pencil;
-            base.Width = 60;
+            this.Width = 60;
             this.HeaderText = Resource.System_Action_Edit;
             this.ColumnID = "Edit";
         }

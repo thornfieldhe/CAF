@@ -9,52 +9,52 @@ namespace CAF.Web.WebForm
     {
         protected override void OnLoad(EventArgs e)
         {
-            if (!IsPostBack)
+            if (!this.IsPostBack)
             {
-                pageId = new Guid("FD4D499B-3667-4AA1-8120-89FEEF28AB59");
+                this.pageId = new Guid("FD4D499B-3667-4AA1-8120-89FEEF28AB59");
             }
             base.OnLoad(e);
-            submitForm.OnPostCreated += submitForm_OnPostExcute;
-            submitForm.OnPostDelete += submitForm_OnPostExcute;
-            submitForm.OnPostUpdated += submitForm_OnPostExcute;
+            this.submitForm.OnPostCreated += this.submitForm_OnPostExcute;
+            this.submitForm.OnPostDelete += this.submitForm_OnPostExcute;
+            this.submitForm.OnPostUpdated += this.submitForm_OnPostExcute;
         }
 
         private void submitForm_OnPostExcute(IBusinessBase business)
         {
-            Initialization();
+            this.Initialization();
         }
 
         protected override void Bind()
         {
             base.Bind();
-            PageTools.BindDropdownList(Role.GetSimpleRoleList(), dropRoles, Guid.Empty.ToString());
+            PageTools.BindDropdownList(Role.GetSimpleRoleList(), this.dropRoles, Guid.Empty.ToString());
 
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            var item = Role.Get(dropRoles.SelectedValue.ToGuid());
-            submitForm.Delete(item);
+            var item = Role.Get(this.dropRoles.SelectedValue.ToGuid());
+            this.submitForm.Delete(item);
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            var item = Role.Get(dropRoles.SelectedValue.ToGuid());
-            submitForm.Update(item);
+            var item = Role.Get(this.dropRoles.SelectedValue.ToGuid());
+            this.submitForm.Update(item);
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             var item = new Role();
-            submitForm.Create(item);
+            this.submitForm.Create(item);
         }
 
         protected void dropRolesId_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var role = Role.Get(dropRoles.SelectedValue.ToGuid());
+            var role = Role.Get(this.dropRoles.SelectedValue.ToGuid());
             if (role != null)
             {
-                submitForm.LoadEntity(role);
+                this.submitForm.LoadEntity(role);
             }
         }
     }

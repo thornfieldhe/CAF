@@ -205,146 +205,146 @@ namespace CAF.Web.WebForm
 
         #region 按钮事件
 
-        protected virtual void btnExcute_Click(object sender, EventArgs e)
-        {
-            var throwEx = new Exception("");
-            try
-            {
-                if (sender is Button)
-                {
-                    var btn = (Button)sender;
-                    string faildMessage;
-                    switch (btn.ID)
-                    {
-                        case "btnAdd":
-                            PreAdd();
-                            faildMessage = Add();
-
-                            if (string.IsNullOrWhiteSpace(faildMessage))
-                            {
-                                PostAdd();
-                                CreateInfoLog(Resource.System_Action_Add);
-                                Alert.ShowInTop(Resource.System_Message_AddSuccess);
-                            }
-                            else
-                            {
-                                Alert.ShowInTop(faildMessage);
-                            }
-
-                            break;
-                        case "btnUpdate":
-                            PreUpdate();
-                            faildMessage = Update();
-
-                            if (string.IsNullOrWhiteSpace(faildMessage))
-                            {
-                                PostUpdate();
-                                CreateInfoLog(Resource.System_Action_Update);
-                                Alert.ShowInTop(Resource.System_Message_UpdateSuccess);
-                            }
-                            else
-                            {
-                                Alert.ShowInTop(faildMessage);
-
-                            }
-                            break;
-
-                        case "btnDelete":
-                            PreDelete();
-                            faildMessage = Delete();
-
-                            if (string.IsNullOrWhiteSpace(faildMessage))
-                            {
-                                PostDelete();
-                                CreateInfoLog(Resource.System_Action_Delete);
-                                Alert.ShowInTop(Resource.System_Message_DeleteSuccess);
-                            }
-                            else
-                            {
-                                Alert.ShowInTop(faildMessage);
-
-                            }
-                            break;
-
-                        case "btnReset":
-                            Reset();
-                            break;
-                        case "btnQuery":
-                            Query();
-                            CreateInfoLog(Resource.System_Action_Query);
-                            break;
-                        case "btnSave":
-                            PreSave();
-                            faildMessage = Save();
-
-                            if (string.IsNullOrWhiteSpace(faildMessage))
-                            {
-                                PostSave();
-                                CreateInfoLog(Resource.System_Action_Save);
-                                Alert.ShowInTop(Resource.System_Message_SavedSuccess);
-                            }
-                            else
-                            {
-                                Alert.ShowInTop(faildMessage);
-
-                            }
-                            break;
-                        case "btnSubmit":
-                            PreSubmit();
-                            faildMessage = Submit();
-                            if (string.IsNullOrWhiteSpace(faildMessage))
-                            {
-                                PostSubmit();
-                                CreateInfoLog(Resource.System_Action_Save);
-                                Alert.ShowInTop(Resource.System_Message_ConfirmSubmit);
-                            }
-                            else
-                            {
-                                Alert.ShowInTop(faildMessage);
-                            }
-
-                            break;
-                        case "btnExport":
-                            faildMessage = Export();
-                            if (string.IsNullOrWhiteSpace(faildMessage))
-                            {
-                                CreateInfoLog(Resource.System_Action_Export);
-                                Alert.ShowInTop(Resource.System_Message_ExportSuccess);
-                            }
-                            else
-                            {
-                                Alert.ShowInTop(faildMessage);
-
-                            }
-
-                            break;
-                        case "btnInport":
-                            faildMessage = Inport();
-                            if (string.IsNullOrWhiteSpace(faildMessage))
-                            {
-                                CreateInfoLog(Resource.System_Action_Inport);
-                                Alert.ShowInTop(Resource.System_Message_InportSuccess);
-                            }
-                            else
-                            {
-                                Alert.ShowInTop(faildMessage);
-
-                            }
-
-                            break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Alert.ShowInTop(ex.Message);
-                throwEx = ex;
-            }
-            if (throwEx.Message != "")
-            {
-                CreateErrorLog(throwEx);
-            }
-        }
+//        protected virtual void btnExcute_Click(object sender, EventArgs e)
+//        {
+//            var throwEx = new Exception("");
+//            try
+//            {
+//                if (sender is Button)
+//                {
+//                    var btn = (Button)sender;
+//                    string faildMessage;
+//                    switch (btn.ID)
+//                    {
+//                        case "btnAdd":
+//                            PreAdd();
+//                            faildMessage = Add();
+//
+//                            if (string.IsNullOrWhiteSpace(faildMessage))
+//                            {
+//                                PostAdd();
+//                                CreateInfoLog(Resource.System_Action_Add);
+//                                Alert.ShowInTop(Resource.System_Message_AddSuccess);
+//                            }
+//                            else
+//                            {
+//                                Alert.ShowInTop(faildMessage);
+//                            }
+//
+//                            break;
+//                        case "btnUpdate":
+//                            PreUpdate();
+//                            faildMessage = Update();
+//
+//                            if (string.IsNullOrWhiteSpace(faildMessage))
+//                            {
+//                                PostUpdate();
+//                                CreateInfoLog(Resource.System_Action_Update);
+//                                Alert.ShowInTop(Resource.System_Message_UpdateSuccess);
+//                            }
+//                            else
+//                            {
+//                                Alert.ShowInTop(faildMessage);
+//
+//                            }
+//                            break;
+//
+//                        case "btnDelete":
+//                            PreDelete();
+//                            faildMessage = Delete();
+//
+//                            if (string.IsNullOrWhiteSpace(faildMessage))
+//                            {
+//                                PostDelete();
+//                                CreateInfoLog(Resource.System_Action_Delete);
+//                                Alert.ShowInTop(Resource.System_Message_DeleteSuccess);
+//                            }
+//                            else
+//                            {
+//                                Alert.ShowInTop(faildMessage);
+//
+//                            }
+//                            break;
+//
+//                        case "btnReset":
+//                            Reset();
+//                            break;
+//                        case "btnQuery":
+//                            Query();
+//                            CreateInfoLog(Resource.System_Action_Query);
+//                            break;
+//                        case "btnSave":
+//                            PreSave();
+//                            faildMessage = Save();
+//
+//                            if (string.IsNullOrWhiteSpace(faildMessage))
+//                            {
+//                                PostSave();
+//                                CreateInfoLog(Resource.System_Action_Save);
+//                                Alert.ShowInTop(Resource.System_Message_SavedSuccess);
+//                            }
+//                            else
+//                            {
+//                                Alert.ShowInTop(faildMessage);
+//
+//                            }
+//                            break;
+//                        case "btnSubmit":
+//                            PreSubmit();
+//                            faildMessage = Submit();
+//                            if (string.IsNullOrWhiteSpace(faildMessage))
+//                            {
+//                                PostSubmit();
+//                                CreateInfoLog(Resource.System_Action_Save);
+//                                Alert.ShowInTop(Resource.System_Message_ConfirmSubmit);
+//                            }
+//                            else
+//                            {
+//                                Alert.ShowInTop(faildMessage);
+//                            }
+//
+//                            break;
+//                        case "btnExport":
+//                            faildMessage = Export();
+//                            if (string.IsNullOrWhiteSpace(faildMessage))
+//                            {
+//                                CreateInfoLog(Resource.System_Action_Export);
+//                                Alert.ShowInTop(Resource.System_Message_ExportSuccess);
+//                            }
+//                            else
+//                            {
+//                                Alert.ShowInTop(faildMessage);
+//
+//                            }
+//
+//                            break;
+//                        case "btnInport":
+//                            faildMessage = Inport();
+//                            if (string.IsNullOrWhiteSpace(faildMessage))
+//                            {
+//                                CreateInfoLog(Resource.System_Action_Inport);
+//                                Alert.ShowInTop(Resource.System_Message_InportSuccess);
+//                            }
+//                            else
+//                            {
+//                                Alert.ShowInTop(faildMessage);
+//
+//                            }
+//
+//                            break;
+//                    }
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                Alert.ShowInTop(ex.Message);
+//                throwEx = ex;
+//            }
+//            if (throwEx.Message != "")
+//            {
+//                CreateErrorLog(throwEx);
+//            }
+//        }
 
         protected void CreateErrorLog(Exception throwEx)
         {
@@ -367,42 +367,42 @@ namespace CAF.Web.WebForm
             log.Create();
         }
 
-        protected virtual string Update() { return string.Empty; }
-
-        protected virtual string Delete() { return string.Empty; }
-
-        protected virtual string Add() { return string.Empty; }
-
-        protected virtual string Save() { return string.Empty; }
-
-        protected virtual string Submit() { return string.Empty; }
-
-        protected virtual string PreDelete() { return string.Empty; }
-
-        protected virtual string PreUpdate() { return string.Empty; }
-
-        protected virtual string PreAdd() { return string.Empty; }
-        protected virtual string PreSubmit() { return string.Empty; }
-
-        protected virtual string PreSave() { return string.Empty; }
-
-        protected virtual string PostDelete() { return string.Empty; }
-
-        protected virtual string PostUpdate() { return string.Empty; }
-
-        protected virtual string PostSubmit() { return string.Empty; }
-
-        protected virtual string PostAdd() { return string.Empty; }
-
-        protected virtual string PostSave() { return string.Empty; }
-
-        protected virtual void Reset() { }
-
-        protected virtual void Query() { }
-
-        protected virtual string Export() { return string.Empty; }
-
-        protected virtual string Inport() { return string.Empty; }
+//        protected virtual string Update() { return string.Empty; }
+//
+//        protected virtual string Delete() { return string.Empty; }
+//
+//        protected virtual string Add() { return string.Empty; }
+//
+//        protected virtual string Save() { return string.Empty; }
+//
+//        protected virtual string Submit() { return string.Empty; }
+//
+//        protected virtual string PreDelete() { return string.Empty; }
+//
+//        protected virtual string PreUpdate() { return string.Empty; }
+//
+//        protected virtual string PreAdd() { return string.Empty; }
+//        protected virtual string PreSubmit() { return string.Empty; }
+//
+//        protected virtual string PreSave() { return string.Empty; }
+//
+//        protected virtual string PostDelete() { return string.Empty; }
+//
+//        protected virtual string PostUpdate() { return string.Empty; }
+//
+//        protected virtual string PostSubmit() { return string.Empty; }
+//
+//        protected virtual string PostAdd() { return string.Empty; }
+//
+//        protected virtual string PostSave() { return string.Empty; }
+//
+//        protected virtual void Reset() { }
+//
+//        protected virtual void Query() { }
+//
+//        protected virtual string Export() { return string.Empty; }
+//
+//        protected virtual string Inport() { return string.Empty; }
 
         #endregion 按钮事件
     }

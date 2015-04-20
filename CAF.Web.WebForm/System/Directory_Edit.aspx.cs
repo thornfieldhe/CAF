@@ -1,118 +1,68 @@
 ﻿using System;
-using System.Linq;
 namespace CAF.Web.WebForm
 {
     using CAF.Model;
-    using CAF.Web.WebForm.CAFControl;
     using CAF.Web.WebForm.Common;
-    using FineUI;
 
+    using FineUI;
 
     public partial class Directory_Edit : BasePage
     {
 
         protected override void OnLoad(EventArgs e)
         {
-            if (!IsPostBack)
+            if (!this.IsPostBack)
             {
-                pageId = new Guid("f66d4ee2-8c93-47bd-83bf-550cab2025da");
+                this.pageId = new Guid("f66d4ee2-8c93-47bd-83bf-550cab2025da");
             }
             base.OnLoad(e);
-            submitForm.OnPostCreated += submitForm_OnPostExcute;
-            submitForm.OnPostDelete += submitForm_OnPostExcute;
-            submitForm.OnPostUpdated += submitForm_OnPostExcute;
-
+            this.btnClose.OnClientClick = ActiveWindow.GetHidePostBackReference();
+            this.submitForm.OnPostCreated += this.submitForm_OnPostExcute;
+            this.submitForm.OnPostDelete += this.submitForm_OnPostExcute;
+            this.submitForm.OnPostUpdated += this.submitForm_OnPostExcute;
         }
 
         private void submitForm_OnPostExcute(IBusinessBase business)
         {
-            Initialization();
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
 
         protected override void Bind()
         {
-            base.Bind();
-            PageHelper.BindDirectories(txtId.Text.ToGuid(), dropParentId, Guid.Empty.ToString());
-            BindTree();
-            txtId.Readonly = false;
-            btnDelete.Enabled = false;
-            btnUpdate.Enabled = false;
+            PageHelper.BindDirectories(this.txtId.Text.ToGuid(), this.dropParentId, selectItem: Guid.Empty.ToString());
+
+
+            var item = Directory.Get(this.Id);
+            if (item == null)
+            {
+                this.btnDelete.Hidden = true;
+                this.btnUpdate.Hidden = true;
+            }
+            else
+            {
+                this.btnAdd.Hidden = true;
+                this.txtId.Readonly = true;
+                this.submitForm.LoadEntity(item);
+            }
+
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            var item = Directory.Get(txtId.Text.ToGuid());
-            submitForm.Delete(item);
+            var item = Directory.Get(this.txtId.Text.ToGuid());
+            this.submitForm.Delete(item);
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            var item = Directory.Get(txtId.Text.ToGuid());
-            submitForm.Update(item);
+            var item = Directory.Get(this.txtId.Text.ToGuid());
+            this.submitForm.Update(item);
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             var item = new Directory();
-            submitForm.Create(item);
+            this.submitForm.Create(item);
         }
-
-
-        #region tree
-
-        protected void treeDirs_NodeCommand(object sender, FineUI.TreeCommandEventArgs e)
-        {
-            var dir = Directory.Get(new Guid(e.Node.NodeID));
-            PageTools.BindControls(submitForm, dir);
-            PageHelper.BindDirectories(txtId.Text.ToGuid(), dropParentId, dir.ParentId.ToString());
-            btnDelete.Enabled = true;
-            btnUpdate.Enabled = true;
-            txtId.Readonly = true;
-        }
-
-        private void BindTree()
-        {
-            var dirs = Directory.GetAll();
-            foreach (var item in dirs)
-            {
-                if (item.ParentId != new Guid())
-                {
-                    continue;
-                }
-                var node = CreateNode(item, treeDirs.Nodes);
-                ResolveSubTree(item.Id, node);
-            }
-        }
-
-        private void ResolveSubTree(Guid id, TreeNode treeNode)
-        {
-            var dirs = Directory.GetAllByParentId(id).OrderBy(d => d.Sort).ToList();
-            if (dirs.Count <= 0)
-            {
-                return;
-            }
-            treeNode.Expanded = true;
-            foreach (var item in dirs)
-            {
-                var node = CreateNode(item, treeNode.Nodes);
-                ResolveSubTree(item.Id, node);
-            }
-        }
-
-        private CAFTreeNode CreateNode(Directory item, TreeNodeCollection parent)
-        {
-            var node = new CAFTreeNode
-                           {
-                               Text =
-                                   string.Format("{0}<span style='color: #FF0000'>{1}</span>",
-                                       item.Name,
-                                       item.Status == (int)HideStatusEnum.Hide ? "[隐藏]" : ""),
-                               NodeID = item.Id.ToString()
-                           };
-            parent.Add(node);
-            return node;
-        }
-
-        #endregion tree
     }
 }

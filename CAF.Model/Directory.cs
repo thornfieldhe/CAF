@@ -78,4 +78,11 @@ namespace CAF.Model
             }
         }
     }
+
+    public partial class ReadOnlyDirectory
+    {
+        public string StatusName { get { return RichEnumContent.GetDescription<HideStatusEnum>(this.Status); }}
+
+        
+    }
 }

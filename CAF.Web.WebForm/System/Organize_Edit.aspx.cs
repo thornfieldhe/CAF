@@ -8,7 +8,8 @@ namespace CAF.Web.WebForm
     using CAF.Web.WebForm.CAFControl;
     using CAF.Web.WebForm.Common;
     using FineUI;
-    using System.Linq;
+
+    using global::System.Linq;
 
     public partial class Organize_Edit : BasePage
     {

@@ -24,7 +24,7 @@
             </f:Toolbar>
         </Toolbars>
         <Items>
-            <f:WindowForm Width="550px" ID="submitForm" runat="server">
+            <f:SubmitForm Width="400px" ID="submitForm" runat="server">
                 <Rows>
                     <f:FormRow>
                         <Items>
@@ -76,7 +76,7 @@
                     <f:FormRow>
                         <Items>
                             <f:GroupPanel runat="server"  Title="用户角色" ID="GroupPanel1" EnableCollapse="True"
-                                Width="540px" EnableAjax="false">
+                                Width="390px" EnableAjax="false">
                                 <Items>
                                     <f:CheckBoxList runat="server" ID="chkUserRoles" ColumnNumber="2">
                                     </f:CheckBoxList>
@@ -85,7 +85,7 @@
                         </Items>
                     </f:FormRow>
                 </Rows>
-            </f:WindowForm>
+            </f:SubmitForm>
         </Items>
     </f:CAFPanel>
     </form>

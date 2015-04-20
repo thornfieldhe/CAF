@@ -3643,6 +3643,7 @@
     <Content Include="res\icon\zoom_in.png" />
     <Content Include="res\icon\zoom_out.png" />
     <Content Include="System\Directory_Edit.aspx" />
+    <Content Include="System\Directory_Query.aspx" />
     <Content Include="System\Organize_Edit.aspx" />
     <Content Include="System\Organize_Query.aspx" />
     <Content Include="System\Role_Edit.aspx" />
@@ -3710,6 +3711,13 @@
     </Compile>
     <Compile Include="System\Directory_Edit.aspx.designer.cs">
       <DependentUpon>Directory_Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="System\Directory_Query.aspx.cs">
+      <DependentUpon>Directory_Query.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\Directory_Query.aspx.designer.cs">
+      <DependentUpon>Directory_Query.aspx</DependentUpon>
     </Compile>
     <Compile Include="System\Organize_Edit.aspx.cs">
       <DependentUpon>Organize_Edit.aspx</DependentUpon>

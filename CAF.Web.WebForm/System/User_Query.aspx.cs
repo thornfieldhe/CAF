@@ -5,100 +5,89 @@ namespace CAF.Web.WebForm
     using CAF.Model;
     using CAF.Web.WebForm.Common;
     using FineUI;
-    using System.Linq;
 
+    using global::System.Linq;
 
     public partial class User_Query : BasePage
     {
         protected override void OnLoad(EventArgs e)
         {
-            pageId = new Guid("5CCA7546-79EB-4AAE-A7F9-90F9E660A3A6");
+            this.pageId = new Guid("5CCA7546-79EB-4AAE-A7F9-90F9E660A3A6");
             base.OnLoad(e);
-            grid.OnQuery += grid_OnQuery;
+            this.grid.OnQuery += this.grid_OnQuery;
+            this.btnQuery.Click += this.grid_OnQuery;
+            this.winEdit.Close += this.grid_OnQuery;
         }
 
         protected override void Bind()
         {
             base.Bind();
-            PageHelper.BindDirectories(new Guid(), dropDeps, new Guid().ToString(), true);
-            PageTools.BindDropdownList(Role.GetSimpleRoleList(), dropRoles, new Guid().ToString());
-            PageTools.BindDropdownList(typeof(UserStatusEnum), dropStatus);
-            grid_OnQuery();
-            btnNew.OnClientClick = winEdit.GetShowReference("User_Edit.aspx", "新增");
+            PageHelper.BindDirectories(new Guid(), this.dropDeps, new Guid().ToString(), true);
+            PageTools.BindDropdownList(Role.GetSimpleRoleList(), this.dropRoles, new Guid().ToString());
+            PageTools.BindDropdownList(typeof(UserStatusEnum), this.dropStatus);
+            this.grid_OnQuery();
+            this.btnNew.OnClientClick = this.winEdit.GetShowReference("User_Edit.aspx", "新增");
         }
 
 
         protected void btnDeleteRows_Click(object sender, EventArgs e)
         {
-            grid.DeleteItems<Model.User>();
+            this.grid.Delete<User>();
         }
-
-        protected void btnQuery_Click(object sender, EventArgs e)
+        
+        protected void gridRowCommand(object sender, GridCommandEventArgs e)
         {
-            grid_OnQuery();
+            this.grid.Excute<Model.User>(e);
         }
 
-        protected void winEdit_Close(object sender, WindowCloseEventArgs e)
-        {
-            grid_OnQuery();
-        }
+        protected void btnLockRows_Click(object sender, EventArgs e) { this.Update((int)UserStatusEnum.Locked); }
 
-        protected void gridRowCommand(object sender,GridCommandEventArgs e)
-        {
-            if (e.CommandName == "Delete")
-            {
-                var id = grid.Rows[e.RowIndex].DataKeys[0].ToString().ToGuid();
-                Model.User.Delete(id);
-            }
-            grid_OnQuery();
-        }
+        protected void btnUnLockRows_Click(object sender, EventArgs e) { this.Update((int)UserStatusEnum.Normal); }
 
-        private void grid_OnQuery()
+
+        #region 自定义方法
+
+        private void grid_OnQuery(object sender = null, EventArgs e = null)
         {
             var strWhere = " 1=1";
             var userCriteria = new ReadOnlyUser();
-            if (dropDeps.SelectedValue != "")
+            if (this.dropDeps.SelectedValue != "")
             {
                 strWhere += " And Level Like '{0}%'";
-                userCriteria.Level = dropDeps.SelectedValue;
+                userCriteria.Level = this.dropDeps.SelectedValue;
             }
-            if (new Guid(dropRoles.SelectedValue) != new Guid())
+            if (new Guid(this.dropRoles.SelectedValue) != new Guid())
             {
                 strWhere += " And Roles Like '%'+@RoleId+'%'";
-                userCriteria.Roles = dropRoles.SelectedValue;
+                userCriteria.Roles = this.dropRoles.SelectedValue;
             }
-            if (dropStatus.SelectedValue != "")
+            if (this.dropStatus.SelectedValue != "")
             {
                 strWhere += "And Status = @Status";
-                userCriteria.Status = dropStatus.SelectedValue.ToInt();
+                userCriteria.Status = this.dropStatus.SelectedValue.ToInt();
             }
-            if (txtName.Text.Trim() != "")
+            if (this.txtName.Text.Trim() != "")
             {
                 strWhere += " And(Name Like '%'+@Name+'%' OR Abb Like '%'+@Abb+'%')";
-                userCriteria.Name = txtName.Text.Trim();
-                userCriteria.Abb = txtName.Text.Trim().ToUpper();
+                userCriteria.Name = this.txtName.Text.Trim();
+                userCriteria.Abb = this.txtName.Text.Trim().ToUpper();
             }
-            grid.BindDataSource(userCriteria, strWhere);
+            this.grid.BindDataSource(userCriteria, strWhere);
         }
 
-        #region 特定方法
-
-        protected void btnLockRows_Click(object sender, EventArgs e) { Update((int)UserStatusEnum.Locked); }
-
-        protected void btnUnLockRows_Click(object sender, EventArgs e) { Update((int)UserStatusEnum.Normal); }
 
         private void Update(int cmd)
         {
             try
             {
-                var list = grid.SelectedRowIndexArray;
+                var list = this.grid.SelectedRowIndexArray;
                 if (list.Length == 0)
                 {
                     Alert.ShowInTop("请选择用户！");
                 }
                 else
                 {
-                    foreach (var u in list.Select(i => Model.User.Get(new Guid(grid.Rows[i].DataKeys[0].ToString()))))
+                    foreach (var u in list.Select(i => Model.User.Get(new Guid(this.grid.Rows[i].DataKeys[0].ToString()))))
                     {
                         u.Status = cmd;
                         u.Save();
@@ -113,7 +102,7 @@ namespace CAF.Web.WebForm
             {
                 Alert.ShowInTop(ex.Message);
             }
-            grid_OnQuery();
+            this.grid_OnQuery();
         }
 
         #endregion

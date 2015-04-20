@@ -5,7 +5,9 @@ namespace CAF.Model
 
     public enum HideStatusEnum
     {
+        [Description("显示")]
         Show = 0,
+        [Description("隐藏")]
         Hide = 1,
     }
 

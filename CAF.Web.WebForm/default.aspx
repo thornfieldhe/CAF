@@ -49,7 +49,7 @@
                                 <f:TreeNode Text="默认分类" Expanded="true">
                                     <f:TreeNode Text="开始页面" NavigateUrl="~/hello.aspx"></f:TreeNode>
                                     <f:TreeNode Text="登录页面" NavigateUrl="~/login.aspx"></f:TreeNode>
-                                    <f:TreeNode Text="目录" NavigateUrl="~/System/Directory_Edit.aspx"></f:TreeNode>
+                                    <f:TreeNode Text="目录" NavigateUrl="~/System/Directory_Query.aspx"></f:TreeNode>
                                     <f:TreeNode Text="用户查询" NavigateUrl="~/System/User_Query.aspx"></f:TreeNode>
                                     <f:TreeNode Text="部门编辑" NavigateUrl="~/System/Organize_Edit.aspx"></f:TreeNode>
                                     <f:TreeNode Text="角色编辑" NavigateUrl="~/System/Role_Edit.aspx"></f:TreeNode>

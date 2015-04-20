@@ -342,7 +342,7 @@ namespace CAF.Test
                 o.Users.Add(u);
             }
             o.IsValid.IfIsTrue(() => o.Create());
-            var readOlyBookList = ReadOnlyCollectionBase<ReadOnlyUser>.Query("Name", 2, new ReadOnlyUser { OrganizeId = o.Id },
+            var readOlyBookList = ReadOnlyCollectionBase<ReadOnlyUser>.Query("Name", 2, new { OrganizeId = o.Id },
                    sum: "Status", average: "Status", queryWhere: "   OrganizeId =@OrganizeId", pageIndex: 2);
             Assert.AreEqual(10, readOlyBookList.TotalCount);
             Assert.AreEqual(2, readOlyBookList.Result.Count());
