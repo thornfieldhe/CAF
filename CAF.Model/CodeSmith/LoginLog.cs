@@ -14,7 +14,8 @@ namespace CAF.Model
 	{   
         public LoginLog()
 		{
-            Connection = SqlService.Instance.Connection;
+            this.Connection = SqlService.Instance.Connection;
+            this.TableName = "Sys_LoginLogs";
             base.MarkNew();
 		}
 		
@@ -33,8 +34,8 @@ namespace CAF.Model
         [DateTimeRequired(ErrorMessage="登陆时间不允许为空")]
 		public DateTime LogTime
 		{
-			get {return _logTime;} 
-            set {SetProperty("LogTime",ref _logTime, value);}           	
+			get {return this._logTime;} 
+            set {this.SetProperty("LogTime",ref this._logTime, value);}           	
 		}
         
         /// <summary>
@@ -44,16 +45,16 @@ namespace CAF.Model
         [StringLength(20,ErrorMessage="用户名长度不能超过20")]
 		public string UserName
 		{
-			get {return _userName;} 
-            set {SetProperty("UserName",ref _userName, value);}           	
+			get {return this._userName;} 
+            set {this.SetProperty("UserName",ref this._userName, value);}           	
 		}
         
         [Required(ErrorMessage="Ip不允许为空")]
         [StringLength(20,ErrorMessage="Ip长度不能超过20")]
 		public string Ip
 		{
-			get {return _ip;} 
-            set {SetProperty("Ip",ref _ip, value);}           	
+			get {return this._ip;} 
+            set {this.SetProperty("Ip",ref this._ip, value);}           	
 		}
         
         /// <summary>
@@ -62,8 +63,8 @@ namespace CAF.Model
         [Required(ErrorMessage="是否登陆不允许为空")]
 		public int IsLogin
 		{
-			get {return _isLogin;} 
-            set {SetProperty("IsLogin",ref _isLogin, value);}           	
+			get {return this._isLogin;} 
+            set {this.SetProperty("IsLogin",ref this._isLogin, value);}           	
 		}
         
         
@@ -144,20 +145,20 @@ namespace CAF.Model
 		
 		public override int Update(IDbConnection conn, IDbTransaction transaction)
 		{
-             if (!IsDirty)
+             if (!this.IsDirty)
              {
-                return _changedRows;
+                return this._changedRows;
              }  
-            _updateParameters+=", ChangedDate = GetDate()";
-			var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
-			_changedRows+= conn.Execute(query, this, transaction, null, null);
-            return _changedRows;
+            this._updateParameters+=", ChangedDate = GetDate()";
+			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
+			this._changedRows+= conn.Execute(query, this, transaction, null, null);
+            return this._changedRows;
 		}
 		
 		public override int Insert(IDbConnection conn, IDbTransaction transaction)
 		{
-            _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-            return _changedRows;
+            this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
+            return this._changedRows;
 		}
 		
 		#region 私有方法

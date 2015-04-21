@@ -1,6 +1,6 @@
 ﻿<%@ CodeTemplate Language="C#" TargetLanguage="C#" Description="Generates a very simple business object." %>
 <%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
-<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="BusinessObjects" Description="" %>
+<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="CAF" Description="" %>
 <%@ Property Name="Children" Type="List<String>"  Optional="True" Category="Options"  Description="子对象集合（适用于1对多）" %>
 <%@ Property Name="Child" Type="List<String>"  Optional="True" Category="Options"  Description="子对象（适用于1对1）" %>
 <%@ Property Name="AsChildren" Type="List<String>"  Optional="True" Category="Options"  Description="作为子对象集合（适用于1对多）" %>
@@ -33,7 +33,8 @@ namespace <%= ClassNamespace %>.Model
 	{   
         public <%= GetClassName(SourceTable) %>()
 		{
-            Connection = SqlService.Instance.Connection;
+            this.Connection = SqlService.Instance.Connection;
+            this.TableName = "<%=SourceTable.Name%>";
             base.MarkNew();
 			<%foreach(string item in Children){ %>
             <%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(this), isThreadSafe: true);          
@@ -94,8 +95,8 @@ namespace <%= ClassNamespace %>.Model
         <%}%>
 		public <%= GetCSharpVariableType(column) %><%=IsSystemNullAble(column)%> <%= GetPropertyName(column) %>
 		{
-			get {return <%= GetMemberVariableName(column) %>;} 
-            set {SetProperty("<%= GetPropertyName(column) %>",ref <%=GetMemberVariableName(column)%>, value);}           	
+			get {return this.<%= GetMemberVariableName(column) %>;} 
+            set {this.SetProperty("<%= GetPropertyName(column) %>",ref this.<%=GetMemberVariableName(column)%>, value);}           	
 		}
         
         <% if (GetPropertyName(column).EndsWith("Id")){ %>	
@@ -110,7 +111,7 @@ namespace <%= ClassNamespace %>.Model
 			get
 			{ 
 				<%if(column.AllowDBNull){%>
-				return !<%= GetPropertyName(column)%>.HasValue ? null : <%= GetClassName(SourceTable) %>.Get(<%= GetPropertyName(column)%>.Value);
+				return !this.<%= GetPropertyName(column)%>.HasValue ? null : <%= GetClassName(SourceTable) %>.Get(this.<%= GetPropertyName(column)%>.Value);
 				<%}else{%>
 				return <%= GetClassName(SourceTable) %>.Get(<%= GetPropertyName(column)%>);
 				<%} %>
@@ -421,60 +422,60 @@ namespace <%= ClassNamespace %>.Model
 		
 		public override int Update(IDbConnection conn, IDbTransaction transaction)
 		{
-             if (!IsDirty)
+             if (!this.IsDirty)
              {
-                return _changedRows;
+                return this._changedRows;
              }  
-            _updateParameters+=", ChangedDate = GetDate()";
-			var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
-			_changedRows+= conn.Execute(query, this, transaction, null, null);
+            this._updateParameters+=", ChangedDate = GetDate()";
+			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
+			this._changedRows+= conn.Execute(query, this, transaction, null, null);
             <%foreach(var item in Children){ %>
     		<%= GetListMember2(item)%>.IsValueCreated.IfIsTrue(
 			() =>
             {
- 				_changedRows+=<%=item%>s.SaveChanges(conn,transaction);
+ 				this._changedRows+=<%=item%>s.SaveChanges(conn,transaction);
             });
             <%} %> 
             <%foreach(var item in Child){ %>
 			if(<%= GetListMember3(item)%>.IsValueCreated && <%=item%>!=null) 
             {
- 				_changedRows += <%=item%>.SaveChange(conn, transaction);
+ 				this._changedRows += <%=item%>.SaveChange(conn, transaction);
             }
             <%} %> 
 			<%foreach(var item in WithMany){ %>
 			<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfIsTrue(
             () =>
             {
- 				_changedRows+=<%=GetRelationshipItem(item)%>s.SaveChanges(conn,transaction);
+ 				this._changedRows+=<%=GetRelationshipItem(item)%>s.SaveChanges(conn,transaction);
             });
             <%} %>
-            return _changedRows;
+            return this._changedRows;
 		}
 		
 		public override int Insert(IDbConnection conn, IDbTransaction transaction)
 		{
-            _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
+            this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
             <%foreach(var item in Children){ %>
     		<%= GetListMember2(item)%>.IsValueCreated.IfIsTrue(
 			() =>
             {
- 				_changedRows+=<%=item%>s.SaveChanges(conn,transaction);
+ 				this._changedRows+=<%=item%>s.SaveChanges(conn,transaction);
             });
             <%} %> 
             <%foreach(string item in Child){ %>    		
 			if(<%= GetListMember3(item)%>.IsValueCreated && <%=item%>!=null) 
             {
- 				_changedRows += <%=item%>.SaveChange(conn, transaction);
+ 				this._changedRows += <%=item%>.SaveChange(conn, transaction);
             }
             <%} %> 
 			<%foreach(string item in WithMany){ %>
 			<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfIsTrue(
             () =>
             {
- 				_changedRows+=<%=GetRelationshipItem(item)%>s.SaveChanges(conn,transaction);
+ 				this._changedRows+=<%=GetRelationshipItem(item)%>s.SaveChanges(conn,transaction);
             });
             <%} %>
-            return _changedRows;
+            return this._changedRows;
 		}
 		
 		#region 私有方法
@@ -486,18 +487,18 @@ namespace <%= ClassNamespace %>.Model
             {
                 if (<%=GetCamelCaseName(GetRelationshipItem(item))%>.IsDelete && <%=GetRelationshipItem(item)%>s.IsChangeRelationship)
                 {
-                    _changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { UserId = this.Id, RoleId = <%=GetCamelCaseName(GetRelationshipItem(item))%>.Id }, transaction, null, null);
+                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { UserId = this.Id, RoleId = <%=GetCamelCaseName(GetRelationshipItem(item))%>.Id }, transaction, null, null);
                 }
                 else
                 {
                     var isExist = conn.Query<int>(QUERY_CONTAINS<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> , new { <%= GetClassName(SourceTable)%>Id = Id, <%=GetRelationshipItem(item)%>Id = <%=GetCamelCaseName(GetRelationshipItem(item))%>.Id },transaction).Single() >= 1;
                     if (!isExist)
                     {
-                        _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { <%= GetClassName(SourceTable)%>Id = Id, <%=GetRelationshipItem(item)%>Id = <%=GetCamelCaseName(GetRelationshipItem(item))%>.Id }, transaction, null, null);
+                        this._changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { <%= GetClassName(SourceTable)%>Id = Id, <%=GetRelationshipItem(item)%>Id = <%=GetCamelCaseName(GetRelationshipItem(item))%>.Id }, transaction, null, null);
                     }
                 }
             }
-            return _changedRows;
+            return this._changedRows;
         }
 
         protected static <%=GetRelationshipItem(item)%>List Init<%=GetRelationshipItem(item)%>s(<%= GetClassName(SourceTable)%> <%=GetCamelCaseName(GetClassName(SourceTable))%>)

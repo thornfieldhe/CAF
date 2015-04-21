@@ -1,6 +1,6 @@
 ﻿<%@ CodeTemplate Language="C#" TargetLanguage="C#" Description="Generates a very simple business object." %>
 <%@ Property Name="SourceView" Type="SchemaExplorer.ViewSchema" Category="Context" Description="Table that the object is based on." %>
-<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="BusinessObjects" Description="" %>
+<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="CAF" Description="" %>
 <%@ Assembly Name="SchemaExplorer" %>
 <%@ Assembly Name="System.Data" %>
 <%@ Import Namespace="System.Text" %>
@@ -17,16 +17,32 @@ namespace <%= this.ClassNamespace %>.Model
 {
     
     [Serializable]
-    public partial class <%= GetViewClassName(SourceView) %> :ReadOnlyBase
+    public partial class <%= GetViewClassName(SourceView) %> :ITableName
     {        
     
         public <%= GetViewClassName(SourceView) %>() { this.TableName = "<%=SourceView.Name%>"; }
 <% foreach (ViewColumnSchema column in SourceView.Columns) { %> 
 		public <%= GetCSharpVariableType(column) %> <%= GetPropertyName(column) %>{get; set;}      
 <% } %>
+        public string TableName { get; protected set; }
     }
 }
 <script runat="template">
+public string GetClassName(ViewSchema table)
+{
+    if (table.Name.EndsWith("ies"))
+	{
+		return  "ReadOnly"+(table.Name.Substring(0, table.Name.Length -3)+"y").Replace("V_","")+"List";
+	}
+	else if (table.Name.EndsWith("s"))
+	{
+		return "ReadOnly"+table.Name.Substring(0, table.Name.Length - 1).Replace("V_","")+"List";
+	}
+	else
+	{
+		return "ReadOnly"+table.Name.Replace("V_","")+"List";
+	}
+}
 
 public string GetViewClassName(ViewSchema table)
 {

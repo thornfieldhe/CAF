@@ -70,11 +70,6 @@
                     </f:FormRow>
                     <f:FormRow>
                         <Items>
-                            <f:HiddenField ID="txtId" runat="server" />
-                        </Items>
-                    </f:FormRow>
-                    <f:FormRow>
-                        <Items>
                             <f:GroupPanel runat="server"  Title="用户角色" ID="GroupPanel1" EnableCollapse="True"
                                 Width="390px" EnableAjax="false">
                                 <Items>

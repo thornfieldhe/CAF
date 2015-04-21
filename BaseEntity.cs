@@ -9,7 +9,7 @@ namespace CAF
     using CAF.Utility;
 
     [Serializable]
-    public class BaseEntity<T> : IEqualityComparer<T>, IBusinessBase where T : class,IBusinessBase
+    public class BaseEntity<T> : IEqualityComparer<T>, IBusinessBase,ITableName where T : class,IBusinessBase
     {
         protected Guid _id;
         protected int _status;
@@ -35,23 +35,23 @@ namespace CAF
         public delegate void PropertyChangeHandler();
         public event PropertyChangeHandler OnPropertyChange;
 
-        public Guid Id { get { return _id; } set { SetProperty("Id", ref _id, value); } }
-        public int Status { get { return _status; } set { SetProperty("Status", ref _status, value); } }
-        public DateTime CreatedDate { get { return _createdDate; } protected set { SetProperty("CreatedDate", ref _createdDate, value); } }
-        public DateTime ChangedDate { get { return _changedDate; } protected set { SetProperty("ChangedDate", ref _changedDate, value); } }
-        public string Note { get { return _note; } set { SetProperty("Note", ref _note, value); } }
+        public Guid Id { get { return this._id; } set { this.SetProperty("Id", ref this._id, value); } }
+        public int Status { get { return this._status; } set { this.SetProperty("Status", ref this._status, value); } }
+        public DateTime CreatedDate { get { return this._createdDate; } protected set { this.SetProperty("CreatedDate", ref this._createdDate, value); } }
+        public DateTime ChangedDate { get { return this._changedDate; } protected set { this.SetProperty("ChangedDate", ref this._changedDate, value); } }
+        public string Note { get { return this._note; } set { this.SetProperty("Note", ref this._note, value); } }
 
-
-        public IDbConnection Connection { get { return _connection; } set { _connection = value; } }
+        public string TableName { get; protected set; }
+        public IDbConnection Connection { get { return this._connection; } set { this._connection = value; } }
 
         public BaseEntity(Guid id)
         {
-            _id = id;
-            _status = 1;
-            _createdDate = DateTime.Now;
-            _changedDate = DateTime.Now;
+            this._id = id;
+            this._status = 1;
+            this._createdDate = DateTime.Now;
+            this._changedDate = DateTime.Now;
 
-            IsChangeRelationship = false;//默认进行标识删除
+            this.IsChangeRelationship = false;//默认进行标识删除
 
             //初始化方法注册
             //            _insertDelegate = PreInsert;
@@ -73,13 +73,14 @@ namespace CAF
             if ((oldValue == null && newValue == null)
                 || (oldValue != null && oldValue.Equals(newValue)))
             { return false; }
-            MarkDirty();
+            this.MarkDirty();
             var parameter = string.Format(", {0} =  @{0}", propertyName);
-            if (!_updateParameters.Contains(parameter)) _updateParameters += parameter;
+            if (!this._updateParameters.Contains(parameter))
+                this._updateParameters += parameter;
             oldValue = newValue;
-            if (OnPropertyChange != null)
+            if (this.OnPropertyChange != null)
             {
-                OnPropertyChange();
+                this.OnPropertyChange();
             }
             return true;
         }
@@ -93,8 +94,8 @@ namespace CAF
 
         public List<string> Errors
         {
-            get { return _errors ?? (_errors = new List<string>()); }
-            protected set { _errors = value; }
+            get { return this._errors ?? (this._errors = new List<string>()); }
+            protected set { this._errors = value; }
         }
 
         [NonSerialized]
@@ -109,17 +110,17 @@ namespace CAF
 
                 var item = this as T;
 
-                customerValidator = ValidationFactory.CreateValidator<T>();
-                v = customerValidator.Validate(item);
+                this.customerValidator = ValidationFactory.CreateValidator<T>();
+                this.v = this.customerValidator.Validate(item);
 
-                for (var i = 0; i < v.Count; i++)
+                for (var i = 0; i < this.v.Count; i++)
                 {
-                    Errors.Add(v.ElementAt(i).Message);
+                    this.Errors.Add(this.v.ElementAt(i).Message);
                 }
-                _isValid = v.IsValid;
-                return _isValid;
+                this._isValid = this.v.IsValid;
+                return this._isValid;
             }
-            protected set { _isValid = value; }
+            protected set { this._isValid = value; }
         }
         #endregion
 
@@ -130,13 +131,13 @@ namespace CAF
         protected bool _isChild = false;
         protected bool _isRoot = false;
 
-        public bool IsNew { get { return _isNew; } set { _isNew = value; } }
+        public bool IsNew { get { return this._isNew; } set { this._isNew = value; } }
 
-        public bool IsDelete { get { return _isDelete; } set { _isDelete = value; } }
+        public bool IsDelete { get { return this._isDelete; } set { this._isDelete = value; } }
 
-        public bool IsDirty { get { return _isDirty; } set { _isDirty = value; } }
+        public bool IsDirty { get { return this._isDirty; } set { this._isDirty = value; } }
 
-        public bool IsClean { get { return !_isDirty && !_isNew; } }
+        public bool IsClean { get { return !this._isDirty && !this._isNew; } }
 
         /// <summary>
         /// true：只更新关系
@@ -145,35 +146,35 @@ namespace CAF
         public bool IsChangeRelationship { get; set; }
         public virtual void MarkNew()
         {
-            _isNew = true;
-            MarkDirty();
+            this._isNew = true;
+            this.MarkDirty();
         }
 
         public virtual void MarkChild()
         {
-            _isChild = true;
+            this._isChild = true;
         }
 
         public virtual void MarkRoot()
         {
-            _isChild = true;
+            this._isChild = true;
         }
 
         public virtual void MarkOld()
         {
-            _isNew = false;
-            _updateParameters = "";
-            MarkClean();
+            this._isNew = false;
+            this._updateParameters = "";
+            this.MarkClean();
         }
 
         public virtual void MarkClean()
         {
-            _isDirty = false;
+            this._isDirty = false;
         }
 
         public virtual void MarkDirty()
         {
-            _isDirty = true;
+            this._isDirty = true;
         }
 
         /// <summary>
@@ -181,11 +182,11 @@ namespace CAF
         /// </summary>
         public virtual void MarkDelete()
         {
-            _isDelete = true;
-            MarkDirty();
-            if (OnPropertyChange != null)
+            this._isDelete = true;
+            this.MarkDirty();
+            if (this.OnPropertyChange != null)
             {
-                OnPropertyChange();
+                this.OnPropertyChange();
             }
         }
 
@@ -214,7 +215,7 @@ namespace CAF
 
         public override string ToString()
         {
-            return Id.ToString();
+            return this.Id.ToString();
         }
 
         public static bool operator ==(BaseEntity<T> lhs, BaseEntity<T> rhs)
@@ -249,20 +250,20 @@ namespace CAF
 
         public virtual int Create()
         {
-            customerValidator = ValidationFactory.CreateValidator<T>();
-            _changedRows = 0;
-            using (IDbConnection conn = Connection)
+            this.customerValidator = ValidationFactory.CreateValidator<T>();
+            this._changedRows = 0;
+            using (IDbConnection conn = this.Connection)
             {
                 var transaction = conn.BeginTransaction();
                 try
                 {
-                    PreInsert(conn, transaction);
-                    if (IsValid)
+                    this.PreInsert(conn, transaction);
+                    if (this.IsValid)
                     {
-                        _changedRows += Insert(conn, transaction);
-                        PostInsert(conn, transaction);
+                        this._changedRows += this.Insert(conn, transaction);
+                        this.PostInsert(conn, transaction);
                         transaction.Commit();
-                        MarkOld();
+                        this.MarkOld();
                     }
                 }
                 catch (Exception ex)
@@ -271,24 +272,24 @@ namespace CAF
                     throw ex;
                 }
             }
-            return _changedRows;
+            return this._changedRows;
         }
 
         public virtual int Save()
         {
             this._changedRows = 0;
-            using (IDbConnection conn = Connection)
+            using (IDbConnection conn = this.Connection)
             {
                 var transaction = conn.BeginTransaction();
                 try
                 {
-                    PreUpdate(conn, transaction);
-                    if (IsDirty && IsValid)
+                    this.PreUpdate(conn, transaction);
+                    if (this.IsDirty && this.IsValid)
                     {
-                        _changedRows += Update(conn, transaction);
-                        PostUpdate(conn, transaction);
+                        this._changedRows += this.Update(conn, transaction);
+                        this.PostUpdate(conn, transaction);
                         transaction.Commit();
-                        MarkOld();
+                        this.MarkOld();
                     }
                 }
                 catch (Exception ex)
@@ -297,22 +298,22 @@ namespace CAF
                     throw ex;
                 }
             }
-            return _changedRows;
+            return this._changedRows;
         }
 
         public virtual int Delete()
         {
-            using (IDbConnection conn = Connection)
+            using (IDbConnection conn = this.Connection)
             {
                 this._changedRows = 0;
                 var transaction = conn.BeginTransaction();
                 try
                 {
-                    PreDelete(conn, transaction);
-                    _changedRows += Delete(conn, transaction);
-                    PostDelete(conn, transaction);
+                    this.PreDelete(conn, transaction);
+                    this._changedRows += this.Delete(conn, transaction);
+                    this.PostDelete(conn, transaction);
                     transaction.Commit();
-                    MarkDelete();
+                    this.MarkDelete();
                 }
                 catch (Exception ex)
                 {
@@ -320,7 +321,7 @@ namespace CAF
                     throw ex;
                 }
             }
-            return _changedRows;
+            return this._changedRows;
         }
 
         /// <summary>
@@ -330,13 +331,13 @@ namespace CAF
         /// <returns></returns>
         public virtual int SubmitChange()
         {
-            _changedRows = 0;
-            using (IDbConnection conn = Connection)
+            this._changedRows = 0;
+            using (IDbConnection conn = this.Connection)
             {
                 var transaction = conn.BeginTransaction();
                 try
                 {
-                    _changedRows += SaveChange(conn, transaction);
+                    this._changedRows += this.SaveChange(conn, transaction);
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -344,7 +345,7 @@ namespace CAF
                     transaction.Rollback();
                     throw ex;
                 }
-                return _changedRows;
+                return this._changedRows;
             }
         }
 
@@ -355,38 +356,38 @@ namespace CAF
         /// <returns></returns>
         public virtual int SaveChange(IDbConnection conn, IDbTransaction transaction)
         {
-            if (this.IsDelete && !IsChangeRelationship)
+            if (this.IsDelete && !this.IsChangeRelationship)
             {
-                PreDelete(conn, transaction);
-                _changedRows += Delete(conn, transaction);
-                PostDelete(conn, transaction);
-                MarkOld();
-                return _changedRows;
+                this.PreDelete(conn, transaction);
+                this._changedRows += this.Delete(conn, transaction);
+                this.PostDelete(conn, transaction);
+                this.MarkOld();
+                return this._changedRows;
             }
             else if (this.IsNew)
             {
-                PreInsert(conn, transaction);
-                if (!IsValid)
+                this.PreInsert(conn, transaction);
+                if (!this.IsValid)
                 {
-                    return _changedRows;
+                    return this._changedRows;
                 }
-                Insert(conn, transaction);
-                PostInsert(conn, transaction);
-                MarkOld();
-                return _changedRows;
+                this.Insert(conn, transaction);
+                this.PostInsert(conn, transaction);
+                this.MarkOld();
+                return this._changedRows;
             }
             else if (this.IsDirty)
             {
-                PreUpdate(conn, transaction);
-                if (!IsValid)
+                this.PreUpdate(conn, transaction);
+                if (!this.IsValid)
                 {
-                    return _changedRows;
+                    return this._changedRows;
                 }
-                _changedRows += Update(conn, transaction);
-                PostUpdate(conn, transaction);
-                MarkOld();
+                this._changedRows += this.Update(conn, transaction);
+                this.PostUpdate(conn, transaction);
+                this.MarkOld();
             }
-            return _changedRows;
+            return this._changedRows;
         }
 
         public virtual int Update(IDbConnection conn, IDbTransaction transaction) { return 0; }

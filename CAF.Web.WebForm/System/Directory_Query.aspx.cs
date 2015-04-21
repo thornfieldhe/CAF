@@ -1,12 +1,10 @@
 ﻿using System;
 
-namespace CAF.Web.WebForm.System
+namespace CAF.Web.WebForm
 {
     using CAF.Model;
 
     using FineUI;
-
-    using global::System.Linq;
 
     public partial class Directory_Query : BasePage
     {
@@ -36,7 +34,7 @@ namespace CAF.Web.WebForm.System
             this.grid.Excute<Directory>(e);
         }
 
-        private void grid_OnQuery(object sender=null, EventArgs e=null)
+        private void grid_OnQuery(object sender = null, EventArgs e = null)
         {
             var criteria = new ReadOnlyDirectory();
             this.grid.BindDataSource(criteria);

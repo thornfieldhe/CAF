@@ -5,6 +5,7 @@
 
     public interface IBusinessBase
     {
+        string TableName { get; }
         Guid Id { get; set; }
 
         int Create();

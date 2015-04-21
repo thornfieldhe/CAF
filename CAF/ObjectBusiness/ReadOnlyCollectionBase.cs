@@ -7,7 +7,7 @@ namespace CAF
     using System.Data;
     using System.Linq;
 
-    public static class ReadOnlyCollectionBase<K> where K : ReadOnlyBase
+    public static class ReadOnlyCollectionBase<K> where K : ITableName
     {
         private static readonly string QUERY =
             "  SELECT * FROM {0} WHERE {1} ORDER BY {2} {3} OFFSET {4} ROWS FETCH NEXT {5} ROWS only ";

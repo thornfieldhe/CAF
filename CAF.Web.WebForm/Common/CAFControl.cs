@@ -216,7 +216,7 @@ namespace CAF.Web.WebForm.CAFControl
         /// <typeparam name="T"></typeparam>
         /// <param name="criteria"></param>
         /// <param name="where"></param>
-        public void BindDataSource<T>(T criteria, string where = " 1=1") where T : ReadOnlyBase
+        public void BindDataSource<T>(T criteria, string where = " 1=1") where T : ITableName
         {
             ReadOnlyCollectionBase<T>.Connection = SqlService.Instance.Connection;
             var result = ReadOnlyCollectionBase<T>

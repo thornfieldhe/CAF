@@ -1,0 +1,134 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C#" Description="Generates a very simple business object." %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="CAF" Description="" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Map Name="SqlCSharp" Src="Sql-CSharp" Description="System to C# Type Map" %>
+<%@ Map Name="DbDataReader" Src="DbType-DataReaderMethod" Description="DbType to DataReader Method Map" %>
+<%@ Map Name="SqlNativeSqlDb" Src="SqlNativeType-SqlDbType" Description="SqlNativeType to SqlDbType Map" %>
+<%@ Map Name="DbTypeCSharp" Src="DbType-CSharp" Description="DbType to CSharp Map" %>
+using System;
+namespace <%= this.ClassNamespace %>.Web.WebForm
+{
+    using <%= this.ClassNamespace %>.Model;
+    using <%= this.ClassNamespace %>.Web.WebForm.Common;
+    using FineUI;
+
+    public partial class <%= GetClassName(SourceTable) %>_Edit : BasePage
+    {
+        protected override void Bind()
+        {
+            //绑定查询条件
+             <% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+                <%  ColumnSchema  column=SourceTable.NonPrimaryKeyColumns[i];%>
+                <% if(!IsSystemFiled(column) && ColumnIsGuid(column)) {%>
+            PageHelper.Bind<%=SourceTable.Name.Substring(SourceTable.Name.IndexOf("_")+1, SourceTable.Name.Length - SourceTable.Name.IndexOf("_")-1)%>(this.Id, this.drop<%=column.Name%>, selectItem: new Guid().ToString());
+            <% }} %>
+            
+            var item = <%= GetClassName(SourceTable) %>.Get(this.Id);
+            if (item == null)
+            {
+                this.btnDelete.Hidden = true;
+                this.btnUpdate.Hidden = true;
+            }
+            else
+            {
+                this.btnAdd.Hidden = true;
+                this.txtId.Readonly = true;
+                this.submitForm.LoadEntity(item);
+            }
+        }
+        
+        #region 系统事件
+        
+        protected override void OnLoad(EventArgs e)
+        {
+            if (!this.IsPostBack)
+            {
+                this.pageId = new Guid("<%=Guid.NewGuid()%>");
+            }
+            base.OnLoad(e);
+            this.btnClose.OnClientClick = ActiveWindow.GetHidePostBackReference();
+            this.submitForm.OnPostCreated += this.submitForm_OnPostExcute;
+            this.submitForm.OnPostDelete += this.submitForm_OnPostExcute;
+            this.submitForm.OnPostUpdated += this.submitForm_OnPostExcute;
+        }
+        
+        protected void submitForm_OnPostExcute(IBusinessBase business)
+        {
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            var item = <%= GetClassName(SourceTable) %>.Get(this.txtId.Text.ToGuid());
+            this.submitForm.Delete(item);
+        }
+
+        protected void btnUpdate_Click(object sender, EventArgs e)
+        {
+            var item = Directory.Get(this.txtId.Text.ToGuid());
+            this.submitForm.Update(item);
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            var item = new Directory();
+            this.submitForm.Create(item);
+        }
+        
+        #endregion 
+    }
+}
+<script runat="template">
+public string GetClassName(TableSchema table)
+{
+    int pre = table.Name.IndexOf("_");
+    if (table.Name.EndsWith("ies"))
+	{
+		return table.Name.Substring(pre+1, table.Name.Length - pre-4)+"y";
+	}
+	else if (table.Name.EndsWith("s"))
+	{
+		return table.Name.Substring(pre+1, table.Name.Length - pre-2);
+	}
+	else
+	{
+		return table.Name.Substring(pre+1);
+	}
+}
+
+private bool ColumnIsGuid(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="Guid" ;
+}
+
+private string GetCSharpVariableType(ColumnSchema column)
+{
+    if (column.Name.EndsWith("TypeCode")) return column.Name;
+    return DbTypeCSharp[column.DataType.ToString()];
+}
+
+private bool IsSystemFiled(ColumnSchema column)
+{
+   string name= GetPropertyName(column);
+    return name=="CreatedDate" || name=="ChangedDate" || name=="Status" ||name=="Note";
+}
+
+private string GetPropertyName(ColumnSchema column)
+{
+	string propertyName = column.Name;
+	
+	if (propertyName == column.Table.Name + "Name") return "Name";
+	if (propertyName == column.Table.Name + "Description") return "Description";
+	
+	if (propertyName.EndsWith("TypeCode")) propertyName = propertyName.Substring(0, propertyName.Length - 4);
+	
+	return propertyName;
+}
+</script>

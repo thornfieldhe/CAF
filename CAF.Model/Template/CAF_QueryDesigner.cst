@@ -1,0 +1,335 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C#" Description="Generates a very simple business object." Debug="False"%>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." Optional="True" %>
+<%@ Property Name="SourceView" Type="SchemaExplorer.ViewSchema" Category="Context" Description="Table that the object is based on." Optional="True"%>
+<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="CAF" Description="" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Map Name="SqlCSharp" Src="Sql-CSharp" Description="System to C# Type Map" %>
+<%@ Map Name="DbDataReader" Src="DbType-DataReaderMethod" Description="DbType to DataReader Method Map" %>
+<%@ Map Name="SqlNativeSqlDb" Src="SqlNativeType-SqlDbType" Description="SqlNativeType to SqlDbType Map" %>
+<%@ Map Name="DbTypeCSharp" Src="DbType-CSharp" Description="DbType to CSharp Map" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Directory_Edit.aspx.cs" Inherits="CAF.Web.WebForm.Directory_Edit" %>
+//------------------------------------------------------------------------------
+// <自动生成>
+//     此代码由工具生成。
+//
+//     对此文件的更改可能会导致不正确的行为，并且如果
+//     重新生成代码，这些更改将会丢失。 
+// </自动生成>
+//------------------------------------------------------------------------------
+
+namespace <%= this.ClassNamespace %>.Web.WebForm {
+    
+    
+    public partial class <%=GetSingleClassName()%>_Query {
+        
+        /// <summary>
+        /// form1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        
+        /// <summary>
+        /// manager 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUI.PageManager manager;
+        
+        /// <summary>
+        /// mainPanel 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::<%= this.ClassNamespace %>.Web.WebForm.CAFControl.CAFPanel mainPanel;
+        
+        /// <summary>
+        /// Toolbar1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUI.Toolbar Toolbar1;
+        
+        /// <summary>
+        /// ToolbarSeparator1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUI.ToolbarSeparator ToolbarSeparator1;
+        
+        /// <summary>
+        /// btnNew 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::<%= this.ClassNamespace %>.Web.WebForm.CAFControl.NewButton btnNew;
+        
+        /// <summary>
+        /// btnDeleteRows 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::<%= this.ClassNamespace %>.Web.WebForm.CAFControl.DeleteButton btnDeleteRows;
+        
+        /// <summary>
+        /// ToolbarFill1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUI.ToolbarFill ToolbarFill1;
+        
+        /// <summary>
+        /// grid 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::<%= this.ClassNamespace %>.Web.WebForm.CAFControl.CAFGrid grid;
+        
+        /// <summary>
+        /// ToolbarSeparator2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUI.ToolbarSeparator ToolbarSeparator2;
+        
+        /// <summary>
+        /// winEdit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::<%= this.ClassNamespace %>.Web.WebForm.CAFControl.CAFWindow winEdit;
+    }
+}
+
+<script runat="template">
+
+public string GetClassName()
+{
+    if(SourceView==null)
+    {
+        var table=SourceTable;
+        int pre = table.Name.IndexOf("_");
+        if (table.Name.EndsWith("ies"))
+    	{
+    		return table.Name.Substring(pre+1, table.Name.Length - pre-4)+"y";
+    	}
+    	else if (table.Name.EndsWith("s"))
+    	{
+    		return table.Name.Substring(pre+1, table.Name.Length - pre-2);
+    	}
+    	else
+    	{
+    		return table.Name.Substring(pre+1);
+    	}
+    }
+    else
+    {
+        var table=SourceView;
+        if (table.Name.EndsWith("ies"))
+    	{
+    		return  "ReadOnly"+(table.Name.Substring(0, table.Name.Length -3)+"y").Replace("V_","");
+    	}
+    	else if (table.Name.EndsWith("s"))
+    	{
+    		return "ReadOnly"+table.Name.Substring(0, table.Name.Length - 1).Replace("V_","");
+    	}
+    	else
+    	{
+    		return "ReadOnly"+table.Name.Replace("V_","");
+    	} 
+    }
+}
+
+public string GetSingleClassName()
+{
+    if(SourceView==null)
+    {
+        var table=SourceTable;
+        int pre = table.Name.IndexOf("_");
+        if (table.Name.EndsWith("ies"))
+    	{
+    		return table.Name.Substring(pre+1, table.Name.Length - pre-4)+"y";
+    	}
+    	else if (table.Name.EndsWith("s"))
+    	{
+    		return table.Name.Substring(pre+1, table.Name.Length - pre-2);
+    	}
+    	else
+    	{
+    		return table.Name.Substring(pre+1);
+    	}
+    }
+    else
+    {
+        var table=SourceView;
+        if (table.Name.EndsWith("ies"))
+    	{
+    		return  (table.Name.Substring(0, table.Name.Length -3)+"y").Replace("V_","");
+    	}
+    	else if (table.Name.EndsWith("s"))
+    	{
+    		return table.Name.Substring(0, table.Name.Length - 1).Replace("V_","");
+    	}
+    	else
+    	{
+    		return table.Name.Replace("V_","");
+    	} 
+    }
+}
+
+private string GetPropertyName(ColumnSchema column)
+{
+	string propertyName = column.Name;
+	
+	if (propertyName == column.Table.Name + "Name") return "Name";
+	if (propertyName == column.Table.Name + "Description") return "Description";
+	
+	if (propertyName.EndsWith("TypeCode")) propertyName = propertyName.Substring(0, propertyName.Length - 4);
+	
+	return propertyName;
+}
+
+private bool IsSystemFiled(ColumnSchema column)
+{
+   string name= GetPropertyName(column);
+    return name=="CreatedDate" || name=="ChangedDate" || name=="Status" ||name=="Note"||name=="Id";
+}
+
+private bool ColumnIsString(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="string" ;
+}
+
+private bool ColumnIsGuid(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="Guid" ;
+}
+
+private bool ColumnIsDateTime(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    Debug.Write(type=="DateTime");
+    return type=="DateTime" ;
+}
+
+private bool ColumnIsBool(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="bool" ;
+}
+
+private bool ColumnIsNumber(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="int" ||type=="double"||type=="decimal";
+}
+
+private string GetDescription(ColumnSchema column)
+{
+	string description = column.Description;
+	
+	if (description == "") return "";
+	if (description == null) return "";	
+	return description;
+}
+
+private string GetCSharpVariableType(ColumnSchema column)
+{
+    if (column.Name.EndsWith("TypeCode")) return column.Name;
+    return DbTypeCSharp[column.DataType.ToString()];
+}
+//表单和视图分别对待
+
+private string GetPropertyName(ViewColumnSchema column)
+{
+	string propertyName = column.Name;
+	
+	if (propertyName == column.View.Name + "Name") return "Name";
+	if (propertyName == column.View.Name + "Description") return "Description";
+	
+	if (propertyName.EndsWith("TypeCode")) propertyName = propertyName.Substring(0, propertyName.Length - 4);
+	
+	return propertyName;
+}
+
+private bool IsSystemFiled(ViewColumnSchema column)
+{
+   string name= GetPropertyName(column);
+    return name=="CreatedDate" || name=="ChangedDate" || name=="Status" ||name=="Note"||name=="Id";
+}
+
+private bool ColumnIsString(ViewColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="string" ;
+}
+
+private bool ColumnIsGuid(ViewColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="Guid" ;
+}
+
+private bool ColumnIsDateTime(ViewColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    Debug.Write(type=="DateTime");
+    return type=="DateTime" ;
+}
+
+private bool ColumnIsBool(ViewColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="bool" ;
+}
+
+private bool ColumnIsNumber(ViewColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="int" ||type=="double"||type=="decimal";
+}
+
+private string GetDescription(ViewColumnSchema column)
+{
+	string description = column.Description;
+	
+	if (description == "") return "";
+	if (description == null) return "";	
+	return description;
+}
+
+private string GetCSharpVariableType(ViewColumnSchema column)
+{
+    if (column.Name.EndsWith("TypeCode")) return column.Name;
+    return DbTypeCSharp[column.DataType.ToString()];
+}
+</script>

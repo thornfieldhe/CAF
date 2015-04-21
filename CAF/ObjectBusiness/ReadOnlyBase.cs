@@ -1,7 +1,7 @@
 namespace CAF
 {
-    public class ReadOnlyBase
+    public interface ITableName
     {
-        public string TableName { get; protected set; }
+         string TableName { get;  }
     }
 }

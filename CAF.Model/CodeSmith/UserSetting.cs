@@ -14,7 +14,8 @@ namespace CAF.Model
 	{   
         public UserSetting()
 		{
-            Connection = SqlService.Instance.Connection;
+            this.Connection = SqlService.Instance.Connection;
+            this.TableName = "Sys_UserSettings";
             base.MarkNew();
 		}
 		
@@ -29,8 +30,8 @@ namespace CAF.Model
         /// </summary>
 		public string Settings
 		{
-			get {return _settings;} 
-            set {SetProperty("Settings",ref _settings, value);}           	
+			get {return this._settings;} 
+            set {this.SetProperty("Settings",ref this._settings, value);}           	
 		}
         
         /// <summary>
@@ -39,8 +40,8 @@ namespace CAF.Model
         [GuidRequired(ErrorMessage="用户不允许为空")]
 		public Guid UserId
 		{
-			get {return _userId;} 
-            set {SetProperty("UserId",ref _userId, value);}           	
+			get {return this._userId;} 
+            set {this.SetProperty("UserId",ref this._userId, value);}           	
 		}
         
         /// <summary>
@@ -147,20 +148,20 @@ namespace CAF.Model
 		
 		public override int Update(IDbConnection conn, IDbTransaction transaction)
 		{
-             if (!IsDirty)
+             if (!this.IsDirty)
              {
-                return _changedRows;
+                return this._changedRows;
              }  
-            _updateParameters+=", ChangedDate = GetDate()";
-			var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
-			_changedRows+= conn.Execute(query, this, transaction, null, null);
-            return _changedRows;
+            this._updateParameters+=", ChangedDate = GetDate()";
+			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
+			this._changedRows+= conn.Execute(query, this, transaction, null, null);
+            return this._changedRows;
 		}
 		
 		public override int Insert(IDbConnection conn, IDbTransaction transaction)
 		{
-            _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-            return _changedRows;
+            this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
+            return this._changedRows;
 		}
 		
 		#region 私有方法

@@ -14,7 +14,8 @@ namespace CAF.Model
 	{   
         public ErrorLog()
 		{
-            Connection = SqlService.Instance.Connection;
+            this.Connection = SqlService.Instance.Connection;
+            this.TableName = "Sys_ErrorLogs";
             base.MarkNew();
 		}
 		
@@ -36,8 +37,8 @@ namespace CAF.Model
         [DateTimeRequired(ErrorMessage="日志时间不允许为空")]
 		public DateTime LogTime
 		{
-			get {return _logTime;} 
-            set {SetProperty("LogTime",ref _logTime, value);}           	
+			get {return this._logTime;} 
+            set {this.SetProperty("LogTime",ref this._logTime, value);}           	
 		}
         
         /// <summary>
@@ -47,8 +48,8 @@ namespace CAF.Model
         [StringLength(20,ErrorMessage="用户名长度不能超过20")]
 		public string UserName
 		{
-			get {return _userName;} 
-            set {SetProperty("UserName",ref _userName, value);}           	
+			get {return this._userName;} 
+            set {this.SetProperty("UserName",ref this._userName, value);}           	
 		}
         
         /// <summary>
@@ -57,8 +58,8 @@ namespace CAF.Model
         [Required(ErrorMessage="错误代码不允许为空")]
 		public int PageCode
 		{
-			get {return _pageCode;} 
-            set {SetProperty("PageCode",ref _pageCode, value);}           	
+			get {return this._pageCode;} 
+            set {this.SetProperty("PageCode",ref this._pageCode, value);}           	
 		}
         
         /// <summary>
@@ -67,16 +68,16 @@ namespace CAF.Model
         [StringLength(50,ErrorMessage="错误页长度不能超过50")]
 		public string Page
 		{
-			get {return _page;} 
-            set {SetProperty("Page",ref _page, value);}           	
+			get {return this._page;} 
+            set {this.SetProperty("Page",ref this._page, value);}           	
 		}
         
         [Required(ErrorMessage="Ip不允许为空")]
         [StringLength(20,ErrorMessage="Ip长度不能超过20")]
 		public string Ip
 		{
-			get {return _ip;} 
-            set {SetProperty("Ip",ref _ip, value);}           	
+			get {return this._ip;} 
+            set {this.SetProperty("Ip",ref this._ip, value);}           	
 		}
         
         /// <summary>
@@ -86,8 +87,8 @@ namespace CAF.Model
         [StringLength(200,ErrorMessage="错误长度不能超过200")]
 		public string Message
 		{
-			get {return _message;} 
-            set {SetProperty("Message",ref _message, value);}           	
+			get {return this._message;} 
+            set {this.SetProperty("Message",ref this._message, value);}           	
 		}
         
         /// <summary>
@@ -97,8 +98,8 @@ namespace CAF.Model
         [StringLength(16,ErrorMessage="详细错误长度不能超过16")]
 		public string Details
 		{
-			get {return _details;} 
-            set {SetProperty("Details",ref _details, value);}           	
+			get {return this._details;} 
+            set {this.SetProperty("Details",ref this._details, value);}           	
 		}
         
         
@@ -179,20 +180,20 @@ namespace CAF.Model
 		
 		public override int Update(IDbConnection conn, IDbTransaction transaction)
 		{
-             if (!IsDirty)
+             if (!this.IsDirty)
              {
-                return _changedRows;
+                return this._changedRows;
              }  
-            _updateParameters+=", ChangedDate = GetDate()";
-			var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
-			_changedRows+= conn.Execute(query, this, transaction, null, null);
-            return _changedRows;
+            this._updateParameters+=", ChangedDate = GetDate()";
+			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
+			this._changedRows+= conn.Execute(query, this, transaction, null, null);
+            return this._changedRows;
 		}
 		
 		public override int Insert(IDbConnection conn, IDbTransaction transaction)
 		{
-            _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-            return _changedRows;
+            this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
+            return this._changedRows;
 		}
 		
 		#region 私有方法

@@ -1,0 +1,160 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C#" Description="Generates a very simple business object." Debug="False"%>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
+<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="CAF" Description="" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Map Name="SqlCSharp" Src="Sql-CSharp" Description="System to C# Type Map" %>
+<%@ Map Name="DbDataReader" Src="DbType-DataReaderMethod" Description="DbType to DataReader Method Map" %>
+<%@ Map Name="SqlNativeSqlDb" Src="SqlNativeType-SqlDbType" Description="SqlNativeType to SqlDbType Map" %>
+<%@ Map Name="DbTypeCSharp" Src="DbType-CSharp" Description="DbType to CSharp Map" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Directory_Edit.aspx.cs" Inherits="CAF.Web.WebForm.Directory_Edit" %>
+<%%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Directory_Edit.aspx.cs" Inherits="<%= ClassNamespace %>.Web.WebForm.Directory_Edit" %%>
+<%%@ Register TagPrefix="f" Namespace="FineUI" Assembly="FineUI" %%>
+<%%@ Register TagPrefix="f" Namespace="<%= ClassNamespace %>.Web.WebForm.CAFControl" Assembly="<%= ClassNamespace %>.Web.WebForm" %%>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body >
+    <form id="form1" runat="server">
+    <f:PageManager ID="manager" runat="server" AutoSizePanelID="mainPanel" />
+    <f:CAFPanel ID="mainPanel" runat="server">
+        <Toolbars>
+            <f:Toolbar ID="Toolbar1" runat="server">
+                <Items>
+                    <f:CloseButton ID="btnClose" runat="server" />
+                    <f:AddButton ID="btnAdd" runat="server" OnClick="btnAdd_Click">
+                    </f:AddButton>
+                    <f:UpdateButton ID="btnUpdate" runat="server" OnClick="btnUpdate_Click">
+                    </f:UpdateButton>
+                    <f:DeleteButton ID="btnDelete" runat="server" OnClick="btnDelete_Click">
+                    </f:DeleteButton>
+                </Items>
+            </f:Toolbar>
+        </Toolbars>
+        <items>
+            <f:SubmitForm Width="350px" ID="submitForm" runat="server" >
+                <Rows>
+                    <f:FormRow>
+                        <Items>
+                        <% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
+                        <%  ColumnSchema  column=SourceTable.NonPrimaryKeyColumns[i];%>                        
+                        <% if(!IsSystemFiled(column)) {%>
+                    <f:FormRow>
+                        <Items>
+                        <%if(ColumnIsDateTime(column)) {%>
+                            <f:DatePicker runat="server" ID="date<%=column.Name%>" Label="<%= GetDescription(column) %>" <%if(!column.AllowDBNull){%>Required="true" ShowRedStar="true"<%}%>/>
+                        <%}else if(ColumnIsGuid(column)){ %>
+                            <f:DropDownList runat="server" ID="drop<%=column.Name%>" Label="<%= GetDescription(column) %>" <%if(!column.AllowDBNull){%>Required="true" ShowRedStar="true"<%}%> >
+                            </f:DropDownList>
+                        <%}else if(ColumnIsBool(column)){ %>
+                            <f:CheckBox ID="chk<%=column.Name%>" runat="server" Text="<%= GetDescription(column) %>" Label="<%= GetDescription(column) %>" <%if(!column.AllowDBNull){%>Required="true" ShowRedStar="true"<%}%>>
+                            </f:CheckBox>
+                        <%}else if(ColumnIsNumber(column)){ %>
+                            <f:NumberBox ID="txt<%=column.Name%>" Label="<%= GetDescription(column) %>" runat="server" NoNegative="true" NoDecimal="true" <%if(!column.AllowDBNull){%>Required="true" ShowRedStar="true"<%}%>>
+                            </f:NumberBox>
+                            <%}else{ %>
+                            <f:TextBox ID="txt<%=column.Name%>" Label="<%= GetDescription(column) %>" runat="server" <%if(!column.AllowDBNull){%>Required="true" ShowRedStar="true"<%}%>>
+                            </f:TextBox>
+                        <%} %>
+                        </Items>
+                    </f:FormRow>
+                        <% }} %>
+                </Rows>
+            </f:SubmitForm>
+        </items>
+    </f:CAFPanel>
+    </form>
+</body>
+</html>
+
+<script runat="template">
+
+public string GetClassName(TableSchema table)
+{
+    int pre = table.Name.IndexOf("_");
+    if (table.Name.EndsWith("ies"))
+	{
+		return table.Name.Substring(pre+1, table.Name.Length - pre-4)+"y";
+	}
+	else if (table.Name.EndsWith("s"))
+	{
+		return table.Name.Substring(pre+1, table.Name.Length - pre-2);
+	}
+	else
+	{
+		return table.Name.Substring(pre+1);
+	}
+}
+
+private string GetPropertyName(ColumnSchema column)
+{
+	string propertyName = column.Name;
+	
+	if (propertyName == column.Table.Name + "Name") return "Name";
+	if (propertyName == column.Table.Name + "Description") return "Description";
+	
+	if (propertyName.EndsWith("TypeCode")) propertyName = propertyName.Substring(0, propertyName.Length - 4);
+	
+	return propertyName;
+}
+
+private bool IsSystemFiled(ColumnSchema column)
+{
+   string name= GetPropertyName(column);
+    return name=="CreatedDate" || name=="ChangedDate" || name=="Status" ||name=="Note";
+}
+
+private bool ColumnIsString(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="string" ;
+}
+
+private bool ColumnIsGuid(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="Guid" ;
+}
+
+private bool ColumnIsDateTime(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    Debug.Write(type=="DateTime");
+    return type=="DateTime" ;
+}
+
+private bool ColumnIsBool(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="bool" ;
+}
+
+private bool ColumnIsNumber(ColumnSchema column)
+{
+   string type= GetCSharpVariableType(column) ;
+    return type=="int" ||type=="double"||type=="decimal";
+}
+
+private string GetDescription(ColumnSchema column)
+{
+	string description = column.Description;
+	
+	if (description == "") return "";
+	if (description == null) return "";	
+	return description;
+}
+
+private string GetCSharpVariableType(ColumnSchema column)
+{
+    if (column.Name.EndsWith("TypeCode")) return column.Name;
+    return DbTypeCSharp[column.DataType.ToString()];
+}
+</script>

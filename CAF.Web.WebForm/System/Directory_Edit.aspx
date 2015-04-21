@@ -27,52 +27,52 @@
         </Toolbars>
         <items>
             <f:SubmitForm Width="350px" ID="submitForm" runat="server" >
-                        <Rows>
-                            <f:FormRow>
-                                <Items>
-                                    <f:TextBox ID="txtId" Label="编码(GUID)"  runat="server" >
-                                    </f:TextBox>
-                                </Items>
-                            </f:FormRow>
-                            <f:FormRow>
-                                <Items>
-                                    <f:TextBox ID="txtName" Label="目录名称" Required="true" runat="server" ShowRedStar="true">
-                                    </f:TextBox>
-                                </Items>
-                            </f:FormRow>
-                            <f:FormRow>
-                                <Items>
-                                    <f:DropDownList runat="server" ID="dropParentId" Label="父级目录">
-                                    </f:DropDownList>
-                                </Items>
-                            </f:FormRow>
-                            <f:FormRow ColumnWidths="400px">
-                                <Items>
-                                    <f:TextBox ID="txtUrl" Label="目录地址" runat="server">
-                                    </f:TextBox>
-                                </Items>
-                            </f:FormRow>
-                            <f:FormRow>
-                                <Items>
-                                    <f:NumberBox ID="txtSort" Label="目录排序" Required="true" runat="server" Text="100"
-                                        NoNegative="true" NoDecimal="true" ShowRedStar="true">
-                                    </f:NumberBox>
-                                </Items>
-                            </f:FormRow>
-                            <f:FormRow>
-                                <Items>
-                                    <f:TextArea ID="txtNote" Label="备注" runat="server" Height="50">
-                                    </f:TextArea>
-                                </Items>
-                            </f:FormRow>
-                            <f:FormRow>
-                                <Items>
-                                    <f:CheckBox ID="chkStatus" runat="server" Text="隐藏" Label="状态">
-                                    </f:CheckBox>
-                                </Items>
-                            </f:FormRow>
-                        </Rows>
-                    </f:SubmitForm>
+                <Rows>
+                    <f:FormRow>
+                        <Items>
+                            <f:TextBox ID="txtId" Label="编码(GUID)"  runat="server" >
+                            </f:TextBox>
+                        </Items>
+                    </f:FormRow>
+                    <f:FormRow>
+                        <Items>
+                            <f:TextBox ID="txtName" Label="目录名称" Required="true" runat="server" ShowRedStar="true">
+                            </f:TextBox>
+                        </Items>
+                    </f:FormRow>
+                    <f:FormRow>
+                        <Items>
+                            <f:DropDownList runat="server" ID="dropParentId" Label="父级目录">
+                            </f:DropDownList>
+                        </Items>
+                    </f:FormRow>
+                    <f:FormRow ColumnWidths="400px">
+                        <Items>
+                            <f:TextBox ID="txtUrl" Label="目录地址" runat="server">
+                            </f:TextBox>
+                        </Items>
+                    </f:FormRow>
+                    <f:FormRow>
+                        <Items>
+                            <f:NumberBox ID="txtSort" Label="目录排序" Required="true" runat="server" Text="100"
+                                NoNegative="true" NoDecimal="true" ShowRedStar="true">
+                            </f:NumberBox>
+                        </Items>
+                    </f:FormRow>
+                    <f:FormRow>
+                        <Items>
+                            <f:TextArea ID="txtNote" Label="备注" runat="server" Height="50">
+                            </f:TextArea>
+                        </Items>
+                    </f:FormRow>
+                    <f:FormRow>
+                        <Items>
+                            <f:CheckBox ID="chkStatus" runat="server" Text="隐藏" Label="状态">
+                            </f:CheckBox>
+                        </Items>
+                    </f:FormRow>
+                </Rows>
+            </f:SubmitForm>
         </items>
     </f:CAFPanel>
     </form>

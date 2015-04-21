@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Directory_Query.aspx.cs" Inherits="CAF.Web.WebForm.System.Directory_Query" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Directory_Query.aspx.cs" Inherits="CAF.Web.WebForm.Directory_Query" %>
 <%@ Register TagPrefix="f" Namespace="CAF.Web.WebForm.CAFControl" Assembly="CAF.Web.WebForm" %>
 
 <!DOCTYPE html>
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>目录查询</title>
+    <title></title>
 </head>
 <body>
     <form id="form1" runat="server">

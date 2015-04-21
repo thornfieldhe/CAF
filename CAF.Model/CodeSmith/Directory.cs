@@ -14,7 +14,8 @@ namespace CAF.Model
     {   
         public Directory()
         {
-            Connection = SqlService.Instance.Connection;
+            this.Connection = SqlService.Instance.Connection;
+            this.TableName = "Sys_Directories";
             base.MarkNew();
         }
         
@@ -34,8 +35,8 @@ namespace CAF.Model
         [StringLength(50,ErrorMessage="名称长度不能超过50")]
         public string Name
         {
-            get {return _name;} 
-            set {SetProperty("Name",ref _name, value);}           	
+            get {return this._name;} 
+            set {this.SetProperty("Name",ref this._name, value);}           	
         }
         
         /// <summary>
@@ -44,8 +45,8 @@ namespace CAF.Model
         [StringLength(100,ErrorMessage="Url地址长度不能超过100")]
         public string Url
         {
-            get {return _url;} 
-            set {SetProperty("Url",ref _url, value);}           	
+            get {return this._url;} 
+            set {this.SetProperty("Url",ref this._url, value);}           	
         }
         
         /// <summary>
@@ -53,8 +54,8 @@ namespace CAF.Model
         /// </summary>
         public Guid? ParentId
         {
-            get {return _parentId;} 
-            set {SetProperty("ParentId",ref _parentId, value);}           	
+            get {return this._parentId;} 
+            set {this.SetProperty("ParentId",ref this._parentId, value);}           	
         }
         
         /// <summary>
@@ -64,7 +65,7 @@ namespace CAF.Model
         {
             get
             { 
-                return !ParentId.HasValue ? null : Directory.Get(ParentId.Value);
+                return !this.ParentId.HasValue ? null : Directory.Get(this.ParentId.Value);
             }        	
         }
 
@@ -75,8 +76,8 @@ namespace CAF.Model
         [StringLength(20,ErrorMessage="层级长度不能超过20")]
         public string Level
         {
-            get {return _level;} 
-            set {SetProperty("Level",ref _level, value);}           	
+            get {return this._level;} 
+            set {this.SetProperty("Level",ref this._level, value);}           	
         }
         
         /// <summary>
@@ -85,8 +86,8 @@ namespace CAF.Model
         [Required(ErrorMessage="排序不允许为空")]
         public int Sort
         {
-            get {return _sort;} 
-            set {SetProperty("Sort",ref _sort, value);}           	
+            get {return this._sort;} 
+            set {this.SetProperty("Sort",ref this._sort, value);}           	
         }
         
         
@@ -184,20 +185,20 @@ namespace CAF.Model
         
         public override int Update(IDbConnection conn, IDbTransaction transaction)
         {
-             if (!IsDirty)
+             if (!this.IsDirty)
              {
-                return _changedRows;
+                return this._changedRows;
              }  
-            _updateParameters+=", ChangedDate = GetDate()";
-            var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
-            _changedRows+= conn.Execute(query, this, transaction, null, null);
-            return _changedRows;
+            this._updateParameters+=", ChangedDate = GetDate()";
+            var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
+            this._changedRows+= conn.Execute(query, this, transaction, null, null);
+            return this._changedRows;
         }
         
         public override int Insert(IDbConnection conn, IDbTransaction transaction)
         {
-            _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-            return _changedRows;
+            this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
+            return this._changedRows;
         }
         
         #region 私有方法

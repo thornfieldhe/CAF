@@ -1,6 +1,6 @@
 ﻿<%@ CodeTemplate Language="C#" TargetLanguage="C#" Description="Generates a very simple business object." %>
 <%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
-<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="BusinessObjects" Description="" %>
+<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="CAF" Description="" %>
 <%@ Property Name="TableA" Type="String"  Optional="True" Category="Options"  Description="关系表A" %>
 <%@ Property Name="TableB" Type="String"  Optional="True" Category="Options"  Description="关系表B" %>
 <%@ Assembly Name="SchemaExplorer" %>

@@ -19,10 +19,13 @@ namespace CAF.Web.WebForm
             this.submitForm.OnPostDelete += this.submitForm_OnPostExcute;
             this.submitForm.OnPostUpdated += this.submitForm_OnPostExcute;
             this.submitForm.OnPreCreated += this.submitForm_OnPreCreated;
+            string a = "xx_ff";
+            var b = a.Substring(a.IndexOf("_"), a.Length - a.IndexOf("_"));
         }
 
         private bool submitForm_OnPreCreated(IBusinessBase business)
         {
+         
             if (!Model.User.Exists(this.txtLoginName.Text))
             {
                 return true;
@@ -63,13 +66,13 @@ namespace CAF.Web.WebForm
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            var item = Model.User.Get(this.txtId.Text.ToGuid());
+            var item = Model.User.Get(this.Id);
             this.submitForm.Delete(item);
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            var item = Model.User.Get(this.txtId.Text.ToGuid());
+            var item = Model.User.Get(this.Id);
             var ids = this.chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
             foreach (var id in ids)
             {

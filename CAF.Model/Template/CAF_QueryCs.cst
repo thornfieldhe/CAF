@@ -1,0 +1,137 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="C#" Description="Generates a very simple business object." %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." Optional="True" %>
+<%@ Property Name="SourceView" Type="SchemaExplorer.ViewSchema" Category="Context" Description="Table that the object is based on." Optional="True"%>
+<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="CAF" Description=""  %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Map Name="SqlCSharp" Src="Sql-CSharp" Description="System to C# Type Map" %>
+<%@ Map Name="DbDataReader" Src="DbType-DataReaderMethod" Description="DbType to DataReader Method Map" %>
+<%@ Map Name="SqlNativeSqlDb" Src="SqlNativeType-SqlDbType" Description="SqlNativeType to SqlDbType Map" %>
+<%@ Map Name="DbTypeCSharp" Src="DbType-CSharp" Description="DbType to CSharp Map" %>
+using System;
+
+namespace <%= this.ClassNamespace %>.Web.WebForm
+{
+    using <%= this.ClassNamespace %>.Model;
+    using FineUI;
+
+    public partial class <%= GetSingleClassName() %>_Query : BasePage
+    {
+        protected override void Bind()
+        {
+            //绑定查询条件
+
+            
+            base.Bind();
+            this.grid_OnQuery();
+            this.btnNew.OnClientClick = this.winEdit.GetShowReference("Directory_Edit.aspx", "新增");
+        }
+        
+        protected void grid_OnQuery(object sender=null, EventArgs e=null)
+        {
+            var criteria = new <%= GetClassName() %>();
+            this.grid.BindDataSource(criteria);
+        }
+        
+        #region 系统事件
+        
+        protected override void OnLoad(EventArgs e)
+        {
+            this.pageId = new Guid("<%=Guid.NewGuid()%>");
+            base.OnLoad(e);
+            this.grid.OnQuery += this.grid_OnQuery;
+            this.winEdit.Close += this.grid_OnQuery;
+        }
+        
+        protected void btnDeleteRows_Click(object sender, EventArgs e)
+        {
+            this.grid.Delete<<%= GetClassName() %>>();
+        }
+
+        protected void gridRowCommand(object sender, GridCommandEventArgs e)
+        {
+            this.grid.Excute<<%= GetClassName() %>>(e);
+        }
+        
+        #endregion 
+    }
+}
+<script runat="template">
+public string GetClassName()
+{
+    if(SourceView==null)
+    {
+        var table=SourceTable;
+        int pre = table.Name.IndexOf("_");
+        if (table.Name.EndsWith("ies"))
+    	{
+    		return table.Name.Substring(pre+1, table.Name.Length - pre-4)+"y";
+    	}
+    	else if (table.Name.EndsWith("s"))
+    	{
+    		return table.Name.Substring(pre+1, table.Name.Length - pre-2);
+    	}
+    	else
+    	{
+    		return table.Name.Substring(pre+1);
+    	}
+    }
+    else
+    {
+        var table=SourceView;
+        if (table.Name.EndsWith("ies"))
+    	{
+    		return  "ReadOnly"+(table.Name.Substring(0, table.Name.Length -3)+"y").Replace("V_","");
+    	}
+    	else if (table.Name.EndsWith("s"))
+    	{
+    		return "ReadOnly"+table.Name.Substring(0, table.Name.Length - 1).Replace("V_","");
+    	}
+    	else
+    	{
+    		return "ReadOnly"+table.Name.Replace("V_","");
+    	} 
+    }
+}
+
+public string GetSingleClassName()
+{
+    if(SourceView==null)
+    {
+        var table=SourceTable;
+        int pre = table.Name.IndexOf("_");
+        if (table.Name.EndsWith("ies"))
+    	{
+    		return table.Name.Substring(pre+1, table.Name.Length - pre-4)+"y";
+    	}
+    	else if (table.Name.EndsWith("s"))
+    	{
+    		return table.Name.Substring(pre+1, table.Name.Length - pre-2);
+    	}
+    	else
+    	{
+    		return table.Name.Substring(pre+1);
+    	}
+    }
+    else
+    {
+        var table=SourceView;
+        if (table.Name.EndsWith("ies"))
+    	{
+    		return  (table.Name.Substring(0, table.Name.Length -3)+"y").Replace("V_","");
+    	}
+    	else if (table.Name.EndsWith("s"))
+    	{
+    		return table.Name.Substring(0, table.Name.Length - 1).Replace("V_","");
+    	}
+    	else
+    	{
+    		return table.Name.Replace("V_","");
+    	} 
+    }
+}
+</script>

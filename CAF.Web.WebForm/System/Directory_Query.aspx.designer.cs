@@ -7,7 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace CAF.Web.WebForm.System {
+namespace CAF.Web.WebForm {
     
     
     public partial class Directory_Query {

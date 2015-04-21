@@ -14,7 +14,8 @@ namespace CAF.Model
 	{   
         public User()
 		{
-            Connection = SqlService.Instance.Connection;
+            this.Connection = SqlService.Instance.Connection;
+            this.TableName = "Sys_Users";
             base.MarkNew();
     		 _userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(Id), isThreadSafe: true);
     		 _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(this), isThreadSafe: true);
@@ -43,8 +44,8 @@ namespace CAF.Model
         [StringLength(20,ErrorMessage="登录名长度不能超过20")]
 		public string LoginName
 		{
-			get {return _loginName;} 
-            set {SetProperty("LoginName",ref _loginName, value);}           	
+			get {return this._loginName;} 
+            set {this.SetProperty("LoginName",ref this._loginName, value);}           	
 		}
         
         /// <summary>
@@ -54,8 +55,8 @@ namespace CAF.Model
         [StringLength(20,ErrorMessage="用户简称长度不能超过20")]
 		public string Abb
 		{
-			get {return _abb;} 
-            set {SetProperty("Abb",ref _abb, value);}           	
+			get {return this._abb;} 
+            set {this.SetProperty("Abb",ref this._abb, value);}           	
 		}
         
         /// <summary>
@@ -65,8 +66,8 @@ namespace CAF.Model
         [StringLength(20,ErrorMessage="用户姓名长度不能超过20")]
 		public string Name
 		{
-			get {return _name;} 
-            set {SetProperty("Name",ref _name, value);}           	
+			get {return this._name;} 
+            set {this.SetProperty("Name",ref this._name, value);}           	
 		}
         
         /// <summary>
@@ -76,8 +77,8 @@ namespace CAF.Model
         [StringLength(50,ErrorMessage="用户密码长度不能超过50")]
 		public string Pass
 		{
-			get {return _pass;} 
-            set {SetProperty("Pass",ref _pass, value);}           	
+			get {return this._pass;} 
+            set {this.SetProperty("Pass",ref this._pass, value);}           	
 		}
         
         /// <summary>
@@ -86,8 +87,8 @@ namespace CAF.Model
         [StringLength(30,ErrorMessage="电话长度不能超过30")]
 		public string PhoneNum
 		{
-			get {return _phoneNum;} 
-            set {SetProperty("PhoneNum",ref _phoneNum, value);}           	
+			get {return this._phoneNum;} 
+            set {this.SetProperty("PhoneNum",ref this._phoneNum, value);}           	
 		}
         
         /// <summary>
@@ -96,8 +97,8 @@ namespace CAF.Model
         [GuidRequired(ErrorMessage="组织架构不允许为空")]
 		public Guid OrganizeId
 		{
-			get {return _organizeId;} 
-            set {SetProperty("OrganizeId",ref _organizeId, value);}           	
+			get {return this._organizeId;} 
+            set {this.SetProperty("OrganizeId",ref this._organizeId, value);}           	
 		}
         
         /// <summary>
@@ -119,8 +120,8 @@ namespace CAF.Model
         [StringLength(50,ErrorMessage="电子邮件长度不能超过50")]
 		public string Email
 		{
-			get {return _email;} 
-            set {SetProperty("Email",ref _email, value);}           	
+			get {return this._email;} 
+            set {this.SetProperty("Email",ref this._email, value);}           	
 		}
         
         public UserSetting UserSetting
@@ -313,38 +314,38 @@ namespace CAF.Model
 		
 		public override int Update(IDbConnection conn, IDbTransaction transaction)
 		{
-             if (!IsDirty)
+             if (!this.IsDirty)
              {
-                return _changedRows;
+                return this._changedRows;
              }  
-            _updateParameters+=", ChangedDate = GetDate()";
-			var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
-			_changedRows+= conn.Execute(query, this, transaction, null, null);
+            this._updateParameters+=", ChangedDate = GetDate()";
+			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
+			this._changedRows+= conn.Execute(query, this, transaction, null, null);
 			if( _userSettingInitalizer.IsValueCreated && UserSetting!=null) 
             {
- 				_changedRows += UserSetting.SaveChange(conn, transaction);
+ 				this._changedRows += UserSetting.SaveChange(conn, transaction);
             }
 			 _roleListInitalizer.IsValueCreated.IfIsTrue(
             () =>
             {
- 				_changedRows+=Roles.SaveChanges(conn,transaction);
+ 				this._changedRows+=Roles.SaveChanges(conn,transaction);
             });
-            return _changedRows;
+            return this._changedRows;
 		}
 		
 		public override int Insert(IDbConnection conn, IDbTransaction transaction)
 		{
-            _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
+            this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
 			if( _userSettingInitalizer.IsValueCreated && UserSetting!=null) 
             {
- 				_changedRows += UserSetting.SaveChange(conn, transaction);
+ 				this._changedRows += UserSetting.SaveChange(conn, transaction);
             }
 			 _roleListInitalizer.IsValueCreated.IfIsTrue(
             () =>
             {
- 				_changedRows+=Roles.SaveChanges(conn,transaction);
+ 				this._changedRows+=Roles.SaveChanges(conn,transaction);
             });
-            return _changedRows;
+            return this._changedRows;
 		}
 		
 		#region 私有方法
@@ -355,18 +356,18 @@ namespace CAF.Model
             {
                 if (role.IsDelete && Roles.IsChangeRelationship)
                 {
-                    _changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHUSERROLE, new { UserId = this.Id, RoleId = role.Id }, transaction, null, null);
+                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHUSERROLE, new { UserId = this.Id, RoleId = role.Id }, transaction, null, null);
                 }
                 else
                 {
                     var isExist = conn.Query<int>(QUERY_CONTAINSUSERROLE , new { UserId = Id, RoleId = role.Id },transaction).Single() >= 1;
                     if (!isExist)
                     {
-                        _changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHUSERROLE, new { UserId = Id, RoleId = role.Id }, transaction, null, null);
+                        this._changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHUSERROLE, new { UserId = Id, RoleId = role.Id }, transaction, null, null);
                     }
                 }
             }
-            return _changedRows;
+            return this._changedRows;
         }
 
         protected static RoleList InitRoles(User user)
