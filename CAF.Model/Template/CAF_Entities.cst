@@ -10,9 +10,9 @@ Description:
 <%@ Assembly Name="SchemaExplorer" %>
 <%@ Import Namespace="SchemaExplorer" %>
 <%@ Import Namespace="System.IO" %>
-<%@ Register Name="BusinessObject" Template="CAF_BusinessObject.cst" MergeProperties="Flase" ExcludeProperties=""%>
-<%@ Register Name="REBusinessObject" Template="CAF_REBusinessObject.cst" MergeProperties="Flase" ExcludeProperties=""%>
-<%@ Register Name="ReadOnlyBusinessObject" Template="CAF_ReadOnlyBusinessObject.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="BusinessObject" Template="Entity/CAF_BusinessObject.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="REBusinessObject" Template="Entity/CAF_REBusinessObject.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="ReadOnlyBusinessObject" Template="Entity/CAF_ReadOnlyBusinessObject.cst" MergeProperties="Flase" ExcludeProperties=""%>
 <% GenerateEntityClasses(); %>
 <script runat="template">
 

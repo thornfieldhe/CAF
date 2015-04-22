@@ -6,54 +6,42 @@ Description:
 <%@ Template Language="C#" TargetLanguage="Text" Debug="True"%>
 <%@ Property Name="SampleStringProperty" Default="SomeValue" Type="System.String" %>
 <%@ Property Name="SampleBooleanProperty" Default="True" Type="System.Boolean" %>
+<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="CAF" Description="" %>
 <%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
 <%@ Property Name="SourceView" Type="SchemaExplorer.ViewSchema" Category="Context" Description="Table that the object is based on." Optional="True"%>
-<%@ Assembly Name="SchemaExplorer" %>
 <%@ Import Namespace="SchemaExplorer" %>
 <%@ Import Namespace="System.IO" %>
-<%@ Register Name="Aspx" Template="CAF_QueryAspx.cst" MergeProperties="Flase" ExcludeProperties=""%>
-<%@ Register Name="Cs" Template="CAF_QueryCs.cst" MergeProperties="Flase" ExcludeProperties=""%>
-<%@ Register Name="Desinger" Template="CAF_QueryDesigner.cst" MergeProperties="Flase" ExcludeProperties=""%>
-<% CreateQueryFiles(); %>
+<%@ Register Name="Edit" Template="CAF_Edit.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="Query" Template="Web/CAF_Query.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<% GenerateEntityClasses(); %>
 <script runat="template">
 
 //生成实体Entity类
-private void CreateQueryFiles()
+private void GenerateEntityClasses()
 {
-    RenderAspxFile();
-    RenderCsFile();
-    RenderDesingerFile();
+    RenderEditFile();
+    RenderQueryFile();
 }
 
-public void RenderAspxFile()
+public void RenderEditFile()
 {
-    var file= new Aspx();
+    var file= new Edit();
     file.SourceTable=this.SourceTable;
-    file.SourceView=this.SourceView;
     file.ClassNamespace="CAF";
-    var fileDirectory=OutputDirectory +"\\Web\\"+ file.GetSingleClassName() +"_Query.aspx";
-    file.RenderToFile(fileDirectory,true);
+    file.OutputDirectory=this.OutputDirectory;
+    file.CreateEditFiles();
 }
 
-public void RenderCsFile()
+public void RenderQueryFile()
 {    
-    var file= new Cs();
+    var file= new Query();
     file.SourceTable=this.SourceTable;
     file.SourceView=this.SourceView;
     file.ClassNamespace="CAF";
-    var fileDirectory=OutputDirectory +"\\Web\\"+ file.GetSingleClassName() +"_Query.aspx.cs";
-    file.RenderToFile(fileDirectory,true);
+    file.OutputDirectory=this.OutputDirectory;
+    file.CreateQueryFiles();
 }
 
-public void RenderDesingerFile()
-{    
-    var file= new Desinger();
-    file.SourceTable=this.SourceTable;
-    file.SourceView=this.SourceView;
-    file.ClassNamespace="CAF";
-    var fileDirectory=OutputDirectory +"\\Web\\"+ file.GetSingleClassName() +"_Query.aspx.designer.cs";
-    file.RenderToFile(fileDirectory,true);
-}
 
 private string Directory = String.Empty;
 [Editor(typeof(System.Windows.Forms.Design.FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))] 

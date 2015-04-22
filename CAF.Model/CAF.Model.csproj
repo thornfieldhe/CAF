@@ -84,16 +84,19 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Template\CAF_BusinessObject.cst" />
-    <None Include="Template\CAF_EditAspx.cst" />
-    <None Include="Template\CAF_EditCs.cst" />
+    <None Include="Template\CAF_Edit.cst" />
     <None Include="Template\CAF_Entities.cst" />
     <None Include="Template\CAF_Query.cst" />
-    <None Include="Template\CAF_QueryAspx.cst" />
-    <None Include="Template\CAF_QueryCs.cst" />
-    <None Include="Template\CAF_QueryDesigner.cst" />
-    <None Include="Template\CAF_ReadOnlyBusinessObject.cst" />
-    <None Include="Template\CAF_REBusinessObject.cst" />
+    <None Include="Template\CAF_Web.cst" />
+    <None Include="Template\Entity\CAF_BusinessObject.cst" />
+    <None Include="Template\Entity\CAF_ReadOnlyBusinessObject.cst" />
+    <None Include="Template\Entity\CAF_REBusinessObject.cst" />
+    <None Include="Template\Web\CAF_EditAspx.cst" />
+    <None Include="Template\Web\CAF_EditCs.cst" />
+    <None Include="Template\Web\CAF_EditDesigner.cst" />
+    <None Include="Template\Web\CAF_QueryAspx.cst" />
+    <None Include="Template\Web\CAF_QueryCs.cst" />
+    <None Include="Template\Web\CAF_QueryDesigner.cst" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Script\script.sql" />

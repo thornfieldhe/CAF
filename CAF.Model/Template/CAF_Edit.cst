@@ -6,19 +6,19 @@ Description:
 <%@ Template Language="C#" TargetLanguage="Text" Debug="True"%>
 <%@ Property Name="SampleStringProperty" Default="SomeValue" Type="System.String" %>
 <%@ Property Name="SampleBooleanProperty" Default="True" Type="System.Boolean" %>
+<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="CAF" Description="" %>
 <%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
-<%@ Property Name="SourceView" Type="SchemaExplorer.ViewSchema" Category="Context" Description="Table that the object is based on." Optional="True"%>
 <%@ Assembly Name="SchemaExplorer" %>
 <%@ Import Namespace="SchemaExplorer" %>
 <%@ Import Namespace="System.IO" %>
-<%@ Register Name="Aspx" Template="CAF_QueryAspx.cst" MergeProperties="Flase" ExcludeProperties=""%>
-<%@ Register Name="Cs" Template="CAF_QueryCs.cst" MergeProperties="Flase" ExcludeProperties=""%>
-<%@ Register Name="Desinger" Template="CAF_QueryDesigner.cst" MergeProperties="Flase" ExcludeProperties=""%>
-<% CreateQueryFiles(); %>
+<%@ Register Name="Aspx" Template="Web/CAF_EditAspx.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="Cs" Template="Web/CAF_EditCs.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="Desinger" Template="Web/CAF_EditDesigner.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<% CreateEditFiles(); %>
 <script runat="template">
 
 //生成实体Entity类
-private void CreateQueryFiles()
+public void CreateEditFiles()
 {
     RenderAspxFile();
     RenderCsFile();
@@ -29,9 +29,8 @@ public void RenderAspxFile()
 {
     var file= new Aspx();
     file.SourceTable=this.SourceTable;
-    file.SourceView=this.SourceView;
     file.ClassNamespace="CAF";
-    var fileDirectory=OutputDirectory +"\\Web\\"+ file.GetSingleClassName() +"_Query.aspx";
+    var fileDirectory=OutputDirectory +"\\Web\\"+ file.GetClassName(file.SourceTable) +"_Edit.aspx";
     file.RenderToFile(fileDirectory,true);
 }
 
@@ -39,9 +38,8 @@ public void RenderCsFile()
 {    
     var file= new Cs();
     file.SourceTable=this.SourceTable;
-    file.SourceView=this.SourceView;
     file.ClassNamespace="CAF";
-    var fileDirectory=OutputDirectory +"\\Web\\"+ file.GetSingleClassName() +"_Query.aspx.cs";
+    var fileDirectory=OutputDirectory +"\\Web\\"+ file.GetClassName(file.SourceTable) +"_Edit.aspx.cs";
     file.RenderToFile(fileDirectory,true);
 }
 
@@ -49,9 +47,8 @@ public void RenderDesingerFile()
 {    
     var file= new Desinger();
     file.SourceTable=this.SourceTable;
-    file.SourceView=this.SourceView;
     file.ClassNamespace="CAF";
-    var fileDirectory=OutputDirectory +"\\Web\\"+ file.GetSingleClassName() +"_Query.aspx.designer.cs";
+    var fileDirectory=OutputDirectory +"\\Web\\"+ file.GetClassName() +"_Edit.aspx.designer.cs";
     file.RenderToFile(fileDirectory,true);
 }
 

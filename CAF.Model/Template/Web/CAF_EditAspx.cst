@@ -11,8 +11,7 @@
 <%@ Map Name="DbDataReader" Src="DbType-DataReaderMethod" Description="DbType to DataReader Method Map" %>
 <%@ Map Name="SqlNativeSqlDb" Src="SqlNativeType-SqlDbType" Description="SqlNativeType to SqlDbType Map" %>
 <%@ Map Name="DbTypeCSharp" Src="DbType-CSharp" Description="DbType to CSharp Map" %>
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Directory_Edit.aspx.cs" Inherits="CAF.Web.WebForm.Directory_Edit" %>
-<%%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Directory_Edit.aspx.cs" Inherits="<%= ClassNamespace %>.Web.WebForm.Directory_Edit" %%>
+<%%@ Page Language="C#" AutoEventWireup="true" CodeBehind="<%=GetClassName(this.SourceTable)%>_Edit.aspx.cs" Inherits="<%= ClassNamespace %>.Web.WebForm.<%=GetClassName(this.SourceTable)%>_Edit" %%>
 <%%@ Register TagPrefix="f" Namespace="FineUI" Assembly="FineUI" %%>
 <%%@ Register TagPrefix="f" Namespace="<%= ClassNamespace %>.Web.WebForm.CAFControl" Assembly="<%= ClassNamespace %>.Web.WebForm" %%>
 <!DOCTYPE html>
@@ -42,8 +41,6 @@
         <items>
             <f:SubmitForm Width="350px" ID="submitForm" runat="server" >
                 <Rows>
-                    <f:FormRow>
-                        <Items>
                         <% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
                         <%  ColumnSchema  column=SourceTable.NonPrimaryKeyColumns[i];%>                        
                         <% if(!IsSystemFiled(column)) {%>

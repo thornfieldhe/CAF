@@ -20,6 +20,9 @@ namespace <%= this.ClassNamespace %>.Web.WebForm
 
     public partial class <%= GetClassName(SourceTable) %>_Edit : BasePage
     {
+    
+        #region 系统生成
+        
         protected override void Bind()
         {
             //绑定查询条件
@@ -38,12 +41,10 @@ namespace <%= this.ClassNamespace %>.Web.WebForm
             else
             {
                 this.btnAdd.Hidden = true;
-                this.txtId.Readonly = true;
                 this.submitForm.LoadEntity(item);
             }
         }
         
-        #region 系统事件
         
         protected override void OnLoad(EventArgs e)
         {
@@ -65,13 +66,13 @@ namespace <%= this.ClassNamespace %>.Web.WebForm
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            var item = <%= GetClassName(SourceTable) %>.Get(this.txtId.Text.ToGuid());
+            var item = <%= GetClassName(SourceTable) %>.Get(this.Id);
             this.submitForm.Delete(item);
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            var item = Directory.Get(this.txtId.Text.ToGuid());
+            var item = Directory.Get(this.Id);
             this.submitForm.Update(item);
         }
 

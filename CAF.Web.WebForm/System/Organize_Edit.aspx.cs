@@ -27,14 +27,13 @@ namespace CAF.Web.WebForm
 
         private void submitForm_OnPostExcute(IBusinessBase business)
         {
-            Initialization();
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
 
         protected override void Bind()
         {
             base.Bind();
             PageHelper.BindOrganizes(txtId.Text.ToGuid(), dropParentId, txtId.Text);
-            BindTree();
             btnDelete.Enabled = false;
             btnUpdate.Enabled = false;
         }
@@ -57,59 +56,5 @@ namespace CAF.Web.WebForm
             var item = Organize.Get(txtId.Text.ToGuid());
             submitForm.Delete(item);
         }
-
-        #region tree
-
-        protected void treeDeps_NodeCommand(object sender, FineUI.TreeCommandEventArgs e)
-        {
-            var item = Organize.Get(new Guid(e.Node.NodeID));
-            PageTools.BindControls(this.submitForm, item);
-            PageHelper.BindOrganizes(txtId.Text.ToGuid(), dropParentId, item.ParentId.Value.ToString());
-            btnDelete.Enabled = true;
-            btnUpdate.Enabled = true;
-        }
-
-        private void BindTree()
-        {
-            var list = Organize.GetAll();
-            foreach (var item in list)
-            {
-                if (!item.ParentId.IsNullOrEmptuy())
-                {
-                    continue;
-                }
-                var node = CreateNode(item, treeDeps.Nodes);
-                ResolveSubTree(item, node);
-            }
-        }
-
-        private CAFTreeNode CreateNode(Organize item, TreeNodeCollection parent)
-        {
-            var node = new CAFTreeNode
-                           {
-                               Text = string.Format("{0}[{1}]", item.Name.ToString(), item.Code),
-                               NodeID = item.Id.ToString(),
-                               Expanded = true
-                           };
-            parent.Add(node);
-            return node;
-        }
-
-        private void ResolveSubTree(Organize node, TreeNode treeNode)
-        {
-            var list = Organize.GetAllByParentId(node.Id).OrderBy(l => l.Sort).ToList();
-            if (list.Count <= 0)
-            {
-                return;
-            }
-            treeNode.Expanded = true;
-            foreach (var item in list)
-            {
-                var newNode = CreateNode(item, treeNode.Nodes);
-                ResolveSubTree(item, newNode);
-            }
-        }
-
-        #endregion tree
     }
 }
