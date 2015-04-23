@@ -248,6 +248,21 @@ namespace CAF
 
         #region  数据库操作方法
 
+        /// <summary>
+        /// 插入或更新中过滤不需要的字段，
+        /// properties：A,B,C
+        /// </summary>
+        /// <param name="properties"></param>
+        public void SkipProperties(string properties)
+        {
+            var propertyList =properties.Split(',');
+            foreach (var property in propertyList)
+            {
+               this._updateParameters= this._updateParameters.Replace(string.Format(", {0} =  @{0}", property), "");
+            }
+            
+        }
+
         public virtual int Create()
         {
             this.customerValidator = ValidationFactory.CreateValidator<T>();

@@ -97,7 +97,11 @@ namespace CAF.Web.WebForm.CAFControl
         }
 
 
-        public bool PreCreate(IBusinessBase business) { return this.OnPreCreated == null || this.OnPreCreated(business); }
+        public bool PreCreate(IBusinessBase business)
+        {
+            PageTools.BindModel(this, business);
+            return this.OnPreCreated == null || this.OnPreCreated(business);
+        }
 
         public void PostCreate(IBusinessBase business) { if (this.OnPostCreated != null) { this.OnPostCreated(business); } }
 
@@ -105,13 +109,16 @@ namespace CAF.Web.WebForm.CAFControl
 
         public void PostDelete(IBusinessBase business) { if (this.OnPostDelete != null) { this.OnPostDelete(business); } }
 
-        public bool PreUpdate(IBusinessBase business) { return this.OnPreUpdated == null || this.OnPreUpdated(business); }
+        public bool PreUpdate(IBusinessBase business)
+        {
+            PageTools.BindModel(this, business);
+            return this.OnPreUpdated == null || this.OnPreUpdated(business);
+        }
 
         public void PostUpdate(IBusinessBase business) { if (this.OnPostUpdated != null) { this.OnPostUpdated(business); } }
 
         public bool OnCreate(IBusinessBase business)
         {
-            PageTools.BindModel(this, business);
             business.Create();
             Alert.ShowInTop(business.Errors.Count > 0 ? business.Errors[0] : Resource.System_Message_AddSuccess);
             return business.Errors.Count == 0;
@@ -129,14 +136,12 @@ namespace CAF.Web.WebForm.CAFControl
         {
             try
             {
-                PageTools.BindModel(this, business);
                 business.Save();
                 Alert.ShowInTop(business.Errors.Count > 0 ? business.Errors[0] : Resource.System_Message_UpdateSuccess);
                 return business.Errors.Count == 0;
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
 
@@ -183,6 +188,7 @@ namespace CAF.Web.WebForm.CAFControl
             base.ShowBorder = true;
             base.ShowHeader = true;
             base.ShowPagingMessage = true;
+            base.EmptyText = String.Format("<img src=\"{0}\" alt=\"No Data Found!\"/>", base.ResolveUrl("~/res/images/no_data_found.jpg"));
             base.Columns.Add(new RowNumberField() { EnablePagingNumber = true });
         }
 

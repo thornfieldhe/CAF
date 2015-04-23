@@ -4,6 +4,7 @@ using System.Linq;
 namespace CAF.Web.WebForm
 {
     using CAF.Model;
+    using CAF.Security;
     using CAF.Web.WebForm.Common;
 
     using FineUI;
@@ -19,19 +20,72 @@ namespace CAF.Web.WebForm
             this.submitForm.OnPostDelete += this.submitForm_OnPostExcute;
             this.submitForm.OnPostUpdated += this.submitForm_OnPostExcute;
             this.submitForm.OnPreCreated += this.submitForm_OnPreCreated;
-            string a = "xx_ff";
-            var b = a.Substring(a.IndexOf("_"), a.Length - a.IndexOf("_"));
+            this.submitForm.OnPreUpdated += this.submitForm_OnPreUpdated;
         }
 
         private bool submitForm_OnPreCreated(IBusinessBase business)
         {
-         
-            if (!Model.User.Exists(this.txtLoginName.Text))
+            var item = business as Model.User;
+            if (item == null)
             {
-                return true;
+                return false;
             }
-            Alert.ShowInTop("用户已存在");
-            return false;
+            if (string.IsNullOrWhiteSpace(this.txtPass.Text.Trim()))
+            {
+                Alert.ShowInTop("密码不允许为空！");
+                this.txtPass.Focus();
+                return false;
+            }
+            if (this.txtPass.Text.Trim() != this.txtConfirmPass.Text.Trim())
+            {
+                Alert.ShowInTop("密码两次输入不一致！");
+                return false;
+            }
+            if (Model.User.Exists(this.txtLoginName.Text))
+            {
+                Alert.ShowInTop("用户已存在");
+                return false;
+            }
+            item.Pass = Password.DesEncrypt(item.Pass);
+            var ids = this.chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
+            foreach (var id in ids)
+            {
+                item.Roles.Add(Role.Get(id));
+            }
+            return true;
+        }
+
+        private bool submitForm_OnPreUpdated(IBusinessBase business)
+        {
+
+            var item = business as Model.User;
+            if (item == null)
+            {
+                return false;
+            }
+            if (!string.IsNullOrWhiteSpace(this.txtPass.Text.Trim()))
+            {
+                if (this.txtPass.Text.Trim() != this.txtConfirmPass.Text.Trim())
+                {
+                    Alert.ShowInTop("密码两次输入不一致！");
+                    return false;
+                }
+                else
+                {
+                    item.Pass = Password.DesEncrypt(item.Pass);
+                }
+            }
+            else
+            {
+                item.SkipProperties("Pass");
+            }
+
+            var ids = this.chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
+            foreach (var id in ids)
+            {
+                item.Roles.Add(Role.Get(id));
+            }
+            return true;
         }
 
         private void submitForm_OnPostExcute(IBusinessBase business)
@@ -42,11 +96,11 @@ namespace CAF.Web.WebForm
         protected override void Bind()
         {
             base.Bind();
-            PageHelper.BindOrganizes(new Guid(), this.dropOrganizeId, new Guid().ToString());
+            PageHelper.BindOrganizes(new Guid(), this.dropOrganizeId, new Guid().ToString(), true);
             PageTools.BindRadioButton(typeof(UserStatusEnum), this.radioStatus);
             PageHelper.BindRoles(this.chkUserRoles);
-            var u = Model.User.Get(this.Id);
-            if (u == null)
+            var item = Model.User.Get(this.Id);
+            if (item == null)
             {
                 this.btnDelete.Hidden = true;
                 this.btnUpdate.Hidden = true;
@@ -54,14 +108,15 @@ namespace CAF.Web.WebForm
             else
             {
                 this.btnAdd.Hidden = true;
-                this.txtLoginName.Enabled = false;
-                this.submitForm.LoadEntity(u);
+                this.txtLoginName.Readonly = true;
+                this.submitForm.LoadEntity(item);
+                foreach (var role in this.chkUserRoles.Items.Where(ur => item.Roles.Count(r => r.Id == new Guid(ur.Value)) > 0))
+                {
+                    role.Selected = true;
+                }
+                this.txtPass.Text = "";
+                this.txtConfirmPass.Text = "";
             }
-            foreach (var item in this.chkUserRoles.Items.Where(item => true).Where(item => u.Roles.Count(r => r.Id == new Guid(item.Value)) > 0))
-            {
-                item.Selected = true;
-            }
-
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -73,22 +128,12 @@ namespace CAF.Web.WebForm
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             var item = Model.User.Get(this.Id);
-            var ids = this.chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
-            foreach (var id in ids)
-            {
-                item.Roles.Add(Role.Get(id));
-            }
             this.submitForm.Update(item);
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             var item = new User();
-            var ids = this.chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
-            foreach (var id in ids)
-            {
-                item.Roles.Add(Role.Get(id));
-            }
             this.submitForm.Create(item);
         }
     }

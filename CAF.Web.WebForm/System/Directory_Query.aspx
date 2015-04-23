@@ -31,10 +31,10 @@
                     DataIFrameUrlFormatString="Directory_Edit.aspx?Id={0}" DataWindowTitleField="Name"
                     DataWindowTitleFormatString="编辑 - {0}"  />
                     <f:BoundField  ColumnID="Name" SortField="Name" DataField="Name" HeaderText="名称" DataSimulateTreeLevelField="SysLevel" ExpandUnusedSpace="True"  DataFormatString="{0}"></f:BoundField>
-                    <f:BoundField Width="140px" ColumnID="ParentName" DataField="ParentName" HeaderText="父级目录"></f:BoundField>
-                    <f:BoundField  ColumnID="Url" SortField="Url" DataField="Url" HeaderText="URL地址" Width="200px"></f:BoundField>
+                    <f:CheckBoxField Width="80px" ColumnID="Show" SortField="Show" DataField="Show" HeaderText="显示"></f:CheckBoxField>                    
+                    <f:BoundField Width="100px" ColumnID="ParentName" DataField="ParentName" HeaderText="父级目录"></f:BoundField>
+                    <f:BoundField  ColumnID="Url" SortField="Url" DataField="Url" HeaderText="URL地址" Width="300px"></f:BoundField>
                     <f:BoundField Width="80px" ColumnID="Sort" SortField="Sort" DataField="Sort" HeaderText="排序"></f:BoundField> 
-                    <f:BoundField Width="80px" ColumnID="StatusName" SortField="StatusName" DataField="StatusName" HeaderText="状态"></f:BoundField>
                     <f:DeleteLinkButtonField  />
                 </Columns>
                 <PageItems>

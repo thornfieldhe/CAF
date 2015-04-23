@@ -10,7 +10,7 @@ namespace CAF.Web.WebForm
         protected override void Bind()
         {
             //绑定查询条件
-            PageHelper.BindDirectories(this.txtId.Text.ToGuid(), this.dropParentId, selectItem: new Guid().ToString());
+            PageHelper.BindDirectories(this.txtId.Text.ToGuid(), this.dropParentId, new Guid().ToString());
             var item = Directory.Get(this.Id);
             if (item == null)
             {
@@ -25,7 +25,7 @@ namespace CAF.Web.WebForm
             }
         }
 
-        #region 系统事件
+        #region 系统生成
         protected override void OnLoad(EventArgs e)
         {
             if (!this.IsPostBack)

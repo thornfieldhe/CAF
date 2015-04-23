@@ -20,8 +20,8 @@ namespace CAF.Model
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
                 const string query = "Select Id,Name,[Level] From Sys_Organizes Where Level Like '%'+@Level AND Status!=-1";
-                return conn.Query<SortLevelItem>(query, new { Level = item == null ? "00" : item.Level })
-                    .Select(d => new SortLevelItem { Id = d.Id, Level = d.Level, Name = (new string('-', d.Level.Length * 3)) + d.Name })
+                return conn.Query<Organize>(query, new { Level = item == null ? "00" : item.Level })
+                    .Select(d => new SortLevelItem { Id = d.Id,Level = d.Level, Sort = d.Level.Length/2-1, Name = d.Name })
                     .OrderBy(d => d.Level).ToList();
             }
         }
@@ -37,8 +37,8 @@ namespace CAF.Model
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
                 const string query = "Select Id,Name,[Level] From Sys_Organizes Where Level Not Like '%'+@Level AND Status!=-1";
-                return conn.Query<SortLevelItem>(query, new { Level = item == null ? "00" : item.Level })
-                    .Select(d => new SortLevelItem { Id = d.Id, Level = d.Level, Name = (new string('-', d.Level.Length * 3)) + d.Name })
+                return conn.Query<Organize>(query, new { Level = item == null ? "00" : item.Level })
+                    .Select(d => new SortLevelItem { Id = d.Id, Level = d.Level, Sort = d.Level.Length / 2 - 1, Name = d.Name })
                     .OrderBy(d => d.Level).ToList();
             }
         }

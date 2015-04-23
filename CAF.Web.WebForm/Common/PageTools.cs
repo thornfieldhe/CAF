@@ -419,6 +419,7 @@ namespace CAF.Web.WebForm.Common
             drop.Items.Add(item);
             items.ForEach(i => drop.Items.Add(i));
             drop.SelectedValue = selectItem;
+            drop.EnableSimulateTree = true;
         }
 
         /// <summary>

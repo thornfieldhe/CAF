@@ -3642,6 +3642,7 @@
     <Content Include="res\icon\zoom.png" />
     <Content Include="res\icon\zoom_in.png" />
     <Content Include="res\icon\zoom_out.png" />
+    <Content Include="res\images\no_data_found.jpg" />
     <Content Include="System\Directory_Edit.aspx" />
     <Content Include="System\Directory_Query.aspx" />
     <Content Include="System\Organize_Edit.aspx" />

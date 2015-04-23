@@ -34,7 +34,21 @@
                     </f:FormRow>
                     <f:FormRow>
                         <Items>
-                            <f:TextBox ID="txtName" Label="用户名" Required="true" runat="server" ShowRedStar="true">
+                            <f:TextBox ID="txtName" Label="用户名"  runat="server" ShowRedStar="true">
+                            </f:TextBox>
+                        </Items>
+                    </f:FormRow>
+                                        <f:FormRow>
+                        <Items>
+                            <f:TextBox ID="txtPass" Label="密码"  runat="server" ShowRedStar="true" TextMode="Password">
+                            </f:TextBox>
+                        </Items>
+                    </f:FormRow>
+                    <f:FormRow>
+                        <Items>
+                            <f:TextBox ID="txtConfirmPass" Label="确认密码" Required="true" 
+                                runat="server" ShowRedStar="true" TextMode="Password"  CompareControl="txtPass"
+                CompareOperator="Equal" CompareMessage="密码两次输入不一致！">
                             </f:TextBox>
                         </Items>
                     </f:FormRow>

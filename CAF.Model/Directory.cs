@@ -59,30 +59,35 @@ namespace CAF.Model
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
                 const string query = "Select Id,Name,[Level] From Sys_Directories Where Level Not Like '%'+@Level AND Status!=-1";
-                return conn.Query<SortLevelItem>(query, new { Level = item == null ? "00" : item.Level })
-                    .Select(d => new SortLevelItem { Id = d.Id, Level = d.Level, Name = (new string('-', d.Level.Length * 3)) + d.Name })
+                return conn.Query<Directory>(query, new { Level = item == null ? "00" : item.Level })
+                    .Select(d => new SortLevelItem { Id = d.Id, Level = d.Level, Sort = d.Level.Length / 2 - 1, Name = d.Name })
                     .OrderBy(d => d.Level).ToList();
             }
         }
 
         protected override void PreInsert(IDbConnection conn, IDbTransaction transaction)
         {
-            this.Level = GetMaxCode(conn, transaction);
+            this.Level = this.GetMaxCode(conn, transaction);
         }
 
         protected override void PreUpdate(IDbConnection conn, IDbTransaction transaction)
         {
             if (this._updateParameters.Contains("ParentId"))
             {
-                this.Level = GetMaxCode(conn, transaction);
+                this.Level = this.GetMaxCode(conn, transaction);
             }
         }
     }
 
     public partial class ReadOnlyDirectory
     {
-        public string StatusName { get { return RichEnumContent.GetDescription<HideStatusEnum>(this.Status); }}
+        public bool Show
+        {
+            get
+            {
+                return (int)this.Status == 0;
+            }
+        }
 
-        
     }
 }

@@ -72,13 +72,13 @@ namespace <%= this.ClassNamespace %>.Web.WebForm
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            var item = Directory.Get(this.Id);
+            var item = <%=GetClassName(this.SourceTable)%>.Get(this.Id);
             this.submitForm.Update(item);
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            var item = new Directory();
+            var item = new <%=GetClassName(this.SourceTable)%>();
             this.submitForm.Create(item);
         }
         

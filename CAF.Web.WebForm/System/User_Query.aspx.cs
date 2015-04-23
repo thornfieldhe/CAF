@@ -22,7 +22,7 @@ namespace CAF.Web.WebForm
         protected override void Bind()
         {
             base.Bind();
-            PageHelper.BindDirectories(new Guid(), this.dropDeps, new Guid().ToString(), true);
+            PageHelper.BindOrganizes(new Guid(), this.dropDeps, new Guid().ToString(), true);
             PageTools.BindDropdownList(Role.GetSimpleRoleList(), this.dropRoles, new Guid().ToString());
             PageTools.BindDropdownList(typeof(UserStatusEnum), this.dropStatus);
             this.grid_OnQuery();

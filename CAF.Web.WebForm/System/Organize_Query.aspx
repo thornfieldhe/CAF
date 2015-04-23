@@ -23,19 +23,17 @@
             </f:Toolbar>
         </Toolbars>
         <Items>
-            <f:CAFGrid ID="grid" runat="server" Title="" AllowSorting="False" SortField="Level" OnRowCommand="gridRowCommand" 
+            <f:CAFGrid ID="grid" runat="server" Title="部门查询" AllowSorting="False" SortField="Level" OnRowCommand="gridRowCommand" 
                 EnableCollapse="true" DataKeyNames="Id">
                 <Columns>
                     <f:EditWindowField WindowID="winEdit"  DataTextFormatString="{0}" DataIFrameUrlFields="Id"
                     DataIFrameUrlFormatString="Organize_Edit.aspx?Id={0}" DataWindowTitleField="Name"
                     DataWindowTitleFormatString="编辑 - {0}"  />
-                    <f:BoundField Width="140px" ColumnID="Code" DataField="Code" HeaderText="" ></f:BoundField>
-                    <f:BoundField Width="140px" ColumnID="Level" DataField="Level" HeaderText="" ></f:BoundField>
-                    <f:BoundField Width="140px" ColumnID="Name" DataField="Name" HeaderText="" ></f:BoundField>
-                    <f:BoundField Width="140px" ColumnID="ParentId" DataField="ParentId" HeaderText="" ></f:BoundField>
-                    <f:BoundField Width="140px" ColumnID="Sort" DataField="Sort" HeaderText="" ></f:BoundField>
-                    <f:BoundField Width="140px" ColumnID="ParentName" DataField="ParentName" HeaderText="" ></f:BoundField>
-                    <f:BoundField Width="140px" ColumnID="SysLevel" DataField="SysLevel" HeaderText="" ></f:BoundField>
+                    <f:BoundField Width="140px" ColumnID="Name" DataField="Name" HeaderText="部门名称" DataSimulateTreeLevelField="SysLevel" ExpandUnusedSpace="True"  DataFormatString="{0}"></f:BoundField>
+                    <f:BoundField Width="140px" ColumnID="Code" DataField="Code" HeaderText="部门编码" ></f:BoundField>
+                    <f:BoundField Width="140px" ColumnID="Level" DataField="Level" HeaderText="部门层级" ></f:BoundField>
+                    <f:BoundField Width="140px" ColumnID="Sort" DataField="Sort" HeaderText="排序" ></f:BoundField>
+                    <f:BoundField Width="140px" ColumnID="ParentName" DataField="ParentName" HeaderText="父部门名称" ></f:BoundField>
                     <f:DeleteLinkButtonField  />
                 </Columns>
                 <PageItems>

@@ -20,12 +20,12 @@ namespace CAF.Web.WebForm.Common
         {
             if (!useLevel)
             {
-                var items = Directory.GetOtherDirectories(id).Select(d => new ListItem { Text = d.Name, Value = d.Id.ToString() }).ToList();
+                var items = Directory.GetOtherDirectories(id).Select(d => new ListItem { Text = d.Name, Value = d.Id.ToString(), SimulateTreeLevel = d.Sort }).ToList();
                 PageTools.BindDropdownList(items, drop, selectItem);
             }
             else
             {
-                var items = Directory.GetOtherDirectories(id).Select(d => new ListItem { Text = d.Name, Value = d.Level }).ToList();
+                var items = Directory.GetOtherDirectories(id).Select(d => new ListItem { Text = d.Name, Value = d.Level,SimulateTreeLevel = d.Sort}).ToList();
                 PageTools.BindDropdownList(items, drop, selectItem, "");
             }
 
@@ -37,10 +37,18 @@ namespace CAF.Web.WebForm.Common
         /// <param name="id"></param>
         /// <param name="drop"></param>
         /// <param name="selectItem"></param>
-        public static void BindOrganizes(Guid id, DropDownList drop, string selectItem)
+        /// <param name="useLevel"></param>
+        public static void BindOrganizes(Guid id, DropDownList drop, string selectItem, bool useLevel = false)
         {
-            var items = Organize.GetOtherOrganizes(id).Select(d => new ListItem { Text = d.Name, Value = d.Id.ToString() }).ToList();
-            PageTools.BindDropdownList(items, drop, selectItem);
+            if (!useLevel)
+            {
+                var items = Organize.GetOtherOrganizes(id).Select(d => new ListItem { Text = d.Name, Value = d.Id.ToString(), SimulateTreeLevel = d.Sort }).ToList();
+                PageTools.BindDropdownList(items, drop, selectItem);
+            }else
+            {
+                var items = Organize.GetOtherOrganizes(id).Select(d => new ListItem { Text = d.Name, Value = d.Level, SimulateTreeLevel = d.Sort }).ToList();
+                PageTools.BindDropdownList(items, drop, selectItem, "");
+            }
         }
 
         /// <summary>

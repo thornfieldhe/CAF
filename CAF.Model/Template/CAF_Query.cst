@@ -11,9 +11,9 @@ Description:
 <%@ Assembly Name="SchemaExplorer" %>
 <%@ Import Namespace="SchemaExplorer" %>
 <%@ Import Namespace="System.IO" %>
-<%@ Register Name="Aspx" Template="CAF_QueryAspx.cst" MergeProperties="Flase" ExcludeProperties=""%>
-<%@ Register Name="Cs" Template="CAF_QueryCs.cst" MergeProperties="Flase" ExcludeProperties=""%>
-<%@ Register Name="Desinger" Template="CAF_QueryDesigner.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="Aspx" Template="Web/CAF_QueryAspx.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="Cs" Template="Web/CAF_QueryCs.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="Desinger" Template="Web/CAF_QueryDesigner.cst" MergeProperties="Flase" ExcludeProperties=""%>
 <% CreateQueryFiles(); %>
 <script runat="template">
 

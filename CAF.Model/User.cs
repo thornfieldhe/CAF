@@ -35,7 +35,6 @@ namespace CAF.Model
             get
             {
                 return RichEnumContent.GetDescription<UserStatusEnum>(this.Status);
-                
             }
         }
     }

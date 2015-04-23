@@ -68,7 +68,7 @@
             </f:CAFGrid>
         </Items>
     </f:CAFPanel>
-    <f:CAFWindow ID="winEdit" Title="编辑"  runat="server" Width="450px" Height="400px"/>
+    <f:CAFWindow ID="winEdit" Title="编辑"  runat="server" Width="450px" Height="480px"/>
     </form>
 </body>
 </html>

@@ -20,6 +20,7 @@ namespace CAF.Web.WebForm
                 pageId = new Guid("7405F6D8-3D7A-48E8-BC47-1169CE40AC4E");
             }
             base.OnLoad(e);
+            this.btnClose.OnClientClick = ActiveWindow.GetHidePostBackReference();
             submitForm.OnPostCreated += submitForm_OnPostExcute;
             submitForm.OnPostDelete += submitForm_OnPostExcute;
             submitForm.OnPostUpdated += submitForm_OnPostExcute;
@@ -33,9 +34,18 @@ namespace CAF.Web.WebForm
         protected override void Bind()
         {
             base.Bind();
-            PageHelper.BindOrganizes(txtId.Text.ToGuid(), dropParentId, txtId.Text);
-            btnDelete.Enabled = false;
-            btnUpdate.Enabled = false;
+            PageHelper.BindOrganizes(this.Id, dropParentId, this.ID.ToString());
+            var item = Organize.Get(this.Id);
+            if (item == null)
+            {
+                this.btnDelete.Hidden = true;
+                this.btnUpdate.Hidden = true;
+            }
+            else
+            {
+                this.btnAdd.Hidden = true;
+                this.submitForm.LoadEntity(item);
+            }
         }
 
 
@@ -47,13 +57,13 @@ namespace CAF.Web.WebForm
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            var item = Organize.Get(txtId.Text.ToGuid());
+            var item = Organize.Get(this.Id);
             submitForm.Update(item);
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            var item = Organize.Get(txtId.Text.ToGuid());
+            var item = Organize.Get(this.Id);
             submitForm.Delete(item);
         }
     }
