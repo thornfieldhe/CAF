@@ -3646,6 +3646,9 @@
     <Content Include="res\icon\zoom_out.png" />
     <Content Include="res\images\no_data_found.jpg" />
     <Content Include="Scripts\default.js" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="System\Directory_Edit.aspx" />
     <Content Include="System\Directory_Query.aspx" />
     <Content Include="System\Organize_Edit.aspx" />

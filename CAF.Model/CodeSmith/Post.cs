@@ -214,7 +214,7 @@ namespace CAF.Model
             {
                 if (user.IsDelete && this.Users.IsChangeRelationship)
                 {
-                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHUSERPOST, new { UserId = this.Id, RoleId = user.Id }, transaction, null, null);
+                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHUSERPOST, new { PostId = this.Id,  UserId = user.Id }, transaction, null, null);
                 }
                 else
                 {

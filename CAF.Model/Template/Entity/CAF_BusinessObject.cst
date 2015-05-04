@@ -123,9 +123,9 @@ namespace <%= ClassNamespace %>.Model
 			get
 			{ 
 				<%if(column.AllowDBNull){%>
-				return !<%= GetPropertyName(column)%>.HasValue ? null : <%= GetPropertyName(column).Replace("Id","") %>.Get(<%= GetPropertyName(column)%>.Value);
+				return !<%= GetPropertyName(column)%>.HasValue ? null : <%= GetPropertyName(column).Replace("Id","") %>.Get(this.<%= GetPropertyName(column)%>.Value);
 				<%}else{%>
-				return <%= GetPropertyName(column).Replace("Id","") %>.Get(<%= GetPropertyName(column)%>);
+				return <%= GetPropertyName(column).Replace("Id","") %>.Get(this.<%= GetPropertyName(column)%>);
 				<%} %>
 			}        	
 		}
@@ -139,15 +139,15 @@ namespace <%= ClassNamespace %>.Model
         {
             get
             {
-                if (!<%= GetListMember2(item)%>.IsValueCreated)
+                if (!this.<%= GetListMember2(item)%>.IsValueCreated)
                 {
-                    <%= GetListMember1(item)%> = <%= GetListMember2(item)%>.Value;
+                    this.<%= GetListMember1(item)%> = this.<%= GetListMember2(item)%>.Value;
                 }
-                return <%= GetListMember1(item)%>;
+                return this.<%= GetListMember1(item)%>;
             }
             set
             {
-                <%= GetListMember1(item)%> = value;
+                this.<%= GetListMember1(item)%> = value;
             }
         }
         
@@ -159,7 +159,7 @@ namespace <%= ClassNamespace %>.Model
             {
                 if (!this.<%= GetListMember3(item)%>.IsValueCreated)
                 {
-                    this.<%= GetListMember4(item)%> = <%= GetListMember3(item)%>.Value;
+                    this.<%= GetListMember4(item)%> = this.<%= GetListMember3(item)%>.Value;
                 }
                 return this.<%= GetListMember4(item)%>;
             }
@@ -167,15 +167,15 @@ namespace <%= ClassNamespace %>.Model
             {
                 if (!this.<%= GetListMember3(item)%>.IsValueCreated)
                 {
-                    this.<%= GetListMember4(item)%> = <%= GetListMember3(item)%>.Value;
+                    this.<%= GetListMember4(item)%> = this.<%= GetListMember3(item)%>.Value;
                 }
                 this.<%= GetListMember4(item)%> = value;
 				if (this.<%= GetListMember4(item)%> == null)
                 {
                     return;
                 }
-                this.<%= GetListMember4(item)%>.OnPropertyChange += MarkDirty;
-                this.<%= GetListMember4(item)%>.<%= GetClassName(SourceTable) %>Id = Id;
+                this.<%= GetListMember4(item)%>.OnPropertyChange += this.MarkDirty;
+                this.<%= GetListMember4(item)%>.<%= GetClassName(SourceTable) %>Id = this.Id;
             }
         }
         <%} %>    
@@ -184,15 +184,15 @@ namespace <%= ClassNamespace %>.Model
         {
             get
             {
-                if (!<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated)
+                if (!this.<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated)
                 {
-                    <%= GetListMember1(GetRelationshipItem(item))%> = <%= GetListMember2(GetRelationshipItem(item))%>.Value;
+                    this.<%= GetListMember1(GetRelationshipItem(item))%> = this.<%= GetListMember2(GetRelationshipItem(item))%>.Value;
                 }
-                return <%= GetListMember1(GetRelationshipItem(item))%>;
+                return this.<%= GetListMember1(GetRelationshipItem(item))%>;
             }
              set
             {
-                <%= GetListMember1(GetRelationshipItem(item))%> = value;
+                this.<%= GetListMember1(GetRelationshipItem(item))%> = value;
             }
         }
         <%} %>   
@@ -205,16 +205,16 @@ namespace <%= ClassNamespace %>.Model
                 var isValid = true;
                 var baseValid = base.IsValid;
                 <%foreach(string item in Children){ %>
-                foreach (var item in <%=item%>s.Where(item => !item.IsValid))
+                foreach (var item in this.<%=item%>s.Where(item => !item.IsValid))
                 {
                     this.Errors.AddRange(item.Errors);
                     isValid = false;
                 }
                 <%} %>
                 <%foreach(string item in Child){ %>
-                if (this.<%= GetListMember3(item)%>.IsValueCreated && <%=item%>!=null && !<%=item%>.IsValid)
+                if (this.<%= GetListMember3(item)%>.IsValueCreated && this.<%=item%>!=null && !this.<%=item%>.IsValid)
                 {
-                    this.Errors.AddRange(<%=item%>.Errors);
+                    this.Errors.AddRange(this.<%=item%>.Errors);
                     isValid = false;
                 }
                 <%} %>
@@ -222,7 +222,7 @@ namespace <%= ClassNamespace %>.Model
 				this.<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfIsTrue(
                 () =>
                 {
-                    foreach (var item in <%=GetRelationshipItem(item)%>s.Where(item => !item.IsValid))
+                    foreach (var item in this.<%=GetRelationshipItem(item)%>s.Where(item => !item.IsValid))
                     {
                         this.Errors.AddRange(item.Errors);
                         isValid = false;
@@ -231,7 +231,7 @@ namespace <%= ClassNamespace %>.Model
                 <%} %>
                return baseValid && isValid;
             }
-            protected set { _isValid = value; }
+            protected set { this._isValid = value; }
         }
         
         <%} %>
@@ -272,7 +272,7 @@ namespace <%= ClassNamespace %>.Model
                 {
                     return null;
                 }
-                item.Connection = conn;
+                item.Connection = SqlService.Instance.Connection;
                 item.MarkOld();
                 <%foreach(string item in Children){ %>
                 item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
@@ -295,7 +295,7 @@ namespace <%= ClassNamespace %>.Model
                 var list=new <%= GetCollectionClassName(SourceTable) %>();
                 foreach (var item in items)
                 {
-                    item.Connection = conn;
+                    item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
                     <%foreach(string item in Children){ %>
                     item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
@@ -322,7 +322,7 @@ namespace <%= ClassNamespace %>.Model
               	var list=new <%= GetCollectionClassName(SourceTable) %>();
                 foreach (var item in items)
                 {
-                    item.Connection = conn;
+                    item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
                     <%foreach(string item in Children){ %>
 					item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);                 
@@ -349,7 +349,7 @@ namespace <%= ClassNamespace %>.Model
                 var item= conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETBY<%=childItem.ToUpper()%>, new { <%=childItem%> = <%=GetCamelCaseName(childItem)%> }).SingleOrDefault<<%= GetClassName(SourceTable) %>>();
                 if (item != null)
                 {
-                    item.Connection = conn;
+                    item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
                     <%foreach(string item in Children){ %>
                     item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
@@ -376,7 +376,7 @@ namespace <%= ClassNamespace %>.Model
                 var list=new <%= GetCollectionClassName(SourceTable) %>();
                 foreach (var item in items)
                 {
-                    item.Connection = conn;
+                    item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
                     <%foreach(var item in Children){ %>
                     item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);                 
@@ -438,20 +438,20 @@ namespace <%= ClassNamespace %>.Model
     		this.<%= GetListMember2(item)%>.IsValueCreated.IfIsTrue(
 			() =>
             {
- 				this._changedRows+=<%=item%>s.SaveChanges(conn,transaction);
+ 				this._changedRows+=this.<%=item%>s.SaveChanges(conn,transaction);
             });
             <%} %> 
             <%foreach(var item in Child){ %>
-			if(<%= GetListMember3(item)%>.IsValueCreated && <%=item%>!=null) 
+			if(this.<%= GetListMember3(item)%>.IsValueCreated && this.<%=item%>!=null) 
             {
- 				this._changedRows += <%=item%>.SaveChange(conn, transaction);
+ 				this._changedRows += this.<%=item%>.SaveChange(conn, transaction);
             }
             <%} %> 
 			<%foreach(var item in WithMany){ %>
 			this.<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfIsTrue(
             () =>
             {
- 				this._changedRows+=<%=GetRelationshipItem(item)%>s.SaveChanges(conn,transaction);
+ 				this._changedRows+=this.<%=GetRelationshipItem(item)%>s.SaveChanges(conn,transaction);
             });
             <%} %>
             return this._changedRows;
@@ -464,20 +464,20 @@ namespace <%= ClassNamespace %>.Model
     		this.<%= GetListMember2(item)%>.IsValueCreated.IfIsTrue(
 			() =>
             {
- 				this._changedRows+=<%=item%>s.SaveChanges(conn,transaction);
+ 				this._changedRows+=this.<%=item%>s.SaveChanges(conn,transaction);
             });
             <%} %> 
             <%foreach(string item in Child){ %>    		
-			if(<%= GetListMember3(item)%>.IsValueCreated && <%=item%>!=null) 
+			if(this.<%= GetListMember3(item)%>.IsValueCreated && this.<%=item%>!=null) 
             {
- 				this._changedRows += <%=item%>.SaveChange(conn, transaction);
+ 				this._changedRows += this.<%=item%>.SaveChange(conn, transaction);
             }
             <%} %> 
 			<%foreach(string item in WithMany){ %>
-			<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfIsTrue(
+			this.<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfIsTrue(
             () =>
             {
- 				this._changedRows+=<%=GetRelationshipItem(item)%>s.SaveChanges(conn,transaction);
+ 				this._changedRows+=this.<%=GetRelationshipItem(item)%>s.SaveChanges(conn,transaction);
             });
             <%} %>
             return this._changedRows;
@@ -499,7 +499,7 @@ namespace <%= ClassNamespace %>.Model
                     var isExist = conn.Query<int>(QUERY_CONTAINS<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%> , new { <%= GetClassName(SourceTable)%>Id = this.Id, <%=GetRelationshipItem(item)%>Id = <%=GetCamelCaseName(GetRelationshipItem(item))%>.Id },transaction).Single() >= 1;
                     if (!isExist)
                     {
-                        this._changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { <%= GetClassName(SourceTable)%>Id = Id, <%=GetRelationshipItem(item)%>Id = <%=GetCamelCaseName(GetRelationshipItem(item))%>.Id }, transaction, null, null);
+                        this._changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { <%= GetClassName(SourceTable)%>Id = this.Id, <%=GetRelationshipItem(item)%>Id = <%=GetCamelCaseName(GetRelationshipItem(item))%>.Id }, transaction, null, null);
                     }
                 }
             }

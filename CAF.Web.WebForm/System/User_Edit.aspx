@@ -93,6 +93,17 @@
                             </f:GroupPanel>
                         </Items>
                     </f:FormRow>
+                                        <f:FormRow>
+                        <Items>
+                            <f:GroupPanel runat="server"  Title="用户岗位" ID="GroupPanel2" EnableCollapse="True"
+                                Width="390px" EnableAjax="false">
+                                <Items>
+                                    <f:CheckBoxList runat="server" ID="chkUserPosts" ColumnNumber="2">
+                                    </f:CheckBoxList>
+                                </Items>
+                            </f:GroupPanel>
+                        </Items>
+                    </f:FormRow>
                 </Rows>
             </f:SubmitForm>
         </Items>

@@ -29,14 +29,14 @@
                 <Rows>
                     <f:FormRow>
                         <Items>
-                            <f:DropDownList runat="server" ID="dropPosts" Label="角色列表" OnSelectedIndexChanged="dropPostsId_SelectedIndexChanged"
+                            <f:DropDownList runat="server" ID="dropPosts" Label="岗位列表" OnSelectedIndexChanged="dropPostsId_SelectedIndexChanged"
                                 AutoPostBack="true">
                             </f:DropDownList>
                         </Items>
                     </f:FormRow>
                     <f:FormRow>
                         <Items>
-                            <f:TextBox ID="txtName" Label="角色名称" Required="true" runat="server" ShowRedStar="true">
+                            <f:TextBox ID="txtName" Label="岗位名称" Required="true" runat="server" ShowRedStar="true">
                             </f:TextBox>
                         </Items>
                     </f:FormRow>

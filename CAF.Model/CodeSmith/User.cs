@@ -427,7 +427,7 @@ namespace CAF.Model
             {
                 if (role.IsDelete && this.Roles.IsChangeRelationship)
                 {
-                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHUSERROLE, new { UserId = this.Id, RoleId = role.Id }, transaction, null, null);
+                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHUSERROLE, new { UserId = this.Id,  RoleId = role.Id }, transaction, null, null);
                 }
                 else
                 {
@@ -456,7 +456,7 @@ namespace CAF.Model
             {
                 if (post.IsDelete && this.Posts.IsChangeRelationship)
                 {
-                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHUSERPOST, new { UserId = this.Id, RoleId = post.Id }, transaction, null, null);
+                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHUSERPOST, new { UserId = this.Id,  PostId = post.Id }, transaction, null, null);
                 }
                 else
                 {

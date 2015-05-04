@@ -157,5 +157,6 @@
     </f:CAFWindow>
     </form>
 </body>
+<script src="Scripts/jquery-2.1.1.min.js"></script>
             <script src="Scripts/default.js"></script>
 </html>

@@ -329,7 +329,7 @@ namespace CAF.Model
             {
                 if (role.IsDelete && this.Roles.IsChangeRelationship)
                 {
-                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHORGANIZEROLE, new { UserId = this.Id, RoleId = role.Id }, transaction, null, null);
+                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHORGANIZEROLE, new { OrganizeId = this.Id,  RoleId = role.Id }, transaction, null, null);
                 }
                 else
                 {

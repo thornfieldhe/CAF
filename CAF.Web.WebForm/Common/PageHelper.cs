@@ -69,6 +69,21 @@ namespace CAF.Web.WebForm.Common
         }
 
         /// <summary>
+        /// 绑定岗位复选框
+        /// </summary>
+        /// <param name="chk"></param>
+        public static void BindPosts(CheckBoxList chk)
+        {
+            chk.DataSource = Post.GetAll().Select(r => new
+            {
+                Text = r.Name,
+                Value = r.Id
+            });
+            chk.DataTextField = "Text";
+            chk.DataValueField = "Value";
+            chk.DataBind();
+        }
+        /// <summary>
         /// 绑定角色单选框
         /// </summary>
         /// <param name="radio"></param>

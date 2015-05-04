@@ -58,7 +58,7 @@ namespace CAF.Web.WebForm
             }
             if (new Guid(this.dropRoles.SelectedValue) != new Guid())
             {
-                strWhere += " And Roles Like '%'+@RoleId+'%'";
+                strWhere += " And Roles Like '%'+@Roles+'%'";
                 userCriteria.Roles = this.dropRoles.SelectedValue;
             }
             if (this.dropStatus.SelectedValue != "")

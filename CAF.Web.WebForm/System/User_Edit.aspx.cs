@@ -82,16 +82,15 @@ namespace CAF.Web.WebForm
 
             var ids = this.chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
             var userRoles = item.Roles.Select(r => r.Id).ToList();
-            var intersect = userRoles.Except(ids).ToList();
-            var intersect2 = ids.Except(userRoles).ToList();
-            foreach (var id in intersect2)
-            {
-                item.Roles.Add(Role.Get(id));
-            }
-            foreach (var id in intersect)
-            {
-                item.Roles.First(r=>r.Id==id).MarkDelete();
-            }
+            userRoles.Except(ids).ToList().ForEach(i => item.Roles.First(r => r.Id == i).MarkDelete());
+            ids.Except(userRoles).ToList().ForEach(i => item.Roles.Add(Role.Get(i)));
+
+            var ids2 = this.chkUserPosts.SelectedValueArray.Select(d => new Guid(d)).ToList();
+            var userPosts = item.Posts.Select(r => r.Id).ToList();
+            userPosts.Except(ids2).ToList().ForEach(i => item.Posts.First(r => r.Id == i).MarkDelete());
+            ids2.Except(userPosts).ToList().ForEach(i=>item.Posts.Add(Post.Get(i)));
+
+
             return true;
         }
 
@@ -103,9 +102,10 @@ namespace CAF.Web.WebForm
         protected override void Bind()
         {
             base.Bind();
-            PageHelper.BindOrganizes(new Guid(), this.dropOrganizeId, new Guid().ToString(), true);
+            PageHelper.BindOrganizes(new Guid(), this.dropOrganizeId, new Guid().ToString(), false);
             PageTools.BindRadioButton(typeof(UserStatusEnum), this.radioStatus);
             PageHelper.BindRoles(this.chkUserRoles);
+            PageHelper.BindPosts(this.chkUserPosts);
             var item = Model.User.Get(this.Id);
             if (item == null)
             {
@@ -120,6 +120,10 @@ namespace CAF.Web.WebForm
                 foreach (var role in this.chkUserRoles.Items.Where(ur => item.Roles.Count(r => r.Id == new Guid(ur.Value)) > 0))
                 {
                     role.Selected = true;
+                }
+                foreach (var post in this.chkUserPosts.Items.Where(ur => item.Posts.Count(r => r.Id == new Guid(ur.Value)) > 0))
+                {
+                    post.Selected = true;
                 }
                 this.txtPass.Text = "";
                 this.txtConfirmPass.Text = "";
