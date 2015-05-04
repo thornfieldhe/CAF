@@ -30,10 +30,10 @@ namespace <%= ClassNamespace %>.Model
 	{   
         public <%= GetClassName(SourceTable) %>()
         {
-            Connection = SqlService.Instance.Connection;
+            this.Connection = SqlService.Instance.Connection;
             base.MarkNew();
-            <%= GetPrivateInitalizerFiled(TableA)%> = new Lazy<<%=TableA%>>(() => Init<%=TableA%>(this), isThreadSafe: true);
-            <%= GetPrivateInitalizerFiled(TableB)%> = new Lazy<<%=TableB%>>(() => Init<%=TableB%>(this), isThreadSafe: true);
+            this.<%= GetPrivateInitalizerFiled(TableA)%> = new Lazy<<%=TableA%>>(() => Init<%=TableA%>(this), isThreadSafe: true);
+            this.<%= GetPrivateInitalizerFiled(TableB)%> = new Lazy<<%=TableB%>>(() => Init<%=TableB%>(this), isThreadSafe: true);
         }
         
         #region 公共属性
@@ -69,8 +69,8 @@ namespace <%= ClassNamespace %>.Model
         <%}%>
 		public <%= GetCSharpVariableType(column) %><%=IsSystemNullAble(column)%> <%= GetPropertyName(column) %>
 		{
-			get {return <%= GetMemberVariableName(column) %>;} 
-            set {SetProperty("<%= GetPropertyName(column) %>",ref <%=GetMemberVariableName(column)%>, value);}           	
+			get {return this.<%= GetMemberVariableName(column) %>;} 
+            set {this.SetProperty("<%= GetPropertyName(column) %>",ref this.<%=GetMemberVariableName(column)%>, value);}           	
 		}
         
         <% if (GetPropertyName(column).StartsWith(TableA)){ %>	
@@ -83,11 +83,11 @@ namespace <%= ClassNamespace %>.Model
         {
             get
             {
-                if (!<%= GetPrivateInitalizerFiled(TableA)%>.IsValueCreated)
+                if (!this.<%= GetPrivateInitalizerFiled(TableA)%>.IsValueCreated)
                 {
-                    _<%=TableA.ToLower()%> = <%= GetPrivateInitalizerFiled(TableA)%>.Value;
+                    this._<%=TableA.ToLower()%> = this.<%= GetPrivateInitalizerFiled(TableA)%>.Value;
                 }
-                return _<%=TableA.ToLower()%>;
+                return this._<%=TableA.ToLower()%>;
             }
         }
         
@@ -101,11 +101,11 @@ namespace <%= ClassNamespace %>.Model
         {
             get
             {
-                if (!<%= GetPrivateInitalizerFiled(TableB)%>.IsValueCreated)
+                if (!this.<%= GetPrivateInitalizerFiled(TableB)%>.IsValueCreated)
                 {
-                    _<%=TableB.ToLower()%> = <%= GetPrivateInitalizerFiled(TableB)%>.Value;
+                    this._<%=TableB.ToLower()%> = this.<%= GetPrivateInitalizerFiled(TableB)%>.Value;
                 }
-                return _<%=TableB.ToLower()%>;
+                return this._<%=TableB.ToLower()%>;
             }
         }
 		<% }}} %>
@@ -135,6 +135,7 @@ namespace <%= ClassNamespace %>.Model
                 {
                     return null;
                 }
+                item.Connection = conn;
                 item.MarkOld();
                 item.<%= GetPrivateInitalizerFiled(TableA)%> = new Lazy<<%=TableA%>>(() => Init<%=TableA%>(item), isThreadSafe: true);
                 item.<%= GetPrivateInitalizerFiled(TableB)%> = new Lazy<<%=TableB%>>(() => Init<%=TableB%>(item), isThreadSafe: true);
@@ -151,6 +152,7 @@ namespace <%= ClassNamespace %>.Model
                 var list = new <%= GetCollectionClassName(SourceTable) %>();
                 foreach (var item in items)
                 {
+                    item.Connection = conn;
                     item.MarkOld();
                     item.<%= GetPrivateInitalizerFiled(TableA)%> = new Lazy<<%=TableA%>>(() => Init<%=TableA%>(item), isThreadSafe: true);
                     item.<%= GetPrivateInitalizerFiled(TableB)%> = new Lazy<<%=TableB%>>(() => Init<%=TableB%>(item), isThreadSafe: true);
@@ -170,6 +172,7 @@ namespace <%= ClassNamespace %>.Model
                 var list = new <%= GetCollectionClassName(SourceTable) %>();
                 foreach (var item in items)
                 {
+                    item.Connection = conn;
                     item.MarkOld();
                     item.<%= GetPrivateInitalizerFiled(TableA)%> = new Lazy<<%=TableA%>>(() => Init<%=TableA%>(item), isThreadSafe: true);
                     item.<%= GetPrivateInitalizerFiled(TableB)%> = new Lazy<<%=TableB%>>(() => Init<%=TableB%>(item), isThreadSafe: true);
@@ -210,20 +213,20 @@ namespace <%= ClassNamespace %>.Model
 
         public override int Update(IDbConnection conn, IDbTransaction transaction)
         {
-            if (!IsDirty)
+            if (!this.IsDirty)
             {
-                return _changedRows;
+                return this._changedRows;
             }
-            _updateParameters += ", ChangedDate = GetDate()";
-            var query = String.Format(QUERY_UPDATE, _updateParameters.TrimStart(','));
-            _changedRows += conn.Execute(query, this, transaction, null, null);
-            return _changedRows;
+            this._updateParameters += ", ChangedDate = GetDate()";
+            var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
+            this._changedRows += conn.Execute(query, this, transaction, null, null);
+            return this._changedRows;
         }
 
         public override int Insert(IDbConnection conn, IDbTransaction transaction)
         {
-            _changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-            return _changedRows;
+            this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
+            return this._changedRows;
         }
         
         #region 私有方法
@@ -256,7 +259,7 @@ namespace <%= ClassNamespace %>.Model
 	[Serializable]
     public class <%= GetCollectionClassName(SourceTable) %>:CollectionBase<<%= GetCollectionClassName(SourceTable) %>,<%= GetClassName(SourceTable) %>>
     {
-        public <%= GetCollectionClassName(SourceTable) %>() { }
+        public <%= GetCollectionClassName(SourceTable) %>() { this.Connection = SqlService.Instance.Connection;}
 
         protected const string tableName = "<%= SourceTable.Name %>";
         

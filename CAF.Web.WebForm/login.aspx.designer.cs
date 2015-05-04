@@ -22,13 +22,13 @@ namespace EmptyProjectNet20 {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// PageManager1 控件。
+        /// manager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.PageManager PageManager1;
+        protected global::FineUI.PageManager manager;
         
         /// <summary>
         /// Window1 控件。
@@ -49,31 +49,40 @@ namespace EmptyProjectNet20 {
         protected global::FineUI.SimpleForm SimpleForm1;
         
         /// <summary>
-        /// tbxUserName 控件。
+        /// txtUserName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.TextBox tbxUserName;
+        protected global::FineUI.TextBox txtUserName;
         
         /// <summary>
-        /// tbxPassword 控件。
+        /// txtPassword 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.TextBox tbxPassword;
+        protected global::FineUI.TextBox txtPassword;
         
         /// <summary>
-        /// tbxCaptcha 控件。
+        /// txtCaptcha 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.TextBox tbxCaptcha;
+        protected global::FineUI.TextBox txtCaptcha;
+        
+        /// <summary>
+        /// Panel1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUI.Panel Panel1;
         
         /// <summary>
         /// imgCaptcha 控件。

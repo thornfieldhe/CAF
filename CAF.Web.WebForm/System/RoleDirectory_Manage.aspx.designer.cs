@@ -7,10 +7,10 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace EmptyProjectNet20 {
+namespace CAF.Web.WebForm {
     
     
-    public partial class _default {
+    public partial class RoleDirectory_Manage {
         
         /// <summary>
         /// form1 控件。
@@ -37,123 +37,78 @@ namespace EmptyProjectNet20 {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.RegionPanel mainPanel;
+        protected global::FineUI.Panel mainPanel;
         
         /// <summary>
-        /// Region1 控件。
+        /// Toolbar1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.Region Region1;
+        protected global::FineUI.Toolbar Toolbar1;
         
         /// <summary>
-        /// ContentPanel5 控件。
+        /// btnUpdate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.ContentPanel ContentPanel5;
+        protected global::CAF.Web.WebForm.CAFControl.UpdateButton btnUpdate;
         
         /// <summary>
-        /// Region2 控件。
+        /// Panel11 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.Region Region2;
+        protected global::FineUI.Panel Panel11;
         
         /// <summary>
-        /// mainRegion 控件。
+        /// submitForm 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.Region mainRegion;
+        protected global::CAF.Web.WebForm.CAFControl.SubmitForm submitForm;
         
         /// <summary>
-        /// mainTabStrip 控件。
+        /// dropRoles 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.TabStrip mainTabStrip;
+        protected global::FineUI.DropDownList dropRoles;
         
         /// <summary>
-        /// Tab1 控件。
+        /// radioStatus 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.Tab Tab1;
+        protected global::FineUI.RadioButtonList radioStatus;
         
         /// <summary>
-        /// toolbar3 控件。
+        /// Panel20 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.Toolbar toolbar3;
+        protected global::FineUI.Panel Panel20;
         
         /// <summary>
-        /// ToolbarFill1 控件。
+        /// treeDirs 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.ToolbarFill ToolbarFill1;
-        
-        /// <summary>
-        /// btnLoginOut 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUI.Button btnLoginOut;
-        
-        /// <summary>
-        /// btnChangePass 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUI.Button btnChangePass;
-        
-        /// <summary>
-        /// lblUserName 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUI.Label lblUserName;
-        
-        /// <summary>
-        /// ContentPanel1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUI.ContentPanel ContentPanel1;
-        
-        /// <summary>
-        /// winChangePass 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.CAFWindow winChangePass;
+        protected global::CAF.Web.WebForm.CAFControl.CAFTree treeDirs;
     }
 }

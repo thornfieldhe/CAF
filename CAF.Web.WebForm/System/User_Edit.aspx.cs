@@ -72,7 +72,7 @@ namespace CAF.Web.WebForm
                 }
                 else
                 {
-                    item.Pass = Password.DesEncrypt(item.Pass);
+                    item.Pass = Password.DesEncrypt(this.txtPass.Text.Trim());
                 }
             }
             else
@@ -81,9 +81,16 @@ namespace CAF.Web.WebForm
             }
 
             var ids = this.chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
-            foreach (var id in ids)
+            var userRoles = item.Roles.Select(r => r.Id).ToList();
+            var intersect = userRoles.Except(ids).ToList();
+            var intersect2 = ids.Except(userRoles).ToList();
+            foreach (var id in intersect2)
             {
                 item.Roles.Add(Role.Get(id));
+            }
+            foreach (var id in intersect)
+            {
+                item.Roles.First(r=>r.Id==id).MarkDelete();
             }
             return true;
         }

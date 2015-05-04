@@ -1045,6 +1045,8 @@ namespace CAF
         }
 
 
+
+
         #region 字符串转换
 
         /// <summary>

@@ -46,7 +46,7 @@
                     </f:FormRow>
                     <f:FormRow>
                         <Items>
-                            <f:TextBox ID="txtConfirmPass" Label="确认密码" Required="true" 
+                            <f:TextBox ID="txtConfirmPass" Label="确认密码"
                                 runat="server" ShowRedStar="true" TextMode="Password"  CompareControl="txtPass"
                 CompareOperator="Equal" CompareMessage="密码两次输入不一致！">
                             </f:TextBox>

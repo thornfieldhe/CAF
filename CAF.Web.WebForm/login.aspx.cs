@@ -1,27 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FineUI;
+using System;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Text;
-using FineUI;
 
 namespace EmptyProjectNet20
 {
-    public partial class login : System.Web.UI.Page
+    using CAF.Model;
+    using CAF.Security;
+    using CAF.Web.WebForm.Common;
+
+    public partial class login : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (this.IsPostBack)
             {
-                LoadData();
+                return;
             }
+            this.IsAuthenticated();
+            this.LoadData();
         }
-
 
         private void LoadData()
         {
-            InitCaptchaCode();
+            this.InitCaptchaCode();
+        }
+
+        private void IsAuthenticated()
+        {
+            if (this.User.Identity.IsAuthenticated)
+            {
+                this.btnLogin.OnClientClick = Confirm.GetShowReference(
+                    string.Format("用户[{0}]已在本机登录，是否强制登录？", CAF.Model.User.Get(this.User.Identity.Name).Name), String.Empty, MessageBoxIcon.Question, this.btnLogin.GetPostBackEventReference(), String.Empty);
+                this.btnLogin.EnablePostBack = false;
+            }
+            else
+            {
+                this.btnLogin.EnablePostBack = true;
+            }
         }
 
         /// <summary>
@@ -30,45 +46,42 @@ namespace EmptyProjectNet20
         private void InitCaptchaCode()
         {
             // 创建一个 6 位的随机数并保存在 Session 对象中
-            Session["CaptchaImageText"] = GenerateRandomCode();
-            imgCaptcha.ImageUrl = "~/captcha/captcha.ashx?w=150&h=30&t=" + DateTime.Now.Ticks;
-        }
-
-        /// <summary>
-        /// 创建一个 6 位的随机数
-        /// </summary>
-        /// <returns></returns>
-        private string GenerateRandomCode()
-        {
-            string s = String.Empty;
-            Random random = new Random();
-            for (int i = 0; i < 6; i++)
-            {
-                s += random.Next(10).ToString();
-            }
-            return s;
+            this.Session["CaptchaImageText"] = PageTools.GenerateRandomCode();
+            this.imgCaptcha.ImageUrl = "~/captcha/captcha.ashx?w=150&h=30&t=" + DateTime.Now.Ticks;
         }
 
         protected void btnRefresh_Click(object sender, EventArgs e)
         {
-            InitCaptchaCode();
+            this.InitCaptchaCode();
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            if (tbxCaptcha.Text != Session["CaptchaImageText"].ToString())
+            if (this.txtCaptcha.Text != this.Session["CaptchaImageText"].ToString())
             {
                 Alert.ShowInTop("验证码错误！");
+                this.InitCaptchaCode();
+                this.txtPassword.Text = "";
                 return;
             }
-
-            if (tbxUserName.Text == "admin" && tbxPassword.Text == "admin")
+            var principal = new CAFPrincipal();
+            if (principal.Login(this.txtUserName.Text.Trim(), Password.DesEncrypt(this.txtPassword.Text.Trim())))
             {
-                Alert.ShowInTop("成功登录！");
+                HttpContext.Current.User = principal;
+                System.Web.Security.FormsAuthentication.SetAuthCookie(this.txtUserName.Text, true);
+                var referrer = this.Request["referrer"];
+                HttpContext.Current.Session["Principal"] = HttpContext.Current.User;
+                this.Session["User"] = CAF.Model.User.Get(this.User.Identity.Name);
+                var log = new LoginLog { UserName = this.User.Identity.Name, Ip = CAF.Web.Net.GetClientIP() };
+
+                log.Create();
+                this.Response.Redirect(referrer ?? @"default.aspx", false);
             }
             else
             {
                 Alert.ShowInTop("用户名或密码错误！", MessageBoxIcon.Error);
+                this.txtPassword.Text = "";
+                this.InitCaptchaCode();
             }
         }
 

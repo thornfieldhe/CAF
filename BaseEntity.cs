@@ -42,6 +42,10 @@ namespace CAF
         public string Note { get { return this._note; } set { this.SetProperty("Note", ref this._note, value); } }
 
         public string TableName { get; protected set; }
+
+        public string[] SkipedProperties { get; private set; }
+
+        
         public IDbConnection Connection { get { return this._connection; } set { this._connection = value; } }
 
         public BaseEntity(Guid id)
@@ -256,6 +260,7 @@ namespace CAF
         public void SkipProperties(string properties)
         {
             var propertyList =properties.Split(',');
+            this.SkipedProperties = propertyList;
             foreach (var property in propertyList)
             {
                this._updateParameters= this._updateParameters.Replace(string.Format(", {0} =  @{0}", property), "");

@@ -11,12 +11,6 @@ namespace CAF.Model
         Hide = 1,
     }
 
-    public enum IsSystemRoleEnum
-    {
-        System = 1,
-        UnSystem = 0,
-    }
-
     public enum UserStatusEnum
     {
         [Description("正常")]
@@ -31,6 +25,8 @@ namespace CAF.Model
 
     public enum RightStatusEnum
     {
+        [Description("删除")]
+        Delete = -1,
         [Description("读")]
         Read = 1,
         [Description("写")]
@@ -46,7 +42,7 @@ namespace CAF.Model
         Fail
     }
 
-    public enum SMSStatusEnum
+    public enum SmsStatusEnum
     {
         [Description("待发送")]
         UnSended = 0,

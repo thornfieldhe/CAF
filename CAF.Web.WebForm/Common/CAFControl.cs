@@ -99,7 +99,6 @@ namespace CAF.Web.WebForm.CAFControl
 
         public bool PreCreate(IBusinessBase business)
         {
-            PageTools.BindModel(this, business);
             return this.OnPreCreated == null || this.OnPreCreated(business);
         }
 
@@ -111,7 +110,7 @@ namespace CAF.Web.WebForm.CAFControl
 
         public bool PreUpdate(IBusinessBase business)
         {
-            PageTools.BindModel(this, business);
+            
             return this.OnPreUpdated == null || this.OnPreUpdated(business);
         }
 
@@ -119,6 +118,7 @@ namespace CAF.Web.WebForm.CAFControl
 
         public bool OnCreate(IBusinessBase business)
         {
+            PageTools.BindModel(this, business);
             business.Create();
             Alert.ShowInTop(business.Errors.Count > 0 ? business.Errors[0] : Resource.System_Message_AddSuccess);
             return business.Errors.Count == 0;
@@ -136,6 +136,7 @@ namespace CAF.Web.WebForm.CAFControl
         {
             try
             {
+                PageTools.BindModel(this, business);
                 business.Save();
                 Alert.ShowInTop(business.Errors.Count > 0 ? business.Errors[0] : Resource.System_Message_UpdateSuccess);
                 return business.Errors.Count == 0;
@@ -310,6 +311,7 @@ namespace CAF.Web.WebForm.CAFControl
         {
             this.Expanded = true;
             this.EnableClickEvent = true;
+            this.EnableCheckEvent = true;
         }
     }
 

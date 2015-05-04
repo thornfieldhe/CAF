@@ -30,7 +30,7 @@ namespace CAF.Web.WebForm
         {
             if (!this.IsPostBack)
             {
-                this.pageId = new Guid("5043a6f2-f7dc-4492-a611-154e2b0d5810");
+                this.pageId = new Guid("f66d4ee2-8c93-47bd-83bf-550cab2025da");
             }
             base.OnLoad(e);
             this.btnClose.OnClientClick = ActiveWindow.GetHidePostBackReference();

@@ -272,6 +272,7 @@ namespace <%= ClassNamespace %>.Model
                 {
                     return null;
                 }
+                item.Connection = conn;
                 item.MarkOld();
                 <%foreach(string item in Children){ %>
                 item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
@@ -294,6 +295,7 @@ namespace <%= ClassNamespace %>.Model
                 var list=new <%= GetCollectionClassName(SourceTable) %>();
                 foreach (var item in items)
                 {
+                    item.Connection = conn;
                     item.MarkOld();
                     <%foreach(string item in Children){ %>
                     item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
@@ -320,6 +322,7 @@ namespace <%= ClassNamespace %>.Model
               	var list=new <%= GetCollectionClassName(SourceTable) %>();
                 foreach (var item in items)
                 {
+                    item.Connection = conn;
                     item.MarkOld();
                     <%foreach(string item in Children){ %>
 					item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);                 
@@ -346,6 +349,7 @@ namespace <%= ClassNamespace %>.Model
                 var item= conn.Query<<%= GetClassName(SourceTable) %>>(QUERY_GETBY<%=childItem.ToUpper()%>, new { <%=childItem%> = <%=GetCamelCaseName(childItem)%> }).SingleOrDefault<<%= GetClassName(SourceTable) %>>();
                 if (item != null)
                 {
+                    item.Connection = conn;
                     item.MarkOld();
                     <%foreach(string item in Children){ %>
                     item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
@@ -372,6 +376,7 @@ namespace <%= ClassNamespace %>.Model
                 var list=new <%= GetCollectionClassName(SourceTable) %>();
                 foreach (var item in items)
                 {
+                    item.Connection = conn;
                     item.MarkOld();
                     <%foreach(var item in Children){ %>
                     item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);                 
@@ -545,7 +550,7 @@ namespace <%= ClassNamespace %>.Model
 	[Serializable]
     public class <%= GetCollectionClassName(SourceTable) %>:CollectionBase<<%= GetCollectionClassName(SourceTable) %>,<%= GetClassName(SourceTable) %>>
     {
-        public <%= GetCollectionClassName(SourceTable) %>() { }
+        public <%= GetCollectionClassName(SourceTable) %>() {this.Connection = SqlService.Instance.Connection; }
 
         protected const string tableName = "<%= SourceTable.Name %>";
         

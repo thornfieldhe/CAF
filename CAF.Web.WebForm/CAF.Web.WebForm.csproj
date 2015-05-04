@@ -40,7 +40,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FineUI">
+    <Reference Include="FineUI, Version=4.1.6.0, Culture=neutral, PublicKeyToken=0ff1835d01c384a9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FineUI.4.1.6\lib\FineUI.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -76,6 +77,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\default.css" />
     <Content Include="default.aspx" />
     <Content Include="extjs\ext-all.js" />
     <Content Include="extjs\ext-part1.js" />
@@ -3643,10 +3645,12 @@
     <Content Include="res\icon\zoom_in.png" />
     <Content Include="res\icon\zoom_out.png" />
     <Content Include="res\images\no_data_found.jpg" />
+    <Content Include="Scripts\default.js" />
     <Content Include="System\Directory_Edit.aspx" />
     <Content Include="System\Directory_Query.aspx" />
     <Content Include="System\Organize_Edit.aspx" />
     <Content Include="System\Organize_Query.aspx" />
+    <Content Include="System\RoleDirectory_Manage.aspx" />
     <Content Include="System\Role_Edit.aspx" />
     <Content Include="System\User_Edit.aspx" />
     <Content Include="System\User_Query.aspx" />
@@ -3733,6 +3737,13 @@
     </Compile>
     <Compile Include="System\Organize_Query.aspx.designer.cs">
       <DependentUpon>Organize_Query.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="System\RoleDirectory_Manage.aspx.cs">
+      <DependentUpon>RoleDirectory_Manage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\RoleDirectory_Manage.aspx.designer.cs">
+      <DependentUpon>RoleDirectory_Manage.aspx</DependentUpon>
     </Compile>
     <Compile Include="System\Role_Edit.aspx.cs">
       <DependentUpon>Role_Edit.aspx</DependentUpon>

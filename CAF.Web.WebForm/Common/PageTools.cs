@@ -7,8 +7,9 @@ using System.Web.UI;
 
 namespace CAF.Web.WebForm.Common
 {
+    using System.Runtime.CompilerServices;
+
     using CAF.Data;
-    using CAF.Model;
 
     public class PageTools
     {
@@ -112,8 +113,9 @@ namespace CAF.Web.WebForm.Common
         /// </summary>
         /// <param name="item"></param>
         /// <param name="model"></param>
-        public static void BindModel(Control item, object model)
+        public static void BindModel(Control item, IBusinessBase model)
         {
+
             if (!item.HasControls())
             {
                 PropertyInfo Info;
@@ -123,9 +125,9 @@ namespace CAF.Web.WebForm.Common
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("txt", ""));
                     if (Info != null)
                     {
-                        if (!(item is HiddenField) 
-                            && ((Info.Name == "Id" && ctrl.Text.ToGuid()!=Guid.Empty)
-                            || Info.Name!="Id"))
+                        if (!(item is HiddenField) && skipProperties(model, Info)
+                            && ((Info.Name == "Id" && ctrl.Text.ToGuid() != Guid.Empty)
+                            || Info.Name != "Id"))
                         {
                             Info.SetValue(model, DataMap.GetType(Info, ctrl.Text), null);
                         }
@@ -135,19 +137,17 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (Label)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("lbl", ""));
-                    if (Info != null && ctrl.Text != "")
+                    if (Info != null && ctrl.Text != "" && skipProperties(model, Info)&&
+                        !(Info.Name == "Id" && String.IsNullOrWhiteSpace(ctrl.Text)))
                     {
-                        if (!(Info.Name == "Id" && String.IsNullOrWhiteSpace(ctrl.Text)))
-                        {
-                            Info.SetValue(model, DataMap.GetType(Info, ctrl.Text), null);
-                        }
+                        Info.SetValue(model, DataMap.GetType(Info, ctrl.Text), null);
                     }
                 }
                 if (item is DatePicker)
                 {
                     var ctrl = (DatePicker)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("date", ""));
-                    if (Info != null && ctrl.Text != "")
+                    if (Info != null && ctrl.Text != "" && skipProperties(model, Info))
                     {
                         Info.SetValue(model, DataMap.GetType(Info, ctrl.SelectedDate.Value.ToShortDateString()), null);
                     }
@@ -156,7 +156,8 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (DropDownList)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("drop", ""));
-                    if (Info != null && !String.IsNullOrWhiteSpace(ctrl.SelectedValue))
+                    if (Info != null && !String.IsNullOrWhiteSpace(ctrl.SelectedValue)
+                        && skipProperties(model, Info))
                     {
                         Info.SetValue(model, DataMap.GetType(Info, ctrl.SelectedValue), null);
                     }
@@ -165,7 +166,7 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (CheckBox)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("chk", ""));
-                    if (Info != null)
+                    if (Info != null && skipProperties(model, Info))
                     {
                         if (ctrl.Checked)
                         {
@@ -187,7 +188,7 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (CheckBoxList)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("chk", ""));
-                    if (Info != null)
+                    if (Info != null && skipProperties(model, Info))
                     {
                         Info.SetValue(model, DataMap.GetType(Info, PageTools.CheckBoxList(ctrl, "")), null);
                     }
@@ -196,7 +197,7 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (RadioButton)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("radio", ""));
-                    if (Info != null)
+                    if (Info != null && skipProperties(model, Info))
                     {
                         Info.SetValue(model, ctrl.Checked ? DataMap.GetType(Info, "1") : DataMap.GetType(Info, "0"),
                             null);
@@ -206,7 +207,7 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (RadioButtonList)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("radio", ""));
-                    if (Info != null)
+                    if (Info != null && skipProperties(model, Info))
                     {
                         Info.SetValue(model, DataMap.GetType(Info, ctrl.SelectedValue), null);
                     }
@@ -219,6 +220,13 @@ namespace CAF.Web.WebForm.Common
                     BindModel(c, model);
                 }
             }
+        }
+
+        private static bool skipProperties(IBusinessBase model, PropertyInfo Info)
+        {
+            return model.SkipedProperties == null ||
+                   (model.SkipedProperties != null && !model.SkipedProperties.Contains(Info.Name))
+            ;
         }
 
         /// <summary>
@@ -418,7 +426,7 @@ namespace CAF.Web.WebForm.Common
             var item = new ListItem { Text = "请选择", Value = defaultitemValue };
             drop.Items.Add(item);
             items.ForEach(i => drop.Items.Add(i));
-            drop.SelectedValue = selectItem;
+            selectItem.IfIsNotNullOrEmpty(r => drop.SelectedValue = selectItem);
             drop.EnableSimulateTree = true;
         }
 
@@ -450,6 +458,23 @@ namespace CAF.Web.WebForm.Common
             drop.Items.Clear();
             drop.Items.Add("请选择", "");
             RichEnumContent.Get(enums).ForEach(i => drop.Items.Add(new ListItem() { Text = i.Description, Value = i.Value.ToString() }));
+        }
+
+
+
+        /// <summary>
+        /// 创建一个 6 位的随机数
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateRandomCode()
+        {
+            string s = String.Empty;
+            Random random = new Random();
+            for (int i = 0; i < 6; i++)
+            {
+                s += random.Next(10).ToString();
+            }
+            return s;
         }
     }
 }

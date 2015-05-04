@@ -25,7 +25,7 @@ namespace CAF.Web.WebForm.Common
             }
             else
             {
-                var items = Directory.GetOtherDirectories(id).Select(d => new ListItem { Text = d.Name, Value = d.Level,SimulateTreeLevel = d.Sort}).ToList();
+                var items = Directory.GetOtherDirectories(id).Select(d => new ListItem { Text = d.Name, Value = d.Level, SimulateTreeLevel = d.Sort }).ToList();
                 PageTools.BindDropdownList(items, drop, selectItem, "");
             }
 
@@ -44,7 +44,8 @@ namespace CAF.Web.WebForm.Common
             {
                 var items = Organize.GetOtherOrganizes(id).Select(d => new ListItem { Text = d.Name, Value = d.Id.ToString(), SimulateTreeLevel = d.Sort }).ToList();
                 PageTools.BindDropdownList(items, drop, selectItem);
-            }else
+            }
+            else
             {
                 var items = Organize.GetOtherOrganizes(id).Select(d => new ListItem { Text = d.Name, Value = d.Level, SimulateTreeLevel = d.Sort }).ToList();
                 PageTools.BindDropdownList(items, drop, selectItem, "");
@@ -59,13 +60,41 @@ namespace CAF.Web.WebForm.Common
         {
             chk.DataSource = Role.GetAll().Select(r => new
             {
-                Text = r.Name +
-                    (r.Status == (int)IsSystemRoleEnum.System ? "<span style='color: #FF0000'>[系统]</span>" : ""),
+                Text = r.Name,
                 Value = r.Id
             });
             chk.DataTextField = "Text";
             chk.DataValueField = "Value";
             chk.DataBind();
         }
+
+        /// <summary>
+        /// 绑定角色单选框
+        /// </summary>
+        /// <param name="radio"></param>
+        /// <param name="enumItem"></param>
+        public static void BindRoles(RadioButtonList radio, Type enumItem)
+        {
+            radio.DataSource = RichEnumContent.Get(enumItem).Select(r => new
+            {
+                Text = r.Description,
+                Value = r.Value.ToString()
+            });
+            radio.DataTextField = "Text";
+            radio.DataValueField = "Value";
+            radio.DataBind();
+        }
+
+        /// <summary>
+        /// 绑定角色下拉列表
+        /// </summary>
+        /// <param name="drop"></param>
+        /// <param name="selectItem"></param>
+        public static void BindRoles(DropDownList drop, string selectItem)
+        {
+            var items = Role.GetAll().Select(d => new ListItem { Text = d.Name, Value = d.Id.ToString() }).ToList();
+            PageTools.BindDropdownList(items, drop, selectItem);
+        }
+
     }
 }

@@ -6,6 +6,8 @@
     public interface IBusinessBase
     {
         string TableName { get; }
+
+        string[] SkipedProperties { get; }
         Guid Id { get; set; }
 
         int Create();
