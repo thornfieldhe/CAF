@@ -9,7 +9,7 @@ namespace CAF
     using CAF.Utility;
 
     [Serializable]
-    public class BaseEntity<T> : IEqualityComparer<T>, IBusinessBase,ITableName where T : class,IBusinessBase
+    public class BaseEntity<T> : IEqualityComparer<T>, IBusinessBase, ITableName where T : class,IBusinessBase
     {
         protected Guid _id;
         protected int _status;
@@ -45,8 +45,19 @@ namespace CAF
 
         public string[] SkipedProperties { get; private set; }
 
-        
-        public IDbConnection Connection { get { return this._connection; } set { this._connection = value; } }
+
+        public IDbConnection Connection
+        {
+            get
+            {
+                return this._connection;
+            }
+            set
+            {
+                this._connection = value;
+
+            }
+        }
 
         public BaseEntity(Guid id)
         {
@@ -259,13 +270,13 @@ namespace CAF
         /// <param name="properties"></param>
         public void SkipProperties(string properties)
         {
-            var propertyList =properties.Split(',');
+            var propertyList = properties.Split(',');
             this.SkipedProperties = propertyList;
             foreach (var property in propertyList)
             {
-               this._updateParameters= this._updateParameters.Replace(string.Format(", {0} =  @{0}", property), "");
+                this._updateParameters = this._updateParameters.Replace(string.Format(", {0} =  @{0}", property), "");
             }
-            
+
         }
 
         public virtual int Create()

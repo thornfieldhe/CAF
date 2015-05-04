@@ -115,30 +115,30 @@
                 </Items>
             </f:Region>
             <f:Region ID="Region2" Split="true" Width="200px"  ShowHeader="false"
-                Title="示例菜单" Icon="Outline" EnableCollapse="true" Layout="Fit" Position="Left"
+                 Icon="Outline" EnableCollapse="true" Layout="Fit" Position="Left"
                 runat="server">
             </f:Region>
             <f:Region ID="mainRegion" ShowHeader="false" Layout="Fit"  Position="Center"
                 runat="server">
+                <Toolbars>
+                    <f:Toolbar runat="server" ID="toolbar3">
+                        <Items>
+                            <f:ToolbarFill ID="ToolbarFill1" runat="server">
+                            </f:ToolbarFill>
+                            <f:Button runat="server" ID="btnLoginOut" OnClick="btnLogOut_Click" Text="注销" Icon="Key"
+                                ConfirmIcon="Question" ConfirmText="确认注销？">
+                            </f:Button>
+                            <f:Button runat="server" ID="btnChangePass" Text="修改密码">
+                            </f:Button>
+                            <f:Label ID="lblUserName" runat="server">
+                            </f:Label>
+                        </Items>
+                    </f:Toolbar>
+                </Toolbars>
                 <Items>
                     <f:TabStrip ID="mainTabStrip" EnableTabCloseMenu="true" ShowBorder="false" runat="server">
                         <Tabs>
                             <f:Tab ID="Tab1" Title="首页" Layout="Fit" Icon="House" runat="server">
-                                <Toolbars>
-                                    <f:Toolbar runat="server" ID="toolbar3">
-                                        <Items>
-                                            <f:ToolbarFill ID="ToolbarFill1" runat="server">
-                                            </f:ToolbarFill>
-                                            <f:Button runat="server" ID="btnLoginOut" OnClick="btnLogOut_Click" Text="注销" Icon="Key"
-                                                ConfirmIcon="Question" ConfirmText="确认注销？">
-                                            </f:Button>
-                                            <f:Button runat="server" ID="btnChangePass" Text="修改密码">
-                                            </f:Button>
-                                            <f:Label ID="lblUserName" runat="server">
-                                            </f:Label>
-                                        </Items>
-                                    </f:Toolbar>
-                                </Toolbars>
                                 <Items>
                                     <f:ContentPanel ID="ContentPanel1" ShowBorder="false" BodyPadding="10px" ShowHeader="false"
                                         AutoScroll="true" CssClass="intro" runat="server">
@@ -153,7 +153,7 @@
             </f:Region>
         </regions>
     </f:RegionPanel>
-    <f:CAFWindow ID="winChangePass" Title="修改用户信息" runat="server" Width="350px" Height="200px">
+    <f:CAFWindow ID="winChangePass" Title="修改用户信息" runat="server" Width="400px" Height="200px">
     </f:CAFWindow>
     </form>
 </body>

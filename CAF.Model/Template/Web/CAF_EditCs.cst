@@ -20,7 +20,6 @@ namespace <%= this.ClassNamespace %>.Web.WebForm
 
     public partial class <%= GetClassName(SourceTable) %>_Edit : BasePage
     {
-    
         #region 系统生成
         
         protected override void Bind()
@@ -29,7 +28,7 @@ namespace <%= this.ClassNamespace %>.Web.WebForm
              <% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
                 <%  ColumnSchema  column=SourceTable.NonPrimaryKeyColumns[i];%>
                 <% if(!IsSystemFiled(column) && ColumnIsGuid(column)) {%>
-            PageHelper.Bind<%=SourceTable.Name.Substring(SourceTable.Name.IndexOf("_")+1, SourceTable.Name.Length - SourceTable.Name.IndexOf("_")-1)%>(this.Id, this.drop<%=column.Name%>, selectItem: new Guid().ToString());
+            PageHelper.Bind<%=column.Name.Replace("Id","")%>(this.Id, this.drop<%=column.Name%>, selectItem: new Guid().ToString());
             <% }} %>
             
             var item = <%= GetClassName(SourceTable) %>.Get(this.Id);

@@ -3651,7 +3651,9 @@
     <Content Include="System\Organize_Edit.aspx" />
     <Content Include="System\Organize_Query.aspx" />
     <Content Include="System\RoleDirectory_Manage.aspx" />
+    <Content Include="System\Post_Edit.aspx" />
     <Content Include="System\Role_Edit.aspx" />
+    <Content Include="System\User_ChangePass.aspx" />
     <Content Include="System\User_Edit.aspx" />
     <Content Include="System\User_Query.aspx" />
     <Content Include="Web.config">
@@ -3745,12 +3747,26 @@
     <Compile Include="System\RoleDirectory_Manage.aspx.designer.cs">
       <DependentUpon>RoleDirectory_Manage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="System\Post_Edit.aspx.cs">
+      <DependentUpon>Post_Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\Post_Edit.aspx.designer.cs">
+      <DependentUpon>Post_Edit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="System\Role_Edit.aspx.cs">
       <DependentUpon>Role_Edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="System\Role_Edit.aspx.designer.cs">
       <DependentUpon>Role_Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="System\User_ChangePass.aspx.cs">
+      <DependentUpon>User_ChangePass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\User_ChangePass.aspx.designer.cs">
+      <DependentUpon>User_ChangePass.aspx</DependentUpon>
     </Compile>
     <Compile Include="System\User_Edit.aspx.cs">
       <DependentUpon>User_Edit.aspx</DependentUpon>

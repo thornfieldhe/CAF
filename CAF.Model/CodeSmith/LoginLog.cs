@@ -92,6 +92,7 @@ namespace CAF.Model
                 {
                     return null;
                 }
+                item.Connection = SqlService.Instance.Connection;
                 item.MarkOld();
                 return item;
             }
@@ -105,6 +106,7 @@ namespace CAF.Model
                 var list=new LoginLogList();
                 foreach (var item in items)
                 {
+                    item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
                     list.Add(item);
                 }
@@ -170,7 +172,7 @@ namespace CAF.Model
 	[Serializable]
     public class LoginLogList:CollectionBase<LoginLogList,LoginLog>
     {
-        public LoginLogList() { }
+        public LoginLogList() {this.Connection = SqlService.Instance.Connection; }
 
         protected const string tableName = "Sys_LoginLogs";
         

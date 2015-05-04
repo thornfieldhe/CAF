@@ -8,6 +8,7 @@ Description:
 <%@ Property Name="SampleBooleanProperty" Default="True" Type="System.Boolean" %>
 <%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="Table that the object is based on." %>
 <%@ Property Name="SourceView" Type="SchemaExplorer.ViewSchema" Category="Context" Description="Table that the object is based on." Optional="True"%>
+<%@ Property Name="ClassNamespace" Type="System.String" Category="Options" Default="CAF" Description="" %>
 <%@ Assembly Name="SchemaExplorer" %>
 <%@ Import Namespace="SchemaExplorer" %>
 <%@ Import Namespace="System.IO" %>
@@ -18,7 +19,7 @@ Description:
 <script runat="template">
 
 //生成实体Entity类
-private void CreateQueryFiles()
+public void CreateQueryFiles()
 {
     RenderAspxFile();
     RenderCsFile();

@@ -17,10 +17,10 @@ namespace CAF.Model
             this.Connection = SqlService.Instance.Connection;
             this.TableName = "Sys_Roles";
             base.MarkNew();
-    		 _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(this), isThreadSafe: true);
-    		 _userListInitalizer = new Lazy<UserList>(() => InitUsers(this), isThreadSafe: true);
-            Organizes= new OrganizeList();        
-            Users= new UserList();        
+    		this. _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(this), isThreadSafe: true);
+    		this. _userListInitalizer = new Lazy<UserList>(() => InitUsers(this), isThreadSafe: true);
+            this.Organizes= new OrganizeList();        
+            this.Users= new UserList();        
 		}
 		
             
@@ -46,60 +46,60 @@ namespace CAF.Model
         {
             get
             {
-                if (! _organizeListInitalizer.IsValueCreated)
+                if (!this. _organizeListInitalizer.IsValueCreated)
                 {
-                     _organizeList =  _organizeListInitalizer.Value;
+                    this. _organizeList = this. _organizeListInitalizer.Value;
                 }
-                return  _organizeList;
+                return this. _organizeList;
             }
              set
             {
-                 _organizeList = value;
+                this. _organizeList = value;
             }
         }
         public UserList Users
         {
             get
             {
-                if (! _userListInitalizer.IsValueCreated)
+                if (!this. _userListInitalizer.IsValueCreated)
                 {
-                     _userList =  _userListInitalizer.Value;
+                    this. _userList = this. _userListInitalizer.Value;
                 }
-                return  _userList;
+                return this. _userList;
             }
              set
             {
-                 _userList = value;
+                this. _userList = value;
             }
         }
         public override bool IsValid
         {
             get
             {
-			    Errors=new List<string>();
+			    this.Errors=new List<string>();
                 var isValid = true;
                 var baseValid = base.IsValid;
-				 _organizeListInitalizer.IsValueCreated.IfIsTrue(
+				this. _organizeListInitalizer.IsValueCreated.IfIsTrue(
                 () =>
                 {
-                    foreach (var item in Organizes.Where(item => !item.IsValid))
+                    foreach (var item in this.Organizes.Where(item => !item.IsValid))
                     {
-                        Errors.AddRange(item.Errors);
+                        this.Errors.AddRange(item.Errors);
                         isValid = false;
                     }
                 });
-				 _userListInitalizer.IsValueCreated.IfIsTrue(
+				this. _userListInitalizer.IsValueCreated.IfIsTrue(
                 () =>
                 {
-                    foreach (var item in Users.Where(item => !item.IsValid))
+                    foreach (var item in this.Users.Where(item => !item.IsValid))
                     {
-                        Errors.AddRange(item.Errors);
+                        this.Errors.AddRange(item.Errors);
                         isValid = false;
                     }
                 });
                return baseValid && isValid;
             }
-            protected set { _isValid = value; }
+            protected set { this._isValid = value; }
         }
         
         
@@ -135,6 +135,7 @@ namespace CAF.Model
                 {
                     return null;
                 }
+                item.Connection = SqlService.Instance.Connection;
                 item.MarkOld();
                 item. _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
                 item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
@@ -150,6 +151,7 @@ namespace CAF.Model
                 var list=new RoleList();
                 foreach (var item in items)
                 {
+                    item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
                      item. _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
                      item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
@@ -169,6 +171,7 @@ namespace CAF.Model
                 var list=new RoleList();
                 foreach (var item in items)
                 {
+                    item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
                     item. _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
                     item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
@@ -188,6 +191,7 @@ namespace CAF.Model
                 var list=new RoleList();
                 foreach (var item in items)
                 {
+                    item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
                     item. _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
                     item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
@@ -237,15 +241,15 @@ namespace CAF.Model
             this._updateParameters+=", ChangedDate = GetDate()";
 			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
 			this._changedRows+= conn.Execute(query, this, transaction, null, null);
-			 _organizeListInitalizer.IsValueCreated.IfIsTrue(
+			this. _organizeListInitalizer.IsValueCreated.IfIsTrue(
             () =>
             {
- 				this._changedRows+=Organizes.SaveChanges(conn,transaction);
+ 				this._changedRows+=this.Organizes.SaveChanges(conn,transaction);
             });
-			 _userListInitalizer.IsValueCreated.IfIsTrue(
+			this. _userListInitalizer.IsValueCreated.IfIsTrue(
             () =>
             {
- 				this._changedRows+=Users.SaveChanges(conn,transaction);
+ 				this._changedRows+=this.Users.SaveChanges(conn,transaction);
             });
             return this._changedRows;
 		}
@@ -253,15 +257,15 @@ namespace CAF.Model
 		public override int Insert(IDbConnection conn, IDbTransaction transaction)
 		{
             this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-			 _organizeListInitalizer.IsValueCreated.IfIsTrue(
+			this. _organizeListInitalizer.IsValueCreated.IfIsTrue(
             () =>
             {
- 				this._changedRows+=Organizes.SaveChanges(conn,transaction);
+ 				this._changedRows+=this.Organizes.SaveChanges(conn,transaction);
             });
-			 _userListInitalizer.IsValueCreated.IfIsTrue(
+			this. _userListInitalizer.IsValueCreated.IfIsTrue(
             () =>
             {
- 				this._changedRows+=Users.SaveChanges(conn,transaction);
+ 				this._changedRows+=this.Users.SaveChanges(conn,transaction);
             });
             return this._changedRows;
 		}
@@ -270,18 +274,18 @@ namespace CAF.Model
 		
 		protected  int RelationshipWithOrganize(IDbConnection conn, IDbTransaction transaction)
         {
-            foreach (var organize in Organizes.Members)
+            foreach (var organize in this.Organizes.Members)
             {
-                if (organize.IsDelete && Organizes.IsChangeRelationship)
+                if (organize.IsDelete && this.Organizes.IsChangeRelationship)
                 {
                     this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHORGANIZEROLE, new { UserId = this.Id, RoleId = organize.Id }, transaction, null, null);
                 }
                 else
                 {
-                    var isExist = conn.Query<int>(QUERY_CONTAINSORGANIZEROLE , new { RoleId = Id, OrganizeId = organize.Id },transaction).Single() >= 1;
+                    var isExist = conn.Query<int>(QUERY_CONTAINSORGANIZEROLE , new { RoleId = this.Id, OrganizeId = organize.Id },transaction).Single() >= 1;
                     if (!isExist)
                     {
-                        this._changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHORGANIZEROLE, new { RoleId = Id, OrganizeId = organize.Id }, transaction, null, null);
+                        this._changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHORGANIZEROLE, new { RoleId = this.Id, OrganizeId = organize.Id }, transaction, null, null);
                     }
                 }
             }
@@ -299,18 +303,18 @@ namespace CAF.Model
 		
 		protected  int RelationshipWithUser(IDbConnection conn, IDbTransaction transaction)
         {
-            foreach (var user in Users.Members)
+            foreach (var user in this.Users.Members)
             {
-                if (user.IsDelete && Users.IsChangeRelationship)
+                if (user.IsDelete && this.Users.IsChangeRelationship)
                 {
                     this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHUSERROLE, new { UserId = this.Id, RoleId = user.Id }, transaction, null, null);
                 }
                 else
                 {
-                    var isExist = conn.Query<int>(QUERY_CONTAINSUSERROLE , new { RoleId = Id, UserId = user.Id },transaction).Single() >= 1;
+                    var isExist = conn.Query<int>(QUERY_CONTAINSUSERROLE , new { RoleId = this.Id, UserId = user.Id },transaction).Single() >= 1;
                     if (!isExist)
                     {
-                        this._changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHUSERROLE, new { RoleId = Id, UserId = user.Id }, transaction, null, null);
+                        this._changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHUSERROLE, new { RoleId = this.Id, UserId = user.Id }, transaction, null, null);
                     }
                 }
             }
@@ -333,7 +337,7 @@ namespace CAF.Model
 	[Serializable]
     public class RoleList:CollectionBase<RoleList,Role>
     {
-        public RoleList() { }
+        public RoleList() {this.Connection = SqlService.Instance.Connection; }
 
         protected const string tableName = "Sys_Roles";
         

@@ -23,7 +23,7 @@ namespace EmptyProjectNet20
             {
                 this.Response.Redirect("Login.aspx");
             }
-            var u = (User)HttpContext.Current.Session["User"];
+            var u = CAF.Model.User.Get(this.User.Identity.Name);
             if (u != null)
             {
                 this.lblUserName.Text = u.Name;
@@ -40,7 +40,7 @@ namespace EmptyProjectNet20
                 var idsScriptStr = String.Format("window.IDS={0};", ids.ToString(Newtonsoft.Json.Formatting.None));
                 PageContext.RegisterStartupScript(idsScriptStr);
 
-                this.btnChangePass.OnClientClick = this.winChangePass.GetShowReference("~/Manage/User_ChangPass.aspx?Id=" + u.Id, string.Format("基本信息维护一{0}", u.Name));
+                this.btnChangePass.OnClientClick = this.winChangePass.GetShowReference("~/System/User_ChangePass.aspx?Id=" + u.Id, string.Format("基本信息维护一{0}", u.Name));
             }
             else
             {
@@ -76,7 +76,7 @@ namespace EmptyProjectNet20
                                     };
             this.Region2.Items.Add(accordionMenu);
 
-            var dirs = Directory.GetAllByParentId(new Guid()).OrderBy(d=>d.Sort);
+            var dirs = Directory.GetAllByParentId(new Guid()).OrderBy(d => d.Sort);
 
             foreach (var dir in dirs)
             {

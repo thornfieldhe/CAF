@@ -7,7 +7,6 @@ using System.Web.UI;
 
 namespace CAF.Web.WebForm.Common
 {
-    using System.Runtime.CompilerServices;
 
     using CAF.Data;
 

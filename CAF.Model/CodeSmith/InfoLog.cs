@@ -96,6 +96,7 @@ namespace CAF.Model
                 {
                     return null;
                 }
+                item.Connection = SqlService.Instance.Connection;
                 item.MarkOld();
                 return item;
             }
@@ -109,6 +110,7 @@ namespace CAF.Model
                 var list=new InfoLogList();
                 foreach (var item in items)
                 {
+                    item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
                     list.Add(item);
                 }
@@ -174,7 +176,7 @@ namespace CAF.Model
 	[Serializable]
     public class InfoLogList:CollectionBase<InfoLogList,InfoLog>
     {
-        public InfoLogList() { }
+        public InfoLogList() {this.Connection = SqlService.Instance.Connection; }
 
         protected const string tableName = "Sys_InfoLogs";
         

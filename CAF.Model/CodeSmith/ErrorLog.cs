@@ -127,6 +127,7 @@ namespace CAF.Model
                 {
                     return null;
                 }
+                item.Connection = SqlService.Instance.Connection;
                 item.MarkOld();
                 return item;
             }
@@ -140,6 +141,7 @@ namespace CAF.Model
                 var list=new ErrorLogList();
                 foreach (var item in items)
                 {
+                    item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
                     list.Add(item);
                 }
@@ -205,7 +207,7 @@ namespace CAF.Model
 	[Serializable]
     public class ErrorLogList:CollectionBase<ErrorLogList,ErrorLog>
     {
-        public ErrorLogList() { }
+        public ErrorLogList() {this.Connection = SqlService.Instance.Connection; }
 
         protected const string tableName = "Sys_ErrorLogs";
         

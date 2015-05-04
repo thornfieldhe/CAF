@@ -4,4 +4,6 @@ namespace CAF
     {
          string TableName { get;  }
     }
+
+
 }

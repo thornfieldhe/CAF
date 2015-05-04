@@ -12,7 +12,7 @@ Description:
 <%@ Import Namespace="SchemaExplorer" %>
 <%@ Import Namespace="System.IO" %>
 <%@ Register Name="Edit" Template="CAF_Edit.cst" MergeProperties="Flase" ExcludeProperties=""%>
-<%@ Register Name="Query" Template="Web/CAF_Query.cst" MergeProperties="Flase" ExcludeProperties=""%>
+<%@ Register Name="Query" Template="CAF_Query.cst" MergeProperties="Flase" ExcludeProperties=""%>
 <% GenerateEntityClasses(); %>
 <script runat="template">
 

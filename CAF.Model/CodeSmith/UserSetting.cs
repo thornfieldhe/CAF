@@ -51,7 +51,7 @@ namespace CAF.Model
 		{
 			get
 			{ 
-				return User.Get(UserId);
+				return User.Get(this.UserId);
 			}        	
 		}
 
@@ -82,6 +82,7 @@ namespace CAF.Model
                 {
                     return null;
                 }
+                item.Connection = SqlService.Instance.Connection;
                 item.MarkOld();
                 return item;
             }
@@ -95,6 +96,7 @@ namespace CAF.Model
                 var list=new UserSettingList();
                 foreach (var item in items)
                 {
+                    item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
                     list.Add(item);
                 }
@@ -110,6 +112,7 @@ namespace CAF.Model
                 var item= conn.Query<UserSetting>(QUERY_GETBYUSERID, new { UserId = userId }).SingleOrDefault<UserSetting>();
                 if (item != null)
                 {
+                    item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
                 }                
                 return item;
@@ -173,7 +176,7 @@ namespace CAF.Model
 	[Serializable]
     public class UserSettingList:CollectionBase<UserSettingList,UserSetting>
     {
-        public UserSettingList() { }
+        public UserSettingList() {this.Connection = SqlService.Instance.Connection; }
 
         protected const string tableName = "Sys_UserSettings";
         

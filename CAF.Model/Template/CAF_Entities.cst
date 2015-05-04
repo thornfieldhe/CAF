@@ -98,6 +98,7 @@ public void RenderBusinessObject(TableSchema table)
             case "Sys_Users":
                 businessObject.Child.Add("UserSetting");
                 businessObject.WithMany.Add("Sys_R_User_Role");
+                businessObject.WithMany.Add("Sys_R_User_Post");
                 businessObject.AsChildren.Add("OrganizeId");
                 businessObject.RenderToFile(fileDirectory,true);
             break;
@@ -112,6 +113,10 @@ public void RenderBusinessObject(TableSchema table)
             case "Sys_Roles":
                 businessObject.WithMany.Add("Sys_R_Organize_Role");
                 businessObject.WithMany.Add("Sys_R_User_Role");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            case "Sys_Posts":
+                businessObject.WithMany.Add("Sys_R_User_Post");
                 businessObject.RenderToFile(fileDirectory,true);
             break;
             default:

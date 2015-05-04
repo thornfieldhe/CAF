@@ -6,8 +6,9 @@ namespace CAF.Web.WebForm
     using CAF.Model;
     using CAF.Web.WebForm.CAFControl;
     using CAF.Web.WebForm.Common;
+
+    using global::System.Linq;
     using global::System.Text.RegularExpressions;
-    using System.Linq;
 
     public partial class RoleDirectory_Manage : BasePage
     {
