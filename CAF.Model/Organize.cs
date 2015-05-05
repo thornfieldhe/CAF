@@ -7,6 +7,8 @@ namespace CAF.Model
     using CAF.Data;
     using System.Data;
 
+    using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
+
     public partial class Organize
     {
         /// <summary>
@@ -19,7 +21,7 @@ namespace CAF.Model
             var item = Get(id);
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                const string query = "Select Id,Name,[Level] From Sys_Organizes Where Level Like '%'+@Level AND Status!=-1";
+                const string query = "Select Id,Name,[Level] From Sys_Organizes Where Level Like @Level+'%' AND Level!=@Level AND Status!=-1";
                 return conn.Query<Organize>(query, new { Level = item == null ? "00" : item.Level })
                     .Select(d => new SortLevelItem { Id = d.Id,Level = d.Level, Sort = d.Level.Length/2-1, Name = d.Name })
                     .OrderBy(d => d.Level).ToList();
@@ -36,7 +38,7 @@ namespace CAF.Model
             var item = Get(id);
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                const string query = "Select Id,Name,[Level] From Sys_Organizes Where Level Not Like '%'+@Level AND Status!=-1";
+                const string query = "Select Id,Name,[Level] From Sys_Organizes Where Level Not Like @Level+'%'  AND Status!=-1";
                 return conn.Query<Organize>(query, new { Level = item == null ? "00" : item.Level })
                     .Select(d => new SortLevelItem { Id = d.Id, Level = d.Level, Sort = d.Level.Length / 2 - 1, Name = d.Name })
                     .OrderBy(d => d.Level).ToList();
@@ -83,15 +85,35 @@ namespace CAF.Model
 
         protected override void PreInsert(IDbConnection conn, IDbTransaction transaction)
         {
-            this.Level = GetMaxCode(conn, transaction);
+            this.Level = this.GetMaxCode(conn, transaction);
         }
 
         protected override void PreUpdate(IDbConnection conn, IDbTransaction transaction)
         {
-            if (this._updateParameters.Contains("ParentId"))
+            if (!this._updateParameters.Contains("ParentId"))
             {
-                this.Level = GetMaxCode(conn, transaction);
+                return;
             }
+            var organizes = this.GetChildrenOrganizes(conn, transaction);
+            var level = this.GetMaxCode(conn, transaction);
+            organizes.ForEach(o =>
+                {
+                    o.Level = level + o.Level.Substring(this.Level.Length, o.Level.Length - this.Level.Length);
+                    o.Update(conn, transaction);
+                });
+            this.Level = level;
+        }
+
+        /// <summary>
+        /// 获取部门及子部门
+        /// </summary>
+        /// <param name="conn"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        private List<Organize> GetChildrenOrganizes(IDbConnection conn, IDbTransaction transaction)
+        {
+            const string query = "Select Id,Name,[Level] From Sys_Organizes Where Like @Level+'%' AND Level!=@Level AND Status!=-1";
+                return conn.Query<Organize>(query, new { Level = this.Level }, transaction).ToList();
         }
     }
 }

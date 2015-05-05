@@ -492,7 +492,7 @@ namespace <%= ClassNamespace %>.Model
             {
                 if (<%=GetCamelCaseName(GetRelationshipItem(item))%>.IsDelete && this.<%=GetRelationshipItem(item)%>s.IsChangeRelationship)
                 {
-                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { UserId = this.Id, RoleId = <%=GetCamelCaseName(GetRelationshipItem(item))%>.Id }, transaction, null, null);
+                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITH<%=item.Replace("Sys_R_","").Replace("_","").ToUpper()%>, new { <%= GetClassName(SourceTable)%>Id = this.Id,  <%=GetRelationshipItem(item)%>Id = <%=GetCamelCaseName(GetRelationshipItem(item))%>.Id }, transaction, null, null);
                 }
                 else
                 {
@@ -534,7 +534,7 @@ namespace <%= ClassNamespace %>.Model
 		<%foreach(string item in Child){ %>		
         protected static <%=item%> Init<%=item%>(<%=GetClassName(SourceTable)%> <%=GetCamelCaseName(GetClassName(SourceTable))%>)
         {
-            var item = <%=item%>.GetByUserId(<%=GetCamelCaseName(GetClassName(SourceTable))%>.Id);
+            var item = <%=item%>.GetBy<%=GetClassName(SourceTable)%>Id(<%=GetCamelCaseName(GetClassName(SourceTable))%>.Id);
             if (item == null)
             {
                 return null;

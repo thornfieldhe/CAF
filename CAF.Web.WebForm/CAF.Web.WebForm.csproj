@@ -1922,7 +1922,6 @@
     <Content Include="extjs\res\images\unchecked_disabled.gif" />
     <Content Include="extjs\res\s.gif" />
     <Content Include="extjs\version.txt" />
-    <Content Include="hello.aspx" />
     <Content Include="login.aspx" />
     <Content Include="packages.config" />
     <Content Include="res\icon\accept.png" />
@@ -3653,6 +3652,8 @@
     <Content Include="System\Directory_Query.aspx" />
     <Content Include="System\Organize_Edit.aspx" />
     <Content Include="System\Organize_Query.aspx" />
+    <Content Include="System\PostUserOrganize_Edit.aspx" />
+    <Content Include="System\PostUserOrganize_Query.aspx" />
     <Content Include="System\RoleDirectory_Manage.aspx" />
     <Content Include="System\Post_Edit.aspx" />
     <Content Include="System\Role_Edit.aspx" />
@@ -3699,13 +3700,6 @@
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="hello.aspx.cs">
-      <DependentUpon>hello.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="hello.aspx.designer.cs">
-      <DependentUpon>hello.aspx</DependentUpon>
-    </Compile>
     <Compile Include="login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3742,6 +3736,20 @@
     </Compile>
     <Compile Include="System\Organize_Query.aspx.designer.cs">
       <DependentUpon>Organize_Query.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="System\PostUserOrganize_Edit.aspx.cs">
+      <DependentUpon>PostUserOrganize_Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\PostUserOrganize_Edit.aspx.designer.cs">
+      <DependentUpon>PostUserOrganize_Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="System\PostUserOrganize_Query.aspx.cs">
+      <DependentUpon>PostUserOrganize_Query.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\PostUserOrganize_Query.aspx.designer.cs">
+      <DependentUpon>PostUserOrganize_Query.aspx</DependentUpon>
     </Compile>
     <Compile Include="System\RoleDirectory_Manage.aspx.cs">
       <DependentUpon>RoleDirectory_Manage.aspx</DependentUpon>

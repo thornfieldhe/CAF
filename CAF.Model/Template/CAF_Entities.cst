@@ -4,7 +4,6 @@ Author:
 Description: 
 --%>
 <%@ Template Language="C#" TargetLanguage="Text" Debug="True"%>
-<%@ Property Name="SampleStringProperty" Default="SomeValue" Type="System.String" %>
 <%@ Property Name="SampleBooleanProperty" Default="True" Type="System.Boolean" %>
 <%@ Property Name="Db" Type="SchemaExplorer.DatabaseSchema" Category="Context" Description="Table that the object is based on." %>
 <%@ Assembly Name="SchemaExplorer" %>

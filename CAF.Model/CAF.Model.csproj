@@ -57,14 +57,17 @@
     <Compile Include="CodeSmith\InfoLog.cs" />
     <Compile Include="CodeSmith\LoginLog.cs" />
     <Compile Include="CodeSmith\Post.cs" />
+    <Compile Include="CodeSmith\PostUserOrganize.cs" />
     <Compile Include="CodeSmith\ReadOnlyDirectoryList.cs" />
     <Compile Include="CodeSmith\ReadOnlyOrganizeList.cs" />
+    <Compile Include="CodeSmith\ReadOnlyPostUserOrganizeList.cs" />
     <Compile Include="CodeSmith\ReadOnlyUserList.cs" />
     <Compile Include="CodeSmith\Role.cs" />
     <Compile Include="CodeSmith\UserSetting.cs" />
     <Compile Include="Directory.cs" />
     <Compile Include="Organize.cs" />
     <Compile Include="Post.cs" />
+    <Compile Include="PostUserOrganize.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="CodeSmith\Organize.cs" />
     <Compile Include="CodeSmith\User.cs" />

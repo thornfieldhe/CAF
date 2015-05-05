@@ -28,7 +28,7 @@ namespace <%= this.ClassNamespace %>.Web.WebForm
              <% for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++) { %>
                 <%  ColumnSchema  column=SourceTable.NonPrimaryKeyColumns[i];%>
                 <% if(!IsSystemFiled(column) && ColumnIsGuid(column)) {%>
-            PageHelper.Bind<%=column.Name.Replace("Id","")%>(this.Id, this.drop<%=column.Name%>, selectItem: new Guid().ToString());
+            PageHelper.Bind<%=GetPlural(column.Name)%>(this.Id, this.drop<%=column.Name%>, selectItem: new Guid().ToString());
             <% }} %>
             
             var item = <%= GetClassName(SourceTable) %>.Get(this.Id);
@@ -85,6 +85,24 @@ namespace <%= this.ClassNamespace %>.Web.WebForm
     }
 }
 <script runat="template">
+public string GetPlural (string name)
+{
+    name=name.Replace("Id","");
+    int pre = name.IndexOf("_");
+    if (name.EndsWith("y"))
+	{
+		return name.Substring(pre+1, name.Length - pre-3)+"ies";
+	}
+	else if (!name.EndsWith("s"))
+	{
+		return name.Substring(pre+1, name.Length - pre-1)+"s";
+	}
+	else
+	{
+		return name.Substring(pre+1);
+	}
+}
+             
 public string GetClassName(TableSchema table)
 {
     int pre = table.Name.IndexOf("_");
