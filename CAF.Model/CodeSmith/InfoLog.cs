@@ -176,15 +176,17 @@ namespace CAF.Model
 	[Serializable]
     public class InfoLogList:CollectionBase<InfoLogList,InfoLog>
     {
-        public InfoLogList() {this.Connection = SqlService.Instance.Connection; }
+        public InfoLogList() 
+        {
+            this.Connection = SqlService.Instance.Connection;
+            this.TableName = "Sys_InfoLogs";
+        }
 
-        protected const string tableName = "Sys_InfoLogs";
-        
         public static InfoLogList Query(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                var items = conn.Query<InfoLog>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
+                var items = conn.Query<InfoLog>(string.Format(QUERY, "Sys_InfoLogs", query), dynamicObj).ToList();
 
                 var list = new InfoLogList();
                 foreach (var item in items)
@@ -200,7 +202,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single();
+                return conn.Query<int>(string.Format(COUNT, "Sys_InfoLogs", query), dynamicObj).Single();
             }
         }
 
@@ -208,7 +210,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-               return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single()>0;
+               return conn.Query<int>(string.Format(COUNT, "Sys_InfoLogs", query), dynamicObj).Single()>0;
             }
         }
     }

@@ -7,6 +7,7 @@ namespace CAF.Model
     using System.Collections.Generic;
     using System.Data;
 
+    using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 
     public partial class Directory
     {
@@ -77,7 +78,8 @@ namespace CAF.Model
             {
                 return;
             }
-            var directories = this.GetChildrenDirectories(conn, transaction);
+            var directories = new DirectoryList().Query<DirectoryList, Directory>(conn, transaction, new { Level = this.Level },
+                " Level Like @Level+'%' AND Level!=@Level");
             var level = this.GetMaxCode(conn, transaction);
             directories.ForEach(o =>
             {
@@ -87,18 +89,6 @@ namespace CAF.Model
             this.Level = level;
         }
 
-
-        /// <summary>
-        /// 获取部门及子部门
-        /// </summary>
-        /// <param name="conn"></param>
-        /// <param name="transaction"></param>
-        /// <returns></returns>
-        private List<Organize> GetChildrenDirectories(IDbConnection conn, IDbTransaction transaction)
-        {
-            const string query = "Select Id,Name,[Level] From Sys_Directories Where Level Like @Level+'%' AND Level!=@Level AND Status!=-1";
-            return conn.Query<Organize>(query, new { Level = this.Level }, transaction).ToList();
-        }
     }
 
     public partial class ReadOnlyDirectory

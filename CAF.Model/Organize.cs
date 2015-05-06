@@ -94,7 +94,9 @@ namespace CAF.Model
             {
                 return;
             }
-            var organizes = this.GetChildrenOrganizes(conn, transaction);
+            var organizes = new OrganizeList().Query<OrganizeList, Organize>(conn, transaction, new { Level = this.Level },
+                " Level Like @Level+'%' AND Level!=@Level");
+                
             var level = this.GetMaxCode(conn, transaction);
             organizes.ForEach(o =>
                 {
@@ -102,18 +104,6 @@ namespace CAF.Model
                     o.Update(conn, transaction);
                 });
             this.Level = level;
-        }
-
-        /// <summary>
-        /// 获取部门及子部门
-        /// </summary>
-        /// <param name="conn"></param>
-        /// <param name="transaction"></param>
-        /// <returns></returns>
-        private List<Organize> GetChildrenOrganizes(IDbConnection conn, IDbTransaction transaction)
-        {
-            const string query = "Select Id,Name,[Level] From Sys_Organizes Where Like @Level+'%' AND Level!=@Level AND Status!=-1";
-                return conn.Query<Organize>(query, new { Level = this.Level }, transaction).ToList();
         }
     }
 }

@@ -207,15 +207,17 @@ namespace CAF.Model
 	[Serializable]
     public class ErrorLogList:CollectionBase<ErrorLogList,ErrorLog>
     {
-        public ErrorLogList() {this.Connection = SqlService.Instance.Connection; }
+        public ErrorLogList() 
+        {
+            this.Connection = SqlService.Instance.Connection;
+            this.TableName = "Sys_ErrorLogs";
+        }
 
-        protected const string tableName = "Sys_ErrorLogs";
-        
         public static ErrorLogList Query(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                var items = conn.Query<ErrorLog>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
+                var items = conn.Query<ErrorLog>(string.Format(QUERY, "Sys_ErrorLogs", query), dynamicObj).ToList();
 
                 var list = new ErrorLogList();
                 foreach (var item in items)
@@ -231,7 +233,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single();
+                return conn.Query<int>(string.Format(COUNT, "Sys_ErrorLogs", query), dynamicObj).Single();
             }
         }
 
@@ -239,7 +241,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-               return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single()>0;
+               return conn.Query<int>(string.Format(COUNT, "Sys_ErrorLogs", query), dynamicObj).Single()>0;
             }
         }
     }

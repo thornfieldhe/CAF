@@ -337,15 +337,17 @@ namespace CAF.Model
 	[Serializable]
     public class RoleList:CollectionBase<RoleList,Role>
     {
-        public RoleList() {this.Connection = SqlService.Instance.Connection; }
+        public RoleList() 
+        {
+            this.Connection = SqlService.Instance.Connection;
+            this.TableName = "Sys_Roles";
+        }
 
-        protected const string tableName = "Sys_Roles";
-        
         public static RoleList Query(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                var items = conn.Query<Role>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
+                var items = conn.Query<Role>(string.Format(QUERY, "Sys_Roles", query), dynamicObj).ToList();
 
                 var list = new RoleList();
                 foreach (var item in items)
@@ -361,7 +363,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single();
+                return conn.Query<int>(string.Format(COUNT, "Sys_Roles", query), dynamicObj).Single();
             }
         }
 
@@ -369,7 +371,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-               return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single()>0;
+               return conn.Query<int>(string.Format(COUNT, "Sys_Roles", query), dynamicObj).Single()>0;
             }
         }
     }

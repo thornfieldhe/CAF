@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace CAF
 {
+    using CAF.Data;
     using System.Data;
     using System.Linq;
 
@@ -13,7 +14,7 @@ namespace CAF
     /// <typeparam name="TCollection"></typeparam>
     /// <typeparam name="TMember"></typeparam>
     [Serializable]
-    public class CollectionBase<TCollection, TMember> : IEnumerable<TMember>, IList<TMember>, IEnumerable
+    public abstract class CollectionBase<TCollection, TMember> : IList<TMember>, ITableName, IBaseStatus, ICollectionBase<TCollection, TMember>
 
         where TCollection : CollectionBase<TCollection, TMember>
         where TMember : BaseEntity<TMember>
@@ -40,6 +41,17 @@ namespace CAF
         internal bool _isDirty = false;
 
         internal bool IsNew { get { return this._isNew; } set { this._isNew = value; } }
+
+        public bool IsClean
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        bool IBaseStatus.IsDirty
+        {
+            get { return IsDirty; }
+            set { IsDirty = value; }
+        }
 
         internal bool IsDirty { get { return this._isDirty; } set { this._isDirty = value; } }
 
@@ -76,6 +88,11 @@ namespace CAF
         {
             this._isNew = false;
             this.MarkClean();
+        }
+
+        public bool IsValid
+        {
+            get { throw new NotImplementedException(); }
         }
 
         public virtual void MarkClean()
@@ -289,7 +306,41 @@ namespace CAF
             return this._items.IndexOf(member);
         }
 
+        public T Query<T, K>(Object dynamicObj, string query = " 1=1")
+            where T : CollectionBase<T, K>, new()
+            where K : BaseEntity<K>, IBaseStatus
+        {
+            using (IDbConnection conn = this.Connection)
+            {
+                var items = conn.Query<K>(string.Format(QUERY, this.TableName, query), dynamicObj).ToList();
 
+                var list = new T();
+                foreach (var item in items)
+                {
+                    item.MarkOld();
+                    list.Add(item);
+                }
+                return list;
+            }
+        }
+
+        public T Query<T, K>(IDbConnection conn, IDbTransaction transaction, Object dynamicObj, string query = " 1=1")
+            where T : CollectionBase<T, K>, new()
+            where K : BaseEntity<K>, IBaseStatus
+        {
+            var items = conn.Query<K>(string.Format(QUERY, this.TableName, query), dynamicObj, transaction).ToList();
+
+            var list = new T();
+            foreach (var item in items)
+            {
+                item.MarkOld();
+                list.Add(item);
+            }
+            return list;
+        }
+
+
+        public string TableName { get; protected set; }
         #region 数据库操作方法
 
         public int Save()
@@ -368,6 +419,7 @@ namespace CAF
         }
 
         #endregion
+
 
     }
 }

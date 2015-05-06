@@ -9,7 +9,7 @@ namespace CAF
     using CAF.Utility;
 
     [Serializable]
-    public class BaseEntity<T> : IEqualityComparer<T>, IBusinessBase, ITableName where T : class,IBusinessBase
+    public class BaseEntity<T> : IEqualityComparer<T>, IBusinessBase, ITableName, IBaseStatus where T : class,IBusinessBase
     {
         protected Guid _id;
         protected int _status;

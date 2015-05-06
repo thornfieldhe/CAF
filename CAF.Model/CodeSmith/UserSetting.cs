@@ -176,15 +176,17 @@ namespace CAF.Model
 	[Serializable]
     public class UserSettingList:CollectionBase<UserSettingList,UserSetting>
     {
-        public UserSettingList() {this.Connection = SqlService.Instance.Connection; }
+        public UserSettingList() 
+        {
+            this.Connection = SqlService.Instance.Connection;
+            this.TableName = "Sys_UserSettings";
+        }
 
-        protected const string tableName = "Sys_UserSettings";
-        
         public static UserSettingList Query(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                var items = conn.Query<UserSetting>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
+                var items = conn.Query<UserSetting>(string.Format(QUERY, "Sys_UserSettings", query), dynamicObj).ToList();
 
                 var list = new UserSettingList();
                 foreach (var item in items)
@@ -200,7 +202,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single();
+                return conn.Query<int>(string.Format(COUNT, "Sys_UserSettings", query), dynamicObj).Single();
             }
         }
 
@@ -208,7 +210,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-               return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single()>0;
+               return conn.Query<int>(string.Format(COUNT, "Sys_UserSettings", query), dynamicObj).Single()>0;
             }
         }
     }

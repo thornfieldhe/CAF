@@ -10,17 +10,17 @@ namespace CAF.Model
     using System.Data;
 
     [Serializable]
-    public partial class PostUserOrganize :  BaseEntity<PostUserOrganize>
-    {   
+	public partial class PostUserOrganize :  BaseEntity<PostUserOrganize>
+	{   
         public PostUserOrganize()
-        {
+		{
             this.Connection = SqlService.Instance.Connection;
             this.TableName = "Sys_PostUserOrganizes";
             base.MarkNew();
-        }
-        
+		}
+		
             
-        #region 公共属性
+		#region 公共属性
 
         private Guid _postId = Guid.Empty;
         private Guid _userId = Guid.Empty;
@@ -30,70 +30,70 @@ namespace CAF.Model
         /// 岗位Id
         /// </summary>
         [GuidRequired(ErrorMessage="岗位不允许为空")]
-        public Guid PostId
-        {
-            get {return this._postId;} 
+		public Guid PostId
+		{
+			get {return this._postId;} 
             set {this.SetProperty("PostId",ref this._postId, value);}           	
-        }
+		}
         
         /// <summary>
         /// 岗位
         /// </summary>
         public Post Post
-        {
-            get
-            { 
-                return Post.Get(this.PostId);
-            }        	
-        }
+		{
+			get
+			{ 
+				return Post.Get(this.PostId);
+			}        	
+		}
 
         
         /// <summary>
         /// 用户Id
         /// </summary>
         [GuidRequired(ErrorMessage="用户不允许为空")]
-        public Guid UserId
-        {
-            get {return this._userId;} 
+		public Guid UserId
+		{
+			get {return this._userId;} 
             set {this.SetProperty("UserId",ref this._userId, value);}           	
-        }
+		}
         
         /// <summary>
         /// 用户
         /// </summary>
         public User User
-        {
-            get
-            { 
-                return User.Get(this.UserId);
-            }        	
-        }
+		{
+			get
+			{ 
+				return User.Get(this.UserId);
+			}        	
+		}
 
         
         /// <summary>
         /// 部门Id
         /// </summary>
         [GuidRequired(ErrorMessage="部门不允许为空")]
-        public Guid OrganizeId
-        {
-            get {return this._organizeId;} 
+		public Guid OrganizeId
+		{
+			get {return this._organizeId;} 
             set {this.SetProperty("OrganizeId",ref this._organizeId, value);}           	
-        }
+		}
         
         /// <summary>
         /// 部门
         /// </summary>
         public Organize Organize
-        {
-            get
-            { 
-                return Organize.Get(this.OrganizeId);
-            }        	
-        }
+		{
+			get
+			{ 
+				return Organize.Get(this.OrganizeId);
+			}        	
+		}
 
         
         
-        #endregion
+		#endregion
         
         #region 常量定义
         
@@ -105,12 +105,12 @@ namespace CAF.Model
         const string QUERY_UPDATE = "UPDATE Sys_PostUserOrganizes SET {0} WHERE  Id = @Id";
                 
         #endregion
-                
+        		
         #region 静态方法
         
-        public static PostUserOrganize Get(Guid id)
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
+		public static PostUserOrganize Get(Guid id)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
             {
                 var item= conn.Query<PostUserOrganize>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<PostUserOrganize>();
                 if (item == null)
@@ -121,11 +121,11 @@ namespace CAF.Model
                 item.MarkOld();
                 return item;
             }
-        }
-         
-        public static PostUserOrganizeList GetAll()
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
+		}
+		 
+		public static PostUserOrganizeList GetAll()
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
             {               
                 var items = conn.Query<PostUserOrganize>(QUERY_GETAll, null).ToList();                
                 var list=new PostUserOrganizeList();
@@ -138,20 +138,20 @@ namespace CAF.Model
                 list.MarkOld();
                 return list;
             }
-        }        
-        
+		}        
+		
         
         /// <summary>
         /// 直接删除
         /// </summary>
         /// <returns></returns>
-        public static int Delete(Guid id)
-        {
+		public static int Delete(Guid id)
+		{
             using (IDbConnection conn = SqlService.Instance.Connection)
             {                
                 return conn.Execute(QUERY_DELETE, new { Id = id });
             }
-        }   
+		}   
         
         public static bool Exists(Guid id)
         {
@@ -163,49 +163,51 @@ namespace CAF.Model
         
         #endregion
         
-        
-        public override int Delete(IDbConnection conn, IDbTransaction transaction)
-        {
+		
+		public override int Delete(IDbConnection conn, IDbTransaction transaction)
+		{
             base.MarkDelete();
             return conn.Execute(QUERY_DELETE, new { Id = Id }, transaction, null, null);
-        }
-        
-        public override int Update(IDbConnection conn, IDbTransaction transaction)
-        {
+		}
+		
+		public override int Update(IDbConnection conn, IDbTransaction transaction)
+		{
              if (!this.IsDirty)
              {
                 return this._changedRows;
              }  
             this._updateParameters+=", ChangedDate = GetDate()";
-            var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
-            this._changedRows+= conn.Execute(query, this, transaction, null, null);
+			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
+			this._changedRows+= conn.Execute(query, this, transaction, null, null);
             return this._changedRows;
-        }
-        
-        public override int Insert(IDbConnection conn, IDbTransaction transaction)
-        {
+		}
+		
+		public override int Insert(IDbConnection conn, IDbTransaction transaction)
+		{
             this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
             return this._changedRows;
-        }
-        
-        #region 私有方法
-        
-        #endregion
-                
-    }
+		}
+		
+		#region 私有方法
+		
+		#endregion
+				
+	}
     
-    [Serializable]
+	[Serializable]
     public class PostUserOrganizeList:CollectionBase<PostUserOrganizeList,PostUserOrganize>
     {
-        public PostUserOrganizeList() {this.Connection = SqlService.Instance.Connection; }
+        public PostUserOrganizeList() 
+        {
+            this.Connection = SqlService.Instance.Connection;
+            this.TableName = "Sys_PostUserOrganizes";
+        }
 
-        protected const string tableName = "Sys_PostUserOrganizes";
-        
         public static PostUserOrganizeList Query(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                var items = conn.Query<PostUserOrganize>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
+                var items = conn.Query<PostUserOrganize>(string.Format(QUERY, "Sys_PostUserOrganizes", query), dynamicObj).ToList();
 
                 var list = new PostUserOrganizeList();
                 foreach (var item in items)
@@ -221,7 +223,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single();
+                return conn.Query<int>(string.Format(COUNT, "Sys_PostUserOrganizes", query), dynamicObj).Single();
             }
         }
 
@@ -229,7 +231,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-               return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single()>0;
+               return conn.Query<int>(string.Format(COUNT, "Sys_PostUserOrganizes", query), dynamicObj).Single()>0;
             }
         }
     }

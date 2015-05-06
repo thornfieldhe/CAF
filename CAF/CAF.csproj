@@ -127,6 +127,8 @@
     <Compile Include="GenericContex.cs" />
     <Compile Include="Log\CAFLogging.cs" />
     <Compile Include="ObjectBusiness\CollectionBase.cs" />
+    <Compile Include="ObjectBusiness\IBaseStatus.cs" />
+    <Compile Include="ObjectBusiness\ICollectionBase.cs" />
     <Compile Include="ObjectBusiness\KeyValueItem.cs" />
     <Compile Include="ObjectBusiness\ReadOnlyBase.cs" />
     <Compile Include="ObjectBusiness\ReadOnlyCollectionBase.cs" />

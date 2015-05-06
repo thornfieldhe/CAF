@@ -244,15 +244,17 @@ namespace CAF.Model
 	[Serializable]
     public class PostList:CollectionBase<PostList,Post>
     {
-        public PostList() {this.Connection = SqlService.Instance.Connection; }
+        public PostList() 
+        {
+            this.Connection = SqlService.Instance.Connection;
+            this.TableName = "Sys_Posts";
+        }
 
-        protected const string tableName = "Sys_Posts";
-        
         public static PostList Query(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                var items = conn.Query<Post>(string.Format(QUERY, tableName, query), dynamicObj).ToList();
+                var items = conn.Query<Post>(string.Format(QUERY, "Sys_Posts", query), dynamicObj).ToList();
 
                 var list = new PostList();
                 foreach (var item in items)
@@ -268,7 +270,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single();
+                return conn.Query<int>(string.Format(COUNT, "Sys_Posts", query), dynamicObj).Single();
             }
         }
 
@@ -276,7 +278,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-               return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single()>0;
+               return conn.Query<int>(string.Format(COUNT, "Sys_Posts", query), dynamicObj).Single()>0;
             }
         }
     }

@@ -16,6 +16,8 @@ namespace CAF.Model
 		public string Note{get; set;}      
 		public int Status{get; set;}      
 		public string Level{get; set;}      
+		public int x{get; set;}      
+		public int y{get; set;}      
 		public DateTime CreatedDate{get; set;}      
 		public DateTime ChangedDate{get; set;}      
 		public string ParentName{get; set;}      
