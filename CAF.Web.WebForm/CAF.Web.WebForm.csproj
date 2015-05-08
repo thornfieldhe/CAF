@@ -3648,6 +3648,7 @@
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="System\DirectoryRole_Manage.aspx" />
     <Content Include="System\Directory_Edit.aspx" />
     <Content Include="System\Directory_Query.aspx" />
     <Content Include="System\Organize_Edit.aspx" />
@@ -3709,6 +3710,13 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="System\DirectoryRole_Manage.aspx.cs">
+      <DependentUpon>DirectoryRole_Manage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\DirectoryRole_Manage.aspx.designer.cs">
+      <DependentUpon>DirectoryRole_Manage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="System\Directory_Edit.aspx.cs">
       <DependentUpon>Directory_Edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

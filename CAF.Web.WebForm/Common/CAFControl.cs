@@ -11,13 +11,22 @@ namespace CAF.Web.WebForm.CAFControl
 
     #region CAFPanel
 
+    public class CAFPageManager : PageManager
+    {
+        public CAFPageManager()
+        {
+            base.ID = "manager";
+            base.AutoSizePanelID = "mainPanel";
+        }
+    }
+
     public class CAFPanel : Panel
     {
         public CAFPanel()
         {
-            this.BodyPadding = "5px 5px 5px 5px";
-            this.ShowBorder = false;
-            this.ShowHeader = false;
+            base.BodyPadding = "5px 5px 5px 5px";
+            base.ShowBorder = false;
+            base.ShowHeader = false;
         }
     }
 
@@ -110,7 +119,7 @@ namespace CAF.Web.WebForm.CAFControl
 
         public bool PreUpdate(IBusinessBase business)
         {
-            
+
             return this.OnPreUpdated == null || this.OnPreUpdated(business);
         }
 

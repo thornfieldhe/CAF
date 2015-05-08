@@ -10,7 +10,7 @@
 <body>
     <form id="form1" runat="server">
     <f:PageManager ID="manager" runat="server" AutoSizePanelID="mainPanel" />
-    <f:CAFPanel runat="server" ID="mainPanel" Layout="Fit" >
+    <f:CAFPanel runat="server" ID="mainPanel" Layout="Fit">
         <Toolbars>
             <f:Toolbar ID="Toolbar1" runat="server" >
                 <Items >
