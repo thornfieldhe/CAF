@@ -40,6 +40,15 @@ namespace CAF.Web.WebForm {
         protected global::CAF.Web.WebForm.CAFControl.CAFPanel mainPanel;
         
         /// <summary>
+        /// grid 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::CAF.Web.WebForm.CAFControl.CAFGrid grid;
+        
+        /// <summary>
         /// Toolbar1 控件。
         /// </summary>
         /// <remarks>
@@ -85,15 +94,6 @@ namespace CAF.Web.WebForm {
         protected global::FineUI.ToolbarFill ToolbarFill1;
         
         /// <summary>
-        /// grid 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.CAFGrid grid;
-        
-        /// <summary>
         /// ToolbarSeparator2 控件。
         /// </summary>
         /// <remarks>
@@ -112,4 +112,3 @@ namespace CAF.Web.WebForm {
         protected global::CAF.Web.WebForm.CAFControl.CAFWindow winEdit;
     }
 }
-

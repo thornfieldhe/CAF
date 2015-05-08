@@ -176,7 +176,7 @@ namespace CAF.Web.WebForm.System
         // 删除选中行的脚本
         private string GetDeleteScript()
         {
-            return Confirm.GetShowReference("删除选中行？", String.Empty, MessageBoxIcon.Question, grid.GetDeleteSelectedReference(), String.Empty);
+            return Confirm.GetShowReference("确认删除？", String.Empty, MessageBoxIcon.Question, grid.GetDeleteSelectedReference(), String.Empty);
         }
 
 

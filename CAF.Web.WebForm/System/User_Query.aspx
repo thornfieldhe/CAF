@@ -10,32 +10,32 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="manager" runat="server" AutoSizePanelID="mainPanel" />
+    <f:PageManager ID="manager" runat="server"  />
     <f:CAFPanel runat="server" ID="mainPanel" Layout="Fit" >
-        <Toolbars>
-            <f:Toolbar ID="Toolbar1" runat="server" >
-                <Items >
-                    <f:DropDownList runat="server" ID="dropDeps" Label="部门" LabelWidth="40px"  MatchFieldWidth="true">
-                    </f:DropDownList>
-                    <f:DropDownList runat="server" ID="dropRoles" Label="角色" LabelWidth="40px" Width="160px" MatchFieldWidth="true">
-                    </f:DropDownList>
-                    <f:DropDownList runat="server" ID="dropStatus" Label="状态" LabelWidth="40px" Width="120px" MatchFieldWidth="true">
-                    </f:DropDownList>
-                    <f:TextBox runat="server" ID="txtName" Label="用户名"  LabelWidth="60px">
-                    </f:TextBox>
-                    <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
-                    </f:ToolbarSeparator>
-                    <f:QueryButton ID="btnQuery" runat="server" />
-                    <f:NewButton ID="btnNew"  Icon="Add" runat="server"  />
-                    <f:DeleteButton  ID="btnDeleteRows" runat="server" OnClick="btnDeleteRows_Click"/>
-                    <f:Button Text="锁定" ID="btnLockRows" runat="server" OnClick="btnLockRows_Click"/>
-                    <f:Button Text="解锁" ID="btnUnLockRows" runat="server" OnClick="btnUnLockRows_Click"/>
-                    <f:ToolbarFill ID="ToolbarFill1" runat="server"/>
-                </Items>
-            </f:Toolbar>
-        </Toolbars>
         <Items>
             <f:CAFGrid ID="grid" runat="server" Title="用户列表" SortField="Name" OnRowCommand="gridRowCommand">
+                <Toolbars>
+                    <f:Toolbar ID="Toolbar1" runat="server" >
+                        <Items >
+                            <f:DropDownList runat="server" ID="dropDeps" Label="部门" LabelWidth="40px"  MatchFieldWidth="true">
+                            </f:DropDownList>
+                            <f:DropDownList runat="server" ID="dropRoles" Label="角色" LabelWidth="40px" Width="160px" MatchFieldWidth="true">
+                            </f:DropDownList>
+                            <f:DropDownList runat="server" ID="dropStatus" Label="状态" LabelWidth="40px" Width="120px" MatchFieldWidth="true">
+                            </f:DropDownList>
+                            <f:TextBox runat="server" ID="txtName" Label="用户名"  LabelWidth="60px">
+                            </f:TextBox>
+                            <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
+                            </f:ToolbarSeparator>
+                            <f:QueryButton ID="btnQuery" runat="server" />
+                            <f:NewButton ID="btnNew"  Icon="Add" runat="server"  />
+                            <f:DeleteButton  ID="btnDeleteRows" runat="server" OnClick="btnDeleteRows_Click"/>
+                            <f:Button Text="锁定" ID="btnLockRows" runat="server" OnClick="btnLockRows_Click"/>
+                            <f:Button Text="解锁" ID="btnUnLockRows" runat="server" OnClick="btnUnLockRows_Click"/>
+                            <f:ToolbarFill ID="ToolbarFill1" runat="server"/>
+                        </Items>
+                    </f:Toolbar>
+                </Toolbars>
                 <Columns>
                     <f:EditWindowField WindowID="winEdit"  DataTextFormatString="{0}" DataIFrameUrlFields="Id"
                     DataIFrameUrlFormatString="User_Edit.aspx?Id={0}" DataWindowTitleField="Name"

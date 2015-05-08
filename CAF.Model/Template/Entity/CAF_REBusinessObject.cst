@@ -139,7 +139,7 @@ namespace <%= ClassNamespace %>.Model
                 {
                     return null;
                 }
-                item.Connection = conn;
+                item.Connection =  SqlService.Instance.Connection;
                 item.MarkOld();
                 item.<%= GetPrivateInitalizerFiled(TableA)%> = new Lazy<<%=TableA%>>(() => Init<%=TableA%>(item), isThreadSafe: true);
                 item.<%= GetPrivateInitalizerFiled(TableB)%> = new Lazy<<%=TableB%>>(() => Init<%=TableB%>(item), isThreadSafe: true);
@@ -156,7 +156,7 @@ namespace <%= ClassNamespace %>.Model
                 {
                     return null;
                 }
-                item.Connection = conn;
+                item.Connection =  SqlService.Instance.Connection;
                 item.MarkOld();
                 item.<%= GetPrivateInitalizerFiled(TableA)%> = new Lazy<<%=TableA%>>(() => Init<%=TableA%>(item), isThreadSafe: true);
                 item.<%= GetPrivateInitalizerFiled(TableB)%> = new Lazy<<%=TableB%>>(() => Init<%=TableB%>(item), isThreadSafe: true);

@@ -9,22 +9,23 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="manager" runat="server" AutoSizePanelID="mainPanel" />
+    <f:PageManager ID="manager" runat="server"  />
     <f:CAFPanel runat="server" ID="mainPanel" Layout="Fit">
-        <Toolbars>
-            <f:Toolbar ID="Toolbar1" runat="server" >
-                <Items >
-                    <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
-                    </f:ToolbarSeparator>
-                    <f:NewButton ID="btnNew"  Icon="Add" runat="server"  />
-                    <f:DeleteButton  ID="btnDeleteRows" runat="server" OnClick="btnDeleteRows_Click"/>
-                    <f:ToolbarFill ID="ToolbarFill1" runat="server"/>
-                </Items>
-            </f:Toolbar>
-        </Toolbars>
         <Items>
             <f:CAFGrid ID="grid" runat="server" Title="部门查询" AllowSorting="False" SortField="Level" OnRowCommand="gridRowCommand" 
                 EnableCollapse="true" DataKeyNames="Id">
+                <Toolbars>
+                    <f:Toolbar ID="Toolbar1" runat="server" >
+                        <Items >
+                            <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
+                            </f:ToolbarSeparator>
+                            <f:NewButton ID="btnNew"  Icon="Add" runat="server"  />
+                            <f:DeleteButton  ID="btnDeleteRows" runat="server" OnClick="btnDeleteRows_Click"/>
+                            <f:ToolbarFill ID="ToolbarFill1" runat="server">
+                            </f:ToolbarFill>
+                        </Items>
+                    </f:Toolbar>
+                </Toolbars>
                 <Columns>
                     <f:EditWindowField WindowID="winEdit"  DataTextFormatString="{0}" DataIFrameUrlFields="Id"
                     DataIFrameUrlFormatString="Organize_Edit.aspx?Id={0}" DataWindowTitleField="Name"

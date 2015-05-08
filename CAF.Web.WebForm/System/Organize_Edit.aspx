@@ -10,7 +10,7 @@
 </head>
 <body>
 <form id="form1" runat="server">
-    <f:CAFPageManager  runat="server"  />
+       <f:PageManager ID="manager" runat="server"  />
     <f:CAFPanel ID="mainPanel" Layout="HBox" runat="server">
         <Toolbars>
             <f:Toolbar ID="toolbar1" runat="server">
