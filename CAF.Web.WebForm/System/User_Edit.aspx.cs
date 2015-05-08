@@ -4,7 +4,6 @@ using System.Linq;
 namespace CAF.Web.WebForm
 {
     using CAF.Model;
-    using CAF.Security;
     using CAF.Web.WebForm.Common;
 
     using FineUI;
@@ -46,7 +45,6 @@ namespace CAF.Web.WebForm
                 Alert.ShowInTop("用户已存在");
                 return false;
             }
-            item.Pass = Password.DesEncrypt(item.Pass);
             var ids = this.chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
             foreach (var id in ids)
             {
@@ -70,10 +68,6 @@ namespace CAF.Web.WebForm
                     Alert.ShowInTop("密码两次输入不一致！");
                     return false;
                 }
-                else
-                {
-                    item.Pass = Password.DesEncrypt(this.txtPass.Text.Trim());
-                }
             }
             else
             {
@@ -88,7 +82,7 @@ namespace CAF.Web.WebForm
             var ids2 = this.chkUserPosts.SelectedValueArray.Select(d => new Guid(d)).ToList();
             var userPosts = item.Posts.Select(r => r.Id).ToList();
             userPosts.Except(ids2).ToList().ForEach(i => item.Posts.First(r => r.Id == i).MarkDelete());
-            ids2.Except(userPosts).ToList().ForEach(i=>item.Posts.Add(Post.Get(i)));
+            ids2.Except(userPosts).ToList().ForEach(i => item.Posts.Add(Post.Get(i)));
 
 
             return true;
@@ -130,22 +124,23 @@ namespace CAF.Web.WebForm
             }
         }
 
-        protected void btnDelete_Click(object sender, EventArgs e)
+        protected override void Delete()
         {
             var item = Model.User.Get(this.Id);
             this.submitForm.Delete(item);
         }
 
-        protected void btnUpdate_Click(object sender, EventArgs e)
+        protected override void Update()
         {
             var item = Model.User.Get(this.Id);
             this.submitForm.Update(item);
         }
 
-        protected void btnAdd_Click(object sender, EventArgs e)
+        protected override void Add()
         {
             var item = new User();
             this.submitForm.Create(item);
         }
+
     }
 }

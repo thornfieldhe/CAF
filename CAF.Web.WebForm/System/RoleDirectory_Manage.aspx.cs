@@ -26,7 +26,7 @@ namespace CAF.Web.WebForm
             this.BindRoleToTreeNode(this.treeDirs.Nodes);
         }
 
-        protected void btnUpdate_Click(object sender, EventArgs e)
+        protected override void Update()
         {
             if (this.dropRoles.SelectedValue.ToGuid() == Guid.Empty)
             {
@@ -39,7 +39,6 @@ namespace CAF.Web.WebForm
                 dics.Save();
                 this.Initialization();
             }
-
         }
 
         protected override void Bind()

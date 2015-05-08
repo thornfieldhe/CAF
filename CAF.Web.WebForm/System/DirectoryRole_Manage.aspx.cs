@@ -36,7 +36,7 @@ namespace CAF.Web.WebForm.System
             this.grid_OnQuery();
         }
 
-        protected void btnSubmit_Click(object sender, EventArgs e)
+        protected override void Submit()
         {
             var directoryId = this.dropDirs.SelectedValue.ToGuid();
 
@@ -62,14 +62,14 @@ namespace CAF.Web.WebForm.System
                         if (modifiedDict[rowIndex].ContainsKey("Status"))
                         {
                             d = new Directory_Role
-                                    {
-                                        DirectoryId = directoryId,
-                                        RoleId = roleId,
-                                        Status =
-                                            modifiedDict[rowIndex].SingleOrDefault(r => r.Key == "Status")
-                                            .Value.ToString()
-                                            .ToInt()
-                                    };
+                            {
+                                DirectoryId = directoryId,
+                                RoleId = roleId,
+                                Status =
+                                    modifiedDict[rowIndex].SingleOrDefault(r => r.Key == "Status")
+                                    .Value.ToString()
+                                    .ToInt()
+                            };
                             d.Create();
                             Directory_Role.Delete(id);
                         }
@@ -128,23 +128,23 @@ namespace CAF.Web.WebForm.System
                 else
                 {
                     var d = new Directory_Role
-                                {
-                                    RoleId = roleId,
-                                    Status = status,
-                                    DirectoryId = this.dropDirs.SelectedValue.ToGuid()
-                                };
+                    {
+                        RoleId = roleId,
+                        Status = status,
+                        DirectoryId = this.dropDirs.SelectedValue.ToGuid()
+                    };
                     d.Create();
                 }
             }
             this.grid_OnQuery();
         }
 
-        protected void btnQuery_Click(object sender, EventArgs e)
+        protected override void Query()
         {
             var item = Organize.Get(this.Id);
             this.grid_OnQuery();
-
         }
+
 
         protected void grid_PreDataBound(object sender, EventArgs e)
         {

@@ -34,11 +34,11 @@
                             </f:DropDownList>
                             <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
                             </f:ToolbarSeparator>
-                            <f:QueryButton ID="btnQuery" runat="server" OnClick="btnQuery_Click">
+                            <f:QueryButton ID="btnQuery" runat="server" OnClick="btnExcute_Click">
                             </f:QueryButton>
                             <f:AddButton ID="btnAdd" runat="server" EnablePostBack="false">
                             </f:AddButton>
-                            <f:SubmitButton ID="btnSubmit" runat="server" OnClick="btnSubmit_Click">
+                            <f:SubmitButton ID="btnSubmit" runat="server" OnClick="btnExcute_Click">
                             </f:SubmitButton>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>

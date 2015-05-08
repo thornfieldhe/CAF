@@ -21,7 +21,7 @@
                             <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
                             </f:ToolbarSeparator>
                             <f:NewButton ID="btnNew"  Icon="Add" runat="server"  />
-                            <f:DeleteButton  ID="btnDeleteRows" runat="server" OnClick="btnDeleteRows_Click"/>
+                            <f:DeleteButton  ID="btnDeleteRows" runat="server" OnClick="btnExcute_Click"/>
                              <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
                         </Items>

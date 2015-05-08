@@ -33,10 +33,7 @@ namespace CAF.Web.WebForm
             this.winEdit.Close += this.grid_OnQuery;
         }
 
-        protected void btnDeleteRows_Click(object sender, EventArgs e)
-        {
-            this.grid.Delete<PostUserOrganize>();
-        }
+        protected override void Delete() { this.grid.Delete<PostUserOrganize>(); }
 
         protected void gridRowCommand(object sender, GridCommandEventArgs e)
         {

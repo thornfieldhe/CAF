@@ -8,10 +8,11 @@ namespace CAF.Web.WebForm
     using CAF.Model;
     using CAF.Web.WebForm.Common;
 
-
+    using global::System.Linq;
 
     public class BasePage : Page
     {
+
         /// <summary>
         /// 模块名称
         /// </summary>
@@ -30,7 +31,7 @@ namespace CAF.Web.WebForm
         {
             get
             {
-                return Request["Id"].ToGuid();
+                return this.Request["Id"].ToGuid();
             }
         }
 
@@ -49,7 +50,7 @@ namespace CAF.Web.WebForm
         {
             get
             {
-                return (User)HttpContext.Current.Session["User"];
+                return Model.User.Get(this.User.Identity.Name);
             }
         }
 
@@ -57,46 +58,47 @@ namespace CAF.Web.WebForm
 
         protected virtual void Page_Load(object sender, EventArgs e)
         {
-            //this.module = Directory.Get(pageId).Name;
-            if (IsPostBack)
+            this.module = Directory.Get(this.pageId).Name;
+            if (this.IsPostBack)
             {
                 return;
             }
             try
             {
-                //                if (HttpContext.Current.User.Identity.IsAuthenticated)
+                if (HttpContext.Current.User.Identity.IsAuthenticated)
                 {
-                    var canRead = CanRead();
-                    var canEdit = CanEdit();
+                    var roles = this.LoginUser.Roles.Select(r => r.Id).ToList();
+                    var canRead = this.CanRead(roles);
+                    var canEdit = this.CanEdit(roles);
 
                     if (canRead || canEdit)
                     {
-                        this.Title = module.ToString();
-                        Initialization();
+                        this.Title = this.module.ToString();
+                        this.Initialization();
                         if (canEdit)
                         {
-                            InitializationEditControls();
+                            this.InitializationEditControls();
                         }
                         else
                         {
-                            InitializationReadControls();
+                            this.InitializationReadControls();
                         }
 
-                        CreateInfoLog(Resource.System_Action_LoginIn);
+                        this.CreateInfoLog(Resource.System_Action_LoginIn);
                     }
                     else
                     {
-                        UnAuthenticated();
+                        this.UnAuthenticated();
                     }
                 }
-                //                else
-                //                {
-                //                    UnAuthenticated();
-                //                }
+                else
+                {
+                    this.UnAuthenticated();
+                }
             }
             catch (Exception ex)
             {
-                CreateErrorLog(ex);
+                this.CreateErrorLog(ex);
             }
         }
 
@@ -108,7 +110,7 @@ namespace CAF.Web.WebForm
         protected void Initialization()
         {
             PageTools.ClearControls(this.Page);
-            Bind();
+            this.Bind();
         }
 
 
@@ -125,7 +127,7 @@ namespace CAF.Web.WebForm
         /// </summary>
         protected virtual void InitializationReadControls()
         {
-            InitializationReadControls(this.Page);
+            this.InitializationReadControls(this.Page);
         }
 
         /// <summary>
@@ -137,7 +139,7 @@ namespace CAF.Web.WebForm
             {
                 foreach (Control item in ctl.Controls)
                 {
-                    InitializationReadControls(item);
+                    this.InitializationReadControls(item);
                 }
             }
             else
@@ -151,7 +153,7 @@ namespace CAF.Web.WebForm
                 if (button.ID.Contains("Add") || button.ID.Contains("Delete") ||
                     button.ID.Contains("Submit") || button.ID.Contains("Edit") ||
                     button.ID.Contains("Save") || button.ID.Contains("Update") ||
-                    button.ID.Contains("Reset"))
+                    button.ID.Contains("Reset") || button.ID.Contains("New"))
                 {
                     button.Enabled = false;
                 }
@@ -167,36 +169,25 @@ namespace CAF.Web.WebForm
 
         #region 授权
 
-        protected virtual bool CanRead()
+        protected virtual bool CanRead(List<Guid> roles)
         {
-            //                        List<Guid> items = Dictionary.GetKeyByCategoryAndValueAndStatus(EnumExt.GetDescription(DictionaryEnum.RoleToDir), pageId, (int)RightStatusEnum.Read);
-            //                        return RuleValidate(items);
-            return true;
+            return
+                Directory_Role.GetAllByDirectoryId(this.pageId).Where(r => r.Status == (int)RightStatusEnum.Read)
+                .Select(r => r.RoleId).ToList().Intersect(roles).Count() > 0;
         }
 
-        protected virtual bool CanEdit()
+        protected virtual bool CanEdit(List<Guid> roles)
         {
-            //                        List<Guid> items = Dictionary.GetKeyByCategoryAndValueAndStatus(EnumExt.GetDescription(DictionaryEnum.RoleToDir), pageId, (int)RightStatusEnum.Write);
-            //                        return RuleValidate(items);
-            return true;
+            return
+                Directory_Role.GetAllByDirectoryId(this.pageId).Where(r => r.Status == (int)RightStatusEnum.Write)
+                .Select(r => r.RoleId).ToList().Intersect(roles).Count() > 0;
         }
 
-        private bool RuleValidate(List<Guid> rules)
-        {
-            const bool result = false;
-            if (rules == null || rules.Count == 0)
-            {
-                return false;
-            }
-            foreach (var item in rules)
-            {
-            }
-            return result;
-        }
+
 
         protected virtual void UnAuthenticated()
         {
-            Response.Redirect("~/Login.aspx?referrer=" + Server.UrlEncode(Request.Url.PathAndQuery));
+            this.Response.Redirect("~/Login.aspx?referrer=" + this.Server.UrlEncode(this.Request.Url.PathAndQuery));
             //Response.End();
             //return;
         }
@@ -205,204 +196,121 @@ namespace CAF.Web.WebForm
 
         #region 按钮事件
 
-//        protected virtual void btnExcute_Click(object sender, EventArgs e)
-//        {
-//            var throwEx = new Exception("");
-//            try
-//            {
-//                if (sender is Button)
-//                {
-//                    var btn = (Button)sender;
-//                    string faildMessage;
-//                    switch (btn.ID)
-//                    {
-//                        case "btnAdd":
-//                            PreAdd();
-//                            faildMessage = Add();
-//
-//                            if (string.IsNullOrWhiteSpace(faildMessage))
-//                            {
-//                                PostAdd();
-//                                CreateInfoLog(Resource.System_Action_Add);
-//                                Alert.ShowInTop(Resource.System_Message_AddSuccess);
-//                            }
-//                            else
-//                            {
-//                                Alert.ShowInTop(faildMessage);
-//                            }
-//
-//                            break;
-//                        case "btnUpdate":
-//                            PreUpdate();
-//                            faildMessage = Update();
-//
-//                            if (string.IsNullOrWhiteSpace(faildMessage))
-//                            {
-//                                PostUpdate();
-//                                CreateInfoLog(Resource.System_Action_Update);
-//                                Alert.ShowInTop(Resource.System_Message_UpdateSuccess);
-//                            }
-//                            else
-//                            {
-//                                Alert.ShowInTop(faildMessage);
-//
-//                            }
-//                            break;
-//
-//                        case "btnDelete":
-//                            PreDelete();
-//                            faildMessage = Delete();
-//
-//                            if (string.IsNullOrWhiteSpace(faildMessage))
-//                            {
-//                                PostDelete();
-//                                CreateInfoLog(Resource.System_Action_Delete);
-//                                Alert.ShowInTop(Resource.System_Message_DeleteSuccess);
-//                            }
-//                            else
-//                            {
-//                                Alert.ShowInTop(faildMessage);
-//
-//                            }
-//                            break;
-//
-//                        case "btnReset":
-//                            Reset();
-//                            break;
-//                        case "btnQuery":
-//                            Query();
-//                            CreateInfoLog(Resource.System_Action_Query);
-//                            break;
-//                        case "btnSave":
-//                            PreSave();
-//                            faildMessage = Save();
-//
-//                            if (string.IsNullOrWhiteSpace(faildMessage))
-//                            {
-//                                PostSave();
-//                                CreateInfoLog(Resource.System_Action_Save);
-//                                Alert.ShowInTop(Resource.System_Message_SavedSuccess);
-//                            }
-//                            else
-//                            {
-//                                Alert.ShowInTop(faildMessage);
-//
-//                            }
-//                            break;
-//                        case "btnSubmit":
-//                            PreSubmit();
-//                            faildMessage = Submit();
-//                            if (string.IsNullOrWhiteSpace(faildMessage))
-//                            {
-//                                PostSubmit();
-//                                CreateInfoLog(Resource.System_Action_Save);
-//                                Alert.ShowInTop(Resource.System_Message_ConfirmSubmit);
-//                            }
-//                            else
-//                            {
-//                                Alert.ShowInTop(faildMessage);
-//                            }
-//
-//                            break;
-//                        case "btnExport":
-//                            faildMessage = Export();
-//                            if (string.IsNullOrWhiteSpace(faildMessage))
-//                            {
-//                                CreateInfoLog(Resource.System_Action_Export);
-//                                Alert.ShowInTop(Resource.System_Message_ExportSuccess);
-//                            }
-//                            else
-//                            {
-//                                Alert.ShowInTop(faildMessage);
-//
-//                            }
-//
-//                            break;
-//                        case "btnInport":
-//                            faildMessage = Inport();
-//                            if (string.IsNullOrWhiteSpace(faildMessage))
-//                            {
-//                                CreateInfoLog(Resource.System_Action_Inport);
-//                                Alert.ShowInTop(Resource.System_Message_InportSuccess);
-//                            }
-//                            else
-//                            {
-//                                Alert.ShowInTop(faildMessage);
-//
-//                            }
-//
-//                            break;
-//                    }
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                Alert.ShowInTop(ex.Message);
-//                throwEx = ex;
-//            }
-//            if (throwEx.Message != "")
-//            {
-//                CreateErrorLog(throwEx);
-//            }
-//        }
+        protected virtual void btnExcute_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (sender is Button)
+                {
+                    var btn = (Button)sender;
+                    switch (btn.ID)
+                    {
+                        case "btnAdd":
+                            this.Add();
+                            this.CreateInfoLog(Resource.System_Action_Add);
+                            break;
+                        case "btnUpdate":
+                            this.Update();
+                            this.CreateInfoLog(Resource.System_Action_Update);
+                            break;
+                        case "btnDelete":
+                            this.Delete();
+                            this.CreateInfoLog(Resource.System_Action_Delete);
+                            break;
+                        case "btnQuery":
+                            this.Query();
+                            this.CreateInfoLog(Resource.System_Action_Query);
+                            break;
+                        case "btnSave":
+                            this.Save();
+                            this.CreateInfoLog(Resource.System_Action_Save);
+                            break;
+                        case "btnSubmit":
+                            this.Submit();
+                            this.CreateInfoLog(Resource.System_Action_Save);
+                            break;
+                        case "btnExport":
+                            this.Export();
+                            this.CreateInfoLog(Resource.System_Action_Export);
+                            break;
+                        case "btnInport":
+                            this.Inport();
+                            this.CreateInfoLog(Resource.System_Action_Inport);
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Alert.ShowInTop(ex.Message);
+                this.CreateErrorLog(ex);
+            }
+
+        }
 
         protected void CreateErrorLog(Exception throwEx)
         {
             var log = new ErrorLog
                 {
                     Details = throwEx.StackTrace,
-                    UserName = User.Identity.Name,
+                    UserName = this.User.Identity.Name,
                     Ip = Net.GetClientIP(),
                     PageCode = 0,
                     Message = throwEx.Message,
-                    Page = module
+                    Page = this.module
                 };
             log.Create();
         }
 
         protected void CreateInfoLog(string action)
         {
-
-            var log = new InfoLog { UserName = User.Identity.Name, Action = action, Page = module };
+            var log = new InfoLog { UserName = this.User.Identity.Name, Action = action, Page = this.module };
             log.Create();
         }
 
-//        protected virtual string Update() { return string.Empty; }
-//
-//        protected virtual string Delete() { return string.Empty; }
-//
-//        protected virtual string Add() { return string.Empty; }
-//
-//        protected virtual string Save() { return string.Empty; }
-//
-//        protected virtual string Submit() { return string.Empty; }
-//
-//        protected virtual string PreDelete() { return string.Empty; }
-//
-//        protected virtual string PreUpdate() { return string.Empty; }
-//
-//        protected virtual string PreAdd() { return string.Empty; }
-//        protected virtual string PreSubmit() { return string.Empty; }
-//
-//        protected virtual string PreSave() { return string.Empty; }
-//
-//        protected virtual string PostDelete() { return string.Empty; }
-//
-//        protected virtual string PostUpdate() { return string.Empty; }
-//
-//        protected virtual string PostSubmit() { return string.Empty; }
-//
-//        protected virtual string PostAdd() { return string.Empty; }
-//
-//        protected virtual string PostSave() { return string.Empty; }
-//
-//        protected virtual void Reset() { }
-//
-//        protected virtual void Query() { }
-//
-//        protected virtual string Export() { return string.Empty; }
-//
-//        protected virtual string Inport() { return string.Empty; }
+        protected virtual void Update() { }
+
+        protected virtual void Delete() { }
+
+        protected virtual void Add() { }
+
+        protected virtual void Save() { }
+
+        protected virtual void Submit() { }
+        protected virtual void Reset() { }
+
+        protected virtual void Query() { }
+
+        protected virtual void Export() { }
+
+        protected virtual void Inport() { }
+        //
+        //        protected virtual string PreDelete() { return string.Empty; }
+        //
+        //        protected virtual string PreUpdate() { return string.Empty; }
+        //
+        //        protected virtual string PreAdd() { return string.Empty; }
+        //        protected virtual string PreSubmit() { return string.Empty; }
+        //
+        //        protected virtual string PreSave() { return string.Empty; }
+        //
+        //        protected virtual string PostDelete() { return string.Empty; }
+        //
+        //        protected virtual string PostUpdate() { return string.Empty; }
+        //
+        //        protected virtual string PostSubmit() { return string.Empty; }
+        //
+        //        protected virtual string PostAdd() { return string.Empty; }
+        //
+        //        protected virtual string PostSave() { return string.Empty; }
+        //
+        //        protected virtual void Reset() { }
+        //
+        //        protected virtual void Query() { }
+        //
+        //        protected virtual string Export() { return string.Empty; }
+        //
+        //        protected virtual string Inport() { return string.Empty; }
 
         #endregion 按钮事件
     }

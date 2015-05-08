@@ -16,11 +16,11 @@
             <f:Toolbar ID="Toolbar1" runat="server">
                 <Items>
                     <f:CloseButton ID="btnClose" runat="server" />
-                    <f:AddButton ID="btnAdd" runat="server" OnClick="btnAdd_Click">
+                    <f:AddButton ID="btnAdd" runat="server" OnClick="btnExcute_Click">
                     </f:AddButton>
-                    <f:UpdateButton ID="btnUpdate" runat="server" OnClick="btnUpdate_Click">
+                    <f:UpdateButton ID="btnUpdate" runat="server" OnClick="btnExcute_Click">
                     </f:UpdateButton>
-                    <f:DeleteButton ID="btnDelete" runat="server" OnClick="btnDelete_Click">
+                    <f:DeleteButton ID="btnDelete" runat="server" OnClick="btnExcute_Click">
                     </f:DeleteButton>
                 </Items>
             </f:Toolbar>

@@ -28,10 +28,9 @@ namespace CAF.Web.WebForm
         #region 系统生成
         protected override void OnLoad(EventArgs e)
         {
-            if (!this.IsPostBack)
-            {
-                this.pageId = new Guid("f66d4ee2-8c93-47bd-83bf-550cab2025da");
-            }
+
+            this.pageId = new Guid("f66d4ee2-8c93-47bd-83bf-550cab2025da");
+
             base.OnLoad(e);
             this.btnClose.OnClientClick = ActiveWindow.GetHidePostBackReference();
             this.submitForm.OnPostCreated += this.submitForm_OnPostExcute;
@@ -44,23 +43,24 @@ namespace CAF.Web.WebForm
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
 
-        protected void btnDelete_Click(object sender, EventArgs e)
+        protected override void Delete()
         {
             var item = Directory.Get(this.txtId.Text.ToGuid());
-            this.submitForm.Delete(item);
+            this.submitForm.Delete(item); base.Delete();
         }
 
-        protected void btnUpdate_Click(object sender, EventArgs e)
+        protected override void Update()
         {
             var item = Directory.Get(this.txtId.Text.ToGuid());
             this.submitForm.Update(item);
         }
 
-        protected void btnAdd_Click(object sender, EventArgs e)
+        protected override void Add()
         {
             var item = new Directory();
-            this.submitForm.Create(item);
+            this.submitForm.Create(item); base.Add();
         }
+
         #endregion
     }
 }

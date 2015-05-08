@@ -31,23 +31,24 @@ namespace CAF.Web.WebForm
 
         }
 
-        protected void btnDelete_Click(object sender, EventArgs e)
+        protected override void Delete()
         {
             var item = Post.Get(this.dropPosts.SelectedValue.ToGuid());
             this.submitForm.Delete(item);
         }
 
-        protected void btnUpdate_Click(object sender, EventArgs e)
+        protected override void Update()
         {
             var item = Post.Get(this.dropPosts.SelectedValue.ToGuid());
             this.submitForm.Update(item);
         }
 
-        protected void btnAdd_Click(object sender, EventArgs e)
+        protected override void Add()
         {
             var item = new Post();
             this.submitForm.Create(item);
         }
+
 
         protected void dropPostsId_SelectedIndexChanged(object sender, EventArgs e)
         {

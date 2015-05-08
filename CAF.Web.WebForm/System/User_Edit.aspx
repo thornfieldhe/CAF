@@ -16,9 +16,9 @@
             <f:Toolbar ID="Toolbar1" runat="server">
                 <Items>
                     <f:CloseButton ID="btnClose" runat="server" />
-                    <f:AddButton runat="server" ID="btnAdd" OnClick="btnAdd_Click"/>
-                    <f:UpdateButton ID="btnUpdate" runat="server"  OnClick="btnUpdate_Click" />
-                    <f:DeleteButton ID="btnDelete" runat="server"  OnClick="btnDelete_Click"/>
+                    <f:AddButton runat="server" ID="btnAdd" OnClick="btnExcute_Click"/>
+                    <f:UpdateButton ID="btnUpdate" runat="server"  OnClick="btnExcute_Click" />
+                    <f:DeleteButton ID="btnDelete" runat="server"  OnClick="btnExcute_Click"/>
                     
                 </Items>
             </f:Toolbar>

@@ -23,6 +23,7 @@ namespace CAF.Web.WebForm
             this.btnNew.OnClientClick = this.winEdit.GetShowReference("Directory_Edit.aspx", "新增");
         }
 
+        protected override void Delete() { this.grid.Delete<Directory>(); }
 
         protected void btnDeleteRows_Click(object sender, EventArgs e)
         {

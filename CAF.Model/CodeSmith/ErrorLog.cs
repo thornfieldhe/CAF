@@ -22,24 +22,12 @@ namespace CAF.Model
             
 		#region 公共属性
 
-        private DateTime _logTime;
         private string _userName = String.Empty;
         private int _pageCode;
         private string _page = String.Empty;
         private string _ip = String.Empty;
         private string _message = String.Empty;
         private string _details = String.Empty;
-        
-        /// <summary>
-        /// 日志时间
-        /// </summary>
-        [Required(ErrorMessage="日志时间不允许为空")]
-        [DateTimeRequired(ErrorMessage="日志时间不允许为空")]
-		public DateTime LogTime
-		{
-			get {return this._logTime;} 
-            set {this.SetProperty("LogTime",ref this._logTime, value);}           	
-		}
         
         /// <summary>
         /// 用户名
@@ -95,7 +83,6 @@ namespace CAF.Model
         /// 详细错误
         /// </summary>
         [Required(ErrorMessage="详细错误不允许为空")]
-        [StringLength(16,ErrorMessage="详细错误长度不能超过16")]
 		public string Details
 		{
 			get {return this._details;} 
@@ -111,7 +98,7 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_ErrorLogs WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_ErrorLogs SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_ErrorLogs WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_ErrorLogs (Id, LogTime, UserName, PageCode, Page, Ip, Message, Details) VALUES (@Id, @LogTime, @UserName, @PageCode, @Page, @Ip, @Message, @Details)";
+        const string QUERY_INSERT="INSERT INTO Sys_ErrorLogs (Id, UserName, PageCode, Page, Ip, Message, Details, CreatedDate, ChangedDate, Status) VALUES (@Id, @UserName, @PageCode, @Page, @Ip, @Message, @Details, @CreatedDate, @ChangedDate, @Status)";
         const string QUERY_UPDATE = "UPDATE Sys_ErrorLogs SET {0} WHERE  Id = @Id";
                 
         #endregion

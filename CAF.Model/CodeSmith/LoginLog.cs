@@ -22,21 +22,9 @@ namespace CAF.Model
             
 		#region 公共属性
 
-        private DateTime _logTime;
         private string _userName = String.Empty;
         private string _ip = String.Empty;
         private int _isLogin;
-        
-        /// <summary>
-        /// 登陆时间
-        /// </summary>
-        [Required(ErrorMessage="登陆时间不允许为空")]
-        [DateTimeRequired(ErrorMessage="登陆时间不允许为空")]
-		public DateTime LogTime
-		{
-			get {return this._logTime;} 
-            set {this.SetProperty("LogTime",ref this._logTime, value);}           	
-		}
         
         /// <summary>
         /// 用户名
@@ -76,7 +64,7 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_LoginLogs WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_LoginLogs SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_LoginLogs WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_LoginLogs (Id, LogTime, UserName, Ip, IsLogin) VALUES (@Id, @LogTime, @UserName, @Ip, @IsLogin)";
+        const string QUERY_INSERT="INSERT INTO Sys_LoginLogs (Id, UserName, Ip, IsLogin, CreatedDate, ChangedDate, Status) VALUES (@Id, @UserName, @Ip, @IsLogin, @CreatedDate, @ChangedDate, @Status)";
         const string QUERY_UPDATE = "UPDATE Sys_LoginLogs SET {0} WHERE  Id = @Id";
                 
         #endregion

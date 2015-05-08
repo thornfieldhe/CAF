@@ -12,7 +12,7 @@ namespace CAF.Web.WebForm
             PageHelper.BindPostUsers(this.dropPostId.SelectedValue.ToGuid(), this.dropUserId, selectItem: new Guid().ToString());
         }
 
- 
+
         #region 系统生成
 
         protected override void Bind()
@@ -21,8 +21,6 @@ namespace CAF.Web.WebForm
             PageHelper.BindPosts(this.dropPostId, selectItem: new Guid().ToString());
             PageHelper.BindPostUsers(Guid.Empty, this.dropUserId, selectItem: new Guid().ToString());
             PageHelper.BindOrganizes(Guid.Empty, this.dropOrganizeId, selectItem: new Guid().ToString());
-
-    
 
             var item = PostUserOrganize.Get(this.Id);
             if (item == null)
@@ -36,8 +34,6 @@ namespace CAF.Web.WebForm
                 this.submitForm.LoadEntity(item);
             }
         }
-
-   
 
         protected override void OnLoad(EventArgs e)
         {
@@ -57,19 +53,19 @@ namespace CAF.Web.WebForm
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
 
-        protected void btnDelete_Click(object sender, EventArgs e)
+        protected override void Delete()
         {
             var item = PostUserOrganize.Get(this.Id);
             this.submitForm.Delete(item);
         }
 
-        protected void btnUpdate_Click(object sender, EventArgs e)
+        protected override void Update()
         {
             var item = PostUserOrganize.Get(this.Id);
             this.submitForm.Update(item);
         }
 
-        protected void btnAdd_Click(object sender, EventArgs e)
+        protected override void Add()
         {
             var item = new PostUserOrganize();
             this.submitForm.Create(item);

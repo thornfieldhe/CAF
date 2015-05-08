@@ -16,7 +16,6 @@ namespace CAF.Web.WebForm.CAFControl
         public CAFPageManager()
         {
             base.ID = "manager";
-            base.AutoSizePanelID = "mainPanel";
         }
     }
 

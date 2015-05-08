@@ -15,7 +15,6 @@ namespace CAF.Web.WebForm
             this.pageId = new Guid("5CCA7546-79EB-4AAE-A7F9-90F9E660A3A6");
             base.OnLoad(e);
             this.grid.OnQuery += this.grid_OnQuery;
-            this.btnQuery.Click += this.grid_OnQuery;
             this.winEdit.Close += this.grid_OnQuery;
         }
 
@@ -29,12 +28,11 @@ namespace CAF.Web.WebForm
             this.btnNew.OnClientClick = this.winEdit.GetShowReference("User_Edit.aspx", "新增");
         }
 
+        protected override void Query() { this.grid_OnQuery(); }
 
-        protected void btnDeleteRows_Click(object sender, EventArgs e)
-        {
-            this.grid.Delete<User>();
-        }
-        
+        protected override void Delete() { this.grid.Delete<User>(); }
+
+
         protected void gridRowCommand(object sender, GridCommandEventArgs e)
         {
             this.grid.Excute<Model.User>(e);
