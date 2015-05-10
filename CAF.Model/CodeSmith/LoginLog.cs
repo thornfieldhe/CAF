@@ -24,7 +24,6 @@ namespace CAF.Model
 
         private string _userName = String.Empty;
         private string _ip = String.Empty;
-        private int _isLogin;
         
         /// <summary>
         /// 用户名
@@ -45,16 +44,6 @@ namespace CAF.Model
             set {this.SetProperty("Ip",ref this._ip, value);}           	
 		}
         
-        /// <summary>
-        /// 是否登陆
-        /// </summary>
-        [Required(ErrorMessage="是否登陆不允许为空")]
-		public int IsLogin
-		{
-			get {return this._isLogin;} 
-            set {this.SetProperty("IsLogin",ref this._isLogin, value);}           	
-		}
-        
         
 		#endregion
         
@@ -64,7 +53,7 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_LoginLogs WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_LoginLogs SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_LoginLogs WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_LoginLogs (Id, UserName, Ip, IsLogin, CreatedDate, ChangedDate, Status) VALUES (@Id, @UserName, @Ip, @IsLogin, @CreatedDate, @ChangedDate, @Status)";
+        const string QUERY_INSERT="INSERT INTO Sys_LoginLogs (Id, UserName, Ip, CreatedDate, ChangedDate, Status, Note) VALUES (@Id, @UserName, @Ip, @CreatedDate, @ChangedDate, @Status, @Note)";
         const string QUERY_UPDATE = "UPDATE Sys_LoginLogs SET {0} WHERE  Id = @Id";
                 
         #endregion

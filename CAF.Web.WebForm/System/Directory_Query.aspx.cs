@@ -10,7 +10,7 @@ namespace CAF.Web.WebForm
     {
         protected override void OnLoad(EventArgs e)
         {
-            this.pageId = new Guid("5CCA7546-79EB-4AAE-A7F9-90F9E660A3A3");
+            this.pageId = new Guid("514d089c-c034-4ae7-8e6f-9156ba000566");
             base.OnLoad(e);
             this.grid.OnQuery += this.grid_OnQuery;
             this.winEdit.Close += this.grid_OnQuery;
@@ -25,10 +25,6 @@ namespace CAF.Web.WebForm
 
         protected override void Delete() { this.grid.Delete<Directory>(); }
 
-        protected void btnDeleteRows_Click(object sender, EventArgs e)
-        {
-            this.grid.Delete<Directory>();
-        }
 
         protected void gridRowCommand(object sender, GridCommandEventArgs e)
         {

@@ -52,5 +52,11 @@ namespace CAF.Model
         Fail = -1,
     }
 
-
+    public enum LoginStatusEnum
+    {
+        [Description("登出")]
+        LoginOut = 0,
+        [Description("登陆")]
+        Login = 1,
+    }
 }

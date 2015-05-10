@@ -10,7 +10,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="manager" runat="server"  />
+    <f:PageManager ID="manager" runat="server"   AutoSizePanelID="mainPanel"/>
     <f:CAFPanel runat="server" ID="mainPanel" Layout="Fit" >
         <Items>
             <f:CAFGrid ID="grid" runat="server" Title="用户列表" SortField="Name" OnRowCommand="gridRowCommand">

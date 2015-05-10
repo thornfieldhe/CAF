@@ -63,19 +63,19 @@ namespace <%= this.ClassNamespace %>.Web.WebForm
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
 
-        protected void btnDelete_Click(object sender, EventArgs e)
+        protected override void Delete()
         {
             var item = <%= GetClassName(SourceTable) %>.Get(this.Id);
             this.submitForm.Delete(item);
         }
 
-        protected void btnUpdate_Click(object sender, EventArgs e)
+        protected override void Update()
         {
             var item = <%=GetClassName(this.SourceTable)%>.Get(this.Id);
             this.submitForm.Update(item);
         }
 
-        protected void btnAdd_Click(object sender, EventArgs e)
+        protected override void Add()
         {
             var item = new <%=GetClassName(this.SourceTable)%>();
             this.submitForm.Create(item);

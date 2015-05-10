@@ -18,9 +18,6 @@ namespace CAF.Web.WebForm
             base.OnLoad(e);
         }
 
-
-
-
         protected void dropRolesId_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.BindRoleToTreeNode(this.treeDirs.Nodes);

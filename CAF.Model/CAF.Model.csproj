@@ -67,6 +67,7 @@
     <Compile Include="CodeSmith\UserSetting.cs" />
     <Compile Include="Directory.cs" />
     <Compile Include="Directory_Role.cs" />
+    <Compile Include="LoginLog.cs" />
     <Compile Include="Organize.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="PostUserOrganize.cs" />

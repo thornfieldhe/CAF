@@ -50,7 +50,12 @@ namespace EmptyProjectNet20
 
         protected void btnLogOut_Click(object sender, EventArgs e)
         {
+            var log = new LoginLog { UserName = this.User.Identity.Name, Ip = CAF.Web.Net.GetClientIP(), Status = (int)LoginStatusEnum.LoginOut };
+
+            log.Create();
             CAFPrincipal.Logout();
+            System.Web.Security.FormsAuthentication.SignOut();
+
             this.Response.Redirect("Login.aspx");
         }
 

@@ -10,11 +10,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="manager" runat="server"  />
+    <f:PageManager ID="manager" runat="server"  AutoSizePanelID="mainPanel"/>
     <f:CAFPanel runat="server" ID="mainPanel" Layout="Fit" >
         <Items>
-            <f:CAFGrid ID="grid" runat="server" Title="目录列表" AllowSorting="False" SortField="Level" OnRowCommand="gridRowCommand" 
-                EnableCollapse="true" DataKeyNames="Id">
+            <f:CAFGrid ID="grid" runat="server" Title="目录列表" AllowSorting="False" SortField="Level" OnRowCommand="gridRowCommand"  DataKeyNames="Id">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar1" runat="server" >
                         <Items >

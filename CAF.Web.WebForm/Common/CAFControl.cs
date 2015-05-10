@@ -11,13 +11,6 @@ namespace CAF.Web.WebForm.CAFControl
 
     #region CAFPanel
 
-    public class CAFPageManager : PageManager
-    {
-        public CAFPageManager()
-        {
-            base.ID = "manager";
-        }
-    }
 
     public class CAFPanel : Panel
     {

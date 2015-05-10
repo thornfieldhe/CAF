@@ -9,7 +9,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="manager" runat="server"  />
+    <f:PageManager ID="manager" runat="server"   AutoSizePanelID="mainPanel"/>
     <f:CAFPanel runat="server" ID="mainPanel" Layout="Fit">
         <Items>
             <f:CAFGrid ID="grid" runat="server"  AllowSorting="False" SortField="PostName" OnRowCommand="gridRowCommand" 

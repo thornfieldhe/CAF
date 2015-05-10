@@ -3651,6 +3651,10 @@
     <Content Include="System\DirectoryRole_Manage.aspx" />
     <Content Include="System\Directory_Edit.aspx" />
     <Content Include="System\Directory_Query.aspx" />
+    <Content Include="System\ErrorLog_Details.aspx" />
+    <Content Include="System\ErrorLog_Query.aspx" />
+    <Content Include="System\InfoLog_Query.aspx" />
+    <Content Include="System\LoginLog_Query.aspx" />
     <Content Include="System\Organize_Edit.aspx" />
     <Content Include="System\Organize_Query.aspx" />
     <Content Include="System\PostUserOrganize_Edit.aspx" />
@@ -3730,6 +3734,34 @@
     </Compile>
     <Compile Include="System\Directory_Query.aspx.designer.cs">
       <DependentUpon>Directory_Query.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="System\ErrorLog_Details.aspx.cs">
+      <DependentUpon>ErrorLog_Details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\ErrorLog_Details.aspx.designer.cs">
+      <DependentUpon>ErrorLog_Details.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="System\ErrorLog_Query.aspx.cs">
+      <DependentUpon>ErrorLog_Query.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\ErrorLog_Query.aspx.designer.cs">
+      <DependentUpon>ErrorLog_Query.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="System\InfoLog_Query.aspx.cs">
+      <DependentUpon>InfoLog_Query.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\InfoLog_Query.aspx.designer.cs">
+      <DependentUpon>InfoLog_Query.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="System\LoginLog_Query.aspx.cs">
+      <DependentUpon>LoginLog_Query.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\LoginLog_Query.aspx.designer.cs">
+      <DependentUpon>LoginLog_Query.aspx</DependentUpon>
     </Compile>
     <Compile Include="System\Organize_Edit.aspx.cs">
       <DependentUpon>Organize_Edit.aspx</DependentUpon>

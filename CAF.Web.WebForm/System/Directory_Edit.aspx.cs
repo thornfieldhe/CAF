@@ -28,9 +28,7 @@ namespace CAF.Web.WebForm
         #region 系统生成
         protected override void OnLoad(EventArgs e)
         {
-
             this.pageId = new Guid("f66d4ee2-8c93-47bd-83bf-550cab2025da");
-
             base.OnLoad(e);
             this.btnClose.OnClientClick = ActiveWindow.GetHidePostBackReference();
             this.submitForm.OnPostCreated += this.submitForm_OnPostExcute;

@@ -98,7 +98,7 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_ErrorLogs WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_ErrorLogs SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_ErrorLogs WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_ErrorLogs (Id, UserName, PageCode, Page, Ip, Message, Details, CreatedDate, ChangedDate, Status) VALUES (@Id, @UserName, @PageCode, @Page, @Ip, @Message, @Details, @CreatedDate, @ChangedDate, @Status)";
+        const string QUERY_INSERT="INSERT INTO Sys_ErrorLogs (Id, UserName, PageCode, Page, Ip, Message, Details, CreatedDate, ChangedDate, Status, Note) VALUES (@Id, @UserName, @PageCode, @Page, @Ip, @Message, @Details, @CreatedDate, @ChangedDate, @Status, @Note)";
         const string QUERY_UPDATE = "UPDATE Sys_ErrorLogs SET {0} WHERE  Id = @Id";
                 
         #endregion

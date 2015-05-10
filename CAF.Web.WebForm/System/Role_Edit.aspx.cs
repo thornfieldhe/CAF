@@ -9,10 +9,7 @@ namespace CAF.Web.WebForm
     {
         protected override void OnLoad(EventArgs e)
         {
-            if (!this.IsPostBack)
-            {
-                this.pageId = new Guid("FD4D499B-3667-4AA1-8120-89FEEF28AB59");
-            }
+            this.pageId = new Guid("FD4D499B-3667-4AA1-8120-89FEEF28AB59");
             base.OnLoad(e);
             this.submitForm.OnPostCreated += this.submitForm_OnPostExcute;
             this.submitForm.OnPostDelete += this.submitForm_OnPostExcute;

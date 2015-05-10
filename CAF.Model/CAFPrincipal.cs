@@ -26,7 +26,7 @@ namespace CAF.Model
 
         public static void Logout()
         {
-            //使用未经验证的标记方法，生命一个标准方法
+            //使用未经验证的标记方法，声明一个标准方法
             var identity = CAFIdentity.UnauthenticatedIdentity();
             var principal = new CAFPrincipal(identity);
         }

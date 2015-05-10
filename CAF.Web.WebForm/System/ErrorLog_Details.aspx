@@ -1,6 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="User_ChangePass.aspx.cs" Inherits="CAF.Web.WebForm.System.User_ChangePass" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ErrorLog_Details.aspx.cs" Inherits="CAF.Web.WebForm.ErrorLog_Details" %>
+<%@ Register TagPrefix="f" Namespace="FineUI" Assembly="FineUI" %>
 <%@ Register TagPrefix="f" Namespace="CAF.Web.WebForm.CAFControl" Assembly="CAF.Web.WebForm" %>
-
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,43 +10,47 @@
 </head>
 <body >
     <form id="form1" runat="server">
-    <f:PageManager ID="manager" runat="server"   AutoSizePanelID="mainPanel"/>
+    <f:PageManager  runat="server"  ID="manager"  AutoSizePanelID="mainPanel"/>
     <f:CAFPanel ID="mainPanel" runat="server">
         <Toolbars>
             <f:Toolbar ID="Toolbar1" runat="server">
                 <Items>
                     <f:CloseButton ID="btnClose" runat="server" />
-                    <f:UpdateButton ID="btnUpdate" runat="server" OnClick="btnExcute_Click">
-                    </f:UpdateButton>
                 </Items>
             </f:Toolbar>
         </Toolbars>
         <items>
-            <f:SubmitForm Width="350px" ID="submitForm" runat="server" >
+            <f:SubmitForm Width="580px" ID="submitForm" runat="server" >
                 <Rows>
                     <f:FormRow>
                         <Items>
-                            <f:Label ID="lblLoginName" Label="登录名" runat="server" >
+                            <f:Label ID="lblUserName" Label="用户名" runat="server" >
                             </f:Label>
                         </Items>
                     </f:FormRow>
                     <f:FormRow>
                         <Items>
-                            <f:TextBox ID="txtOldPassword" Label="原密码" TextMode="Password" runat="server" Required="true" ShowRedStar="true">
-                            </f:TextBox>
+                            <f:Label ID="lblPageCode" Label="错误代码" runat="server" >
+                            </f:Label>
                         </Items>
                     </f:FormRow>
                     <f:FormRow>
                         <Items>
-                            <f:TextBox ID="txtNewPass" Label="新密码" runat="server" Required="true" ShowRedStar="true" TextMode="Password">
-                            </f:TextBox>
+                            <f:Label ID="lblPage" Label="错误页" runat="server" >
+                            </f:Label>
                         </Items>
                     </f:FormRow>
                     <f:FormRow>
                         <Items>
-                            <f:TextBox ID="txtConfirmPassword" Label="确认密码" runat="server"  ShowRedStar="true" TextMode="Password" CompareControl="txtNewPass"
-                CompareOperator="Equal" CompareMessage="密码两次输入不一致！">
-                            </f:TextBox>
+                            <f:Label ID="lblIp" Label="Ip" runat="server">
+                            </f:Label>
+                        </Items>
+                    </f:FormRow>
+                    <f:FormRow>
+                        <Items>
+                            <f:TextArea ID="txtDetails" Label="详细错误" runat="server" Width="570px" Height="300"
+                                 Readonly="True">
+                            </f:TextArea>
                         </Items>
                     </f:FormRow>
                 </Rows>
@@ -56,3 +60,4 @@
     </form>
 </body>
 </html>
+

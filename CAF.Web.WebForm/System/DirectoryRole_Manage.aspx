@@ -22,11 +22,11 @@
         }
     </script>
     <form id="form1" runat="server">
-    <f:PageManager ID="manager" runat="server"  />
+    <f:PageManager ID="manager" runat="server"   AutoSizePanelID="mainPanel"/>
     <f:CAFPanel ID="mainPanel" runat="server" Layout="Fit" >
         <Items>
             <f:CAFGrid ID="grid" runat="server"  SortField="Status"  
-                AllowCellEditing="true" ClicksToEdit="1" Title="目录角色批量编辑" OnPreDataBound="grid_PreDataBound">
+                 ClicksToEdit="1" Title="目录角色批量编辑" OnPreDataBound="grid_PreDataBound">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar1" runat="server">
                         <Items>
@@ -49,13 +49,13 @@
                 </Toolbars>
                 <Columns>
                     <f:RenderField Width="200px" ColumnID="RoleId" DataField="RoleId" FieldType="String" ExpandUnusedSpace="true"
-                        HeaderText="角色"  RendererFunction="renderDicKey">
+                        HeaderText="角色"  RendererFunction="renderDicKey" >
                         <Editor>
-                            <f:DropDownList ID="dropRoles" Required="true" runat="server">
+                            <f:DropDownList ID="dropRoles" Required="true" runat="server" >
                             </f:DropDownList>
                         </Editor>
                     </f:RenderField>
-                    <f:RenderField ColumnID="Status" DataField="Status" FieldType="Int"  RendererFunction="renderStatus" 
+                    <f:RenderField Width="100px"  ColumnID="Status" DataField="Status" FieldType="Int"  RendererFunction="renderStatus" 
                         HeaderText="权限" ExpandUnusedSpace="true">
                         <Editor>
                             <f:DropDownList ID="dropStatus" Required="true" runat="server">

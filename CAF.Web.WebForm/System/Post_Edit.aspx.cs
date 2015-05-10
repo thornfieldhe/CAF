@@ -9,10 +9,7 @@ namespace CAF.Web.WebForm
     {
         protected override void OnLoad(EventArgs e)
         {
-            if (!this.IsPostBack)
-            {
-                this.pageId = new Guid("f2390f35-f438-4bb4-b753-eaa02e66b9c0");
-            }
+            this.pageId = new Guid("f2390f35-f438-4bb4-b753-eaa02e66b9c0");
             base.OnLoad(e);
             this.submitForm.OnPostCreated += this.submitForm_OnPostExcute;
             this.submitForm.OnPostDelete += this.submitForm_OnPostExcute;
@@ -48,7 +45,6 @@ namespace CAF.Web.WebForm
             var item = new Post();
             this.submitForm.Create(item);
         }
-
 
         protected void dropPostsId_SelectedIndexChanged(object sender, EventArgs e)
         {

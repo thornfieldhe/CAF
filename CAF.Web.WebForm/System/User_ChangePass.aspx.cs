@@ -21,10 +21,7 @@ namespace CAF.Web.WebForm.System
 
         protected override void OnLoad(EventArgs e)
         {
-            if (!this.IsPostBack)
-            {
-                this.pageId = new Guid("f3787cb4-c4c2-47e4-8e9c-ae625dbfa821");
-            }
+            this.pageId = new Guid("f3787cb4-c4c2-47e4-8e9c-ae625dbfa821");
             base.OnLoad(e);
             this.btnClose.OnClientClick = ActiveWindow.GetHidePostBackReference();
             this.submitForm.OnPostUpdated += this.submitForm_OnPostExcute;

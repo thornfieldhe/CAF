@@ -73,7 +73,7 @@ namespace CAF.Web.WebForm
 
                     if (canRead || canEdit)
                     {
-                        this.Title = this.module.ToString();
+                        this.Title = this.module;
                         this.Initialization();
                         if (canEdit)
                         {
@@ -110,7 +110,7 @@ namespace CAF.Web.WebForm
         protected void Initialization()
         {
             PageTools.ClearControls(this.Page);
-            this.Bind();
+            this.PageBind();
         }
 
 
@@ -120,7 +120,18 @@ namespace CAF.Web.WebForm
         /// </summary>
         protected virtual void Bind() { }
 
-
+        protected void PageBind()
+        {
+            try
+            {
+                this.Bind();
+            }
+            catch (Exception ex)
+            {
+                Alert.Show(ex.Message);
+                this.CreateErrorLog(ex);
+            }
+        }
 
         /// <summary>
         /// 绑定只读模式下控件的状态
@@ -188,8 +199,6 @@ namespace CAF.Web.WebForm
         protected virtual void UnAuthenticated()
         {
             this.Response.Redirect("~/Login.aspx?referrer=" + this.Server.UrlEncode(this.Request.Url.PathAndQuery));
-            //Response.End();
-            //return;
         }
 
         #endregion 授权
@@ -284,33 +293,6 @@ namespace CAF.Web.WebForm
         protected virtual void Export() { }
 
         protected virtual void Inport() { }
-        //
-        //        protected virtual string PreDelete() { return string.Empty; }
-        //
-        //        protected virtual string PreUpdate() { return string.Empty; }
-        //
-        //        protected virtual string PreAdd() { return string.Empty; }
-        //        protected virtual string PreSubmit() { return string.Empty; }
-        //
-        //        protected virtual string PreSave() { return string.Empty; }
-        //
-        //        protected virtual string PostDelete() { return string.Empty; }
-        //
-        //        protected virtual string PostUpdate() { return string.Empty; }
-        //
-        //        protected virtual string PostSubmit() { return string.Empty; }
-        //
-        //        protected virtual string PostAdd() { return string.Empty; }
-        //
-        //        protected virtual string PostSave() { return string.Empty; }
-        //
-        //        protected virtual void Reset() { }
-        //
-        //        protected virtual void Query() { }
-        //
-        //        protected virtual string Export() { return string.Empty; }
-        //
-        //        protected virtual string Inport() { return string.Empty; }
 
         #endregion 按钮事件
     }

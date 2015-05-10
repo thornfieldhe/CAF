@@ -11,7 +11,6 @@ namespace CAF.Web.WebForm
         {
             //绑定查询条件
 
-
             base.Bind();
             this.grid_OnQuery();
             this.btnNew.OnClientClick = this.winEdit.GetShowReference("Organize_Edit.aspx", "新增");

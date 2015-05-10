@@ -24,18 +24,18 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:CAFPageManager  runat="server" ID="manager" />
+    <f:PageManager  runat="server" ID="manager"  AutoSizePanelID="mainPanel"/>
     <f:CAFPanel runat="server" ID="mainPanel" Layout="Fit" >
         <Items>
-            <f:CAFGrid ID="grid" runat="server" Title="" AllowSorting="False" SortField="Level" OnRowCommand="gridRowCommand" 
-                EnableCollapse="true" DataKeyNames="Id">
+            <f:CAFGrid ID="grid" runat="server" Title=""  SortField="CreatedDate" OnRowCommand="gridRowCommand" 
+                 DataKeyNames="Id">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar1" runat="server" >
                         <Items >
+                            <f:NewButton ID="btnNew"  runat="server"  />
+                            <f:DeleteButton  ID="btnDeleteRows" runat="server" OnClick="btnExcute_Click"/>
                             <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
                             </f:ToolbarSeparator>
-                            <f:NewButton ID="btnNew"  Icon="Add" runat="server"  />
-                            <f:DeleteButton  ID="btnDeleteRows" runat="server" OnClick="btnDeleteRows_Click"/>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server"/>
                         </Items>
                     </f:Toolbar>
@@ -49,22 +49,22 @@
                         <%  ColumnSchema  column=SourceTable.NonPrimaryKeyColumns[i];%>                        
                         <% if(!IsSystemFiled(column)) {%>
                         <%if(ColumnIsDateTime(column)) {%>
-                    <f:BoundField Width="140px" ColumnID="<%=column.Name%>" DataField="<%=column.Name%>" HeaderText="<%= GetDescription(column) %>" DataFormatString="{0:yyyy-MM-dd}"></f:BoundField>
+                    <f:BoundField Width="140px" ColumnID="<%=column.Name%>" DataField="<%=column.Name%>" HeaderText="<%= GetDescription(column) %>" DataFormatString="{0:yyyy-MM-dd}"  SortField="<%=column.Name%>"></f:BoundField>
                         <%}else if(ColumnIsBool(column)){ %>
-                    <f:CheckBoxField  Width="80px" ColumnID="<%=column.Name%>" DataField="<%=column.Name%>" RenderAsStaticField="true" HeaderText="<%= GetDescription(column) %>"></f:CheckBoxField >
+                    <f:CheckBoxField  Width="80px" ColumnID="<%=column.Name%>" DataField="<%=column.Name%>" RenderAsStaticField="true" HeaderText="<%= GetDescription(column) %>" SortField="<%=column.Name%>"></f:CheckBoxField >
                         <%}else{ %>
-                    <f:BoundField Width="140px" ColumnID="<%=column.Name%>" DataField="<%=column.Name%>" HeaderText="<%= GetDescription(column) %>" ></f:BoundField>
+                    <f:BoundField Width="140px" ColumnID="<%=column.Name%>" DataField="<%=column.Name%>" HeaderText="<%= GetDescription(column) %>" SortField="<%=column.Name%>"></f:BoundField>
                         <%}}} %>
                         <%}else{ %>
                         <% for (int i = 0; i < SourceView.Columns.Count; i++) { %>
                         <%  ViewColumnSchema  column=SourceView.Columns[i];%>
                         <% if(!IsSystemFiled(column)) {%>
                         <%if(ColumnIsDateTime(column)) {%>
-                    <f:BoundField Width="140px" ColumnID="<%=column.Name%>" DataField="<%=column.Name%>" HeaderText="<%= GetDescription(column) %>" DataFormatString="{0:yyyy-MM-dd}"></f:BoundField>
+                    <f:BoundField Width="140px" ColumnID="<%=column.Name%>" DataField="<%=column.Name%>" HeaderText="<%= GetDescription(column) %>" DataFormatString="{0:yyyy-MM-dd}" SortField="<%=column.Name%>"></f:BoundField>
                         <%}else if(ColumnIsBool(column)){ %>
                     <f:CheckBoxField  Width="80px" ColumnID="<%=column.Name%>" DataField="<%=column.Name%>" RenderAsStaticField="true" HeaderText="<%= GetDescription(column) %>"></f:CheckBoxField >
                         <%}else{ %>
-                    <f:BoundField Width="140px" ColumnID="<%=column.Name%>" DataField="<%=column.Name%>" HeaderText="<%= GetDescription(column) %>" ></f:BoundField>
+                    <f:BoundField Width="140px" ColumnID="<%=column.Name%>" DataField="<%=column.Name%>" HeaderText="<%= GetDescription(column) %>" SortField="<%=column.Name%>"></f:BoundField>
                         <%}}} %>
                 <%} %>
                     <f:DeleteLinkButtonField  />
