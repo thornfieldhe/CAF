@@ -16,7 +16,7 @@ namespace CAF.Data
         /// </summary>
         public Database Db { get; private set; }
 
-        public DbConnection Connection { get { return Db.CreateConnection(); } }
+        public DbConnection Connection { get { return this.Db.CreateConnection(); } }
 
         public SqlDataPortal()
         {
@@ -47,14 +47,14 @@ namespace CAF.Data
         //sqlstring
         public int ExecuteNonQueryBySql(string sqlstr, params SqlParameter[] cmdParameters)
         {
-            var cmd = Db.GetSqlStringCommand(sqlstr);
-            return ExecuteNonQuery(cmd, cmdParameters);
+            var cmd = this.Db.GetSqlStringCommand(sqlstr);
+            return this.ExecuteNonQuery(cmd, cmdParameters);
         }
 
         public int ExecuteNonQueryBySql(DbTransaction transaction, string sqlstr, params SqlParameter[] cmdParameters)
         {
-            var cmd = Db.GetSqlStringCommand(sqlstr);
-            return ExecuteNonQuery(transaction, cmd, cmdParameters);
+            var cmd = this.Db.GetSqlStringCommand(sqlstr);
+            return this.ExecuteNonQuery(transaction, cmd, cmdParameters);
         }
 
         //dbcommand
@@ -67,10 +67,10 @@ namespace CAF.Data
                 {
                     for (var i = 0; i < cmdParameters.Length; i++)
                     {
-                        Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
+                        this.Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
                 }
-                query = Db.ExecuteNonQuery(cmd);
+                query = this.Db.ExecuteNonQuery(cmd);
             }
             catch (Exception exception1)
             {
@@ -90,10 +90,10 @@ namespace CAF.Data
                 {
                     for (var i = 0; i < cmdParameters.Length; i++)
                     {
-                        Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
+                        this.Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
                 }
-                query = Db.ExecuteNonQuery(cmd, transaction);
+                query = this.Db.ExecuteNonQuery(cmd, transaction);
             }
             catch (Exception exception1)
             {
@@ -109,7 +109,7 @@ namespace CAF.Data
         {
             if (transaction == null) throw new ArgumentNullException("transaction");
 
-            return Db.ExecuteNonQuery(transaction, spName, parameterValues);
+            return this.Db.ExecuteNonQuery(transaction, spName, parameterValues);
         }
 
         public int ExecuteNonQueryBySP(string spName, params object[] parameterValues)
@@ -117,9 +117,9 @@ namespace CAF.Data
             var query = 0;
             try
             {
-                var cmd = Db.GetStoredProcCommand(spName);
+                var cmd = this.Db.GetStoredProcCommand(spName);
 
-                query = Db.ExecuteNonQuery(spName, parameterValues);
+                query = this.Db.ExecuteNonQuery(spName, parameterValues);
             }
             catch (Exception exception1)
             {
@@ -137,14 +137,14 @@ namespace CAF.Data
         //sqlstring
         public object ExecuteScaleBySql(string sqlstr, params SqlParameter[] cmdParameters)
         {
-            var cmd = Db.GetSqlStringCommand(sqlstr);
-            return ExecuteScale(cmd, cmdParameters);
+            var cmd = this.Db.GetSqlStringCommand(sqlstr);
+            return this.ExecuteScale(cmd, cmdParameters);
         }
 
         public object ExecuteScaleBySql(DbTransaction transaction, string sqlstr, params SqlParameter[] cmdParameters)
         {
-            var cmd = Db.GetSqlStringCommand(sqlstr);
-            return ExecuteScale(transaction, cmd, cmdParameters);
+            var cmd = this.Db.GetSqlStringCommand(sqlstr);
+            return this.ExecuteScale(transaction, cmd, cmdParameters);
         }
 
         //dbcommand
@@ -157,10 +157,10 @@ namespace CAF.Data
                 {
                     for (var i = 0; i < cmdParameters.Length; i++)
                     {
-                        Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
+                        this.Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
                 }
-                ob = Db.ExecuteScalar(cmd);
+                ob = this.Db.ExecuteScalar(cmd);
             }
             catch (Exception exception1)
             {
@@ -180,10 +180,10 @@ namespace CAF.Data
                 {
                     for (var i = 0; i < cmdParameters.Length; i++)
                     {
-                        Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
+                        this.Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
                 }
-                ob = Db.ExecuteScalar(cmd, transaction);
+                ob = this.Db.ExecuteScalar(cmd, transaction);
             }
             catch (Exception exception1)
             {
@@ -200,7 +200,7 @@ namespace CAF.Data
             var ob = new object();
             try
             {
-                ob = Db.ExecuteScalar(transaction, spName, parameters);
+                ob = this.Db.ExecuteScalar(transaction, spName, parameters);
             }
             catch (Exception exception1)
             {
@@ -216,7 +216,7 @@ namespace CAF.Data
             var ob = new object();
             try
             {
-                ob = Db.ExecuteScalar(spName, paramers);
+                ob = this.Db.ExecuteScalar(spName, paramers);
             }
             catch (Exception exception1)
             {
@@ -234,14 +234,14 @@ namespace CAF.Data
         //sqlstr
         public DataSet GetDataSetBySql(string sqlstr, params SqlParameter[] cmdParameters)
         {
-            var cmd = Db.GetSqlStringCommand(sqlstr);
-            return GetDataSet(cmd, cmdParameters);
+            var cmd = this.Db.GetSqlStringCommand(sqlstr);
+            return this.GetDataSet(cmd, cmdParameters);
         }
 
         public DataSet GetDataSetBySql(DbTransaction transaction, string sqlstr, params SqlParameter[] cmdParameters)
         {
-            var cmd = Db.GetSqlStringCommand(sqlstr);
-            return GetDataSet(transaction, cmd, cmdParameters);
+            var cmd = this.Db.GetSqlStringCommand(sqlstr);
+            return this.GetDataSet(transaction, cmd, cmdParameters);
         }
 
         //dbcommand
@@ -254,10 +254,10 @@ namespace CAF.Data
                 {
                     for (var i = 0; i < cmdParameters.Length; i++)
                     {
-                        Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
+                        this.Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
                 }
-                ds = Db.ExecuteDataSet(cmd, transaction);
+                ds = this.Db.ExecuteDataSet(cmd, transaction);
             }
             catch (Exception exception1)
             {
@@ -277,10 +277,10 @@ namespace CAF.Data
                 {
                     for (var i = 0; i < cmdParameters.Length; i++)
                     {
-                        Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
+                        this.Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
                 }
-                ds = Db.ExecuteDataSet(cmd);
+                ds = this.Db.ExecuteDataSet(cmd);
             }
             catch (Exception exception1)
             {
@@ -297,7 +297,7 @@ namespace CAF.Data
             var ds = new DataSet();
             try
             {
-                ds = Db.ExecuteDataSet(spName, parameterValues);
+                ds = this.Db.ExecuteDataSet(spName, parameterValues);
             }
             catch (Exception exception1)
             {
@@ -313,7 +313,7 @@ namespace CAF.Data
             var ds = new DataSet();
             try
             {
-                ds = Db.ExecuteDataSet(transaction, spName, parameterValues);
+                ds = this.Db.ExecuteDataSet(transaction, spName, parameterValues);
             }
             catch (Exception exception1)
             {
@@ -331,14 +331,14 @@ namespace CAF.Data
         //sqlstr
         public IDataReader GetReaderBySql(string sqlstr, params SqlParameter[] cmdParameters)
         {
-            var cmd = Db.GetSqlStringCommand(sqlstr);
-            return GetReader(cmd, cmdParameters);
+            var cmd = this.Db.GetSqlStringCommand(sqlstr);
+            return this.GetReader(cmd, cmdParameters);
         }
 
         public IDataReader GetReaderBySql(DbTransaction transaction, string sqlstr, params SqlParameter[] cmdParameters)
         {
-            var cmd = Db.GetSqlStringCommand(sqlstr);
-            return GetReader(transaction, cmd, cmdParameters);
+            var cmd = this.Db.GetSqlStringCommand(sqlstr);
+            return this.GetReader(transaction, cmd, cmdParameters);
         }
 
         //dbcommand
@@ -350,10 +350,10 @@ namespace CAF.Data
                 {
                     for (var i = 0; i < cmdParameters.Length; i++)
                     {
-                        Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
+                        this.Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
                 }
-                return Db.ExecuteReader(cmd);
+                return this.Db.ExecuteReader(cmd);
             }
             catch (Exception exception1)
             {
@@ -372,10 +372,10 @@ namespace CAF.Data
                 {
                     for (var i = 0; i < cmdParameters.Length; i++)
                     {
-                        Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
+                        this.Db.AddInParameter(cmd, cmdParameters[i].ParameterName, cmdParameters[i].DbType, cmdParameters[i].Value);
                     }
                 }
-                return Db.ExecuteReader(cmd, transaction);
+                return this.Db.ExecuteReader(cmd, transaction);
             }
             catch (Exception exception1)
             {
@@ -391,8 +391,8 @@ namespace CAF.Data
         {
             try
             {
-                var cmd = Db.GetStoredProcCommand(spName);
-                return Db.ExecuteReader(spName, parameterValues);
+                var cmd = this.Db.GetStoredProcCommand(spName);
+                return this.Db.ExecuteReader(spName, parameterValues);
             }
             catch (Exception exception1)
             {
@@ -407,7 +407,7 @@ namespace CAF.Data
         {
             try
             {
-                return Db.ExecuteReader(transaction, spName, parameterValues);
+                return this.Db.ExecuteReader(transaction, spName, parameterValues);
             }
             catch (Exception exception1)
             {
@@ -422,8 +422,8 @@ namespace CAF.Data
 
         public List<string> DiscoverParameters(string spName)
         {
-            var cmd = Db.GetStoredProcCommand(spName);
-            Db.DiscoverParameters(cmd);
+            var cmd = this.Db.GetStoredProcCommand(spName);
+            this.Db.DiscoverParameters(cmd);
             var parametersNames = new List<string>();
             foreach (DbParameter parameter in cmd.Parameters)
             {
@@ -439,38 +439,38 @@ namespace CAF.Data
 
         public virtual List<T> LoadBySp<T>(string spName, params object[] parameters) where T : class
         {
-            var reader = GetReaderBySP(spName, parameters);
-            return Load<T>(reader);
+            var reader = this.GetReaderBySP(spName, parameters);
+            return this.Load<T>(reader);
         }
 
         public virtual List<T> LoadBySp<T>(DbTransaction transaction, string spName, params object[] parameters) where T : class
         {
-            var reader = GetReaderBySP(spName, parameters);
-            return Load<T>(reader);
+            var reader = this.GetReaderBySP(spName, parameters);
+            return this.Load<T>(reader);
         }
 
         public virtual List<T> LoadBySql<T>(string sqlstr, params SqlParameter[] parameters) where T : class
         {
-            var reader = GetReaderBySql(sqlstr, parameters);
-            return Load<T>(reader);
+            var reader = this.GetReaderBySql(sqlstr, parameters);
+            return this.Load<T>(reader);
         }
 
         public virtual List<T> LoadBySql<T>(DbTransaction transaction, string sqlstr, params SqlParameter[] parameters) where T : class
         {
-            var reader = GetReaderBySql(transaction, sqlstr, parameters);
-            return Load<T>(reader);
+            var reader = this.GetReaderBySql(transaction, sqlstr, parameters);
+            return this.Load<T>(reader);
         }
 
         public virtual List<T> LoadByCmd<T>(DbCommand cmd, params SqlParameter[] parameters) where T : class
         {
-            var reader = GetReader(cmd, parameters);
-            return Load<T>(reader);
+            var reader = this.GetReader(cmd, parameters);
+            return this.Load<T>(reader);
         }
 
         public virtual List<T> LoadByCmd<T>(DbTransaction transaction, DbCommand cmd, params SqlParameter[] parameters) where T : class
         {
-            var reader = GetReader(transaction, cmd, parameters);
-            return Load<T>(reader);
+            var reader = this.GetReader(transaction, cmd, parameters);
+            return this.Load<T>(reader);
         }
 
         /// <summary>

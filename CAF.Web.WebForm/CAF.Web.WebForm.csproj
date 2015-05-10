@@ -40,6 +40,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.1.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="FineUI, Version=4.1.6.0, Culture=neutral, PublicKeyToken=0ff1835d01c384a9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FineUI.4.1.6\lib\FineUI.dll</HintPath>
@@ -77,6 +80,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\Elmah.SqlServer.sql" />
+    <Content Include="App_Readme\Elmah.SqlServer.txt" />
     <Content Include="Content\default.css" />
     <Content Include="default.aspx" />
     <Content Include="extjs\ext-all.js" />
@@ -3648,11 +3653,13 @@
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="System\CustomQuery.aspx" />
     <Content Include="System\DirectoryRole_Manage.aspx" />
     <Content Include="System\Directory_Edit.aspx" />
     <Content Include="System\Directory_Query.aspx" />
     <Content Include="System\ErrorLog_Details.aspx" />
     <Content Include="System\ErrorLog_Query.aspx" />
+    <Content Include="System\ExcuteSql.aspx" />
     <Content Include="System\InfoLog_Query.aspx" />
     <Content Include="System\LoginLog_Query.aspx" />
     <Content Include="System\Organize_Edit.aspx" />
@@ -3714,6 +3721,13 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="System\CustomQuery.aspx.cs">
+      <DependentUpon>CustomQuery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\CustomQuery.aspx.designer.cs">
+      <DependentUpon>CustomQuery.aspx</DependentUpon>
+    </Compile>
     <Compile Include="System\DirectoryRole_Manage.aspx.cs">
       <DependentUpon>DirectoryRole_Manage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3748,6 +3762,13 @@
     </Compile>
     <Compile Include="System\ErrorLog_Query.aspx.designer.cs">
       <DependentUpon>ErrorLog_Query.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="System\ExcuteSql.aspx.cs">
+      <DependentUpon>ExcuteSql.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\ExcuteSql.aspx.designer.cs">
+      <DependentUpon>ExcuteSql.aspx</DependentUpon>
     </Compile>
     <Compile Include="System\InfoLog_Query.aspx.cs">
       <DependentUpon>InfoLog_Query.aspx</DependentUpon>

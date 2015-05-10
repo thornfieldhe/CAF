@@ -5,7 +5,13 @@ namespace CAF.Model
 
     public class SqlService : SingletonBase<SqlService>
     {
-        private readonly string sqlconnection = System.Configuration.ConfigurationManager.ConnectionStrings["CAFConnectionString"].ToString();
+        public string ConnectionString
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.ConnectionStrings["CAFConnectionString"].ToString();
+            }
+        }
 
         public SqlService() { }
 
@@ -14,7 +20,7 @@ namespace CAF.Model
         {
             get
             {
-                var connection = new SqlConnection(sqlconnection);
+                var connection = new SqlConnection(this.ConnectionString);
                 connection.Open();
                 return connection;
             }
