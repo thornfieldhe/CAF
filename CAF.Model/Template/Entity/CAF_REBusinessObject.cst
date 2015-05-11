@@ -249,7 +249,7 @@ namespace <%= ClassNamespace %>.Model
         public override int Delete(IDbConnection conn, IDbTransaction transaction)
         {
             base.MarkDelete();
-            return conn.Execute(QUERY_DELETE, this, transaction, null, null);
+            return conn.Execute(QUERY_DELETE, this.Id, transaction, null, null);
         }
 
         public override int Update(IDbConnection conn, IDbTransaction transaction)
@@ -347,6 +347,10 @@ public string GetClassName(TableSchema table)
     if (name.EndsWith("ies"))
 	{
 		return name.Substring(pre+1, name.Length - pre-4)+"y";
+	}
+    else if (name.EndsWith("sses"))
+	{
+		return name.Substring(pre+1, name.Length - pre-3);
 	}
 	else if (name.EndsWith("s"))
 	{

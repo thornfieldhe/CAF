@@ -118,6 +118,32 @@ public void RenderBusinessObject(TableSchema table)
                 businessObject.WithMany.Add("Sys_R_User_Post");
                 businessObject.RenderToFile(fileDirectory,true);
             break;
+            case "Sys_WorkflowProcesses":
+                businessObject.Children.Add("WorkflowActivity");
+                businessObject.Children.Add("WorkflowRule");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            case "Sys_WfProcesses":
+                businessObject.Children.Add("WfActivity");
+                businessObject.Children.Add("WfRule");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            case "Sys_WfActivities":
+                businessObject.AsChildren.Add("WfProcessId");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            case "Sys_WfRules":
+                businessObject.AsChildren.Add("WfProcessId");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            case "Sys_WorkflowActivities":
+                businessObject.AsChildren.Add("WorkflowProcessId");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
+            case "Sys_WorkflowRules":
+                businessObject.AsChildren.Add("WorkflowProcessId");
+                businessObject.RenderToFile(fileDirectory,true);
+            break;
             default:
                 businessObject.RenderToFile(fileDirectory,true);
             break;    

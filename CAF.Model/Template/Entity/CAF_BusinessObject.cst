@@ -422,7 +422,7 @@ namespace <%= ClassNamespace %>.Model
 		public override int Delete(IDbConnection conn, IDbTransaction transaction)
 		{
             base.MarkDelete();
-            return conn.Execute(QUERY_DELETE, new { Id = Id }, transaction, null, null);
+            return conn.Execute(QUERY_DELETE, new { Id = this.Id }, transaction, null, null);
 		}
 		
 		public override int Update(IDbConnection conn, IDbTransaction transaction)
@@ -527,7 +527,7 @@ namespace <%= ClassNamespace %>.Model
 		
 		protected  void PostAdd<%=item%>(<%=item%> <%=GetCamelCaseName(item)%>)
         {
-			<%=GetCamelCaseName(item)%>.<%=GetClassName(SourceTable)%>Id=Id;
+			<%=GetCamelCaseName(item)%>.<%=GetClassName(SourceTable)%>Id=this.Id;
         }
 		
 		<%} %>
@@ -770,6 +770,10 @@ public string GetClassName(TableSchema table)
     if (table.Name.EndsWith("ies"))
 	{
 		return table.Name.Substring(pre+1, table.Name.Length - pre-4)+"y";
+	}
+    else if (table.Name.EndsWith("sses"))
+	{
+		return table.Name.Substring(pre+1, table.Name.Length - pre-3);
 	}
 	else if (table.Name.EndsWith("s"))
 	{
