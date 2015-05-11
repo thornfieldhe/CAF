@@ -66,7 +66,7 @@ namespace CAF.Model
         const string QUERY_DELETE = "UPDATE Sys_UserSettings SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_UserSettings WHERE Id = @Id AND Status!=-1";
         const string QUERY_GETBYUSERID = "SELECT Top 1 * FROM Sys_UserSettings WHERE Status!=-1 And UserId=@UserId";
-        const string QUERY_INSERT="INSERT INTO Sys_UserSettings (Id, Status, CreatedDate, ChangedDate, Note, Settings, UserId) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Settings, @UserId)";
+        const string QUERY_INSERT="INSERT INTO Sys_UserSettings ([Id], [Status], [CreatedDate], [ChangedDate], [Note], [Settings], [UserId]) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Settings, @UserId)";
         const string QUERY_UPDATE = "UPDATE Sys_UserSettings SET {0} WHERE  Id = @Id";
                 
         #endregion
@@ -146,7 +146,7 @@ namespace CAF.Model
 		public override int Delete(IDbConnection conn, IDbTransaction transaction)
 		{
             base.MarkDelete();
-            return conn.Execute(QUERY_DELETE, new { Id = Id }, transaction, null, null);
+            return conn.Execute(QUERY_DELETE, new { Id = this.Id }, transaction, null, null);
 		}
 		
 		public override int Update(IDbConnection conn, IDbTransaction transaction)

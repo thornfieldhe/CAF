@@ -89,7 +89,7 @@ namespace CAF
                 || (oldValue != null && oldValue.Equals(newValue)))
             { return false; }
             this.MarkDirty();
-            var parameter = string.Format(", {0} =  @{0}", propertyName);
+            var parameter = string.Format(", [{0}] =  @{0}", propertyName);
             if (!this._updateParameters.Contains(parameter))
                 this._updateParameters += parameter;
             oldValue = newValue;

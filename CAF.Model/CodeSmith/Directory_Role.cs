@@ -1,43 +1,45 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CAF.Model
 {
     using CAF.Data;
     using CAF.Validation;
+    using System.ComponentModel.DataAnnotations;
     using System.Data;
 
     [Serializable]
-    public partial class Directory_Role : BaseEntity<Directory_Role>
-    {
+	public partial class Directory_Role :  BaseEntity<Directory_Role>
+	{   
         public Directory_Role()
         {
             this.Connection = SqlService.Instance.Connection;
             this.TableName = "Sys_RE_Directory_Role";
             base.MarkNew();
-            this._directoryInitalizer = new Lazy<Directory>(() => InitDirectory(this), isThreadSafe: true);
-            this._roleInitalizer = new Lazy<Role>(() => InitRole(this), isThreadSafe: true);
+            this. _roleInitalizer = new Lazy<Role>(() => InitRole(this), isThreadSafe: true);
+            this. _directoryInitalizer = new Lazy<Directory>(() => InitDirectory(this), isThreadSafe: true);
         }
-
+        
         #region 公共属性
 
         private Guid _roleId = Guid.Empty;
         private Guid _directoryId = Guid.Empty;
-        private Lazy<Directory> _directoryInitalizer;
-        private Directory _directory;
-        private Lazy<Role> _roleInitalizer;
+        private Lazy<Role>  _roleInitalizer;
         private Role _role;
-
+        private Lazy<Directory>  _directoryInitalizer;
+        private Directory _directory;
+        
         /// <summary>
         /// 角色Id
         /// </summary>
-        [GuidRequired(ErrorMessage = "角色不允许为空")]
-        public Guid RoleId
-        {
-            get { return this._roleId; }
-            set { this.SetProperty("RoleId", ref this._roleId, value); }
-        }
-
+        [GuidRequired(ErrorMessage="角色不允许为空")]
+		public Guid RoleId
+		{
+			get {return this._roleId;} 
+            set {this.SetProperty("RoleId",ref this._roleId, value);}           	
+		}
+        
         /// <summary>
         /// 角色
         /// </summary>
@@ -45,23 +47,24 @@ namespace CAF.Model
         {
             get
             {
-                if (!this._roleInitalizer.IsValueCreated)
+                if (!this. _roleInitalizer.IsValueCreated)
                 {
-                    this._role = this._roleInitalizer.Value;
+                    this._role = this. _roleInitalizer.Value;
                 }
                 return this._role;
             }
         }
+        
         /// <summary>
         /// 目录Id
         /// </summary>
-        [GuidRequired(ErrorMessage = "目录不允许为空")]
-        public Guid DirectoryId
-        {
-            get { return this._directoryId; }
-            set { this.SetProperty("DirectoryId", ref this._directoryId, value); }
-        }
-
+        [GuidRequired(ErrorMessage="目录不允许为空")]
+		public Guid DirectoryId
+		{
+			get {return this._directoryId;} 
+            set {this.SetProperty("DirectoryId",ref this._directoryId, value);}           	
+		}
+        
         /// <summary>
         /// 目录
         /// </summary>
@@ -69,88 +72,67 @@ namespace CAF.Model
         {
             get
             {
-                if (!this._directoryInitalizer.IsValueCreated)
+                if (!this. _directoryInitalizer.IsValueCreated)
                 {
-                    this._directory = this._directoryInitalizer.Value;
+                    this._directory = this. _directoryInitalizer.Value;
                 }
                 return this._directory;
             }
         }
-
-
-        #endregion
-
+        
+		#endregion
+        
         #region 常量定义
-
-        const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_RE_Directory_Role WHERE DirectoryId = @DirectoryId  AND RoleId = @RoleId  AND Status!=-1";
+        
+        const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_RE_Directory_Role WHERE RoleId = @RoleId  AND DirectoryId = @DirectoryId  AND Status!=-1";
         const string QUERY_GETBYID2 = "SELECT Top 1 * FROM Sys_RE_Directory_Role WHERE Id = @Id    AND Status!=-1";
-        const string QUERY_GETAllBYDIRECTORY = "SELECT * FROM Sys_RE_Directory_Role WHERE DirectoryId = @DirectoryId  AND Status!=-1";
         const string QUERY_GETAllBYROLE = "SELECT * FROM Sys_RE_Directory_Role WHERE RoleId = @RoleId  AND Status!=-1";
-        const string QUERY_DELETE = "UPDATE Sys_RE_Directory_Role SET Status=-1 WHERE DirectoryId = @DirectoryId  AND RoleId = @RoleId AND  Status!=-1";
+        const string QUERY_GETAllBYDIRECTORY = "SELECT * FROM Sys_RE_Directory_Role WHERE DirectoryId = @DirectoryId  AND Status!=-1";
+        const string QUERY_DELETE = "UPDATE Sys_RE_Directory_Role SET Status=-1 WHERE RoleId = @RoleId  AND DirectoryId = @DirectoryId AND  Status!=-1";
         const string QUERY_DELETE2 = "UPDATE Sys_RE_Directory_Role SET Status=-1 WHERE Id = @Id  AND  Status!=-1";
-        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_RE_Directory_Role WHERE DirectoryId = @DirectoryId  AND RoleId = @RoleId AND Status!=-1";
+        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_RE_Directory_Role WHERE RoleId = @RoleId  AND DirectoryId = @DirectoryId AND Status!=-1";
         const string QUERY_EXISTS2 = "SELECT Count(*) FROM Sys_RE_Directory_Role WHERE Id = @Id  AND Status!=-1";
-        const string QUERY_INSERT = "INSERT INTO Sys_RE_Directory_Role (Id, Status, CreatedDate, ChangedDate, Note, RoleId, DirectoryId) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @RoleId, @DirectoryId)";
-        const string QUERY_UPDATE = "UPDATE Sys_RE_Directory_Role SET {0} WHERE  DirectoryId = @DirectoryId  AND RoleId = @RoleId";
-
+        const string QUERY_INSERT="INSERT INTO Sys_RE_Directory_Role (Id, Status, CreatedDate, ChangedDate, Note, RoleId, DirectoryId) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @RoleId, @DirectoryId)";
+        const string QUERY_UPDATE = "UPDATE Sys_RE_Directory_Role SET {0} WHERE  RoleId = @RoleId  AND DirectoryId = @DirectoryId";
+                
         #endregion
-
+        
         #region 静态方法
-
-        public static Directory_Role Get(Guid directoryId, Guid roleId)
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
+        
+        public static Directory_Role Get(Guid roleId,Guid directoryId)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                var item = conn.Query<Directory_Role>(QUERY_GETBYID, new { DirectoryId = directoryId, RoleId = roleId }).SingleOrDefault<Directory_Role>();
+                var item= conn.Query<Directory_Role>(QUERY_GETBYID, new { RoleId = roleId,DirectoryId = directoryId }).SingleOrDefault<Directory_Role>();
                 if (item == null)
                 {
                     return null;
                 }
-                item.Connection = SqlService.Instance.Connection;
+                item.Connection =  SqlService.Instance.Connection;
                 item.MarkOld();
-                item._directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
-                item._roleInitalizer = new Lazy<Role>(() => InitRole(item), isThreadSafe: true);
+                item. _roleInitalizer = new Lazy<Role>(() => InitRole(item), isThreadSafe: true);
+                item. _directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
                 return item;
             }
-        }
-
+		}
+        
         public static Directory_Role Get(Guid id)
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                var item = conn.Query<Directory_Role>(QUERY_GETBYID2, new { Id = id }).SingleOrDefault<Directory_Role>();
+                var item= conn.Query<Directory_Role>(QUERY_GETBYID2, new { Id = id }).SingleOrDefault<Directory_Role>();
                 if (item == null)
                 {
                     return null;
                 }
-                item.Connection = SqlService.Instance.Connection;
+                item.Connection =  SqlService.Instance.Connection;
                 item.MarkOld();
-                item._directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
-                item._roleInitalizer = new Lazy<Role>(() => InitRole(item), isThreadSafe: true);
+                item. _roleInitalizer = new Lazy<Role>(() => InitRole(item), isThreadSafe: true);
+                item. _directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
                 return item;
             }
-        }
-
-        public static Directory_RoleList GetAllByDirectoryId(Guid directoryId)
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                var items = conn.Query<Directory_Role>(QUERY_GETAllBYDIRECTORY, new { DirectoryId = directoryId }).ToList();
-
-                var list = new Directory_RoleList();
-                foreach (var item in items)
-                {
-                    item.Connection = SqlService.Instance.Connection;
-                    item.MarkOld();
-                    item._directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
-                    item._roleInitalizer = new Lazy<Role>(() => InitRole(item), isThreadSafe: true);
-                    list.Add(item);
-                }
-                list.MarkOld();
-                return list;
-            }
-        }
-
+		}
+        
         public static Directory_RoleList GetAllByRoleId(Guid roleId)
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
@@ -160,29 +142,49 @@ namespace CAF.Model
                 var list = new Directory_RoleList();
                 foreach (var item in items)
                 {
-                    item.Connection = SqlService.Instance.Connection;
+                    item.Connection =  SqlService.Instance.Connection;
                     item.MarkOld();
-                    item._directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
-                    item._roleInitalizer = new Lazy<Role>(() => InitRole(item), isThreadSafe: true);
+                    item. _roleInitalizer = new Lazy<Role>(() => InitRole(item), isThreadSafe: true);
+                    item. _directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkOld();
                 return list;
             }
         }
+                
+        public static Directory_RoleList GetAllByDirectoryId(Guid directoryId)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                var items = conn.Query<Directory_Role>(QUERY_GETAllBYDIRECTORY, new { DirectoryId = directoryId }).ToList();
 
+                var list = new Directory_RoleList();
+                foreach (var item in items)
+                {
+                    item.Connection =  SqlService.Instance.Connection;
+                    item.MarkOld();
+                    item. _roleInitalizer = new Lazy<Role>(() => InitRole(item), isThreadSafe: true);
+                    item. _directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
+                    list.Add(item);
+                }
+                list.MarkOld();
+                return list;
+            }
+        }
+        
         /// <summary>
         /// 直接删除
         /// </summary>
         /// <returns></returns>
-        public static int Delete(Guid directoryId, Guid roleId)
+        public static int Delete(Guid roleId, Guid directoryId)
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                return conn.Execute(QUERY_DELETE, new { DirectoryId = directoryId, RoleId = roleId });
+                return conn.Execute(QUERY_DELETE, new { RoleId = roleId, DirectoryId = directoryId });
             }
         }
-
+        
         /// <summary>
         /// 直接删除
         /// </summary>
@@ -194,29 +196,29 @@ namespace CAF.Model
                 return conn.Execute(QUERY_DELETE2, new { Id = id });
             }
         }
-
-        public static bool Exists(Guid directoryId, Guid roleId)
+        
+        public static bool Exists(Guid roleId, Guid directoryId)
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                return conn.Query<int>(QUERY_EXISTS, new { DirectoryId = directoryId, RoleId = roleId }).Single() >= 1;
+                return conn.Query<int>(QUERY_EXISTS, new {  RoleId = roleId, DirectoryId = directoryId }).Single() >= 1;
             }
         }
-
-        public static bool Exists(Guid id)
+        
+         public static bool Exists(Guid id)
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                return conn.Query<int>(QUERY_EXISTS2, new { Id = id }).Single() >= 1;
+                return conn.Query<int>(QUERY_EXISTS2, new {  Id = id}).Single() >= 1;
             }
         }
-
+        
         #endregion
-
+        
         public override int Delete(IDbConnection conn, IDbTransaction transaction)
         {
             base.MarkDelete();
-            return conn.Execute(QUERY_DELETE, this, transaction, null, null);
+            return conn.Execute(QUERY_DELETE, this.Id, transaction, null, null);
         }
 
         public override int Update(IDbConnection conn, IDbTransaction transaction)
@@ -236,18 +238,8 @@ namespace CAF.Model
             this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
             return this._changedRows;
         }
-
+        
         #region 私有方法
-
-        protected static Directory InitDirectory(Directory_Role directory_role)
-        {
-            var item = Directory.Get(directory_role.DirectoryId);
-            if (item != null)
-            {
-                item.OnPropertyChange += item.MarkDirty;
-            }
-            return item;
-        }
 
         protected static Role InitRole(Directory_Role directory_role)
         {
@@ -259,18 +251,28 @@ namespace CAF.Model
             return item;
         }
 
+        protected static Directory InitDirectory(Directory_Role directory_role)
+        {
+            var item = Directory.Get(directory_role.DirectoryId);
+            if (item != null)
+            {
+                item.OnPropertyChange += item.MarkDirty;
+            }
+            return item;
+        }
+
 
         #endregion
 
     }
-
-    [Serializable]
-    public class Directory_RoleList : CollectionBase<Directory_RoleList, Directory_Role>
+    
+	[Serializable]
+    public class Directory_RoleList:CollectionBase<Directory_RoleList,Directory_Role>
     {
-        public Directory_RoleList() { this.Connection = SqlService.Instance.Connection; }
+        public Directory_RoleList() { this.Connection = SqlService.Instance.Connection;}
 
         protected const string tableName = "Sys_RE_Directory_Role";
-
+        
         public static Directory_RoleList Query(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
@@ -299,7 +301,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single() > 0;
+               return conn.Query<int>(string.Format(COUNT, tableName, query), dynamicObj).Single()>0;
             }
         }
     }

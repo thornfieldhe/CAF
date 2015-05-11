@@ -171,7 +171,7 @@ namespace CAF.Model
         const string QUERY_CONTAINSORGANIZEROLE = "SELECT COUNT(*) FROM Sys_R_Organize_Role WHERE  OrganizeId = @OrganizeId AND RoleId=@RoleId";
         const string QUERY_ADDRELARIONSHIPWITHORGANIZEROLE = "INSERT INTO Sys_R_Organize_Role (OrganizeId,RoleId,Status)VALUES(@OrganizeId, @RoleId,0)";
         const string QUERY_DELETERELARIONSHIPWITHORGANIZEROLE = "UPDATE Sys_R_Organize_Role SET Status=-1 WHERE OrganizeId=@OrganizeId AND RoleId=@RoleId AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_Organizes (Id, Status, CreatedDate, ChangedDate, Note, Name, ParentId, Sort, Level, Code) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name, @ParentId, @Sort, @Level, @Code)";
+        const string QUERY_INSERT="INSERT INTO Sys_Organizes ([Id], [Status], [CreatedDate], [ChangedDate], [Note], [Name], [ParentId], [Sort], [Level], [Code]) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name, @ParentId, @Sort, @Level, @Code)";
         const string QUERY_UPDATE = "UPDATE Sys_Organizes SET {0} WHERE  Id = @Id";
                 
         #endregion
@@ -280,7 +280,7 @@ namespace CAF.Model
 		public override int Delete(IDbConnection conn, IDbTransaction transaction)
 		{
             base.MarkDelete();
-            return conn.Execute(QUERY_DELETE, new { Id = Id }, transaction, null, null);
+            return conn.Execute(QUERY_DELETE, new { Id = this.Id }, transaction, null, null);
 		}
 		
 		public override int Update(IDbConnection conn, IDbTransaction transaction)
@@ -362,7 +362,7 @@ namespace CAF.Model
 		
 		protected  void PostAddUser(User user)
         {
-			user.OrganizeId=Id;
+			user.OrganizeId=this.Id;
         }
 		
 		#endregion

@@ -47,10 +47,7 @@ namespace <%= this.ClassNamespace %>.Web.WebForm
         
         protected override void OnLoad(EventArgs e)
         {
-            if (!this.IsPostBack)
-            {
-                this.pageId = new Guid("<%=Guid.NewGuid()%>");
-            }
+            this.pageId = new Guid("<%=Guid.NewGuid()%>");
             base.OnLoad(e);
             this.btnClose.OnClientClick = ActiveWindow.GetHidePostBackReference();
             this.submitForm.OnPostCreated += this.submitForm_OnPostExcute;

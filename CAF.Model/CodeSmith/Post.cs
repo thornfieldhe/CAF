@@ -88,7 +88,7 @@ namespace CAF.Model
         const string QUERY_CONTAINSUSERPOST = "SELECT COUNT(*) FROM Sys_R_User_Post WHERE  PostId = @PostId AND UserId=@UserId";
         const string QUERY_ADDRELARIONSHIPWITHUSERPOST = "INSERT INTO Sys_R_User_Post (PostId,UserId,Status)VALUES(@PostId, @UserId,0)";
         const string QUERY_DELETERELARIONSHIPWITHUSERPOST = "UPDATE Sys_R_User_Post SET Status=-1 WHERE PostId=@PostId AND UserId=@UserId AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_Posts (Id, Name, CreatedDate, ChangedDate, Status, Note) VALUES (@Id, @Name, @CreatedDate, @ChangedDate, @Status, @Note)";
+        const string QUERY_INSERT="INSERT INTO Sys_Posts ([Id], [Name], [CreatedDate], [ChangedDate], [Status], [Note]) VALUES (@Id, @Name, @CreatedDate, @ChangedDate, @Status, @Note)";
         const string QUERY_UPDATE = "UPDATE Sys_Posts SET {0} WHERE  Id = @Id";
                 
         #endregion
@@ -175,7 +175,7 @@ namespace CAF.Model
 		public override int Delete(IDbConnection conn, IDbTransaction transaction)
 		{
             base.MarkDelete();
-            return conn.Execute(QUERY_DELETE, new { Id = Id }, transaction, null, null);
+            return conn.Execute(QUERY_DELETE, new { Id = this.Id }, transaction, null, null);
 		}
 		
 		public override int Update(IDbConnection conn, IDbTransaction transaction)

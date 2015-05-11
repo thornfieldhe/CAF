@@ -58,12 +58,12 @@ namespace CAF.Model.Workflow
         {
             var b = UTF8Encoding.UTF8.GetBytes(document);
             var xele = XElement.Load(XmlReader.Create(new MemoryStream(b)));
-            var workflowId = new Guid(xele.Attribute(XName.Get("UniqueID")).Value);
-            var workflow = WorkflowProcess.Get(workflowId) ?? new WorkflowProcess();
-            workflow.Name = xele.Attribute(XName.Get("Name")).Value;
-            workflow.Document = document;
-            workflow.WorkflowActivitys.ForEach(w => w.MarkDelete());
-            workflow.WorkflowRules.ForEach(w => w.MarkDelete());
+            var moduleName = xele.Attribute(XName.Get("Name")).Value;
+            var module = Module.Get(moduleName);
+            module.WorkflowProcess.Name = xele.Attribute(XName.Get("Name")).Value;
+            module.WorkflowProcess.Document = document;
+            module.WorkflowProcess.WorkflowActivitys.ForEach(w => w.MarkDelete());
+            module.WorkflowProcess.WorkflowRules.ForEach(w => w.MarkDelete());
 
             var partNos = from item in xele.Descendants("Activity") select item;
             foreach (var node in partNos)
@@ -77,36 +77,27 @@ namespace CAF.Model.Workflow
                                    };
                 if (!string.IsNullOrEmpty(node.Attribute(XName.Get("ActivityPost")).Value))
                     activity.Post = new Guid(node.Attribute(XName.Get("ActivityPost")).Value);
-                workflow.WorkflowActivitys.Add(activity);
+                module.WorkflowProcess.WorkflowActivitys.Add(activity);
             }
 
             partNos = from item in xele.Descendants("Rule") select item;
 
-            foreach (XElement node in partNos)
+            foreach (var rule in partNos.Select(node => new WorkflowRule
+                    {
+                        BeginActivityID =
+                            new Guid(node.Attribute(XName.Get("BeginActivityUniqueID")).Value),
+                        Condition = CharTrans(node.Attribute(XName.Get("RuleCondition")).Value),
+                        EndActivityID =
+                            new Guid(node.Attribute(XName.Get("EndActivityUniqueID")).Value),
+                        Id = new Guid(node.Attribute(XName.Get("UniqueID")).Value),
+                        Name = node.Attribute(XName.Get("RuleName")).Value,
+                        Type = node.Attribute(XName.Get("LineType")).Value
+                    }))
             {
-                var rule = new WorkflowRule
-                               {
-                                   BeginActivityID =
-                                       new Guid(node.Attribute(XName.Get("BeginActivityUniqueID")).Value),
-                                   Condition = CharTrans(node.Attribute(XName.Get("RuleCondition")).Value),
-                                   EndActivityID =
-                                       new Guid(node.Attribute(XName.Get("EndActivityUniqueID")).Value),
-                                   Id = new Guid(node.Attribute(XName.Get("UniqueID")).Value),
-                                   Name = node.Attribute(XName.Get("RuleName")).Value,
-                                   Type = node.Attribute(XName.Get("LineType")).Value
-                               };
-                workflow.WorkflowRules.Add(rule);
+                module.WorkflowProcess.WorkflowRules.Add(rule);
             }
-            workflow.SubmitChange();
-            //            var dic = dataContext.Dictionary.SingleOrDefault(d => d.Category == "模块名称" && d.DicKey == process.WorkFlowName);
-            //            if (dic == null)
-            //            {
-            //                dic = new Dictionary<,>();
-            //                dic.ID = Guid.NewGuid();
-            //                dic.Category = "模块名称";
-            //                dic.DicKey = process.WorkFlowName;
-            //                dataContext.Dictionary.InsertOnSubmit(dic);
-            //            }
+            module.SubmitChange();
+
         }
 
         /// <summary>

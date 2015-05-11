@@ -8,12 +8,12 @@ namespace CAF.Model
     {        
     
         public ReadOnlyDirectoryRole() { this.TableName = "V_DirectoryRoles"; }
-        public Guid Id{get; set;}      
-        public Guid DirectoryId{get; set;}      
-        public Guid RoleId{get; set;}      
-        public int Status{get; set;}      
-        public string DirectoryName{get; set;}      
-        public string RoleName{get; set;}      
+		public Guid Id{get; set;}      
+		public Guid DirectoryId{get; set;}      
+		public Guid RoleId{get; set;}      
+		public int Status{get; set;}      
+		public string DirectoryName{get; set;}      
+		public string RoleName{get; set;}      
         public string TableName { get; protected set; }
     }
 }

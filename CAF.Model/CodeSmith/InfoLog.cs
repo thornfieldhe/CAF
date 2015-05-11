@@ -68,7 +68,7 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_InfoLogs WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_InfoLogs SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_InfoLogs WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_InfoLogs (Id, UserName, Page, Action, ChangedDate, CreatedDate, Status, Note) VALUES (@Id, @UserName, @Page, @Action, @ChangedDate, @CreatedDate, @Status, @Note)";
+        const string QUERY_INSERT="INSERT INTO Sys_InfoLogs ([Id], [UserName], [Page], [Action], [ChangedDate], [CreatedDate], [Status], [Note]) VALUES (@Id, @UserName, @Page, @Action, @ChangedDate, @CreatedDate, @Status, @Note)";
         const string QUERY_UPDATE = "UPDATE Sys_InfoLogs SET {0} WHERE  Id = @Id";
                 
         #endregion
@@ -134,7 +134,7 @@ namespace CAF.Model
 		public override int Delete(IDbConnection conn, IDbTransaction transaction)
 		{
             base.MarkDelete();
-            return conn.Execute(QUERY_DELETE, new { Id = Id }, transaction, null, null);
+            return conn.Execute(QUERY_DELETE, new { Id = this.Id }, transaction, null, null);
 		}
 		
 		public override int Update(IDbConnection conn, IDbTransaction transaction)

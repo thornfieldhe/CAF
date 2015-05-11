@@ -10,22 +10,22 @@ namespace CAF.Model
     using System.Data;
 
     [Serializable]
-    public partial class User :  BaseEntity<User>
-    {   
+	public partial class User :  BaseEntity<User>
+	{   
         public User()
-        {
+		{
             this.Connection = SqlService.Instance.Connection;
             this.TableName = "Sys_Users";
             base.MarkNew();
-            this. _userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(Id), isThreadSafe: true);
-            this. _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(this), isThreadSafe: true);
-            this. _postListInitalizer = new Lazy<PostList>(() => InitPosts(this), isThreadSafe: true);
+    		this. _userSettingInitalizer = new Lazy<UserSetting>(() => UserSetting.GetByUserId(Id), isThreadSafe: true);
+    		this. _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(this), isThreadSafe: true);
+    		this. _postListInitalizer = new Lazy<PostList>(() => InitPosts(this), isThreadSafe: true);
             this.Roles= new RoleList();        
             this.Posts= new PostList();        
-        }
-        
+		}
+		
             
-        #region 公共属性
+		#region 公共属性
 
         private string _loginName = String.Empty;
         private string _abb = String.Empty;
@@ -46,75 +46,75 @@ namespace CAF.Model
         /// </summary>
         [Required(ErrorMessage="登录名不允许为空")]
         [StringLength(20,ErrorMessage="登录名长度不能超过20")]
-        public string LoginName
-        {
-            get {return this._loginName;} 
+		public string LoginName
+		{
+			get {return this._loginName;} 
             set {this.SetProperty("LoginName",ref this._loginName, value);}           	
-        }
+		}
         
         /// <summary>
         /// 用户简称
         /// </summary>
         [Required(ErrorMessage="用户简称不允许为空")]
         [StringLength(20,ErrorMessage="用户简称长度不能超过20")]
-        public string Abb
-        {
-            get {return this._abb;} 
+		public string Abb
+		{
+			get {return this._abb;} 
             set {this.SetProperty("Abb",ref this._abb, value);}           	
-        }
+		}
         
         /// <summary>
         /// 用户姓名
         /// </summary>
         [Required(ErrorMessage="用户姓名不允许为空")]
         [StringLength(20,ErrorMessage="用户姓名长度不能超过20")]
-        public string Name
-        {
-            get {return this._name;} 
+		public string Name
+		{
+			get {return this._name;} 
             set {this.SetProperty("Name",ref this._name, value);}           	
-        }
+		}
         
         /// <summary>
         /// 用户密码
         /// </summary>
         [Required(ErrorMessage="用户密码不允许为空")]
         [StringLength(50,ErrorMessage="用户密码长度不能超过50")]
-        public string Pass
-        {
-            get {return this._pass;} 
+		public string Pass
+		{
+			get {return this._pass;} 
             set {this.SetProperty("Pass",ref this._pass, value);}           	
-        }
+		}
         
         /// <summary>
         /// 电话
         /// </summary>
         [StringLength(30,ErrorMessage="电话长度不能超过30")]
-        public string PhoneNum
-        {
-            get {return this._phoneNum;} 
+		public string PhoneNum
+		{
+			get {return this._phoneNum;} 
             set {this.SetProperty("PhoneNum",ref this._phoneNum, value);}           	
-        }
+		}
         
         /// <summary>
         /// 组织架构Id
         /// </summary>
         [GuidRequired(ErrorMessage="组织架构不允许为空")]
-        public Guid OrganizeId
-        {
-            get {return this._organizeId;} 
+		public Guid OrganizeId
+		{
+			get {return this._organizeId;} 
             set {this.SetProperty("OrganizeId",ref this._organizeId, value);}           	
-        }
+		}
         
         /// <summary>
         /// 组织架构
         /// </summary>
         public Organize Organize
-        {
-            get
-            { 
-                return Organize.Get(this.OrganizeId);
-            }        	
-        }
+		{
+			get
+			{ 
+				return Organize.Get(this.OrganizeId);
+			}        	
+		}
 
         
         /// <summary>
@@ -122,11 +122,11 @@ namespace CAF.Model
         /// </summary>
         [Required(ErrorMessage="电子邮件不允许为空")]
         [StringLength(50,ErrorMessage="电子邮件长度不能超过50")]
-        public string Email
-        {
-            get {return this._email;} 
+		public string Email
+		{
+			get {return this._email;} 
             set {this.SetProperty("Email",ref this._email, value);}           	
-        }
+		}
         
         public UserSetting UserSetting
         {
@@ -145,7 +145,7 @@ namespace CAF.Model
                     this. _userSetting = this. _userSettingInitalizer.Value;
                 }
                 this. _userSetting = value;
-                if (this. _userSetting == null)
+				if (this. _userSetting == null)
                 {
                     return;
                 }
@@ -187,7 +187,7 @@ namespace CAF.Model
         {
             get
             {
-                this.Errors=new List<string>();
+			    this.Errors=new List<string>();
                 var isValid = true;
                 var baseValid = base.IsValid;
                 if (this. _userSettingInitalizer.IsValueCreated && this.UserSetting!=null && !this.UserSetting.IsValid)
@@ -195,7 +195,7 @@ namespace CAF.Model
                     this.Errors.AddRange(this.UserSetting.Errors);
                     isValid = false;
                 }
-                this. _roleListInitalizer.IsValueCreated.IfIsTrue(
+				this. _roleListInitalizer.IsValueCreated.IfIsTrue(
                 () =>
                 {
                     foreach (var item in this.Roles.Where(item => !item.IsValid))
@@ -204,7 +204,7 @@ namespace CAF.Model
                         isValid = false;
                     }
                 });
-                this. _postListInitalizer.IsValueCreated.IfIsTrue(
+				this. _postListInitalizer.IsValueCreated.IfIsTrue(
                 () =>
                 {
                     foreach (var item in this.Posts.Where(item => !item.IsValid))
@@ -219,7 +219,7 @@ namespace CAF.Model
         }
         
         
-        #endregion
+		#endregion
         
         #region 常量定义
         
@@ -236,16 +236,16 @@ namespace CAF.Model
         const string QUERY_CONTAINSUSERPOST = "SELECT COUNT(*) FROM Sys_R_User_Post WHERE  UserId = @UserId AND PostId=@PostId";
         const string QUERY_ADDRELARIONSHIPWITHUSERPOST = "INSERT INTO Sys_R_User_Post (UserId,PostId,Status)VALUES(@UserId, @PostId,0)";
         const string QUERY_DELETERELARIONSHIPWITHUSERPOST = "UPDATE Sys_R_User_Post SET Status=-1 WHERE UserId=@UserId AND PostId=@PostId AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_Users (Id, Status, CreatedDate, ChangedDate, Note, LoginName, Abb, Name, Pass, PhoneNum, OrganizeId, Email) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @LoginName, @Abb, @Name, @Pass, @PhoneNum, @OrganizeId, @Email)";
+        const string QUERY_INSERT="INSERT INTO Sys_Users ([Id], [Status], [CreatedDate], [ChangedDate], [Note], [LoginName], [Abb], [Name], [Pass], [PhoneNum], [OrganizeId], [Email]) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @LoginName, @Abb, @Name, @Pass, @PhoneNum, @OrganizeId, @Email)";
         const string QUERY_UPDATE = "UPDATE Sys_Users SET {0} WHERE  Id = @Id";
                 
         #endregion
-                
+        		
         #region 静态方法
         
-        public static User Get(Guid id)
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
+		public static User Get(Guid id)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
             {
                 var item= conn.Query<User>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<User>();
                 if (item == null)
@@ -254,16 +254,16 @@ namespace CAF.Model
                 }
                 item.Connection = SqlService.Instance.Connection;
                 item.MarkOld();
-                item. _userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);                   
+				item. _userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);                   
                 item. _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                 item. _postListInitalizer = new Lazy<PostList>(() => InitPosts(item), isThreadSafe: true);
                 return item;
             }
-        }
-         
-        public static UserList GetAll()
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
+		}
+		 
+		public static UserList GetAll()
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
             {               
                 var items = conn.Query<User>(QUERY_GETAll, null).ToList();                
                 var list=new UserList();
@@ -279,31 +279,31 @@ namespace CAF.Model
                 list.MarkOld();
                 return list;
             }
-        }        
-        
+		}        
+		
        public static UserList GetAllByOrganizeId(Guid organizeId)
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
             {                
                 var items = conn.Query<User>(QUERY_GETALLBYORGANIZEID, new { OrganizeId = organizeId }).ToList();
-                var list=new UserList();
+              	var list=new UserList();
                 foreach (var item in items)
                 {
                     item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
-                    item. _userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);      
+            		item. _userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);      
                      item. _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                      item. _postListInitalizer = new Lazy<PostList>(() => InitPosts(item), isThreadSafe: true);
                     list.Add(item);
                 }
-                list.MarkOld();
+				list.MarkOld();
                 return list;
             }
-        }
-        
+		}
+		
        public static UserList GetAllByRoleId(Guid roleId)
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
             {                
                 var items = conn.Query<User>(QUERY_GETALLBYROLEID, new { RoleId = roleId }).ToList();
                 
@@ -312,19 +312,19 @@ namespace CAF.Model
                 {
                     item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
-                    item. _userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);      
+            		item. _userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);      
                     item. _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                     item. _postListInitalizer = new Lazy<PostList>(() => InitPosts(item), isThreadSafe: true);
                     list.Add(item);
                 }
-                list.MarkOld();
+				list.MarkOld();
                 return list;
             }
-        }
-        
+		}
+		
        public static UserList GetAllByPostId(Guid postId)
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
             {                
                 var items = conn.Query<User>(QUERY_GETALLBYPOSTID, new { PostId = postId }).ToList();
                 
@@ -333,28 +333,28 @@ namespace CAF.Model
                 {
                     item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
-                    item. _userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);      
+            		item. _userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);      
                     item. _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                     item. _postListInitalizer = new Lazy<PostList>(() => InitPosts(item), isThreadSafe: true);
                     list.Add(item);
                 }
-                list.MarkOld();
+				list.MarkOld();
                 return list;
             }
-        }
-        
+		}
+		
         
         /// <summary>
         /// 直接删除
         /// </summary>
         /// <returns></returns>
-        public static int Delete(Guid id)
-        {
+		public static int Delete(Guid id)
+		{
             using (IDbConnection conn = SqlService.Instance.Connection)
             {                
                 return conn.Execute(QUERY_DELETE, new { Id = id });
             }
-        }   
+		}   
         
         public static bool Exists(Guid id)
         {
@@ -366,62 +366,62 @@ namespace CAF.Model
         
         #endregion
         
-        
-        public override int Delete(IDbConnection conn, IDbTransaction transaction)
-        {
+		
+		public override int Delete(IDbConnection conn, IDbTransaction transaction)
+		{
             base.MarkDelete();
-            return conn.Execute(QUERY_DELETE, new { Id = Id }, transaction, null, null);
-        }
-        
-        public override int Update(IDbConnection conn, IDbTransaction transaction)
-        {
+            return conn.Execute(QUERY_DELETE, new { Id = this.Id }, transaction, null, null);
+		}
+		
+		public override int Update(IDbConnection conn, IDbTransaction transaction)
+		{
              if (!this.IsDirty)
              {
                 return this._changedRows;
              }  
             this._updateParameters+=", ChangedDate = GetDate()";
-            var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
-            this._changedRows+= conn.Execute(query, this, transaction, null, null);
-            if(this. _userSettingInitalizer.IsValueCreated && this.UserSetting!=null) 
+			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
+			this._changedRows+= conn.Execute(query, this, transaction, null, null);
+			if(this. _userSettingInitalizer.IsValueCreated && this.UserSetting!=null) 
             {
-                this._changedRows += this.UserSetting.SaveChange(conn, transaction);
+ 				this._changedRows += this.UserSetting.SaveChange(conn, transaction);
             }
-            this. _roleListInitalizer.IsValueCreated.IfIsTrue(
+			this. _roleListInitalizer.IsValueCreated.IfIsTrue(
             () =>
             {
-                this._changedRows+=this.Roles.SaveChanges(conn,transaction);
+ 				this._changedRows+=this.Roles.SaveChanges(conn,transaction);
             });
-            this. _postListInitalizer.IsValueCreated.IfIsTrue(
+			this. _postListInitalizer.IsValueCreated.IfIsTrue(
             () =>
             {
-                this._changedRows+=this.Posts.SaveChanges(conn,transaction);
+ 				this._changedRows+=this.Posts.SaveChanges(conn,transaction);
             });
             return this._changedRows;
-        }
-        
-        public override int Insert(IDbConnection conn, IDbTransaction transaction)
-        {
+		}
+		
+		public override int Insert(IDbConnection conn, IDbTransaction transaction)
+		{
             this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-            if(this. _userSettingInitalizer.IsValueCreated && this.UserSetting!=null) 
+			if(this. _userSettingInitalizer.IsValueCreated && this.UserSetting!=null) 
             {
-                this._changedRows += this.UserSetting.SaveChange(conn, transaction);
+ 				this._changedRows += this.UserSetting.SaveChange(conn, transaction);
             }
-            this. _roleListInitalizer.IsValueCreated.IfIsTrue(
+			this. _roleListInitalizer.IsValueCreated.IfIsTrue(
             () =>
             {
-                this._changedRows+=this.Roles.SaveChanges(conn,transaction);
+ 				this._changedRows+=this.Roles.SaveChanges(conn,transaction);
             });
-            this. _postListInitalizer.IsValueCreated.IfIsTrue(
+			this. _postListInitalizer.IsValueCreated.IfIsTrue(
             () =>
             {
-                this._changedRows+=this.Posts.SaveChanges(conn,transaction);
+ 				this._changedRows+=this.Posts.SaveChanges(conn,transaction);
             });
             return this._changedRows;
-        }
-        
-        #region 私有方法
-        
-        protected  int RelationshipWithRole(IDbConnection conn, IDbTransaction transaction)
+		}
+		
+		#region 私有方法
+		
+		protected  int RelationshipWithRole(IDbConnection conn, IDbTransaction transaction)
         {
             foreach (var role in this.Roles.Members)
             {
@@ -447,10 +447,10 @@ namespace CAF.Model
             list.OnSaved += user.RelationshipWithRole;
             list.OnMarkDirty += user.MarkDirty;
             list.IsChangeRelationship = true;
-            return list;
+			return list;
         }
-        
-        protected  int RelationshipWithPost(IDbConnection conn, IDbTransaction transaction)
+		
+		protected  int RelationshipWithPost(IDbConnection conn, IDbTransaction transaction)
         {
             foreach (var post in this.Posts.Members)
             {
@@ -476,9 +476,9 @@ namespace CAF.Model
             list.OnSaved += user.RelationshipWithPost;
             list.OnMarkDirty += user.MarkDirty;
             list.IsChangeRelationship = true;
-            return list;
+			return list;
         }
-        
+		
         protected static UserSetting InitUserSetting(User user)
         {
             var item = UserSetting.GetByUserId(user.Id);
@@ -487,14 +487,14 @@ namespace CAF.Model
                 return null;
             }
             item.UserId = user.Id;
-            item.OnPropertyChange += user.MarkDirty;
+			item.OnPropertyChange += user.MarkDirty;
             return item;
         }
-        #endregion
-                
-    }
+		#endregion
+				
+	}
     
-    [Serializable]
+	[Serializable]
     public class UserList:CollectionBase<UserList,User>
     {
         public UserList() 

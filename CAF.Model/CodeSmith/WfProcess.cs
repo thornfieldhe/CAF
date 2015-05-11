@@ -57,17 +57,7 @@ namespace CAF.Model
             set {this.SetProperty("ModelId",ref this._modelId, value);}           	
 		}
         
-        /// <summary>
-        /// 模块
-        /// </summary>
-        public Model Model
-		{
-			get
-			{ 
-				return Model.Get(this.ModelId);
-			}        	
-		}
-
+  
         
         /// <summary>
         /// 文档
@@ -175,7 +165,7 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_WfProcesses WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_WfProcesses SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WfProcesses WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_WfProcesses (ID, ModuleName, ModelId, Document, OrganizeId, Status, Creator, CreatedDate, ChangedDate, Note) VALUES (@ID, @ModuleName, @ModelId, @Document, @OrganizeId, @Status, @Creator, @CreatedDate, @ChangedDate, @Note)";
+        const string QUERY_INSERT="INSERT INTO Sys_WfProcesses ([ID], [ModuleName], [ModelId], [Document], [OrganizeId], [Status], [Creator], [CreatedDate], [ChangedDate], [Note]) VALUES (@ID, @ModuleName, @ModelId, @Document, @OrganizeId, @Status, @Creator, @CreatedDate, @ChangedDate, @Note)";
         const string QUERY_UPDATE = "UPDATE Sys_WfProcesses SET {0} WHERE  ID = @ID";
                 
         #endregion

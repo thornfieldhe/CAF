@@ -21,6 +21,8 @@
     <IISExpressUseClassicPipelineMode />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <TargetFrameworkProfile />
+    <SilverlightApplicationList>
+    </SilverlightApplicationList>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -82,6 +84,9 @@
   <ItemGroup>
     <Content Include="App_Readme\Elmah.SqlServer.sql" />
     <Content Include="App_Readme\Elmah.SqlServer.txt" />
+    <Content Include="CAF.WorkflowTestPage.aspx" />
+    <Content Include="CAF.WorkflowTestPage.html" />
+    <Content Include="ClientBin\CAF.Workflow.xap" />
     <Content Include="Content\default.css" />
     <Content Include="default.aspx" />
     <Content Include="extjs\ext-all.js" />
@@ -3653,6 +3658,7 @@
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Silverlight.js" />
     <Content Include="System\CustomQuery.aspx" />
     <Content Include="System\DirectoryRole_Manage.aspx" />
     <Content Include="System\Directory_Edit.aspx" />
@@ -3662,6 +3668,8 @@
     <Content Include="System\ExcuteSql.aspx" />
     <Content Include="System\InfoLog_Query.aspx" />
     <Content Include="System\LoginLog_Query.aspx" />
+    <Content Include="System\Module_Edit.aspx" />
+    <Content Include="System\Module_Query.aspx" />
     <Content Include="System\Organize_Edit.aspx" />
     <Content Include="System\Organize_Query.aspx" />
     <Content Include="System\PostUserOrganize_Edit.aspx" />
@@ -3784,6 +3792,20 @@
     <Compile Include="System\LoginLog_Query.aspx.designer.cs">
       <DependentUpon>LoginLog_Query.aspx</DependentUpon>
     </Compile>
+    <Compile Include="System\Module_Edit.aspx.cs">
+      <DependentUpon>Module_Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\Module_Edit.aspx.designer.cs">
+      <DependentUpon>Module_Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="System\Module_Query.aspx.cs">
+      <DependentUpon>Module_Query.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\Module_Query.aspx.designer.cs">
+      <DependentUpon>Module_Query.aspx</DependentUpon>
+    </Compile>
     <Compile Include="System\Organize_Edit.aspx.cs">
       <DependentUpon>Organize_Edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3884,7 +3906,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>3815</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:3815/</IISUrl>
+          <IISUrl>http://localhost:8800/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

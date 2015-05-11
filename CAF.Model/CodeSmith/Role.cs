@@ -119,7 +119,7 @@ namespace CAF.Model
         const string QUERY_CONTAINSUSERROLE = "SELECT COUNT(*) FROM Sys_R_User_Role WHERE  RoleId = @RoleId AND UserId=@UserId";
         const string QUERY_ADDRELARIONSHIPWITHUSERROLE = "INSERT INTO Sys_R_User_Role (RoleId,UserId,Status)VALUES(@RoleId, @UserId,0)";
         const string QUERY_DELETERELARIONSHIPWITHUSERROLE = "UPDATE Sys_R_User_Role SET Status=-1 WHERE RoleId=@RoleId AND UserId=@UserId AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_Roles (Id, Status, CreatedDate, ChangedDate, Note, Name) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name)";
+        const string QUERY_INSERT="INSERT INTO Sys_Roles ([Id], [Status], [CreatedDate], [ChangedDate], [Note], [Name]) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name)";
         const string QUERY_UPDATE = "UPDATE Sys_Roles SET {0} WHERE  Id = @Id";
                 
         #endregion
@@ -229,7 +229,7 @@ namespace CAF.Model
 		public override int Delete(IDbConnection conn, IDbTransaction transaction)
 		{
             base.MarkDelete();
-            return conn.Execute(QUERY_DELETE, new { Id = Id }, transaction, null, null);
+            return conn.Execute(QUERY_DELETE, new { Id = this.Id }, transaction, null, null);
 		}
 		
 		public override int Update(IDbConnection conn, IDbTransaction transaction)
