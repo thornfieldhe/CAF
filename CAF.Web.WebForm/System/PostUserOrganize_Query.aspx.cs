@@ -21,8 +21,7 @@ namespace CAF.Web.WebForm
 
         protected void grid_OnQuery(object sender = null, EventArgs e = null)
         {
-            var criteria = new ReadOnlyPostUserOrganize();
-            this.grid.BindDataSource(criteria);
+            this.grid.BindDataSource<ReadOnlyPostUserOrganize>(null);
         }
 
         protected override void OnLoad(EventArgs e)

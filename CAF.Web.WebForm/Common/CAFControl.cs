@@ -224,11 +224,12 @@ namespace CAF.Web.WebForm.CAFControl
         /// <typeparam name="T"></typeparam>
         /// <param name="criteria"></param>
         /// <param name="where"></param>
-        public void BindDataSource<T>(T criteria, string where = " 1=1") where T : ITableName
+        public void BindDataSource<T>(object criteria, string where = " 1=1") where T : ITableName, new()
         {
             ReadOnlyCollectionBase<T>.Connection = SqlService.Instance.Connection;
+            var tb = new T();
             var result = ReadOnlyCollectionBase<T>
-                .Query(this.SortField, this.PageSize, criteria, where, this.PageIndex, this.SortDirection);
+                .Query(tb.TableName,this.SortField, this.PageSize, criteria, where, this.PageIndex, this.SortDirection);
             this.RecordCount = result.TotalCount;
             this.DataSource = result.Result;
             this.DataBind();

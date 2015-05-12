@@ -4,6 +4,8 @@ namespace CAF.Web.WebForm
 {
     using CAF.Model;
 
+    using global::System.Dynamic;
+
     public partial class ErrorLog_Query : BasePage
     {
 
@@ -21,25 +23,17 @@ namespace CAF.Web.WebForm
 
         protected void grid_OnQuery(object sender = null, EventArgs e = null)
         {
-            var criteria = new ErrorLog();
             var where = "1=1";
-            this.txtName.Text.Trim().IfIsNotNullOrEmpty(c =>
-                        {
-                            where += " And UserName=@UserName";
-                            criteria.UserName = this.txtName.Text.Trim();
-                        }
-                    );
-            this.dateFrom.SelectedDate.HasValue.IfIsTrue(()=>
-                {
-                    where += " And CreatedDate>=@Message";
-                    criteria.Message = this.dateFrom.Text;
-                });
-            this.dateTo.SelectedDate.HasValue.IfIsTrue(() =>
-            {
-                where += " And CreatedDate<@Details";
-                criteria.Details = this.dateTo.SelectedDate.Value.AddDays(1).ToShortDateString();
-            });
-            this.grid.BindDataSource(criteria, where: where);
+            dynamic criteria = new
+                                   {
+                                       UserName = this.txtName.Text.Trim(),
+                                       CreatedDateFrom = this.dateFrom.Text.ToDate(),
+                                       CreatedDateTo = this.dateTo.Text.ToDate().AddDays(1).ToShortDateString()
+                                   };
+            this.txtName.Text.Trim().IfIsNotNullOrEmpty(c =>where += " And UserName=@UserName");
+            this.dateFrom.SelectedDate.HasValue.IfIsTrue(()=> where += " And CreatedDate>=@CreatedDateFrom");
+            this.dateTo.SelectedDate.HasValue.IfIsTrue(() =>where += " And CreatedDate<@CreatedDateTo");
+            this.grid.BindDataSource<ErrorLog>(criteria, where: where);
         }
 
         protected override void OnLoad(EventArgs e)

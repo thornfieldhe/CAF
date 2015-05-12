@@ -21,8 +21,7 @@ namespace CAF.Web.WebForm
         
         protected void grid_OnQuery(object sender=null, EventArgs e=null)
         {
-            var criteria = new Module();
-            this.grid.BindDataSource(criteria);
+            this.grid.BindDataSource<Module>(null);
         }
                 
         protected override void OnLoad(EventArgs e)

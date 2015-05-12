@@ -27,7 +27,7 @@ namespace <%= this.ClassNamespace %>.Web.WebForm
         protected override void Bind()
         {
             //绑定查询条件
-
+            
             base.Bind();
             this.grid_OnQuery();
             this.btnNew.OnClientClick = this.winEdit.GetShowReference("<%= GetSingleClassName() %>_Edit.aspx", "新增");
@@ -35,8 +35,12 @@ namespace <%= this.ClassNamespace %>.Web.WebForm
         
         protected void grid_OnQuery(object sender=null, EventArgs e=null)
         {
-            var criteria = new <%= GetClassName() %>();
-            this.grid.BindDataSource(criteria);
+           //dynamic criteria = new
+           //                        {
+           //                         
+           //                        };
+           var where = "1=1";
+           this.grid.BindDataSource<<%= GetClassName() %>>(null);
         }
                 
         protected override void OnLoad(EventArgs e)

@@ -75,7 +75,7 @@ namespace EmptyProjectNet20
                 var log = new LoginLog { UserName = this.User.Identity.Name, Ip = CAF.Web.Net.GetClientIP() };
 
                 log.Create();
-                this.Response.Redirect(referrer ?? @"default.aspx", false);
+                this.Response.Redirect(referrer ?? @"Dashboard.aspx", false);
             }
             else
             {

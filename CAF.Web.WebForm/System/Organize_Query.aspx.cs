@@ -19,7 +19,7 @@ namespace CAF.Web.WebForm
         protected void grid_OnQuery(object sender = null, EventArgs e = null)
         {
             var criteria = new ReadOnlyOrganize();
-            this.grid.BindDataSource(criteria);
+            this.grid.BindDataSource<ReadOnlyOrganize>(criteria);
         }
 
         #region 系统事件

@@ -49,6 +49,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FineUI.4.1.6\lib\FineUI.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -84,11 +85,8 @@
   <ItemGroup>
     <Content Include="App_Readme\Elmah.SqlServer.sql" />
     <Content Include="App_Readme\Elmah.SqlServer.txt" />
-    <Content Include="CAF.WorkflowTestPage.aspx" />
-    <Content Include="CAF.WorkflowTestPage.html" />
-    <Content Include="ClientBin\CAF.Workflow.xap" />
     <Content Include="Content\default.css" />
-    <Content Include="default.aspx" />
+    <Content Include="Dashboard.aspx" />
     <Content Include="extjs\ext-all.js" />
     <Content Include="extjs\ext-part1.js" />
     <Content Include="extjs\ext-part2.js" />
@@ -3713,12 +3711,12 @@
     <Compile Include="Common\ListItemCompare.cs" />
     <Compile Include="Common\PageHelper.cs" />
     <Compile Include="Common\PageTools.cs" />
-    <Compile Include="default.aspx.cs">
-      <DependentUpon>default.aspx</DependentUpon>
+    <Compile Include="Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="default.aspx.designer.cs">
-      <DependentUpon>default.aspx</DependentUpon>
+    <Compile Include="Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>

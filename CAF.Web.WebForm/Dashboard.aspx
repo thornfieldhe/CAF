@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="EmptyProjectNet20._default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="EmptyProjectNet20.Dashboard" %>
 <%@ Register TagPrefix="f" Namespace="CAF.Web.WebForm.CAFControl" Assembly="CAF.Web.WebForm" %>
 
 <!DOCTYPE html>
@@ -94,6 +94,14 @@
             width: 100%;
             font-size: 10px;
         }
+
+         .mytable td.x-table-layout-cell {
+            padding: 5px;
+        }
+ 
+        .mytable td.f-layout-table-cell {
+            padding: 5px;
+        }
     </style>
 </head>
 <body>
@@ -140,11 +148,54 @@
                         <Tabs>
                             <f:Tab ID="Tab1" Title="首页" Layout="Fit" Icon="House" runat="server">
                                 <Items>
-                                    <f:ContentPanel ID="ContentPanel1" ShowBorder="false" BodyPadding="10px" ShowHeader="false"
-                                        AutoScroll="true" CssClass="intro" runat="server">
-                                        <h2>
-                                            欢迎使用CAF管理平台！</h2>
-                                    </f:ContentPanel>
+                                    <f:Panel ID="PanelHome" runat="server" Width="850px" Height="350px" AutoScroll="true" ShowBorder="True" EnableCollapse="true"
+                                        BodyPadding="5px" Layout="Column" ShowHeader="True" Title="欢迎使用CAF后台管理系统！">
+                                        <Items>
+                                            <f:Panel ID="Panel1" ColumnWidth="33%" runat="server"
+                                                ShowBorder="false" ShowHeader="false" Margin="0 10px 0 0">
+                                                <Items>
+                                                    <f:Panel ID="Panel11" runat="server" Height="200px" Title="待办事项"
+                                                        BodyPadding="10px" ShowBorder="true" ShowHeader="true" EnableCollapse="true" Margin="0 0 5px 0">
+                                                    </f:Panel>
+                                                    <f:Panel ID="Panel12" runat="server" Title="消息" Height="200px"
+                                                        BodyPadding="10px" ShowBorder="true" ShowHeader="true" EnableCollapse="true" Margin="0 0 5px 0">
+                                                    </f:Panel>
+                                                    <f:Panel ID="Panel13" runat="server"
+                                                        BodyPadding="10px" ShowBorder="true" ShowHeader="true" EnableCollapse="true" Margin="0 0 5px 0">
+                                                    </f:Panel>
+                                                </Items>
+                                            </f:Panel>
+                                            <f:Panel ID="Panel2" ColumnWidth="33%" runat="server" 
+                                                ShowBorder="false" ShowHeader="false" Margin="0 10px 0 0">
+                                                <Items>
+                                                    <f:Panel ID="Panel21" runat="server" Height="200px" Title="已办事项"
+                                                        BodyPadding="10px" ShowBorder="true" ShowHeader="true" EnableCollapse="true" Margin="0 0 5px 0">
+                            
+                                                    </f:Panel>
+                                                    <f:Panel ID="Panel22" runat="server"
+                                                        BodyPadding="10px" ShowBorder="true" ShowHeader="true" EnableCollapse="true" Margin="0 0 5px 0">
+                                                    </f:Panel>
+                                                    <f:Panel ID="Panel23" runat="server"
+                                                        BodyPadding="10px" ShowBorder="true" ShowHeader="true" EnableCollapse="true" Margin="0 0 5px 0">
+                                                    </f:Panel>
+                                                </Items>
+                                            </f:Panel>
+                                            <f:Panel ID="Panel3" ColumnWidth="34%" runat="server"
+                                                ShowBorder="false" ShowHeader="false">
+                                                <Items>
+                                                    <f:Panel ID="Panel31" runat="server" Height="200px" Title="已发事项"
+                                                        BodyPadding="10px" ShowBorder="true" ShowHeader="true" EnableCollapse="true" Margin="0 0 5px 0">
+                                                    </f:Panel>
+                                                    <f:Panel ID="Panel32" runat="server"  Title="公告新闻" Height="200px"
+                                                        BodyPadding="10px" ShowBorder="true" ShowHeader="true" EnableCollapse="true" Margin="0 0 5px 0">
+                                                    </f:Panel>
+                                                    <f:Panel ID="Panel33" runat="server"
+                                                        BodyPadding="10px" ShowBorder="true" ShowHeader="true" EnableCollapse="true" Margin="0 0 5px 0">
+                                                    </f:Panel>
+                                                </Items>
+                                            </f:Panel>
+                                        </Items>
+                                    </f:Panel>
                                 </Items>
                             </f:Tab>
                         </Tabs>

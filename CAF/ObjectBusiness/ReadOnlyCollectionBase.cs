@@ -7,7 +7,7 @@ namespace CAF
     using System.Data;
     using System.Linq;
 
-    public static class ReadOnlyCollectionBase<K> where K : ITableName
+    public static class ReadOnlyCollectionBase<K> 
     {
         private static readonly string QUERY =
             "  SELECT * FROM {0} WHERE {1} ORDER BY {2} {3} OFFSET {4} ROWS FETCH NEXT {5} ROWS only ";
@@ -43,6 +43,7 @@ namespace CAF
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="tableName"></param>
         /// <param name="orderBy">排序字段，可以是多字段用","隔开</param>
         /// <param name="pageSize">分页条数</param>
         /// <param name="readonlyList">查询对象，如：new{Id=Guid.NewId(),Name="xxx"}</param>
@@ -52,14 +53,14 @@ namespace CAF
         /// <param name="sum">求和字段，可以是多字段用","隔开</param>
         /// <param name="average">求平均字段，可以是多字段用","隔开</param>
         /// <returns></returns>
-        public static ReadOnlyCollectionQueryResult<K> Query(string orderBy, int pageSize, K readonlyList,
+        public static ReadOnlyCollectionQueryResult<K> Query(string tableName,string orderBy, int pageSize, object readonlyList,
                                                          string queryWhere = " 1=1", int pageIndex = 0, string sortDescription = "DESC", string sum = "",
                                                          string average = "")
         {
             _queryWhere = queryWhere;
             _orderBy = orderBy;
             _sortDescription = sortDescription;
-            _tableName = readonlyList.TableName;
+            _tableName = tableName;
 
             _dynamicObj = readonlyList;
             _average = average;

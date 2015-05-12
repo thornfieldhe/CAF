@@ -7,7 +7,8 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace EmptyProjectNet20 {
+namespace EmptyProjectNet20
+{
     
     
     public partial class login {

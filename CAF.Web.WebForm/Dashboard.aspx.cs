@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using System.Web;
+using System.Linq;
 using System.Web.UI;
+using System.Xml;
+using CAF.Model;
+using FineUI;
 
 namespace EmptyProjectNet20
 {
     using CAF;
-    using CAF.Model;
-    using FineUI;
-    using Newtonsoft.Json.Linq;
-    using System.Linq;
-    using System.Xml;
+    using CAF.Web;
 
-    public partial class _default : Page
+    using Newtonsoft.Json.Linq;
+
+    public partial class Dashboard : Page
     {
         private List<string> dirLevels;
 
@@ -37,7 +37,7 @@ namespace EmptyProjectNet20
                 {
                     return;
                 }
-                var idsScriptStr = String.Format("window.IDS={0};", ids.ToString(Newtonsoft.Json.Formatting.None));
+                var idsScriptStr = String.Format("window.IDS={0};", ids.ToString(global::Newtonsoft.Json.Formatting.None));
                 PageContext.RegisterStartupScript(idsScriptStr);
 
                 this.btnChangePass.OnClientClick = this.winChangePass.GetShowReference("~/System/User_ChangePass.aspx?Id=" + u.Id, string.Format("基本信息维护一{0}", u.Name));
@@ -50,7 +50,7 @@ namespace EmptyProjectNet20
 
         protected void btnLogOut_Click(object sender, EventArgs e)
         {
-            var log = new LoginLog { UserName = this.User.Identity.Name, Ip = CAF.Web.Net.GetClientIP(), Status = (int)LoginStatusEnum.LoginOut };
+            var log = new LoginLog { UserName = this.User.Identity.Name, Ip = Net.GetClientIP(), Status = (int)LoginStatusEnum.LoginOut };
 
             log.Create();
             CAFPrincipal.Logout();

@@ -817,12 +817,12 @@ public override string GetFileName()
 private string GetInsertQueryString()
 {
 	  StringBuilder queryParameters = new StringBuilder();
-      queryParameters.Append("@"+SourceTable.PrimaryKey.MemberColumns[0].Name);
+      queryParameters.Append("@["+SourceTable.PrimaryKey.MemberColumns[0].Name+"]");
 	  for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++)
       {
-       		queryParameters.Append(", @"+GetPropertyName(SourceTable.NonPrimaryKeyColumns[i]));
+       		queryParameters.Append(", @["+GetPropertyName(SourceTable.NonPrimaryKeyColumns[i])+"]");
       }
-      return String.Format("INSERT INTO ["+SourceTable.Name +"] ({0}) VALUES ({1})", queryParameters.ToString().Replace("@", ""), queryParameters.ToString());
+      return String.Format("INSERT INTO "+SourceTable.Name +" ({0}) VALUES ({1})", queryParameters.ToString().Replace("@", ""), queryParameters.ToString().Replace("[","").Replace("]",""));
 }
 
 private string IsSystemNullAble(ColumnSchema column)

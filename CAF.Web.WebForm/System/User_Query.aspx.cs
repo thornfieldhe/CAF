@@ -48,7 +48,7 @@ namespace CAF.Web.WebForm
         private void grid_OnQuery(object sender = null, EventArgs e = null)
         {
             var strWhere = " 1=1";
-            var userCriteria = new ReadOnlyUser();
+            dynamic userCriteria = new ReadOnlyUser();
             if (this.dropDeps.SelectedValue != "")
             {
                 strWhere += " And Level Like '{0}%'";
@@ -70,7 +70,7 @@ namespace CAF.Web.WebForm
                 userCriteria.Name = this.txtName.Text.Trim();
                 userCriteria.Abb = this.txtName.Text.Trim().ToUpper();
             }
-            this.grid.BindDataSource(userCriteria, strWhere);
+            this.grid.BindDataSource<ReadOnlyUser>(userCriteria, strWhere);
         }
 
 

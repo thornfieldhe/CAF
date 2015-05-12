@@ -5,6 +5,8 @@ namespace CAF.Web.WebForm
     using CAF.Model;
     using FineUI;
 
+    using global::System.Dynamic;
+
     public partial class InfoLog_Query : BasePage
     {
     
@@ -20,25 +22,17 @@ namespace CAF.Web.WebForm
         
         protected void grid_OnQuery(object sender=null, EventArgs e=null)
         {
-            var criteria = new InfoLog();
+            dynamic criteria = new
+                                   {
+                                       UserName = this.txtName.Text.Trim() ,
+                                       CreatedDateFrom = this.dateFrom.Text.ToDate(),
+                                       CreatedDateTo = this.dateTo.Text.ToDate(),
+                                   };
             var where = "1=1";
-            this.txtName.Text.Trim().IfIsNotNullOrEmpty(c =>
-            {
-                where += " And UserName=@UserName";
-                criteria.UserName = this.txtName.Text.Trim();
-            }
-                    );
-            this.dateFrom.SelectedDate.HasValue.IfIsTrue(() =>
-            {
-                where += " And CreatedDate>=@Action";
-                criteria.Action = this.dateFrom.Text;
-            });
-            this.dateTo.SelectedDate.HasValue.IfIsTrue(() =>
-            {
-                where += " And CreatedDate<@Page";
-                criteria.Page = this.dateTo.SelectedDate.Value.AddDays(1).ToShortDateString();
-            });
-            this.grid.BindDataSource(criteria, where: where);
+            this.txtName.Text.Trim().IfIsNotNullOrEmpty(c =>where += " And UserName=@UserName");
+            this.dateFrom.SelectedDate.HasValue.IfIsTrue(() => where += " And CreatedDate>=@CreatedDateFrom");
+            this.dateTo.SelectedDate.HasValue.IfIsTrue(() =>where += " And CreatedDate<@CreatedDateTo");
+            this.grid.BindDataSource<InfoLog>(criteria, where: where);
         }
                 
         protected override void OnLoad(EventArgs e)
