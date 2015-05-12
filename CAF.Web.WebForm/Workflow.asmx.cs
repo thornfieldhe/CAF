@@ -17,9 +17,7 @@ namespace CAF.Web
     // [System.Web.Script.Services.ScriptService]
     public class Workflow : System.Web.Services.WebService
     {
-        private readonly Workflow workflow;
 
-        public Workflow() { this.workflow = new Workflow(); }
 
         /// <summary>
         /// 获取工作流列表XML文件
@@ -30,7 +28,7 @@ namespace CAF.Web
         {
             try
             {
-                return this.workflow.GetWorkFlowList();
+                return Model.Workflow.GetWorkflowsAsXML();
             }
             catch (Exception ex)
             {
@@ -49,7 +47,7 @@ namespace CAF.Web
         {
             try
             {
-                return this.GetWorkflowDocument(workflowId);
+                return Model.Workflow.GetWorkflowAsXML(workflowId.ToGuid());
             }
             catch (Exception ex)
             {
@@ -69,7 +67,7 @@ namespace CAF.Web
         {
             try
             {
-                this.workflow.DeleteWorkflow(workflowId);
+                Model.Workflow.DeleteWorkflow(workflowId.ToGuid());
             }
             catch (Exception ex) { this.CreateErrorLog(ex); }
         }
@@ -85,7 +83,7 @@ namespace CAF.Web
         {
             try
             {
-                this.workflow.UpdateWorkflow(workflowDocument);
+                Model.Workflow.UpdateWorkflow(workflowDocument);
             }
             catch (Exception ex)
             {

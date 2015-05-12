@@ -1,21 +1,15 @@
-﻿using System;
+﻿using Shareidea.Web.Component.Workflow;
+using Shareidea.Web.UI.Control.Workflow.Designer;
+using Shareidea.Web.UI.Control.Workflow.Designer.Component;
+using Shareidea.Web.UI.Control.Workflow.Designer.Resources;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Shareidea.Web.Component.Workflow;
-using Shareidea.Web.UI.Control.Workflow.Designer;
-using Shareidea.Web.UI.Control.Workflow.Designer.Resources;
-using System.IO.IsolatedStorage;
 using System.Xml.Linq;
-using System.IO;
-using Shareidea.Web.UI.Control.Workflow.Designer.Component;
 //*******************************************************************
 //                                                                  *
 //              http://www.shareidea.net                            *
@@ -330,7 +324,7 @@ namespace Shareidea.Web.UI.Control.Workflow.Setting
             postIsCreated = true;
         }
 
-        void _workflowClient_GetPostListCompleted(object sender, Designer.ServicesClient.GetPostListCompletedEventArgs e)
+        void _workflowClient_GetPostListCompleted(object sender, Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListCompletedEventArgs e)
         {
             if (e.Result == "")
                 return;

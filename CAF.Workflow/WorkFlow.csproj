@@ -96,7 +96,7 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Windows.Browser" />
-    <Reference Include="System.Xml.Linq, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityPicture\AutomationActivity.xaml.cs">
@@ -169,6 +169,7 @@
       <DependentUpon>LabelMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Page.xaml.cs">
+      <SubType>Code</SubType>
       <DependentUpon>Page.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -177,7 +178,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Text.resx</DependentUpon>
     </Compile>
-    <Compile Include="Service References\ServicesClient\Reference.cs">
+    <Compile Include="Service References\ServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -356,33 +357,33 @@
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\OutOfBrowserSettings.xml" />
-    <None Include="Service References\ServicesClient\Shareidea.Web.UI.Control.Workflow.Designer.ServicesClient.DeleteWorkFlowResponse.datasource">
+    <None Include="Service References\ServiceReference\Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ServicesClient\Shareidea.Web.UI.Control.Workflow.Designer.ServicesClient.GetPostListResponse.datasource">
+    <None Include="Service References\ServiceReference\Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ServicesClient\Shareidea.Web.UI.Control.Workflow.Designer.ServicesClient.GetWorkFlowListResponse.datasource">
+    <None Include="Service References\ServiceReference\Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ServicesClient\Shareidea.Web.UI.Control.Workflow.Designer.ServicesClient.GetWorkFlowXMLResponse.datasource">
+    <None Include="Service References\ServiceReference\Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ServicesClient\Shareidea.Web.UI.Control.Workflow.Designer.ServicesClient.UpdateWorkFlowXMLResponse.datasource">
+    <None Include="Service References\ServiceReference\Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ServicesClient\WorkFlow.disco" />
-    <None Include="Service References\ServicesClient\configuration91.svcinfo" />
-    <None Include="Service References\ServicesClient\configuration.svcinfo" />
-    <None Include="Service References\ServicesClient\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
+    <None Include="Service References\ServiceReference\Workflow.wsdl" />
     <Content Include="ServiceReferences.ClientConfig" />
-    <None Include="Service References\ServicesClient\WorkFlow.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="license.txt" />
+    <None Include="Service References\ServiceReference\Workflow.disco" />
+    <None Include="Service References\ServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReference\configuration.svcinfo" />
+    <None Include="Service References\ServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="WorkFlow.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -399,9 +400,6 @@
     <EmbeddedResource Include="Resources\Text.zh-cn.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -421,7 +419,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\ServicesClient\" />
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServiceReference\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

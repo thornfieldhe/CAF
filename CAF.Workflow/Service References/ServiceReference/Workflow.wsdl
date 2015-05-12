@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetWorkFlowList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetWorkFlowListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWorkFlowListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWorkflowDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="workflowId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWorkflowDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWorkflowDocumentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteWorkflow">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="workflowId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteWorkflowResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateWorkflow">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="workflowDocument" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateWorkflowResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetPostList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetPostListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPostListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetWorkFlowListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWorkFlowList" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkFlowListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWorkFlowListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkflowDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWorkflowDocument" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkflowDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWorkflowDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteWorkflowSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteWorkflow" />
+  </wsdl:message>
+  <wsdl:message name="DeleteWorkflowSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteWorkflowResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateWorkflowSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateWorkflow" />
+  </wsdl:message>
+  <wsdl:message name="UpdateWorkflowSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateWorkflowResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPostListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPostList" />
+  </wsdl:message>
+  <wsdl:message name="GetPostListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPostListResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WorkflowSoap">
+    <wsdl:operation name="GetWorkFlowList">
+      <wsdl:input message="tns:GetWorkFlowListSoapIn" />
+      <wsdl:output message="tns:GetWorkFlowListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkflowDocument">
+      <wsdl:input message="tns:GetWorkflowDocumentSoapIn" />
+      <wsdl:output message="tns:GetWorkflowDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteWorkflow">
+      <wsdl:input message="tns:DeleteWorkflowSoapIn" />
+      <wsdl:output message="tns:DeleteWorkflowSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWorkflow">
+      <wsdl:input message="tns:UpdateWorkflowSoapIn" />
+      <wsdl:output message="tns:UpdateWorkflowSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPostList">
+      <wsdl:input message="tns:GetPostListSoapIn" />
+      <wsdl:output message="tns:GetPostListSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WorkflowSoap" type="tns:WorkflowSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetWorkFlowList">
+      <soap:operation soapAction="http://tempuri.org/GetWorkFlowList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkflowDocument">
+      <soap:operation soapAction="http://tempuri.org/GetWorkflowDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteWorkflow">
+      <soap:operation soapAction="http://tempuri.org/DeleteWorkflow" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWorkflow">
+      <soap:operation soapAction="http://tempuri.org/UpdateWorkflow" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostList">
+      <soap:operation soapAction="http://tempuri.org/GetPostList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WorkflowSoap12" type="tns:WorkflowSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetWorkFlowList">
+      <soap12:operation soapAction="http://tempuri.org/GetWorkFlowList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkflowDocument">
+      <soap12:operation soapAction="http://tempuri.org/GetWorkflowDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteWorkflow">
+      <soap12:operation soapAction="http://tempuri.org/DeleteWorkflow" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWorkflow">
+      <soap12:operation soapAction="http://tempuri.org/UpdateWorkflow" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostList">
+      <soap12:operation soapAction="http://tempuri.org/GetPostList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Workflow">
+    <wsdl:port name="WorkflowSoap" binding="tns:WorkflowSoap">
+      <soap:address location="http://localhost:8800/Workflow.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WorkflowSoap12" binding="tns:WorkflowSoap12">
+      <soap12:address location="http://localhost:8800/Workflow.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

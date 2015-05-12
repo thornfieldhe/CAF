@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace CAF.Model.Workflow
+namespace CAF.Model
 {
     using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
     using System.IO;
@@ -20,14 +20,14 @@ namespace CAF.Model.Workflow
         /// <returns></returns>
         public static string GetWorkflowsAsXML()
         {
-            return
-                WorkflowProcess.GetAll()
-                    .Select(
-                        x =>
-                        new XElement("Workflow",
-                            new XAttribute("Name", string.IsNullOrWhiteSpace(x.Name) ? x.Id.ToString() : x.Name),
-                            new XAttribute("Id", x.Id.ToString())))
-                    .ToString();
+
+            return new XDocument(new XElement("WorkFlows", 
+                WorkflowProcess.GetAll().Select(
+                   x =>
+                   new XElement("Workflow",
+                       new XAttribute("Name", string.IsNullOrWhiteSpace(x.Name) ? x.Id.ToString() : x.Name),
+                       new XAttribute("Id", x.Id.ToString())))
+               .ToList())).ToString();
         }
 
         /// <summary>

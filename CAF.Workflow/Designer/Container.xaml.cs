@@ -1,21 +1,15 @@
-﻿using System;
+﻿using Shareidea.Web.UI.Control.Workflow.Designer.Component;
+using Shareidea.Web.UI.Control.Workflow.Designer.Resources;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using System.IO.IsolatedStorage;
 using System.Xml.Linq;
-using System.IO;
-using Shareidea.Web.UI.Control.Workflow.Designer;
-using Shareidea.Web.Component.Workflow;
-using Shareidea.Web.UI.Control.Workflow.Designer.Resources;
-using Shareidea.Web.UI.Control.Workflow.Designer.Component;
 
 //*******************************************************************
 //                                                                  *
@@ -635,7 +629,7 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer
             if (!string.IsNullOrEmpty(WorkFlowUrlID))
             {
 
-                workflowClient.GetWorkFlowXMLAsync(WorkFlowUrlID);
+                workflowClient.GetWorkflowDocumentAsync(WorkFlowUrlID);
 
             }
             else
@@ -675,7 +669,7 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer
             LoadFromXmlString(xml);
             SaveChange(HistoryType.New);
         }
-        void wfClient_GetWorkFlowXMLCompleted(object sender, Shareidea.Web.UI.Control.Workflow.Designer.ServicesClient.GetWorkFlowXMLCompletedEventArgs e)
+        void wfClient_GetWorkFlowXMLCompleted(object sender, Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentCompletedEventArgs e)
         {
             if (e.Error != null)
                 System.Windows.Browser.HtmlPage.Window.Alert(e.Error.Message);
@@ -917,8 +911,8 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer
 
         }
 
-        ServicesClient.WorkFlowSoapClient _workflowClient;
-        ServicesClient.WorkFlowSoapClient workflowClient
+        ServiceReference.WorkflowSoapClient _workflowClient;
+        ServiceReference.WorkflowSoapClient workflowClient
         {
             get
             {
@@ -927,12 +921,12 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer
                     System.ServiceModel.BasicHttpBinding bind = new System.ServiceModel.BasicHttpBinding();
                     System.ServiceModel.EndpointAddress endpoint = new System.ServiceModel.EndpointAddress(
                         new Uri(System.Windows.Browser.HtmlPage.Document.DocumentUri, "services/workflow.asmx"), null);
-                    _workflowClient = new Shareidea.Web.UI.Control.Workflow.Designer.ServicesClient.WorkFlowSoapClient(bind, endpoint);
-                    _workflowClient.UpdateWorkFlowXMLCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(wfClient_UpdateWorkFlowXMLCompleted);
-                    _workflowClient.GetWorkFlowXMLCompleted += new EventHandler<Shareidea.Web.UI.Control.Workflow.Designer.ServicesClient.GetWorkFlowXMLCompletedEventArgs>(wfClient_GetWorkFlowXMLCompleted);
-                    _workflowClient.GetWorkFlowListCompleted += new EventHandler<Shareidea.Web.UI.Control.Workflow.Designer.ServicesClient.GetWorkFlowListCompletedEventArgs>(_workflowClient_GetWorkFlowListCompleted);
-                    _workflowClient.GetPostListCompleted += new EventHandler<ServicesClient.GetPostListCompletedEventArgs>(_workflowClient_GetPostListCompleted);
-                    
+                    _workflowClient = new Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoapClient(bind, endpoint);
+                    _workflowClient.UpdateWorkflowCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(wfClient_UpdateWorkFlowXMLCompleted);
+                    _workflowClient.GetWorkflowDocumentCompleted += new EventHandler<Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentCompletedEventArgs>(wfClient_GetWorkFlowXMLCompleted);
+                    _workflowClient.GetWorkFlowListCompleted += new EventHandler<Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListCompletedEventArgs>(_workflowClient_GetWorkFlowListCompleted);
+                    _workflowClient.GetPostListCompleted += new EventHandler<ServiceReference.GetPostListCompletedEventArgs>(_workflowClient_GetPostListCompleted);
+
                 }
                 return _workflowClient;
             }
@@ -946,7 +940,7 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer
             CheckResult cr = CheckSave();
             if (cr.IsPass)
             {
-                workflowClient.UpdateWorkFlowXMLAsync(ToXmlString(), null);
+                workflowClient.UpdateWorkflowAsync(ToXmlString(), null);
 
             }
             else
@@ -2066,7 +2060,7 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer
         }
 
 
-        void _workflowClient_GetWorkFlowListCompleted(object sender, Shareidea.Web.UI.Control.Workflow.Designer.ServicesClient.GetWorkFlowListCompletedEventArgs e)
+        void _workflowClient_GetWorkFlowListCompleted(object sender, Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListCompletedEventArgs e)
         {
             if (e.Result == "")
                 return;
@@ -2083,7 +2077,7 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer
             cbWorkflowList.ItemsSource = partNos;
         }
 
-        void _workflowClient_GetPostListCompleted(object sender, ServicesClient.GetPostListCompletedEventArgs e)
+        void _workflowClient_GetPostListCompleted(object sender, ServiceReference.GetPostListCompletedEventArgs e)
         {
             if (e.Result == "")
                 return;
@@ -2105,13 +2099,13 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer
             if (cbWorkflowList.SelectedIndex > -1)
             {
                 cleareContainer();
-                workflowClient.GetWorkFlowXMLAsync(((WorkflowListItem)cbWorkflowList.SelectedItem).ID.ToString());
+                workflowClient.GetWorkflowDocumentAsync(((WorkflowListItem)cbWorkflowList.SelectedItem).ID.ToString());
             }
         }
 
         private void btnDel_Click(object sender, RoutedEventArgs e)
         {
-            workflowClient.DeleteWorkFlowAsync(UniqueID);
+            workflowClient.DeleteWorkflowAsync(UniqueID);
             System.Windows.Browser.HtmlPage.Window.Alert("流程删除成功，请刷新！");
         }
 
