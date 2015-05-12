@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAF.Test", "CAF.Test\CAF.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAF.Web.WebForm", "CAF.Web.WebForm\CAF.Web.WebForm.csproj", "{ED5CE7E2-3513-46B0-8B90-0DFCD043309E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkFlow", "..\CSG_DMS\ShareDesigner\WorkFlow.csproj", "{DC4A1B28-8511-491D-B209-D2A31A8501E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,13 +41,17 @@ Global
 		{ED5CE7E2-3513-46B0-8B90-0DFCD043309E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED5CE7E2-3513-46B0-8B90-0DFCD043309E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED5CE7E2-3513-46B0-8B90-0DFCD043309E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC4A1B28-8511-491D-B209-D2A31A8501E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC4A1B28-8511-491D-B209-D2A31A8501E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC4A1B28-8511-491D-B209-D2A31A8501E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC4A1B28-8511-491D-B209-D2A31A8501E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Validation.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.Database.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Caching.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Caching.Database.5.0.505.0\lib\NET35
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Validation.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.Database.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
 	EndGlobalSection
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true
