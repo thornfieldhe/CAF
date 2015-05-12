@@ -19,341 +19,34 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference {
     public interface WorkflowSoap {
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetWorkFlowList", ReplyAction="*")]
-        System.IAsyncResult BeginGetWorkFlowList(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListRequest request, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.IAsyncResult BeginGetWorkFlowList(System.AsyncCallback callback, object asyncState);
         
-        Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListResponse EndGetWorkFlowList(System.IAsyncResult result);
+        string EndGetWorkFlowList(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetWorkflowDocument", ReplyAction="*")]
-        System.IAsyncResult BeginGetWorkflowDocument(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentRequest request, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.IAsyncResult BeginGetWorkflowDocument(string workflowId, System.AsyncCallback callback, object asyncState);
         
-        Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentResponse EndGetWorkflowDocument(System.IAsyncResult result);
+        string EndGetWorkflowDocument(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/DeleteWorkflow", ReplyAction="*")]
-        System.IAsyncResult BeginDeleteWorkflow(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowRequest request, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.IAsyncResult BeginDeleteWorkflow(string workflowId, System.AsyncCallback callback, object asyncState);
         
-        Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowResponse EndDeleteWorkflow(System.IAsyncResult result);
+        void EndDeleteWorkflow(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/UpdateWorkflow", ReplyAction="*")]
-        System.IAsyncResult BeginUpdateWorkflow(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowRequest request, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.IAsyncResult BeginUpdateWorkflow(string workflowDocument, System.AsyncCallback callback, object asyncState);
         
-        Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowResponse EndUpdateWorkflow(System.IAsyncResult result);
+        void EndUpdateWorkflow(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetPostList", ReplyAction="*")]
-        System.IAsyncResult BeginGetPostList(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListRequest request, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.IAsyncResult BeginGetPostList(System.AsyncCallback callback, object asyncState);
         
-        Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListResponse EndGetPostList(System.IAsyncResult result);
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetWorkFlowListRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetWorkFlowList", Namespace="http://tempuri.org/", Order=0)]
-        public Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListRequestBody Body;
-        
-        public GetWorkFlowListRequest() {
-        }
-        
-        public GetWorkFlowListRequest(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListRequestBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute()]
-    public partial class GetWorkFlowListRequestBody {
-        
-        public GetWorkFlowListRequestBody() {
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetWorkFlowListResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetWorkFlowListResponse", Namespace="http://tempuri.org/", Order=0)]
-        public Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListResponseBody Body;
-        
-        public GetWorkFlowListResponse() {
-        }
-        
-        public GetWorkFlowListResponse(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListResponseBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
-    public partial class GetWorkFlowListResponseBody {
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public string GetWorkFlowListResult;
-        
-        public GetWorkFlowListResponseBody() {
-        }
-        
-        public GetWorkFlowListResponseBody(string GetWorkFlowListResult) {
-            this.GetWorkFlowListResult = GetWorkFlowListResult;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetWorkflowDocumentRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetWorkflowDocument", Namespace="http://tempuri.org/", Order=0)]
-        public Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentRequestBody Body;
-        
-        public GetWorkflowDocumentRequest() {
-        }
-        
-        public GetWorkflowDocumentRequest(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentRequestBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
-    public partial class GetWorkflowDocumentRequestBody {
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public string workflowId;
-        
-        public GetWorkflowDocumentRequestBody() {
-        }
-        
-        public GetWorkflowDocumentRequestBody(string workflowId) {
-            this.workflowId = workflowId;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetWorkflowDocumentResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetWorkflowDocumentResponse", Namespace="http://tempuri.org/", Order=0)]
-        public Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentResponseBody Body;
-        
-        public GetWorkflowDocumentResponse() {
-        }
-        
-        public GetWorkflowDocumentResponse(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentResponseBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
-    public partial class GetWorkflowDocumentResponseBody {
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public string GetWorkflowDocumentResult;
-        
-        public GetWorkflowDocumentResponseBody() {
-        }
-        
-        public GetWorkflowDocumentResponseBody(string GetWorkflowDocumentResult) {
-            this.GetWorkflowDocumentResult = GetWorkflowDocumentResult;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class DeleteWorkflowRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteWorkflow", Namespace="http://tempuri.org/", Order=0)]
-        public Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowRequestBody Body;
-        
-        public DeleteWorkflowRequest() {
-        }
-        
-        public DeleteWorkflowRequest(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowRequestBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
-    public partial class DeleteWorkflowRequestBody {
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public string workflowId;
-        
-        public DeleteWorkflowRequestBody() {
-        }
-        
-        public DeleteWorkflowRequestBody(string workflowId) {
-            this.workflowId = workflowId;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class DeleteWorkflowResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteWorkflowResponse", Namespace="http://tempuri.org/", Order=0)]
-        public Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowResponseBody Body;
-        
-        public DeleteWorkflowResponse() {
-        }
-        
-        public DeleteWorkflowResponse(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowResponseBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute()]
-    public partial class DeleteWorkflowResponseBody {
-        
-        public DeleteWorkflowResponseBody() {
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class UpdateWorkflowRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="UpdateWorkflow", Namespace="http://tempuri.org/", Order=0)]
-        public Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowRequestBody Body;
-        
-        public UpdateWorkflowRequest() {
-        }
-        
-        public UpdateWorkflowRequest(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowRequestBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
-    public partial class UpdateWorkflowRequestBody {
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public string workflowDocument;
-        
-        public UpdateWorkflowRequestBody() {
-        }
-        
-        public UpdateWorkflowRequestBody(string workflowDocument) {
-            this.workflowDocument = workflowDocument;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class UpdateWorkflowResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="UpdateWorkflowResponse", Namespace="http://tempuri.org/", Order=0)]
-        public Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowResponseBody Body;
-        
-        public UpdateWorkflowResponse() {
-        }
-        
-        public UpdateWorkflowResponse(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowResponseBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute()]
-    public partial class UpdateWorkflowResponseBody {
-        
-        public UpdateWorkflowResponseBody() {
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetPostListRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetPostList", Namespace="http://tempuri.org/", Order=0)]
-        public Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListRequestBody Body;
-        
-        public GetPostListRequest() {
-        }
-        
-        public GetPostListRequest(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListRequestBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute()]
-    public partial class GetPostListRequestBody {
-        
-        public GetPostListRequestBody() {
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetPostListResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetPostListResponse", Namespace="http://tempuri.org/", Order=0)]
-        public Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListResponseBody Body;
-        
-        public GetPostListResponse() {
-        }
-        
-        public GetPostListResponse(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListResponseBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
-    public partial class GetPostListResponseBody {
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public string GetPostListResult;
-        
-        public GetPostListResponseBody() {
-        }
-        
-        public GetPostListResponseBody(string GetPostListResult) {
-            this.GetPostListResult = GetPostListResult;
-        }
+        string EndGetPostList(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -518,34 +211,21 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference {
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> CloseCompleted;
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.BeginGetWorkFlowList(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListRequest request, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetWorkFlowList(request, callback, asyncState);
+        System.IAsyncResult Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.BeginGetWorkFlowList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetWorkFlowList(callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        private System.IAsyncResult BeginGetWorkFlowList(System.AsyncCallback callback, object asyncState) {
-            Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListRequest inValue = new Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListRequest();
-            inValue.Body = new Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListRequestBody();
-            return ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).BeginGetWorkFlowList(inValue, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListResponse Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.EndGetWorkFlowList(System.IAsyncResult result) {
+        string Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.EndGetWorkFlowList(System.IAsyncResult result) {
             return base.Channel.EndGetWorkFlowList(result);
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        private string EndGetWorkFlowList(System.IAsyncResult result) {
-            Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListResponse retVal = ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).EndGetWorkFlowList(result);
-            return retVal.Body.GetWorkFlowListResult;
-        }
-        
         private System.IAsyncResult OnBeginGetWorkFlowList(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            return this.BeginGetWorkFlowList(callback, asyncState);
+            return ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).BeginGetWorkFlowList(callback, asyncState);
         }
         
         private object[] OnEndGetWorkFlowList(System.IAsyncResult result) {
-            string retVal = this.EndGetWorkFlowList(result);
+            string retVal = ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).EndGetWorkFlowList(result);
             return new object[] {
                     retVal};
         }
@@ -575,36 +255,22 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.BeginGetWorkflowDocument(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentRequest request, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetWorkflowDocument(request, callback, asyncState);
+        System.IAsyncResult Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.BeginGetWorkflowDocument(string workflowId, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetWorkflowDocument(workflowId, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        private System.IAsyncResult BeginGetWorkflowDocument(string workflowId, System.AsyncCallback callback, object asyncState) {
-            Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentRequest inValue = new Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentRequest();
-            inValue.Body = new Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentRequestBody();
-            inValue.Body.workflowId = workflowId;
-            return ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).BeginGetWorkflowDocument(inValue, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentResponse Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.EndGetWorkflowDocument(System.IAsyncResult result) {
+        string Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.EndGetWorkflowDocument(System.IAsyncResult result) {
             return base.Channel.EndGetWorkflowDocument(result);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        private string EndGetWorkflowDocument(System.IAsyncResult result) {
-            Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentResponse retVal = ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).EndGetWorkflowDocument(result);
-            return retVal.Body.GetWorkflowDocumentResult;
         }
         
         private System.IAsyncResult OnBeginGetWorkflowDocument(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string workflowId = ((string)(inValues[0]));
-            return this.BeginGetWorkflowDocument(workflowId, callback, asyncState);
+            return ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).BeginGetWorkflowDocument(workflowId, callback, asyncState);
         }
         
         private object[] OnEndGetWorkflowDocument(System.IAsyncResult result) {
-            string retVal = this.EndGetWorkflowDocument(result);
+            string retVal = ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).EndGetWorkflowDocument(result);
             return new object[] {
                     retVal};
         }
@@ -635,35 +301,22 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.BeginDeleteWorkflow(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowRequest request, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginDeleteWorkflow(request, callback, asyncState);
+        System.IAsyncResult Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.BeginDeleteWorkflow(string workflowId, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginDeleteWorkflow(workflowId, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        private System.IAsyncResult BeginDeleteWorkflow(string workflowId, System.AsyncCallback callback, object asyncState) {
-            Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowRequest inValue = new Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowRequest();
-            inValue.Body = new Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowRequestBody();
-            inValue.Body.workflowId = workflowId;
-            return ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).BeginDeleteWorkflow(inValue, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowResponse Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.EndDeleteWorkflow(System.IAsyncResult result) {
-            return base.Channel.EndDeleteWorkflow(result);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        private void EndDeleteWorkflow(System.IAsyncResult result) {
-            Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowResponse retVal = ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).EndDeleteWorkflow(result);
+        void Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.EndDeleteWorkflow(System.IAsyncResult result) {
+            base.Channel.EndDeleteWorkflow(result);
         }
         
         private System.IAsyncResult OnBeginDeleteWorkflow(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string workflowId = ((string)(inValues[0]));
-            return this.BeginDeleteWorkflow(workflowId, callback, asyncState);
+            return ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).BeginDeleteWorkflow(workflowId, callback, asyncState);
         }
         
         private object[] OnEndDeleteWorkflow(System.IAsyncResult result) {
-            this.EndDeleteWorkflow(result);
+            ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).EndDeleteWorkflow(result);
             return null;
         }
         
@@ -693,35 +346,22 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.BeginUpdateWorkflow(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowRequest request, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginUpdateWorkflow(request, callback, asyncState);
+        System.IAsyncResult Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.BeginUpdateWorkflow(string workflowDocument, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginUpdateWorkflow(workflowDocument, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        private System.IAsyncResult BeginUpdateWorkflow(string workflowDocument, System.AsyncCallback callback, object asyncState) {
-            Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowRequest inValue = new Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowRequest();
-            inValue.Body = new Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowRequestBody();
-            inValue.Body.workflowDocument = workflowDocument;
-            return ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).BeginUpdateWorkflow(inValue, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowResponse Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.EndUpdateWorkflow(System.IAsyncResult result) {
-            return base.Channel.EndUpdateWorkflow(result);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        private void EndUpdateWorkflow(System.IAsyncResult result) {
-            Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowResponse retVal = ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).EndUpdateWorkflow(result);
+        void Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.EndUpdateWorkflow(System.IAsyncResult result) {
+            base.Channel.EndUpdateWorkflow(result);
         }
         
         private System.IAsyncResult OnBeginUpdateWorkflow(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string workflowDocument = ((string)(inValues[0]));
-            return this.BeginUpdateWorkflow(workflowDocument, callback, asyncState);
+            return ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).BeginUpdateWorkflow(workflowDocument, callback, asyncState);
         }
         
         private object[] OnEndUpdateWorkflow(System.IAsyncResult result) {
-            this.EndUpdateWorkflow(result);
+            ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).EndUpdateWorkflow(result);
             return null;
         }
         
@@ -751,34 +391,21 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.BeginGetPostList(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListRequest request, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetPostList(request, callback, asyncState);
+        System.IAsyncResult Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.BeginGetPostList(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPostList(callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        private System.IAsyncResult BeginGetPostList(System.AsyncCallback callback, object asyncState) {
-            Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListRequest inValue = new Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListRequest();
-            inValue.Body = new Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListRequestBody();
-            return ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).BeginGetPostList(inValue, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListResponse Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.EndGetPostList(System.IAsyncResult result) {
+        string Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap.EndGetPostList(System.IAsyncResult result) {
             return base.Channel.EndGetPostList(result);
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        private string EndGetPostList(System.IAsyncResult result) {
-            Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListResponse retVal = ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).EndGetPostList(result);
-            return retVal.Body.GetPostListResult;
-        }
-        
         private System.IAsyncResult OnBeginGetPostList(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            return this.BeginGetPostList(callback, asyncState);
+            return ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).BeginGetPostList(callback, asyncState);
         }
         
         private object[] OnEndGetPostList(System.IAsyncResult result) {
-            string retVal = this.EndGetPostList(result);
+            string retVal = ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoap)(this)).EndGetPostList(result);
             return new object[] {
                     retVal};
         }
@@ -883,68 +510,64 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference {
                     base(client) {
             }
             
-            public System.IAsyncResult BeginGetWorkFlowList(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListRequest request, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[1];
-                _args[0] = request;
+            public System.IAsyncResult BeginGetWorkFlowList(System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[0];
                 System.IAsyncResult _result = base.BeginInvoke("GetWorkFlowList", _args, callback, asyncState);
                 return _result;
             }
             
-            public Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListResponse EndGetWorkFlowList(System.IAsyncResult result) {
+            public string EndGetWorkFlowList(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListResponse _result = ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListResponse)(base.EndInvoke("GetWorkFlowList", _args, result)));
+                string _result = ((string)(base.EndInvoke("GetWorkFlowList", _args, result)));
                 return _result;
             }
             
-            public System.IAsyncResult BeginGetWorkflowDocument(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentRequest request, System.AsyncCallback callback, object asyncState) {
+            public System.IAsyncResult BeginGetWorkflowDocument(string workflowId, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[1];
-                _args[0] = request;
+                _args[0] = workflowId;
                 System.IAsyncResult _result = base.BeginInvoke("GetWorkflowDocument", _args, callback, asyncState);
                 return _result;
             }
             
-            public Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentResponse EndGetWorkflowDocument(System.IAsyncResult result) {
+            public string EndGetWorkflowDocument(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentResponse _result = ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentResponse)(base.EndInvoke("GetWorkflowDocument", _args, result)));
+                string _result = ((string)(base.EndInvoke("GetWorkflowDocument", _args, result)));
                 return _result;
             }
             
-            public System.IAsyncResult BeginDeleteWorkflow(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowRequest request, System.AsyncCallback callback, object asyncState) {
+            public System.IAsyncResult BeginDeleteWorkflow(string workflowId, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[1];
-                _args[0] = request;
+                _args[0] = workflowId;
                 System.IAsyncResult _result = base.BeginInvoke("DeleteWorkflow", _args, callback, asyncState);
                 return _result;
             }
             
-            public Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowResponse EndDeleteWorkflow(System.IAsyncResult result) {
+            public void EndDeleteWorkflow(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowResponse _result = ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowResponse)(base.EndInvoke("DeleteWorkflow", _args, result)));
-                return _result;
+                base.EndInvoke("DeleteWorkflow", _args, result);
             }
             
-            public System.IAsyncResult BeginUpdateWorkflow(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowRequest request, System.AsyncCallback callback, object asyncState) {
+            public System.IAsyncResult BeginUpdateWorkflow(string workflowDocument, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[1];
-                _args[0] = request;
+                _args[0] = workflowDocument;
                 System.IAsyncResult _result = base.BeginInvoke("UpdateWorkflow", _args, callback, asyncState);
                 return _result;
             }
             
-            public Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowResponse EndUpdateWorkflow(System.IAsyncResult result) {
+            public void EndUpdateWorkflow(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowResponse _result = ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowResponse)(base.EndInvoke("UpdateWorkflow", _args, result)));
-                return _result;
+                base.EndInvoke("UpdateWorkflow", _args, result);
             }
             
-            public System.IAsyncResult BeginGetPostList(Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListRequest request, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[1];
-                _args[0] = request;
+            public System.IAsyncResult BeginGetPostList(System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[0];
                 System.IAsyncResult _result = base.BeginInvoke("GetPostList", _args, callback, asyncState);
                 return _result;
             }
             
-            public Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListResponse EndGetPostList(System.IAsyncResult result) {
+            public string EndGetPostList(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListResponse _result = ((Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListResponse)(base.EndInvoke("GetPostList", _args, result)));
+                string _result = ((string)(base.EndInvoke("GetPostList", _args, result)));
                 return _result;
             }
         }

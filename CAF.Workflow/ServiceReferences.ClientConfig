@@ -8,7 +8,7 @@
             </basicHttpBinding>
         </bindings>
         <client>
-            <endpoint address="http://localhost:8800/Workflow.asmx" binding="basicHttpBinding"
+            <endpoint address="Services/WorkflowServices.asmx" binding="basicHttpBinding"
                 bindingConfiguration="WorkflowSoap" contract="ServiceReference.WorkflowSoap"
                 name="WorkflowSoap" />
         </client>

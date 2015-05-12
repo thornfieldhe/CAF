@@ -1,7 +1,9 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" >
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Workflow_Edit.aspx.cs" Inherits="CAF.Web.WebForm.System.Workflow_Edit" %>
 
-<head>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
     <title>WorkFlow</title>
     <style type="text/css">
     html, body {
@@ -17,7 +19,7 @@
 	    text-align:center;
     }
     </style>
-    <script type="text/javascript" src="Silverlight.js"></script>
+    <script type="text/javascript" src="/Scripts/Silverlight.js"></script>
     <script type="text/javascript">
         function onSilverlightError(sender, args) {
             var appSource = "";

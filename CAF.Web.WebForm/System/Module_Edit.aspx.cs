@@ -55,7 +55,7 @@ namespace CAF.Web.WebForm
 
         protected override void Add()
         {
-            var item = new Module();
+            var item = new Module { WorkflowProcess = new WorkflowProcess { Name = this.txtName.Text.Trim(), Document = "<Workflow/>" } };
             this.submitForm.Create(item);
         }
 

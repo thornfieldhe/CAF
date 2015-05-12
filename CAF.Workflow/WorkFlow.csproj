@@ -97,6 +97,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Windows.Browser" />
     <Reference Include="System.Xml.Linq, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Serialization, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityPicture\AutomationActivity.xaml.cs">
@@ -357,27 +358,12 @@
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\OutOfBrowserSettings.xml" />
-    <None Include="Service References\ServiceReference\Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.DeleteWorkflowResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServiceReference\Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetPostListResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServiceReference\Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServiceReference\Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkFlowListResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServiceReference\Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.UpdateWorkflowResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServiceReference\Workflow.wsdl" />
+    <None Include="Service References\ServiceReference\WorkflowServices.wsdl" />
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="license.txt" />
-    <None Include="Service References\ServiceReference\Workflow.disco" />
+    <None Include="Service References\ServiceReference\WorkflowServices.disco" />
     <None Include="Service References\ServiceReference\configuration91.svcinfo" />
     <None Include="Service References\ServiceReference\configuration.svcinfo" />
     <None Include="Service References\ServiceReference\Reference.svcmap">

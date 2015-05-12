@@ -90,7 +90,7 @@
             </StackPanel>
         </StackPanel>
 
-        <ScrollViewer Name="svContainer"  Background="#dcdcdc" HorizontalContentAlignment="Left" VerticalAlignment="Top" BorderBrush="Beige"  BorderThickness="0" HorizontalAlignment="Left"  Width="1000" Height="600"  Grid.Row="0" Grid.Column="1"   HorizontalScrollBarVisibility="Visible"  VerticalScrollBarVisibility="Visible" >
+        <ScrollViewer Name="svContainer"  Background="#dcdcdc" HorizontalContentAlignment="Left" VerticalAlignment="Top" BorderBrush="Beige"  BorderThickness="0" HorizontalAlignment="Left"  Width="1000" Height="800"  Grid.Row="0" Grid.Column="1"   HorizontalScrollBarVisibility="Visible"  VerticalScrollBarVisibility="Visible" >
 
             <ScrollViewer.Content>
                 <Border   VerticalAlignment="Top"   HorizontalAlignment="Left"    BorderThickness="1"  BorderBrush="White" >

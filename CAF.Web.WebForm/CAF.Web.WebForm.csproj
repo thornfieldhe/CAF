@@ -83,8 +83,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Readme\Elmah.SqlServer.sql" />
-    <Content Include="App_Readme\Elmah.SqlServer.txt" />
     <Content Include="ClientBin\WorkFlow.xap" />
     <Content Include="Content\default.css" />
     <Content Include="Dashboard.aspx" />
@@ -3654,13 +3652,11 @@
     <Content Include="res\icon\zoom_out.png" />
     <Content Include="res\images\no_data_found.jpg" />
     <Content Include="Scripts\default.js" />
-    <Content Include="Workflow.asmx" />
-    <Content Include="WorkFlowTestPage.aspx" />
-    <Content Include="WorkFlowTestPage.html" />
+    <Content Include="Services\WorkflowServices.asmx" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
-    <Content Include="Silverlight.js" />
+    <Content Include="Scripts\Silverlight.js" />
     <Content Include="System\CustomQuery.aspx" />
     <Content Include="System\DirectoryRole_Manage.aspx" />
     <Content Include="System\Directory_Edit.aspx" />
@@ -3682,6 +3678,7 @@
     <Content Include="System\User_ChangePass.aspx" />
     <Content Include="System\User_Edit.aspx" />
     <Content Include="System\User_Query.aspx" />
+    <Content Include="Workflow_Edit.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -3878,9 +3875,16 @@
     <Compile Include="System\User_Query.aspx.designer.cs">
       <DependentUpon>User_Query.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Workflow.asmx.cs">
-      <DependentUpon>Workflow.asmx</DependentUpon>
+    <Compile Include="Services\WorkflowServices.asmx.cs">
+      <DependentUpon>WorkflowServices.asmx</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Workflow_Edit.aspx.cs">
+      <DependentUpon>Workflow_Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Workflow_Edit.aspx.designer.cs">
+      <DependentUpon>Workflow_Edit.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -33,7 +33,7 @@ namespace CAF.Web.WebForm
 
         private void grid_OnQuery(object sender = null, EventArgs e = null)
         {
-            this.grid.BindDataSource<ReadOnlyDirectory>(null);
+            this.grid.BindDataSource<ReadOnlyDirectory>(null,where:"1=1");
         }
     }
 }

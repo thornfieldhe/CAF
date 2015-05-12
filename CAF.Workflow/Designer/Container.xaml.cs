@@ -920,7 +920,7 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer
                 {
                     System.ServiceModel.BasicHttpBinding bind = new System.ServiceModel.BasicHttpBinding();
                     System.ServiceModel.EndpointAddress endpoint = new System.ServiceModel.EndpointAddress(
-                        new Uri(System.Windows.Browser.HtmlPage.Document.DocumentUri, "services/workflow.asmx"), null);
+                        new Uri(System.Windows.Browser.HtmlPage.Document.DocumentUri, "services/WorkflowServices.asmx"), null);
                     _workflowClient = new Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.WorkflowSoapClient(bind, endpoint);
                     _workflowClient.UpdateWorkflowCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(wfClient_UpdateWorkFlowXMLCompleted);
                     _workflowClient.GetWorkflowDocumentCompleted += new EventHandler<Shareidea.Web.UI.Control.Workflow.Designer.ServiceReference.GetWorkflowDocumentCompletedEventArgs>(wfClient_GetWorkFlowXMLCompleted);

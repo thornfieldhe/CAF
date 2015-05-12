@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ec91e6ee-580e-4270-9cc6-371ae71e8d43" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="684fe2a5-8868-4c0c-831d-1f85e584e434" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -20,11 +20,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8800/Workflow.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8800/WorkflowServices.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Workflow.wsdl" MetadataType="Wsdl" ID="3d8b147e-429d-4602-80ed-7462925a1650" SourceId="1" SourceUrl="http://localhost:8800/Workflow.asmx?wsdl" />
-    <MetadataFile FileName="Workflow.disco" MetadataType="Disco" ID="0f7fab6b-6e33-4fe4-aa70-91c038bc1a62" SourceId="1" SourceUrl="http://localhost:8800/Workflow.asmx?disco" />
+    <MetadataFile FileName="WorkflowServices.wsdl" MetadataType="Wsdl" ID="8ae89bfc-92ea-4e64-8a8f-4335d3e6a2fc" SourceId="1" SourceUrl="http://localhost:8800/WorkflowServices.asmx?wsdl" />
+    <MetadataFile FileName="WorkflowServices.disco" MetadataType="Disco" ID="36a72f77-f1da-4399-85e8-688620acfa4a" SourceId="1" SourceUrl="http://localhost:8800/WorkflowServices.asmx?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

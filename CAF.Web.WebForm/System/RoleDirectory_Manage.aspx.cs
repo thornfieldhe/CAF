@@ -80,7 +80,7 @@ namespace CAF.Web.WebForm
         {
             foreach (var item in parent)
             {
-                var dic = Directory_Role.Get(item.NodeID.ToGuid(), this.dropRoles.SelectedValue.ToGuid());
+                var dic = Directory_Role.Get(this.dropRoles.SelectedValue.ToGuid(), item.NodeID.ToGuid());
                 var text = "";
                 if (dic != null)
                 {
@@ -120,7 +120,7 @@ namespace CAF.Web.WebForm
         private CAFTreeNode CreateNode(Directory item, TreeNodeCollection parent)
         {
             var node = new CAFTreeNode();
-            var dic = Directory_Role.Get(item.Id, this.dropRoles.SelectedValue.ToGuid());
+            var dic = Directory_Role.Get(this.dropRoles.SelectedValue.ToGuid(), item.Id);
             var text = "";
             if (dic != null)
             {
