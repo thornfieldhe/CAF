@@ -1,0 +1,16 @@
+﻿<configuration>
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="WorkFlowSoap" maxBufferSize="2147483647" maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://localhost:3600/Services/WorkFlow.asmx"
+                binding="basicHttpBinding" bindingConfiguration="WorkFlowSoap"
+                contract="ServicesClient.WorkFlowSoap" name="WorkFlowSoap" />
+        </client>
+    </system.serviceModel>
+</configuration>

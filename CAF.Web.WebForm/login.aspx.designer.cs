@@ -7,11 +7,10 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace EmptyProjectNet20
-{
+namespace CAF.Web {
     
     
-    public partial class login {
+    public partial class Login {
         
         /// <summary>
         /// form1 控件。

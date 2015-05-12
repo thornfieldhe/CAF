@@ -3,13 +3,13 @@ using System;
 using System.Web;
 using System.Web.UI;
 
-namespace EmptyProjectNet20
+namespace CAF.Web
 {
     using CAF.Model;
     using CAF.Security;
     using CAF.Web.WebForm.Common;
 
-    public partial class login : Page
+    public partial class Login : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivityName" xml:space="preserve">
+    <value>活动名称</value>
+  </data>
+  <data name="ActivityType" xml:space="preserve">
+    <value>活动类型</value>
+  </data>
+  <data name="ActivityType_AND_BRANCH" xml:space="preserve">
+    <value>与分支活动</value>
+  </data>
+  <data name="ActivityType_AND_MERGE" xml:space="preserve">
+    <value>与汇聚活动</value>
+  </data>
+  <data name="ActivityType_AUTOMATION" xml:space="preserve">
+    <value>常规自动活动</value>
+  </data>
+  <data name="ActivityType_COMPLETION" xml:space="preserve">
+    <value>终结活动</value>
+  </data>
+  <data name="ActivityType_DUMMY" xml:space="preserve">
+    <value>哑活动</value>
+  </data>
+  <data name="ActivityType_INITIAL" xml:space="preserve">
+    <value>初始化活动</value>
+  </data>
+  <data name="ActivityType_INTERACTION" xml:space="preserve">
+    <value>常规交互活动</value>
+  </data>
+  <data name="ActivityType_OR_BRANCH" xml:space="preserve">
+    <value>或分支</value>
+  </data>
+  <data name="ActivityType_OR_MERGE" xml:space="preserve">
+    <value>或汇聚活动</value>
+  </data>
+  <data name="ActivityType_SUBPROCESS" xml:space="preserve">
+    <value>子流程</value>
+  </data>
+  <data name="ActivityType_VOTE_MERGE" xml:space="preserve">
+    <value>投票汇聚活动</value>
+  </data>
+  <data name="Button_AddActivity" xml:space="preserve">
+    <value>添加活动</value>
+  </data>
+  <data name="Button_AddLabel" xml:space="preserve">
+    <value>添加标签</value>
+  </data>
+  <data name="Button_AddRule" xml:space="preserve">
+    <value>添加规则</value>
+  </data>
+  <data name="Button_Apply" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="Button_Cancle" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Button_ClearContainer" xml:space="preserve">
+    <value>清除面板</value>
+  </data>
+  <data name="Button_Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="Button_CreatePicture" xml:space="preserve">
+    <value>生成图片</value>
+  </data>
+  <data name="Button_ExportToXml" xml:space="preserve">
+    <value>导出Xml</value>
+  </data>
+  <data name="Button_ImportFromXml" xml:space="preserve">
+    <value>导入Xml</value>
+  </data>
+  <data name="Button_Next" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="Button_OK" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="Button_Previous" xml:space="preserve">
+    <value>上一步</value>
+  </data>
+  <data name="Button_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Button_Zoom" xml:space="preserve">
+    <value>缩放</value>
+  </data>
+  <data name="Comfirm_Delete" xml:space="preserve">
+    <value>确定删除选择的对象？</value>
+  </data>
+  <data name="ContainerHeight" xml:space="preserve">
+    <value>容器高</value>
+  </data>
+  <data name="ContainerWidth" xml:space="preserve">
+    <value>容器宽</value>
+  </data>
+  <data name="LineType" xml:space="preserve">
+    <value>线条类型</value>
+  </data>
+  <data name="Menu_AlignBottom" xml:space="preserve">
+    <value>向下对齐</value>
+  </data>
+  <data name="Menu_AlignLeft" xml:space="preserve">
+    <value>向左对齐</value>
+  </data>
+  <data name="Menu_AlignRight" xml:space="preserve">
+    <value>向右对齐</value>
+  </data>
+  <data name="Menu_AlignTop" xml:space="preserve">
+    <value>向上对齐</value>
+  </data>
+  <data name="Menu_CopyActivity" xml:space="preserve">
+    <value>拷贝活动</value>
+  </data>
+  <data name="Menu_CopyLabel" xml:space="preserve">
+    <value>拷贝标签</value>
+  </data>
+  <data name="Menu_CopyRule" xml:space="preserve">
+    <value>拷贝规则</value>
+  </data>
+  <data name="Menu_CopySelected" xml:space="preserve">
+    <value>拷贝</value>
+  </data>
+  <data name="Menu_DeleteActivity" xml:space="preserve">
+    <value>删除活动</value>
+  </data>
+  <data name="Menu_DeleteLabel" xml:space="preserve">
+    <value>删除标签</value>
+  </data>
+  <data name="Menu_DeleteRule" xml:space="preserve">
+    <value>删除规则</value>
+  </data>
+  <data name="Menu_DeleteSelected" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Menu_ModifyActivity" xml:space="preserve">
+    <value>修改活动</value>
+  </data>
+  <data name="Menu_ModifyRule" xml:space="preserve">
+    <value>修改规则</value>
+  </data>
+  <data name="Menu_Paste" xml:space="preserve">
+    <value>粘贴</value>
+  </data>
+  <data name="Menu_ShowGridLines" xml:space="preserve">
+    <value>显示网格</value>
+  </data>
+  <data name="Message_BeginActivitiesCanNotHavePreactivity" xml:space="preserve">
+    <value>开始活动不能有前驱活动。</value>
+  </data>
+  <data name="Message_BeginAndEndActivityCanNotBeTheSame" xml:space="preserve">
+    <value>起始和结束活动不能是同一个活动。</value>
+  </data>
+  <data name="Message_BranchActivityOnlyHaveOnePreactivity" xml:space="preserve">
+    <value>分支活动有且只能有一个前驱活动。</value>
+  </data>
+  <data name="Message_CanNotHavePreactivity" xml:space="preserve">
+    <value>不能有前驱活动。</value>
+  </data>
+  <data name="Message_EndActivityCanNotHaveFollowUpActivitiy" xml:space="preserve">
+    <value>结束活动不能有后继活动。</value>
+  </data>
+  <data name="Message_MergeActivityOnlyHaveAFollowUpActivity" xml:space="preserve">
+    <value>汇聚活动有且只能有一个后继活动。</value>
+  </data>
+  <data name="Message_ModifyWorkFlowByTip" xml:space="preserve">
+    <value>请根据提示修改流程。</value>
+  </data>
+  <data name="Message_MustBeLinkToBeginActivity" xml:space="preserve">
+    <value>规则必须关联起始活动。</value>
+  </data>
+  <data name="Message_MustBeLinkToBeginAndEndActivity" xml:space="preserve">
+    <value>规则必须关联起始活动和结束活动。</value>
+  </data>
+  <data name="Message_MustBeLinkToEndActivity" xml:space="preserve">
+    <value>规则必须关联终结活动。</value>
+  </data>
+  <data name="Message_MustHaveAtLeastOneEndActivity" xml:space="preserve">
+    <value>必须有一个结束活动。</value>
+  </data>
+  <data name="Message_MustHaveAtLeastOneFollowUpActivity" xml:space="preserve">
+    <value>必须至少有一个后继活动。</value>
+  </data>
+  <data name="Message_MustHaveAtLeastOnePreactivity" xml:space="preserve">
+    <value>必须至少有一个前驱活动。</value>
+  </data>
+  <data name="Message_MustHaveOnlyOneBeginActivity" xml:space="preserve">
+    <value>必须有一个开始活动。</value>
+  </data>
+  <data name="Message_MustHaveOnlyOneFollowUpActivity" xml:space="preserve">
+    <value>有且只能有一个后继活动。</value>
+  </data>
+  <data name="Message_MustHaveOnlyOnePreactivity" xml:space="preserve">
+    <value>有且只能有一个前驱活动。</value>
+  </data>
+  <data name="Message_NotHaveFollowUpActivity" xml:space="preserve">
+    <value>不能有后继活动。</value>
+  </data>
+  <data name="Message_RequireTheInstallationOfPreAndFollowupActivity" xml:space="preserve">
+    <value>必须设置前驱和后继活动。</value>
+  </data>
+  <data name="Message_Saved" xml:space="preserve">
+    <value>流程已经保存</value>
+  </data>
+  <data name="Message_TheSameRuleThatAlreadyExist" xml:space="preserve">
+    <value>已经存在相同的规则。</value>
+  </data>
+  <data name="NewActivity" xml:space="preserve">
+    <value>新建活动</value>
+  </data>
+  <data name="NewLable" xml:space="preserve">
+    <value>新建标签</value>
+  </data>
+  <data name="NewRule" xml:space="preserve">
+    <value>新建规则</value>
+  </data>
+  <data name="RepeatDirection" xml:space="preserve">
+    <value>排列方式</value>
+  </data>
+  <data name="RepeatDirection_Horizontal" xml:space="preserve">
+    <value>横向</value>
+  </data>
+  <data name="RepeatDirection_Vertical" xml:space="preserve">
+    <value>竖向</value>
+  </data>
+  <data name="RuleCondion" xml:space="preserve">
+    <value>转移条件</value>
+  </data>
+  <data name="RuleCondition" xml:space="preserve">
+    <value />
+    <comment>流转条件</comment>
+  </data>
+  <data name="RuleLineType_Line" xml:space="preserve">
+    <value>直线</value>
+  </data>
+  <data name="RuleLineType_Polyline" xml:space="preserve">
+    <value>曲线</value>
+  </data>
+  <data name="RuleName" xml:space="preserve">
+    <value>规则名称</value>
+  </data>
+  <data name="SubFlow" xml:space="preserve">
+    <value>子流程</value>
+  </data>
+  <data name="WorkFlowName" xml:space="preserve">
+    <value>流程名称</value>
+  </data>
+</root>

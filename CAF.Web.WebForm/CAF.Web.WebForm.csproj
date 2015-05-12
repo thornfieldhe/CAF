@@ -72,6 +72,7 @@
       <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Owin">
@@ -84,7 +85,6 @@
   <ItemGroup>
     <Content Include="App_Readme\Elmah.SqlServer.sql" />
     <Content Include="App_Readme\Elmah.SqlServer.txt" />
-    <Content Include="ClientBin\WorkFlow.xap" />
     <Content Include="Content\default.css" />
     <Content Include="Dashboard.aspx" />
     <Content Include="extjs\ext-all.js" />
@@ -1930,7 +1930,7 @@
     <Content Include="extjs\res\images\unchecked_disabled.gif" />
     <Content Include="extjs\res\s.gif" />
     <Content Include="extjs\version.txt" />
-    <Content Include="login.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="packages.config" />
     <Content Include="res\icon\accept.png" />
     <Content Include="res\icon\add.png" />
@@ -3721,12 +3721,12 @@
     <Compile Include="Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="login.aspx.cs">
-      <DependentUpon>login.aspx</DependentUpon>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="login.aspx.designer.cs">
-      <DependentUpon>login.aspx</DependentUpon>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -3879,10 +3879,12 @@
     </Compile>
     <Compile Include="Workflow.asmx.cs">
       <DependentUpon>Workflow.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ClientBin\" />
     <Folder Include="extjs\src\" />
   </ItemGroup>
   <ItemGroup>

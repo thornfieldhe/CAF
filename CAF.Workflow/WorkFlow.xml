@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<WorkFlow  UniqueID=""  ID="" Name="" Description="" Width="" Height="" > 
+    <Activitys>
+      <Activity UniqueID="" ActivityID="" ActivityPost="" ActivityName="" Type="" PositionX="" PositionY="" ZIndex=""> 
+      </Activity>
+      <Activity UniqueID="" ActivityID="" ActivityPost="" ActivityName="" Type="" PositionX="" PositionY="" ZIndex="">
+      </Activity>
+    </Activitys>
+    <Rules>
+      <Rule UniqueID="" RuleID="" RuleName="" BeginActivityUniqueID="" EndActivityUniqueID=""  BeginPointX="" BeginPointY="" EndPointX="" EndPointY="" LineType="" ZIndex="">  
+      </Rule>
+      <Rule UniqueID="" RuleID="" RuleName="" BeginActivityUniqueID="" EndActivityUniqueID=""  BeginPointX="" BeginPointY="" EndPointX="" EndPointY="" LineType="" ZIndex="">
+      </Rule>
+    </Rules> 
+</WorkFlow>

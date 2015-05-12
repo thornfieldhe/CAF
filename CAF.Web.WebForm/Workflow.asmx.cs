@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Services;
+﻿using System.Web.Services;
 
-namespace CAF.Web.WebForm
+namespace CAF.Web
 {
+    using CAF.Model;
+    using System;
+    using System.Linq;
+    using System.Xml.Linq;
+
     /// <summary>
     /// Workflow 的摘要说明
     /// </summary>
@@ -16,11 +17,118 @@ namespace CAF.Web.WebForm
     // [System.Web.Script.Services.ScriptService]
     public class Workflow : System.Web.Services.WebService
     {
+        private readonly Workflow workflow;
 
+        public Workflow() { this.workflow = new Workflow(); }
+
+        /// <summary>
+        /// 获取工作流列表XML文件
+        /// </summary>
+        /// <returns></returns>
         [WebMethod]
-        public string HelloWorld()
+        public string GetWorkFlowList()
         {
-            return "Hello World";
+            try
+            {
+                return this.workflow.GetWorkFlowList();
+            }
+            catch (Exception ex)
+            {
+                this.CreateErrorLog(ex);
+                return "";
+            }
+        }
+
+        /// <summary>
+        /// 获取单条工作流信息
+        /// </summary>
+        /// <param name="workflowId"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string GetWorkflowDocument(string workflowId)
+        {
+            try
+            {
+                return this.GetWorkflowDocument(workflowId);
+            }
+            catch (Exception ex)
+            {
+                this.CreateErrorLog(ex);
+                return "";
+            }
+        }
+
+
+        /// <summary>
+        /// 删除工作流
+        /// </summary>
+        /// <param name="workflowId"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public void DeleteWorkflow(string workflowId)
+        {
+            try
+            {
+                this.workflow.DeleteWorkflow(workflowId);
+            }
+            catch (Exception ex) { this.CreateErrorLog(ex); }
+        }
+
+
+        /// <summary>
+        /// 更新工作流
+        /// </summary>
+        /// <param name="workflowDocument"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public void UpdateWorkflow(string workflowDocument)
+        {
+            try
+            {
+                this.workflow.UpdateWorkflow(workflowDocument);
+            }
+            catch (Exception ex)
+            {
+                this.CreateErrorLog(ex);
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// 获取岗位列表
+        /// </summary>
+        /// <returns></returns>
+        [WebMethod]
+        public string GetPostList()
+        {
+            try
+            {
+
+                var doc = new XDocument(new XElement("WorkFlows", Post.GetAll().Select(p => new XElement("Post",
+                                   new XAttribute("postname", p.Name.ToString()),
+                                   new XAttribute("ID", p.Id.ToString())))));
+                return doc.ToString();
+            }
+            catch (Exception ex)
+            {
+                this.CreateErrorLog(ex);
+                return "";
+            }
+        }
+
+        private void CreateErrorLog(Exception ex)
+        {
+            var log = new ErrorLog()
+                          {
+                              Details = ex.StackTrace,
+                              UserName = this.User.Identity.Name,
+                              Ip = Net.GetClientIP(),
+                              PageCode = 0,
+                              Message = ex.Message,
+                              Page = "工作流"
+                          };
+            log.Create();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Xml;
 using CAF.Model;
 using FineUI;
 
-namespace EmptyProjectNet20
+namespace CAF.Web
 {
     using CAF;
     using CAF.Web;

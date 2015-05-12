@@ -1,0 +1,170 @@
+﻿<UserControl x:Class="Shareidea.Web.UI.Control.Workflow.Designer.Container"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:setting="clr-namespace:Shareidea.Web.UI.Control.Workflow.Setting" 
+    xmlns:contentMenu="clr-namespace:Shareidea.Web.UI.Control.Workflow.Designer"
+    xmlns:local="clr-namespace:Shareidea.Web.UI.Control.Workflow.Designer.Resources" 
+    KeyDown="UserControl_KeyDown"
+    KeyUp="UserControl_KeyUp" 
+             
+             
+               
+   >
+    <Grid  x:Name="LayoutRoot"  Background="#A0A0A0" ShowGridLines="False" Margin="0" >
+
+        <Grid.RowDefinitions >
+            <RowDefinition Height="800" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel VerticalAlignment="Top"  Background="#e5eff8"     Width="250" Height="800" Grid.Row="0">
+            <StackPanel  VerticalAlignment="Center" Margin="10 10 0 0" Orientation="Horizontal" >
+                <TextBlock Name="tbWorkflowList" Text="读取流程:"  Padding="10"></TextBlock>
+                <ComboBox  Name="cbWorkflowList"  Width="130"  HorizontalAlignment="Left" Margin="0 10 0 0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" >
+                                <TextBlock Text="{Binding Path=ID}"  Visibility="Collapsed" />
+                                <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" Margin="10 10 0 0" Orientation="Horizontal"  >
+                <Button Content="选择流程" Name="btnChooseWorkflow" Margin="10 10 0 0" Width="60" Height="30"     Click="ChooseWorkflow_Click"  />
+                <Button Content="重新载入"    Name="btnReload"  VerticalAlignment="Top"  Margin="10 10 0 0" HorizontalAlignment="Right" Width="60" Height="30"  Click="btnReload_Click" />
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" Margin="0 0 0 0" Orientation="Horizontal" Height="30">
+                <TextBlock Text="请勿使用双引号，'='符号请用'等于'替换" Name="lbNotice" Padding="10"  Margin="5 0 0 0" Foreground ="Red" ></TextBlock>              
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" Margin="0 0 0 0" Orientation="Horizontal" Height="30">
+                <TextBlock Text="'>'符号请用'大于'替换，'&lt;'符号请用'小于'替换" Name="lbNotice2" Padding="10"  Margin="5 0 0 0" Foreground ="Red" ></TextBlock>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" Margin="10 0 0 0" Orientation="Horizontal"  >
+                <TextBlock Text="流程名称：" Name="tbWorkFlowName" Padding="10"  Margin="5 0 0 0"></TextBlock>
+                <TextBox   Name="txtWorkFlowName" Width="130" Height="25"  HorizontalAlignment="Left" Margin="10 0 0 0"></TextBox>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" Margin="10 10 0 0" Orientation="Horizontal"  >
+                <Button Content="添加活动" Name="btnAddActivity" VerticalAlignment="Top" Margin="0 10 0 0" HorizontalAlignment="Right" Width="60" Height="30"     Click="AddActivity_Click"  />
+                <Button Content="添加规则" Name="btnAddRule"  VerticalAlignment="Top"  Margin="10 10 0 0" HorizontalAlignment="Right" Width="60" Height="30"    Click="AddRule_Click" />
+                <Button Content="添加标签" Name="btnAddLabel"  VerticalAlignment="Top"  Margin="10 10 0 0" HorizontalAlignment="Right" Width="60" Height="30"    Click="AddLabel_Click" />
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" Margin="10 10 0 0" Orientation="Horizontal"  >
+                <Button Content="导出Xml" Name="btnExportToXml"  VerticalAlignment="Top"  Margin="0 10 0 0" HorizontalAlignment="Right" Width="60" Height="30"  Click="btnExportXml_Click" />
+                <Button Content="导入Xml" Name="btnImportFromXml"  VerticalAlignment="Top"  Margin="10 10 0 0" HorizontalAlignment="Right" Width="60" Height="30"  Click="btnShowXmlContainer_Click" />
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" Margin="10 10 0 0" Orientation="Horizontal"  >
+                <Button Content="保存"    Name="btnSave"  VerticalAlignment="Top"  Margin="0 10 0 0" HorizontalAlignment="Right" Width="60" Height="30"  Click="btnSave_Click" />
+                <Button Content="删除"    Name="btnDel"  VerticalAlignment="Top"  Margin="10 10 0 0" HorizontalAlignment="Right" Width="60" Height="30"  Click="btnDel_Click" />
+
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" Margin="10 10 0 0" Orientation="Horizontal"  >
+                <Button Content="清除面板" Name="btnClearContainer" VerticalAlignment="Top"  Margin="0 10 0 0" HorizontalAlignment="Right" Width="60" Height="30"  Click="ClearContainer" />
+                <Button Content="上一步" Name="btnPrevious"  VerticalAlignment="Top"  Margin="10 10 0 0" HorizontalAlignment="Right" Width="60" Height="30"  Click="btnPre_Click" />
+                <Button Content="下一步" Name="btnNext" VerticalAlignment="Top"  Margin="10 10 0 0" HorizontalAlignment="Right" Width="60" Height="30"  Click="btnNext_Click" />
+            </StackPanel>
+
+            <StackPanel   Orientation="Horizontal" Margin="10 5 0 0">
+                <TextBlock Name="tbShowGridLines" Text="显示网格"></TextBlock>
+                <CheckBox Name="cbShowGridLines"    IsChecked="false"  Click="cbShowGridLines_Click"></CheckBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10 5 0 0">
+                <TextBlock Name="tbContainerWidth" Text="容器宽" Margin="0 0 5 0" Width="35" ></TextBlock>
+                <Slider Name="sliWidth" Maximum="1900" Minimum="970" Width="100"  ValueChanged="sliWidth_ValueChanged"   ></Slider>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Margin="10 5 0 0">
+                <TextBlock Name="tbContainerHeight" Text="容器高"  Margin="0 0 5 0"  Width="35" ></TextBlock>
+                <Slider Name="sliHeight" Maximum="1200" Minimum="570"  Width="100" ValueChanged="sliHeight_ValueChanged"  ></Slider>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Margin="10 5 0 0">
+                <TextBlock Name="tbZoom" Text="缩放"  Margin="0 0 5 0"  Width="35" ></TextBlock>
+
+
+                <Slider Name="sliZoom"  LargeChange="1"  SmallChange="1"  Maximum="2" Minimum="0.5"  Width="70"   ValueChanged="sliZoom_ValueChanged"></Slider>
+                <TextBlock Name="btZoomValue" Text="1.2"   Margin="0 0 0 0" Width="30" ></TextBlock>
+
+            </StackPanel>
+        </StackPanel>
+
+        <ScrollViewer Name="svContainer"  Background="#dcdcdc" HorizontalContentAlignment="Left" VerticalAlignment="Top" BorderBrush="Beige"  BorderThickness="0" HorizontalAlignment="Left"  Width="1000" Height="600"  Grid.Row="0" Grid.Column="1"   HorizontalScrollBarVisibility="Visible"  VerticalScrollBarVisibility="Visible" >
+
+            <ScrollViewer.Content>
+                <Border   VerticalAlignment="Top"   HorizontalAlignment="Left"    BorderThickness="1"  BorderBrush="White" >
+
+                    <Canvas       Name="cnsDesignerContainer"     VerticalAlignment="Top"   HorizontalAlignment="Left"  Width="980" Height="580" Background="#dcdcdc"
+                                   MouseLeftButtonDown="Container_MouseLeftButtonDown"
+                                  MouseMove="Container_MouseMove"
+                                   MouseLeftButtonUp="Container_MouseLeftButtonUp"  
+                                  MouseEnter="Container_MouseEnter"
+                                   MouseLeave="Container_MouseLeave"
+                                  
+                                  >
+                    </Canvas>
+
+
+                </Border>
+            </ScrollViewer.Content>
+        </ScrollViewer>
+        <Canvas  Name="menuAndSetting"  Grid.Row="0" Grid.Column="1"     >
+            <setting:ActivitySetting   Canvas.Top="200" Canvas.Left="250" Canvas.ZIndex="1000"  x:Name="siActivitySetting"></setting:ActivitySetting>
+            <setting:RuleSetting  Canvas.Top="200" Canvas.Left="250" Canvas.ZIndex="1000"  x:Name="siRuleSetting"></setting:RuleSetting>
+            <contentMenu:ActivityMenu x:Name="menuActivity" ></contentMenu:ActivityMenu>
+            <contentMenu:RuleMenu x:Name="menuRule"></contentMenu:RuleMenu>
+            <contentMenu:LabelMenu x:Name="menuLabel"></contentMenu:LabelMenu>
+
+            <contentMenu:ContainerMenu x:Name="menuContainer"></contentMenu:ContainerMenu>
+        </Canvas>
+
+
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#A0a0a0" Margin="0 10 0 0">
+            <HyperlinkButton HorizontalContentAlignment="Center"  VerticalAlignment="Top"     Foreground="White"      NavigateUri="http://www.shareidea.net/opensource.htm?comefrom=silverlightworkflowdesigner" TargetName="_blank"  ClickMode="Release" Content="CopyRight @ 深圳市吉软科技有限公司 2009"     ></HyperlinkButton>
+
+        </Grid>
+
+
+
+        <Canvas  Name="canContainerCover"  Canvas.ZIndex="9000" Visibility="Collapsed" Background="Black"  Width="10000" Height="10000" Opacity="0.8" >
+            <Canvas.Resources>
+                <Storyboard  x:Name="sbContainerCoverDisplay">
+                    <DoubleAnimation   From="0" To="0.8" Duration="00:00:0.3" 
+                    Storyboard.TargetName="canContainerCover" 
+                    Storyboard.TargetProperty="Opacity" >
+                    </DoubleAnimation>
+                </Storyboard>
+                <Storyboard  x:Name="sbContainerCoverClose">
+                    <DoubleAnimation   From="0.8" To="0.0" Duration="00:00:0.3" 
+                    Storyboard.TargetName="canContainerCover" 
+                    Storyboard.TargetProperty="Opacity" >
+                    </DoubleAnimation>
+                </Storyboard>
+            </Canvas.Resources>
+        </Canvas>
+
+
+        <Canvas Name="MessageBody"   Canvas.ZIndex="10000">
+
+            <Border   Canvas.Top="200" Canvas.Left="250" CornerRadius="30" Opacity="1"  Background="#FF5C7590" Width="400"    Height="200">
+                <StackPanel VerticalAlignment="Center" Margin="20"  >
+                    <TextBlock Name="MessageTitle" Text="消息内容" Foreground="White" FontSize="18" TextWrapping="Wrap"  HorizontalAlignment="Center" Margin="10"></TextBlock>
+                    <Button Name="btnCloseMessage" Content="关闭"  Width="100"  Height="50" FontSize="18" Click="btnCloseMessageButton_Click" ></Button>
+                </StackPanel>
+            </Border>
+        </Canvas>
+        <Canvas  Name="XmlContainer"  Canvas.ZIndex="10000"  >
+            <Border  Canvas.Top="200" Canvas.Left="250" Background="Gold" CornerRadius="10"  BorderBrush="SlateGray"  BorderThickness="2">
+                <StackPanel VerticalAlignment="Center" Margin="20"  >
+                    <TextBox AcceptsReturn="True" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible"  Name="txtXml" Canvas.Left="50" Canvas.Top="10" Width="600" Height="200" HorizontalAlignment="Center"></TextBox>
+                    <StackPanel VerticalAlignment="Center" Margin="0 10 0 0" Orientation="Horizontal"  >
+                        <Button Name="btnCloseXml" Content="关闭" Margin="0 10 0 0"  Width="60" Height="30" Click="CloseXml_Click"></Button>
+                        <Button Name="btnImportXml" Content="导入" Margin="10 10 0 0"   Width="60" Height="30" Click="ImportXml_Click"></Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Canvas>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="Shareidea.Web.UI.Control.Workflow.Setting.RuleSetting"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+               MouseLeftButtonDown="UserControl_MouseLeftButtonDown" 
+             MouseLeftButtonUp="UserControl_MouseLeftButtonUp" 
+             MouseMove="UserControl_MouseMove"  >
+    <Canvas x:Name="LayoutRoot" >
+        <Canvas.Resources>
+            <Storyboard  x:Name="sbRuleSettingDisplay">
+                <DoubleAnimation   From="0" To="1.0" Duration="00:00:0.5" 
+                    Storyboard.TargetName="LayoutRoot" 
+                    Storyboard.TargetProperty="Opacity" >
+                </DoubleAnimation>
+            </Storyboard>
+            <Storyboard  x:Name="sbRuleSettingClose">
+                <DoubleAnimation   From="1.0" To="0.0" Duration="00:00:0.5" 
+                    Storyboard.TargetName="LayoutRoot" 
+                    Storyboard.TargetProperty="Opacity" >
+                </DoubleAnimation>
+            </Storyboard>
+        </Canvas.Resources>
+        <Border  Background="Gold" CornerRadius="10"  BorderBrush="SlateGray"  BorderThickness="2"  >
+            <StackPanel VerticalAlignment="Top" Margin="20"  >
+                <Grid ShowGridLines="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"  ></RowDefinition>
+                        <RowDefinition Height="30"  ></RowDefinition>
+                        <RowDefinition Height="30"  ></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition  Width="60" ></ColumnDefinition>
+                        <ColumnDefinition  Width="200"></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Name="tbRuleName" Text="规则名称" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0"></TextBlock>
+                    <TextBlock Name="tbCondition"  Text="规则条件" VerticalAlignment="Center" HorizontalAlignment="Left"  Grid.Column="0" Grid.Row="1"></TextBlock>
+                    <TextBox Name="txtRuleName" Width="200"  VerticalAlignment="Center" HorizontalAlignment="Left"  Grid.Column="1" Grid.Row="0"></TextBox>
+                    <TextBox Name="txtRuleCondition" Width="200"  VerticalAlignment="Center" HorizontalAlignment="Left"  Grid.Column="1" Grid.Row="1"></TextBox>
+                    <TextBlock Name="tbLineType" Text="线条类型" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="2"></TextBlock>
+
+                    <ComboBox Name="cbRuleLineType" Width="200"  VerticalAlignment="Center" HorizontalAlignment="Left"  Grid.Column="1" Grid.Row="2">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" >
+                                    <TextBlock Text="{Binding Path=Name}"  Visibility="Collapsed" />
+                                    <TextBlock Text="{Binding Path=Text}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                </Grid>
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 10 0 0" Orientation="Horizontal"  >
+                    <Button Name="btnSave" Content="确定" Margin="0 0 0 0"  Width="60" Height="30" Click="btnSave_Click" ></Button>
+                    <Button Name="btnAppay" Content="应用" Margin="10 0 0 0"  Width="60" Height="30" Click="btnApply_Click" ></Button>
+                    <Button Name="btnClose" Content="取消" Margin="10 0 0 0"   Width="60" Height="30" Click="btnClose_Click" ></Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Canvas>
+</UserControl>

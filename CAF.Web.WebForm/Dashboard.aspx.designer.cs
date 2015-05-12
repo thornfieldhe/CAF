@@ -7,8 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace EmptyProjectNet20
-{
+namespace CAF.Web {
     
     
     public partial class Dashboard {
