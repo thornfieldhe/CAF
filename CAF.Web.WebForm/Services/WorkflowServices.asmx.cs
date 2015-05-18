@@ -17,7 +17,7 @@ namespace CAF.Web
     // [System.Web.Script.Services.ScriptService]
     public class WorkflowServices : System.Web.Services.WebService
     {
-        public WorkflowServices(){}
+        public WorkflowServices() { }
 
         /// <summary>
         /// 获取工作流列表XML文件

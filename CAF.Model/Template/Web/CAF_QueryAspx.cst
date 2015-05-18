@@ -33,7 +33,7 @@
                     <f:Toolbar ID="Toolbar1" runat="server" >
                         <Items >
                             <f:NewButton ID="btnNew"  runat="server"  />
-                            <f:DeleteButton  ID="btnDeleteRows" runat="server" OnClick="btnExcute_Click"/>
+                            <f:DeleteButton  ID="btnDelete" runat="server" OnClick="btnExcute_Click"/>
                             <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
                             </f:ToolbarSeparator>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server"/>
@@ -93,6 +93,10 @@ public string GetClassName()
     	{
     		return table.Name.Substring(pre+1, table.Name.Length - pre-4)+"y";
     	}
+        else if (table.Name.EndsWith("ses"))
+    	{
+    		return table.Name.Substring(pre+1, table.Name.Length - pre-3);
+    	}
     	else if (table.Name.EndsWith("s"))
     	{
     		return table.Name.Substring(pre+1, table.Name.Length - pre-2);
@@ -108,6 +112,10 @@ public string GetClassName()
         if (table.Name.EndsWith("ies"))
     	{
     		return  "ReadOnly"+(table.Name.Substring(0, table.Name.Length -3)+"y").Replace("V_","");
+    	}
+        	else if (table.Name.EndsWith("ses"))
+    	{
+    		return "ReadOnly"+table.Name.Substring(0, table.Name.Length - 2).Replace("V_","")+"List";
     	}
     	else if (table.Name.EndsWith("s"))
     	{
@@ -130,6 +138,10 @@ public string GetSingleClassName()
     	{
     		return table.Name.Substring(pre+1, table.Name.Length - pre-4)+"y";
     	}
+        	else if (table.Name.EndsWith("ses"))
+    	{
+    		return table.Name.Substring(pre+1, table.Name.Length - pre-3);
+    	}
     	else if (table.Name.EndsWith("s"))
     	{
     		return table.Name.Substring(pre+1, table.Name.Length - pre-2);
@@ -145,6 +157,10 @@ public string GetSingleClassName()
         if (table.Name.EndsWith("ies"))
     	{
     		return  (table.Name.Substring(0, table.Name.Length -3)+"y").Replace("V_","");
+    	}
+        	else if (table.Name.EndsWith("ses"))
+    	{
+    		return table.Name.Substring(0, table.Name.Length - 2).Replace("V_","");
     	}
     	else if (table.Name.EndsWith("s"))
     	{

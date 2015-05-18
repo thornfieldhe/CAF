@@ -177,6 +177,10 @@ public string GetSingleClassName()
     	{
     		return table.Name.Substring(pre+1, table.Name.Length - pre-4)+"y";
     	}
+        else if (table.Name.EndsWith("ses"))
+    	{
+    		return table.Name.Substring(pre+1, table.Name.Length - pre-3);
+    	}
     	else if (table.Name.EndsWith("s"))
     	{
     		return table.Name.Substring(pre+1, table.Name.Length - pre-2);
@@ -192,6 +196,10 @@ public string GetSingleClassName()
         if (table.Name.EndsWith("ies"))
     	{
     		return  (table.Name.Substring(0, table.Name.Length -3)+"y").Replace("V_","");
+    	}
+        else if (table.Name.EndsWith("ses"))
+    	{
+    		return table.Name.Substring(0, table.Name.Length - 2).Replace("V_","");
     	}
     	else if (table.Name.EndsWith("s"))
     	{

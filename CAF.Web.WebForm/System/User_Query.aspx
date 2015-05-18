@@ -29,7 +29,7 @@
                             </f:ToolbarSeparator>
                             <f:QueryButton ID="btnQuery" runat="server" OnClick="btnExcute_Click"/>
                             <f:NewButton ID="btnNew"  Icon="Add" runat="server"  />
-                            <f:DeleteButton  ID="btnDeleteRows" runat="server" OnClick="btnExcute_Click"/>
+                            <f:DeleteButton  ID="btnDelete" runat="server" OnClick="btnExcute_Click"/>
                             <f:Button Text="锁定" ID="btnLockRows" runat="server" OnClick="btnLockRows_Click"/>
                             <f:Button Text="解锁" ID="btnUnLockRows" runat="server" OnClick="btnUnLockRows_Click"/>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server"/>

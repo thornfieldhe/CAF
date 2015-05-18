@@ -59,6 +59,8 @@ namespace CAF
             }
         }
 
+        public void SetId(Guid id) { this.Id = id; }
+
         public BaseEntity(Guid id)
         {
             this._id = id;

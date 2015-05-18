@@ -13,7 +13,7 @@
     <f:CAFPanel runat="server" ID="mainPanel" Layout="Fit" >
         <Items>
             <f:CAFGrid ID="grid" runat="server" Title="操作日志"  SortField="CreatedDate" 
-                 DataKeyNames="Id">
+                 DataKeyNames="Id" SortDirection="DESC">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar1" runat="server" >
                         <Items >

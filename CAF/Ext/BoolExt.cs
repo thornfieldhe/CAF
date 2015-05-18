@@ -11,6 +11,10 @@ namespace CAF
         {
             if (allowExcuteAction) { action.Invoke(); }
         }
+        public static void IfIsFalse(this bool allowExcuteAction, Action action)
+        {
+            if (!allowExcuteAction) { action.Invoke(); }
+        }
 
         /// <summary>
         /// 转换成int值

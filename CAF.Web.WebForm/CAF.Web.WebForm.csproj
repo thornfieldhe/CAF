@@ -3666,8 +3666,6 @@
     <Content Include="System\ExcuteSql.aspx" />
     <Content Include="System\InfoLog_Query.aspx" />
     <Content Include="System\LoginLog_Query.aspx" />
-    <Content Include="System\Module_Edit.aspx" />
-    <Content Include="System\Module_Query.aspx" />
     <Content Include="System\Organize_Edit.aspx" />
     <Content Include="System\Organize_Query.aspx" />
     <Content Include="System\PostUserOrganize_Edit.aspx" />
@@ -3678,6 +3676,8 @@
     <Content Include="System\User_ChangePass.aspx" />
     <Content Include="System\User_Edit.aspx" />
     <Content Include="System\User_Query.aspx" />
+    <Content Include="System\WorkflowProcess_Edit.aspx" />
+    <Content Include="System\WorkflowProcess_Query.aspx" />
     <Content Include="Workflow_Edit.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -3791,20 +3791,6 @@
     <Compile Include="System\LoginLog_Query.aspx.designer.cs">
       <DependentUpon>LoginLog_Query.aspx</DependentUpon>
     </Compile>
-    <Compile Include="System\Module_Edit.aspx.cs">
-      <DependentUpon>Module_Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="System\Module_Edit.aspx.designer.cs">
-      <DependentUpon>Module_Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="System\Module_Query.aspx.cs">
-      <DependentUpon>Module_Query.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="System\Module_Query.aspx.designer.cs">
-      <DependentUpon>Module_Query.aspx</DependentUpon>
-    </Compile>
     <Compile Include="System\Organize_Edit.aspx.cs">
       <DependentUpon>Organize_Edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3878,6 +3864,20 @@
     <Compile Include="Services\WorkflowServices.asmx.cs">
       <DependentUpon>WorkflowServices.asmx</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="System\WorkflowProcess_Edit.aspx.cs">
+      <DependentUpon>WorkflowProcess_Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\WorkflowProcess_Edit.aspx.designer.cs">
+      <DependentUpon>WorkflowProcess_Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="System\WorkflowProcess_Query.aspx.cs">
+      <DependentUpon>WorkflowProcess_Query.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="System\WorkflowProcess_Query.aspx.designer.cs">
+      <DependentUpon>WorkflowProcess_Query.aspx</DependentUpon>
     </Compile>
     <Compile Include="Workflow_Edit.aspx.cs">
       <DependentUpon>Workflow_Edit.aspx</DependentUpon>

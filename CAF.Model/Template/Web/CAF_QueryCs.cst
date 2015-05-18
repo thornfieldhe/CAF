@@ -39,8 +39,8 @@ namespace <%= this.ClassNamespace %>.Web.WebForm
            //                        {
            //                         
            //                        };
-           var where = "1=1";
-           this.grid.BindDataSource<<%= GetClassName() %>>(null);
+           const string where = "1=1";
+           this.grid.BindDataSource<<%= GetClassName() %>>(null,where:where);
         }
                 
         protected override void OnLoad(EventArgs e)
@@ -75,6 +75,10 @@ public string GetClassName()
     	{
     		return table.Name.Substring(pre+1, table.Name.Length - pre-4)+"y";
     	}
+        else if (table.Name.EndsWith("ses"))
+    	{
+    		return table.Name.Substring(pre+1, table.Name.Length - pre-3);
+    	}
     	else if (table.Name.EndsWith("s"))
     	{
     		return table.Name.Substring(pre+1, table.Name.Length - pre-2);
@@ -90,6 +94,10 @@ public string GetClassName()
         if (table.Name.EndsWith("ies"))
     	{
     		return  "ReadOnly"+(table.Name.Substring(0, table.Name.Length -3)+"y").Replace("V_","");
+    	}
+        else if (table.Name.EndsWith("ses"))
+    	{
+    		return "ReadOnly"+table.Name.Substring(0, table.Name.Length - 2).Replace("V_","");
     	}
     	else if (table.Name.EndsWith("s"))
     	{
@@ -112,6 +120,10 @@ public string GetSingleClassName()
     	{
     		return table.Name.Substring(pre+1, table.Name.Length - pre-4)+"y";
     	}
+        	else if (table.Name.EndsWith("ses"))
+    	{
+    		return table.Name.Substring(pre+1, table.Name.Length - pre-3);
+    	}
     	else if (table.Name.EndsWith("s"))
     	{
     		return table.Name.Substring(pre+1, table.Name.Length - pre-2);
@@ -127,6 +139,10 @@ public string GetSingleClassName()
         if (table.Name.EndsWith("ies"))
     	{
     		return  (table.Name.Substring(0, table.Name.Length -3)+"y").Replace("V_","");
+    	}
+         	else if (table.Name.EndsWith("ses"))
+    	{
+    		return table.Name.Substring(0, table.Name.Length - 2).Replace("V_","");
     	}
     	else if (table.Name.EndsWith("s"))
     	{

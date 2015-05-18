@@ -30,7 +30,6 @@ namespace CAF.Model
         /// <summary>
         /// 活动名称
         /// </summary>
-        [Required(ErrorMessage="活动名称不允许为空")]
         [StringLength(50,ErrorMessage="活动名称长度不能超过50")]
 		public string Name
 		{
@@ -90,7 +89,7 @@ namespace CAF.Model
         const string QUERY_DELETE = "UPDATE Sys_WorkflowActivities SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WorkflowActivities WHERE Id = @Id AND Status!=-1";
         const string QUERY_GETALLBYWORKFLOWPROCESSID = "SELECT * FROM Sys_WorkflowActivities WHERE  Status!=-1 And WorkflowProcessId=@WorkflowProcessId";
-        const string QUERY_INSERT="INSERT INTO Sys_WorkflowActivities (Id, Name, WorkflowProcessId, Type, Post, CreatedDate, ChangedDate, Status, Note) VALUES (@Id, @Name, @WorkflowProcessId, @Type, @Post, @CreatedDate, @ChangedDate, @Status, @Note)";
+        const string QUERY_INSERT="INSERT INTO Sys_WorkflowActivities ([Id], [Name], [WorkflowProcessId], [Type], [Post], [CreatedDate], [ChangedDate], [Status], [Note]) VALUES (@Id, @Name, @WorkflowProcessId, @Type, @Post, @CreatedDate, @ChangedDate, @Status, @Note)";
         const string QUERY_UPDATE = "UPDATE Sys_WorkflowActivities SET {0} WHERE  Id = @Id";
                 
         #endregion

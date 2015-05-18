@@ -18,6 +18,7 @@ namespace CAF.Model
 		public int Sort{get; set;}      
 		public string ParentName{get; set;}      
 		public int SysLevel{get; set;}      
+		public int Status{get; set;}      
         public string TableName { get; protected set; }
     }
 }

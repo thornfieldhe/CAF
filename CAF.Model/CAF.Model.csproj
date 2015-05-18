@@ -57,7 +57,6 @@
     <Compile Include="CodeSmith\ErrorLog.cs" />
     <Compile Include="CodeSmith\InfoLog.cs" />
     <Compile Include="CodeSmith\LoginLog.cs" />
-    <Compile Include="CodeSmith\Module.cs" />
     <Compile Include="CodeSmith\Post.cs" />
     <Compile Include="CodeSmith\PostUserOrganize.cs" />
     <Compile Include="CodeSmith\ReadOnlyDirectoryList.cs" />
@@ -86,13 +85,13 @@
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\SqlService.cs" />
-    <Compile Include="Workflow\Module.cs" />
     <Compile Include="CodeSmith\WfActivity.cs" />
     <Compile Include="CodeSmith\WfProcess.cs" />
     <Compile Include="CodeSmith\WfRule.cs" />
     <Compile Include="CodeSmith\WorkflowActivity.cs" />
     <Compile Include="CodeSmith\WorkflowProcess.cs" />
     <Compile Include="CodeSmith\WorkflowRule.cs" />
+    <Compile Include="WorkflowProcess.cs" />
     <Compile Include="Workflow\Workflow.cs" />
   </ItemGroup>
   <ItemGroup>

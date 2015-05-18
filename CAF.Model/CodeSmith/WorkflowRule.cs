@@ -32,7 +32,6 @@ namespace CAF.Model
         /// <summary>
         /// 规则名称
         /// </summary>
-        [Required(ErrorMessage="规则名称不允许为空")]
         [StringLength(50,ErrorMessage="规则名称长度不能超过50")]
 		public string Name
 		{
@@ -109,7 +108,7 @@ namespace CAF.Model
         const string QUERY_DELETE = "UPDATE Sys_WorkflowRules SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WorkflowRules WHERE Id = @Id AND Status!=-1";
         const string QUERY_GETALLBYWORKFLOWPROCESSID = "SELECT * FROM Sys_WorkflowRules WHERE  Status!=-1 And WorkflowProcessId=@WorkflowProcessId";
-        const string QUERY_INSERT="INSERT INTO Sys_WorkflowRules (Id, Name, BeginActivityID, EndActivityID, Type, Condition, CreatedDate, ChangedDate, Status, Note, WorkflowProcessId) VALUES (@Id, @Name, @BeginActivityID, @EndActivityID, @Type, @Condition, @CreatedDate, @ChangedDate, @Status, @Note, @WorkflowProcessId)";
+        const string QUERY_INSERT="INSERT INTO Sys_WorkflowRules ([Id], [Name], [BeginActivityID], [EndActivityID], [Type], [Condition], [CreatedDate], [ChangedDate], [Status], [Note], [WorkflowProcessId]) VALUES (@Id, @Name, @BeginActivityID, @EndActivityID, @Type, @Condition, @CreatedDate, @ChangedDate, @Status, @Note, @WorkflowProcessId)";
         const string QUERY_UPDATE = "UPDATE Sys_WorkflowRules SET {0} WHERE  Id = @Id";
                 
         #endregion

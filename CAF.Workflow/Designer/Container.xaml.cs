@@ -2067,11 +2067,11 @@ namespace Shareidea.Web.UI.Control.Workflow.Designer
 
             Byte[] b = System.Text.UTF8Encoding.UTF8.GetBytes(e.Result);
             XElement xele = XElement.Load(System.Xml.XmlReader.Create(new MemoryStream(b)));
-            var partNos = from item in xele.Descendants("WorkFlow")
+            var partNos = from item in xele.Descendants("Workflow")
                           select new WorkflowListItem
                           {
                               Name = item.Attribute("Name").Value,
-                              ID = item.Attribute("ID").Value
+                              ID = item.Attribute("Id").Value
                           };
 
             cbWorkflowList.ItemsSource = partNos;

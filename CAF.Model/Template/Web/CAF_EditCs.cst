@@ -90,6 +90,10 @@ public string GetPlural (string name)
 	{
 		return name.Substring(pre+1, name.Length - pre-3)+"ies";
 	}
+    else if (!name.EndsWith("ses"))
+	{
+		return name.Substring(pre+1, name.Length - pre-2)+"s";
+	}
 	else if (!name.EndsWith("s"))
 	{
 		return name.Substring(pre+1, name.Length - pre-1)+"s";
@@ -106,6 +110,10 @@ public string GetClassName(TableSchema table)
     if (table.Name.EndsWith("ies"))
 	{
 		return table.Name.Substring(pre+1, table.Name.Length - pre-4)+"y";
+	}
+    else if (table.Name.EndsWith("ses"))
+	{
+		return table.Name.Substring(pre+1, table.Name.Length - pre-3);
 	}
 	else if (table.Name.EndsWith("s"))
 	{

@@ -34,7 +34,7 @@ public string GetClassName(ViewSchema table)
 	{
 		return  "ReadOnly"+(table.Name.Substring(0, table.Name.Length -3)+"y").Replace("V_","")+"List";
 	}
-    else if (table.Name.EndsWith("sses"))
+    else if (table.Name.EndsWith("ses"))
 	{
 		return "ReadOnly"+table.Name.Substring(0, table.Name.Length - 2).Replace("V_","")+"List";
 	}
@@ -54,7 +54,7 @@ public string GetViewClassName(ViewSchema table)
 	{
 		return  "ReadOnly"+(table.Name.Substring(0, table.Name.Length -3)+"y").Replace("V_","");
 	}
-     else  if (table.Name.EndsWith("sses"))
+     else  if (table.Name.EndsWith("ses"))
 	{
 		return  "ReadOnly"+(table.Name.Substring(0, table.Name.Length -2)+"y").Replace("V_","");
 	}

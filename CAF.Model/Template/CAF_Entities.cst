@@ -121,7 +121,6 @@ public void RenderBusinessObject(TableSchema table)
             case "Sys_WorkflowProcesses":
                 businessObject.Children.Add("WorkflowActivity");
                 businessObject.Children.Add("WorkflowRule");
-                businessObject.AsChild.Add("ModuleId");
                 businessObject.RenderToFile(fileDirectory,true);
             break;
             case "Sys_WfProcesses":
@@ -143,10 +142,6 @@ public void RenderBusinessObject(TableSchema table)
             break;
             case "Sys_WorkflowRules":
                 businessObject.AsChildren.Add("WorkflowProcessId");
-                businessObject.RenderToFile(fileDirectory,true);
-            break;
-            case "Sys_Modules":
-                businessObject.Child.Add("WorkflowProcess");
                 businessObject.RenderToFile(fileDirectory,true);
             break;
             default:

@@ -348,7 +348,7 @@ public string GetClassName(TableSchema table)
 	{
 		return name.Substring(pre+1, name.Length - pre-4)+"y";
 	}
-    else if (name.EndsWith("sses"))
+    else if (name.EndsWith("ses"))
 	{
 		return name.Substring(pre+1, name.Length - pre-3);
 	}

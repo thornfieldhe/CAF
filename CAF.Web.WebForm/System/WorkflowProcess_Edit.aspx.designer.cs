@@ -10,7 +10,7 @@
 namespace CAF.Web.WebForm {
     
     
-    public partial class Module_Edit {
+    public partial class WorkflowProcess_Edit {
         
         /// <summary>
         /// form1 控件。
@@ -58,15 +58,6 @@ namespace CAF.Web.WebForm {
         protected global::CAF.Web.WebForm.CAFControl.CloseButton btnClose;
         
         /// <summary>
-        /// btnAdd 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::CAF.Web.WebForm.CAFControl.AddButton btnAdd;
-        
-        /// <summary>
         /// btnUpdate 控件。
         /// </summary>
         /// <remarks>
@@ -94,6 +85,15 @@ namespace CAF.Web.WebForm {
         protected global::CAF.Web.WebForm.CAFControl.SubmitForm submitForm;
         
         /// <summary>
+        /// txtId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUI.TextBox txtId;
+        
+        /// <summary>
         /// txtName 控件。
         /// </summary>
         /// <remarks>
@@ -103,14 +103,12 @@ namespace CAF.Web.WebForm {
         protected global::FineUI.TextBox txtName;
         
         /// <summary>
-        /// txtKey 控件。
+        /// txtDocument 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.TextBox txtKey;
-        
+        protected global::FineUI.TextArea txtDocument;
     }
 }
-

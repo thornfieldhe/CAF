@@ -57,7 +57,7 @@ namespace CAF
                                                          string queryWhere = " 1=1", int pageIndex = 0, string sortDescription = "DESC", string sum = "",
                                                          string average = "")
         {
-            _queryWhere = queryWhere;
+            _queryWhere =string.Format(" Status!=-1 And {0}", queryWhere);
             _orderBy = orderBy;
             _sortDescription = sortDescription;
             _tableName = tableName;

@@ -15,6 +15,7 @@ namespace CAF.Model
 		public string UserName{get; set;}      
 		public string PostName{get; set;}      
 		public string OrganizeName{get; set;}      
+		public int Status{get; set;}      
         public string TableName { get; protected set; }
     }
 }

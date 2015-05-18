@@ -20,8 +20,7 @@
                     <f:TextBox ID="txtPassword" Label="密码" TextMode="Password" Required="true" runat="server"
                         Text="11111111" TabIndex="2">
                     </f:TextBox>
-                    <f:TextBox ID="txtCaptcha" Label="验证码" Required="true" runat="server" TabIndex="3"
-                        Text="1">
+                    <f:TextBox ID="txtCaptcha" Label="验证码" Required="true" runat="server" TabIndex="3">
                     </f:TextBox>
                     <f:Panel ID="Panel1" CssStyle="" ShowBorder="false" ShowHeader="false"
                          runat="server">
