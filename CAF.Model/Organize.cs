@@ -94,8 +94,8 @@ namespace CAF.Model
             {
                 return;
             }
-            var organizes = new OrganizeList().Query<OrganizeList, Organize>(conn, transaction, new { Level = this.Level },
-                " Level Like @Level+'%' AND Level!=@Level");
+            var organizes = Organize.Query(o=>o.Where(l=>l.Level.StartsWith(this.Level) && l.Level!=this.Level)
+                ,conn, transaction);
                 
             var level = this.GetMaxCode(conn, transaction);
             organizes.ForEach(o =>

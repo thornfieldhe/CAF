@@ -306,40 +306,6 @@ namespace CAF
             return this._items.IndexOf(member);
         }
 
-        public T Query<T, K>(Object dynamicObj, string query = " 1=1")
-            where T : CollectionBase<T, K>, new()
-            where K : BaseEntity<K>, IBaseStatus
-        {
-            using (IDbConnection conn = this.Connection)
-            {
-                var items = conn.Query<K>(string.Format(QUERY, this.TableName, query), dynamicObj).ToList();
-
-                var list = new T();
-                foreach (var item in items)
-                {
-                    item.MarkOld();
-                    list.Add(item);
-                }
-                return list;
-            }
-        }
-
-        public T Query<T, K>(IDbConnection conn, IDbTransaction transaction, Object dynamicObj, string query = " 1=1")
-            where T : CollectionBase<T, K>, new()
-            where K : BaseEntity<K>, IBaseStatus
-        {
-            var items = conn.Query<K>(string.Format(QUERY, this.TableName, query), dynamicObj, transaction).ToList();
-
-            var list = new T();
-            foreach (var item in items)
-            {
-                item.MarkOld();
-                list.Add(item);
-            }
-            return list;
-        }
-
-
         public string TableName { get; protected set; }
         #region 数据库操作方法
 

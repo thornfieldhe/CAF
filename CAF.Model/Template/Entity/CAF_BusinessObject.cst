@@ -240,7 +240,7 @@ namespace <%= ClassNamespace %>.Model
 		#endregion
         
         #region 常量定义
-        
+        protected const string QUERY_COUNT = "SELECT COUNT(*) AS COUNT FROM <%= SourceTable.Name %> Where Status!=-1 ";
         const string QUERY_GETBYID = "SELECT Top 1 * FROM <%= SourceTable.Name %> WHERE Id = @Id  AND Status!=-1";
         const string QUERY_GETAll = "SELECT * FROM <%= SourceTable.Name %> WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE <%= SourceTable.Name %> SET Status=-1 WHERE Id = @Id AND  Status!=-1";
@@ -439,13 +439,86 @@ namespace <%= ClassNamespace %>.Model
                 {
                     item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
-                    item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                    <%foreach(string item in Children){ %>
+                    item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
+                    <%} %>
+                    <%foreach(string item in Child){ %>                    
+                    item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => Init<%=item%>(item), isThreadSafe: true);      
+					<%} %> 
+					<%foreach(string item in WithMany){ %>
+                     item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
+                    <%} %> 
                     list.Add(item);
                 }
 				list.MarkOld();
                 return list;
             }
         }
+        
+                /// <summary>
+        /// 表达式查询
+        /// </summary>
+        /// <param name="exp">表达式</param>
+        /// <param name="conn"></param>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        public static <%= GetCollectionClassName(SourceTable) %> Query(Expression<Func<IQueryable<<%= GetClassName(SourceTable) %>>, IQueryable<<%= GetClassName(SourceTable) %>>>> exp,
+        IDbConnection conn, IDbTransaction transaction)
+        {
+            var expc = new ExpConditions<<%= GetClassName(SourceTable) %>>();
+            expc.Add(exp);
+            var items = conn.Query<<%= GetClassName(SourceTable) %>>(string.Format("{0} {1} {2}", QUERY_GETAll, expc.Where(), expc.OrderBy())).ToList();
+            
+            var list=new <%= GetCollectionClassName(SourceTable) %>();
+            foreach (var item in items)
+            {
+                item.Connection = SqlService.Instance.Connection;
+                item.MarkOld();
+                <%foreach(string item in Children){ %>
+                item.<%= GetListMember2(item)%> = new Lazy<<%=item%>List>(() => Init<%=item%>s(item), isThreadSafe: true);
+                <%} %>
+                <%foreach(string item in Child){ %>                    
+                item.<%= GetListMember3(item)%> = new Lazy<<%=item%>>(() => Init<%=item%>(item), isThreadSafe: true);      
+				<%} %> 
+				<%foreach(string item in WithMany){ %>
+                 item.<%= GetListMember2(GetRelationshipItem(item))%> = new Lazy<<%=GetRelationshipItem(item)%>List>(() => Init<%=GetRelationshipItem(item)%>s(item), isThreadSafe: true);
+                <%} %> 
+                list.Add(item);
+            }
+			list.MarkOld();
+            return list;
+        }
+
+        /// <summary>
+        /// 数量查询
+        /// </summary>
+        /// <param name="exp">表达式</param>
+        /// <returns></returns>
+        public static int QueryCount(Expression<Func<IQueryable<<%= GetClassName(SourceTable) %>>, IQueryable<<%= GetClassName(SourceTable) %>>>> exp)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                var expc = new ExpConditions<<%= GetClassName(SourceTable) %>>();
+                expc.Add(exp);
+                return conn.Query<int>(string.Format(string.Format("{0} {1}", QUERY_COUNT, expc.Where()))).Single();
+            }
+        }
+
+        /// <summary>
+        /// 是否存在
+        /// </summary>
+        /// <param name="exp">表达式</param>
+        /// <returns></returns>
+        public static bool Exists(Expression<Func<IQueryable<<%= GetClassName(SourceTable) %>>, IQueryable<<%= GetClassName(SourceTable) %>>>> exp)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                var expc = new ExpConditions<<%= GetClassName(SourceTable) %>>();
+                expc.Add(exp);
+               return conn.Query<int>(string.Format(string.Format("{0} {1}", QUERY_COUNT, expc.Where()))).Single()>0;
+            }
+        }
+        
         #endregion
         
 		
@@ -585,38 +658,6 @@ namespace <%= ClassNamespace %>.Model
         {
             this.Connection = SqlService.Instance.Connection;
             this.TableName = "<%= SourceTable.Name %>";
-        }
-
-        public static <%= GetCollectionClassName(SourceTable) %> Query(Object dynamicObj, string query = " 1=1")
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                var items = conn.Query<<%= GetClassName(SourceTable) %>>(string.Format(QUERY, "<%= SourceTable.Name %>", query), dynamicObj).ToList();
-
-                var list = new <%= GetCollectionClassName(SourceTable) %>();
-                foreach (var item in items)
-                {
-                    item.MarkOld();
-                    list.Add(item);
-                }
-                return list;
-            }
-        }
-
-        public static int QueryCount(Object dynamicObj, string query = " 1=1")
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                return conn.Query<int>(string.Format(COUNT, "<%= SourceTable.Name %>", query), dynamicObj).Single();
-            }
-        }
-
-        public static bool Exists(Object dynamicObj, string query = " 1=1")
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-               return conn.Query<int>(string.Format(COUNT, "<%= SourceTable.Name %>", query), dynamicObj).Single()>0;
-            }
         }
     }
 }

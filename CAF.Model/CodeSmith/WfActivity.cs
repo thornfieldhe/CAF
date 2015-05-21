@@ -98,23 +98,12 @@ namespace CAF.Model
             set {this.SetProperty("ActivityId",ref this._activityId, value);}           	
 		}
         
-        /// <summary>
-        /// 活动
-        /// </summary>
-        public Activity Activity
-		{
-			get
-			{ 
-				return Activity.Get(this.ActivityId);
-			}        	
-		}
-
-        
+     
         
 		#endregion
         
         #region 常量定义
-        
+        protected const string QUERY_COUNT = "SELECT COUNT(*) AS COUNT FROM Sys_WfActivities Where Status!=-1 ";
         const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_WfActivities WHERE Id = @Id  AND Status!=-1";
         const string QUERY_GETAll = "SELECT * FROM Sys_WfActivities WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_WfActivities SET Status=-1 WHERE Id = @Id AND  Status!=-1";
@@ -219,13 +208,66 @@ namespace CAF.Model
                 {
                     item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
-                    item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                     list.Add(item);
                 }
 				list.MarkOld();
                 return list;
             }
         }
+        
+                /// <summary>
+        /// 表达式查询
+        /// </summary>
+        /// <param name="exp">表达式</param>
+        /// <returns></returns>
+        public static WfActivityList Query(Expression<Func<IQueryable<WfActivity>, IQueryable<WfActivity>>> exp,
+        IDbConnection conn, IDbTransaction transaction)
+        {
+            var expc = new ExpConditions<WfActivity>();
+            expc.Add(exp);
+            var items = conn.Query<WfActivity>(string.Format("{0} {1} {2}", QUERY_GETAll, expc.Where(), expc.OrderBy())).ToList();
+            
+            var list=new WfActivityList();
+            foreach (var item in items)
+            {
+                item.Connection = SqlService.Instance.Connection;
+                item.MarkOld();
+                list.Add(item);
+            }
+			list.MarkOld();
+            return list;
+        }
+
+        /// <summary>
+        /// 数量查询
+        /// </summary>
+        /// <param name="exp">表达式</param>
+        /// <returns></returns>
+        public static int QueryCount(Expression<Func<IQueryable<WfActivity>, IQueryable<WfActivity>>> exp)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                var expc = new ExpConditions<WfActivity>();
+                expc.Add(exp);
+                return conn.Query<int>(string.Format(string.Format("{0} {1}", QUERY_COUNT, expc.Where()))).Single();
+            }
+        }
+
+        /// <summary>
+        /// 是否存在
+        /// </summary>
+        /// <param name="exp">表达式</param>
+        /// <returns></returns>
+        public static bool Exists(Expression<Func<IQueryable<WfActivity>, IQueryable<WfActivity>>> exp)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                var expc = new ExpConditions<WfActivity>();
+                expc.Add(exp);
+               return conn.Query<int>(string.Format(string.Format("{0} {1}", QUERY_COUNT, expc.Where()))).Single()>0;
+            }
+        }
+        
         #endregion
         
 		
@@ -266,38 +308,6 @@ namespace CAF.Model
         {
             this.Connection = SqlService.Instance.Connection;
             this.TableName = "Sys_WfActivities";
-        }
-
-        public static WfActivityList Query(Object dynamicObj, string query = " 1=1")
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                var items = conn.Query<WfActivity>(string.Format(QUERY, "Sys_WfActivities", query), dynamicObj).ToList();
-
-                var list = new WfActivityList();
-                foreach (var item in items)
-                {
-                    item.MarkOld();
-                    list.Add(item);
-                }
-                return list;
-            }
-        }
-
-        public static int QueryCount(Object dynamicObj, string query = " 1=1")
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                return conn.Query<int>(string.Format(COUNT, "Sys_WfActivities", query), dynamicObj).Single();
-            }
-        }
-
-        public static bool Exists(Object dynamicObj, string query = " 1=1")
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-               return conn.Query<int>(string.Format(COUNT, "Sys_WfActivities", query), dynamicObj).Single()>0;
-            }
         }
     }
 }

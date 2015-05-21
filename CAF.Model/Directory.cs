@@ -78,8 +78,8 @@ namespace CAF.Model
             {
                 return;
             }
-            var directories = new DirectoryList().Query<DirectoryList, Directory>(conn, transaction, new { Level = this.Level },
-                " Level Like @Level+'%' AND Level!=@Level");
+            var directories = Directory.Query(c=>c.Where(d=>d.Level.StartsWith(this.Level) && d.Level!=this.Level)
+                ,conn, transaction);
             var level = this.GetMaxCode(conn, transaction);
             directories.ForEach(o =>
             {

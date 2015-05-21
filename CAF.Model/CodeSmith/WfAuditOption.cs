@@ -108,7 +108,7 @@ namespace CAF.Model
 		#endregion
         
         #region 常量定义
-        
+        protected const string QUERY_COUNT = "SELECT COUNT(*) AS COUNT FROM Sys_WfAuditOptions Where Status!=-1 ";
         const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_WfAuditOptions WHERE Id = @Id  AND Status!=-1";
         const string QUERY_GETAll = "SELECT * FROM Sys_WfAuditOptions WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_WfAuditOptions SET Status=-1 WHERE Id = @Id AND  Status!=-1";
@@ -195,13 +195,66 @@ namespace CAF.Model
                 {
                     item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
-                    item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                     list.Add(item);
                 }
 				list.MarkOld();
                 return list;
             }
         }
+        
+                /// <summary>
+        /// 表达式查询
+        /// </summary>
+        /// <param name="exp">表达式</param>
+        /// <returns></returns>
+        public static WfAuditOptionList Query(Expression<Func<IQueryable<WfAuditOption>, IQueryable<WfAuditOption>>> exp,
+        IDbConnection conn, IDbTransaction transaction)
+        {
+            var expc = new ExpConditions<WfAuditOption>();
+            expc.Add(exp);
+            var items = conn.Query<WfAuditOption>(string.Format("{0} {1} {2}", QUERY_GETAll, expc.Where(), expc.OrderBy())).ToList();
+            
+            var list=new WfAuditOptionList();
+            foreach (var item in items)
+            {
+                item.Connection = SqlService.Instance.Connection;
+                item.MarkOld();
+                list.Add(item);
+            }
+			list.MarkOld();
+            return list;
+        }
+
+        /// <summary>
+        /// 数量查询
+        /// </summary>
+        /// <param name="exp">表达式</param>
+        /// <returns></returns>
+        public static int QueryCount(Expression<Func<IQueryable<WfAuditOption>, IQueryable<WfAuditOption>>> exp)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                var expc = new ExpConditions<WfAuditOption>();
+                expc.Add(exp);
+                return conn.Query<int>(string.Format(string.Format("{0} {1}", QUERY_COUNT, expc.Where()))).Single();
+            }
+        }
+
+        /// <summary>
+        /// 是否存在
+        /// </summary>
+        /// <param name="exp">表达式</param>
+        /// <returns></returns>
+        public static bool Exists(Expression<Func<IQueryable<WfAuditOption>, IQueryable<WfAuditOption>>> exp)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                var expc = new ExpConditions<WfAuditOption>();
+                expc.Add(exp);
+               return conn.Query<int>(string.Format(string.Format("{0} {1}", QUERY_COUNT, expc.Where()))).Single()>0;
+            }
+        }
+        
         #endregion
         
 		
@@ -242,38 +295,6 @@ namespace CAF.Model
         {
             this.Connection = SqlService.Instance.Connection;
             this.TableName = "Sys_WfAuditOptions";
-        }
-
-        public static WfAuditOptionList Query(Object dynamicObj, string query = " 1=1")
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                var items = conn.Query<WfAuditOption>(string.Format(QUERY, "Sys_WfAuditOptions", query), dynamicObj).ToList();
-
-                var list = new WfAuditOptionList();
-                foreach (var item in items)
-                {
-                    item.MarkOld();
-                    list.Add(item);
-                }
-                return list;
-            }
-        }
-
-        public static int QueryCount(Object dynamicObj, string query = " 1=1")
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                return conn.Query<int>(string.Format(COUNT, "Sys_WfAuditOptions", query), dynamicObj).Single();
-            }
-        }
-
-        public static bool Exists(Object dynamicObj, string query = " 1=1")
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-               return conn.Query<int>(string.Format(COUNT, "Sys_WfAuditOptions", query), dynamicObj).Single()>0;
-            }
         }
     }
 }
