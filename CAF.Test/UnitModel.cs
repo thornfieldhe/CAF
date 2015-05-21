@@ -342,12 +342,12 @@ namespace CAF.Test
                 o.Users.Add(u);
             }
             o.IsValid.IfIsTrue(() => o.Create());
-            var readOlyBookList = ReadOnlyCollectionBase<ReadOnlyUser>.Query("Name", 2, new { OrganizeId = o.Id },
-                   sum: "Status", average: "Status", queryWhere: "   OrganizeId =@OrganizeId", pageIndex: 2);
-            Assert.AreEqual(10, readOlyBookList.TotalCount);
-            Assert.AreEqual(2, readOlyBookList.Result.Count());
-            Assert.AreEqual(10, readOlyBookList.Sum["Status"]);
-            Assert.AreEqual(1, readOlyBookList.Average["Status"]);
+//            var readOlyBookList = ReadOnlyCollectionBase<ReadOnlyUser>.Query("Name", 2, new { OrganizeId = o.Id },
+//                   sum: "Status", average: "Status", queryWhere: "   OrganizeId =@OrganizeId", pageIndex: 2);
+//            Assert.AreEqual(10, readOlyBookList.TotalCount);
+//            Assert.AreEqual(2, readOlyBookList.Result.Count());
+//            Assert.AreEqual(10, readOlyBookList.Sum["Status"]);
+//            Assert.AreEqual(1, readOlyBookList.Average["Status"]);
         }
 
         private static User CreateUser()
@@ -362,6 +362,13 @@ namespace CAF.Test
                              LoginName = "00001"
                          };
             return u;
+        }
+
+        [TestMethod]
+        public void TestLinq()
+        {
+            var p = Post.Query(q => q.Where(r => r.Note.Contains("1")));
+            Assert.IsTrue(p.Count>0);
         }
     }
 }

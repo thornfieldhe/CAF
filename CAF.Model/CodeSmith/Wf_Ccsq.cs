@@ -22,7 +22,7 @@ namespace CAF.Model
         protected override void PostInsert(IDbConnection conn, IDbTransaction transaction)
         {
             var user = User.Get(this.CreatedBy);
-            this.Workflow.CreateWorkflow(this.Id, this.ModuleName, user, conn, transaction, this.Conditions);
+//            this.Workflow.CreateWorkflow(this.Id, this.ModuleName, user, conn, transaction, this.Conditions);
         }
     }
 }

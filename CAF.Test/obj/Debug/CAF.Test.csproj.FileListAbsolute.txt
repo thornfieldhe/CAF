@@ -119,3 +119,10 @@ D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logg
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
 D:\WorkStation\CAF\CAF.Test\obj\Debug\CAF.Test.dll
 D:\WorkStation\CAF\CAF.Test\obj\Debug\CAF.Test.pdb
+D:\WorkStation\CAF\CAF.Test\bin\Debug\AutoMapper.Net4.dll
+D:\WorkStation\CAF\CAF.Test\bin\Debug\AutoMapper.dll
+D:\WorkStation\CAF\CAF.Test\bin\Debug\Fluentx.dll
+D:\WorkStation\CAF\CAF.Test\bin\Debug\AutoMapper.pdb
+D:\WorkStation\CAF\CAF.Test\bin\Debug\AutoMapper.xml
+D:\WorkStation\CAF\CAF.Test\bin\Debug\AutoMapper.Net4.pdb
+D:\WorkStation\CAF\CAF.Test\bin\Debug\Fluentx.xml

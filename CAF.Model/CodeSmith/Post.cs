@@ -8,6 +8,7 @@ namespace CAF.Model
     using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
+        using System.Linq.Expressions;
 
     [Serializable]
 	public partial class Post :  BaseEntity<Post>
@@ -161,6 +162,10 @@ namespace CAF.Model
             }
 		}   
         
+        /// <summary>
+        /// 是否存在
+        /// </summary>
+        /// <returns></returns>
         public static bool Exists(Guid id)
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
@@ -169,6 +174,31 @@ namespace CAF.Model
             }
         }      
         
+        /// <summary>
+        /// 表达式查询
+        /// </summary>
+        /// <param name="exp">表达式</param>
+        /// <returns></returns>
+        public static PostList Query(Expression<Func<IQueryable<Post>, IQueryable<Post>>> exp)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {                
+                var expc = new ExpConditions<Post>();
+                expc.Add(exp);
+                var items = conn.Query<Post>(string.Format("{0} {1} {2}", QUERY_GETAll, expc.Where(), expc.OrderBy())).ToList();
+                
+                var list=new PostList();
+                foreach (var item in items)
+                {
+                    item.Connection = SqlService.Instance.Connection;
+                    item.MarkOld();
+                    item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                    list.Add(item);
+                }
+				list.MarkOld();
+                return list;
+            }
+        }
         #endregion
         
 		

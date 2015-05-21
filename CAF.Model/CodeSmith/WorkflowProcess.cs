@@ -5,91 +5,93 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
+    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
+        using System.Linq.Expressions;
 
     [Serializable]
-    public partial class WorkflowProcess : BaseEntity<WorkflowProcess>
-    {
+	public partial class WorkflowProcess :  BaseEntity<WorkflowProcess>
+	{   
         public WorkflowProcess()
-        {
+		{
             this.Connection = SqlService.Instance.Connection;
             this.TableName = "Sys_WorkflowProcesses";
             base.MarkNew();
-            this._workflowActivityListInitalizer = new Lazy<WorkflowActivityList>(() => InitWorkflowActivitys(this), isThreadSafe: true);
-            this._workflowRuleListInitalizer = new Lazy<WorkflowRuleList>(() => InitWorkflowRules(this), isThreadSafe: true);
-            this.WorkflowActivitys = new WorkflowActivityList();
-            this.WorkflowRules = new WorkflowRuleList();
-        }
-
-        public WorkflowProcess(Guid id) : base(id) { }
-        #region 公共属性
+            this. _workflowActivityListInitalizer = new Lazy<WorkflowActivityList>(() => InitWorkflowActivitys(this), isThreadSafe: true);          
+            this. _workflowRuleListInitalizer = new Lazy<WorkflowRuleList>(() => InitWorkflowRules(this), isThreadSafe: true);          
+            this.WorkflowActivitys= new WorkflowActivityList();        
+            this.WorkflowRules= new WorkflowRuleList();        
+		}
+		
+            
+		#region 公共属性
 
         private string _name = String.Empty;
         private string _document = String.Empty;
-        private WorkflowActivityList _workflowActivityList;
-        private Lazy<WorkflowActivityList> _workflowActivityListInitalizer;
-        private WorkflowRuleList _workflowRuleList;
-        private Lazy<WorkflowRuleList> _workflowRuleListInitalizer;
-
+        private WorkflowActivityList  _workflowActivityList;
+        private Lazy<WorkflowActivityList>  _workflowActivityListInitalizer;       
+        private WorkflowRuleList  _workflowRuleList;
+        private Lazy<WorkflowRuleList>  _workflowRuleListInitalizer;       
+        
         /// <summary>
         /// 名称
         /// </summary>
-        [Required(ErrorMessage = "名称不允许为空")]
-        [StringLength(50, ErrorMessage = "名称长度不能超过50")]
-        public string Name
-        {
-            get { return this._name; }
-            set { this.SetProperty("Name", ref this._name, value); }
-        }
-
+        [Required(ErrorMessage="名称不允许为空")]
+        [StringLength(50,ErrorMessage="名称长度不能超过50")]
+		public string Name
+		{
+			get {return this._name;} 
+            set {this.SetProperty("Name",ref this._name, value);}           	
+		}
+        
         /// <summary>
         /// 序列化工作流对象
         /// </summary>
-        [Required(ErrorMessage = "序列化工作流对象不允许为空")]
-        public string Document
-        {
-            get { return this._document; }
-            set { this.SetProperty("Document", ref this._document, value); }
-        }
-
+        [Required(ErrorMessage="序列化工作流对象不允许为空")]
+		public string Document
+		{
+			get {return this._document;} 
+            set {this.SetProperty("Document",ref this._document, value);}           	
+		}
+        
         public WorkflowActivityList WorkflowActivitys
         {
             get
             {
-                if (!this._workflowActivityListInitalizer.IsValueCreated)
+                if (!this. _workflowActivityListInitalizer.IsValueCreated)
                 {
-                    this._workflowActivityList = this._workflowActivityListInitalizer.Value;
+                    this. _workflowActivityList = this. _workflowActivityListInitalizer.Value;
                 }
-                return this._workflowActivityList;
+                return this. _workflowActivityList;
             }
             set
             {
-                this._workflowActivityList = value;
+                this. _workflowActivityList = value;
             }
         }
-
+        
         public WorkflowRuleList WorkflowRules
         {
             get
             {
-                if (!this._workflowRuleListInitalizer.IsValueCreated)
+                if (!this. _workflowRuleListInitalizer.IsValueCreated)
                 {
-                    this._workflowRuleList = this._workflowRuleListInitalizer.Value;
+                    this. _workflowRuleList = this. _workflowRuleListInitalizer.Value;
                 }
-                return this._workflowRuleList;
+                return this. _workflowRuleList;
             }
             set
             {
-                this._workflowRuleList = value;
+                this. _workflowRuleList = value;
             }
         }
-
+        
         public override bool IsValid
         {
             get
             {
-                this.Errors = new List<string>();
+			    this.Errors=new List<string>();
                 var isValid = true;
                 var baseValid = base.IsValid;
                 foreach (var item in this.WorkflowActivitys.Where(item => !item.IsValid))
@@ -102,167 +104,196 @@ namespace CAF.Model
                     this.Errors.AddRange(item.Errors);
                     isValid = false;
                 }
-                return baseValid && isValid;
+               return baseValid && isValid;
             }
             protected set { this._isValid = value; }
         }
-
-
-        #endregion
-
+        
+        
+		#endregion
+        
         #region 常量定义
-
+        
         const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_WorkflowProcesses WHERE Id = @Id  AND Status!=-1";
         const string QUERY_GETAll = "SELECT * FROM Sys_WorkflowProcesses WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_WorkflowProcesses SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WorkflowProcesses WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT = "INSERT INTO Sys_WorkflowProcesses ([Id], [Name], [Document], [CreatedDate], [ChangedDate], [Status], [Note]) VALUES (@Id, @Name, @Document, @CreatedDate, @ChangedDate, @Status, @Note)";
+        const string QUERY_INSERT="INSERT INTO Sys_WorkflowProcesses ([Id], [Name], [Document], [CreatedDate], [ChangedDate], [Status], [Note]) VALUES (@Id, @Name, @Document, @CreatedDate, @ChangedDate, @Status, @Note)";
         const string QUERY_UPDATE = "UPDATE Sys_WorkflowProcesses SET {0} WHERE  Id = @Id";
-
+                
         #endregion
-
+        		
         #region 静态方法
-
-        public static WorkflowProcess Get(Guid id)
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
+        
+		public static WorkflowProcess Get(Guid id)
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                var item = conn.Query<WorkflowProcess>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<WorkflowProcess>();
+                var item= conn.Query<WorkflowProcess>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<WorkflowProcess>();
                 if (item == null)
                 {
                     return null;
                 }
                 item.Connection = SqlService.Instance.Connection;
                 item.MarkOld();
-                item._workflowActivityListInitalizer = new Lazy<WorkflowActivityList>(() => InitWorkflowActivitys(item), isThreadSafe: true);
-                item._workflowRuleListInitalizer = new Lazy<WorkflowRuleList>(() => InitWorkflowRules(item), isThreadSafe: true);
+                item. _workflowActivityListInitalizer = new Lazy<WorkflowActivityList>(() => InitWorkflowActivitys(item), isThreadSafe: true);
+                item. _workflowRuleListInitalizer = new Lazy<WorkflowRuleList>(() => InitWorkflowRules(item), isThreadSafe: true);
                 return item;
             }
-        }
-
-        public static WorkflowProcessList GetAll()
-        {
-            using (IDbConnection conn = SqlService.Instance.Connection)
-            {
-                var items = conn.Query<WorkflowProcess>(QUERY_GETAll, null).ToList();
-                var list = new WorkflowProcessList();
+		}
+		 
+		public static WorkflowProcessList GetAll()
+		{
+			using (IDbConnection conn = SqlService.Instance.Connection)
+            {               
+                var items = conn.Query<WorkflowProcess>(QUERY_GETAll, null).ToList();                
+                var list=new WorkflowProcessList();
                 foreach (var item in items)
                 {
                     item.Connection = SqlService.Instance.Connection;
                     item.MarkOld();
-                    item._workflowActivityListInitalizer = new Lazy<WorkflowActivityList>(() => InitWorkflowActivitys(item), isThreadSafe: true);
-                    item._workflowRuleListInitalizer = new Lazy<WorkflowRuleList>(() => InitWorkflowRules(item), isThreadSafe: true);
+                    item. _workflowActivityListInitalizer = new Lazy<WorkflowActivityList>(() => InitWorkflowActivitys(item), isThreadSafe: true);
+                    item. _workflowRuleListInitalizer = new Lazy<WorkflowRuleList>(() => InitWorkflowRules(item), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkOld();
                 return list;
             }
-        }
-
-
+		}        
+		
+        
         /// <summary>
         /// 直接删除
         /// </summary>
         /// <returns></returns>
-        public static int Delete(Guid id)
-        {
+		public static int Delete(Guid id)
+		{
             using (IDbConnection conn = SqlService.Instance.Connection)
-            {
+            {                
                 return conn.Execute(QUERY_DELETE, new { Id = id });
             }
-        }
-
+		}   
+        
+        /// <summary>
+        /// 是否存在
+        /// </summary>
+        /// <returns></returns>
         public static bool Exists(Guid id)
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
-            {
+            {                
                 return conn.Query<int>(QUERY_EXISTS, new { Id = id }).Single() >= 1;
             }
-        }
-
-        #endregion
-
-
-        public override int Delete(IDbConnection conn, IDbTransaction transaction)
+        }      
+        
+        /// <summary>
+        /// 表达式查询
+        /// </summary>
+        /// <param name="exp">表达式</param>
+        /// <returns></returns>
+        public static WorkflowProcessList Query(Expression<Func<IQueryable<WorkflowProcess>, IQueryable<WorkflowProcess>>> exp)
         {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {                
+                var expc = new ExpConditions<WorkflowProcess>();
+                expc.Add(exp);
+                var items = conn.Query<WorkflowProcess>(string.Format("{0} {1} {2}", QUERY_GETAll, expc.Where(), expc.OrderBy())).ToList();
+                
+                var list=new WorkflowProcessList();
+                foreach (var item in items)
+                {
+                    item.Connection = SqlService.Instance.Connection;
+                    item.MarkOld();
+                    item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                    list.Add(item);
+                }
+				list.MarkOld();
+                return list;
+            }
+        }
+        #endregion
+        
+		
+		public override int Delete(IDbConnection conn, IDbTransaction transaction)
+		{
             base.MarkDelete();
             return conn.Execute(QUERY_DELETE, new { Id = this.Id }, transaction, null, null);
-        }
-
-        public override int Update(IDbConnection conn, IDbTransaction transaction)
-        {
-            if (!this.IsDirty)
-            {
+		}
+		
+		public override int Update(IDbConnection conn, IDbTransaction transaction)
+		{
+             if (!this.IsDirty)
+             {
                 return this._changedRows;
-            }
-            this._updateParameters += ", ChangedDate = GetDate()";
-            var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
-            this._changedRows += conn.Execute(query, this, transaction, null, null);
-            this._workflowActivityListInitalizer.IsValueCreated.IfIsTrue(
-            () =>
+             }  
+            this._updateParameters+=", ChangedDate = GetDate()";
+			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
+			this._changedRows+= conn.Execute(query, this, transaction, null, null);
+    		this. _workflowActivityListInitalizer.IsValueCreated.IfIsTrue(
+			() =>
             {
-                this._changedRows += this.WorkflowActivitys.SaveChanges(conn, transaction);
+ 				this._changedRows+=this.WorkflowActivitys.SaveChanges(conn,transaction);
             });
-            this._workflowRuleListInitalizer.IsValueCreated.IfIsTrue(
-            () =>
+    		this. _workflowRuleListInitalizer.IsValueCreated.IfIsTrue(
+			() =>
             {
-                this._changedRows += this.WorkflowRules.SaveChanges(conn, transaction);
+ 				this._changedRows+=this.WorkflowRules.SaveChanges(conn,transaction);
             });
             return this._changedRows;
-        }
-
-        public override int Insert(IDbConnection conn, IDbTransaction transaction)
-        {
+		}
+		
+		public override int Insert(IDbConnection conn, IDbTransaction transaction)
+		{
             this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-            this._workflowActivityListInitalizer.IsValueCreated.IfIsTrue(
-            () =>
+    		this. _workflowActivityListInitalizer.IsValueCreated.IfIsTrue(
+			() =>
             {
-                this._changedRows += this.WorkflowActivitys.SaveChanges(conn, transaction);
+ 				this._changedRows+=this.WorkflowActivitys.SaveChanges(conn,transaction);
             });
-            this._workflowRuleListInitalizer.IsValueCreated.IfIsTrue(
-            () =>
+    		this. _workflowRuleListInitalizer.IsValueCreated.IfIsTrue(
+			() =>
             {
-                this._changedRows += this.WorkflowRules.SaveChanges(conn, transaction);
+ 				this._changedRows+=this.WorkflowRules.SaveChanges(conn,transaction);
             });
             return this._changedRows;
-        }
-
-        #region 私有方法
-
-        protected static WorkflowActivityList InitWorkflowActivitys(WorkflowProcess workflowProcess)
+		}
+		
+		#region 私有方法
+		
+		protected static WorkflowActivityList InitWorkflowActivitys(WorkflowProcess workflowProcess)
         {
             var list = WorkflowActivity.GetAllByWorkflowProcessId(workflowProcess.Id);
             list.OnMarkDirty += workflowProcess.MarkDirty;
-            list.OnInsert += workflowProcess.PostAddWorkflowActivity;
+			list.OnInsert += workflowProcess.PostAddWorkflowActivity;
             return list;
         }
-
-        protected void PostAddWorkflowActivity(WorkflowActivity workflowActivity)
+		
+		protected  void PostAddWorkflowActivity(WorkflowActivity workflowActivity)
         {
-            workflowActivity.WorkflowProcessId = this.Id;
+			workflowActivity.WorkflowProcessId=this.Id;
         }
-
-        protected static WorkflowRuleList InitWorkflowRules(WorkflowProcess workflowProcess)
+		
+		protected static WorkflowRuleList InitWorkflowRules(WorkflowProcess workflowProcess)
         {
             var list = WorkflowRule.GetAllByWorkflowProcessId(workflowProcess.Id);
             list.OnMarkDirty += workflowProcess.MarkDirty;
-            list.OnInsert += workflowProcess.PostAddWorkflowRule;
+			list.OnInsert += workflowProcess.PostAddWorkflowRule;
             return list;
         }
-
-        protected void PostAddWorkflowRule(WorkflowRule workflowRule)
+		
+		protected  void PostAddWorkflowRule(WorkflowRule workflowRule)
         {
-            workflowRule.WorkflowProcessId = this.Id;
+			workflowRule.WorkflowProcessId=this.Id;
         }
-
-        #endregion
-
-    }
-
-    [Serializable]
-    public class WorkflowProcessList : CollectionBase<WorkflowProcessList, WorkflowProcess>
+		
+		#endregion
+				
+	}
+    
+	[Serializable]
+    public class WorkflowProcessList:CollectionBase<WorkflowProcessList,WorkflowProcess>
     {
-        public WorkflowProcessList()
+        public WorkflowProcessList() 
         {
             this.Connection = SqlService.Instance.Connection;
             this.TableName = "Sys_WorkflowProcesses";
@@ -296,7 +327,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                return conn.Query<int>(string.Format(COUNT, "Sys_WorkflowProcesses", query), dynamicObj).Single() > 0;
+               return conn.Query<int>(string.Format(COUNT, "Sys_WorkflowProcesses", query), dynamicObj).Single()>0;
             }
         }
     }

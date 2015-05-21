@@ -116,3 +116,10 @@ D:\WorkStation\CAF\CAF.Model\obj\Debug\CAF.Model.Resource.resources
 D:\WorkStation\CAF\CAF.Model\obj\Debug\CAF.Model.csproj.GenerateResource.Cache
 D:\WorkStation\CAF\CAF.Model\obj\Debug\CAF.Model.dll
 D:\WorkStation\CAF\CAF.Model\obj\Debug\CAF.Model.pdb
+D:\WorkStation\CAF\CAF.Model\bin\Debug\AutoMapper.Net4.dll
+D:\WorkStation\CAF\CAF.Model\bin\Debug\AutoMapper.dll
+D:\WorkStation\CAF\CAF.Model\bin\Debug\Fluentx.dll
+D:\WorkStation\CAF\CAF.Model\bin\Debug\AutoMapper.pdb
+D:\WorkStation\CAF\CAF.Model\bin\Debug\AutoMapper.xml
+D:\WorkStation\CAF\CAF.Model\bin\Debug\AutoMapper.Net4.pdb
+D:\WorkStation\CAF\CAF.Model\bin\Debug\Fluentx.xml

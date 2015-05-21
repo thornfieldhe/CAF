@@ -135,6 +135,12 @@
     <Compile Include="Ext\XmlExt.cs" />
     <Compile Include="GenericContex.cs" />
     <Compile Include="Log\CAFLogging.cs" />
+    <Compile Include="ObjectBusiness\ExpressionTurn\ExpConditions.cs" />
+    <Compile Include="ObjectBusiness\ExpressionTurn\Base\ExpressionVisitor.cs" />
+    <Compile Include="ObjectBusiness\ExpressionTurn\Base\ExpressionWriterSql.cs" />
+    <Compile Include="ObjectBusiness\ExpressionTurn\Base\PartialEvaluator.cs" />
+    <Compile Include="ObjectBusiness\ExpressionTurn\Base\ReflectionExtensions.cs" />
+    <Compile Include="ObjectBusiness\ExpressionTurn\Base\TypeHelper.cs" />
     <Compile Include="ObjectBusiness\CollectionBase.cs" />
     <Compile Include="ObjectBusiness\IBaseStatus.cs" />
     <Compile Include="ObjectBusiness\ICollectionBase.cs" />

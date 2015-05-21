@@ -8,6 +8,7 @@ namespace CAF.Model
     using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
+        using System.Linq.Expressions;
 
     [Serializable]
 	public partial class Role :  BaseEntity<Role>
@@ -215,6 +216,10 @@ namespace CAF.Model
             }
 		}   
         
+        /// <summary>
+        /// 是否存在
+        /// </summary>
+        /// <returns></returns>
         public static bool Exists(Guid id)
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
@@ -223,6 +228,31 @@ namespace CAF.Model
             }
         }      
         
+        /// <summary>
+        /// 表达式查询
+        /// </summary>
+        /// <param name="exp">表达式</param>
+        /// <returns></returns>
+        public static RoleList Query(Expression<Func<IQueryable<Role>, IQueryable<Role>>> exp)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {                
+                var expc = new ExpConditions<Role>();
+                expc.Add(exp);
+                var items = conn.Query<Role>(string.Format("{0} {1} {2}", QUERY_GETAll, expc.Where(), expc.OrderBy())).ToList();
+                
+                var list=new RoleList();
+                foreach (var item in items)
+                {
+                    item.Connection = SqlService.Instance.Connection;
+                    item.MarkOld();
+                    item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                    list.Add(item);
+                }
+				list.MarkOld();
+                return list;
+            }
+        }
         #endregion
         
 		
