@@ -5,6 +5,8 @@ using System.Reflection;
 
 namespace CAF.Data
 {
+    using System.Linq;
+
     public static class DataMap
     {
         public static K Map<T, K>(T source)
@@ -14,20 +16,16 @@ namespace CAF.Data
             var t = typeof(T);
             var k = typeof(K);
             //K target = Activator.CreateInstance<K>();
-            if (source != null)
+            if (source == null)
             {
-                var target = (K)Activator.CreateInstance(k, true);
-                foreach (var info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
-                {
-                    if (k.GetProperty(info.Name) != null && k.GetProperty(info.Name).CanWrite && info.CanWrite && info.Name != "Item")
-                    {
-                        k.GetProperty(info.Name).SetValue(target, info.GetValue(source, null), BindingFlags.NonPublic | BindingFlags.Public, null, null, null);
-                        //            myFieldInfo.SetValue(myObject, "New value", BindingFlags.Public, null, null);
-                    }
-                }
-                return target;
+                return null;
             }
-            return null;
+            var target = (K)Activator.CreateInstance(k, true);
+            foreach (var info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(info => k.GetProperty(info.Name) != null && k.GetProperty(info.Name).CanWrite && info.CanWrite && info.Name != "Item")) {
+                k.GetProperty(info.Name).SetValue(target, info.GetValue(source, null), BindingFlags.NonPublic | BindingFlags.Public, null, null, null);
+                //            myFieldInfo.SetValue(myObject, "New value", BindingFlags.Public, null, null);
+            }
+            return target;
         }
 
         public static K Map<T, K>(T source, K target)
@@ -36,19 +34,19 @@ namespace CAF.Data
         {
             var t = typeof(T);
             var k = typeof(K);
-            if (source != null)
+            if (source == null)
             {
-                foreach (var info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.NonPublic))
-                {
-                    if (k.GetProperty(info.Name) != null && k.GetProperty(info.Name).CanWrite && info.CanWrite && info.Name != "Item")
-                    {
-                        k.GetProperty(info.Name).SetValue(target, info.GetValue(source, null), BindingFlags.NonPublic | BindingFlags.Public, null, null, null);
-                        //            myFieldInfo.SetValue(myObject, "New value", BindingFlags.Public, null, null);
-                    }
-                }
-                return target;
+                return null;
             }
-            return null;
+            if (target==null)
+            {
+                target = (K)Activator.CreateInstance(k, true);
+            }
+            foreach (var info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.NonPublic).Where(info => k.GetProperty(info.Name) != null && k.GetProperty(info.Name).CanWrite && info.CanWrite && info.Name != "Item")) {
+                k.GetProperty(info.Name).SetValue(target, info.GetValue(source, null), BindingFlags.NonPublic | BindingFlags.Public, null, null, null);
+                //            myFieldInfo.SetValue(myObject, "New value", BindingFlags.Public, null, null);
+            }
+            return target;
         }
 
         public static List<K> Map<T, K>(List<T> sources)
@@ -56,23 +54,20 @@ namespace CAF.Data
             where K : class
         {
             var targets = new List<K>();
-            if (sources != null)
+            if (sources == null)
             {
-                foreach (var source in sources)
-                {
-                    var t = typeof(T);
-                    var k = typeof(K);
-                    //K target = Activator.CreateInstance<K>();
-                    var target = (K)Activator.CreateInstance(k, true);
-                    foreach (var info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
-                    {
-                        if (k.GetProperty(info.Name) != null && k.GetProperty(info.Name).CanWrite && info.Name != "Item")
-                        {
-                            k.GetProperty(info.Name).SetValue(target, info.GetValue(source, null), BindingFlags.NonPublic | BindingFlags.Public, null, null, null);
-                        }
-                    }
-                    targets.Add(target);
+                return targets;
+            }
+            foreach (var source in sources)
+            {
+                var t = typeof(T);
+                var k = typeof(K);
+                //K target = Activator.CreateInstance<K>();
+                var target = (K)Activator.CreateInstance(k, true);
+                foreach (var info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(info => k.GetProperty(info.Name) != null && k.GetProperty(info.Name).CanWrite && info.Name != "Item")) {
+                    k.GetProperty(info.Name).SetValue(target, info.GetValue(source, null), BindingFlags.NonPublic | BindingFlags.Public, null, null, null);
                 }
+                targets.Add(target);
             }
             return targets;
         }
@@ -80,31 +75,27 @@ namespace CAF.Data
         public static K Map<K>(IDictionary<string, string> source, K target) where K : class
         {
             var k = typeof(K);
-            if (source != null)
+            if (source == null)
             {
-                foreach (var item in source)
-                {
-                    if (k.GetProperty(item.Key) != null && k.GetProperty(item.Key).CanWrite)
-                    {
-                        k.GetProperty(item.Key).SetValue(target, GetType(k.GetProperty(item.Key), item.Value), BindingFlags.NonPublic | BindingFlags.Public, null, null, null);
-                    }
-                }
-                return target;
+                return null;
             }
-            return null;
+            foreach (var item in source.Where(item => k.GetProperty(item.Key) != null && k.GetProperty(item.Key).CanWrite)) {
+                k.GetProperty(item.Key).SetValue(target, GetType(k.GetProperty(item.Key), item.Value), BindingFlags.NonPublic | BindingFlags.Public, null, null, null);
+            }
+            return target;
         }
 
-        public static DataTable Map<T>(IEnumerable<T> varlist)
+        public static DataTable Map<T>(IEnumerable<T> sourcelist)
         {
             var dtReturn = new DataTable();
 
             // column names
             PropertyInfo[] oProps = null;
 
-            if (varlist == null)
+            if (sourcelist == null)
                 return dtReturn;
 
-            foreach (var rec in varlist)
+            foreach (var rec in sourcelist)
             {
                 if (oProps == null)
                 {
@@ -127,8 +118,7 @@ namespace CAF.Data
 
                 foreach (var pi in oProps)
                 {
-                    dr[pi.Name] = pi.GetValue(rec, null) == null ? DBNull.Value : pi.GetValue
-                    (rec, null);
+                    dr[pi.Name] = pi.GetValue(rec, null) ?? DBNull.Value;
                 }
 
                 dtReturn.Rows.Add(dr);
@@ -145,37 +135,36 @@ namespace CAF.Data
             else
             {
                 val = val.Trim();
-                if (Info.PropertyType.Equals(typeof(string)))
+                if (Info.PropertyType == typeof(string))
                 {
                     return val;
                 }
-                else if (Info.PropertyType.Equals(typeof(int)) || Info.PropertyType.Equals(typeof(int?)))
+                else if (Info.PropertyType == typeof(int) || Info.PropertyType == typeof(int?))
                 {
-                    if (val.ToLower() == "true")
-                    {
-                        val = "1";
-                    }
-                    else if (val.ToLower() == "false")
-                    {
-                        val = "0";
+                    switch (val.ToLower()) { case "true":
+                            val = "1";
+                            break;
+                        case "false":
+                            val = "0";
+                            break;
                     }
                     var temp = 0;
                     int.TryParse(val, out temp);
                     return temp;
                 }
-                else if (Info.PropertyType.Equals(typeof(long)) || Info.PropertyType.Equals(typeof(long?)))
+                else if (Info.PropertyType == typeof(long) || Info.PropertyType == typeof(long?))
                 {
                     long temp = 0;
                     long.TryParse(val, out temp);
                     return temp;
                 }
-                else if (Info.PropertyType.Equals(typeof(decimal)) || Info.PropertyType.Equals(typeof(decimal?)))
+                else if (Info.PropertyType == typeof(decimal) || Info.PropertyType == typeof(decimal?))
                 {
                     var temp = 0m;
                     decimal.TryParse(val, out temp);
                     return temp;
                 }
-                else if (Info.PropertyType.Equals(typeof(DateTime)) || Info.PropertyType.Equals(typeof(DateTime?)))
+                else if (Info.PropertyType == typeof(DateTime) || Info.PropertyType == typeof(DateTime?))
                 {
                     var temp = new DateTime(2000, 1, 1);
                     if (DateTime.TryParse(val, out temp))
@@ -187,19 +176,19 @@ namespace CAF.Data
                         return null;
                     }
                 }
-                else if (Info.PropertyType.Equals(typeof(double)) || Info.PropertyType.Equals(typeof(double?)))
+                else if (Info.PropertyType == typeof(double) || Info.PropertyType == typeof(double?))
                 {
                     var temp = 0.0d;
                     double.TryParse(val, out temp);
                     return temp;
                 }
-                else if (Info.PropertyType.Equals(typeof(bool)))
+                else if (Info.PropertyType == typeof(bool))
                 {
                     return Convert.ToBoolean(val);
                 }
-                else if (Info.PropertyType.Equals(typeof(Guid)) || Info.PropertyType.Equals(typeof(Guid?)))
+                else if (Info.PropertyType == typeof(Guid) || Info.PropertyType == typeof(Guid?))
                 {
-                    var temp = new Guid();
+                    Guid temp;
                     if (Guid.TryParse(val, out temp))
                     {
                         return temp;
@@ -212,11 +201,7 @@ namespace CAF.Data
 
         public static string GetStr(object obj)
         {
-            if (obj == null)
-            {
-                return "";
-            }
-            return obj.ToString();
+            return obj == null ? "" : obj.ToString();
         }
     }
 }

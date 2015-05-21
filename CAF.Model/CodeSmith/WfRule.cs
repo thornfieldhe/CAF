@@ -28,6 +28,7 @@ namespace CAF.Model
         private Guid? _endActivityID = Guid.Empty;
         private string _type = String.Empty;
         private string _condition = String.Empty;
+        private Guid _ruleId = Guid.Empty;
         
         [GuidRequired(ErrorMessage="WfProcess不允许为空")]
 		public Guid WfProcessId
@@ -92,6 +93,28 @@ namespace CAF.Model
             set {this.SetProperty("Condition",ref this._condition, value);}           	
 		}
         
+        /// <summary>
+        /// 规则Id
+        /// </summary>
+        [GuidRequired(ErrorMessage="规则不允许为空")]
+		public Guid RuleId
+		{
+			get {return this._ruleId;} 
+            set {this.SetProperty("RuleId",ref this._ruleId, value);}           	
+		}
+        
+        /// <summary>
+        /// 规则
+        /// </summary>
+        public Rule Rule
+		{
+			get
+			{ 
+				return Rule.Get(this.RuleId);
+			}        	
+		}
+
+        
         
 		#endregion
         
@@ -102,7 +125,7 @@ namespace CAF.Model
         const string QUERY_DELETE = "UPDATE Sys_WfRules SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WfRules WHERE Id = @Id AND Status!=-1";
         const string QUERY_GETALLBYWFPROCESSID = "SELECT * FROM Sys_WfRules WHERE  Status!=-1 And WfProcessId=@WfProcessId";
-        const string QUERY_INSERT="INSERT INTO Sys_WfRules (Id, WfProcessId, Name, BeginActivityID, EndActivityID, Type, Condition, CreatedDate, ChangedDate, Status, Note) VALUES (@Id, @WfProcessId, @Name, @BeginActivityID, @EndActivityID, @Type, @Condition, @CreatedDate, @ChangedDate, @Status, @Note)";
+        const string QUERY_INSERT="INSERT INTO Sys_WfRules ([Id], [WfProcessId], [Name], [BeginActivityID], [EndActivityID], [Type], [Condition], [CreatedDate], [ChangedDate], [Status], [Note], [RuleId]) VALUES (@Id, @WfProcessId, @Name, @BeginActivityID, @EndActivityID, @Type, @Condition, @CreatedDate, @ChangedDate, @Status, @Note, @RuleId)";
         const string QUERY_UPDATE = "UPDATE Sys_WfRules SET {0} WHERE  Id = @Id";
                 
         #endregion

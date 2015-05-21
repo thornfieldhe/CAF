@@ -10,12 +10,12 @@ namespace CAF.Model
     using System.Data;
 
     [Serializable]
-	public partial class WfActivity :  BaseEntity<WfActivity>
+	public partial class WfAuditOption :  BaseEntity<WfAuditOption>
 	{   
-        public WfActivity()
+        public WfAuditOption()
 		{
             this.Connection = SqlService.Instance.Connection;
-            this.TableName = "Sys_WfActivities";
+            this.TableName = "Sys_WfAuditOptions";
             base.MarkNew();
 		}
 		
@@ -23,11 +23,10 @@ namespace CAF.Model
 		#region 公共属性
 
         private Guid _wfProcessId = Guid.Empty;
-        private string _name = String.Empty;
-        private string _type = String.Empty;
-        private Guid? _post = Guid.Empty;
-        private int _statuse;
-        private Guid _activityId = Guid.Empty;
+        private Guid _wfActivityId = Guid.Empty;
+        private string _postName = String.Empty;
+        private string _auditOpinion = String.Empty;
+        private string _auditName = String.Empty;
         
         /// <summary>
         /// 工作流Id
@@ -52,85 +51,79 @@ namespace CAF.Model
 
         
         /// <summary>
-        /// 活动名称
-        /// </summary>
-        [StringLength(50,ErrorMessage="活动名称长度不能超过50")]
-		public string Name
-		{
-			get {return this._name;} 
-            set {this.SetProperty("Name",ref this._name, value);}           	
-		}
-        
-        /// <summary>
-        /// 活动类型
-        /// </summary>
-        [StringLength(50,ErrorMessage="活动类型长度不能超过50")]
-		public string Type
-		{
-			get {return this._type;} 
-            set {this.SetProperty("Type",ref this._type, value);}           	
-		}
-        
-        /// <summary>
-        /// 执行活动岗位
-        /// </summary>
-		public Guid? Post
-		{
-			get {return this._post;} 
-            set {this.SetProperty("Post",ref this._post, value);}           	
-		}
-        
-        [Required(ErrorMessage="Statuse不允许为空")]
-		public int Statuse
-		{
-			get {return this._statuse;} 
-            set {this.SetProperty("Statuse",ref this._statuse, value);}           	
-		}
-        
-        /// <summary>
         /// 活动Id
         /// </summary>
         [GuidRequired(ErrorMessage="活动不允许为空")]
-		public Guid ActivityId
+		public Guid WfActivityId
 		{
-			get {return this._activityId;} 
-            set {this.SetProperty("ActivityId",ref this._activityId, value);}           	
+			get {return this._wfActivityId;} 
+            set {this.SetProperty("WfActivityId",ref this._wfActivityId, value);}           	
 		}
         
         /// <summary>
         /// 活动
         /// </summary>
-        public Activity Activity
+        public WfActivity WfActivity
 		{
 			get
 			{ 
-				return Activity.Get(this.ActivityId);
+				return WfActivity.Get(this.WfActivityId);
 			}        	
 		}
 
+        
+        /// <summary>
+        /// 岗位
+        /// </summary>
+        [Required(ErrorMessage="岗位不允许为空")]
+        [StringLength(50,ErrorMessage="岗位长度不能超过50")]
+		public string PostName
+		{
+			get {return this._postName;} 
+            set {this.SetProperty("PostName",ref this._postName, value);}           	
+		}
+        
+        /// <summary>
+        /// 审核意见
+        /// </summary>
+        [StringLength(500,ErrorMessage="审核意见长度不能超过500")]
+		public string AuditOpinion
+		{
+			get {return this._auditOpinion;} 
+            set {this.SetProperty("AuditOpinion",ref this._auditOpinion, value);}           	
+		}
+        
+        /// <summary>
+        /// 审核者
+        /// </summary>
+        [StringLength(50,ErrorMessage="审核者长度不能超过50")]
+		public string AuditName
+		{
+			get {return this._auditName;} 
+            set {this.SetProperty("AuditName",ref this._auditName, value);}           	
+		}
         
         
 		#endregion
         
         #region 常量定义
         
-        const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_WfActivities WHERE Id = @Id  AND Status!=-1";
-        const string QUERY_GETAll = "SELECT * FROM Sys_WfActivities WHERE  Status!=-1";
-        const string QUERY_DELETE = "UPDATE Sys_WfActivities SET Status=-1 WHERE Id = @Id AND  Status!=-1";
-        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WfActivities WHERE Id = @Id AND Status!=-1";
-        const string QUERY_GETALLBYWFPROCESSID = "SELECT * FROM Sys_WfActivities WHERE  Status!=-1 And WfProcessId=@WfProcessId";
-        const string QUERY_INSERT="INSERT INTO Sys_WfActivities ([Id], [WfProcessId], [Name], [Type], [Post], [Statuse], [CreatedDate], [ChangedDate], [Note], [ActivityId]) VALUES (@Id, @WfProcessId, @Name, @Type, @Post, @Statuse, @CreatedDate, @ChangedDate, @Note, @ActivityId)";
-        const string QUERY_UPDATE = "UPDATE Sys_WfActivities SET {0} WHERE  Id = @Id";
+        const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_WfAuditOptions WHERE Id = @Id  AND Status!=-1";
+        const string QUERY_GETAll = "SELECT * FROM Sys_WfAuditOptions WHERE  Status!=-1";
+        const string QUERY_DELETE = "UPDATE Sys_WfAuditOptions SET Status=-1 WHERE Id = @Id AND  Status!=-1";
+        const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WfAuditOptions WHERE Id = @Id AND Status!=-1";
+        const string QUERY_INSERT="INSERT INTO Sys_WfAuditOptions ([Id], [WfProcessId], [WfActivityId], [PostName], [AuditOpinion], [CreatedDate], [ChangedDate], [Status], [Note], [AuditName]) VALUES (@Id, @WfProcessId, @WfActivityId, @PostName, @AuditOpinion, @CreatedDate, @ChangedDate, @Status, @Note, @AuditName)";
+        const string QUERY_UPDATE = "UPDATE Sys_WfAuditOptions SET {0} WHERE  Id = @Id";
                 
         #endregion
         		
         #region 静态方法
         
-		public static WfActivity Get(Guid id)
+		public static WfAuditOption Get(Guid id)
 		{
 			using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                var item= conn.Query<WfActivity>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<WfActivity>();
+                var item= conn.Query<WfAuditOption>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<WfAuditOption>();
                 if (item == null)
                 {
                     return null;
@@ -141,12 +134,12 @@ namespace CAF.Model
             }
 		}
 		 
-		public static WfActivityList GetAll()
+		public static WfAuditOptionList GetAll()
 		{
 			using (IDbConnection conn = SqlService.Instance.Connection)
             {               
-                var items = conn.Query<WfActivity>(QUERY_GETAll, null).ToList();                
-                var list=new WfActivityList();
+                var items = conn.Query<WfAuditOption>(QUERY_GETAll, null).ToList();                
+                var list=new WfAuditOptionList();
                 foreach (var item in items)
                 {
                     item.Connection = SqlService.Instance.Connection;
@@ -157,23 +150,6 @@ namespace CAF.Model
                 return list;
             }
 		}        
-		
-       public static WfActivityList GetAllByWfProcessId(Guid wfProcessId)
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
-            {                
-                var items = conn.Query<WfActivity>(QUERY_GETALLBYWFPROCESSID, new { WfProcessId = wfProcessId }).ToList();
-              	var list=new WfActivityList();
-                foreach (var item in items)
-                {
-                    item.Connection = SqlService.Instance.Connection;
-                    item.MarkOld();
-                    list.Add(item);
-                }
-				list.MarkOld();
-                return list;
-            }
-		}
 		
         
         /// <summary>
@@ -230,21 +206,21 @@ namespace CAF.Model
 	}
     
 	[Serializable]
-    public class WfActivityList:CollectionBase<WfActivityList,WfActivity>
+    public class WfAuditOptionList:CollectionBase<WfAuditOptionList,WfAuditOption>
     {
-        public WfActivityList() 
+        public WfAuditOptionList() 
         {
             this.Connection = SqlService.Instance.Connection;
-            this.TableName = "Sys_WfActivities";
+            this.TableName = "Sys_WfAuditOptions";
         }
 
-        public static WfActivityList Query(Object dynamicObj, string query = " 1=1")
+        public static WfAuditOptionList Query(Object dynamicObj, string query = " 1=1")
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                var items = conn.Query<WfActivity>(string.Format(QUERY, "Sys_WfActivities", query), dynamicObj).ToList();
+                var items = conn.Query<WfAuditOption>(string.Format(QUERY, "Sys_WfAuditOptions", query), dynamicObj).ToList();
 
-                var list = new WfActivityList();
+                var list = new WfAuditOptionList();
                 foreach (var item in items)
                 {
                     item.MarkOld();
@@ -258,7 +234,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                return conn.Query<int>(string.Format(COUNT, "Sys_WfActivities", query), dynamicObj).Single();
+                return conn.Query<int>(string.Format(COUNT, "Sys_WfAuditOptions", query), dynamicObj).Single();
             }
         }
 
@@ -266,7 +242,7 @@ namespace CAF.Model
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-               return conn.Query<int>(string.Format(COUNT, "Sys_WfActivities", query), dynamicObj).Single()>0;
+               return conn.Query<int>(string.Format(COUNT, "Sys_WfAuditOptions", query), dynamicObj).Single()>0;
             }
         }
     }
