@@ -248,9 +248,7 @@ namespace CAF
             if (timeSpan < _OneMonth) return String.Format("{0} 周前", timeSpan.Days / 7);
             if (timeSpan < _TwoMonths) return "1 月前";
             if (timeSpan < _OneYear) return String.Format("{0} 月前", timeSpan.Days / 31);
-            if (timeSpan < _TwoYears) return "1 年前";
-
-            return String.Format("{0} 年前", timeSpan.Days / 365);
+            return timeSpan < _TwoYears ? "1 年前" : String.Format("{0} 年前", timeSpan.Days / 365);
         }
 
         /// <summary>
@@ -305,13 +303,16 @@ namespace CAF
             return ciCurr.Calendar.GetWeekOfYear(datetime, weekrule, firstDayOfWeek);
         }
 
-
+        /// <summary>
+        /// 获取季度
+        /// </summary>
+        /// <param name="month"></param>
+        /// <returns></returns>
         public static int GetQuarter(int month)
         {
             if (month <= 3) return 1;
             if (month <= 6) return 2;
-            if (month <= 9) return 3;
-            return 4;
+            return month <= 9 ? 3 : 4;
         }
 
         /// <summary>
@@ -366,6 +367,176 @@ namespace CAF
         {
             var dateBegin = GetWeekday(dt, DayOfWeek.Monday);
             return dateBegin.AddDays(7 * count);
+        }
+
+        /// <summary>
+        /// 返回日期所在年的第几天
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public static DateTime DayInYear(this int @this, int? year = null)
+        {
+            var firstDayOfYear = new DateTime(year ?? DateTime.Now.Year, 1, 1);
+            return firstDayOfYear.AddDays(@this - 1);
+        }
+
+        /// <summary>
+        /// 返回几秒钟前时间
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime SecondsAgo(this int @this)
+        {
+            return DateTime.Now.AddSeconds(-@this);
+        }
+        /// <summary>
+        /// 返回几分钟前时间
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime MinutesAgo(this int @this)
+        {
+            return DateTime.Now.AddMinutes(-@this);
+        }
+        /// <summary>
+        /// 返回几小时前时间
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime HoursAgo(this int @this)
+        {
+            return DateTime.Now.AddHours(-@this);
+        }
+        /// <summary>
+        /// 返回几天前时间
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime DaysAgo(this int @this)
+        {
+            return DateTime.Now.AddDays(-@this);
+        }
+        /// <summary>
+        /// 返回几个月前时间
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime MonthsAgo(this int @this)
+        {
+            return DateTime.Now.AddMonths(-@this);
+        }
+        /// <summary>
+        /// 返回几年前时间
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime YearsAgo(this int @this)
+        {
+            return DateTime.Now.AddYears(-@this);
+        }
+        /// <summary>
+        /// 返回几秒钟后时间
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime SecondsFromNow(this int @this)
+        {
+            return DateTime.Now.AddSeconds(@this);
+        }
+        /// <summary>
+        /// 返回几分钟后时间
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime MinutesFromNow(this int @this)
+        {
+            return DateTime.Now.AddMinutes(@this);
+        }
+        /// <summary>
+        /// 返回几小时后时间
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime HoursFromNow(this int @this)
+        {
+            return DateTime.Now.AddHours(@this);
+        }
+        /// <summary>
+        /// 返回几天后时间
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime DaysFromNow(this int @this)
+        {
+            return DateTime.Now.AddDays(@this);
+        }
+        /// <summary>
+        /// 返回几月后时间
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime MonthsFromNow(this int @this)
+        {
+            return DateTime.Now.AddMonths(@this);
+        }
+        /// <summary>
+        /// 返回几年后时间
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime YearsFromNow(this int @this)
+        {
+            return DateTime.Now.AddYears(@this);
+        }
+
+        /// <summary>
+        /// 时间是否处于时间范围中
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public static bool IsWithin(this DateTime @this, DateTime startDate, DateTime endDate)
+        {
+            return @this > startDate && @this < endDate;
+        }
+        /// <summary>
+        /// 返回当日结束时间 23:59:59;
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime EndOfDay(this DateTime @this)
+        {
+            return @this.Date.AddDays(1).AddSeconds(-1);
+        }
+        /// <summary>
+        /// 返回当日开始时间 00:00:00
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime StartOfDay(this DateTime @this)
+        {
+            return @this.Date.Date;
+        }
+        /// <summary>
+        /// 明天
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime NextDay(this DateTime @this)
+        {
+            return @this.StartOfDay().AddDays(1);
+        }
+
+        /// <summary>
+        /// 昨天
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DateTime Yesterday(this DateTime @this)
+        {
+            return @this.StartOfDay().AddDays(-1);
         }
     }
 }

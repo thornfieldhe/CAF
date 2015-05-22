@@ -1,19 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace CAF
 {
+    using System.Linq;
+
     /// <summary>
     /// 正则匹配基类
     /// </summary>
-    public abstract class RegExpressionBase : IRegExpression
+    public class RegExpressionBase : IRegExpression
     {
         protected Regex regex;
 
         public RegExpressionBase(string expression)
         {
-            regex = new Regex(expression, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            this.regex = new Regex(expression, RegexOptions.Compiled | RegexOptions.IgnoreCase);
         }
 
         /// <summary>
@@ -23,7 +24,7 @@ namespace CAF
         /// <returns></returns>
         public bool IsMatch(string content)
         {
-            return regex.IsMatch(content);
+            return this.regex.IsMatch(content);
         }
 
         /// <summary>
@@ -39,10 +40,10 @@ namespace CAF
             switch (contex.Operator)
             {
                 case RegexOperator.Matches:
-                    EvaluateMatch(contex);
+                    this.EvaluateMatch(contex);
                     break;
                 case RegexOperator.Replace:
-                    EvaluateReplace(contex);
+                    this.EvaluateReplace(contex);
                     break;
                 default:
                     throw new ArgumentException();
@@ -57,7 +58,7 @@ namespace CAF
         {
             context.Matches.Clear();
             context.Groups.Clear();
-            var coll = regex.Matches(context.Content);
+            var coll = this.regex.Matches(context.Content);
             if (coll.Count == 0)
             {
                 return;
@@ -66,18 +67,11 @@ namespace CAF
             foreach (Match match in coll)
             {
                 context.Matches.Add(match.Value);
-                GetMaxInt(match.Groups.Count, ref groupCount);
+                this.GetMaxInt(match.Groups.Count, ref groupCount);
             }
             for (var i = 0; i < groupCount; i++)
             {
-                var groupItems = new List<string>();
-                foreach (Match match in coll)
-                {
-                    if (match.Groups[i] != null)
-                    {
-                        groupItems.Add(match.Groups[i].Value);
-                    }
-                }
+                var groupItems = (from Match match in coll where match.Groups[i] != null select match.Groups[i].Value).ToList();
                 context.Groups.Add(i, groupItems);
             }
         }
@@ -88,7 +82,7 @@ namespace CAF
         /// <param name="contex"></param>
         protected virtual void EvaluateReplace(RegexContex contex)
         {
-            contex.Content = regex.Replace(contex.Content, contex.Replacement);
+            contex.Content = this.regex.Replace(contex.Content, contex.Replacement);
         }
 
         private void GetMaxInt(int resoult, ref int source)

@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace CAF
 {
-    public static class ArrayExt
+    public static class Array
     {
         /// <summary>
         /// 快速反转数组
@@ -12,7 +12,6 @@ namespace CAF
         /// <param name="tagetArray"></param>
         public static void Reversal<T>(this T[] tagetArray)
         {
-            var tempHolder = default(T);
             if (tagetArray == null)
             {
                 throw new ArgumentNullException("tagetArray");
@@ -21,7 +20,7 @@ namespace CAF
             {
                 for (var counter = 0; counter < (tagetArray.Length / 2); counter++)
                 {
-                    tempHolder = tagetArray[counter];
+                    var tempHolder = tagetArray[counter];
                     tagetArray[counter] = tagetArray[tagetArray.Length - counter - 1];
                     tagetArray[tagetArray.Length - counter - 1] = tempHolder;
                 }

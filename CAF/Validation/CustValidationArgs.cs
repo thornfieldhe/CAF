@@ -29,7 +29,7 @@ namespace CAF.Validation
 
         public override bool IsValid(object value)
         {
-            return (decimal)value < Max;
+            return (decimal)value < this.Max;
         }
     }
 
@@ -48,7 +48,7 @@ namespace CAF.Validation
 
         public override bool IsValid(object value)
         {
-            return (decimal)value > Min;
+            return (decimal)value > this.Min;
         }
     }
 
@@ -59,7 +59,7 @@ namespace CAF.Validation
     {
         public override bool IsValid(object value)
         {
-            return (DateTime)value >new DateTime(1753, 1, 1, 12, 0, 0);
+            return (DateTime)value > new DateTime(1753, 1, 1, 12, 0, 0);
         }
     }
 }
