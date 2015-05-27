@@ -57,6 +57,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Fluentest.cs" />
     <Compile Include="UnitCore.cs" />
     <Compile Include="UnitExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

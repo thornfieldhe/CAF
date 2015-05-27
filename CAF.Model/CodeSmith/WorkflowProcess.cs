@@ -286,12 +286,12 @@ namespace CAF.Model
             this._updateParameters+=", ChangedDate = GetDate()";
 			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
 			this._changedRows+= conn.Execute(query, this, transaction, null, null);
-    		this. _workflowActivityListInitalizer.IsValueCreated.IfIsTrue(
+    		this. _workflowActivityListInitalizer.IsValueCreated.IfTrue(
 			() =>
             {
  				this._changedRows+=this.WorkflowActivitys.SaveChanges(conn,transaction);
             });
-    		this. _workflowRuleListInitalizer.IsValueCreated.IfIsTrue(
+    		this. _workflowRuleListInitalizer.IsValueCreated.IfTrue(
 			() =>
             {
  				this._changedRows+=this.WorkflowRules.SaveChanges(conn,transaction);
@@ -302,12 +302,12 @@ namespace CAF.Model
 		public override int Insert(IDbConnection conn, IDbTransaction transaction)
 		{
             this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-    		this. _workflowActivityListInitalizer.IsValueCreated.IfIsTrue(
+    		this. _workflowActivityListInitalizer.IsValueCreated.IfTrue(
 			() =>
             {
  				this._changedRows+=this.WorkflowActivitys.SaveChanges(conn,transaction);
             });
-    		this. _workflowRuleListInitalizer.IsValueCreated.IfIsTrue(
+    		this. _workflowRuleListInitalizer.IsValueCreated.IfTrue(
 			() =>
             {
  				this._changedRows+=this.WorkflowRules.SaveChanges(conn,transaction);

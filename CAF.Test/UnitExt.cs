@@ -29,11 +29,11 @@ namespace CAF.Test
         public void TestExt()
         {
             var list = new List<int>();
-            Assert.IsTrue(!list.HasItem());
+            Assert.IsTrue(list.IsNullOrEmpty());
             list = null;
-            Assert.IsTrue(!list.HasItem());
+            Assert.IsTrue(list.IsNullOrEmpty());
             list = new List<int>() { 2 };
-            Assert.IsTrue(list.HasItem());
+            Assert.IsFalse(list.IsNullOrEmpty());
         }
     }
 

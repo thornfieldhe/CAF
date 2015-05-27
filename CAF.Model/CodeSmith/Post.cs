@@ -10,6 +10,7 @@ namespace CAF.Model
     using System.Data;
     using System.Linq.Expressions;
 
+
     [Serializable]
     public partial class Post : BaseEntity<Post>
     {
@@ -62,7 +63,7 @@ namespace CAF.Model
                 this.Errors = new List<string>();
                 var isValid = true;
                 var baseValid = base.IsValid;
-                this._userListInitalizer.IsValueCreated.IfIsTrue(
+                this._userListInitalizer.IsValueCreated.IfTrue(
                 () =>
                 {
                     foreach (var item in this.Users.Where(item => !item.IsValid))

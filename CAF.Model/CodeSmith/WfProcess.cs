@@ -342,12 +342,12 @@ namespace CAF.Model
             this._updateParameters+=", ChangedDate = GetDate()";
 			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
 			this._changedRows+= conn.Execute(query, this, transaction, null, null);
-    		this. _wfActivityListInitalizer.IsValueCreated.IfIsTrue(
+    		this. _wfActivityListInitalizer.IsValueCreated.IfTrue(
 			() =>
             {
  				this._changedRows+=this.WfActivitys.SaveChanges(conn,transaction);
             });
-    		this. _wfRuleListInitalizer.IsValueCreated.IfIsTrue(
+    		this. _wfRuleListInitalizer.IsValueCreated.IfTrue(
 			() =>
             {
  				this._changedRows+=this.WfRules.SaveChanges(conn,transaction);
@@ -358,12 +358,12 @@ namespace CAF.Model
 		public override int Insert(IDbConnection conn, IDbTransaction transaction)
 		{
             this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-    		this. _wfActivityListInitalizer.IsValueCreated.IfIsTrue(
+    		this. _wfActivityListInitalizer.IsValueCreated.IfTrue(
 			() =>
             {
  				this._changedRows+=this.WfActivitys.SaveChanges(conn,transaction);
             });
-    		this. _wfRuleListInitalizer.IsValueCreated.IfIsTrue(
+    		this. _wfRuleListInitalizer.IsValueCreated.IfTrue(
 			() =>
             {
  				this._changedRows+=this.WfRules.SaveChanges(conn,transaction);

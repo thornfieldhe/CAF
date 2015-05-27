@@ -5,6 +5,7 @@ namespace CAF.Web.WebForm
     using CAF.Model;
     using FineUI;
 
+
     public partial class PostUserOrganize_Query : BasePage
     {
 
@@ -21,7 +22,7 @@ namespace CAF.Web.WebForm
 
         protected void grid_OnQuery(object sender = null, EventArgs e = null)
         {
-            this.grid.BindDataSource<ReadOnlyPostUserOrganize>(null,where:"1=1");
+            this.grid.BindDataSource(new ExpConditions<ReadOnlyPostUserOrganize>());
         }
 
         protected override void OnLoad(EventArgs e)

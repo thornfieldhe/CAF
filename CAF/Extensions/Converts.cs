@@ -22,106 +22,157 @@ namespace CAF
         /// <returns></returns>
         public static bool ToBool(this int obj) { return obj == 1; }
 
+        /// <summary>
+        /// 在未知对象类型时将对象转换成类型T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static T To<T>(this IConvertible obj)
+        {
+            try
+            {
+                return (T)Convert.ChangeType(obj, typeof(T));
+            }
+            catch
+            {
+                return default(T);
+            }
+        }
+
+        /// <summary>
+        /// 列表转换成csv对象
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="separator"></param>
+        /// <returns></returns>
+        public static string ToCSV<T>(this IEnumerable<T> list, string separator = ",")
+        {
+            if (list == null)
+            {
+                throw new ArgumentNullException();
+            }
+            return String.Join(separator, list);
+        }
+
         #region 字符串转换
 
         /// <summary>
         /// 转换为int
         /// </summary>
-        /// <param name="source">数据</param>
-        public static int ToInt(this string source)
+        /// <param name="this">数据</param>
+        /// <param name="defaultValue"></param>
+        public static int ToInt(this string @this, int defaultValue = default(int))
         {
-            var target = 0;
-            int.TryParse(source, out target);
-            return target;
+            Int32 x;
+            return Int32.TryParse(@this, out x) ? x : defaultValue;
         }
 
         /// <summary>
         /// 转换为可空int
         /// </summary>
-        /// <param name="source">数据</param>
-        public static int? ToIntOrNull(this string source)
+        /// <param name="this">数据</param>
+        /// <param name="defaultValue"></param>
+        public static int? ToIntOrNull(this string @this, int defaultValue = default(int))
         {
-            if (source == null)
+            if (@this == null)
                 return null;
-            int target;
-            var isValid = int.TryParse(source.ToString(), out target);
-            if (isValid)
-                return target;
-            return null;
+            Int32 x;
+            return Int32.TryParse(@this, out x) ? x : defaultValue;
+        }
+
+        /// <summary>
+        /// 试图解析字符串为64位整数，如果解析失败则返回默认值
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static long ToLong(this string @this, long defaultValue = default(long))
+        {
+            long x;
+            return Int64.TryParse(@this, out x) ? x : defaultValue;
         }
 
         /// <summary>
         /// 转换为double
         /// </summary>
-        /// <param name="source">数据</param>
-        public static double ToDouble(this string source)
+        /// <param name="this">数据</param>
+        /// <param name="defaultValue"></param>
+        public static double ToDouble(this string @this, double defaultValue = default(double))
         {
-            var target = 0.0;
-            double.TryParse(source, out target);
-            return target;
+            double x;
+            return Double.TryParse(@this, out x) ? x : defaultValue;
         }
 
         /// <summary>
         /// 转换为可空double
         /// </summary>
-        /// <param name="source">数据</param>
-        public static double? ToDoubleOrNull(this string source)
+        /// <param name="this">数据</param>
+        /// <param name="defaultValue"></param>
+        public static double? ToDoubleOrNull(this string @this, double defaultValue = default(double))
         {
-            if (source == null)
+            if (@this == null)
                 return null;
-            double target;
-            var isValid = double.TryParse(source.ToString(), out target);
-            if (isValid)
-                return target;
-            return null;
+            double x;
+            return Double.TryParse(@this, out x) ? x : defaultValue;
         }
 
         /// <summary>
         /// 转换为decimal
         /// </summary>
-        /// <param name="source">数据</param>
-        public static decimal ToDecimal(this string source)
+        /// <param name="this">数据</param>
+        /// <param name="defaultValue"></param>
+        public static decimal ToDecimal(this string @this, decimal defaultValue = default(decimal))
         {
-            var target = 0.0M;
-            decimal.TryParse(source, out target);
-            return target;
+            decimal x;
+            return Decimal.TryParse(@this, out x) ? x : defaultValue;
         }
 
         /// <summary>
         /// 转换为可空decimal
         /// </summary>
-        /// <param name="source">数据</param>
-        public static decimal? ToDecimalOrNull(this string source)
+        /// <param name="this">数据</param>
+        /// <param name="defaultValue"></param>
+        public static decimal? ToDecimalOrNull(this string @this, decimal defaultValue = default(decimal))
         {
-            if (source == null)
+            if (@this == null)
                 return null;
-            decimal target;
-            var isValid = decimal.TryParse(source, out target);
-            if (isValid)
-                return target;
-            return null;
+            decimal x;
+            return Decimal.TryParse(@this, out x) ? x : defaultValue;
+        }
+
+        /// <summary>
+        /// 转换成浮点数
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static float ToFloat(this string @this, float defaultValue = default(float))
+        {
+            float x;
+            return Single.TryParse(@this, out x) ? x : defaultValue;
         }
 
         /// <summary>
         /// 转换为日期
         /// </summary>
-        /// <param name="source">数据</param>
-        public static DateTime ToDate(this string source)
+        /// <param name="this">数据</param>
+        public static DateTime ToDate(this string @this)
         {
             DateTime target;
-            return DateTime.TryParse(source, out target) ? target : DateTime.Now;
+            return DateTime.TryParse(@this, out target) ? target : DateTime.Now;
         }
 
         /// <summary>
         /// 转换为可空日期
         /// </summary>
-        /// <param name="source">数据</param>
-        public static DateTime? ToDateOrNull(this string source)
+        /// <param name="this">数据</param>
+        public static DateTime? ToDateOrNull(this string @this)
         {
-            if (source == null)
+            if (@this == null)
                 return null;
             DateTime target;
-            var isValid = DateTime.TryParse(source.ToString(), out target);
+            var isValid = DateTime.TryParse(@this.ToString(), out target);
             if (isValid)
                 return target;
             return null;
@@ -130,40 +181,38 @@ namespace CAF
         /// <summary>
         /// 转换为Guid
         /// </summary>
-        /// <param name="source">数据</param>
-        public static Guid ToGuid(this string source)
+        /// <param name="this">数据</param>
+        /// <param name="defaultValue"></param>
+        public static Guid ToGuid(this string @this, Guid defaultValue = default(Guid))
         {
-            var target = Guid.Empty;
-            Guid.TryParse(source, out target);
-            return target;
+            Guid x;
+            return Guid.TryParse(@this, out x) ? x : defaultValue;
         }
 
         /// <summary>
         /// 转换为可空Guid
         /// </summary>
-        /// <param name="source">数据</param>
-        public static Guid? ToGuidOrNull(this string source)
+        /// <param name="this">数据</param>
+        /// <param name="defaultValue"></param>
+        public static Guid? ToGuidOrNull(this string @this, Guid defaultValue = default(Guid))
         {
-            if (source == null)
+            if (@this == null)
                 return null;
-            Guid target;
-            var isValid = Guid.TryParse(source.ToString(), out target);
-            if (isValid)
-                return target;
-            return null;
+            Guid x;
+            return Guid.TryParse(@this, out x) ? x : defaultValue;
         }
 
         /// <summary>
         /// 转换为Guid集合
         /// </summary>
-        /// <param name="source">字符串集合</param>
-        public static List<Guid> ToGuidList(this string source)
+        /// <param name="this">字符串集合</param>
+        public static List<Guid> ToGuidList(this string @this)
         {
             var listGuid = new List<Guid>();
-            if (string.IsNullOrWhiteSpace(source))
+            if (String.IsNullOrWhiteSpace(@this))
                 return listGuid;
-            var arrayGuid = source.Split(',');
-            listGuid.AddRange(from each in arrayGuid where !string.IsNullOrWhiteSpace(each) select new Guid(each));
+            var arrayGuid = @this.Split(',');
+            listGuid.AddRange(from each in arrayGuid where !String.IsNullOrWhiteSpace(each) select new Guid(each));
             return listGuid;
         }
 
@@ -171,24 +220,24 @@ namespace CAF
         /// <summary>
         /// 转换为布尔值
         /// </summary>
-        /// <param name="source">数据</param>
-        public static bool ToBool(this string source)
+        /// <param name="this">数据</param>
+        public static bool ToBool(this string @this)
         {
-            if (source == null)
+            if (@this == null)
                 return false;
-            var value = GetBool(source);
+            var value = GetBool(@this);
             if (value != null)
                 return value.Value;
             bool result;
-            return bool.TryParse(source.ToString(), out result) && result;
+            return Boolean.TryParse(@this.ToString(), out result) && result;
         }
 
         /// <summary>
         /// 获取布尔值
         /// </summary>
-        private static bool? GetBool(string source)
+        private static bool? GetBool(string @this)
         {
-            switch (source.Trim().ToLower())
+            switch (@this.Trim().ToLower())
             {
                 case "0":
                     return false;
@@ -214,16 +263,16 @@ namespace CAF
         /// <summary>
         /// 转换为可空布尔值
         /// </summary>
-        /// <param name="data">数据</param>
-        public static bool? ToBoolOrNull(string source)
+        /// <param name="this">数据</param>
+        public static bool? ToBoolOrNull(string @this)
         {
-            if (source == null)
+            if (@this == null)
                 return null;
-            var value = GetBool(source);
+            var value = GetBool(@this);
             if (value != null)
                 return value.Value;
             bool result;
-            var isValid = bool.TryParse(source, out result);
+            var isValid = Boolean.TryParse(@this, out result);
             if (isValid)
                 return result;
             return null;
@@ -239,7 +288,7 @@ namespace CAF
         {
             try
             {
-                var intValue = Convert.ToInt32(value, from);  //先转成10进制
+                var intValue = Convert.ToInt32(value, @from);  //先转成10进制
                 var result = Convert.ToString(intValue, to);  //再转成目标进制
                 if (to != 2)
                 {

@@ -4,7 +4,6 @@ namespace CAF.Web.WebForm
 {
     using CAF.Model;
 
-    using global::System.Dynamic;
 
     public partial class LoginLog_Query : BasePage
     {
@@ -21,17 +20,11 @@ namespace CAF.Web.WebForm
 
         protected void grid_OnQuery(object sender = null, EventArgs e = null)
         {
-            dynamic criteria = new
-                                   {
-                                       UserName = this.txtName.Text.Trim(),
-                                       CreatedDateFrom = this.dateFrom.Text.ToDate(),
-                                       CreatedDateTo =this.dateTo.Text.ToDate().AddDays(1).ToShortDateString()
-                                   };
-            var where = "1=1";
-            this.txtName.Text.Trim().IfIsNotNullOrEmpty(c =>where += " And UserName=@UserName");
-            this.dateFrom.SelectedDate.HasValue.IfIsTrue(() =>where += " And CreatedDate>=@CreatedDateFrom");
-            this.dateTo.SelectedDate.HasValue.IfIsTrue(() =>where += " And CreatedDate<@CreatedDateTo");
-            this.grid.BindDataSource<LoginLog>(criteria, where: where);
+            var exp = new ExpConditions<LoginLog>();
+            this.txtName.Text.Trim().IfIsNotNullOrEmpty(c => exp.AndWhere(ex => ex.UserName == this.txtName.Text.Trim()));
+            this.dateFrom.SelectedDate.HasValue.IfTrue(() => exp.AndWhere(ex => ex.CreatedDate >= this.dateFrom.Text.ToDate()));
+            this.dateTo.SelectedDate.HasValue.IfTrue(() => exp.AndWhere(ex => ex.CreatedDate >= this.dateTo.Text.ToDate().AddDays(1)));
+            this.grid.BindDataSource(exp);
         }
 
         protected override void OnLoad(EventArgs e)

@@ -73,7 +73,7 @@ namespace CAF
                 {
                     attributes[i] = new BuildStepAttribute() { Sequence = builder.Steps[i].Sequence, Times = builder.Steps[i].Times, Name = builder.Steps[i].Name };
                 }
-                Array.Sort<BuildStepAttribute>(attributes);
+                System.Array.Sort(attributes);
                 ObjectBuilders.Add(type, attributes);
             }
         }

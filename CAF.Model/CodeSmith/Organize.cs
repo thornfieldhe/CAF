@@ -144,7 +144,7 @@ namespace CAF.Model
                     this.Errors.AddRange(item.Errors);
                     isValid = false;
                 }
-				this. _roleListInitalizer.IsValueCreated.IfIsTrue(
+				this. _roleListInitalizer.IsValueCreated.IfTrue(
                 () =>
                 {
                     foreach (var item in this.Roles.Where(item => !item.IsValid))
@@ -379,12 +379,12 @@ namespace CAF.Model
             this._updateParameters+=", ChangedDate = GetDate()";
 			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
 			this._changedRows+= conn.Execute(query, this, transaction, null, null);
-    		this. _userListInitalizer.IsValueCreated.IfIsTrue(
+    		this. _userListInitalizer.IsValueCreated.IfTrue(
 			() =>
             {
  				this._changedRows+=this.Users.SaveChanges(conn,transaction);
             });
-			this. _roleListInitalizer.IsValueCreated.IfIsTrue(
+			this. _roleListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
  				this._changedRows+=this.Roles.SaveChanges(conn,transaction);
@@ -395,12 +395,12 @@ namespace CAF.Model
 		public override int Insert(IDbConnection conn, IDbTransaction transaction)
 		{
             this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-    		this. _userListInitalizer.IsValueCreated.IfIsTrue(
+    		this. _userListInitalizer.IsValueCreated.IfTrue(
 			() =>
             {
  				this._changedRows+=this.Users.SaveChanges(conn,transaction);
             });
-			this. _roleListInitalizer.IsValueCreated.IfIsTrue(
+			this. _roleListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
  				this._changedRows+=this.Roles.SaveChanges(conn,transaction);

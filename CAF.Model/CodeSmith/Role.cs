@@ -80,7 +80,7 @@ namespace CAF.Model
 			    this.Errors=new List<string>();
                 var isValid = true;
                 var baseValid = base.IsValid;
-				this. _organizeListInitalizer.IsValueCreated.IfIsTrue(
+				this. _organizeListInitalizer.IsValueCreated.IfTrue(
                 () =>
                 {
                     foreach (var item in this.Organizes.Where(item => !item.IsValid))
@@ -89,7 +89,7 @@ namespace CAF.Model
                         isValid = false;
                     }
                 });
-				this. _userListInitalizer.IsValueCreated.IfIsTrue(
+				this. _userListInitalizer.IsValueCreated.IfTrue(
                 () =>
                 {
                     foreach (var item in this.Users.Where(item => !item.IsValid))
@@ -328,12 +328,12 @@ namespace CAF.Model
             this._updateParameters+=", ChangedDate = GetDate()";
 			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
 			this._changedRows+= conn.Execute(query, this, transaction, null, null);
-			this. _organizeListInitalizer.IsValueCreated.IfIsTrue(
+			this. _organizeListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
  				this._changedRows+=this.Organizes.SaveChanges(conn,transaction);
             });
-			this. _userListInitalizer.IsValueCreated.IfIsTrue(
+			this. _userListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
  				this._changedRows+=this.Users.SaveChanges(conn,transaction);
@@ -344,12 +344,12 @@ namespace CAF.Model
 		public override int Insert(IDbConnection conn, IDbTransaction transaction)
 		{
             this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-			this. _organizeListInitalizer.IsValueCreated.IfIsTrue(
+			this. _organizeListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
  				this._changedRows+=this.Organizes.SaveChanges(conn,transaction);
             });
-			this. _userListInitalizer.IsValueCreated.IfIsTrue(
+			this. _userListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
  				this._changedRows+=this.Users.SaveChanges(conn,transaction);

@@ -5,6 +5,7 @@ namespace CAF.Web.WebForm
     using CAF.Model;
     using FineUI;
 
+
     public partial class WorkflowProcess_Query : BasePage
     {
 
@@ -20,8 +21,7 @@ namespace CAF.Web.WebForm
 
         protected void grid_OnQuery(object sender = null, EventArgs e = null)
         {
-            const string where = " 1=1";
-            this.grid.BindDataSource<WorkflowProcess>(null,where:where);
+            this.grid.BindDataSource(new ExpConditions<WorkflowProcess>());
         }
 
         protected override void OnLoad(EventArgs e)

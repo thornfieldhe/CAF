@@ -196,7 +196,7 @@ namespace CAF.Model
                     this.Errors.AddRange(this.UserSetting.Errors);
                     isValid = false;
                 }
-				this. _roleListInitalizer.IsValueCreated.IfIsTrue(
+				this. _roleListInitalizer.IsValueCreated.IfTrue(
                 () =>
                 {
                     foreach (var item in this.Roles.Where(item => !item.IsValid))
@@ -205,7 +205,7 @@ namespace CAF.Model
                         isValid = false;
                     }
                 });
-				this. _postListInitalizer.IsValueCreated.IfIsTrue(
+				this. _postListInitalizer.IsValueCreated.IfTrue(
                 () =>
                 {
                     foreach (var item in this.Posts.Where(item => !item.IsValid))
@@ -475,12 +475,12 @@ namespace CAF.Model
             {
  				this._changedRows += this.UserSetting.SaveChange(conn, transaction);
             }
-			this. _roleListInitalizer.IsValueCreated.IfIsTrue(
+			this. _roleListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
  				this._changedRows+=this.Roles.SaveChanges(conn,transaction);
             });
-			this. _postListInitalizer.IsValueCreated.IfIsTrue(
+			this. _postListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
  				this._changedRows+=this.Posts.SaveChanges(conn,transaction);
@@ -495,12 +495,12 @@ namespace CAF.Model
             {
  				this._changedRows += this.UserSetting.SaveChange(conn, transaction);
             }
-			this. _roleListInitalizer.IsValueCreated.IfIsTrue(
+			this. _roleListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
  				this._changedRows+=this.Roles.SaveChanges(conn,transaction);
             });
-			this. _postListInitalizer.IsValueCreated.IfIsTrue(
+			this. _postListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
  				this._changedRows+=this.Posts.SaveChanges(conn,transaction);

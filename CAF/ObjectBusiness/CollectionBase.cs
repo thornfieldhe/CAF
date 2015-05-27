@@ -8,6 +8,7 @@ namespace CAF
     using System.Data;
     using System.Linq;
 
+
     /// <summary>
     /// 集合业务对象
     /// </summary>
@@ -66,7 +67,7 @@ namespace CAF
             set
             {
                 this._isChangeRelationship = value;
-                this._isChangeRelationship.IfIsTrue(() => this._items.ForEach(i => i.IsChangeRelationship = true));
+                this._isChangeRelationship.IfTrue(() => this._items.ForEach(i => i.IsChangeRelationship = true));
             }
         }
 

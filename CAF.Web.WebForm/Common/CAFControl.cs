@@ -9,6 +9,7 @@ namespace CAF.Web.WebForm.CAFControl
     using global::System.Collections.Generic;
     using global::System.Linq;
 
+
     #region CAFPanel
 
 
@@ -222,14 +223,13 @@ namespace CAF.Web.WebForm.CAFControl
         /// 绑定数据源
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="criteria"></param>
-        /// <param name="where"></param>
-        public void BindDataSource<T>(object criteria, string where = " 1=1") where T : ITableName, new()
+        /// <param name="exp"></param>
+        public void BindDataSource<T>(ExpConditions<T> exp) where T : ITableName, new()
         {
             ReadOnlyCollectionBase<T>.Connection = SqlService.Instance.Connection;
             var tb = new T();
             var result = ReadOnlyCollectionBase<T>
-                .Query(tb.TableName,this.SortField, this.PageSize, criteria, where, this.PageIndex, this.SortDirection);
+                .Query(tb.TableName, this.SortField, this.PageSize, exp, this.PageIndex, this.SortDirection);
             this.RecordCount = result.TotalCount;
             this.DataSource = result.Result;
             this.DataBind();

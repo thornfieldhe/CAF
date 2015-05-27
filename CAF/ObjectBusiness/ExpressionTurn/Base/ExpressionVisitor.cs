@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 
 namespace CAF.CAFExpression
 {
-    using Fluentx;
 
     internal abstract class ExpressionVisitor
     {

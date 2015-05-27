@@ -5,6 +5,9 @@ namespace CAF.Web.WebForm
     using CAF.Model;
     using FineUI;
 
+    using global::System.Linq;
+    using global::System.Linq.Expressions;
+
     public partial class Organize_Query : BasePage
     {
         protected override void Bind()
@@ -18,8 +21,7 @@ namespace CAF.Web.WebForm
 
         protected void grid_OnQuery(object sender = null, EventArgs e = null)
         {
-            var criteria = new ReadOnlyOrganize();
-            this.grid.BindDataSource<ReadOnlyOrganize>(null,where:"1=1");
+            this.grid.BindDataSource(new ExpConditions<ReadOnlyOrganize>());
         }
 
         #region 系统事件

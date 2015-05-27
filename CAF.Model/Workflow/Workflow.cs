@@ -84,7 +84,7 @@ namespace CAF.Model
                                            Name = r.Attribute(XName.Get("ActivityName")).Value,
                                            Type = r.Attribute(XName.Get("Type")).Value
                                        };
-                    string.IsNullOrEmpty(r.Attribute(XName.Get("ActivityPost")).Value).IfIsFalse(() =>
+                    string.IsNullOrEmpty(r.Attribute(XName.Get("ActivityPost")).Value).IfFalse(() =>
                          activity.Post = r.Attribute(XName.Get("ActivityPost")).Value.ToGuid());
                     newActivities.Add(activity);
                 });

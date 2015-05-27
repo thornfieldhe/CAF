@@ -18,8 +18,8 @@ namespace CAF.Model
 
         protected override void PreUpdate(IDbConnection conn, IDbTransaction transaction)
         {
-            this._updateParameters.Contains("Name").IfIsTrue(() => this.Abb = this.Name.GetChineseSpell());
-            this._updateParameters.Contains("Pass").IfIsTrue(() => this.Pass = Password.DesEncrypt(this.Pass));
+            this._updateParameters.Contains("Name").IfTrue(() => this.Abb = this.Name.GetChineseSpell());
+            this._updateParameters.Contains("Pass").IfTrue(() => this.Pass = Password.DesEncrypt(this.Pass));
         }
 
         public static User Get(string name, string password)

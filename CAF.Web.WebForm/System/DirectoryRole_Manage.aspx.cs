@@ -22,8 +22,10 @@ namespace CAF.Web.WebForm.System
 
         void grid_OnQuery(object sender = null, EventArgs e = null)
         {
-            this.grid.BindDataSource<ReadOnlyDirectoryRole>(new { DirectoryId = this.dropDirs.SelectedValue.ToGuid() }
-                , where: " DirectoryId=@DirectoryId");
+
+            var exp = new ExpConditions<ReadOnlyDirectoryRole>();
+            exp.AndWhere(d => d.DirectoryId == new Guid(this.dropDirs.SelectedValue));
+            this.grid.BindDataSource(exp);
         }
 
         protected override void Bind()

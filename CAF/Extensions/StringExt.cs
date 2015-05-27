@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace CAF
 {
+
     /// <summary>
     /// 字符串操作辅助类
     /// </summary>
@@ -606,7 +607,7 @@ namespace CAF
         #endregion strChineseCharList
 
         /// <summary>
-        /// 移除空格并首字母小写的Camel样式
+        /// 移除_并首字母小写的Camel样式
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -618,7 +619,7 @@ namespace CAF
         }
 
         /// <summary>
-        /// 移除空格并首字母大写的Pascal样式
+        /// 移除_并首字母大写的Pascal样式
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -770,7 +771,7 @@ namespace CAF
         /// </summary>
         /// <param name="stringList">字符串("A,B,C,D,E")</param>
         /// <param name="str">字符串("C")</param>
-        /// <param name="separator"></param>
+        /// <param name="separator">分隔符</param>
         /// <returns></returns>
         public static bool IsInArryString(this string str, string stringList, char separator)
         {
@@ -1002,7 +1003,7 @@ namespace CAF
         /// <returns></returns>
         public static string ReplaceReg(this string strText, string pattern, string target, int groupId)
         {
-            var myEvaluator = new MatchEvaluator(delegate(Match match) { return CustomReplace(match, groupId, target); });
+            var myEvaluator = new MatchEvaluator(match => CustomReplace(match, groupId, target));
             var reg = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Multiline);
             return reg.Replace(strText, myEvaluator);
         }
@@ -1042,6 +1043,123 @@ namespace CAF
         public static string Right(this string obj, int length)
         {
             return obj.Substring(obj.Length - length, length);
+        }
+
+        /// <summary>
+        /// 格式化字符串，是string.Format("",xx)的变体
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public static string FormatWith(this string @this, params object[] args)
+        {
+            return string.Format(@this, args);
+        }
+
+        /// <summary>
+        ///判断字符串是否相等，忽略字符情况
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="compareOperand"></param>
+        /// <returns></returns>
+        public static bool IgnoreCaseEqual(this string @this, string compareOperand)
+        {
+            return @this.Equals(compareOperand, StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// 返回一个字符串用空格分隔如: thisIsGood => this Is Good
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static string Wordify(this string @this)
+        {
+            // if the word is all upper, just return it
+            return !Regex.IsMatch(@this, "[a-z]") ? @this : string.Join(" ", Regex.Split(@this, @"(?<!^)(?=[A-Z])"));
+        }
+
+        /// <summary>
+        /// 翻转字符串
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static string Reverse(this string @this)
+        {
+            if (@this == null || @this.Length < 2)
+            {
+                return @this;
+            }
+
+            var length = @this.Length;
+            var loop = (length >> 1) + 1;
+            var charArray = new char[length];
+            for (var i = 0; i < loop; i++)
+            {
+                var j = length - i - 1;
+                charArray[i] = @this[j];
+                charArray[j] = @this[i];
+            }
+            return new string(charArray);
+        }
+
+        /// <summary>
+        /// 替换最后一个匹配的字符串
+        /// in this instance are replaced with another specified string.  
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="oldValue"></param>
+        /// <param name="newValue"></param>
+        /// <returns></returns>
+        public static string ReplaceLast(this string @this, string oldValue, string newValue)
+        {
+            int index = @this.LastIndexOf(oldValue);
+            if (index > -1)
+            {
+                string newString = @this.Remove(index, oldValue.Length).Insert(index, newValue);
+                return newString;
+            }
+            else
+            {
+                return @this;
+            }
+        }
+        /// <summary>
+        /// 子字符串出现次数
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="match"></param>
+        /// <returns></returns>
+        public static int CountOccurences(this string @this, string match)
+        {
+            if (!match.IsNullOrEmpty())
+            {
+                int count = (@this.Length - @this.Replace(match, "").Length) / match.Length;
+                return count;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        /// <summary>
+        /// 替换第一个匹配的字符串
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="oldValue"></param>
+        /// <param name="newValue"></param>
+        /// <returns></returns>
+        public static string ReplaceFirst(this string @this, string oldValue, string newValue)
+        {
+            var index = @this.IndexOf(oldValue);
+            if (index > -1)
+            {
+                var newString = @this.Remove(index, oldValue.Length).Insert(index, newValue);
+                return newString;
+            }
+            else
+            {
+                return @this;
+            }
         }
     }
 }

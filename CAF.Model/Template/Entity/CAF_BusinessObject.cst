@@ -220,7 +220,7 @@ namespace <%= ClassNamespace %>.Model
                 }
                 <%} %>
 				<%foreach(string item in WithMany){ %>
-				this.<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfIsTrue(
+				this.<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfTrue(
                 () =>
                 {
                     foreach (var item in this.<%=GetRelationshipItem(item)%>s.Where(item => !item.IsValid))
@@ -538,7 +538,7 @@ namespace <%= ClassNamespace %>.Model
 			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
 			this._changedRows+= conn.Execute(query, this, transaction, null, null);
             <%foreach(var item in Children){ %>
-    		this.<%= GetListMember2(item)%>.IsValueCreated.IfIsTrue(
+    		this.<%= GetListMember2(item)%>.IsValueCreated.IfTrue(
 			() =>
             {
  				this._changedRows+=this.<%=item%>s.SaveChanges(conn,transaction);
@@ -551,7 +551,7 @@ namespace <%= ClassNamespace %>.Model
             }
             <%} %> 
 			<%foreach(var item in WithMany){ %>
-			this.<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfIsTrue(
+			this.<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfTrue(
             () =>
             {
  				this._changedRows+=this.<%=GetRelationshipItem(item)%>s.SaveChanges(conn,transaction);
@@ -564,7 +564,7 @@ namespace <%= ClassNamespace %>.Model
 		{
             this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
             <%foreach(var item in Children){ %>
-    		this.<%= GetListMember2(item)%>.IsValueCreated.IfIsTrue(
+    		this.<%= GetListMember2(item)%>.IsValueCreated.IfTrue(
 			() =>
             {
  				this._changedRows+=this.<%=item%>s.SaveChanges(conn,transaction);
@@ -577,7 +577,7 @@ namespace <%= ClassNamespace %>.Model
             }
             <%} %> 
 			<%foreach(string item in WithMany){ %>
-			this.<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfIsTrue(
+			this.<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfTrue(
             () =>
             {
  				this._changedRows+=this.<%=GetRelationshipItem(item)%>s.SaveChanges(conn,transaction);

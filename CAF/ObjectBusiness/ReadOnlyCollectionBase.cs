@@ -1,13 +1,14 @@
 ﻿
 namespace CAF
 {
-
     using CAF.Data;
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Linq.Expressions;
 
-    public static class ReadOnlyCollectionBase<K> 
+    public static class ReadOnlyCollectionBase<K>
     {
         private static readonly string QUERY =
             "  SELECT * FROM {0} WHERE {1} ORDER BY {2} {3} OFFSET {4} ROWS FETCH NEXT {5} ROWS only ";
@@ -47,22 +48,22 @@ namespace CAF
         /// <param name="orderBy">排序字段，可以是多字段用","隔开</param>
         /// <param name="pageSize">分页条数</param>
         /// <param name="readonlyList">查询对象，如：new{Id=Guid.NewId(),Name="xxx"}</param>
-        /// <param name="queryWhere">查询条件，如：" Id=@Id And Name=@Name"</param>
+        /// <param name="exp">查询条件，使用表达式</param>
         /// <param name="pageIndex">当前页，从第0页开始</param>
         /// <param name="sortDescription"></param>
         /// <param name="sum">求和字段，可以是多字段用","隔开</param>
         /// <param name="average">求平均字段，可以是多字段用","隔开</param>
         /// <returns></returns>
-        public static ReadOnlyCollectionQueryResult<K> Query(string tableName,string orderBy, int pageSize, object readonlyList,
-                                                         string queryWhere = " 1=1", int pageIndex = 0, string sortDescription = "DESC", string sum = "",
+        public static ReadOnlyCollectionQueryResult<K> Query(string tableName, string orderBy, int pageSize,
+                                                         ExpConditions<K> exp, int pageIndex = 0, string sortDescription = "DESC", string sum = "",
                                                          string average = "")
         {
-            _queryWhere =string.Format(" Status!=-1 And {0}", queryWhere);
-            _orderBy = orderBy;
+
+            _queryWhere = string.Format(" Status!=-1 {0}", exp.Where());
+            _orderBy = string.IsNullOrWhiteSpace(orderBy) ? exp.OrderBy() : orderBy;
             _sortDescription = sortDescription;
             _tableName = tableName;
 
-            _dynamicObj = readonlyList;
             _average = average;
             _sum = sum;
 
@@ -78,7 +79,7 @@ namespace CAF
                 Result.Result =
                     conn.Query<K>(
                         string.Format(QUERY, _tableName, _queryWhere, _orderBy, _sortDescription, Result.PageSize * Result.PageIndex,
-                            Result.PageSize), _dynamicObj).AsEnumerable();
+                            Result.PageSize), null).AsEnumerable();
                 Result.TotalCount = conn.Query<int>(string.Format(COUNT, _tableName, _queryWhere), _dynamicObj).Single();
                 Result.Sum = Compute(conn, _sum, "SUM");
                 Result.Average = Compute(conn, _average, "AVG");

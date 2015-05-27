@@ -142,7 +142,7 @@ namespace CAF
         /// 添加一个Where条件语句，如果语句存在，则以 And 相联接
         /// </summary>
         /// <param name="aiExp">Where条件表达示</param>
-        public void AddAndWhere(Expression<Func<T, bool>> aiExp)
+        public void AndWhere(Expression<Func<T, bool>> aiExp)
         {
             this.SetOneConditionStr(aiExp, ExpUnion.And);
         }
@@ -152,7 +152,7 @@ namespace CAF
         /// </summary>
         /// <param name="aiCondition">给定条件</param>
         /// <param name="aiExp">Where条件表达示</param>
-        public void AddAndWhere(bool aiCondition, Expression<Func<T, bool>> aiExp)
+        public void AndWhere(bool aiCondition, Expression<Func<T, bool>> aiExp)
         {
             if (aiCondition)
             {
@@ -168,7 +168,7 @@ namespace CAF
         /// <param name="aiExp"></param>
         public void AddAndWhere(Func<bool> aiCondition, Expression<Func<T, bool>> aiExp)
         {
-            this.AddAndWhere(aiCondition(), aiExp);
+            this.AndWhere(aiCondition(), aiExp);
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace CAF
         /// <param name="aiCondition">条件</param>
         /// <param name="aiExpWhenTrue">条件为真时</param>
         /// <param name="aiExpWhenFalse">条件为假时</param>
-        public void AddAndWhere(bool aiCondition, Expression<Func<T, bool>> aiExpWhenTrue, Expression<Func<T, bool>> aiExpWhenFalse)
+        public void AndWhere(bool aiCondition, Expression<Func<T, bool>> aiExpWhenTrue, Expression<Func<T, bool>> aiExpWhenFalse)
         { this.SetOneConditionStr(aiCondition ? aiExpWhenTrue : aiExpWhenFalse, ExpUnion.And); }
 
         /// <summary>
@@ -186,9 +186,9 @@ namespace CAF
         /// <param name="aiCondition">Lambda条件</param>
         /// <param name="aiExpWhenTrue">条件为真时</param>
         /// <param name="aiExpWhenFalse">条件为假时</param>
-        public void AddAndWhere(Func<bool> aiCondition, Expression<Func<T, bool>> aiExpWhenTrue, Expression<Func<T, bool>> aiExpWhenFalse)
+        public void AndWhere(Func<bool> aiCondition, Expression<Func<T, bool>> aiExpWhenTrue, Expression<Func<T, bool>> aiExpWhenFalse)
         {
-            this.AddAndWhere(aiCondition(), aiExpWhenTrue, aiExpWhenFalse);
+            this.AndWhere(aiCondition(), aiExpWhenTrue, aiExpWhenFalse);
         }
 
         #endregion
@@ -198,7 +198,7 @@ namespace CAF
         /// 添加一个Where条件语句，如果语句存在，则以 Or 相联接
         /// </summary>
         /// <param name="aiExp">Where条件表达示</param>
-        public void AddOrWhere(Expression<Func<T, bool>> aiExp)
+        public void OrWhere(Expression<Func<T, bool>> aiExp)
         {
             this.SetOneConditionStr(aiExp, ExpUnion.Or);
         }
@@ -208,7 +208,7 @@ namespace CAF
         /// </summary>
         /// <param name="aiCondition">给定条件</param>
         /// <param name="aiExp">Where条件表达示</param>
-        public void AddOrWhere(bool aiCondition, Expression<Func<T, bool>> aiExp)
+        public void OrWhere(bool aiCondition, Expression<Func<T, bool>> aiExp)
         {
             if (aiCondition)
             {
@@ -222,9 +222,9 @@ namespace CAF
         /// </summary>
         /// <param name="aiCondition">给定lambda表达式条件</param>
         /// <param name="aiExp"></param>
-        public void AddOrWhere(Func<bool> aiCondition, Expression<Func<T, bool>> aiExp)
+        public void OrWhere(Func<bool> aiCondition, Expression<Func<T, bool>> aiExp)
         {
-            this.AddOrWhere(aiCondition(), aiExp);
+            this.OrWhere(aiCondition(), aiExp);
         }
 
         /// <summary>
@@ -233,7 +233,7 @@ namespace CAF
         /// <param name="aiCondition">条件</param>
         /// <param name="aiExpWhenTrue">条件为真时</param>
         /// <param name="aiExpWhenFalse">条件为假时</param>
-        public void AddOrWhere(bool aiCondition, Expression<Func<T, bool>> aiExpWhenTrue, Expression<Func<T, bool>> aiExpWhenFalse)
+        public void OrWhere(bool aiCondition, Expression<Func<T, bool>> aiExpWhenTrue, Expression<Func<T, bool>> aiExpWhenFalse)
         { this.SetOneConditionStr(aiCondition ? aiExpWhenTrue : aiExpWhenFalse, ExpUnion.Or); }
 
         /// <summary>
@@ -242,9 +242,9 @@ namespace CAF
         /// <param name="aiCondition">Lambda条件</param>
         /// <param name="aiExpWhenTrue">条件为真时</param>
         /// <param name="aiExpWhenFalse">条件为假时</param>
-        public void AddOrWhere(Func<bool> aiCondition, Expression<Func<T, bool>> aiExpWhenTrue, Expression<Func<T, bool>> aiExpWhenFalse)
+        public void OrWhere(Func<bool> aiCondition, Expression<Func<T, bool>> aiExpWhenTrue, Expression<Func<T, bool>> aiExpWhenFalse)
         {
-            this.AddOrWhere(aiCondition(), aiExpWhenTrue, aiExpWhenFalse);
+            this.OrWhere(aiCondition(), aiExpWhenTrue, aiExpWhenFalse);
         }
 
         #endregion
@@ -282,7 +282,7 @@ namespace CAF
         /// <typeparam name="D">OrderBy的数据字段类型</typeparam>
         /// <param name="aiCondition">Lambda条件</param>
         /// <param name="aiExp">OrderBy条件表达示</param>
-        public void AddOrderBy<D>(Func<bool> aiCondition, Expression<Func<T, D>> aiExp)
+        public void ThenBy<D>(Func<bool> aiCondition, Expression<Func<T, D>> aiExp)
         {
             this.AddOrderBy<D>(aiCondition(), aiExp);
         }
@@ -294,7 +294,7 @@ namespace CAF
         /// <param name="aiCondition">条件</param>
         /// <param name="aiExpWhenTrue">条件为真时</param>
         /// <param name="aiExpWhenFalse">条件为假时</param>
-        public void AddOrderBy<D>(bool aiCondition, Expression<Func<T, D>> aiExpWhenTrue, Expression<Func<T, D>> aiExpWhenFalse)
+        public void ThenBy<D>(bool aiCondition, Expression<Func<T, D>> aiExpWhenTrue, Expression<Func<T, D>> aiExpWhenFalse)
         { this.SetOneConditionStr(aiCondition ? aiExpWhenTrue : aiExpWhenFalse, ExpUnion.OrderBy); }
 
         /// <summary>
@@ -304,9 +304,9 @@ namespace CAF
         /// <param name="aiCondition">Lambda条件</param>
         /// <param name="aiExpWhenTrue">条件为真时</param>
         /// <param name="aiExpWhenFalse">条件为假时</param>
-        public void AddOrderBy<D>(Func<bool> aiCondition, Expression<Func<T, D>> aiExpWhenTrue, Expression<Func<T, D>> aiExpWhenFalse)
+        public void ThenBy<D>(Func<bool> aiCondition, Expression<Func<T, D>> aiExpWhenTrue, Expression<Func<T, D>> aiExpWhenFalse)
         {
-            this.AddOrderBy<D>(aiCondition(), aiExpWhenTrue, aiExpWhenFalse);
+            this.ThenBy<D>(aiCondition(), aiExpWhenTrue, aiExpWhenFalse);
         }
 
 

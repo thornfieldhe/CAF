@@ -319,11 +319,11 @@ namespace CAF.Test
                     u.Create();
                 }
             }
-            var list = UserList.Query(new { Name = "user" }, " Name Like @Name+'%'");
+            var list = User.Query(u=>u.Where(i=>i.Name.Contains("user")));
             Assert.AreEqual(list.Count, 5);
-            var count = UserList.QueryCount(new { Name = "user" }, " Name Like @Name+'%'");
+            var count = User.QueryCount(u => u.Where(i => i.Name.Contains("user")));
             Assert.AreEqual(count, 5);
-            var hasone = UserList.Exists(new { Name = "user" }, " Name Like @Name+'%'");
+            var hasone = User.Exists(u => u.Where(i => i.Name.Contains("user")));
             Assert.IsTrue(hasone);
         }
 
@@ -341,7 +341,7 @@ namespace CAF.Test
                 u.OrganizeId = Guid.NewGuid();
                 o.Users.Add(u);
             }
-            o.IsValid.IfIsTrue(() => o.Create());
+            o.IsValid.IfTrue(() => o.Create());
 //            var readOlyBookList = ReadOnlyCollectionBase<ReadOnlyUser>.Query("Name", 2, new { OrganizeId = o.Id },
 //                   sum: "Status", average: "Status", queryWhere: "   OrganizeId =@OrganizeId", pageIndex: 2);
 //            Assert.AreEqual(10, readOlyBookList.TotalCount);

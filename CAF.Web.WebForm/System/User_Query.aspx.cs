@@ -2,10 +2,11 @@
 
 namespace CAF.Web.WebForm
 {
+    using CAF;
+    using CAF.Ext;
     using CAF.Model;
     using CAF.Web.WebForm.Common;
     using FineUI;
-
     using global::System.Linq;
 
     public partial class User_Query : BasePage
@@ -47,30 +48,24 @@ namespace CAF.Web.WebForm
 
         private void grid_OnQuery(object sender = null, EventArgs e = null)
         {
-            var strWhere = " 1=1";
-            dynamic userCriteria = new ReadOnlyUser();
-            if (this.dropDeps.SelectedValue != "")
-            {
-                strWhere += " And Level Like '{0}%'";
-                userCriteria.Level = this.dropDeps.SelectedValue;
-            }
-            if (new Guid(this.dropRoles.SelectedValue) != new Guid())
-            {
-                strWhere += " And Roles Like '%'+@Roles+'%'";
-                userCriteria.Roles = this.dropRoles.SelectedValue;
-            }
-            if (this.dropStatus.SelectedValue != "")
-            {
-                strWhere += "And Status = @Status";
-                userCriteria.Status = this.dropStatus.SelectedValue.ToInt();
-            }
-            if (this.txtName.Text.Trim() != "")
-            {
-                strWhere += " And(Name Like '%'+@Name+'%' OR Abb Like '%'+@Abb+'%')";
-                userCriteria.Name = this.txtName.Text.Trim();
-                userCriteria.Abb = this.txtName.Text.Trim().ToUpper();
-            }
-            this.grid.BindDataSource<ReadOnlyUser>(userCriteria, strWhere);
+            var exp = new ExpConditions<ReadOnlyUser>();
+      
+            this.dropDeps.SelectedValue.IfIsNotNullOrEmpty(r => exp.AndWhere(u =>
+                    u.Level.Contains(this.dropDeps.SelectedValue)));
+
+            this.dropRoles.SelectedValue.ToGuid().IsEmptuy()
+                .IfFalse(()=>exp.AndWhere(u => u.Roles.Contains(this.dropRoles.SelectedValue)));
+       
+            this.dropStatus.SelectedValue.IfIsNotNullOrEmpty(t =>
+                exp.AndWhere(u => u.Status == int.Parse(this.dropStatus.SelectedValue)));
+
+            this.txtName.Text.Trim()
+                .IfIsNotNullOrEmpty(
+                    t =>
+                    exp.AndWhere(u =>
+                        u.Name.Contains(this.txtName.Text.Trim()) || u.Abb.Contains(this.txtName.Text.Trim().ToUpper())));
+
+            this.grid.BindDataSource(exp);
         }
 
 

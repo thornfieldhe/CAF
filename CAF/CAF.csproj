@@ -44,9 +44,6 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
-    <Reference Include="Fluentx">
-      <HintPath>..\packages\Fluentx.2.1.3\lib\Fluentx.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
       <HintPath>..\packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
     </Reference>
@@ -124,13 +121,16 @@
     <Compile Include="Extensions\DecimalExt.cs" />
     <Compile Include="Extensions\DoubleExt.cs" />
     <Compile Include="Extensions\EnumExt.cs" />
+    <Compile Include="Extensions\ExpressionSpecification.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Extensions\Fluent.cs" />
+    <Compile Include="Extensions\FluentInterface.cs" />
     <Compile Include="Extensions\GuidExt.cs" />
     <Compile Include="Extensions\IntExt.cs" />
     <Compile Include="Extensions\LinqExt.cs" />
     <Compile Include="Extensions\ListExt.cs" />
     <Compile Include="Extensions\MoneyConvert.cs" />
-    <Compile Include="Extensions\Bool.cs" />
-    <Compile Include="Extensions\ObjExt.cs" />
+    <Compile Include="Extensions\PredicateBuilder.cs" />
     <Compile Include="Extensions\StringExt.cs" />
     <Compile Include="Extensions\StringRegExpression.cs" />
     <Compile Include="Extensions\XmlExt.cs" />
