@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace CAF.Test
 {
+
     using CAF;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -424,7 +425,7 @@ namespace CAF.Test
         public void Test_Safe()
         {
             PrivateDisposableTestEntity entity = null;
-            var result = entity.Safe(x => x.Id);
+            var result = entity.SafeGet(x => x.Id);
             Assert.IsTrue(result == 0);
         }
 
@@ -549,10 +550,30 @@ namespace CAF.Test
         //            var vmOne = mapper.Map(one);
         //        }
 
+        [TestMethod]
         public void Test()
         {
-            One o = new One(); o.Set(r => r.X1 = "ddd");
-            o.Safe(p => p.X1 = "sss");
+            var bs = new List<B>();
+            bs = null;
+            var a = bs.SafeGet(r => r.Count);
+            Assert.AreEqual(0, a);
+            var s = bs.Safe();
+            Assert.IsNotNull(s);
+            var b1 = new B();
+            b1 = null;
+            var s1=b1.Safe();
+            Assert.IsNotNull(s1);
+        }
+
+        private class A
+        {
+            public List<B> Bs { get; set; }
+            public int Id { get; set; }
+        }
+
+        private class B
+        {
+            public int Id { get; set; }
         }
         private class One
         {

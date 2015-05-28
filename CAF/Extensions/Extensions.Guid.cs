@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace CAF.Ext
+namespace CAF
 {
-    public static class GuidExt
+    public partial class Extensions
     {
         /// <summary>
         /// 是否为空白GUID

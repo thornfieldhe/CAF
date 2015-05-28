@@ -15,7 +15,6 @@ namespace CAF.Model
 
     using AutoMapper;
 
-    using Fluentx;
 
     public partial class Workflow
     {

@@ -319,7 +319,7 @@ namespace CAF.Test
                     u.Create();
                 }
             }
-            var list = User.Query(u=>u.Where(i=>i.Name.Contains("user")));
+            var list = User.Query(u => u.Where(i => i.Name.Contains("user")));
             Assert.AreEqual(list.Count, 5);
             var count = User.QueryCount(u => u.Where(i => i.Name.Contains("user")));
             Assert.AreEqual(count, 5);
@@ -342,12 +342,12 @@ namespace CAF.Test
                 o.Users.Add(u);
             }
             o.IsValid.IfTrue(() => o.Create());
-//            var readOlyBookList = ReadOnlyCollectionBase<ReadOnlyUser>.Query("Name", 2, new { OrganizeId = o.Id },
-//                   sum: "Status", average: "Status", queryWhere: "   OrganizeId =@OrganizeId", pageIndex: 2);
-//            Assert.AreEqual(10, readOlyBookList.TotalCount);
-//            Assert.AreEqual(2, readOlyBookList.Result.Count());
-//            Assert.AreEqual(10, readOlyBookList.Sum["Status"]);
-//            Assert.AreEqual(1, readOlyBookList.Average["Status"]);
+            //            var readOlyBookList = ReadOnlyCollectionBase<ReadOnlyUser>.Query("Name", 2, new { OrganizeId = o.Id },
+            //                   sum: "Status", average: "Status", queryWhere: "   OrganizeId =@OrganizeId", pageIndex: 2);
+            //            Assert.AreEqual(10, readOlyBookList.TotalCount);
+            //            Assert.AreEqual(2, readOlyBookList.Result.Count());
+            //            Assert.AreEqual(10, readOlyBookList.Sum["Status"]);
+            //            Assert.AreEqual(1, readOlyBookList.Average["Status"]);
         }
 
         private static User CreateUser()
@@ -368,7 +368,28 @@ namespace CAF.Test
         public void TestLinq()
         {
             var p = Post.Query(q => q.Where(r => r.Note.Contains("1")));
-            Assert.IsTrue(p.Count>0);
+            Assert.IsTrue(p.Count > 0);
+        }
+
+        [TestMethod]
+        public void ValidateEntity()
+        {
+            var u = new User() { Name = "11111111111111111111", Pass = "opopo" };
+            ISpecification<User> rule2 = new ExpressionSpecification<User>(x => !string.IsNullOrWhiteSpace(x.Email), "电子邮件不允许为空");
+            ISpecification<User> rule3 = new ExpressionSpecification<User>(x => x.Email.Length > 50, "电子邮件长度不能超过50");
+            ISpecification<User> rule4 = new ExpressionSpecification<User>(x => !x.OrganizeId.IsEmptuy(), "组织架构不允许为空");
+            ISpecification<User> rule5 = new ExpressionSpecification<User>(x => x.PhoneNum.Length < 30, "电话长度不能超过30");
+            ISpecification<User> rule6 = new ExpressionSpecification<User>(x => !string.IsNullOrWhiteSpace(x.Pass), "用户密码不允许为空");
+            ISpecification<User> rule7 = new ExpressionSpecification<User>(x => x.Pass.Length < 50, "用户密码长度不能超过50");
+            ISpecification<User> rule8 = new ExpressionSpecification<User>(x => !string.IsNullOrWhiteSpace(x.LoginName), "登录名不允许为空");
+            ISpecification<User> rule9 = new ExpressionSpecification<User>(x => x.LoginName.Length < 20, "登录名长度不能超过20");
+            ISpecification<User> rule10 = new ExpressionSpecification<User>(x => !string.IsNullOrWhiteSpace(x.Abb), "用户简称不允许为空");
+            ISpecification<User> rule11 = new ExpressionSpecification<User>(x => x.Abb.Length < 20, "用户简称长度不能超过20");
+            ISpecification<User> rule12 = new ExpressionSpecification<User>(x => !string.IsNullOrWhiteSpace(x.Name), "用户姓名不允许为空");
+            ISpecification<User> rule13 = new ExpressionSpecification<User>(x => x.Name.Length < 20, "用户姓名长度不能超过20");
+            ISpecification<User> rule14 = rule2.And(rule3).And(rule4).And(rule5).And(rule6).And(rule7).And(rule8).And(rule9)
+                .And(rule10).And(rule11).And(rule12).And(rule13);
+            var result = rule14.ValidateWithMessages(u);
         }
     }
 }

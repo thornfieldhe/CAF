@@ -366,3 +366,4 @@ D:\WorkStation\CAF\CAF\bin\Debug\AutoMapper.dll
 D:\WorkStation\CAF\CAF\bin\Debug\AutoMapper.pdb
 D:\WorkStation\CAF\CAF\bin\Debug\AutoMapper.xml
 D:\WorkStation\CAF\CAF\bin\Debug\AutoMapper.Net4.pdb
+D:\WorkStation\CAF\CAF\obj\Debug\CAF.csprojResolveAssemblyReference.cache

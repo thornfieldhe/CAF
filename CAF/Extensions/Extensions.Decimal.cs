@@ -2,17 +2,17 @@
 
 namespace CAF
 {
-    public static class DoubleExt
+    public partial class Extensions
     {
         /// <summary>
-        /// 将双精度浮点值按指定的小数位数截断
+        /// 将小数值按指定的小数位数截断
         /// </summary>
-        /// <param name="d">要截断的双精度浮点数</param>
-        /// <param name="s">小数位数，s大于等于0，小于等于15</param>
+        /// <param name="d">要截断的小数</param>
+        /// <param name="s">小数位数，s大于等于0，小于等于28</param>
         /// <returns></returns>
-        public static double ToFixed(this double d, int s)
+        public static decimal ToFixed(this decimal d, int s)
         {
-            var sp = Math.Pow(10, s);
+            var sp = Convert.ToDecimal(Math.Pow(10, s));
 
             if (d < 0)
                 return Math.Truncate(d) + Math.Ceiling((d - Math.Truncate(d)) * sp) / sp;
@@ -26,7 +26,7 @@ namespace CAF
         /// <param name="d"></param>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static double Round(this double d, int s)
+        public static decimal Round(this decimal d, int s)
         {
             return Math.Round(d, s);
         }
@@ -40,7 +40,7 @@ namespace CAF
         /// <param name="min"></param>
         /// <param name="allowEqual">是否包含等于</param>
         /// <returns></returns>
-        public static bool IsBetween(this double obj, double max, double min, bool allowEqual)
+        public static bool IsBetween(this decimal obj, decimal max, decimal min, bool allowEqual = false)
         {
             if (allowEqual)
             {

@@ -12,7 +12,7 @@ namespace CAF
     /// <summary>
     /// 字符串操作辅助类
     /// </summary>
-    public static class StringExt
+    public partial class Extensions
     {
         #region strChineseCharList
 

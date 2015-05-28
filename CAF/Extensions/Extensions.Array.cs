@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace CAF
 {
-    public static class Array
+    public partial class Extensions
     {
         /// <summary>
         /// 快速反转数组

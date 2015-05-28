@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace CAF
 {
-    public static class CharExt
+    public partial class Extensions
     {
         /// <summary>
         /// 比较两个字符时控制大小写敏感性
@@ -14,7 +10,7 @@ namespace CAF
         /// <param name="firstChar"></param>
         /// <param name="secondChar"></param>
         /// <returns></returns>
-        public static bool IsCharEqual(this char firstChar,char secondChar) 
+        public static bool IsCharEqual(this char firstChar, char secondChar)
         {
             return IsCharEqual(firstChar, secondChar, false);
         }
@@ -32,7 +28,7 @@ namespace CAF
             {
                 return firstChar.Equals(secondChar);
             }
-            else 
+            else
             {
                 return (char.ToUpperInvariant(firstChar).Equals(char.ToUpperInvariant(secondChar)));
             }
@@ -48,7 +44,7 @@ namespace CAF
         /// <returns></returns>
         public static bool IsCharEqual(this char firstChar, CultureInfo firstCharCulture, char secondChar, CultureInfo secondCharCulture)
         {
-            return (IsCharEqual(firstChar,firstCharCulture,secondChar,secondCharCulture,false));
+            return (IsCharEqual(firstChar, firstCharCulture, secondChar, secondCharCulture, false));
         }
 
         /// <summary>
@@ -67,9 +63,9 @@ namespace CAF
             {
                 return (firstChar.Equals(secondChar));
             }
-            else 
+            else
             {
-                return (char.ToUpper(firstChar,firstCharCulture).Equals(char.ToUpper(secondChar,secondCharCulture)));
+                return (char.ToUpper(firstChar, firstCharCulture).Equals(char.ToUpper(secondChar, secondCharCulture)));
             }
         }
     }

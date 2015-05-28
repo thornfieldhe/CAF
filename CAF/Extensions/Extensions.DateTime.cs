@@ -4,7 +4,7 @@ namespace CAF
 {
     using System.Globalization;
 
-    public static class DateTimeExt
+    public partial class Extensions
     {
         private static readonly TimeSpan _OneMinute = new TimeSpan(0, 1, 0);
         private static readonly TimeSpan _TwoMinutes = new TimeSpan(0, 2, 0);

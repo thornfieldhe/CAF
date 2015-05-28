@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace CAF
 {
-    public static partial class Converts
+    public partial class Extensions
     {
         /// <summary>
         /// 转换成int值

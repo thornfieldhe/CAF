@@ -6,7 +6,7 @@ namespace CAF
     using System.Linq.Expressions;
 
     /// <summary>
-    /// Helps building prediates to provide And/Or true/false for linq expressions
+    /// 谓词过滤器
     /// </summary>
     public static class PredicateBuilder
     {

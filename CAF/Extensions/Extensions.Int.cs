@@ -1,7 +1,7 @@
-﻿namespace CAF.Ext
+﻿namespace CAF
 {
 
-    public static class IntExt
+    public partial class Extensions
     {
 
         /// <summary>

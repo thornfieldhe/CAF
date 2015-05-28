@@ -5,6 +5,8 @@ using System.Text;
 
 namespace CAF
 {
+    using System.Collections;
+
     public static partial class Extensions
     {
         /// <summary>
@@ -290,14 +292,14 @@ namespace CAF
         /// <param name="action"></param>
         public static void Set<T>(this T @this, Action<T> action) { action(@this); }
         /// <summary>
-        /// 安全创建对象
+        /// 安全读取对象属性
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="this"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        public static TResult Safe<T, TResult>(this T @this, Func<T, TResult> action)
+        public static TResult SafeGet<T, TResult>(this T @this, Func<T, TResult> action)
         {
             if (@this == null)
             {
@@ -315,6 +317,19 @@ namespace CAF
                 }
             }
         }
+
+        /// <summary>
+        /// 安全创建对象属性
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static T Safe<T>(this T @this) where T : class, new()
+        {
+            return @this ?? new T();
+        }
+
+    
 
         /// <summary>
         /// 获取列表的最小值

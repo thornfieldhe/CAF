@@ -5,7 +5,6 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
-    using Fluentx;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
     using System.Linq.Expressions;

@@ -5,14 +5,14 @@ namespace CAF
     /// <summary>
     /// 数字转换为大写金额
     /// </summary>
-    public static class MoneyConvert
+    public partial class Extensions
     {
         /// <summary>
         /// 转换数字金额主函数（包括小数）
         /// </summary>
         /// <param name="str">数字字符串</param>
         ///<returns>转换成中文大写后的字符串或者出错信息提示字符串</returns> 
-        public static string ConvertSum(string str)
+        public static string ConvertSum(this string str)
         {
             if (!IsPositveDecimal(str))
                 return "输入的不是正数字！";

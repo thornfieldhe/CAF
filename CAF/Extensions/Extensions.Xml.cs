@@ -2,12 +2,12 @@
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace CAF.Ext
+namespace CAF
 {
     /// <summary>
     /// Xml操作辅助类
     /// </summary>
-    public static class XmlExt
+    public partial class Extensions
     {
         /// <summary>
         /// 序列化实例到Xml
@@ -29,7 +29,7 @@ namespace CAF.Ext
         /// <typeparam name="T"></typeparam>
         /// <param name="xml"></param>
         /// <returns></returns>
-        public static T XmleDserialize<T>(string xml) where T : class
+        public static T XmleDserialize<T>(this string xml) where T : class
         {
             XmlReader rdr = new System.Xml.XmlTextReader(xml);
             var serializer = new XmlSerializer(typeof(T));

@@ -35,12 +35,10 @@ namespace <%= this.ClassNamespace %>.Web.WebForm
         
         protected void grid_OnQuery(object sender=null, EventArgs e=null)
         {
-           //dynamic criteria = new
-           //                        {
-           //                         
-           //                        };
+            var exp = new ExpConditions<<%= GetClassName() %>>();
+           //exp.AddAndWhere(ex => ex.UserName == this.txtName.Text.Trim());
            const string where = "1=1";
-           this.grid.BindDataSource<<%= GetClassName() %>>(null,where:where);
+           this.grid.BindDataSource(exp);
         }
                 
         protected override void OnLoad(EventArgs e)
