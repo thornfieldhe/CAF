@@ -7,7 +7,7 @@ namespace CAF.Model
         {
             get
             {
-                return RichEnumContent.GetDescription<LoginStatusEnum>(this.Status);
+                return EnumContent.GetDescription<LoginStatusEnum>(this.Status);
             }
         }
 

@@ -3,7 +3,7 @@ using System;
 
 namespace CAF.Test
 {
-    using CAF.Ext;
+    using CAF.Model;
     using System.Collections.Generic;
 
     [TestClass]
@@ -25,7 +25,7 @@ namespace CAF.Test
             Assert.AreEqual(d.WeekOfYear(), 5);
         }
 
-                [TestMethod]
+        [TestMethod]
         public void TestExt()
         {
             var list = new List<int>();
@@ -34,6 +34,22 @@ namespace CAF.Test
             Assert.IsTrue(list.IsNullOrEmpty());
             list = new List<int>() { 2 };
             Assert.IsFalse(list.IsNullOrEmpty());
+        }
+
+        [TestMethod]
+        public void TestSafeValue()
+        {
+            User u = null;
+            Assert.IsTrue(!u.SafeValue().Id.IsEmptuy());
+        }
+
+        [TestMethod]
+        public void TestFormat()
+        {
+            Assert.AreEqual((2.358M).ToFixed(2), 2.35M);
+            Assert.AreEqual((2.35908m).Format(), "2.36");
+            Assert.AreEqual((2.35908m).FormatRmb(), "￥2.36");
+            Assert.AreEqual((2.35908m).FormatPercent(), "2.36%");
         }
     }
 

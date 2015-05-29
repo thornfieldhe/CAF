@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CAF.Ext
+namespace CAF.Utility
 {
     /// <summary>
     /// 农历属性

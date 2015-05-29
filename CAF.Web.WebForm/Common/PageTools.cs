@@ -402,7 +402,7 @@ namespace CAF.Web.WebForm.Common
         {
             if (radio.Items.Count == 0)
             {
-                foreach (var item in RichEnumContent.Get(enums))
+                foreach (var item in EnumContent.Get(enums))
                 {
                     radio.Items.Add(new RadioItem() { Text = item.Description, Value = item.Value.ToString() });
                 }
@@ -456,7 +456,7 @@ namespace CAF.Web.WebForm.Common
         {
             drop.Items.Clear();
             drop.Items.Add("请选择", "");
-            RichEnumContent.Get(enums).ForEach(i => drop.Items.Add(new ListItem() { Text = i.Description, Value = i.Value.ToString() }));
+            EnumContent.Get(enums).ForEach(i => drop.Items.Add(new ListItem() { Text = i.Description, Value = i.Value.ToString() }));
         }
 
 

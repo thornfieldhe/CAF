@@ -368,14 +368,14 @@ namespace CAF.Test
         public void Test_ReplaceLast()
         {
             string value = "IdentityId";
-            Assert.AreEqual("Identity", value.ReplaceLast("Id", ""));
+            Assert.AreEqual("Identity", Str.ReplaceLast(value,"Id", ""));
         }
 
         [TestMethod]
         public void Test_CountOccurences()
         {
             string value = "samer";
-            Assert.AreEqual(1, value.CountOccurences("s"));
+            Assert.AreEqual(1, Str.CountOccurences(value,"s"));
         }
 
         //        [TestMethod]
@@ -425,7 +425,7 @@ namespace CAF.Test
         public void Test_Safe()
         {
             PrivateDisposableTestEntity entity = null;
-            var result = entity.SafeGet(x => x.Id);
+            var result = entity.SafeValue(x => x.Id);
             Assert.IsTrue(result == 0);
         }
 
@@ -555,13 +555,13 @@ namespace CAF.Test
         {
             var bs = new List<B>();
             bs = null;
-            var a = bs.SafeGet(r => r.Count);
+            var a = bs.SafeValue(r => r.Count);
             Assert.AreEqual(0, a);
-            var s = bs.Safe();
+            var s = bs.SafeValue();
             Assert.IsNotNull(s);
             var b1 = new B();
             b1 = null;
-            var s1=b1.Safe();
+            var s1=b1.SafeValue();
             Assert.IsNotNull(s1);
         }
 

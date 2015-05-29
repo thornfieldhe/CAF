@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CAF
+namespace CAF.Utility
 {
     using System.ComponentModel;
 

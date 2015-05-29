@@ -5,7 +5,7 @@ namespace CAF.Utility
     /// <summary>
     /// 使用Random类生成伪随机数
     /// </summary>
-    public class RandomHelper
+    public class Randoms
     {
         #region 生成一个指定范围的随机整数
         /// <summary>

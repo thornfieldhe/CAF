@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace CAF
+namespace CAF.Utility
 {
     using System.Linq;
     /// <summary>
     /// 富枚举内容
     /// </summary>
-    public class RichEnumContent
+    public class EnumContent
     {
         public string Description { get; set; }
 
@@ -16,9 +16,9 @@ namespace CAF
 
         public int Value { get; set; }
 
-        public static List<RichEnumContent> Get(Type enumType)
+        public static List<EnumContent> Get(Type enumType)
         {
-            var items = (from Enum s in Enum.GetValues(enumType) select new RichEnumContent { Description = GetDescription(s), Text = s.ToString() }).ToList();
+            var items = (from Enum s in Enum.GetValues(enumType) select new EnumContent { Description = GetDescription(s), Text = s.ToString() }).ToList();
 
             var i = 0;
             foreach (int s in Enum.GetValues(enumType))
@@ -60,12 +60,9 @@ namespace CAF
         {
             var values = (T[])System.Enum.GetValues(typeof(T));
 
-            foreach (var itemValue in values)
+            foreach (var itemValue in values.Where(itemValue => Convert.ToInt64(itemValue) == value))
             {
-                if (Convert.ToInt64(itemValue) == value)
-                {
-                    return itemValue;
-                }
+                return itemValue;
             }
             return default(T);
         }
@@ -101,4 +98,5 @@ namespace CAF
             return (T)Enum.Parse(t, value, ignorecase);
         }
     }
+
 }

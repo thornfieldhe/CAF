@@ -36,7 +36,7 @@ namespace CAF.Web.WebForm.System
                 Alert.ShowInTop("原密码不允许为空！");
                 return false;
             }
-            else if (Password.DesEncrypt(this.txtOldPassword.Text.Trim()) != user.Pass)
+            else if (Encrypt.DesEncrypt(this.txtOldPassword.Text.Trim()) != user.Pass)
             {
                 Alert.ShowInTop("原密码错误！");
                 return false;

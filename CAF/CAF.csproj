@@ -115,24 +115,24 @@
     <Compile Include="Exception\CAFException.cs" />
     <Compile Include="Extensions\Extensions.Array.cs" />
     <Compile Include="Extensions\Extensions.Char.cs" />
-    <Compile Include="Extensions\Extensions.ChinaDate.cs" />
+    <Compile Include="Utility\ChinaDate.cs" />
     <Compile Include="Extensions\Extensions.Converts.cs" />
     <Compile Include="Extensions\Extensions.DateTime.cs" />
     <Compile Include="Extensions\Extensions.Decimal.cs" />
     <Compile Include="Extensions\Extensions.Double.cs" />
-    <Compile Include="Extensions\Extensions.Enum.cs" />
-    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Utility\EnumContent.cs" />
+    <Compile Include="Extensions\Extensions.Object.cs" />
     <Compile Include="Extensions\Extensions.Bool.cs" />
-    <Compile Include="未整理\Fluent.cs" />
-    <Compile Include="未整理\FluentInterface.cs" />
+    <Compile Include="Utility\Str.cs" />
+    <Compile Include="Utility\Fluent.cs" />
+    <Compile Include="Utility\FluentInterface.cs" />
     <Compile Include="Extensions\Extensions.Guid.cs" />
     <Compile Include="Extensions\Extensions.Int.cs" />
     <Compile Include="Extensions\Extensions.String.cs" />
-    <Compile Include="未整理\Specifications.cs" />
+    <Compile Include="Utility\Specifications.cs" />
     <Compile Include="未整理\LinqExt.cs" />
-    <Compile Include="Extensions\Extensions.MoneyConvert.cs" />
-    <Compile Include="未整理\PredicateBuilder.cs" />
-    <Compile Include="Extensions\Extensions.StringReg.cs" />
+    <Compile Include="Utility\PredicateBuilder.cs" />
+    <Compile Include="Utility\StringReg.cs" />
     <Compile Include="Extensions\Extensions.Xml.cs" />
     <Compile Include="GenericContex.cs" />
     <Compile Include="Log\CAFLogging.cs" />
@@ -166,14 +166,12 @@
     <Compile Include="PoolableBase.cs" />
     <Compile Include="PoolListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\Password.cs" />
+    <Compile Include="Security\Encrypt.cs" />
     <Compile Include="SingletonBase.cs" />
     <Compile Include="StringDictionaryStore.cs" />
     <Compile Include="TypeCreater.cs" />
     <Compile Include="UndoBase.cs" />
-    <Compile Include="Utility\RandomHelper.cs" />
-    <Compile Include="Utility\Rmb.cs" />
-    <Compile Include="Utility\SerializationHelper.cs" />
+    <Compile Include="Utility\Random.cs" />
     <Compile Include="Validation\CustValidationArgs.cs" />
     <Compile Include="Validation\IExpression.cs" />
     <Compile Include="Validation\IRegExpression.cs" />
@@ -185,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Compile Include="Extensions\Extensions.Serialization.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

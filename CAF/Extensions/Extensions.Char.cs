@@ -59,14 +59,8 @@ namespace CAF
         public static bool IsCharEqual(this char firstChar, CultureInfo firstCharCulture, char secondChar,
             CultureInfo secondCharCulture, bool caseSensitiveCompare)
         {
-            if (caseSensitiveCompare)
-            {
-                return (firstChar.Equals(secondChar));
-            }
-            else
-            {
-                return (char.ToUpper(firstChar, firstCharCulture).Equals(char.ToUpper(secondChar, secondCharCulture)));
-            }
+            return caseSensitiveCompare ? (firstChar.Equals(secondChar))
+                : (char.ToUpper(firstChar, firstCharCulture).Equals(char.ToUpper(secondChar, secondCharCulture)));
         }
     }
 }

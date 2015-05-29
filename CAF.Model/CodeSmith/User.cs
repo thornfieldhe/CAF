@@ -13,7 +13,7 @@ namespace CAF.Model
 
 
     [Serializable]
-    public partial class User : BaseEntity<User>
+    public partial class User : BaseEntity<User>,IBusinessBase
     {
         public User()
         {

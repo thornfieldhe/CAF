@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace CAF
+namespace CAF.Utility
 {
     using System.Linq.Expressions;
 

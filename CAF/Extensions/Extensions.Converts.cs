@@ -22,23 +22,43 @@ namespace CAF
         /// <returns></returns>
         public static bool ToBool(this int obj) { return obj == 1; }
 
+
+        /// <summary>
+        /// 获取类型,对可空类型进行处理
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        public static Type GetType<T>()
+        {
+            return Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
+        }
+
         /// <summary>
         /// 在未知对象类型时将对象转换成类型T
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        public static T To<T>(this IConvertible obj)
+        public static T To<T>(this IConvertible data)
         {
+            if (data == null)
+                return default(T);
+            if (data is string && string.IsNullOrWhiteSpace(data.ToString()))
+                return default(T);
+            var type = GetType<T>();
             try
             {
-                return (T)Convert.ChangeType(obj, typeof(T));
+                if (type.Name.ToLower() == "guid")
+                    return (T)(object)new Guid(data.ToString());
+                if (data is IConvertible)
+                    return (T)Convert.ChangeType(data, type);
+                return (T)data;
             }
             catch
             {
                 return default(T);
             }
         }
+
 
         /// <summary>
         /// 列表转换成csv对象
@@ -323,6 +343,20 @@ namespace CAF
             }
         }
 
+        /// <summary>
+        /// 转换为目标元素集合
+        /// </summary>
+        /// <typeparam name="T">目标元素类型</typeparam>
+        /// <param name="list">元素集合字符串，范例:83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A</param>
+        public static List<T> ToList<T>(this string list)
+        {
+            var result = new List<T>();
+            if (string.IsNullOrWhiteSpace(list))
+                return result;
+            var array = list.Split(',');
+            result.AddRange(from each in array where !string.IsNullOrWhiteSpace(each) select To<T>(each));
+            return result;
+        }
 
         #endregion
     }

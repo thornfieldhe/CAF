@@ -116,7 +116,7 @@ namespace CAF.Web.WebForm.Common
         /// <param name="enumItem"></param>
         public static void BindRoles(RadioButtonList radio, Type enumItem)
         {
-            radio.DataSource = RichEnumContent.Get(enumItem).Select(r => new
+            radio.DataSource = EnumContent.Get(enumItem).Select(r => new
             {
                 Text = r.Description,
                 Value = r.Value.ToString()

@@ -84,7 +84,7 @@ namespace CAF.Web.WebForm
                 var text = "";
                 if (dic != null)
                 {
-                    switch (RichEnumContent.GetEnumFromFlagsEnum<RightStatusEnum>(dic.Status))
+                    switch (EnumContent.GetEnumFromFlagsEnum<RightStatusEnum>(dic.Status))
                     {
                         case RightStatusEnum.Read:
                             text = "[读]";
@@ -124,7 +124,7 @@ namespace CAF.Web.WebForm
             var text = "";
             if (dic != null)
             {
-                switch (RichEnumContent.GetEnumFromFlagsEnum<RightStatusEnum>(dic.Status))
+                switch (EnumContent.GetEnumFromFlagsEnum<RightStatusEnum>(dic.Status))
                 {
                     case RightStatusEnum.Read:
                         text = "[读]";

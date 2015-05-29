@@ -32,5 +32,45 @@ namespace CAF
             return obj.Value == new Guid();
 
         }
+
+        /// <summary>
+        /// GUID为空则执行 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="action"></param>
+        public static void IfNotNullOrEmpty(this Guid? source, Action action)
+        {
+            if (!source.IsNullOrEmptuy()) { action(); }
+        }
+
+        /// <summary>
+        /// GUID不为空则执行 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="action"></param>
+        public static void IfIsNullOrEmpty(this Guid? source, Action action)
+        {
+            if (source.IsNullOrEmptuy()) { action(); }
+        }
+
+        /// <summary>
+        /// GUID为空则执行 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="action"></param>
+        public static void IfNotEmpty(this Guid source, Action action)
+        {
+            if (!source.IsEmptuy()) { action(); }
+        }
+
+        /// <summary>
+        /// GUID不为空则执行 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="action"></param>
+        public static void IfIsEmpty(this Guid source, Action action)
+        {
+            if (source.IsEmptuy()) { action(); }
+        }
     }
 }

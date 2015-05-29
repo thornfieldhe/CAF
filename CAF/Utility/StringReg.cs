@@ -1,4 +1,4 @@
-﻿namespace CAF
+﻿namespace CAF.Utility
 {
     /// <summary>
     /// 正则匹配字符串
@@ -107,6 +107,6 @@
         /// <summary>
         /// 空白行
         /// </summary>
-        public static string EmputyLine=@"\n\s*\r";
+        public static string EmputyLine = @"\n\s*\r";
     }
 }

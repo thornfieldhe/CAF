@@ -12,7 +12,7 @@ namespace CAF.Model
         {
             get
             {
-                return RichEnumContent.GetDescription<RightStatusEnum>(this.Status);
+                return EnumContent.GetDescription<RightStatusEnum>(this.Status);
             }
         }
 

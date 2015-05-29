@@ -1,13 +1,14 @@
 ﻿using System;
-using System.IO;
 
-namespace CAF.Utility
+namespace CAF
 {
+    using System.IO;
     using System.Runtime.Remoting.Messaging;
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Runtime.Serialization.Formatters.Soap;
 
-    public static class SerializationHelper
+
+    public partial class Extensions
     {
         private const FormatterType DefaultFormatterType = FormatterType.Binary;
         /// 按照串行化的编码要求，生成对应的编码器    
@@ -24,7 +25,7 @@ namespace CAF.Utility
         }
 
         /// 把对象序列化转换为字符串    
-        public static string SerializeObjectToString(object graph, FormatterType formatterType)
+        public static string SerializeObjectToString(this object graph, FormatterType formatterType)
         {
             using (var memoryStream = new MemoryStream())
             {
@@ -35,13 +36,13 @@ namespace CAF.Utility
             }
         }
 
-        public static string SerializeObjectToString(object graph)
+        public static string SerializeObjectToString(this object graph)
         {
             return SerializeObjectToString(graph, DefaultFormatterType);
         }
 
         /// 把已序列化为字符串类型的对象反序列化为指定的类型 
-        public static T DeserializeStringToObject<T>(string graph, FormatterType formatterType)
+        public static T DeserializeStringToObject<T>(this string graph, FormatterType formatterType)
         {
             var arrGraph = Convert.FromBase64String(graph);
             using (var memoryStream = new MemoryStream(arrGraph))
@@ -51,10 +52,11 @@ namespace CAF.Utility
             }
         }
 
-        public static T DeserializeStringToObject<T>(string graph)
+        public static T DeserializeStringToObject<T>(this string graph)
         {
             return DeserializeStringToObject<T>(graph, DefaultFormatterType);
         }
     }
+
     public enum FormatterType { Soap, Binary }
 }

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CAF
+namespace CAF.Utility
 {
     /// <summary>
     /// Represents the core of the specificaiton pattern

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CAF
+namespace CAF.Utility
 {
     using System.Collections;
 

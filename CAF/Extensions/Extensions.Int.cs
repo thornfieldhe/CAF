@@ -20,5 +20,25 @@
             }
             return obj > min && obj < max;
         }
+
+        /// <summary>
+        /// 获取格式化字符串
+        /// </summary>
+        /// <param name="number">数值</param>
+        /// <param name="defaultValue">空值显示的默认文本</param>
+        public static string Format(this int number, string defaultValue = "")
+        {
+            return number == 0 ? defaultValue : number.ToString();
+        }
+
+        /// <summary>
+        /// 获取格式化字符串
+        /// </summary>
+        /// <param name="number">数值</param>
+        /// <param name="defaultValue">空值显示的默认文本</param>
+        public static string Format(this int? number, string defaultValue = "")
+        {
+            return Format(number.SafeValue(), defaultValue);
+        }
     }
 }

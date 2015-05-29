@@ -65,7 +65,7 @@ namespace CAF.Web
                 return;
             }
             var principal = new CAFPrincipal();
-            if (principal.Login(this.txtUserName.Text.Trim(), Password.DesEncrypt(this.txtPassword.Text.Trim())))
+            if (principal.Login(this.txtUserName.Text.Trim(), Encrypt.DesEncrypt(this.txtPassword.Text.Trim())))
             {
                 HttpContext.Current.User = principal;
                 System.Web.Security.FormsAuthentication.SetAuthCookie(this.txtUserName.Text, true);
