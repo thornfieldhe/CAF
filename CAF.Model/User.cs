@@ -2,23 +2,28 @@
 namespace CAF.Model
 {
     using CAF.Data;
-    using CAF.Security;
+    using CAF.Utility;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
 
+    using CAF.Utility;
+
+    using Enum = CAF.Utility.Enum;
+    using Str = CAF.Str;
+
     public partial class User
     {
         protected override void PreInsert(IDbConnection conn, IDbTransaction transaction)
         {
-            this.Abb = this.Name.GetChineseSpell();
+            this.Abb = CAF.Utility.Str.GetChineseSpell(this.Name);
             this.Pass = Encrypt.DesEncrypt(this.Pass);
         }
 
         protected override void PreUpdate(IDbConnection conn, IDbTransaction transaction)
         {
-            this._updateParameters.Contains("Name").IfTrue(() => this.Abb = this.Name.GetChineseSpell());
+            this._updateParameters.Contains("Name").IfTrue(() => this.Abb = CAF.Utility.Str.GetChineseSpell(this.Name));
             this._updateParameters.Contains("Pass").IfTrue(() => this.Pass = Encrypt.DesEncrypt(this.Pass));
         }
 
@@ -90,7 +95,7 @@ namespace CAF.Model
         {
             get
             {
-                return EnumContent.GetDescription<UserStatusEnum>(this.Status);
+                return Enum.GetDescription<UserStatusEnum>(this.Status);
             }
         }
     }

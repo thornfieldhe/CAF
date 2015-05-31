@@ -124,3 +124,5 @@ D:\WorkStation\CAF\CAF.Test\bin\Debug\AutoMapper.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\AutoMapper.pdb
 D:\WorkStation\CAF\CAF.Test\bin\Debug\AutoMapper.xml
 D:\WorkStation\CAF\CAF.Test\bin\Debug\AutoMapper.Net4.pdb
+D:\WorkStation\CAF\CAF.Test\bin\Debug\NSubstitute.dll
+D:\WorkStation\CAF\CAF.Test\bin\Debug\NSubstitute.xml

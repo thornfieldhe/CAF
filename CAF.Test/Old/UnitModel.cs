@@ -8,6 +8,8 @@ namespace CAF.Test
     using System.Collections.Generic;
     using System.Linq;
 
+    using CAF.Utility;
+
     [TestClass]
     public class UnitModel
     {
@@ -377,7 +379,7 @@ namespace CAF.Test
             var u = new User() { Name = "11111111111111111111", Pass = "opopo" };
             ISpecification<User> rule2 = new ExpressionSpecification<User>(x => !string.IsNullOrWhiteSpace(x.Email), "电子邮件不允许为空");
             ISpecification<User> rule3 = new ExpressionSpecification<User>(x => x.Email.Length > 50, "电子邮件长度不能超过50");
-            ISpecification<User> rule4 = new ExpressionSpecification<User>(x => !x.OrganizeId.IsEmptuy(), "组织架构不允许为空");
+            ISpecification<User> rule4 = new ExpressionSpecification<User>(x => !x.OrganizeId.IsEmpty(), "组织架构不允许为空");
             ISpecification<User> rule5 = new ExpressionSpecification<User>(x => x.PhoneNum.Length < 30, "电话长度不能超过30");
             ISpecification<User> rule6 = new ExpressionSpecification<User>(x => !string.IsNullOrWhiteSpace(x.Pass), "用户密码不允许为空");
             ISpecification<User> rule7 = new ExpressionSpecification<User>(x => x.Pass.Length < 50, "用户密码长度不能超过50");

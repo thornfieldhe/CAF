@@ -40,7 +40,7 @@ namespace CAF.Test
         public void TestSafeValue()
         {
             User u = null;
-            Assert.IsTrue(!u.SafeValue().Id.IsEmptuy());
+            Assert.IsTrue(!u.SafeValue().Id.IsEmpty());
         }
 
         [TestMethod]

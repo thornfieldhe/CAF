@@ -6,7 +6,6 @@ using System.Linq;
 
 namespace CAF
 {
-    using CAF.Utility;
 
     [Serializable]
     public class BaseEntity<T> : IEqualityComparer<T>, IBusinessBase, ITableName, IBaseStatus where T : class,IBusinessBase
@@ -464,8 +463,8 @@ namespace CAF
         /// <returns></returns>
         public T Clone()
         {
-            var graph = SerializationHelper.SerializeObjectToString(this);
-            return SerializationHelper.DeserializeStringToObject<T>(graph);
+            var graph = this.SerializeObjectToString();
+            return graph.DeserializeStringToObject<T>();
         }
 
         #endregion

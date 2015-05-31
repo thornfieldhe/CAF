@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace CAF.Model
 {
+    using CAF.Utility;
+
     public partial class ReadOnlyDirectoryRole
     {
         public string StatusName
         {
             get
             {
-                return EnumContent.GetDescription<RightStatusEnum>(this.Status);
+                return Enum.GetDescription<RightStatusEnum>(this.Status);
             }
         }
 
-        
+
     }
 }

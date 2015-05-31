@@ -4,6 +4,7 @@ using System;
 namespace CAF.Web.WebForm
 {
     using CAF.Model;
+    using CAF.Utility;
     using CAF.Web.WebForm.CAFControl;
     using CAF.Web.WebForm.Common;
 
@@ -84,7 +85,7 @@ namespace CAF.Web.WebForm
                 var text = "";
                 if (dic != null)
                 {
-                    switch (EnumContent.GetEnumFromFlagsEnum<RightStatusEnum>(dic.Status))
+                    switch (Enum.GetEnumFromFlagsEnum<RightStatusEnum>(dic.Status))
                     {
                         case RightStatusEnum.Read:
                             text = "[读]";
@@ -124,7 +125,7 @@ namespace CAF.Web.WebForm
             var text = "";
             if (dic != null)
             {
-                switch (EnumContent.GetEnumFromFlagsEnum<RightStatusEnum>(dic.Status))
+                switch (Enum.GetEnumFromFlagsEnum<RightStatusEnum>(dic.Status))
                 {
                     case RightStatusEnum.Read:
                         text = "[读]";

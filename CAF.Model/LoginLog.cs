@@ -1,13 +1,15 @@
 ﻿
 namespace CAF.Model
 {
+    using CAF.Utility;
+
     public partial class LoginLog
     {
         public string StatusName
         {
             get
             {
-                return EnumContent.GetDescription<LoginStatusEnum>(this.Status);
+                return Enum.GetDescription<LoginStatusEnum>(this.Status);
             }
         }
 
