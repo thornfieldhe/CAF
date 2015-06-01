@@ -43,7 +43,7 @@ namespace CAF.Web.Controllers
 
             level.IfNotNull(o => whereStr += "And OrganizeId=@OrganizeId");
             ruleId.IfNotNull(o => whereStr = "And RuleId=@RuleId");
-            name.IfIsNotNullOrEmpty(a => whereStr += " And Name Like %@Name%");
+            name.IfIsNotNullOrEmpty(() => whereStr += " And Name Like %@Name%");
             return new JsonResult();
             //            return this.Json(ReadOnlyCollectionBase<ReadOnlyUser>.Query("Name", 20, new ReadOnlyUser { Name = name, Level = level, Roles = ruleId }, whereStr));
         }

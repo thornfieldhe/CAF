@@ -78,12 +78,14 @@
     <Compile Include="Util\StringExtensionTest.cs" />
     <Compile Include="Util\ConvertExtensionTest.cs" />
     <Compile Include="Util\DateTimeExtensionTest.cs" />
-    <Compile Include="Util\NullAndEmptyTest.cs" />
+    <Compile Include="Util\NullAndEmptyExtensionTest.cs" />
     <Compile Include="Util\ExpressionExtensionTest.cs" />
     <Compile Include="Util\FormatExtensionTest.cs" />
     <Compile Include="Util\ArrayExtensionTest.cs" />
     <Compile Include="Util\NumberExtensionTest.cs" />
-    <Compile Include="Util\ValidationAttributeExtensionTest - 复制.cs" />
+    <Compile Include="Util\ObjExtensionTest.cs" />
+    <Compile Include="Util\ValidationAttributeExtensionTest.cs" />
+    <Compile Include="Util\LogicExtensionTest.cs" />
     <Compile Include="Util\SerializeExtensionTest.cs" />
   </ItemGroup>
   <ItemGroup>

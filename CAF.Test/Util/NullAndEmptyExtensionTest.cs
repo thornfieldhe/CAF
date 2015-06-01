@@ -3,6 +3,7 @@
 namespace CAF.Tests.Extensions
 {
     using System;
+    using System.Collections.Generic;
 
     [TestClass]
     public class NullAndEmptyTest
@@ -45,6 +46,8 @@ namespace CAF.Tests.Extensions
 
             value = 1;
             Assert.AreEqual(1, value.SafeValue());
+            List<int> b = null;
+            Assert.AreEqual(b.SafeValue().Count,0);
         }
 
         /// <summary>

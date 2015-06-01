@@ -199,7 +199,7 @@ namespace CAF
         /// </summary>
         /// <param name="source"></param>
         /// <param name="action"></param>
-        public static void IfIsNotNullOrEmpty(this string source, Func<string> action)
+        public static void IfIsNotNullOrEmpty(this string source, Action action)
         {
             if (!string.IsNullOrWhiteSpace(source)) { action(); }
         }
@@ -209,7 +209,7 @@ namespace CAF
         /// </summary>
         /// <param name="source"></param>
         /// <param name="action"></param>
-        public static void IfIsNullOrEmpty(this string source, Func<string> action)
+        public static void IfIsNullOrEmpty(this string source, Action action)
         {
             if (string.IsNullOrWhiteSpace(source)) { action(); }
         }

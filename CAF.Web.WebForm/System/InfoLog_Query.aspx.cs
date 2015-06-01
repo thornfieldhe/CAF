@@ -21,7 +21,7 @@ namespace CAF.Web.WebForm
         protected void grid_OnQuery(object sender = null, EventArgs e = null)
         {
             var exp = new ExpConditions<InfoLog>();
-            this.txtName.Text.Trim().IfIsNotNullOrEmpty(c => exp.AndWhere(ex => ex.UserName == this.txtName.Text.Trim()));
+            this.txtName.Text.Trim().IfIsNotNullOrEmpty(() => exp.AndWhere(ex => ex.UserName == this.txtName.Text.Trim()));
             this.dateFrom.SelectedDate.HasValue.IfTrue(() => exp.AndWhere(ex => ex.CreatedDate >= this.dateFrom.Text.ToDate()));
             this.dateTo.SelectedDate.HasValue.IfTrue(() => exp.AndWhere(ex => ex.CreatedDate >= this.dateTo.Text.ToDate().AddDays(1)));
             this.grid.BindDataSource(exp);

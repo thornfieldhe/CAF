@@ -49,19 +49,19 @@ namespace CAF.Web.WebForm
         private void grid_OnQuery(object sender = null, EventArgs e = null)
         {
             var exp = new ExpConditions<ReadOnlyUser>();
-      
-            this.dropDeps.SelectedValue.IfIsNotNullOrEmpty(r => exp.AndWhere(u =>
+
+            this.dropDeps.SelectedValue.IfIsNotNullOrEmpty(() => exp.AndWhere(u =>
                     u.Level.Contains(this.dropDeps.SelectedValue)));
 
             this.dropRoles.SelectedValue.ToGuid().IsEmpty()
                 .IfFalse(()=>exp.AndWhere(u => u.Roles.Contains(this.dropRoles.SelectedValue)));
-       
-            this.dropStatus.SelectedValue.IfIsNotNullOrEmpty(t =>
+
+            this.dropStatus.SelectedValue.IfIsNotNullOrEmpty(() =>
                 exp.AndWhere(u => u.Status == int.Parse(this.dropStatus.SelectedValue)));
 
             this.txtName.Text.Trim()
                 .IfIsNotNullOrEmpty(
-                    t =>
+                    () =>
                     exp.AndWhere(u =>
                         u.Name.Contains(this.txtName.Text.Trim()) || u.Abb.Contains(this.txtName.Text.Trim().ToUpper())));
 

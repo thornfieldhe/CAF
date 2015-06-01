@@ -3903,6 +3903,10 @@
       <Project>{08bb19e7-c84f-4ff1-b3e9-dd7018edd6c7}</Project>
       <Name>CAF.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CAF.Utility\CAF.Utility.csproj">
+      <Project>{adf4fdbb-1377-4d72-8356-e61db18ab1b5}</Project>
+      <Name>CAF.Utility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CAF\CAF.csproj">
       <Project>{690f29b2-d2a9-4e0b-a7e1-454c93bd5296}</Project>
       <Name>CAF</Name>

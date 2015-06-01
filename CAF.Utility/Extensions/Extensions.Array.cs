@@ -47,43 +47,6 @@ namespace CAF
             }
         }
 
-        /// <summary>
-        /// 遍历执行，同foreach
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="this"></param>
-        /// <param name="action"></param>
-        public static void ForEvery<T>(this IEnumerable<T> @this, Action<T> action)
-        {
-            if (@this == null)
-            {
-                return;
-            }
-            foreach (var item in @this)
-            {
-                action(item);
-            }
-        }
-
-        /// <summary>
-        /// 通过执行动作中的每个项的枚举提供项目的当前索引上执行指定的列表一个foreach循环。同foreach 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="this"></param>
-        /// <param name="action"></param>
-        public static void ForEvery<T>(this IEnumerable<T> @this, Action<T, int> action)
-        {
-            if (@this == null)
-            {
-                return;
-            }
-            var index = 0;
-            foreach (var item in @this)
-            {
-                action(item, index);
-                index += 1;
-            }
-        }
 
         /// <summary>
         /// 随机取出列表中的一项
@@ -119,7 +82,7 @@ namespace CAF
         /// <param name="this"></param>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static bool NotIn<T>(this T @this, params T[] list)
+        public static bool NotIn<T>(this T @this, ICollection<T> list)
         {
             return !list.Contains(@this);
         }
@@ -219,16 +182,6 @@ namespace CAF
             }
         }
 
-        /// <summary>
-        /// 如果列表为null，返回一个不包含元素的空白列表
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="this"></param>
-        /// <returns></returns>
-        public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> @this)
-        {
-            return @this ?? Enumerable.Empty<T>();
-        }
 
         /// <summary>
         /// 快速反转数组

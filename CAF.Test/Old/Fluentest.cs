@@ -347,12 +347,7 @@ namespace CAF.Test
             Assert.IsTrue("Fluentx".IgnoreCaseEqual("fLuEnTx"));
         }
 
-        [TestMethod]
-        public void Test_CollectionIsNullOrEmpty()
-        {
-            string[] list = new string[] { "a", "b", "c" };
-            Assert.IsFalse(list.IsNullOrEmpty());
-        }
+ 
 
         [TestMethod]
         public void Test_Lock()
@@ -360,18 +355,7 @@ namespace CAF.Test
             string value = "Fluentx";
             value.Lock(x => { });
         }
-        [TestMethod]
-        public void Test_ReplaceFirst()
-        {
-            string value = "IdentityIdx";
-            Assert.AreEqual("entityIdx", value.ReplaceFirst("Id", ""));
-        }
-        [TestMethod]
-        public void Test_ReplaceLast()
-        {
-            string value = "IdentityId";
-            Assert.AreEqual("Identity", value.ReplaceLast( "Id", ""));
-        }
+   
 
         [TestMethod]
         public void Test_CountOccurences()
@@ -448,56 +432,9 @@ namespace CAF.Test
         {
 
         }
-        [TestMethod]
-        public void Test_Shuffle()
-        {
-            var data = new string[] { "one", "two", "three", "four", "five", "sex", "seven" };
-            var shuffledData = data.Shuffle();
-            var x = shuffledData;
-        }
-        [TestMethod]
-        public void Test_ToCSV()
-        {
-            string[] strings = new string[] { "one", "two" };
-            DateTime[] dates = new DateTime[] { DateTime.Now, DateTime.Now.AddYears(3) };
-            string value = strings.ToCSV();
-            dates.ToCSV();
-        }
+  
 
-        [TestMethod]
-        public void Test_MinBy()
-        {
-            DateTime[] dates = new DateTime[] { DateTime.Now, DateTime.Now.AddYears(3) };
-            var min = dates.MinBy(x => x.Year);
-            Assert.AreEqual(2014, min.Year);
-        }
 
-        [TestMethod]
-        public void Test_MaxBy()
-        {
-            DateTime[] dates = new DateTime[] { DateTime.Now, DateTime.Now.AddYears(3) };
-            var max = dates.MaxBy(x => x.Year);
-            Assert.AreEqual(2017, max.Year);
-        }
-        [TestMethod]
-        public void Test_EndOfDay()
-        {
-            var eod = DateTime.Now.EndOfDay();
-            Assert.AreEqual(true, true);
-        }
-
-        [TestMethod]
-        public void Test_StartOfDay()
-        {
-            var date = DateTime.Now.StartOfDay();
-            Assert.AreEqual(true, true);
-        }
-        [TestMethod]
-        public void Test_NextDay()
-        {
-            var date = DateTime.Now.NextDay().EndOfDay();
-            Assert.AreEqual(true, true);
-        }
         //        [TestMethod]
         //        public void Test_Mapper()
         //        {
@@ -552,20 +489,7 @@ namespace CAF.Test
         //            var vmOne = mapper.Map(one);
         //        }
 
-        [TestMethod]
-        public void Test()
-        {
-            var bs = new List<B>();
-            bs = null;
-            var a = bs.SafeValue(r => r.Count);
-            Assert.AreEqual(0, a);
-            var s = bs.SafeValue();
-            Assert.IsNotNull(s);
-            var b1 = new B();
-            b1 = null;
-            var s1=b1.SafeValue();
-            Assert.IsNotNull(s1);
-        }
+
 
         private class A
         {

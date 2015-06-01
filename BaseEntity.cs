@@ -8,7 +8,8 @@ namespace CAF
 {
 
     [Serializable]
-    public class BaseEntity<T> : IEqualityComparer<T>, IBusinessBase, ITableName, IBaseStatus where T : class,IBusinessBase
+    public class BaseEntity<T> : IEqualityComparer<T>, IBusinessBase, ITableName, IComparable<IBusinessBase>,
+        IBaseStatus where T : class,IBusinessBase
     {
         protected Guid _id;
         protected int _status;
@@ -468,5 +469,13 @@ namespace CAF
 
         #endregion
 
+        #region IComparable<IBusinessBase> 成员
+
+        public int CompareTo(IBusinessBase other)
+        {
+            return this.Id.CompareTo(other.Id);
+        }
+
+        #endregion
     }
 }

@@ -75,8 +75,8 @@
     <Compile Include="Extensions\Extensions.String.cs" />
     <Compile Include="Extensions\Extensions.ValidationAttribute.cs" />
     <Compile Include="Extensions\OtherExtension.cs" />
-    <Compile Include="Extensions\UnTest\Extensions.Array.cs" />
-    <Compile Include="Extensions\UnTest\Extensions.Bool.cs" />
+    <Compile Include="Extensions\Extensions.Array.cs" />
+    <Compile Include="Extensions\Extensions.Bool.cs" />
     <Compile Include="Extensions\UnTest\Extensions.Object.cs" />
     <Compile Include="未整理\Files\DefaultUploadPathStrategy.cs" />
     <Compile Include="未整理\Files\File.cs" />

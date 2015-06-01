@@ -13,7 +13,7 @@ namespace CAF.Model
 
 
     [Serializable]
-    public partial class User : BaseEntity<User>,IBusinessBase
+    public partial class User : BaseEntity<User>
     {
         public User()
         {
@@ -585,7 +585,6 @@ namespace CAF.Model
             return item;
         }
         #endregion
-
     }
 
     [Serializable]
