@@ -83,7 +83,6 @@
     <Compile Include="Util\FormatExtensionTest.cs" />
     <Compile Include="Util\ArrayExtensionTest.cs" />
     <Compile Include="Util\NumberExtensionTest.cs" />
-    <Compile Include="Util\ObjExtensionTest.cs" />
     <Compile Include="Util\ValidationAttributeExtensionTest.cs" />
     <Compile Include="Util\LogicExtensionTest.cs" />
     <Compile Include="Util\SerializeExtensionTest.cs" />

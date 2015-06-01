@@ -10,9 +10,9 @@ namespace CAF
         /// </summary>
         /// <param name="source"></param>
         /// <param name="action"></param>
-        public static void IfNotNullOrEmpty(this Guid? source, Action action)
+        public static void IfNotNullOrEmpty(this Guid? source, Action<Guid?> action)
         {
-            if (!source.IsEmpty()) { action(); }
+            if (!source.IsEmpty()) { action(source); }
         }
 
         /// <summary>
@@ -20,9 +20,9 @@ namespace CAF
         /// </summary>
         /// <param name="source"></param>
         /// <param name="action"></param>
-        public static void IfIsNullOrEmpty(this Guid? source, Action action)
+        public static void IfIsNullOrEmpty(this Guid? source, Action<Guid?> action)
         {
-            if (source.IsEmpty()) { action(); }
+            if (source.IsEmpty()) { action(source); }
         }
 
         /// <summary>
@@ -30,9 +30,9 @@ namespace CAF
         /// </summary>
         /// <param name="source"></param>
         /// <param name="action"></param>
-        public static void IfNotEmpty(this Guid source, Action action)
+        public static void IfNotEmpty(this Guid source, Action<Guid> action)
         {
-            if (!source.IsEmpty()) { action(); }
+            if (!source.IsEmpty()) { action(source); }
         }
 
         /// <summary>

@@ -295,8 +295,8 @@ namespace CAF.Tests.Extensions
         public void TestStrIsNotNullAction()
         {
             string a = "";
-            a.IfIsNullOrEmpty(() => a = "111");
-            a.IfIsNotNullOrEmpty(() => a = "222");
+            a.IfIsNullOrEmpty(() => a= "111");
+            a.IfIsNotNullOrEmpty(r=> a = "222");
             Assert.AreEqual("222", a);
         }
 

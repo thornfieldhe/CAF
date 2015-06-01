@@ -199,9 +199,9 @@ namespace CAF
         /// </summary>
         /// <param name="source"></param>
         /// <param name="action"></param>
-        public static void IfIsNotNullOrEmpty(this string source, Action action)
+        public static void IfIsNotNullOrEmpty(this string source, Action<string> action)
         {
-            if (!string.IsNullOrWhiteSpace(source)) { action(); }
+            if (!string.IsNullOrWhiteSpace(source)) { action(source); }
         }
 
         /// <summary>

@@ -104,9 +104,10 @@ namespace CAF.Tests.Extensions
         public void Test_Shuffle()
         {
             var list = new List<int>() { 1, 2, 3 };
-            Assert.IsFalse((list.Shuffle().ToList()[0] == list[0])
-                .And(list.Shuffle().ToList()[1] == list[1])
-                .And(list.Shuffle().ToList()[2] == list[2]));
+            var newList = list.Shuffle().ToList();
+            Assert.IsFalse((newList[0] == list[0])
+                .And(newList[1] == list[1])
+                .And(newList[2] == list[2]));
         }
 
         [TestMethod]

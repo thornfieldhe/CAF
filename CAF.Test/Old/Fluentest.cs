@@ -294,43 +294,8 @@ namespace CAF.Test
             Fx.Using(new PrivateDisposableTestEntity(), (instance) => { });
             Assert.IsTrue(isDisposed);
         }
-        [TestMethod]
-        public void Test_IsNull()
-        {
-            int x = 5;
-            Assert.IsTrue(!x.IsNull());
-        }
 
-        [TestMethod]
-        public void Test_IsNotNull()
-        {
-            int x = 5;
-            Assert.IsTrue(x.IsNotNull());
-        }
 
-        [TestMethod]
-        public void Test_ToInt32()
-        {
-            var result = "123".ToInt();
-            Assert.AreEqual(result, 123);
-        }
-
-        [TestMethod]
-        public void Test_In()
-        {
-            string parameter = null;
-            var result = parameter.In(new string[] { "one", null, "three" });
-
-            Assert.IsTrue(result);
-        }
-        [TestMethod]
-        public void Test_NotIn()
-        {
-            string parameter = "five";
-            var result = parameter.NotIn(new string[] { "one", null, "three" });
-
-            Assert.IsTrue(result);
-        }
 
         [TestMethod]
         public void Test_In_ValueType()
@@ -339,12 +304,6 @@ namespace CAF.Test
 //            var result = parameter.In(5, 3, 4);
 //
 //            Assert.IsTrue(result);
-        }
-
-        [TestMethod]
-        public void Test_IgnorCaseEqual()
-        {
-            Assert.IsTrue("Fluentx".IgnoreCaseEqual("fLuEnTx"));
         }
 
  
@@ -357,13 +316,7 @@ namespace CAF.Test
         }
    
 
-        [TestMethod]
-        public void Test_CountOccurences()
-        {
-            string value = "samer";
-            Assert.AreEqual(1, value.CountOccurences("s"));
-        }
-
+ 
         //        [TestMethod]
         //        public void Test_Guard_Against()
         //        {

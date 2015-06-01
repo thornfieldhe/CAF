@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace CAF.Tests.Extensions
 {
+    using CAF.Model;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
@@ -39,6 +41,73 @@ namespace CAF.Tests.Extensions
         public void TestBetween()
         {
             Assert.IsTrue((2.2358).IsBetween(3.0,2.0));
+        }
+
+        /// <summary>
+        /// 判断是否为空并执行操作
+        /// </summary>
+        [TestMethod]
+        public void TestNullableAction()
+        {
+            string a = null;
+            a.IfNull(() => a = "ccc");
+            Assert.AreEqual("ccc", a);
+            a.IfNotNull(r => a = r + "__");
+            Assert.AreEqual("ccc__", a);
+
+        }
+
+        /// <summary>
+        /// 判断是否为真并执行操作
+        /// </summary>
+        [TestMethod]
+        public void TestTrueAction()
+        {
+            var a = "";
+            true.IfTrue(() => a = "ccc");
+            Assert.AreEqual("ccc", a);
+            false.IfFalse(() => a = a + "__");
+            Assert.AreEqual("ccc__", a);
+
+        }
+
+
+        /// <summary>
+        /// 判断是否为真返回默认值
+        /// </summary>
+        [TestMethod]
+        public void TestTrueDefault()
+        {
+            var a = "";
+            a = true.WhenTrue<string>("ccc");
+            Assert.AreEqual("ccc", a);
+            false.WhenFalse(() => a = a + "__");
+            Assert.AreEqual("ccc__", a);
+
+        }
+
+
+        /// <summary>
+        /// 类型判断
+        /// </summary>
+        [TestMethod]
+        public void TestIsAs()
+        {
+            var user = new User();
+            Assert.IsNotNull(user.As<IBusinessBase>().Id);
+            Assert.IsTrue(user.Is<IBusinessBase>());
+        }
+
+        /// <summary>
+        /// 安全赋值
+        /// </summary>
+        [TestMethod]
+        public void TestSet()
+        {
+            User user = null;
+            user.SafeValue().Set(u => u.Name = "xxx");
+            user = null;
+            Assert.AreEqual(user.NullOr(u => u.Name), null);
         }
     }
 }
