@@ -6,7 +6,6 @@ namespace CAF.Tests.Enums {
     using CAF.Tests.Samples;
     using CAF.Utility;
 
-    using Util.Tests.Samples;
 
     /// <summary>
     /// 测试枚举
@@ -363,7 +362,7 @@ namespace CAF.Tests.Enums {
                 CAF.Utility.Enum.GetItems<Test2>();
             }
             catch ( InvalidOperationException ex ) {
-                Assert.AreEqual( "类型 Util.Tests.Samples.Test2 不是枚举", ex.Message );
+                Assert.AreEqual( "类型 CAF.Tests.Samples.Test2 不是枚举", ex.Message );
                 throw;
             }
         }

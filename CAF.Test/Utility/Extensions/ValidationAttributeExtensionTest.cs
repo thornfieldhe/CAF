@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Util.Tests.Samples;
 
 namespace CAF.Tests.Extensions {
+    using CAF.Tests.Samples;
     using CAF.Utility;
 
     /// <summary>

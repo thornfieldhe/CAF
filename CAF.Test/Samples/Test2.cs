@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Util.Tests.Samples
+namespace CAF.Tests.Samples
 {
     using CAF.Utility;
 

@@ -101,5 +101,12 @@ namespace CAF.Tests.Extensions
             value = 1.1M;
             Assert.AreEqual(1.1M, value.SafeValue());
         }
+
+        [TestMethod]
+        public void Test_Lock()
+        {
+            string value = "Fluentx";
+            value.Lock(x => { });
+        }
     }
 }

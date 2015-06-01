@@ -61,11 +61,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Cache\DefaultCacheKeyTest.cs" />
-    <Compile Include="Cache\DefaultCacheManagerTest.cs" />
-    <Compile Include="Cache\LocalCacheProviderTest.cs" />
-    <Compile Include="Compress\GZipTest.cs" />
-    <Compile Include="Encrypts\Md5Test.cs" />
+    <Compile Include="Lambdas\ExpressionBuilderTest.cs" />
+    <Compile Include="Lambdas\ExpressionTest.cs" />
+    <Compile Include="Lambdas\ParseTest.cs" />
+    <Compile Include="Samples\ITest.cs" />
+    <Compile Include="Samples\Test1.cs" />
+    <Compile Include="Utility\Cache\DefaultCacheKeyTest.cs" />
+    <Compile Include="Utility\Cache\DefaultCacheManagerTest.cs" />
+    <Compile Include="Utility\Cache\LocalCacheProviderTest.cs" />
+    <Compile Include="Utility\Compress\GZipTest.cs" />
+    <Compile Include="Utility\Md5Test.cs" />
     <Compile Include="Enums\EnumTest.cs" />
     <Compile Include="Enums\FlagsTest.cs" />
     <Compile Include="Old\Fluentest.cs" />
@@ -75,17 +80,25 @@
     <Compile Include="Samples\ITest3Repository.cs" />
     <Compile Include="Samples\LogType.cs" />
     <Compile Include="Samples\Test2.cs" />
-    <Compile Include="Util\StringExtensionTest.cs" />
-    <Compile Include="Util\ConvertExtensionTest.cs" />
-    <Compile Include="Util\DateTimeExtensionTest.cs" />
-    <Compile Include="Util\NullAndEmptyExtensionTest.cs" />
-    <Compile Include="Util\ExpressionExtensionTest.cs" />
-    <Compile Include="Util\FormatExtensionTest.cs" />
-    <Compile Include="Util\ArrayExtensionTest.cs" />
-    <Compile Include="Util\NumberExtensionTest.cs" />
-    <Compile Include="Util\ValidationAttributeExtensionTest.cs" />
-    <Compile Include="Util\LogicExtensionTest.cs" />
-    <Compile Include="Util\SerializeExtensionTest.cs" />
+    <Compile Include="Utility\Extensions\StringExtensionTest.cs" />
+    <Compile Include="Utility\Extensions\ConvertExtensionTest.cs" />
+    <Compile Include="Utility\Extensions\DateTimeExtensionTest.cs" />
+    <Compile Include="Utility\Extensions\NullAndEmptyExtensionTest.cs" />
+    <Compile Include="Utility\Extensions\ExpressionExtensionTest.cs" />
+    <Compile Include="Utility\Extensions\FormatExtensionTest.cs" />
+    <Compile Include="Utility\Extensions\ArrayExtensionTest.cs" />
+    <Compile Include="Utility\Extensions\NumberExtensionTest.cs" />
+    <Compile Include="Utility\Extensions\ValidationAttributeExtensionTest.cs" />
+    <Compile Include="Utility\Extensions\LogicExtensionTest.cs" />
+    <Compile Include="Utility\Extensions\SerializeExtensionTest.cs" />
+    <Compile Include="Utility\Files\FileInfoTest.cs" />
+    <Compile Include="Utility\Files\FilePathTest.cs" />
+    <Compile Include="Utility\Files\FileSizeTest.cs" />
+    <Compile Include="Utility\Files\StreamConvertTest.cs" />
+    <Compile Include="Utility\Files\StreamTest.cs" />
+    <Compile Include="Utility\FluentTest.cs" />
+    <Compile Include="Utility\SpecificationTest.cs" />
+    <Compile Include="Utility\RandomsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CAF.Model\CAF.Model.csproj">

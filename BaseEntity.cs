@@ -9,7 +9,7 @@ namespace CAF
 
     [Serializable]
     public class BaseEntity<T> : IEqualityComparer<T>, IBusinessBase, ITableName, IComparable<IBusinessBase>,
-        IBaseStatus where T : class,IBusinessBase
+        IBaseStatus, IDisposable where T : class,IBusinessBase
     {
         protected Guid _id;
         protected int _status;
@@ -474,6 +474,36 @@ namespace CAF
         public int CompareTo(IBusinessBase other)
         {
             return this.Id.CompareTo(other.Id);
+        }
+
+        #endregion
+
+        #region IDisposable 成员
+
+        //供程序员显式调用的Dispose方法
+        public void Dispose()
+        {
+            //调用带参数的Dispose方法，释放托管和非托管资源
+            this.Dispose(true);
+            //手动调用了Dispose释放资源，那么析构函数就是不必要的了，这里阻止GC调用析构函数
+            GC.SuppressFinalize(this);
+        }
+
+        //protected的Dispose方法，保证不会被外部调用。
+        //传入bool值disposing以确定是否释放托管资源
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                ///TODO:在这里加入清理"托管资源"的代码，应该是xxx.Dispose();
+            }
+            ///TODO:在这里加入清理"非托管资源"的代码
+        }
+
+        //供GC调用的析构函数
+        ~BaseEntity()
+        {
+            this.Dispose(false);//释放非托管资源
         }
 
         #endregion

@@ -112,7 +112,7 @@ namespace CAF.Utility
         /// <param name="allChar">字符规范，如果等于null时，默认值为："1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,i,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"</param>
         /// <param name="codeCount">需要生成的随机数个数</param>
         /// <returns></returns>
-        public static string GetRandomCode(string allChar, int codeCount)
+        public static string GetRandomCode(int codeCount, string allChar=null)
         {
             if (string.IsNullOrEmpty(allChar))
             {

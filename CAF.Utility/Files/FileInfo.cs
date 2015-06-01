@@ -146,7 +146,7 @@ namespace CAF.Utility
         {
             ValidateFileName(fileName);
             var result = new StringBuilder();
-            result.AppendFormat("{0}-{1}", FilterFileName(fileName), DateTime.Now.ToString("HHmmss"));
+            result.AppendFormat("{0}-{1}", FilterFileName(fileName), Time.GetDateTime().ToString("HHmmss"));
             result.AppendFormat(".{0}", GetExtension(fileName));
             return result.ToString();
         }

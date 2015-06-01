@@ -10,7 +10,7 @@ namespace CAF.Utility
         /// <summary>
         /// 加密字符串长度应该大于8
         /// </summary>
-        public static string strEncrKey = "P@ssw0rd";
+        public const string strEncrKey = "P@ssw0rd";
 
         /// <summary>
         /// 获取新密码

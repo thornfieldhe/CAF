@@ -30,7 +30,7 @@ namespace <%= ClassNamespace %>.Model
         using System.Linq.Expressions;
 
     [Serializable]
-	public partial class <%= GetClassName(SourceTable) %> :  BaseEntity<<%= GetClassName(SourceTable) %>>,IBusinessBase
+	public partial class <%= GetClassName(SourceTable) %> :  BaseEntity<<%= GetClassName(SourceTable) %>>
 	{   
         public <%= GetClassName(SourceTable) %>()
 		{

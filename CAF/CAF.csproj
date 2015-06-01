@@ -90,7 +90,6 @@
     </Compile>
     <Compile Include="CAFException.cs" />
     <Compile Include="未整理\CAFLogging.cs" />
-    <Compile Include="未整理\Const.cs" />
     <Compile Include="Str.cs" />
     <Compile Include="未整理\Tests\Test.cs" />
     <Compile Include="未整理\Tests\UnitTest.cs" />
@@ -119,12 +118,8 @@
     <Compile Include="未整理\Data\DbPropertyAttribute.cs" />
     <Compile Include="未整理\Data\SqlDataPortal.cs" />
     <Compile Include="未整理\ChinaDate.cs" />
-    <Compile Include="未整理\Fluent.cs" />
-    <Compile Include="未整理\FluentInterface.cs" />
-    <Compile Include="未整理\Specifications.cs" />
     <Compile Include="未整理\LinqExt.cs" />
     <Compile Include="未整理\PredicateBuilder.cs" />
-    <Compile Include="未整理\StringReg.cs" />
     <Compile Include="未整理\GenericContex.cs" />
     <Compile Include="未整理\Data\ExpressionTurn\ExpConditions.cs" />
     <Compile Include="未整理\Data\ExpressionTurn\Base\ExpressionVisitor.cs" />
@@ -160,13 +155,6 @@
     <Compile Include="未整理\StringDictionaryStore.cs" />
     <Compile Include="未整理\TypeCreater.cs" />
     <Compile Include="未整理\UndoBase.cs" />
-    <Compile Include="未整理\Random.cs" />
-    <Compile Include="未整理\Validation\CustValidationArgs.cs" />
-    <Compile Include="未整理\Validation\IExpression.cs" />
-    <Compile Include="未整理\Validation\IRegExpression.cs" />
-    <Compile Include="未整理\Validation\RegexContex.cs" />
-    <Compile Include="未整理\Validation\RegexExpression.cs" />
-    <Compile Include="未整理\Validation\RegexOperator.cs" />
     <Compile Include="未整理\Webs\Net.cs" />
     <Compile Include="未整理\XmlComponent.cs" />
   </ItemGroup>

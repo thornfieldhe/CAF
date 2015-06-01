@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.ComponentModel.DataAnnotations;
-using Util.Tests.Samples;
 
 namespace CAF.Tests.Extensions
 {
     using CAF.Model;
+    using CAF.Tests.Samples;
     using CAF.Utility;
 
     /// <summary>
