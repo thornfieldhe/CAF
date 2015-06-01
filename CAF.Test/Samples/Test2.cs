@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Util.Tests.Samples
 {
-    using CAF;
+    using CAF.Utility;
 
     /// <summary>
     /// 测试2

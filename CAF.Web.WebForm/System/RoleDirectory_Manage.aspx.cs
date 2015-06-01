@@ -43,7 +43,7 @@ namespace CAF.Web.WebForm
         {
             base.Bind();
             PageHelper.BindRoles(this.dropRoles, null);
-            PageHelper.BindRoles(this.radioStatus, typeof(RightStatusEnum));
+            PageHelper.BindRoles(this.radioStatus);
             this.BindTree();
         }
 
@@ -85,7 +85,7 @@ namespace CAF.Web.WebForm
                 var text = "";
                 if (dic != null)
                 {
-                    switch (Enum.GetEnumFromFlagsEnum<RightStatusEnum>(dic.Status))
+                    switch (Enum.GetInstance<RightStatusEnum>(dic.Status))
                     {
                         case RightStatusEnum.Read:
                             text = "[读]";
@@ -125,7 +125,7 @@ namespace CAF.Web.WebForm
             var text = "";
             if (dic != null)
             {
-                switch (Enum.GetEnumFromFlagsEnum<RightStatusEnum>(dic.Status))
+                switch (Enum.GetInstance<RightStatusEnum>(dic.Status))
                 {
                     case RightStatusEnum.Read:
                         text = "[读]";

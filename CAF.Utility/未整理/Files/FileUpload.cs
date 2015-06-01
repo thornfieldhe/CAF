@@ -8,6 +8,7 @@ namespace CAF.Utility
     using System.Linq;
 
     using CAF.Images;
+    using CAF.Webs;
 
     /// <summary>
     /// 文件上传操作
@@ -104,7 +105,7 @@ namespace CAF.Utility
         /// </summary>
         private Size GetSize(Stream stream)
         {
-            System.Drawing.Image image = Image.FromStream(stream);
+            System.Drawing.Image image = CAF.Utility.Image.FromStream(stream);
             if (image == null)
                 return new Size(0, 0);
             return new Size(image.Width, image.Height);

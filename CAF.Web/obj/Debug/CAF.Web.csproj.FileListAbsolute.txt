@@ -147,3 +147,8 @@ D:\WorkStation\CAF\CAF.Web\bin\Microsoft.Practices.EnterpriseLibrary.Common.xml
 D:\WorkStation\CAF\CAF.Web\bin\zh-Hans\System.Web.Optimization.resources.dll
 D:\WorkStation\CAF\CAF.Web\obj\Debug\CAF.Web.dll
 D:\WorkStation\CAF\CAF.Web\obj\Debug\CAF.Web.pdb
+D:\WorkStation\CAF\CAF.Web\bin\AutoMapper.Net4.dll
+D:\WorkStation\CAF\CAF.Web\bin\AutoMapper.dll
+D:\WorkStation\CAF\CAF.Web\bin\AutoMapper.pdb
+D:\WorkStation\CAF\CAF.Web\bin\AutoMapper.xml
+D:\WorkStation\CAF\CAF.Web\bin\AutoMapper.Net4.pdb

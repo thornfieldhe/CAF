@@ -136,7 +136,7 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (Label)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("lbl", ""));
-                    if (Info != null && ctrl.Text != "" && skipProperties(model, Info)&&
+                    if (Info != null && ctrl.Text != "" && skipProperties(model, Info) &&
                         !(Info.Name == "Id" && String.IsNullOrWhiteSpace(ctrl.Text)))
                     {
                         Info.SetValue(model, DataMap.GetType(Info, ctrl.Text), null);
@@ -397,14 +397,13 @@ namespace CAF.Web.WebForm.Common
         /// 绑定单选列表
         /// </summary>
         /// <param name="radio"></param>
-        /// <param name="enums"></param>
-        public static void BindRadioButton(Type enums, RadioButtonList radio)
+        public static void BindRadioButton<T>(RadioButtonList radio)
         {
             if (radio.Items.Count == 0)
             {
-                foreach (var item in EnumContent.Get(enums))
+                foreach (var item in CAF.Utility.Enum.GetItems<T>())
                 {
-                    radio.Items.Add(new RadioItem() { Text = item.Description, Value = item.Value.ToString() });
+                    radio.Items.Add(new RadioItem() { Text = item.Text, Value = item.Value.ToString() });
                 }
             }
             radio.SelectedIndex = 0;
@@ -452,11 +451,11 @@ namespace CAF.Web.WebForm.Common
         /// </summary>
         /// <param name="enums"></param>
         /// <param name="drop"></param>
-        public static void BindDropdownList(Type enums, DropDownList drop)
+        public static void BindDropdownList<T>(DropDownList drop)
         {
             drop.Items.Clear();
             drop.Items.Add("请选择", "");
-            EnumContent.Get(enums).ForEach(i => drop.Items.Add(new ListItem() { Text = i.Description, Value = i.Value.ToString() }));
+            CAF.Utility.Enum.GetItems<T>().ForEach(i => drop.Items.Add(new ListItem() { Text = i.Text, Value = i.Value.ToString() }));
         }
 
 

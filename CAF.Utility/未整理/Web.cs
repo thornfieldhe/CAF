@@ -4,7 +4,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 
-namespace CAF
+namespace CAF.Webs
 {
     /// <summary>
     /// Web操作

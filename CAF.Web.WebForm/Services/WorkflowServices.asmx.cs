@@ -7,6 +7,8 @@ namespace CAF.Web
     using System.Linq;
     using System.Xml.Linq;
 
+    using CAF.Webs;
+
     /// <summary>
     /// Workflow 的摘要说明
     /// </summary>

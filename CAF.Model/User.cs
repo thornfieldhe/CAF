@@ -2,7 +2,6 @@
 namespace CAF.Model
 {
     using CAF.Data;
-    using CAF.Utility;
     using System;
     using System.Collections.Generic;
     using System.Data;
@@ -17,13 +16,13 @@ namespace CAF.Model
     {
         protected override void PreInsert(IDbConnection conn, IDbTransaction transaction)
         {
-            this.Abb = CAF.Utility.Str.GetChineseSpell(this.Name);
+            this.Abb = this.Name.GetChineseSpell();
             this.Pass = Encrypt.DesEncrypt(this.Pass);
         }
 
         protected override void PreUpdate(IDbConnection conn, IDbTransaction transaction)
         {
-            this._updateParameters.Contains("Name").IfTrue(() => this.Abb = CAF.Utility.Str.GetChineseSpell(this.Name));
+            this._updateParameters.Contains("Name").IfTrue(() => this.Abb = this.Name.GetChineseSpell());
             this._updateParameters.Contains("Pass").IfTrue(() => this.Pass = Encrypt.DesEncrypt(this.Pass));
         }
 

@@ -24,7 +24,7 @@ namespace CAF.Web.WebForm
             base.Bind();
             PageHelper.BindOrganizes(new Guid(), this.dropDeps, new Guid().ToString(), true);
             PageTools.BindDropdownList(Role.GetSimpleRoleList(), this.dropRoles, new Guid().ToString());
-            PageTools.BindDropdownList(typeof(UserStatusEnum), this.dropStatus);
+            PageTools.BindDropdownList<UserStatusEnum>( this.dropStatus);
             this.grid_OnQuery();
             this.btnNew.OnClientClick = this.winEdit.GetShowReference("User_Edit.aspx", "新增");
         }
@@ -53,7 +53,7 @@ namespace CAF.Web.WebForm
             this.dropDeps.SelectedValue.IfIsNotNullOrEmpty(r => exp.AndWhere(u =>
                     u.Level.Contains(this.dropDeps.SelectedValue)));
 
-            this.dropRoles.SelectedValue.ToGuid().IsEmptuy()
+            this.dropRoles.SelectedValue.ToGuid().IsEmpty()
                 .IfFalse(()=>exp.AndWhere(u => u.Roles.Contains(this.dropRoles.SelectedValue)));
        
             this.dropStatus.SelectedValue.IfIsNotNullOrEmpty(t =>

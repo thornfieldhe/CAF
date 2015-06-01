@@ -1,6 +1,7 @@
 ﻿
 namespace CAF.Logs.Formats
 {
+    using CAF.Utility;
 
     /// <summary>
     /// 日志消息基格式器

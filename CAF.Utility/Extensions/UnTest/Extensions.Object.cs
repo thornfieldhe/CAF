@@ -5,9 +5,6 @@ namespace CAF
 
     public static partial class Extensions
     {
-
-
-
         /// <summary>
         /// 不为空执行委托方法
         /// </summary>

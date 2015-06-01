@@ -169,7 +169,7 @@ namespace CAF.Utility
         {
             fileName = GetFileNameWithoutExtension(fileName);
             fileName = Regex.Replace(fileName, "\\W", "");
-            return Str.GetChineseSpell(fileName);
+            return fileName.GetChineseSpell();
         }
     }
 }

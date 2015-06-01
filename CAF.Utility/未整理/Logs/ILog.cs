@@ -2,6 +2,8 @@
 
 namespace CAF.Logs
 {
+    using CAF.Utility;
+
     /// <summary>
     /// 日志操作
     /// </summary>

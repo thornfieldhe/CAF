@@ -370,14 +370,14 @@ namespace CAF.Test
         public void Test_ReplaceLast()
         {
             string value = "IdentityId";
-            Assert.AreEqual("Identity", CAF.Utility.Str.ReplaceLast(value, "Id", ""));
+            Assert.AreEqual("Identity", value.ReplaceLast( "Id", ""));
         }
 
         [TestMethod]
         public void Test_CountOccurences()
         {
             string value = "samer";
-            Assert.AreEqual(1, CAF.Utility.Str.CountOccurences(value,"s"));
+            Assert.AreEqual(1, value.CountOccurences("s"));
         }
 
         //        [TestMethod]

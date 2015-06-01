@@ -23,16 +23,6 @@ namespace CAF.Utility
 
         #endregion
 
-        #region Guid
-
-        /// <summary>
-        /// Guid
-        /// </summary>
-        public static Guid Guid {
-            get { return Guid.NewGuid(); }
-        }
-
-        #endregion
 
         #region GetType(获取类型)
 
@@ -77,8 +67,8 @@ namespace CAF.Utility
         /// <typeparam name="T">原始对象的类名</typeparam>
         /// <param name="instance">原始对象实例</param>
         public static T Clone<T>( T instance ) where T : class {
-            byte[] buffer = Serialize.ToBytes( instance );
-            return Serialize.FromBytes<T>( buffer );
+            var buffer = instance.SerializeObjectToString(FormatterType.Binary);
+            return  buffer.DeserializeStringToObject<T>();
         }
 
         #endregion

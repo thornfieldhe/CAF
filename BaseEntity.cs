@@ -44,7 +44,6 @@ namespace CAF
 
         public string[] SkipedProperties { get; private set; }
 
-
         public IDbConnection Connection
         {
             get

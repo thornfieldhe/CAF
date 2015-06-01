@@ -34,7 +34,7 @@ namespace CAF.Web.WebForm.System
             this.BindScripts();
             PageHelper.BindDirectories(Guid.Empty, this.dropDirs, Guid.Empty.ToString(), false);
             PageHelper.BindRoles(this.dropRoles, Guid.Empty.ToString());
-            PageTools.BindDropdownList(typeof(RightStatusEnum), this.dropStatus);
+            PageTools.BindDropdownList<RightStatusEnum>( this.dropStatus);
             this.grid_OnQuery();
         }
 

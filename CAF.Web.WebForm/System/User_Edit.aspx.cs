@@ -97,7 +97,7 @@ namespace CAF.Web.WebForm
         {
             base.Bind();
             PageHelper.BindOrganizes(new Guid(), this.dropOrganizeId, new Guid().ToString(), false);
-            PageTools.BindRadioButton(typeof(UserStatusEnum), this.radioStatus);
+            PageTools.BindRadioButton<UserStatusEnum>(this.radioStatus);
             PageHelper.BindRoles(this.chkUserRoles);
             PageHelper.BindPosts(this.chkUserPosts);
             var item = Model.User.Get(this.Id);

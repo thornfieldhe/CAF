@@ -8,6 +8,7 @@ namespace CAF.Web
     using CAF.Model;
     using CAF.Utility;
     using CAF.Web.WebForm.Common;
+    using CAF.Webs;
 
     public partial class Login : Page
     {
@@ -72,7 +73,7 @@ namespace CAF.Web
                 var referrer = this.Request["referrer"];
                 HttpContext.Current.Session["Principal"] = HttpContext.Current.User;
                 this.Session["User"] = CAF.Model.User.Get(this.User.Identity.Name);
-                var log = new LoginLog { UserName = this.User.Identity.Name, Ip = CAF.Web.Net.GetClientIP() };
+                var log = new LoginLog { UserName = this.User.Identity.Name, Ip = Net.GetClientIP() };
 
                 log.Create();
                 this.Response.Redirect(referrer ?? @"Dashboard.aspx", false);

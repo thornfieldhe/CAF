@@ -3,11 +3,9 @@
 namespace CAF.Web.Controllers
 {
 
-    using CAF.Ext;
     using System;
     using System.Net;
 
-    using CAF.Model;
 
     public class ManageController : BaseController
     {
@@ -46,8 +44,8 @@ namespace CAF.Web.Controllers
             level.IfNotNull(o => whereStr += "And OrganizeId=@OrganizeId");
             ruleId.IfNotNull(o => whereStr = "And RuleId=@RuleId");
             name.IfIsNotNullOrEmpty(a => whereStr += " And Name Like %@Name%");
-
-            return this.Json(ReadOnlyCollectionBase<ReadOnlyUser>.Query("Name", 20, new ReadOnlyUser { Name = name, Level = level, Roles = ruleId }, whereStr));
+            return new JsonResult();
+            //            return this.Json(ReadOnlyCollectionBase<ReadOnlyUser>.Query("Name", 20, new ReadOnlyUser { Name = name, Level = level, Roles = ruleId }, whereStr));
         }
 
         public ActionResult SaveUser(Model.User user)
