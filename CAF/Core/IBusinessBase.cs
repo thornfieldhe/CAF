@@ -3,9 +3,8 @@
     using System;
     using System.Collections.Generic;
 
-    public interface IBusinessBase
+    public interface IBusinessBase : IEntityBase, ITableName
     {
-        string TableName { get; }
 
         string[] SkipedProperties { get; }
         Guid Id { get; set; }

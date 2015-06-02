@@ -2,15 +2,12 @@
 namespace CAF.Model
 {
     using CAF.Data;
+    using CAF.Utility;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-
-    using CAF.Utility;
-
     using Enum = CAF.Utility.Enum;
-    using Str = CAF.Str;
 
     public partial class User
     {
@@ -72,7 +69,7 @@ namespace CAF.Model
             }
         }
 
-        public static List<KeyValueItem<Guid,string>> GetDirectories(Guid userId)
+        public static List<KeyValueItem<Guid, string>> GetDirectories(Guid userId)
         {
             const string query = @"select distinct t1.Id as UserId,t5.Id as [Key],t5.Level as Value from Sys_Users t1 inner join Sys_R_User_Role t2 on t1.Id=t2.UserId
                                 inner join Sys_Roles t3 on t2.RoleId=t3.Id
