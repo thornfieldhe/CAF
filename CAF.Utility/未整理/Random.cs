@@ -2,6 +2,9 @@
 
 namespace CAF.Utility
 {
+    using System.Text;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// 使用Random类生成伪随机数
     /// </summary>
@@ -62,8 +65,11 @@ namespace CAF.Utility
         }
 
 
-        // 一：随机生成不重复数字字符串 
+
         private static int rep = 0;
+        /// <summary>
+        /// 生成不重复数字字符串 
+        /// </summary>
         public static string GenerateCheckCodeNum(int codeCount)
         {
             var rep = 0;
@@ -79,7 +85,11 @@ namespace CAF.Utility
             return str;
         }
 
-        //方法二：随机生成字符串（数字和字母混和）
+        /// <summary>
+        /// 随机生成字符串
+        /// </summary>
+        /// <param name="codeCount"></param>
+        /// <returns></returns>
         public static string GenerateCheckCode(int codeCount)
         {
             var str = string.Empty;
@@ -103,7 +113,66 @@ namespace CAF.Utility
             return str;
         }
 
+        /// <summary>
+        /// 生成随机常用汉字
+        /// </summary>
+        /// <param name="maxLength">最大长度</param>
+        public  static string GenerateChinese(int maxLength)
+        {
+            return  GetRandomCode(maxLength, Const.SimplifiedChinese);
+        }
+
+
+        /// <summary>
+        /// 生成随机字母，不出现汉字和数字
+        /// </summary>
+        /// <param name="maxLength">最大长度</param>
+        public static string GenerateLetters(int maxLength)
+        {
+            return GetRandomCode(maxLength, Const.Letters);
+        }
+
+
+        /// <summary>
+        /// 生成随机布尔值
+        /// </summary>
+        public static bool GenerateBool()
+        {
+            var random = GetRandomInt(1, 3);
+            if (random == 1)
+                return false;
+            return true;
+        }
+
+        /// <summary>
+        /// 生成随机日期
+        /// </summary>
+        /// <param name="beginYear">起始年份</param>
+        /// <param name="endYear">结束年份</param>
+        public static DateTime GenerateDate(int beginYear = 2000, int endYear = 2030)
+        {
+            var year = GetRandomInt(beginYear, endYear);
+            var month = GetRandomInt(1, 13);
+            var day = GetRandomInt(1, 29);
+            var hour = GetRandomInt(1, 24);
+            var minute = GetRandomInt(1, 60);
+            var second = GetRandomInt(1, 60);
+            return new DateTime(year, month, day, hour, minute, second);
+        }
+
+        /// <summary>
+        /// 生成随机枚举
+        /// </summary>
+        /// <typeparam name="T">枚举</typeparam>
+        public static T GenerateEnum<T>()
+        {
+            var list = Enum.GetItems<T>();
+            int index = GetRandomInt(0, list.Count);
+            return Enum.GetInstance<T>(list[index].Value);
+        }
+
         #endregion
+
 
         #region 从字符串里随机得到，规定个数的字符串.
         /// <summary>
@@ -112,13 +181,12 @@ namespace CAF.Utility
         /// <param name="allChar">字符规范，如果等于null时，默认值为："1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,i,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"</param>
         /// <param name="codeCount">需要生成的随机数个数</param>
         /// <returns></returns>
-        public static string GetRandomCode(int codeCount, string allChar=null)
+        public static string GetRandomCode(int codeCount, string allChar = null)
         {
             if (string.IsNullOrEmpty(allChar))
             {
-                allChar = "1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,i,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z";
+                allChar = "123456789ABCDEFGHiJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
             }
-            var allCharArray = allChar.Split(',');
             var randomCode = "";
             var temp = -1;
             var rand = new Random(Guid.NewGuid().GetHashCode());
@@ -129,15 +197,15 @@ namespace CAF.Utility
                     rand = new Random(temp * i * ((int)DateTime.Now.Ticks));
                 }
 
-                var t = rand.Next(allCharArray.Length - 1);
+                var t = rand.Next(allChar.Length - 1);
 
                 while (temp == t)
                 {
-                    t = rand.Next(allCharArray.Length - 1);
+                    t = rand.Next(allChar.Length - 1);
                 }
 
                 temp = t;
-                randomCode += allCharArray[t];
+                randomCode += allChar[t];
             }
             return randomCode;
         }
@@ -222,5 +290,27 @@ namespace CAF.Utility
             return (decimal)rnd.NextDouble() * t + min;
         }
         #endregion
+
+        /// <summary>
+        /// 生成随机字符串
+        /// </summary>
+        private async static Task<string> Generate(int maxLength, string text)
+        {
+            var length = GetRandomInt(1,maxLength);
+            var result = new StringBuilder();
+            for (int i = 0; i < length; i++)
+            {
+                await Task.Run(() =>
+                {
+                    var index = GetRandomInt(1, text.Length);
+                    result.Append(text[index].ToString());
+
+                });
+
+            }
+            return result.ToString();
+        }
+
+    
     }
 }

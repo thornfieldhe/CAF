@@ -109,5 +109,20 @@ namespace CAF.Tests.Extensions
             user = null;
             Assert.AreEqual(user.NullOr(u => u.Name), null);
         }
+
+        /// <summary>
+        /// 移除decimal尾随0
+        /// </summary>
+        [TestMethod]
+        public void TestRemoveEnd0()
+        {
+            Assert.AreEqual("0.12", (0.12M).RemoveEnd0());
+            Assert.AreEqual("0.12", (.12M).RemoveEnd0());
+            Assert.AreEqual("12", (12M).RemoveEnd0());
+            Assert.AreEqual("1200", (1200M).RemoveEnd0());
+            Assert.AreEqual("120.01", (120.01M).RemoveEnd0());
+            Assert.AreEqual("12", (12.00M).RemoveEnd0());
+            Assert.AreEqual("12.00010001", (012.0001000100M).RemoveEnd0());
+        }
     }
 }

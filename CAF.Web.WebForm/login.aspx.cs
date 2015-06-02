@@ -73,7 +73,7 @@ namespace CAF.Web
                 var referrer = this.Request["referrer"];
                 HttpContext.Current.Session["Principal"] = HttpContext.Current.User;
                 this.Session["User"] = CAF.Model.User.Get(this.User.Identity.Name);
-                var log = new LoginLog { UserName = this.User.Identity.Name, Ip = Net.GetClientIP() };
+                var log = new LoginLog { UserName = this.User.Identity.Name, Ip = Web.GetClientIP() };
 
                 log.Create();
                 this.Response.Redirect(referrer ?? @"Dashboard.aspx", false);

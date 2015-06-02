@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace CAF.Tests.Extensions
 {
+    using System.Text.RegularExpressions;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
@@ -436,6 +438,18 @@ namespace CAF.Tests.Extensions
             string a = "12345678.123";
             Assert.AreEqual("壹仟贰佰叁拾肆万伍仟陆佰柒拾捌元壹角贰分", a.ConvertRMB());
 
+        }
+
+
+        /// <summary>
+        /// 测试是否匹配模式
+        /// </summary>
+        [TestMethod]
+        public void TestIsMatch()
+        {
+            string pattern = @"^\d.*";
+            Assert.IsFalse("abc".IsMatch(pattern));
+            Assert.IsTrue("123".IsMatch(pattern));
         }
     }
 }

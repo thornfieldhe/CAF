@@ -59,19 +59,7 @@ namespace CAF.Utility
 
         #endregion
 
-        #region Clone(克隆对象)
 
-        /// <summary>
-        /// 使用序列化机制克隆一个对象
-        /// </summary>
-        /// <typeparam name="T">原始对象的类名</typeparam>
-        /// <param name="instance">原始对象实例</param>
-        public static T Clone<T>( T instance ) where T : class {
-            var buffer = instance.SerializeObjectToString(FormatterType.Binary);
-            return  buffer.DeserializeStringToObject<T>();
-        }
-
-        #endregion
 
         #region StartProcess(启动进程)
 

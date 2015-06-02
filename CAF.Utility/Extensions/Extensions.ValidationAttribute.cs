@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace CAF {
+    using System;
+
     using CAF.Utility;
 
     /// <summary>
@@ -13,7 +15,7 @@ namespace CAF {
         /// <param name="attribute">验证特性</param>
         public static string GetErrorMessage( this ValidationAttribute attribute ) {
             if ( attribute == null )
-                return string.Empty;
+                return String.Empty;
             return attribute.ErrorMessage.IsEmpty() == false ? attribute.ErrorMessage 
                 : ResourceHelper.GetString( attribute.ErrorMessageResourceType.FullName, attribute.ErrorMessageResourceName, attribute.ErrorMessageResourceType.Assembly );
         }

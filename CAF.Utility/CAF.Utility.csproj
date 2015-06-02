@@ -54,6 +54,7 @@
     <Compile Include="Caches\Interfaces\ICacheManager.cs" />
     <Compile Include="Caches\Interfaces\ICacheProvider.cs" />
     <Compile Include="Caches\LocalCacheProvider.cs" />
+    <Compile Include="ChinaDate.cs" />
     <Compile Include="Compress\GZip.cs" />
     <Compile Include="Compress\ICompress.cs" />
     <Compile Include="String\Const.cs" />
@@ -61,7 +62,7 @@
     <Compile Include="Fluent\FluentInterface.cs" />
     <Compile Include="Specification\Specifications.cs" />
     <Compile Include="未整理\Validation\StringReg.cs" />
-    <Compile Include="Time.cs" />
+    <Compile Include="未整理\Time.cs" />
     <Compile Include="未整理\Config.cs" />
     <Compile Include="Encrypt.cs" />
     <Compile Include="Enum.cs" />
@@ -141,7 +142,7 @@
     </Compile>
     <Compile Include="未整理\Random.cs" />
     <Compile Include="未整理\Reflection.cs" />
-    <Compile Include="ResourceHelper.cs" />
+    <Compile Include="未整理\ResourceHelper.cs" />
     <Compile Include="Files\Size.cs" />
     <Compile Include="String\Str.cs" />
     <Compile Include="String\Str`.cs" />

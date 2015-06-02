@@ -65,8 +65,8 @@ namespace CAF
         /// <param name="propertyName">属性名，范例，A.B.C,返回"C"</param>
         public static string GetLastProperty(this string propertyName)
         {
-            if (string.IsNullOrWhiteSpace(propertyName))
-                return string.Empty;
+            if (String.IsNullOrWhiteSpace(propertyName))
+                return String.Empty;
             var lastIndex = propertyName.LastIndexOf(".", StringComparison.Ordinal) + 1;
             return propertyName.Substring(lastIndex);
         }
@@ -119,7 +119,7 @@ namespace CAF
             {
                 return source;
             }
-            var c = source.LastIndexOf(",", System.StringComparison.Ordinal);
+            var c = source.LastIndexOf(",", StringComparison.Ordinal);
             if (c > 0)
             {
                 source = source.Substring(0, source.Length - (source.Length - c));
@@ -180,7 +180,7 @@ namespace CAF
         /// <returns></returns>
         public static int StrLength(this string inputString)
         {
-            var ascii = new System.Text.ASCIIEncoding();
+            var ascii = new ASCIIEncoding();
             var tempLen = 0;
             var s = ascii.GetBytes(inputString);
             for (var i = 0; i < s.Length; i++)
@@ -201,7 +201,7 @@ namespace CAF
         /// <param name="action"></param>
         public static void IfIsNotNullOrEmpty(this string source, Action<string> action)
         {
-            if (!string.IsNullOrWhiteSpace(source)) { action(source); }
+            if (!String.IsNullOrWhiteSpace(source)) { action(source); }
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace CAF
         /// <param name="action"></param>
         public static void IfIsNullOrEmpty(this string source, Action action)
         {
-            if (string.IsNullOrWhiteSpace(source)) { action(); }
+            if (String.IsNullOrWhiteSpace(source)) { action(); }
         }
 
         /// <summary>
@@ -242,7 +242,7 @@ namespace CAF
         /// <returns></returns>
         public static string FormatWith(this string @this, params object[] args)
         {
-            return string.Format(@this, args);
+            return String.Format(@this, args);
         }
 
         /// <summary>
@@ -264,7 +264,7 @@ namespace CAF
         public static string Wordify(this string @this)
         {
             // if the word is all upper, just return it
-            return !Regex.IsMatch(@this, "[a-z]") ? @this : string.Join(" ", Regex.Split(@this, @"(?<!^)(?=[A-Z])"));
+            return !Regex.IsMatch(@this, "[a-z]") ? @this : String.Join(" ", Regex.Split(@this, @"(?<!^)(?=[A-Z])"));
         }
 
         /// <summary>
@@ -310,8 +310,8 @@ namespace CAF
         /// <param name="endChar">结束符号，默认为省略号</param>
         public static string Truncate(this string text, int length, int endCharCount = 0, string endChar = ".")
         {
-            if (string.IsNullOrWhiteSpace(text))
-                return string.Empty;
+            if (String.IsNullOrWhiteSpace(text))
+                return String.Empty;
             if (text.Length < length)
                 return text;
             return text.Substring(0, length) + GetEndString(endCharCount, endChar);
@@ -352,6 +352,27 @@ namespace CAF
         }
 
         #region 正则
+        /// <summary>
+        /// 验证输入与模式是否匹配
+        /// </summary>
+        /// <param name="input">输入字符串</param>
+        /// <param name="pattern">模式字符串</param>        
+        public static bool IsMatch(this string input, string pattern)
+        {
+            return IsMatch(input, pattern, RegexOptions.IgnoreCase);
+        }
+
+
+        /// <summary>
+        /// 验证输入与模式是否匹配
+        /// </summary>
+        /// <param name="input">输入的字符串</param>
+        /// <param name="pattern">模式字符串</param>
+        /// <param name="options">筛选条件,比如是否忽略大小写</param>
+        public static bool IsMatch(this string input, string pattern, RegexOptions options)
+        {
+            return Regex.IsMatch(input, pattern, options);
+        }
 
         /// <summary>
         /// 替换最后一个匹配的字符串
@@ -455,7 +476,7 @@ namespace CAF
         public static List<int> FindSubstringAsSInt(this string strText, string matchPattern, bool findAllUnique = true)
         {
             var matchArry = FindSubstring(strText, matchPattern, findAllUnique);
-            var retArry = from match in matchArry select int.Parse(match.Value);
+            var retArry = from match in matchArry select Int32.Parse(match.Value);
             return retArry.ToList<int>();
         }
 
@@ -469,7 +490,7 @@ namespace CAF
         public static List<double> FindSubstringAsDouble(this string strText, string matchPattern, bool findAllUnique)
         {
             var matchArry = FindSubstring(strText, matchPattern, findAllUnique);
-            var retArry = from match in matchArry select double.Parse(match.Value);
+            var retArry = from match in matchArry select Double.Parse(match.Value);
             return retArry.ToList<double>();
         }
 
@@ -483,7 +504,7 @@ namespace CAF
         public static List<decimal> FindSubstringAsDecimal(this string strText, string matchPattern, bool findAllUnique)
         {
             var matchArry = FindSubstring(strText, matchPattern, findAllUnique);
-            var retArry = from match in matchArry select decimal.Parse(match.Value);
+            var retArry = from match in matchArry select Decimal.Parse(match.Value);
             return retArry.ToList<decimal>();
         }
 
@@ -555,8 +576,8 @@ namespace CAF
         /// <returns></returns>
         public static string Cut(this string source, int len)
         {
-            var result = string.Empty;// 最终返回的结果
-            var byteLen = System.Text.Encoding.Default.GetByteCount(source);// 单字节字符长度
+            var result = String.Empty;// 最终返回的结果
+            var byteLen = Encoding.Default.GetByteCount(source);// 单字节字符长度
             var charLen = source.Length;// 把字符平等对待时的字符串长度
             var byteCount = 0;// 记录读取进度
             var pos = 0;// 记录截取位置
@@ -875,15 +896,15 @@ namespace CAF
         /// <returns>汉语拼音码,该字符串只包含大写的英文字母</returns>
         public static string GetChineseSpell(this string strText)
         {
-            if (string.IsNullOrEmpty(strText))
-                return string.Empty;
+            if (String.IsNullOrEmpty(strText))
+                return String.Empty;
             var myStr = new StringBuilder();
             foreach (var vChar in strText)
             {
                 // 若是字母则直接输出
                 if ((vChar >= 'a' && vChar <= 'z') || (vChar >= 'A' && vChar <= 'Z'))
                 {
-                    myStr.Append(char.ToUpper(vChar));
+                    myStr.Append(Char.ToUpper(vChar));
                 }
                 else if (vChar >= '0' && vChar <= '9')
                 {
@@ -910,8 +931,8 @@ namespace CAF
         /// <returns>转换后的拼音字符串</returns>
         public static string ConvertCh(this string strText)
         {
-            if (string.IsNullOrEmpty(strText))
-                return string.Empty;
+            if (String.IsNullOrEmpty(strText))
+                return String.Empty;
             var reg = new Regex("^[\u4e00-\u9fa5]$"); //验证是否输入汉字
             var arr = new byte[2];
             var pystr = "";

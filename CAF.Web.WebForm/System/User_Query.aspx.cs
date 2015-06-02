@@ -50,20 +50,20 @@ namespace CAF.Web.WebForm
         {
             var exp = new ExpConditions<ReadOnlyUser>();
 
-            this.dropDeps.SelectedValue.IfIsNotNullOrEmpty(() => exp.AndWhere(u =>
-                    u.Level.Contains(this.dropDeps.SelectedValue)));
+            this.dropDeps.SelectedValue.IfIsNotNullOrEmpty(r => exp.AndWhere(u =>
+                    u.Level.Contains(r)));
 
             this.dropRoles.SelectedValue.ToGuid().IsEmpty()
                 .IfFalse(()=>exp.AndWhere(u => u.Roles.Contains(this.dropRoles.SelectedValue)));
 
-            this.dropStatus.SelectedValue.IfIsNotNullOrEmpty(() =>
-                exp.AndWhere(u => u.Status == int.Parse(this.dropStatus.SelectedValue)));
+            this.dropStatus.SelectedValue.IfIsNotNullOrEmpty(r =>
+                exp.AndWhere(u => u.Status == int.Parse(r)));
 
             this.txtName.Text.Trim()
                 .IfIsNotNullOrEmpty(
-                    () =>
+                    r =>
                     exp.AndWhere(u =>
-                        u.Name.Contains(this.txtName.Text.Trim()) || u.Abb.Contains(this.txtName.Text.Trim().ToUpper())));
+                        u.Name.Contains(r.Trim()) || u.Abb.Contains(r.Trim().ToUpper())));
 
             this.grid.BindDataSource(exp);
         }

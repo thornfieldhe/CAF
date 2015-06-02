@@ -2,6 +2,7 @@
 
 namespace CAF.Utility
 {
+
     public class OtherExtension
     {
         /// <summary>

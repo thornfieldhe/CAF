@@ -117,7 +117,6 @@
     <Compile Include="未整理\Data\DataMap.cs" />
     <Compile Include="未整理\Data\DbPropertyAttribute.cs" />
     <Compile Include="未整理\Data\SqlDataPortal.cs" />
-    <Compile Include="未整理\ChinaDate.cs" />
     <Compile Include="未整理\LinqExt.cs" />
     <Compile Include="未整理\PredicateBuilder.cs" />
     <Compile Include="未整理\GenericContex.cs" />
@@ -135,7 +134,6 @@
     <Compile Include="未整理\ObjectBusiness\ReadOnlyCollectionBase.cs" />
     <Compile Include="未整理\ObjectBusiness\ReadOnlyCollectionQueryResult.cs" />
     <Compile Include="未整理\ObjectBusiness\SortLevelItem.cs" />
-    <Compile Include="未整理\ObjectCloner.cs" />
     <Compile Include="未整理\ObjectPool\ActivatedState.cs" />
     <Compile Include="未整理\ObjectPool\ConstructedState.cs" />
     <Compile Include="未整理\ObjectPool\DeactivatedState.cs" />
@@ -155,7 +153,6 @@
     <Compile Include="未整理\StringDictionaryStore.cs" />
     <Compile Include="未整理\TypeCreater.cs" />
     <Compile Include="未整理\UndoBase.cs" />
-    <Compile Include="未整理\Webs\Net.cs" />
     <Compile Include="未整理\XmlComponent.cs" />
   </ItemGroup>
   <ItemGroup>

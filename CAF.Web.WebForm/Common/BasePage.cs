@@ -264,7 +264,7 @@ namespace CAF.Web.WebForm
                 {
                     Details = throwEx.StackTrace,
                     UserName = this.User.Identity.Name,
-                    Ip = Net.GetClientIP(),
+                    Ip = Web.GetClientIP(),
                     PageCode = 0,
                     Message = throwEx.Message,
                     Page = this.module

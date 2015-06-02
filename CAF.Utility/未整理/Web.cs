@@ -6,6 +6,10 @@ using System.Web;
 
 namespace CAF.Webs
 {
+    using System;
+
+    using CAF.Utility;
+
     /// <summary>
     /// Web操作
     /// </summary>
@@ -36,8 +40,8 @@ namespace CAF.Webs
         /// <param name="relativeUrl">相对Url</param>
         public static string ResolveUrl(string relativeUrl)
         {
-            if (string.IsNullOrWhiteSpace(relativeUrl))
-                return string.Empty;
+            if (String.IsNullOrWhiteSpace(relativeUrl))
+                return String.Empty;
             relativeUrl = relativeUrl.Replace("\\", "/");
             if (relativeUrl.StartsWith("/"))
                 return relativeUrl;
@@ -179,7 +183,7 @@ namespace CAF.Webs
         public static string GetSession(string key)
         {
             if (key.IsEmpty())
-                return string.Empty;
+                return String.Empty;
             return HttpContext.Current.Session[key] as string;
         }
 
@@ -220,7 +224,7 @@ namespace CAF.Webs
         /// <param name="encoding">字符编码</param>
         public static void DownloadFile(string filePath, string fileName, Encoding encoding)
         {
-            var bytes =CAF.Utility. File.ReadToBytes(filePath);
+            var bytes =File.ReadToBytes(filePath);
             Download(bytes, fileName, encoding);
         }
 
@@ -273,7 +277,7 @@ namespace CAF.Webs
         /// <param name="encoding">字符编码</param>
         public static void Download(string text, string fileName, Encoding encoding)
         {
-            var bytes = CAF.Utility.File.StringToBytes(text, encoding);
+            var bytes = File.StringToBytes(text, encoding);
             Download(bytes, fileName, encoding);
         }
 
@@ -295,7 +299,7 @@ namespace CAF.Webs
         /// <param name="encoding">字符编码</param>
         public static void Download(Stream stream, string fileName, Encoding encoding)
         {
-            Download(CAF.Utility.File.StreamToBytes(stream), fileName, encoding);
+            Download(File.StreamToBytes(stream), fileName, encoding);
         }
 
         /// <summary>
@@ -367,5 +371,43 @@ namespace CAF.Webs
         }
 
         #endregion
+
+        #region 获取客户端IP地址
+
+        /// <summary>
+        /// 获取客户端IP地址
+        /// </summary>
+        /// <returns></returns>
+        public static string GetClientIP()
+        {
+            //获得IP地址
+            string hostname;
+            IPHostEntry localhost;
+            hostname = Dns.GetHostName();
+            localhost = Dns.GetHostEntry(hostname);
+            var ip = localhost.AddressList[0].ToString();
+            var i = 1;
+            while (ip.Contains(":"))
+            {
+                if (i == localhost.AddressList.Length)
+                {
+                    ip = "";
+                    break;
+                }
+                ip = localhost.AddressList[i].ToString();
+                if (ip.Contains(":"))
+                {
+                    i++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return ip;
+        }
+
+        #endregion
+
     }
 }

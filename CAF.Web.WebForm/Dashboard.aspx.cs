@@ -51,7 +51,7 @@ namespace CAF.Web
 
         protected void btnLogOut_Click(object sender, EventArgs e)
         {
-            var log = new LoginLog { UserName = this.User.Identity.Name, Ip = Net.GetClientIP(), Status = (int)LoginStatusEnum.LoginOut };
+            var log = new LoginLog { UserName = this.User.Identity.Name, Ip = Web.GetClientIP(), Status = (int)LoginStatusEnum.LoginOut };
 
             log.Create();
             CAFPrincipal.Logout();

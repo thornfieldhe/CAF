@@ -56,7 +56,7 @@ namespace CAF
         /// <param name="defaultValue">空值显示的默认文本</param>
         public static string Format(this decimal number, string defaultValue = "")
         {
-            return number == 0 ? defaultValue : string.Format("{0:0.##}", number);
+            return number == 0 ? defaultValue : String.Format("{0:0.##}", number);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace CAF
         /// <param name="number">数值</param>
         public static string FormatRmb(this decimal number)
         {
-            return number == 0 ? "￥0" : string.Format("￥{0:0.##}", number);
+            return number == 0 ? "￥0" : String.Format("￥{0:0.##}", number);
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace CAF
         /// <param name="number">数值</param>
         public static string FormatPercent(this decimal number)
         {
-            return number == 0 ? string.Empty : string.Format("{0:0.##}%", number);
+            return number == 0 ? String.Empty : String.Format("{0:0.##}%", number);
         }
 
         /// <summary>
@@ -105,5 +105,20 @@ namespace CAF
             return FormatPercent(number.SafeValue());
         }
 
+        /// <summary>
+        /// 移除尾随0
+        /// </summary>
+        /// <param name="value">值</param>
+        public static string RemoveEnd0(this decimal value)
+        {
+            var result = value.ToString();
+            if (result.IndexOf('.') < 0)
+                return result;
+            if (result.EndsWith("0"))
+                result = result.TrimEnd('0');
+            if (result.EndsWith("."))
+                result = result.TrimEnd('.');
+            return result;
+        }
     }
 }

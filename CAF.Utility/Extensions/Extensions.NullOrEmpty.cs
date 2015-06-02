@@ -35,7 +35,7 @@ namespace CAF
         /// <param name="value">值</param>
         public static bool IsEmpty(this string value)
         {
-            return string.IsNullOrWhiteSpace(value);
+            return String.IsNullOrWhiteSpace(value);
         }
 
         /// <summary>
@@ -172,8 +172,7 @@ namespace CAF
         /// <param name="lower"></param>
         /// <param name="upper"></param>
         /// <returns></returns>
-        public static bool Between<T>(this T @this, T lower, T upper) where T : IComparable<T>
-        {
+        public static bool Between<T>(this T @this, T lower, T upper) where T : IComparable<T> {
             return @this.CompareTo(lower) >= 0 && @this.CompareTo(upper) < 0;
         }
 

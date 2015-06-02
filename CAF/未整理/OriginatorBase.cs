@@ -26,8 +26,7 @@ namespace CAF
 
         protected virtual T CreateMemento()
         {
-            var m = ObjectCloner.DeepCopy<T>(this.State);
-            return m;
+            return this.State.DeepCopy();
         }
 
         /// <summary>

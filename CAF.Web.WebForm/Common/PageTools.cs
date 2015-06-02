@@ -424,7 +424,7 @@ namespace CAF.Web.WebForm.Common
             var item = new ListItem { Text = "请选择", Value = defaultitemValue };
             drop.Items.Add(item);
             items.ForEach(i => drop.Items.Add(i));
-            selectItem.IfIsNotNullOrEmpty(() => drop.SelectedValue = selectItem);
+            selectItem.IfIsNotNullOrEmpty(r => drop.SelectedValue = r);
             drop.EnableSimulateTree = true;
         }
 

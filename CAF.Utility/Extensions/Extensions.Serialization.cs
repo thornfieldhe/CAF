@@ -74,6 +74,25 @@ namespace CAF
             return DeserializeStringToObject<T>(graph, DefaultFormatterType);
         }
 
+        /// <summary>
+        /// 深度克隆
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static T DeepCopy<T>(this T t)
+        {
+            using (var stream = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(stream, t);
+                stream.Seek(0, SeekOrigin.Begin);
+                var copy = (T)formatter.Deserialize(stream);
+                stream.Close();
+                return copy;
+            }
+        }
+
         #region Xml序列化
 
         /// <summary>

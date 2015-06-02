@@ -81,9 +81,9 @@ namespace CAF
         /// <param name="datetime"></param>
         /// <param name="weekrule"></param>
         /// <returns></returns>
-        public static int WeekOfYear(this DateTime datetime, System.Globalization.CalendarWeekRule weekrule)
+        public static int WeekOfYear(this DateTime datetime, CalendarWeekRule weekrule)
         {
-            var dateinf = new System.Globalization.DateTimeFormatInfo();
+            var dateinf = new DateTimeFormatInfo();
             var firstDayOfWeek = dateinf.FirstDayOfWeek;
             return WeekOfYear(datetime, weekrule, firstDayOfWeek);
         }
@@ -96,7 +96,7 @@ namespace CAF
         /// <returns></returns>
         public static int WeekOfYear(this DateTime datetime, DayOfWeek firstDayOfWeek)
         {
-            var dateinf = new System.Globalization.DateTimeFormatInfo();
+            var dateinf = new DateTimeFormatInfo();
             var weekrule = dateinf.CalendarWeekRule;
             return WeekOfYear(datetime, weekrule, firstDayOfWeek);
         }
@@ -108,9 +108,9 @@ namespace CAF
         /// <param name="weekrule"></param>
         /// <param name="firstDayOfWeek"></param>
         /// <returns></returns>
-        public static int WeekOfYear(this DateTime datetime, System.Globalization.CalendarWeekRule weekrule, DayOfWeek firstDayOfWeek)
+        public static int WeekOfYear(this DateTime datetime, CalendarWeekRule weekrule, DayOfWeek firstDayOfWeek)
         {
-            var ciCurr = System.Globalization.CultureInfo.CurrentCulture;
+            var ciCurr = CultureInfo.CurrentCulture;
             return ciCurr.Calendar.GetWeekOfYear(datetime, weekrule, firstDayOfWeek);
         }
 
@@ -529,7 +529,7 @@ namespace CAF
         /// <param name="isRemoveSecond">是否移除秒</param>
         public static string ToDateTimeString(this DateTime? dateTime, bool isRemoveSecond = false)
         {
-            return dateTime == null ? string.Empty : ToDateTimeString(dateTime.Value, isRemoveSecond);
+            return dateTime == null ? String.Empty : ToDateTimeString(dateTime.Value, isRemoveSecond);
         }
 
         /// <summary>
@@ -547,7 +547,7 @@ namespace CAF
         /// <param name="dateTime">日期</param>
         public static string ToDateString(this DateTime? dateTime)
         {
-            return dateTime == null ? string.Empty : ToDateString(dateTime.Value);
+            return dateTime == null ? String.Empty : ToDateString(dateTime.Value);
         }
 
         /// <summary>
@@ -565,7 +565,7 @@ namespace CAF
         /// <param name="dateTime">日期</param>
         public static string ToTimeString(this DateTime? dateTime)
         {
-            return dateTime == null ? string.Empty : ToTimeString(dateTime.Value);
+            return dateTime == null ? String.Empty : ToTimeString(dateTime.Value);
         }
 
         /// <summary>
@@ -583,7 +583,7 @@ namespace CAF
         /// <param name="dateTime">日期</param>
         public static string ToMillisecondString(this DateTime? dateTime)
         {
-            return dateTime == null ? string.Empty : ToMillisecondString(dateTime.Value);
+            return dateTime == null ? String.Empty : ToMillisecondString(dateTime.Value);
         }
 
         /// <summary>
@@ -592,7 +592,7 @@ namespace CAF
         /// <param name="dateTime">日期</param>
         public static string ToChineseDateString(this DateTime dateTime)
         {
-            return string.Format("{0}年{1}月{2}日", dateTime.Year, dateTime.Month, dateTime.Day);
+            return String.Format("{0}年{1}月{2}日", dateTime.Year, dateTime.Month, dateTime.Day);
         }
 
         /// <summary>
@@ -601,7 +601,7 @@ namespace CAF
         /// <param name="dateTime">日期</param>
         public static string ToChineseDateString(this DateTime? dateTime)
         {
-            return !dateTime.HasValue ? string.Empty : ToChineseDateString(dateTime.Value);
+            return !dateTime.HasValue ? String.Empty : ToChineseDateString(dateTime.Value);
         }
 
         /// <summary>
@@ -626,7 +626,7 @@ namespace CAF
         /// <param name="isRemoveSecond">是否移除秒</param>
         public static string ToChineseDateTimeString(this DateTime? dateTime, bool isRemoveSecond = false)
         {
-            return dateTime == null ? string.Empty : ToChineseDateTimeString(dateTime.Value);
+            return dateTime == null ? String.Empty : ToChineseDateTimeString(dateTime.Value);
         }
     }
 

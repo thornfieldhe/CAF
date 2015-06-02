@@ -5,7 +5,7 @@ namespace CAF.Utility
     /// <summary>
     /// 农历属性
     /// </summary>
-    public class CNDate
+    internal class CNDate
     {
         /// <summary>
         /// 农历年(整型)
@@ -52,7 +52,7 @@ namespace CAF.Utility
     /// <summary>
     /// 公历转农历
     /// </summary>
-    public class ChinaDate
+    internal class ChinaDate
     {
         #region 私有方法
         private static long[] lunarInfo = new long[] { 0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554,
@@ -491,27 +491,6 @@ namespace CAF.Utility
         {
             var days = new int[] { 31, DateTime.IsLeapYear(y) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
             return days[m - 1];
-        }
-
-        /// <summary>
-        /// 根据日期值获得周一的日期
-        /// </summary>
-        /// <param name="dt">输入日期</param>
-        /// <returns>周一的日期</returns>
-        public static DateTime GetMondayDateByDate(DateTime dt)
-        {
-            double d = 0;
-            switch ((int)dt.DayOfWeek)
-            {
-                //case 1: d = 0; break;
-                case 2: d = -1; break;
-                case 3: d = -2; break;
-                case 4: d = -3; break;
-                case 5: d = -4; break;
-                case 6: d = -5; break;
-                case 0: d = -6; break;
-            }
-            return dt.AddDays(d);
         }
 
         /// <summary>

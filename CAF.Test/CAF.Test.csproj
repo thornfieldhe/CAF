@@ -61,18 +61,19 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Lambdas\ExpressionBuilderTest.cs" />
-    <Compile Include="Lambdas\ExpressionTest.cs" />
-    <Compile Include="Lambdas\ParseTest.cs" />
+    <Compile Include="Utility\Lambdas\ExpressionBuilderTest.cs" />
+    <Compile Include="Utility\Lambdas\ExpressionTest.cs" />
+    <Compile Include="Utility\Lambdas\ParseTest.cs" />
     <Compile Include="Samples\ITest.cs" />
     <Compile Include="Samples\Test1.cs" />
     <Compile Include="Utility\Cache\DefaultCacheKeyTest.cs" />
     <Compile Include="Utility\Cache\DefaultCacheManagerTest.cs" />
     <Compile Include="Utility\Cache\LocalCacheProviderTest.cs" />
     <Compile Include="Utility\Compress\GZipTest.cs" />
+    <Compile Include="Utility\ChineseCalendarTest .cs" />
     <Compile Include="Utility\Md5Test.cs" />
-    <Compile Include="Enums\EnumTest.cs" />
-    <Compile Include="Enums\FlagsTest.cs" />
+    <Compile Include="Utility\Enums\EnumTest.cs" />
+    <Compile Include="Utility\Enums\FlagsTest.cs" />
     <Compile Include="Old\Fluentest.cs" />
     <Compile Include="Old\UnitCore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

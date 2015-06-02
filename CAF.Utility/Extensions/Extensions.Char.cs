@@ -2,6 +2,8 @@
 
 namespace CAF
 {
+    using System;
+
     public partial class Extensions
     {
         /// <summary>
@@ -30,7 +32,7 @@ namespace CAF
             }
             else
             {
-                return (char.ToUpperInvariant(firstChar).Equals(char.ToUpperInvariant(secondChar)));
+                return (Char.ToUpperInvariant(firstChar).Equals(Char.ToUpperInvariant(secondChar)));
             }
         }
 
@@ -60,7 +62,7 @@ namespace CAF
             CultureInfo secondCharCulture, bool caseSensitiveCompare)
         {
             return caseSensitiveCompare ? (firstChar.Equals(secondChar))
-                : (char.ToUpper(firstChar, firstCharCulture).Equals(char.ToUpper(secondChar, secondCharCulture)));
+                : (Char.ToUpper(firstChar, firstCharCulture).Equals(Char.ToUpper(secondChar, secondCharCulture)));
         }
     }
 }

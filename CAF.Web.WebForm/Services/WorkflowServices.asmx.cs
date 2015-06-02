@@ -123,7 +123,7 @@ namespace CAF.Web
                           {
                               Details = ex.StackTrace,
                               UserName = this.User.Identity.Name,
-                              Ip = Net.GetClientIP(),
+                              Ip = Web.GetClientIP(),
                               PageCode = 0,
                               Message = ex.Message,
                               Page = "工作流"

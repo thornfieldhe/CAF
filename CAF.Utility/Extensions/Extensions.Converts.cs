@@ -35,7 +35,7 @@ namespace CAF
         {
             if (data == null)
                 return default(T);
-            if (data is string && string.IsNullOrWhiteSpace(data.ToString()))
+            if (data is string && String.IsNullOrWhiteSpace(data.ToString()))
                 return default(T);
             var type = OtherExtension.GetType<T>();
             try
@@ -74,7 +74,7 @@ namespace CAF
         /// <param name="obj">对象</param>
         public static string ToStr(this object obj)
         {
-            return obj == null ? string.Empty : obj.ToString().Trim();
+            return obj == null ? String.Empty : obj.ToString().Trim();
         }
 
         #region 字符串转换
@@ -308,10 +308,10 @@ namespace CAF
         public static List<T> ToList<T>(this string list)
         {
             var result = new List<T>();
-            if (string.IsNullOrWhiteSpace(list))
+            if (String.IsNullOrWhiteSpace(list))
                 return result;
             var array = list.Split(',');
-            result.AddRange(from each in array where !string.IsNullOrWhiteSpace(each) select To<T>(each));
+            result.AddRange(from each in array where !String.IsNullOrWhiteSpace(each) select To<T>(each));
             return result;
         }
 
