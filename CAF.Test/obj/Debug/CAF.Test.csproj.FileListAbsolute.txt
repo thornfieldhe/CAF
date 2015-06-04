@@ -95,9 +95,6 @@ D:\WorkStation\MyGitHub\CAF.Test\obj\Debug\CAF.Test.csprojResolveAssemblyReferen
 D:\WorkStation\MyGitHub\CAF.Test\obj\Debug\CAF.Test.dll
 D:\WorkStation\MyGitHub\CAF.Test\obj\Debug\CAF.Test.pdb
 D:\WorkStation\CAF\CAF.Test\obj\Debug\CAF.Test.csprojResolveAssemblyReference.cache
-D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Test.dll.config
-D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Test.dll
-D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Test.pdb
 D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Model.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.dll
@@ -117,8 +114,6 @@ D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.Unity.xml
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
-D:\WorkStation\CAF\CAF.Test\obj\Debug\CAF.Test.dll
-D:\WorkStation\CAF\CAF.Test\obj\Debug\CAF.Test.pdb
 D:\WorkStation\CAF\CAF.Test\bin\Debug\AutoMapper.Net4.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\AutoMapper.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\AutoMapper.pdb
@@ -128,3 +123,14 @@ D:\WorkStation\CAF\CAF.Test\bin\Debug\NSubstitute.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\NSubstitute.xml
 D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Utility.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Utility.pdb
+D:\WorkStation\CAF\CAF.Test\bin\Debug\Eastupright.EnterpriseLibrary.Common.dll
+D:\WorkStation\CAF\CAF.Test\bin\Debug\Eastupright.EnterpriseLibrary.Common.xml
+D:\WorkStation\CAF\CAF.Test\bin\Debug\Autofac.dll
+D:\WorkStation\CAF\CAF.Test\bin\Debug\Autofac.xml
+D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Tests.dll.config
+D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Tests.dll
+D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Tests.pdb
+D:\WorkStation\CAF\CAF.Test\obj\Debug\CAF.Tests.dll
+D:\WorkStation\CAF\CAF.Test\obj\Debug\CAF.Tests.pdb
+D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
+D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml

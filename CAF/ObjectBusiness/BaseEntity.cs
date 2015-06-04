@@ -1,11 +1,11 @@
-﻿using Microsoft.Practices.EnterpriseLibrary.Validation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 
 namespace CAF
 {
+    using CAF.Validations;
+
 
     [Serializable]
     public partial class BaseEntity<T>
@@ -69,8 +69,10 @@ namespace CAF
             this._status = 1;
             this._createdDate = DateTime.Now;
             this._changedDate = DateTime.Now;
-
             this.IsChangeRelationship = false;//默认进行标识删除
+
+            this._rules = new List<IValidationRule>();
+            this._handler = TypeCreater.IocBuildUp<IValidationHandler>();
 
             //初始化方法注册
             //            _insertDelegate = PreInsert;
@@ -124,7 +126,6 @@ namespace CAF
 
         public virtual int Create()
         {
-            this.customerValidator = ValidationFactory.CreateValidator<T>();
             this._changedRows = 0;
             using (IDbConnection conn = this.Connection)
             {
@@ -132,13 +133,11 @@ namespace CAF
                 try
                 {
                     this.PreInsert(conn, transaction);
-                    if (this.IsValid)
-                    {
-                        this._changedRows += this.Insert(conn, transaction);
-                        this.PostInsert(conn, transaction);
-                        transaction.Commit();
-                        this.MarkOld();
-                    }
+                    this.Validate();
+                    this._changedRows += this.Insert(conn, transaction);
+                    this.PostInsert(conn, transaction);
+                    transaction.Commit();
+                    this.MarkOld();
                 }
                 catch (Exception ex)
                 {
@@ -158,8 +157,9 @@ namespace CAF
                 try
                 {
                     this.PreUpdate(conn, transaction);
-                    if (this.IsDirty && this.IsValid)
+                    if (this.IsDirty)
                     {
+                        this.Validate();
                         this._changedRows += this.Update(conn, transaction);
                         this.PostUpdate(conn, transaction);
                         transaction.Commit();
@@ -240,11 +240,8 @@ namespace CAF
             }
             else if (this.IsNew)
             {
+                this.Validate();
                 this.PreInsert(conn, transaction);
-                if (!this.IsValid)
-                {
-                    return this._changedRows;
-                }
                 this.Insert(conn, transaction);
                 this.PostInsert(conn, transaction);
                 this.MarkOld();
@@ -252,11 +249,8 @@ namespace CAF
             }
             else if (this.IsDirty)
             {
+                this.Validate();
                 this.PreUpdate(conn, transaction);
-                if (!this.IsValid)
-                {
-                    return this._changedRows;
-                }
                 this._changedRows += this.Update(conn, transaction);
                 this.PostUpdate(conn, transaction);
                 this.MarkOld();
@@ -288,6 +282,6 @@ namespace CAF
 
         #endregion
 
- 
+
     }
 }

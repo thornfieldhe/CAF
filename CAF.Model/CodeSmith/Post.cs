@@ -55,27 +55,19 @@ namespace CAF.Model
                 this._userList = value;
             }
         }
-        public override bool IsValid
-        {
-            get
-            {
-                this.Errors = new List<string>();
-                var isValid = true;
-                var baseValid = base.IsValid;
-                this._userListInitalizer.IsValueCreated.IfTrue(
-                () =>
-                {
-                    foreach (var item in this.Users.Where(item => !item.IsValid))
-                    {
-                        this.Errors.AddRange(item.Errors);
-                        isValid = false;
-                    }
-                });
-                return baseValid && isValid;
-            }
-            protected set { this._isValid = value; }
-        }
 
+        public override void Validate()
+        {
+            this._userListInitalizer.IsValueCreated.IfTrue(
+            () =>
+            {
+                foreach (var item in this.Users)
+                {
+                    item.Validate();
+                }
+            });
+            base.Validate();
+        }
 
         #endregion
 

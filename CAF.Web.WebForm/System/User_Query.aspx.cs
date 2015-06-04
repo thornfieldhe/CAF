@@ -84,10 +84,6 @@ namespace CAF.Web.WebForm
                     {
                         u.Status = cmd;
                         u.Save();
-                        if (u.Errors.Count > 0)
-                        {
-                            Alert.ShowInTop(u.Errors[0]);
-                        }
                     }
                 }
             }

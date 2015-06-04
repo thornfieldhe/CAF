@@ -3,6 +3,7 @@ using System;
 
 namespace CAF
 {
+
     /// <summary>
     /// 实例创建类
     /// </summary>
@@ -42,35 +43,18 @@ namespace CAF
         /// <summary>
         /// 依赖注入方式创建实例
         /// </summary>
-        /// <param name="containerName">容器名称</param>
+        /// <param name="alias">别名</param>
         /// <returns></returns>
-        public static T BuildUp<T>(string registerName)
+        public static T IocBuildUp<T>(string alias=null)
         {
             IUnityContainer container = new UnityContainer();
             var section = SingletonBase<CAFConfiguration>.Instance.Unity;
             section.Configure(container);
-            return container.Resolve<T>(registerName);
+                return string.IsNullOrWhiteSpace(alias) 
+                    ? container.Resolve<T>() : container.Resolve<T>(alias);
         }
 
-        /// <summary>
-        /// 依赖注入方式创建实例
-        /// </summary>
-        /// <param name="containerName">容器名称</param>
-        /// <returns></returns>
-        public static T BuildUp<T>(string containerName, string registerName)
-        {
-            IUnityContainer container = new UnityContainer();
-            var section = SingletonBase<CAFConfiguration>.Instance.Unity;
-            section.Configure(container, containerName);
 
-            return container.Resolve<T>(registerName);
-        }
-
-        /// <summary>
-        /// 依赖注入方式获取容器
-        /// </summary>
-        /// <param name="containerName">容器名称</param>
-        /// <returns></returns>
         public static IUnityContainer GetContainer()
         {
             try

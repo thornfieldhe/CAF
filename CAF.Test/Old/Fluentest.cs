@@ -31,44 +31,7 @@ namespace CAF.Test
         //            }
         //        }
 
-        [TestMethod]
-        public void Test_Foreach_WithIndex()
-        {
-            List<string> data = new List<string>()
-            {
-                "A", "B", "C", "D"
-            };
-
-            var counter = 0;
-            data.ForEach((item, index) =>
-            {
-                counter += 1;
-                var y = index;
-            });
-        }
-
-     
-
  
-        [TestMethod]
-        public void Test_Or_Specification()
-        {
-
-        }
-
-        [TestMethod]
-        public void Test_Not_Specification()
-        {
-
-        }
-
-        [TestMethod]
-        public void Test_Expression_Specification()
-        {
-
-        }
-  
-
 
         //        [TestMethod]
         //        public void Test_Mapper()

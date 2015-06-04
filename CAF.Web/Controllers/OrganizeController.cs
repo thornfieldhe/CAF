@@ -19,18 +19,12 @@ namespace CAF.Web.Controllers
 
         public void Post(Organize item)
         {
-            if (item.IsValid)
-            {
-                item.Create();
-            }
+            item.Create();
         }
 
         public void Put(Organize item)
         {
-            if (item.IsValid)
-            {
-                item.Save();
-            }
+            item.Save();
         }
 
     }

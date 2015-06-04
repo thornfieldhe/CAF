@@ -369,3 +369,7 @@ D:\WorkStation\CAF\CAF\obj\Debug\CAF.pdb
 D:\WorkStation\CAF\CAF\obj\Debug\CAF.csprojResolveAssemblyReference.cache
 D:\WorkStation\CAF\CAF\bin\Debug\CAF.Utility.dll
 D:\WorkStation\CAF\CAF\bin\Debug\CAF.Utility.pdb
+D:\WorkStation\CAF\CAF\obj\Debug\CAF.Validations.DataAnnotations.ValidatorResources.resources
+D:\WorkStation\CAF\CAF\obj\Debug\CAF.csproj.GenerateResource.Cache
+D:\WorkStation\CAF\CAF\bin\Debug\Autofac.dll
+D:\WorkStation\CAF\CAF\bin\Debug\Autofac.xml

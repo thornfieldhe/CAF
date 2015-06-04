@@ -73,37 +73,29 @@ namespace CAF.Model
                 this. _userList = value;
             }
         }
-        public override bool IsValid
+
+        public override void Validate()
         {
-            get
+            this._userListInitalizer.IsValueCreated.IfTrue(
+            () =>
             {
-			    this.Errors=new List<string>();
-                var isValid = true;
-                var baseValid = base.IsValid;
-				this. _organizeListInitalizer.IsValueCreated.IfTrue(
+                foreach (var item in this.Users)
+                {
+                    item.Validate();
+                }
+            });
+
+            this._organizeListInitalizer.IsValueCreated.IfTrue(
                 () =>
                 {
-                    foreach (var item in this.Organizes.Where(item => !item.IsValid))
+                    foreach (var item in this.Organizes)
                     {
-                        this.Errors.AddRange(item.Errors);
-                        isValid = false;
+                        item.Validate();
                     }
                 });
-				this. _userListInitalizer.IsValueCreated.IfTrue(
-                () =>
-                {
-                    foreach (var item in this.Users.Where(item => !item.IsValid))
-                    {
-                        this.Errors.AddRange(item.Errors);
-                        isValid = false;
-                    }
-                });
-               return baseValid && isValid;
-            }
-            protected set { this._isValid = value; }
+            base.Validate();
         }
-        
-        
+
 		#endregion
         
         #region 常量定义

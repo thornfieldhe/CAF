@@ -1,8 +1,9 @@
 ﻿
-namespace CAF.Test
+namespace CAF.Tests.Core
 {
-    using CAF.Core;
 
+    using CAF.Core;
+    using Microsoft.Practices.Unity;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
@@ -15,7 +16,6 @@ namespace CAF.Test
         public void TestBuilder()
         {
             var product = new Product();
-
             Assert.AreEqual(product.Name, ",1,1,2,3");
             product.TearDown();
             Assert.AreEqual("", product.Name);
@@ -27,9 +27,9 @@ namespace CAF.Test
         [TestMethod]
         public void TestFactory()
         {
-            var p = TypeCreater.BuildUp<IProduct>("a");
-            Assert.AreEqual(p.ProductName, "zzzz");
-            var p2 = TypeCreater.BuildUp<IProduct>("p2", "b");
+            var p = TypeCreater.IocBuildUp<IProduct>();
+            Assert.AreEqual(p.ProductName, "this is A");
+            var p2 = TypeCreater.IocBuildUp<IProduct>("p2");
             Assert.AreEqual(p2.ProductName, "this is B");
         }
     }
@@ -58,18 +58,13 @@ namespace CAF.Test
 
         public string ProductName
         {
-            get { return _productName; }
+            get { return "this is "+Place.PlaceName; }
             set { _productName = value; }
         }
-
+        [Dependency]  
         public IPlace Place { get; set; }
 
         public ProductA() { }
-
-        public ProductA(string productName)
-        {
-            this.ProductName = productName;
-        }
     }
 
     public class ProductB : IProduct
@@ -99,7 +94,35 @@ namespace CAF.Test
     {
         private string _placeName;
 
-        public string PlaceName { get { return "Hello"; } set { _placeName = value; } }
+        public string PlaceName { get { return "A"; } set { _placeName = value; } }
     }
     #endregion
+    /// <summary>
+    /// 简单的可池化计算对象，仅支持 + \ -
+    /// </summary>
+    public class SimpleCalculator : PoolableBase
+    {
+        public int Add(int x, int y)
+        {
+            PreProcess();
+            return x + y;
+        }
+        public int Substract(int x, int y)
+        {
+            PreProcess();
+            return x - y;
+        }
+    }
+
+    /// <summary>
+    /// 稍微复杂的的可池化计算对象，仅支持 *
+    /// </summary>
+    public class AdvancedCalculator : PoolableBase
+    {
+        public int Multiple(int x, int y)
+        {
+            PreProcess();
+            return x * y;
+        }
+    }
 }

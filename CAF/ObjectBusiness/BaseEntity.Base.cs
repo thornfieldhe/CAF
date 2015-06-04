@@ -1,52 +1,105 @@
-﻿using Microsoft.Practices.EnterpriseLibrary.Validation;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 
 namespace CAF
 {
+    using CAF.Validations;
+
 
     public partial class BaseEntity<T> : IEqualityComparer<T>, IBusinessBase, IComparable<IBusinessBase>,
         IBaseStatus where T : class,IBusinessBase
     {
         #region 属性验证
-        [NonSerialized]
-        protected bool _isValid;
-        [NonSerialized]
-        protected List<string> _errors;
 
+        #region 字段
 
-        public List<string> Errors
+        /// <summary>
+        /// 验证规则集合
+        /// </summary>
+        private readonly List<IValidationRule> _rules;
+        /// <summary>
+        /// 验证处理器
+        /// </summary>
+        private IValidationHandler _handler;
+
+        #endregion
+
+        #region SetValidationHandler(设置验证处理器)
+
+        /// <summary>
+        /// 设置验证处理器
+        /// </summary>
+        /// <param name="handler">验证处理器</param>
+        public void SetValidationHandler(IValidationHandler handler)
         {
-            get { return this._errors.SafeValue(); }
-            protected set { this._errors = value; }
+            if (handler == null)
+                return;
+            this._handler = handler;
         }
 
-        [NonSerialized]
-        Validator<T> customerValidator = ValidationFactory.CreateValidator<T>();
-        ValidationResults v;
+        #endregion
 
+        #region AddValidationRule(添加验证规则)
 
-        public virtual bool IsValid
+        /// <summary>
+        /// 添加验证规则
+        /// </summary>
+        /// <param name="rule">验证规则</param>
+        public virtual void AddValidationRule(IValidationRule rule)
         {
-            get
-            {
-
-                var item = this as T;
-
-                this.customerValidator = ValidationFactory.CreateValidator<T>();
-                this.v = this.customerValidator.Validate(item);
-
-                for (var i = 0; i < this.v.Count; i++)
-                {
-                    this.Errors.Add(this.v.ElementAt(i).Message);
-                }
-                this._isValid = this.v.IsValid;
-                return this._isValid;
-            }
-            protected set { this._isValid = value; }
+            if (rule == null)
+                return;
+            this._rules.Add(rule);
         }
+
+        #endregion
+
+        #region Validate(验证)
+
+        /// <summary>
+        /// 验证
+        /// </summary>
+        public virtual void Validate()
+        {
+            var result = this.GetValidationResult();
+            this.HandleValidationResult(result);
+
+        }
+
+        /// <summary>
+        /// 获取验证结果
+        /// </summary>
+        private ValidationResultCollection GetValidationResult()
+        {
+            var result = TypeCreater.IocBuildUp<IValidation>().Validate(this);
+            this.Validate(result);
+            foreach (var rule in this._rules)
+                result.Add(rule.Validate());
+            return result;
+        }
+
+        /// <summary>
+        /// 验证并添加到验证结果集合
+        /// </summary>
+        /// <param name="results">验证结果集合</param>
+        protected virtual void Validate(ValidationResultCollection results)
+        {
+        }
+
+        /// <summary>
+        /// 处理验证结果
+        /// </summary>
+        private void HandleValidationResult(ValidationResultCollection results)
+        {
+            if (results.IsValid)
+                return;
+            this._handler.Handle(results);
+        }
+
+        #endregion
+
+
         #endregion
 
         #region 基本状态

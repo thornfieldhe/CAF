@@ -122,7 +122,6 @@ D:\WorkStation\CAF\CAF.Web\bin\System.Net.Http.Formatting.dll
 D:\WorkStation\CAF\CAF.Web\bin\System.Web.Http.dll
 D:\WorkStation\CAF\CAF.Web\bin\System.Web.Http.WebHost.dll
 D:\WorkStation\CAF\CAF.Web\bin\System.Web.Optimization.dll
-D:\WorkStation\CAF\CAF.Web\bin\Microsoft.Practices.EnterpriseLibrary.Validation.dll
 D:\WorkStation\CAF\CAF.Web\bin\Microsoft.Practices.Unity.Configuration.dll
 D:\WorkStation\CAF\CAF.Web\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
 D:\WorkStation\CAF\CAF.Web\bin\Microsoft.Practices.Unity.dll
@@ -137,7 +136,6 @@ D:\WorkStation\CAF\CAF.Web\bin\System.Net.Http.Formatting.xml
 D:\WorkStation\CAF\CAF.Web\bin\System.Web.Http.xml
 D:\WorkStation\CAF\CAF.Web\bin\System.Web.Http.WebHost.xml
 D:\WorkStation\CAF\CAF.Web\bin\System.Web.Optimization.xml
-D:\WorkStation\CAF\CAF.Web\bin\Microsoft.Practices.EnterpriseLibrary.Validation.xml
 D:\WorkStation\CAF\CAF.Web\bin\Microsoft.Practices.Unity.Configuration.xml
 D:\WorkStation\CAF\CAF.Web\bin\Microsoft.Practices.EnterpriseLibrary.Data.xml
 D:\WorkStation\CAF\CAF.Web\bin\Microsoft.Practices.Unity.xml

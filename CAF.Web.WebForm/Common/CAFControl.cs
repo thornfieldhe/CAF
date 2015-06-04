@@ -120,10 +120,17 @@ namespace CAF.Web.WebForm.CAFControl
 
         public bool OnCreate(IBusinessBase business)
         {
-            PageTools.BindModel(this, business);
-            business.Create();
-            Alert.ShowInTop(business.Errors.Count > 0 ? business.Errors[0] : Resource.System_Message_AddSuccess);
-            return business.Errors.Count == 0;
+            try
+            {
+                PageTools.BindModel(this, business);
+                business.Create();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Alert.Show(ex.Message);
+            }
+            return false;
         }
 
         public bool OnDelete(IBusinessBase business)
@@ -140,14 +147,13 @@ namespace CAF.Web.WebForm.CAFControl
             {
                 PageTools.BindModel(this, business);
                 business.Save();
-                Alert.ShowInTop(business.Errors.Count > 0 ? business.Errors[0] : Resource.System_Message_UpdateSuccess);
-                return business.Errors.Count == 0;
+                return true;
             }
             catch (Exception ex)
             {
-                throw ex;
+                Alert.Show(ex.Message);
             }
-
+            return false;
         }
 
         public void LoadEntity(IBusinessBase business)

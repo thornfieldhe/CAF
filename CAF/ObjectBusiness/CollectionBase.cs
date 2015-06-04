@@ -364,10 +364,8 @@ namespace CAF
                 this._items.ForEach(
                     member =>
                     {
-                        if (!member.IsValid)
-                        {
+                        member.Validate();
                             isValid = false;
-                        }
                     });
                 if (isValid)
                 {

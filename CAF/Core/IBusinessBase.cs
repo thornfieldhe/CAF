@@ -17,6 +17,5 @@
 
         int SubmitChange();
 
-        List<string> Errors { get; }
     }
 }

@@ -132,32 +132,24 @@ namespace CAF.Model
                 this. _roleList = value;
             }
         }
-        public override bool IsValid
+
+        public override void Validate()
         {
-            get
+            foreach (var item in this.Users)
             {
-			    this.Errors=new List<string>();
-                var isValid = true;
-                var baseValid = base.IsValid;
-                foreach (var item in this.Users.Where(item => !item.IsValid))
-                {
-                    this.Errors.AddRange(item.Errors);
-                    isValid = false;
-                }
-				this. _roleListInitalizer.IsValueCreated.IfTrue(
-                () =>
-                {
-                    foreach (var item in this.Roles.Where(item => !item.IsValid))
-                    {
-                        this.Errors.AddRange(item.Errors);
-                        isValid = false;
-                    }
-                });
-               return baseValid && isValid;
+                item.Validate();
             }
-            protected set { this._isValid = value; }
+            this._roleListInitalizer.IsValueCreated.IfTrue(
+            () =>
+            {
+                foreach (var item in this.Roles)
+                {
+                    item.Validate();
+                }
+            });
+            base.Validate();
         }
-        
+       
         
 		#endregion
         

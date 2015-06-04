@@ -2,8 +2,12 @@
 
 namespace CAF.Model
 {
+    using System.ComponentModel.DataAnnotations;
+
     using CAF.Data;
     using System.Data;
+
+    using CAF.Validations;
 
     public partial class PostUserOrganize
     {
@@ -26,8 +30,9 @@ namespace CAF.Model
             {
                 return;
             }
-            this.IsValid = false;
-            this.Errors.Add("该岗位用户部门配置已存在！");
+            this.AddValidationRule(new EmptyErrorValidateionRule("该岗位用户部门配置已存在！"));
+            this.Validate();
         }
+
     }
 }

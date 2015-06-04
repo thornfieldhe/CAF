@@ -187,42 +187,33 @@ namespace CAF.Model
                 this._postList = value;
             }
         }
-        public override bool IsValid
+
+
+        public override void Validate()
         {
-            get
+            if (this._userSettingInitalizer.IsValueCreated && this.UserSetting != null)
             {
-                this.Errors = new List<string>();
-                var isValid = true;
-                var baseValid = base.IsValid;
-                if (this._userSettingInitalizer.IsValueCreated && this.UserSetting != null && !this.UserSetting.IsValid)
-                {
-                    this.Errors.AddRange(this.UserSetting.Errors);
-                    isValid = false;
-                }
-                this._roleListInitalizer.IsValueCreated.IfTrue(
-                () =>
-                {
-                    foreach (var item in this.Roles.Where(item => !item.IsValid))
-                    {
-                        this.Errors.AddRange(item.Errors);
-                        isValid = false;
-                    }
-                });
-                this._postListInitalizer.IsValueCreated.IfTrue(
-                () =>
-                {
-                    foreach (var item in this.Posts.Where(item => !item.IsValid))
-                    {
-                        this.Errors.AddRange(item.Errors);
-                        isValid = false;
-                    }
-                });
-                return baseValid && isValid;
+                this.UserSetting.Validate();
             }
-            protected set { this._isValid = value; }
+            this._postListInitalizer.IsValueCreated.IfTrue(
+            () =>
+            {
+                foreach (var item in this.Roles)
+                {
+                    item.Validate();
+                }
+            });
+
+            this._roleListInitalizer.IsValueCreated.IfTrue(
+                () =>
+                {
+                    foreach (var item in this.Posts)
+                    {
+                        item.Validate();
+                    }
+                });
+            base.Validate();
         }
-
-
 
 
         #endregion
