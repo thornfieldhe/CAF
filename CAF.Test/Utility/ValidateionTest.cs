@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
-namespace CAF.Test.Utility
+namespace CAF.Tests.Utility
 {
     using CAF.Validations;
 
@@ -20,7 +19,7 @@ namespace CAF.Test.Utility
         [TestInitialize]
         public void TestInit()
         {
-            
+
         }
 
         [TestMethod]
@@ -34,10 +33,11 @@ namespace CAF.Test.Utility
         [Required]
         public string Name { get; set; }
 
-        
+
     }
     public class ELValidation : IValidation
     {
+        public ELValidation() { }
         public ValidationResultCollection Validate(object target)
         {
             var validator = ValidationFactory.CreateValidator(target.GetType());

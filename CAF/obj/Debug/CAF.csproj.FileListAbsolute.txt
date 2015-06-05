@@ -347,7 +347,6 @@ D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Exception
 D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll
 D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll
 D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
-D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.dll
 D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
 D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.Unity.dll
 D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
@@ -360,7 +359,6 @@ D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Exception
 D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.xml
 D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
 D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.Database.xml
-D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.xml
 D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.Unity.xml
 D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
 D:\WorkStation\CAF\CAF\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
@@ -369,5 +367,3 @@ D:\WorkStation\CAF\CAF\obj\Debug\CAF.pdb
 D:\WorkStation\CAF\CAF\obj\Debug\CAF.csprojResolveAssemblyReference.cache
 D:\WorkStation\CAF\CAF\bin\Debug\CAF.Utility.dll
 D:\WorkStation\CAF\CAF\bin\Debug\CAF.Utility.pdb
-D:\WorkStation\CAF\CAF\bin\Debug\Autofac.dll
-D:\WorkStation\CAF\CAF\bin\Debug\Autofac.xml

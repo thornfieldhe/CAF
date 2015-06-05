@@ -7,8 +7,8 @@ namespace CAF
     using CAF.Validations;
 
 
-    public abstract partial  class BaseEntity<T> : StatusDescription, IEqualityComparer<T>, IBusinessBase, IComparable<IBusinessBase>,
-        IBaseStatus where T : class,IBusinessBase
+    public abstract partial class BaseEntity<T> : StatusDescription, IEqualityComparer<T>, IBusinessBase, IComparable<IBusinessBase>,
+        IBaseStatus, CAF.ObjectBusiness.IValidationEntity where T : class,IBusinessBase
     {
         #region 属性验证
 

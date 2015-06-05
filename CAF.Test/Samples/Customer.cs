@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 namespace CAF.Tests.Samples
 {
     using CAF.Validations;
     using System.ComponentModel.DataAnnotations;
 
-    using Microsoft.Practices.EnterpriseLibrary.Validation;
 
     using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
@@ -50,7 +47,7 @@ namespace CAF.Tests.Samples
 
     }
     /// <summary>
-    /// 客户英文名验证规则
+    /// 最小长度验证规则
     /// </summary>
     public class MinLengthValidationRule : IValidationRule
     {

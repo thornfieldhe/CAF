@@ -1,10 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CAF.Domains.Tests.Validations
+namespace CAF.Tests.Domains.Validations
 {
 
     using CAF.Exceptions;
     using CAF.Tests.Samples;
+    using CAF.Validations;
 
     /// <summary>
     /// 验证测试
@@ -25,9 +26,27 @@ namespace CAF.Domains.Tests.Validations
             this._customer2 = new Customer2();
         }
 
+        /// <summary>
+        /// 基本验证
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(Warning))]
+        public void TestSetValidationHandler2()
+        {
+            try
+            {
+                this._customer2.Name = null;
+                this._customer2.Validate();
+            }
+            catch (Warning ex)
+            {
+                Assert.AreEqual("姓名不能为空", ex.Message);
+                throw;
+            }
+        }
 
         /// <summary>
-        /// 添加验证规则
+        /// 外部调用方法AddValidationRule增加验证条件
         /// </summary>
         [TestMethod]
         [ExpectedException(typeof(Warning))]
@@ -46,21 +65,8 @@ namespace CAF.Domains.Tests.Validations
                 throw;
             }
         }
-
         /// <summary>
-        /// 设置验证处理器,不进行任何操作，所以不会抛出异常
-        /// </summary>
-        [TestMethod]
-        public void TestSetValidationHandler_NotThow()
-        {
-            this._customer2 = new Customer2();
-            this._customer2.Name = null;
-            this._customer2.SetValidationHandler(new NothingValidationHandler());
-            this._customer2.Validate();
-        }
-
-        /// <summary>
-        /// 设置验证处理器,不进行任何操作，所以不会抛出异常
+        ///重载方法Validate(ValidationResultCollection results)增加验证条件
         /// </summary>
         [TestMethod]
         [ExpectedException(typeof(Warning))]
@@ -82,19 +88,13 @@ namespace CAF.Domains.Tests.Validations
         /// 设置验证处理器,不进行任何操作，所以不会抛出异常
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(Warning))]
-        public void TestSetValidationHandler2()
+        public void TestSetValidationHandler_NotThow()
         {
-            try
-            {
-                this._customer2.Name = null;
-                this._customer2.Validate();
-            }
-            catch (Warning ex)
-            {
-                Assert.AreEqual("姓名不能为空", ex.Message);
-                throw;
-            }
+            this._customer2 = new Customer2();
+            this._customer2.Name = null;
+            this._customer2.SetValidationHandler(new NothingValidationHandler());
+            this._customer2.Validate();
         }
+
     }
 }

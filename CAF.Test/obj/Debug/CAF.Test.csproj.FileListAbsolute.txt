@@ -125,8 +125,6 @@ D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Utility.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Utility.pdb
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Eastupright.EnterpriseLibrary.Common.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Eastupright.EnterpriseLibrary.Common.xml
-D:\WorkStation\CAF\CAF.Test\bin\Debug\Autofac.dll
-D:\WorkStation\CAF\CAF.Test\bin\Debug\Autofac.xml
 D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Tests.dll.config
 D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Tests.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Tests.pdb

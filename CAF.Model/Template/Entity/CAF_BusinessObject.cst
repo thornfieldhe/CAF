@@ -636,6 +636,15 @@ namespace <%= ClassNamespace %>.Model
             return item;
         }
 		<%} %>
+        
+        /// <summary>
+        /// 添加描述
+        /// </summary>
+        protected override void AddDescriptions() {
+        <% foreach (ColumnSchema column in SourceTable.Columns) { %>	
+		    this.AddDescription( "<%= GetPropertyName(column) %>:"+ this.<%= GetPropertyName(column) %> + "," );        
+		<% } %>
+        }
 		#endregion
 				
 	}

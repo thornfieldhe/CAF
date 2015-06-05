@@ -1,17 +1,18 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
-namespace CAF.Domains.Tests.Tests
+namespace CAF.Tests.Domains.Warning
 {
     using CAF.Exceptions;
-    using CAF.Utility;
     using CAF.Logs;
+    using CAF.Utility;
 
     /// <summary>
     /// 应用程序异常测试
     /// </summary>
     [TestClass]
-    public class WarningTest {
+    public class WarningTest
+    {
 
         #region 常量
 
@@ -43,9 +44,10 @@ namespace CAF.Domains.Tests.Tests
         /// 验证消息为空
         /// </summary>
         [TestMethod]
-        public void TestValidate_MessageIsNull() {
-            Warning warning = new Warning( null, "P1" );
-            Assert.AreEqual( string.Empty, warning.Message );
+        public void TestValidate_MessageIsNull()
+        {
+            Warning warning = new Warning(null, "P1");
+            Assert.AreEqual(string.Empty, warning.Message);
         }
 
         #endregion
@@ -56,9 +58,10 @@ namespace CAF.Domains.Tests.Tests
         /// 设置错误码
         /// </summary>
         [TestMethod]
-        public void TestCode() {
-            Warning warning = new Warning( Message, "P1" );
-            Assert.AreEqual( "P1", warning.Code );
+        public void TestCode()
+        {
+            Warning warning = new Warning(Message, "P1");
+            Assert.AreEqual("P1", warning.Code);
         }
 
         #endregion
@@ -69,9 +72,10 @@ namespace CAF.Domains.Tests.Tests
         /// 测试日志级别
         /// </summary>
         [TestMethod]
-        public void TestLogLevel() {
-            Warning warning = new Warning( Message, "P1", LogLevel.Fatal );
-            Assert.AreEqual( LogLevel.Fatal, warning.Level );
+        public void TestLogLevel()
+        {
+            Warning warning = new Warning(Message, "P1", LogLevel.Fatal);
+            Assert.AreEqual(LogLevel.Fatal, warning.Level);
         }
 
         #endregion
@@ -82,9 +86,10 @@ namespace CAF.Domains.Tests.Tests
         /// 仅设置消息
         /// </summary>
         [TestMethod]
-        public void TestMessage_OnlyMessage() {
-            Warning warning = new Warning( Message );
-            Assert.AreEqual( Message, warning.Message );
+        public void TestMessage_OnlyMessage()
+        {
+            Warning warning = new Warning(Message);
+            Assert.AreEqual(Message, warning.Message);
         }
 
         #endregion
@@ -95,16 +100,18 @@ namespace CAF.Domains.Tests.Tests
         /// 仅设置异常
         /// </summary>
         [TestMethod]
-        public void TestMessage_OnlyException() {
-            Warning warning = new Warning( GetException() );
-            Assert.AreEqual( Message, warning.Message );
+        public void TestMessage_OnlyException()
+        {
+            Warning warning = new Warning(GetException());
+            Assert.AreEqual(Message, warning.Message);
         }
 
         /// <summary>
         /// 获取异常
         /// </summary>
-        private Exception GetException() {
-            return new Exception( Message );
+        private Exception GetException()
+        {
+            return new Exception(Message);
         }
 
         #endregion
@@ -115,9 +122,10 @@ namespace CAF.Domains.Tests.Tests
         /// 设置错误消息和异常
         /// </summary>
         [TestMethod]
-        public void TestMessage_Message_Exception() {
-            Warning warning = new Warning( Message2, "P1", LogLevel.Fatal, GetException() );
-            Assert.AreEqual( string.Format( "{0}\r\n{1}", Message2, Message ), warning.Message );
+        public void TestMessage_Message_Exception()
+        {
+            Warning warning = new Warning(Message2, "P1", LogLevel.Fatal, GetException());
+            Assert.AreEqual(string.Format("{0}\r\n{1}", Message2, Message), warning.Message);
         }
 
         #endregion
@@ -128,16 +136,18 @@ namespace CAF.Domains.Tests.Tests
         /// 设置2层异常
         /// </summary>
         [TestMethod]
-        public void TestMessage_2LayerException() {
-            Warning warning = new Warning( Message3, "P1", LogLevel.Fatal, Get2LayerException() );
-            Assert.AreEqual( string.Format( "{0}\r\n{1}\r\n{2}", Message3, Message2, Message ), warning.Message );
+        public void TestMessage_2LayerException()
+        {
+            Warning warning = new Warning(Message3, "P1", LogLevel.Fatal, Get2LayerException());
+            Assert.AreEqual(string.Format("{0}\r\n{1}\r\n{2}", Message3, Message2, Message), warning.Message);
         }
 
         /// <summary>
         /// 获取2层异常
         /// </summary>
-        private Exception Get2LayerException() {
-            return new Exception( Message2, new Exception( Message ) );
+        private Exception Get2LayerException()
+        {
+            return new Exception(Message2, new Exception(Message));
         }
 
         #endregion
@@ -148,16 +158,18 @@ namespace CAF.Domains.Tests.Tests
         /// 设置Warning异常
         /// </summary>
         [TestMethod]
-        public void TestMessage_Warning() {
-            Warning warning = new Warning( GetWarning() );
-            Assert.AreEqual( Message, warning.Message );
+        public void TestMessage_Warning()
+        {
+            Warning warning = new Warning(GetWarning());
+            Assert.AreEqual(Message, warning.Message);
         }
 
         /// <summary>
         /// 获取异常
         /// </summary>
-        private Warning GetWarning() {
-            return new Warning( Message );
+        private Warning GetWarning()
+        {
+            return new Warning(Message);
         }
 
         #endregion
@@ -168,16 +180,18 @@ namespace CAF.Domains.Tests.Tests
         /// 设置2层Warning异常
         /// </summary>
         [TestMethod]
-        public void TestMessage_2LayerWarning() {
-            Warning warning = new Warning( Message3, "", Get2LayerWarning() );
-            Assert.AreEqual( string.Format( "{0}\r\n{1}\r\n{2}", Message3, Message2, Message ), warning.Message );
+        public void TestMessage_2LayerWarning()
+        {
+            Warning warning = new Warning(Message3, "", Get2LayerWarning());
+            Assert.AreEqual(string.Format("{0}\r\n{1}\r\n{2}", Message3, Message2, Message), warning.Message);
         }
 
         /// <summary>
         /// 获取2层异常
         /// </summary>
-        private Warning Get2LayerWarning() {
-            return new Warning( Message2, "", new Warning( Message ) );
+        private Warning Get2LayerWarning()
+        {
+            return new Warning(Message2, "", new Warning(Message));
         }
 
         #endregion
@@ -188,16 +202,18 @@ namespace CAF.Domains.Tests.Tests
         /// 设置3层Warning异常
         /// </summary>
         [TestMethod]
-        public void TestMessage_3LayerWarning() {
-            Warning warning = new Warning( Message4, "", Get3LayerWarning() );
-            Assert.AreEqual( string.Format( "{0}\r\n{1}\r\n{2}\r\n{3}", Message4, Message3, Message2, Message ), warning.Message );
+        public void TestMessage_3LayerWarning()
+        {
+            Warning warning = new Warning(Message4, "", Get3LayerWarning());
+            Assert.AreEqual(string.Format("{0}\r\n{1}\r\n{2}\r\n{3}", Message4, Message3, Message2, Message), warning.Message);
         }
 
         /// <summary>
         /// 获取3层异常
         /// </summary>
-        private Warning Get3LayerWarning() {
-            return new Warning( Message3, "", new Exception( Message2, new Warning( Message ) ) );
+        private Warning Get3LayerWarning()
+        {
+            return new Warning(Message3, "", new Exception(Message2, new Warning(Message)));
         }
 
         #endregion
@@ -208,38 +224,40 @@ namespace CAF.Domains.Tests.Tests
         /// 添加异常数据
         /// </summary>
         [TestMethod]
-        public void TestAdd_1Layer() {
-            Warning warning = new Warning( Message );
-            warning.Data.Add( "key1", "value1" );
-            warning.Data.Add( "key2", "value2" );
+        public void TestAdd_1Layer()
+        {
+            Warning warning = new Warning(Message);
+            warning.Data.Add("key1", "value1");
+            warning.Data.Add("key2", "value2");
 
             Str expected = new Str();
-            expected.AddLine( Message );
-            expected.AddLine( "key1:value1" );
-            expected.AddLine( "key2:value2" );
-            Assert.AreEqual( expected.ToString(), warning.Message );
+            expected.AddLine(Message);
+            expected.AddLine("key1:value1");
+            expected.AddLine("key2:value2");
+            Assert.AreEqual(expected.ToString(), warning.Message);
         }
 
         /// <summary>
         /// 添加异常数据
         /// </summary>
         [TestMethod]
-        public void TestAdd_2Layer() {
-            Exception exception = new Exception( Message );
-            exception.Data.Add( "a", "a1" );
-            exception.Data.Add( "b", "b1" );
+        public void TestAdd_2Layer()
+        {
+            Exception exception = new Exception(Message);
+            exception.Data.Add("a", "a1");
+            exception.Data.Add("b", "b1");
 
-            Warning warning = new Warning( exception );
-            warning.Data.Add( "key1", "value1" );
-            warning.Data.Add( "key2", "value2" );
+            Warning warning = new Warning(exception);
+            warning.Data.Add("key1", "value1");
+            warning.Data.Add("key2", "value2");
 
             Str expected = new Str();
-            expected.AddLine( Message );
-            expected.AddLine( "a:a1" );
-            expected.AddLine( "b:b1" );
-            expected.AddLine( "key1:value1" );
-            expected.AddLine( "key2:value2" );
-            Assert.AreEqual( expected.ToString(), warning.Message );
+            expected.AddLine(Message);
+            expected.AddLine("a:a1");
+            expected.AddLine("b:b1");
+            expected.AddLine("key1:value1");
+            expected.AddLine("key2:value2");
+            Assert.AreEqual(expected.ToString(), warning.Message);
         }
 
         #endregion
