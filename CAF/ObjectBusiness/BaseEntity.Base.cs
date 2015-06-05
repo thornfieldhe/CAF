@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CAF
 {
+    using CAF.ObjectBusiness;
     using CAF.Validations;
 
 
-    public partial class BaseEntity<T> : IEqualityComparer<T>, IBusinessBase, IComparable<IBusinessBase>,
+    public abstract partial  class BaseEntity<T> : StatusDescription, IEqualityComparer<T>, IBusinessBase, IComparable<IBusinessBase>,
         IBaseStatus where T : class,IBusinessBase
     {
         #region 属性验证

@@ -7,30 +7,30 @@ namespace System.ComponentModel.DataAnnotations
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class MinAttribute : DataTypeAttribute
     {
-        public object Min { get { return _min; } }
+        public object Min { get { return this._min; } }
 
         private readonly double _min;
 
         public MinAttribute(int min)
             : base("min")
         {
-            _min = min;
+            this._min = min;
         }
 
         public MinAttribute(double min)
             : base("min")
         {
-            _min = min;
+            this._min = min;
         }
 
         public override string FormatErrorMessage(string name)
         {
-            if (ErrorMessage == null && ErrorMessageResourceName == null)
+            if (this.ErrorMessage == null && this.ErrorMessageResourceName == null)
             {
-                ErrorMessage = ValidatorResources.MinAttribute_Invalid;
+                this.ErrorMessage = ValidatorResources.MinAttribute_Invalid;
             }
 
-            return String.Format(CultureInfo.CurrentCulture, ErrorMessageString, name, _min);
+            return String.Format(CultureInfo.CurrentCulture, this.ErrorMessageString, name, this._min);
         }
 
         public override bool IsValid(object value)
@@ -41,7 +41,7 @@ namespace System.ComponentModel.DataAnnotations
 
             var isDouble = double.TryParse(Convert.ToString(value), out valueAsDouble);
 
-            return isDouble && valueAsDouble >= _min;
+            return isDouble && valueAsDouble >= this._min;
         }
     }
 }

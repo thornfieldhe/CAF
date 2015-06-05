@@ -5,10 +5,9 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
-    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
-        using System.Linq.Expressions;
+    using System.Linq.Expressions;
 
     [Serializable]
 	public partial class Role :  BaseEntity<Role>
@@ -73,10 +72,17 @@ namespace CAF.Model
                 this. _userList = value;
             }
         }
-
         public override void Validate()
         {
-            this._userListInitalizer.IsValueCreated.IfTrue(
+			this. _organizeListInitalizer.IsValueCreated.IfTrue(
+            () =>
+            {
+                foreach (var item in this.Organizes)
+                {
+                    item.Validate();
+                }
+            });
+			this. _userListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
                 foreach (var item in this.Users)
@@ -84,18 +90,10 @@ namespace CAF.Model
                     item.Validate();
                 }
             });
-
-            this._organizeListInitalizer.IsValueCreated.IfTrue(
-                () =>
-                {
-                    foreach (var item in this.Organizes)
-                    {
-                        item.Validate();
-                    }
-                });
-            base.Validate();
+           base.Validate();
         }
-
+        
+        
 		#endregion
         
         #region 常量定义
@@ -251,6 +249,8 @@ namespace CAF.Model
         /// 表达式查询
         /// </summary>
         /// <param name="exp">表达式</param>
+        /// <param name="conn"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
         public static RoleList Query(Expression<Func<IQueryable<Role>, IQueryable<Role>>> exp,
         IDbConnection conn, IDbTransaction transaction)
@@ -409,6 +409,18 @@ namespace CAF.Model
 			return list;
         }
 		
+        
+        /// <summary>
+        /// 添加描述
+        /// </summary>
+        protected override void AddDescriptions() {
+		    this.AddDescription( "Id:"+ this.Id + "," );        
+		    this.AddDescription( "Status:"+ this.Status + "," );        
+		    this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
+		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
+		    this.AddDescription( "Note:"+ this.Note + "," );        
+		    this.AddDescription( "Name:"+ this.Name + "," );        
+        }
 		#endregion
 				
 	}

@@ -17,9 +17,9 @@ namespace System.ComponentModel.DataAnnotations
         /// </summary>
         public override string FormatErrorMessage(string name)
         {
-            if (ErrorMessage == null && ErrorMessageResourceName == null)
-                ErrorMessage = ValidatorResources.InvalidMobilePhone;
-            return String.Format(CultureInfo.CurrentCulture, ErrorMessageString);
+            if (this.ErrorMessage == null && this.ErrorMessageResourceName == null)
+                this.ErrorMessage = ValidatorResources.InvalidMobilePhone;
+            return String.Format(CultureInfo.CurrentCulture, this.ErrorMessageString);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace System.ComponentModel.DataAnnotations
             const string pattern = "^1[3|4|5|7|8|][0-9]{9}$";
             if (Regex.IsMatch(value.ToStr(), pattern))
                 return null;
-            return new ValidationResult(FormatErrorMessage(string.Empty));
+            return new ValidationResult(this.FormatErrorMessage(string.Empty));
         }
     }
 }

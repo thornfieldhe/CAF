@@ -9,6 +9,7 @@ namespace CAF.Web.WebForm.Common
 {
 
     using CAF.Data;
+    using CAF.Utility;
 
     public class PageTools
     {

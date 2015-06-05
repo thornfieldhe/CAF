@@ -5,10 +5,9 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
-    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
-        using System.Linq.Expressions;
+    using System.Linq.Expressions;
 
     [Serializable]
 	public partial class Directory :  BaseEntity<Directory>
@@ -211,6 +210,8 @@ namespace CAF.Model
         /// 表达式查询
         /// </summary>
         /// <param name="exp">表达式</param>
+        /// <param name="conn"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
         public static DirectoryList Query(Expression<Func<IQueryable<Directory>, IQueryable<Directory>>> exp,
         IDbConnection conn, IDbTransaction transaction)
@@ -289,6 +290,22 @@ namespace CAF.Model
 		
 		#region 私有方法
 		
+        
+        /// <summary>
+        /// 添加描述
+        /// </summary>
+        protected override void AddDescriptions() {
+		    this.AddDescription( "Id:"+ this.Id + "," );        
+		    this.AddDescription( "Name:"+ this.Name + "," );        
+		    this.AddDescription( "Url:"+ this.Url + "," );        
+		    this.AddDescription( "ParentId:"+ this.ParentId + "," );        
+		    this.AddDescription( "Level:"+ this.Level + "," );        
+		    this.AddDescription( "Sort:"+ this.Sort + "," );        
+		    this.AddDescription( "Note:"+ this.Note + "," );        
+		    this.AddDescription( "Status:"+ this.Status + "," );        
+		    this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
+		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
+        }
 		#endregion
 				
 	}

@@ -5,10 +5,9 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
-    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
-        using System.Linq.Expressions;
+    using System.Linq.Expressions;
 
     [Serializable]
 	public partial class WfAuditOption :  BaseEntity<WfAuditOption>
@@ -206,6 +205,8 @@ namespace CAF.Model
         /// 表达式查询
         /// </summary>
         /// <param name="exp">表达式</param>
+        /// <param name="conn"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
         public static WfAuditOptionList Query(Expression<Func<IQueryable<WfAuditOption>, IQueryable<WfAuditOption>>> exp,
         IDbConnection conn, IDbTransaction transaction)
@@ -284,6 +285,22 @@ namespace CAF.Model
 		
 		#region 私有方法
 		
+        
+        /// <summary>
+        /// 添加描述
+        /// </summary>
+        protected override void AddDescriptions() {
+		    this.AddDescription( "Id:"+ this.Id + "," );        
+		    this.AddDescription( "WfProcessId:"+ this.WfProcessId + "," );        
+		    this.AddDescription( "WfActivityId:"+ this.WfActivityId + "," );        
+		    this.AddDescription( "PostName:"+ this.PostName + "," );        
+		    this.AddDescription( "AuditOpinion:"+ this.AuditOpinion + "," );        
+		    this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
+		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
+		    this.AddDescription( "Status:"+ this.Status + "," );        
+		    this.AddDescription( "Note:"+ this.Note + "," );        
+		    this.AddDescription( "AuditName:"+ this.AuditName + "," );        
+        }
 		#endregion
 				
 	}

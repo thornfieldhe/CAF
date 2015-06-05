@@ -5,10 +5,9 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
-    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
-        using System.Linq.Expressions;
+    using System.Linq.Expressions;
 
     [Serializable]
 	public partial class PostUserOrganize :  BaseEntity<PostUserOrganize>
@@ -195,6 +194,8 @@ namespace CAF.Model
         /// 表达式查询
         /// </summary>
         /// <param name="exp">表达式</param>
+        /// <param name="conn"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
         public static PostUserOrganizeList Query(Expression<Func<IQueryable<PostUserOrganize>, IQueryable<PostUserOrganize>>> exp,
         IDbConnection conn, IDbTransaction transaction)
@@ -273,6 +274,20 @@ namespace CAF.Model
 		
 		#region 私有方法
 		
+        
+        /// <summary>
+        /// 添加描述
+        /// </summary>
+        protected override void AddDescriptions() {
+		    this.AddDescription( "Id:"+ this.Id + "," );        
+		    this.AddDescription( "PostId:"+ this.PostId + "," );        
+		    this.AddDescription( "UserId:"+ this.UserId + "," );        
+		    this.AddDescription( "OrganizeId:"+ this.OrganizeId + "," );        
+		    this.AddDescription( "Status:"+ this.Status + "," );        
+		    this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
+		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
+		    this.AddDescription( "Note:"+ this.Note + "," );        
+        }
 		#endregion
 				
 	}

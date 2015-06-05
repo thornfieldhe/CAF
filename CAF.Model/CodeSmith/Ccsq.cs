@@ -5,10 +5,9 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
-    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
-        using System.Linq.Expressions;
+    using System.Linq.Expressions;
 
     [Serializable]
 	public partial class Ccsq :  BaseEntity<Ccsq>
@@ -217,6 +216,8 @@ namespace CAF.Model
         /// 表达式查询
         /// </summary>
         /// <param name="exp">表达式</param>
+        /// <param name="conn"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
         public static CcsqList Query(Expression<Func<IQueryable<Ccsq>, IQueryable<Ccsq>>> exp,
         IDbConnection conn, IDbTransaction transaction)
@@ -295,6 +296,24 @@ namespace CAF.Model
 		
 		#region 私有方法
 		
+        
+        /// <summary>
+        /// 添加描述
+        /// </summary>
+        protected override void AddDescriptions() {
+		    this.AddDescription( "Id:"+ this.Id + "," );        
+		    this.AddDescription( "Ccsjq:"+ this.Ccsjq + "," );        
+		    this.AddDescription( "Ccsjz:"+ this.Ccsjz + "," );        
+		    this.AddDescription( "Ccdd:"+ this.Ccdd + "," );        
+		    this.AddDescription( "jtgj:"+ this.jtgj + "," );        
+		    this.AddDescription( "Note:"+ this.Note + "," );        
+		    this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
+		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
+		    this.AddDescription( "Status:"+ this.Status + "," );        
+		    this.AddDescription( "CreatedBy:"+ this.CreatedBy + "," );        
+		    this.AddDescription( "ModifyBy:"+ this.ModifyBy + "," );        
+		    this.AddDescription( "OrganizeId:"+ this.OrganizeId + "," );        
+        }
 		#endregion
 				
 	}

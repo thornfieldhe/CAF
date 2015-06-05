@@ -5,10 +5,9 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
-    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
-        using System.Linq.Expressions;
+    using System.Linq.Expressions;
 
     [Serializable]
 	public partial class WfRule :  BaseEntity<WfRule>
@@ -103,8 +102,7 @@ namespace CAF.Model
 			get {return this._ruleId;} 
             set {this.SetProperty("RuleId",ref this._ruleId, value);}           	
 		}
-        
- 
+  
 		#endregion
         
         #region 常量定义
@@ -219,8 +217,8 @@ namespace CAF.Model
                 return list;
             }
         }
-
-        /// <summary>
+        
+                /// <summary>
         /// 表达式查询
         /// </summary>
         /// <param name="exp">表达式</param>
@@ -304,6 +302,24 @@ namespace CAF.Model
 		
 		#region 私有方法
 		
+        
+        /// <summary>
+        /// 添加描述
+        /// </summary>
+        protected override void AddDescriptions() {
+		    this.AddDescription( "WfProcessId:"+ this.WfProcessId + "," );        
+		    this.AddDescription( "Id:"+ this.Id + "," );        
+		    this.AddDescription( "Name:"+ this.Name + "," );        
+		    this.AddDescription( "BeginActivityID:"+ this.BeginActivityID + "," );        
+		    this.AddDescription( "EndActivityID:"+ this.EndActivityID + "," );        
+		    this.AddDescription( "Type:"+ this.Type + "," );        
+		    this.AddDescription( "Condition:"+ this.Condition + "," );        
+		    this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
+		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
+		    this.AddDescription( "Status:"+ this.Status + "," );        
+		    this.AddDescription( "Note:"+ this.Note + "," );        
+		    this.AddDescription( "RuleId:"+ this.RuleId + "," );        
+        }
 		#endregion
 				
 	}

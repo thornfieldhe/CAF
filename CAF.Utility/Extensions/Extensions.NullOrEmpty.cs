@@ -57,6 +57,15 @@ namespace CAF
         }
 
         /// <summary>
+        /// 日期是否是最小值
+        /// </summary>
+        /// <param name="value">值</param>
+        public static bool IsValid(this DateTime value)
+        {
+            return value > new DateTime(1900, 1, 1);
+        }
+
+        /// <summary>
         /// 不为空执行委托方法
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -172,7 +181,8 @@ namespace CAF
         /// <param name="lower"></param>
         /// <param name="upper"></param>
         /// <returns></returns>
-        public static bool Between<T>(this T @this, T lower, T upper) where T : IComparable<T> {
+        public static bool Between<T>(this T @this, T lower, T upper) where T : IComparable<T>
+        {
             return @this.CompareTo(lower) >= 0 && @this.CompareTo(upper) < 0;
         }
 

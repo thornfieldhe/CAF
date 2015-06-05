@@ -5,10 +5,9 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
-    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
-        using System.Linq.Expressions;
+    using System.Linq.Expressions;
 
     [Serializable]
 	public partial class Organize :  BaseEntity<Organize>
@@ -132,14 +131,13 @@ namespace CAF.Model
                 this. _roleList = value;
             }
         }
-
         public override void Validate()
         {
             foreach (var item in this.Users)
             {
                 item.Validate();
             }
-            this._roleListInitalizer.IsValueCreated.IfTrue(
+			this. _roleListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
                 foreach (var item in this.Roles)
@@ -147,9 +145,9 @@ namespace CAF.Model
                     item.Validate();
                 }
             });
-            base.Validate();
+           base.Validate();
         }
-       
+        
         
 		#endregion
         
@@ -302,6 +300,8 @@ namespace CAF.Model
         /// 表达式查询
         /// </summary>
         /// <param name="exp">表达式</param>
+        /// <param name="conn"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
         public static OrganizeList Query(Expression<Func<IQueryable<Organize>, IQueryable<Organize>>> exp,
         IDbConnection conn, IDbTransaction transaction)
@@ -444,6 +444,22 @@ namespace CAF.Model
 			user.OrganizeId=this.Id;
         }
 		
+        
+        /// <summary>
+        /// 添加描述
+        /// </summary>
+        protected override void AddDescriptions() {
+		    this.AddDescription( "Id:"+ this.Id + "," );        
+		    this.AddDescription( "Status:"+ this.Status + "," );        
+		    this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
+		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
+		    this.AddDescription( "Note:"+ this.Note + "," );        
+		    this.AddDescription( "Name:"+ this.Name + "," );        
+		    this.AddDescription( "ParentId:"+ this.ParentId + "," );        
+		    this.AddDescription( "Sort:"+ this.Sort + "," );        
+		    this.AddDescription( "Level:"+ this.Level + "," );        
+		    this.AddDescription( "Code:"+ this.Code + "," );        
+        }
 		#endregion
 				
 	}

@@ -219,6 +219,8 @@ namespace CAF.Tests.Samples
             results.Add(new MaxLengthValidationRule(this.Name).Validate());
             base.Validate(results);
         }
+
+        protected override void AddDescriptions() { this.AddDescription("Name:" + this.Name + ","); }
     }
 
     /// <summary>

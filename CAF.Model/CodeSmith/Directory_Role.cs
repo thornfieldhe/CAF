@@ -5,7 +5,6 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
-    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
 
@@ -261,7 +260,19 @@ namespace CAF.Model
             return item;
         }
 
-
+        
+        /// <summary>
+        /// 添加描述
+        /// </summary>
+        protected override void AddDescriptions() {
+		    this.AddDescription( "Status:"+ this.Status + "," );        
+		    this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
+		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
+		    this.AddDescription( "Note:"+ this.Note + "," );        
+		    this.AddDescription( "RoleId:"+ this.RoleId + "," );        
+		    this.AddDescription( "DirectoryId:"+ this.DirectoryId + "," );        
+		    this.AddDescription( "Id:"+ this.Id + "," );        
+        }
         #endregion
 
     }

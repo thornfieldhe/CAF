@@ -69,6 +69,7 @@
     <Compile Include="ChinaDate.cs" />
     <Compile Include="Compress\GZip.cs" />
     <Compile Include="Compress\ICompress.cs" />
+    <Compile Include="KeyValueItem.cs" />
     <Compile Include="String\Const.cs" />
     <Compile Include="Fluent\Fluent.cs" />
     <Compile Include="Fluent\FluentInterface.cs" />
@@ -160,7 +161,6 @@
     <Compile Include="String\Str`.cs" />
     <Compile Include="未整理\Sys.cs" />
     <Compile Include="未整理\Thread.cs" />
-    <Compile Include="未整理\Validation\CustValidationArgs.cs" />
     <Compile Include="未整理\Validation\IExpression.cs" />
     <Compile Include="未整理\Validation\IRegExpression.cs" />
     <Compile Include="未整理\Validation\RegexContex.cs" />

@@ -108,7 +108,9 @@
     <Compile Include="ObjectBusiness\BaseEntity.Base.cs" />
     <Compile Include="ObjectBusiness\BaseEntity.cs" />
     <Compile Include="ObjectBusiness\IEntityBase.cs" />
-    <Compile Include="Validations\DataAnnotations\DateAttribute.cs" />
+    <Compile Include="ObjectBusiness\StatusDescription.cs" />
+    <Compile Include="Validations\DataAnnotations\DateTimeRequiredAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\GuidRequiredAttribute.cs" />
     <Compile Include="Validations\DataAnnotations\EqualToAttribute.cs" />
     <Compile Include="Validations\DataAnnotations\IntegerAttribute.cs" />
     <Compile Include="Validations\DataAnnotations\MaxAttribute.cs" />
@@ -168,7 +170,6 @@
     <Compile Include="ObjectBusiness\CollectionBase.cs" />
     <Compile Include="ObjectBusiness\IBaseStatus.cs" />
     <Compile Include="ObjectBusiness\ICollectionBase.cs" />
-    <Compile Include="ObjectBusiness\KeyValueItem.cs" />
     <Compile Include="ObjectBusiness\ReadOnlyBase.cs" />
     <Compile Include="ObjectBusiness\ReadOnlyCollectionBase.cs" />
     <Compile Include="ObjectBusiness\ReadOnlyCollectionQueryResult.cs" />

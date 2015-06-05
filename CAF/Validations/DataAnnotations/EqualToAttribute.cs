@@ -21,8 +21,8 @@ namespace System.ComponentModel.DataAnnotations
             {
                 throw new ArgumentNullException("otherProperty");
             }
-            OtherProperty = otherProperty;
-            OtherPropertyDisplayName = null;
+            this.OtherProperty = otherProperty;
+            this.OtherPropertyDisplayName = null;
         }
 
         public string OtherProperty { get; private set; }
@@ -31,24 +31,24 @@ namespace System.ComponentModel.DataAnnotations
 
         public override string FormatErrorMessage(string name)
         {
-            if (ErrorMessage == null && ErrorMessageResourceName == null)
+            if (this.ErrorMessage == null && this.ErrorMessageResourceName == null)
             {
-                ErrorMessage = ValidatorResources.CompareAttribute_MustMatch;
+                this.ErrorMessage = ValidatorResources.CompareAttribute_MustMatch;
             }
 
-            var otherPropertyDisplayName = OtherPropertyDisplayName ?? OtherProperty;
+            var otherPropertyDisplayName = this.OtherPropertyDisplayName ?? this.OtherProperty;
 
-            return String.Format(CultureInfo.CurrentCulture, ErrorMessageString, name, otherPropertyDisplayName);
+            return String.Format(CultureInfo.CurrentCulture, this.ErrorMessageString, name, otherPropertyDisplayName);
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var memberNames = new[] { validationContext.MemberName };
 
-            PropertyInfo otherPropertyInfo = validationContext.ObjectType.GetProperty(OtherProperty);
+            PropertyInfo otherPropertyInfo = validationContext.ObjectType.GetProperty(this.OtherProperty);
             if (otherPropertyInfo == null)
             {
-                return new ValidationResult(String.Format(CultureInfo.CurrentCulture, ValidatorResources.EqualTo_UnknownProperty, OtherProperty), memberNames);
+                return new ValidationResult(String.Format(CultureInfo.CurrentCulture, ValidatorResources.EqualTo_UnknownProperty, this.OtherProperty), memberNames);
             }
 
             var displayAttribute =
@@ -56,13 +56,13 @@ namespace System.ComponentModel.DataAnnotations
 
             if (displayAttribute != null && !string.IsNullOrWhiteSpace(displayAttribute.Name))
             {
-                OtherPropertyDisplayName = displayAttribute.Name;
+                this.OtherPropertyDisplayName = displayAttribute.Name;
             }
 
             object otherPropertyValue = otherPropertyInfo.GetValue(validationContext.ObjectInstance, null);
             if (!Equals(value, otherPropertyValue))
             {
-                return new ValidationResult(FormatErrorMessage(validationContext.DisplayName), memberNames);
+                return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName), memberNames);
             }
             return null;
         }

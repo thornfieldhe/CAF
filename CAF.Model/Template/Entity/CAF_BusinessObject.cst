@@ -24,10 +24,9 @@ using System.Linq;
 namespace <%= ClassNamespace %>.Model
 {
     using CAF.Data;
-    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
-        using System.Linq.Expressions;
+    using System.Linq.Expressions;
 
     [Serializable]
 	public partial class <%= GetClassName(SourceTable) %> :  BaseEntity<<%= GetClassName(SourceTable) %>>
@@ -198,41 +197,31 @@ namespace <%= ClassNamespace %>.Model
         }
         <%} %>   
         <%if(Child.Count>0 || Children.Count>0||WithMany.Count>0){%>        
-        public override bool IsValid
+        public override void Validate()
         {
-            get
+            <%foreach(string item in Children){ %>
+            foreach (var item in this.<%=item%>s)
             {
-			    this.Errors=new List<string>();
-                var isValid = true;
-                var baseValid = base.IsValid;
-                <%foreach(string item in Children){ %>
-                foreach (var item in this.<%=item%>s.Where(item => !item.IsValid))
-                {
-                    this.Errors.AddRange(item.Errors);
-                    isValid = false;
-                }
-                <%} %>
-                <%foreach(string item in Child){ %>
-                if (this.<%= GetListMember3(item)%>.IsValueCreated && this.<%=item%>!=null && !this.<%=item%>.IsValid)
-                {
-                    this.Errors.AddRange(this.<%=item%>.Errors);
-                    isValid = false;
-                }
-                <%} %>
-				<%foreach(string item in WithMany){ %>
-				this.<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfTrue(
-                () =>
-                {
-                    foreach (var item in this.<%=GetRelationshipItem(item)%>s.Where(item => !item.IsValid))
-                    {
-                        this.Errors.AddRange(item.Errors);
-                        isValid = false;
-                    }
-                });
-                <%} %>
-               return baseValid && isValid;
+                item.Validate();
             }
-            protected set { this._isValid = value; }
+            <%} %>
+            <%foreach(string item in Child){ %>
+            if (this.<%= GetListMember3(item)%>.IsValueCreated && this.<%=item%>!=null)
+            {
+                this.<%= item%>.Validate();
+            }
+            <%} %>
+			<%foreach(string item in WithMany){ %>
+			this.<%= GetListMember2(GetRelationshipItem(item))%>.IsValueCreated.IfTrue(
+            () =>
+            {
+                foreach (var item in this.<%=GetRelationshipItem(item)%>s)
+                {
+                    item.Validate();
+                }
+            });
+            <%} %>
+           base.Validate();
         }
         
         <%} %>

@@ -1,21 +1,22 @@
 ﻿
 namespace System.ComponentModel.DataAnnotations
 {
+    using CAF;
     using CAF.Validations.DataAnnotations;
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class DateAttribute : DataTypeAttribute
+    public class GuidRequiredAttribute : DataTypeAttribute
     {
-        public DateAttribute()
+        public GuidRequiredAttribute()
             : base(DataType.Date)
         {
         }
 
         public override string FormatErrorMessage(string name)
         {
-            if (ErrorMessage == null && ErrorMessageResourceName == null)
+            if (this.ErrorMessage == null && this.ErrorMessageResourceName == null)
             {
-                ErrorMessage = ValidatorResources.DateAttribute_Invalid;
+                this.ErrorMessage = ValidatorResources.DateAttribute_Invalid;
             }
 
             return base.FormatErrorMessage(name);
@@ -23,11 +24,7 @@ namespace System.ComponentModel.DataAnnotations
 
         public override bool IsValid(object value)
         {
-            if (value == null) return true;
-
-            DateTime retDate;
-
-            return DateTime.TryParse(Convert.ToString(value), out retDate);
+            return value == null || Convert.ToString(value).ToGuid().IsEmpty();
         }
     }
 }

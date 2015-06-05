@@ -4,10 +4,10 @@ namespace System.ComponentModel.DataAnnotations
     using CAF.Validations.DataAnnotations;
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class IntegerAttribute : DataTypeAttribute
+    public class DateTimeRequiredAttribute : DataTypeAttribute
     {
-        public IntegerAttribute()
-            : base("integer")
+        public DateTimeRequiredAttribute()
+            : base(DataType.Date)
         {
         }
 
@@ -15,7 +15,7 @@ namespace System.ComponentModel.DataAnnotations
         {
             if (this.ErrorMessage == null && this.ErrorMessageResourceName == null)
             {
-                this.ErrorMessage = ValidatorResources.IntegerAttribute_Invalid;
+                this.ErrorMessage = ValidatorResources.DateAttribute_Invalid;
             }
 
             return base.FormatErrorMessage(name);
@@ -25,9 +25,9 @@ namespace System.ComponentModel.DataAnnotations
         {
             if (value == null) return true;
 
-            int retNum;
+            DateTime retDate;
 
-            return int.TryParse(Convert.ToString(value), out retNum);
+            return DateTime.TryParse(Convert.ToString(value), out retDate);
         }
     }
 }

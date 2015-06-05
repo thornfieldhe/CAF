@@ -8,6 +8,7 @@ namespace CAF.Test
     using System.Collections.Generic;
     using System.Linq;
 
+    using CAF.Exceptions;
     using CAF.Utility;
 
     [TestClass]
@@ -71,14 +72,43 @@ namespace CAF.Test
         /// 属性有效性验证
         /// </summary>
         [TestMethod]
+        [ExpectedException(typeof(Warning))]
         public void TestMethod4()
         {
-            User u = new User { Abb = "hxh", Email = "hxh@126.com", OrganizeId = Guid.NewGuid(), Pass = "pass" };
-            Assert.IsTrue(!u.IsValid);//未验证
-            u.PhoneNum = "13666188693";
-            u.Name = "何翔华";
-            u.LoginName = "00001";
-            Assert.IsTrue(u.IsValid);//已验证
+            try
+            {
+                User u = new User { Abb = "hxh", Email = "hxh@126.com", OrganizeId = Guid.NewGuid(), Pass = "pass" };
+                u.Create();
+            }
+            catch (Warning ex)
+            {
+                
+               Assert.IsNotNull(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 属性有效性验证
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(Warning))]
+        public void TestMethod41()
+        {
+            try
+            {
+                User u = new User { Abb = "hxh", Email = "hxh@126.com", OrganizeId = Guid.NewGuid(), Pass = "pass" };
+                u.PhoneNum = "13666188693";
+                u.Name = "何翔华";
+                u.LoginName = "00001";
+                u.Create();
+                Assert.IsTrue(true);
+            }
+            catch (Warning ex)
+            {
+                
+                throw ex;
+            }
+    
         }
 
         /// <summary>
@@ -89,10 +119,9 @@ namespace CAF.Test
         {
             var u = CreateUser();
             u.OrganizeId = Guid.NewGuid();
-            if (u.IsValid)
-            {
+  
                 u.Create();//创建
-            }
+
             var newUser = User.Get(u.Id);
             Assert.IsNotNull(newUser);//读取
             newUser.Note = "test";
@@ -114,10 +143,9 @@ namespace CAF.Test
             var o = new Organize { Sort = 0, Name = "o1", Level = "01", Code = "00001" };
             var u = CreateUser();
             o.Users.Add(u);
-            if (o.IsValid)
-            {
+
                 o.Create();
-            }
+   
             var o1 = Organize.Get(o.Id);
             Assert.AreEqual(o1.Users.Count, 1);
             //新增子项列表中子项
@@ -125,26 +153,23 @@ namespace CAF.Test
             u1.OrganizeId = o1.Id;
             //todo 未实现增加子项
             o1.Users.Add(u1);
-            if (o1.IsValid)
-            {
+       
                 o1.Save();
-            }
+ 
             var o2 = Organize.Get(o.Id);
             Assert.AreEqual(o2.Users.Count, 2);//检查用户信息是否延迟加载
             //编辑子项列表中子项
             o2.Users[0].Note = "ttttttttt";//检查用户信息是否延迟加载
-            if (o2.IsValid)
-            {
+
                 o2.Save();
-            }
+
             //编辑with子项列表中的子项
             var o3 = Organize.Get(o.Id);
             o3.Users[1].Note = "kkk";//检查用户信息是否延迟加载
             o3.Note = "12345";
-            if (o3.IsValid)
-            {
+
                 o3.Save();
-            }
+
             var o4 = Organize.Get(o.Id);
             Assert.AreEqual(o4.Users[1].Note, "kkk");
             Assert.AreEqual(o4.Note, "12345");
@@ -166,19 +191,17 @@ namespace CAF.Test
             o.UserSetting = new UserSetting();
             o.UserSetting.Settings = "nomal";
             o.OrganizeId = Guid.NewGuid();
-            if (o.IsValid)
-            {
+
                 o.Create();
-            }
+
             var o1 = User.Get(o.Id);
             Assert.AreEqual(o1.UserSetting.Settings, "nomal");
             //编辑子项
             var o3 = User.Get(o.Id);
             o3.UserSetting.Note = "ppppppp";//检查用户信息是否延迟加载
-            if (o3.IsValid)
-            {
+     
                 o3.Save();
-            }
+  
             var o2 = User.Get(o.Id);
             Assert.AreEqual(o2.UserSetting.Note, "ppppppp");
         }
@@ -316,10 +339,9 @@ namespace CAF.Test
                 var u = CreateUser();
                 u.Name = "user" + i;
                 u.OrganizeId = Guid.NewGuid();
-                if (u.IsValid)
-                {
+         
                     u.Create();
-                }
+
             }
             var list = User.Query(u => u.Where(i => i.Name.Contains("user")));
             Assert.AreEqual(list.Count, 5);
@@ -343,7 +365,7 @@ namespace CAF.Test
                 u.OrganizeId = Guid.NewGuid();
                 o.Users.Add(u);
             }
-            o.IsValid.IfTrue(() => o.Create());
+             o.Create();
             //            var readOlyBookList = ReadOnlyCollectionBase<ReadOnlyUser>.Query("Name", 2, new { OrganizeId = o.Id },
             //                   sum: "Status", average: "Status", queryWhere: "   OrganizeId =@OrganizeId", pageIndex: 2);
             //            Assert.AreEqual(10, readOlyBookList.TotalCount);

@@ -7,6 +7,8 @@ namespace CAF.Model
     using CAF.Data;
     using System.Data;
 
+    using CAF.Utility;
+
     public partial class Role
     {
         /// <summary>

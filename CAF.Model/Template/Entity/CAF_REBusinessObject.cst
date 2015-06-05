@@ -21,7 +21,6 @@ using System.Linq;
 namespace <%= ClassNamespace %>.Model
 {
     using CAF.Data;
-    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
 

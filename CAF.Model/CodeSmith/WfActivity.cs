@@ -5,10 +5,9 @@ using System.Linq;
 namespace CAF.Model
 {
     using CAF.Data;
-    using CAF.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
-        using System.Linq.Expressions;
+    using System.Linq.Expressions;
 
     [Serializable]
 	public partial class WfActivity :  BaseEntity<WfActivity>
@@ -97,9 +96,7 @@ namespace CAF.Model
 			get {return this._activityId;} 
             set {this.SetProperty("ActivityId",ref this._activityId, value);}           	
 		}
-        
-     
-        
+    
 		#endregion
         
         #region 常量定义
@@ -219,6 +216,8 @@ namespace CAF.Model
         /// 表达式查询
         /// </summary>
         /// <param name="exp">表达式</param>
+        /// <param name="conn"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
         public static WfActivityList Query(Expression<Func<IQueryable<WfActivity>, IQueryable<WfActivity>>> exp,
         IDbConnection conn, IDbTransaction transaction)
@@ -297,6 +296,22 @@ namespace CAF.Model
 		
 		#region 私有方法
 		
+        
+        /// <summary>
+        /// 添加描述
+        /// </summary>
+        protected override void AddDescriptions() {
+		    this.AddDescription( "WfProcessId:"+ this.WfProcessId + "," );        
+		    this.AddDescription( "Id:"+ this.Id + "," );        
+		    this.AddDescription( "Name:"+ this.Name + "," );        
+		    this.AddDescription( "Type:"+ this.Type + "," );        
+		    this.AddDescription( "Post:"+ this.Post + "," );        
+		    this.AddDescription( "Statuse:"+ this.Statuse + "," );        
+		    this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
+		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
+		    this.AddDescription( "Note:"+ this.Note + "," );        
+		    this.AddDescription( "ActivityId:"+ this.ActivityId + "," );        
+        }
 		#endregion
 				
 	}
