@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace CAF.Utility
+namespace CAF.Files
 {
     using CAF.Exceptions;
+    using CAF.Utility;
 
     /// <summary>
     /// 文件及流操作 - 文件信息

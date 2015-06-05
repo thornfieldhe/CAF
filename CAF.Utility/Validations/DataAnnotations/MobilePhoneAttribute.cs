@@ -3,7 +3,7 @@
 namespace System.ComponentModel.DataAnnotations
 {
     using CAF;
-    using CAF.Validations.DataAnnotations;
+    using CAF.Utility.Validations.DataAnnotations;
     using System.Text.RegularExpressions;
 
     /// <summary>

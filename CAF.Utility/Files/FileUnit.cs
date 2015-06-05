@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel;
 
-namespace CAF.Utility
+namespace CAF.Files
 {
+    using CAF.Utility;
+
     /// <summary>
     /// 文件容量单位
     /// </summary>

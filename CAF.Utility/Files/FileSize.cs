@@ -1,5 +1,7 @@
-﻿namespace CAF.Utility
+﻿namespace CAF.Files
 {
+    using CAF.Utility;
+
     /// <summary>
     /// 文件大小
     /// </summary>
@@ -49,7 +51,7 @@
         /// </summary>
         public double GetSizeByM()
         {
-            return (_size / 1024.0 / 1024.0).ToString().ToDouble().ToFixed(2); 
+            return (_size / 1024.0 / 1024.0).ToString().ToDouble().ToFixed(2);
         }
 
         /// <summary>
@@ -57,7 +59,7 @@
         /// </summary>
         public double GetSizeByK()
         {
-            return (_size / 1024.0).ToString().ToDouble().ToFixed(2); 
+            return (_size / 1024.0).ToString().ToDouble().ToFixed(2);
         }
 
         /// <summary>
@@ -74,7 +76,7 @@
         public override string ToString()
         {
             if (_size >= 1024 * 1024 * 1024)
-                return string.Format("{0} {1}", GetSizeByG(),FileUnit.G.Description());
+                return string.Format("{0} {1}", GetSizeByG(), FileUnit.G.Description());
             if (_size >= 1024 * 1024)
                 return string.Format("{0} {1}", GetSizeByM(), FileUnit.M.Description());
             if (_size >= 1024)

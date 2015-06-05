@@ -5,7 +5,8 @@ using System.Linq.Expressions;
 using System.Reflection;
 using DynamicExpression = CAF.Lambdas.Dynamics.DynamicExpression;
 
-namespace CAF.Utility {
+namespace CAF.Lambdas
+{
     /// <summary>
     /// Lambda表达式操作
     /// </summary>

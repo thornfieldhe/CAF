@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CAF.Validations.DataAnnotations {
+namespace CAF.Utility.Validations.DataAnnotations {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace CAF.Validations.DataAnnotations {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CAF.Validations.DataAnnotations.ValidatorResources", typeof(ValidatorResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CAF.Utility.Validations.DataAnnotations.ValidatorResources", typeof(ValidatorResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

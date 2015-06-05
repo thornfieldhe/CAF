@@ -20,28 +20,9 @@ namespace CAF.Exceptions
         /// 初始化应用程序异常
         /// </summary>
         /// <param name="message">错误消息</param>
-        public Warning(string message)
-            : this(message, "")
-        {
-        }
-
-        /// <summary>
-        /// 初始化应用程序异常
-        /// </summary>
-        /// <param name="message">错误消息</param>
-        /// <param name="code">错误码</param>
-        public Warning(string message, string code)
-            : this(message, code, LogLevel.Warning)
-        {
-        }
-
-        /// <summary>
-        /// 初始化应用程序异常
-        /// </summary>
-        /// <param name="message">错误消息</param>
         /// <param name="code">错误码</param>
         /// <param name="level">日志级别</param>
-        public Warning(string message, string code, LogLevel level)
+        public Warning(string message, string code = "", LogLevel level = LogLevel.Warning)
             : this(message, code, level, null)
         {
         }
@@ -76,9 +57,9 @@ namespace CAF.Exceptions
         public Warning(string message, string code, LogLevel level, Exception exception)
             : base(message ?? "", exception)
         {
-            Code = code;
-            Level = level;
-            _message = GetMessage();
+            this.Code = code;
+            this.Level = level;
+            this._message = this.GetMessage();
         }
 
         /// <summary>
@@ -87,8 +68,8 @@ namespace CAF.Exceptions
         private string GetMessage()
         {
             var result = new StringBuilder();
-            AppendSelfMessage(result);
-            AppendInnerMessage(result, InnerException);
+            this.AppendSelfMessage(result);
+            this.AppendInnerMessage(result, this.InnerException);
             return result.ToString().TrimEnd(Environment.NewLine.ToCharArray());
         }
 
@@ -115,8 +96,8 @@ namespace CAF.Exceptions
                 return;
             }
             result.AppendLine(exception.Message);
-            result.Append(GetData(exception));
-            AppendInnerMessage(result, exception.InnerException);
+            result.Append(this.GetData(exception));
+            this.AppendInnerMessage(result, exception.InnerException);
         }
 
         /// <summary>
@@ -146,9 +127,9 @@ namespace CAF.Exceptions
         {
             get
             {
-                if (Data.Count == 0)
-                    return _message;
-                return _message + Environment.NewLine + GetData(this);
+                if (this.Data.Count == 0)
+                    return this._message;
+                return this._message + Environment.NewLine + this.GetData(this);
             }
         }
 
@@ -192,9 +173,7 @@ namespace CAF.Exceptions
             {
                 if (!string.IsNullOrWhiteSpace(base.StackTrace))
                     return base.StackTrace;
-                if (base.InnerException == null)
-                    return string.Empty;
-                return base.InnerException.StackTrace;
+                return this.InnerException == null ? string.Empty : this.InnerException.StackTrace;
             }
         }
 
@@ -208,7 +187,7 @@ namespace CAF.Exceptions
         /// <param name="log">日志组件</param>
         public void WriteLog(ILog log)
         {
-            switch (Level)
+            switch (this.Level)
             {
                 case LogLevel.Debug:
                     log.Debug();
@@ -255,11 +234,11 @@ namespace CAF.Exceptions
         /// </summary>
         public string GetPrompt()
         {
-            if (Level == LogLevel.Debug)
+            if (this.Level == LogLevel.Debug)
                 return R.SystemError;
-            if (Level == LogLevel.Error)
+            if (this.Level == LogLevel.Error)
                 return R.SystemError;
-            return Message;
+            return this.Message;
         }
 
         /// <summary>

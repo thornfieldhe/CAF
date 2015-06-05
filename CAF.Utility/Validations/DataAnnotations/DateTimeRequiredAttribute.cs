@@ -1,13 +1,12 @@
 ﻿
 namespace System.ComponentModel.DataAnnotations
 {
-    using CAF;
-    using CAF.Validations.DataAnnotations;
+    using CAF.Utility.Validations.DataAnnotations;
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class GuidRequiredAttribute : DataTypeAttribute
+    public class DateTimeRequiredAttribute : DataTypeAttribute
     {
-        public GuidRequiredAttribute()
+        public DateTimeRequiredAttribute()
             : base(DataType.Date)
         {
         }
@@ -24,7 +23,11 @@ namespace System.ComponentModel.DataAnnotations
 
         public override bool IsValid(object value)
         {
-            return value == null || Convert.ToString(value).ToGuid().IsEmpty();
+            if (value == null) return true;
+
+            DateTime retDate;
+
+            return DateTime.TryParse(Convert.ToString(value), out retDate);
         }
     }
 }

@@ -87,9 +87,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Domains\Validations\CustomerEnglishNameValidationRule.cs" />
     <Compile Include="Domains\Validations\NothingValidationHandler.cs" />
     <Compile Include="Domains\Validations\ValidateTest.cs" />
+    <Compile Include="Domains\WarningTest.cs" />
     <Compile Include="Samples\Customer.cs" />
     <Compile Include="Utility\Lambdas\ExpressionBuilderTest.cs" />
     <Compile Include="Utility\Lambdas\ExpressionTest.cs" />

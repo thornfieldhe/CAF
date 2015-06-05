@@ -88,48 +88,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Logs\Formats\BusinessFormatter.cs" />
-    <Compile Include="Logs\Formats\CaptionFormatter.cs" />
-    <Compile Include="Logs\Formats\ClassFormatter.cs" />
-    <Compile Include="Logs\Formats\ContentFormatter.cs" />
-    <Compile Include="Logs\Formats\ErrorFormatter.cs" />
-    <Compile Include="Logs\Formats\FormatterBase.cs" />
-    <Compile Include="Logs\Formats\IpFormatter.cs" />
-    <Compile Include="Logs\Formats\LogMessageFormatter.cs" />
-    <Compile Include="Logs\Formats\SqlFormatter.cs" />
-    <Compile Include="Logs\Formats\SqlParamsFormatter.cs" />
-    <Compile Include="Logs\Formats\StackTraceFormatter.cs" />
-    <Compile Include="Logs\Formats\TitleFormatter.cs" />
-    <Compile Include="Logs\Formats\UrlFormatter.cs" />
-    <Compile Include="Logs\Formats\UserFormatter.cs" />
-    <Compile Include="Logs\ILog.cs" />
-    <Compile Include="Logs\LogLevel.cs" />
-    <Compile Include="Logs\LogMessage.cs" />
     <Compile Include="ObjectBusiness\BaseEntity.Base.cs" />
     <Compile Include="ObjectBusiness\BaseEntity.cs" />
     <Compile Include="ObjectBusiness\IEntityBase.cs" />
     <Compile Include="ObjectBusiness\StatusDescription.cs" />
-    <Compile Include="Validations\DataAnnotations\DateTimeRequiredAttribute.cs" />
-    <Compile Include="Validations\DataAnnotations\GuidRequiredAttribute.cs" />
-    <Compile Include="Validations\DataAnnotations\EqualToAttribute.cs" />
-    <Compile Include="Validations\DataAnnotations\IntegerAttribute.cs" />
-    <Compile Include="Validations\DataAnnotations\MaxAttribute.cs" />
-    <Compile Include="Validations\DataAnnotations\MinAttribute.cs" />
-    <Compile Include="Validations\DataAnnotations\MobilePhoneAttribute.cs" />
-    <Compile Include="Validations\DataAnnotations\ValidatorResources.Designer.cs">
-      <DependentUpon>ValidatorResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Validations\EmptyErrorValidateionRule.cs" />
-    <Compile Include="Validations\IValidation.cs" />
-    <Compile Include="Validations\IValidationHandler.cs" />
-    <Compile Include="Validations\IValidationRule.cs" />
-    <Compile Include="Validations\Validation.cs" />
-    <Compile Include="Validations\Validation2.cs" />
-    <Compile Include="Validations\ValidationFactory.cs" />
-    <Compile Include="Validations\ValidationHandler.cs" />
-    <Compile Include="Validations\ValidationResultCollection.cs" />
     <Compile Include="未整理\CAFException.cs" />
     <Compile Include="未整理\CAFLogging.cs" />
     <Compile Include="未整理\Tests\Test.cs" />
@@ -204,12 +166,6 @@
       <Project>{adf4fdbb-1377-4d72-8356-e61db18ab1b5}</Project>
       <Name>CAF.Utility</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Validations\DataAnnotations\ValidatorResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ValidatorResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CAF.Utility
+namespace CAF.Files
 {
     /// <summary>
     /// 文件及流操作 - 流操作

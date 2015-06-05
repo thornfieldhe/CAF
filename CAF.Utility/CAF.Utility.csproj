@@ -69,18 +69,55 @@
     <Compile Include="ChinaDate.cs" />
     <Compile Include="Compress\GZip.cs" />
     <Compile Include="Compress\ICompress.cs" />
+    <Compile Include="Exceptions\ConcurrencyException.cs" />
+    <Compile Include="Exceptions\Warning.cs" />
     <Compile Include="KeyValueItem.cs" />
+    <Compile Include="Logs\Formats\BusinessFormatter.cs" />
+    <Compile Include="Logs\Formats\CaptionFormatter.cs" />
+    <Compile Include="Logs\Formats\ClassFormatter.cs" />
+    <Compile Include="Logs\Formats\ContentFormatter.cs" />
+    <Compile Include="Logs\Formats\ErrorFormatter.cs" />
+    <Compile Include="Logs\Formats\FormatterBase.cs" />
+    <Compile Include="Logs\Formats\IpFormatter.cs" />
+    <Compile Include="Logs\Formats\LogMessageFormatter.cs" />
+    <Compile Include="Logs\Formats\SqlFormatter.cs" />
+    <Compile Include="Logs\Formats\SqlParamsFormatter.cs" />
+    <Compile Include="Logs\Formats\StackTraceFormatter.cs" />
+    <Compile Include="Logs\Formats\TitleFormatter.cs" />
+    <Compile Include="Logs\Formats\UrlFormatter.cs" />
+    <Compile Include="Logs\Formats\UserFormatter.cs" />
+    <Compile Include="Logs\ILog.cs" />
+    <Compile Include="Logs\LogLevel.cs" />
+    <Compile Include="Logs\LogMessage.cs" />
     <Compile Include="String\Const.cs" />
     <Compile Include="Fluent\Fluent.cs" />
     <Compile Include="Fluent\FluentInterface.cs" />
     <Compile Include="Specification\Specifications.cs" />
+    <Compile Include="Validations\DataAnnotations\DateTimeRequiredAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\EqualToAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\GuidRequiredAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\IntegerAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\MaxAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\MinAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\MobilePhoneAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\ValidatorResources.Designer.cs">
+      <DependentUpon>ValidatorResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Validations\EmptyErrorValidateionRule.cs" />
+    <Compile Include="Validations\IValidation.cs" />
+    <Compile Include="Validations\IValidationHandler.cs" />
+    <Compile Include="Validations\IValidationRule.cs" />
+    <Compile Include="Validations\Validation.cs" />
+    <Compile Include="Validations\Validation2.cs" />
+    <Compile Include="Validations\ValidationHandler.cs" />
+    <Compile Include="Validations\ValidationResultCollection.cs" />
     <Compile Include="未整理\Validation\StringReg.cs" />
     <Compile Include="未整理\Time.cs" />
     <Compile Include="未整理\Config.cs" />
     <Compile Include="Encrypt.cs" />
     <Compile Include="Enum.cs" />
-    <Compile Include="未整理\Exceptions\ConcurrencyException.cs" />
-    <Compile Include="未整理\Exceptions\Warning.cs" />
     <Compile Include="Extensions\Extensions.Char.cs" />
     <Compile Include="Extensions\Extensions.Converts.cs" />
     <Compile Include="Extensions\Extensions.DateTime.cs" />
@@ -128,23 +165,6 @@
     <Compile Include="Lambdas\Dynamics\Signature.cs" />
     <Compile Include="Lambdas\ExpressionBuilder.cs" />
     <Compile Include="Lambdas\ParameterRebinder.cs" />
-    <Compile Include="未整理\Logs\Formats\BusinessFormatter.cs" />
-    <Compile Include="未整理\Logs\Formats\CaptionFormatter.cs" />
-    <Compile Include="未整理\Logs\Formats\ClassFormatter.cs" />
-    <Compile Include="未整理\Logs\Formats\ContentFormatter.cs" />
-    <Compile Include="未整理\Logs\Formats\ErrorFormatter.cs" />
-    <Compile Include="未整理\Logs\Formats\FormatterBase.cs" />
-    <Compile Include="未整理\Logs\Formats\IpFormatter.cs" />
-    <Compile Include="未整理\Logs\Formats\LogMessageFormatter.cs" />
-    <Compile Include="未整理\Logs\Formats\SqlFormatter.cs" />
-    <Compile Include="未整理\Logs\Formats\SqlParamsFormatter.cs" />
-    <Compile Include="未整理\Logs\Formats\StackTraceFormatter.cs" />
-    <Compile Include="未整理\Logs\Formats\TitleFormatter.cs" />
-    <Compile Include="未整理\Logs\Formats\UrlFormatter.cs" />
-    <Compile Include="未整理\Logs\Formats\UserFormatter.cs" />
-    <Compile Include="未整理\Logs\ILog.cs" />
-    <Compile Include="未整理\Logs\LogLevel.cs" />
-    <Compile Include="未整理\Logs\LogMessage.cs" />
     <Compile Include="Lambdas\Operator.cs" />
     <Compile Include="OrderByAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -172,6 +192,10 @@
     <EmbeddedResource Include="R.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>R.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Validations\DataAnnotations\ValidatorResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidatorResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -2,8 +2,10 @@
 using System.IO;
 using System.Text;
 
-namespace CAF.Utility
+namespace CAF.Files
 {
+    using CAF.Utility;
+
     /// <summary>
     /// 文件及流操作 - 流类型转换
     /// </summary>

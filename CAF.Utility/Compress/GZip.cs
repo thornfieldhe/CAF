@@ -3,7 +3,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Text;
 
-namespace CAF.Utility.Compress
+namespace CAF.Compress
 {
     /// <summary>
     /// GZip压缩
@@ -80,7 +80,7 @@ namespace CAF.Utility.Compress
         {
             if (stream == null || stream.Length == 0)
                 return null;
-            return Compress(CAF.Utility.File.StreamToBytes(stream));
+            return Compress(CAF.Files.File.StreamToBytes(stream));
         }
 
         /// <summary>

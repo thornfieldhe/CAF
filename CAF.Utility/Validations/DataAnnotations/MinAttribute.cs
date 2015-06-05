@@ -2,7 +2,7 @@
 
 namespace System.ComponentModel.DataAnnotations
 {
-    using CAF.Validations.DataAnnotations;
+    using CAF.Utility.Validations.DataAnnotations;
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class MinAttribute : DataTypeAttribute

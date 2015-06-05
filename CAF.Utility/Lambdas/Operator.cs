@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 
-namespace CAF.Utility {
+namespace CAF.Lambdas
+{
     /// <summary>
     /// 操作符
     /// </summary>

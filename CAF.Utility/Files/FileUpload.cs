@@ -2,13 +2,11 @@
 using System.IO;
 using System.Web;
 
-namespace CAF.Utility
+namespace CAF.Files
 {
-    using System.Drawing;
-    using System.Linq;
-
     using CAF.Images;
     using CAF.Webs;
+    using System.Linq;
 
     /// <summary>
     /// 文件上传操作

@@ -1,4 +1,5 @@
-﻿using CAF.Utility;
+﻿using CAF.Files;
+using CAF.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CAF.Tests.Files {

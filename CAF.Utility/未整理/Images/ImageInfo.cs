@@ -1,6 +1,7 @@
 ﻿
 using CAF.Utility;
 namespace CAF.Images {
+    using CAF.Files;
     using System.Drawing;
 
     /// <summary>
@@ -12,7 +13,7 @@ namespace CAF.Images {
         /// </summary>
         private ImageInfo( string filePath, byte[] fileBytes, long? fileSize, int width, int height, string fileName )
             : base( filePath, fileBytes, fileSize, fileName ) {
-            Size = new Size( width, height );
+            this.Size = new Files.Size( width, height );
         }
 
         /// <summary>
@@ -42,6 +43,6 @@ namespace CAF.Images {
         /// <summary>
         /// 尺寸
         /// </summary>
-        public Size Size { get; private set; }
+        public Files.Size Size { get; private set; }
     }
 }

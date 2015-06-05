@@ -224,7 +224,7 @@ namespace CAF.Webs
         /// <param name="encoding">字符编码</param>
         public static void DownloadFile(string filePath, string fileName, Encoding encoding)
         {
-            var bytes =File.ReadToBytes(filePath);
+            var bytes =Files.File.ReadToBytes(filePath);
             Download(bytes, fileName, encoding);
         }
 
@@ -277,7 +277,7 @@ namespace CAF.Webs
         /// <param name="encoding">字符编码</param>
         public static void Download(string text, string fileName, Encoding encoding)
         {
-            var bytes = File.StringToBytes(text, encoding);
+            var bytes = Files.File.StringToBytes(text, encoding);
             Download(bytes, fileName, encoding);
         }
 
@@ -299,7 +299,7 @@ namespace CAF.Webs
         /// <param name="encoding">字符编码</param>
         public static void Download(Stream stream, string fileName, Encoding encoding)
         {
-            Download(File.StreamToBytes(stream), fileName, encoding);
+            Download(Files.File.StreamToBytes(stream), fileName, encoding);
         }
 
         /// <summary>

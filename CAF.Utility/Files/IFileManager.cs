@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CAF.Utility
+namespace CAF.Files
 {
     /// <summary>
     /// 文件管理器

@@ -1,14 +1,17 @@
-﻿namespace CAF.Utility {
+﻿namespace CAF.Files
+{
     /// <summary>
     /// 尺寸
     /// </summary>
-    public struct Size {
+    public struct Size
+    {
         /// <summary>
         /// 初始化尺寸
         /// </summary>
         /// <param name="width">宽度</param>
         /// <param name="height">高度</param>
-        public Size( int width, int height ) {
+        public Size(int width, int height)
+        {
             _width = width;
             _height = height;
         }

@@ -1,4 +1,4 @@
-﻿namespace CAF.Utility.Files
+﻿namespace CAF.Files
 {
     /// <summary>
     /// 默认上传路径策略

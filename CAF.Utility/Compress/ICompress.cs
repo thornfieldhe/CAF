@@ -1,4 +1,4 @@
-﻿namespace CAF.Utility.Compress
+﻿namespace CAF.Compress
 {
     /// <summary>
     /// 压缩

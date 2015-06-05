@@ -17,7 +17,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestStringToBytes_Null() {
-            Assert.AreEqual( 0, CAF.Utility.File.StringToBytes( null ).Count() );
+            Assert.AreEqual( 0, CAF.Files.File.StringToBytes( null ).Count() );
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestStringToBytes_Empty() {
-            Assert.AreEqual( 0, CAF.Utility.File.StringToBytes( " " ).Count() );
+            Assert.AreEqual( 0, CAF.Files.File.StringToBytes( " " ).Count() );
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestStringToBytes() {
-            var result = CAF.Utility.File.StringToBytes( "ab" );
+            var result = CAF.Files.File.StringToBytes( "ab" );
             Assert.AreEqual( 97, result[0] );
             Assert.AreEqual( 98, result[1] );
         }
@@ -43,7 +43,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestStringToBytes_Encoding() {
-            var result = CAF.Utility.File.StringToBytes( "ab", Encoding.GetEncoding( "utf-8" ) );
+            var result = CAF.Files.File.StringToBytes( "ab", Encoding.GetEncoding( "utf-8" ) );
             Assert.AreEqual( 97, result[0] );
             Assert.AreEqual( 98, result[1] );
         }
@@ -57,7 +57,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestBytesToString_Null() {
-            Assert.AreEqual( string.Empty, CAF.Utility.File.BytesToString( null ) );
+            Assert.AreEqual( string.Empty, CAF.Files.File.BytesToString( null ) );
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestBytesToString_Empty() {
-            Assert.AreEqual( string.Empty, CAF.Utility.File.BytesToString( new byte[] { } ) );
+            Assert.AreEqual( string.Empty, CAF.Files.File.BytesToString( new byte[] { } ) );
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestBytesToString() {
-            var result = CAF.Utility.File.BytesToString( new byte[] { 97, 98 } );
+            var result = CAF.Files.File.BytesToString( new byte[] { 97, 98 } );
             Assert.AreEqual( "ab", result );
         }
 
@@ -82,7 +82,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestBytesToString_Encoding() {
-            var result = CAF.Utility.File.BytesToString( new byte[] { 97, 98 }, Encoding.GetEncoding( "utf-8" ) );
+            var result = CAF.Files.File.BytesToString( new byte[] { 97, 98 }, Encoding.GetEncoding( "utf-8" ) );
             Assert.AreEqual( "ab", result );
         }
 
@@ -95,7 +95,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestStreamToString_Null() {
-            Assert.AreEqual( string.Empty, CAF.Utility.File.StreamToString( null ) );
+            Assert.AreEqual( string.Empty, CAF.Files.File.StreamToString( null ) );
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace CAF.Tests.Files {
         [TestMethod]
         public void TestStreamToString() {
             using ( var stream = new MemoryStream( new byte[] { 97, 98 } ) ) {
-                Assert.AreEqual( "ab", CAF.Utility.File.StreamToString( stream ) );
+                Assert.AreEqual( "ab", CAF.Files.File.StreamToString( stream ) );
             }
         }
 
@@ -114,7 +114,7 @@ namespace CAF.Tests.Files {
         [TestMethod]
         public void TestStreamToString_Encoding() {
             using ( var stream = new MemoryStream( new byte[] { 97, 98 } ) ) {
-                Assert.AreEqual( "ab", CAF.Utility.File.StreamToString( stream, Encoding.GetEncoding( "utf-8" ) ) );
+                Assert.AreEqual( "ab", CAF.Files.File.StreamToString( stream, Encoding.GetEncoding( "utf-8" ) ) );
             }
         }
 
@@ -127,7 +127,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestStringToStream_Null() {
-            Assert.AreEqual( Stream.Null, CAF.Utility.File.StringToStream( null ) );
+            Assert.AreEqual( Stream.Null, CAF.Files.File.StringToStream( null ) );
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestStringToStream_Empty() {
-            Assert.AreEqual( Stream.Null, CAF.Utility.File.StringToStream( " " ) );
+            Assert.AreEqual( Stream.Null, CAF.Files.File.StringToStream( " " ) );
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestStringToStream() {
-            var result = CAF.Utility.File.StringToStream( "ab" );
+            var result = CAF.Files.File.StringToStream( "ab" );
             byte[] bytes = new byte[2];
             result.Read( bytes, 0, 2 );
             Assert.AreEqual( 97, bytes[0] );
@@ -155,7 +155,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestStringToStream_Encoding() {
-            var result = CAF.Utility.File.StringToStream( "ab", Encoding.GetEncoding( "utf-8" ) );
+            var result = CAF.Files.File.StringToStream( "ab", Encoding.GetEncoding( "utf-8" ) );
             byte[] bytes = new byte[2];
             result.Read( bytes, 0, 2 );
             Assert.AreEqual( 97, bytes[0] );
@@ -171,7 +171,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestBytesToInt_Null() {
-            Assert.AreEqual( 0, CAF.Utility.File.BytesToInt( null ) );
+            Assert.AreEqual( 0, CAF.Files.File.BytesToInt( null ) );
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestBytesToInt_Empty() {
-            Assert.AreEqual( 0, CAF.Utility.File.BytesToInt( new byte[] { } ) );
+            Assert.AreEqual( 0, CAF.Files.File.BytesToInt( new byte[] { } ) );
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod]
         public void TestBytesToInt_Invalid() {
-            Assert.AreEqual( 0, CAF.Utility.File.BytesToInt( new byte[] { 0, 1, 3 } ) );
+            Assert.AreEqual( 0, CAF.Files.File.BytesToInt( new byte[] { 0, 1, 3 } ) );
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace CAF.Tests.Files {
         ///</summary>
         [TestMethod()]
         public void TestBytesToInt() {
-            Assert.AreEqual( 256, CAF.Utility.File.BytesToInt( new byte[] { 0, 1, 0, 0 } ) );
+            Assert.AreEqual( 256, CAF.Files.File.BytesToInt( new byte[] { 0, 1, 0, 0 } ) );
         }
 
         #endregion
@@ -208,8 +208,8 @@ namespace CAF.Tests.Files {
         [TestMethod]
         public void TestStreamToBytes() {
             using( var stream = new MemoryStream( new byte[] {97, 98} ) ) {
-                Assert.AreEqual( 97, CAF.Utility.File.StreamToBytes( stream )[0] );
-                Assert.AreEqual( 98, CAF.Utility.File.StreamToBytes( stream )[1] );
+                Assert.AreEqual( 97, CAF.Files.File.StreamToBytes( stream )[0] );
+                Assert.AreEqual( 98, CAF.Files.File.StreamToBytes( stream )[1] );
             }
         }
 

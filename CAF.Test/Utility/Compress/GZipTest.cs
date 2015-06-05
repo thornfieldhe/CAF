@@ -1,5 +1,5 @@
 ﻿using System;
-using CAF.Utility.Compress;
+using CAF.Compress;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -32,7 +32,7 @@ namespace CAF.Tests.Compress {
         /// </summary>
         [TestMethod]
         public void Test_Bytes() {
-            var buffer = CAF.Utility.File.StringToBytes( Text );
+            var buffer = CAF.Files.File.StringToBytes( Text );
             var compressBuffer = GZip.Compress(buffer);
             var result = GZip.Decompress( compressBuffer );
             Assert.AreEqual( buffer.Length, result.Length );
@@ -46,7 +46,7 @@ namespace CAF.Tests.Compress {
         /// </summary>
         [TestMethod]
         public void Test_Stream() {
-            var buffer = CAF.Utility.File.StringToBytes( Text );
+            var buffer = CAF.Files.File.StringToBytes( Text );
             Stream stream = new MemoryStream( buffer );
             var compressStream = GZip.Compress( stream );
             var result = GZip.Decompress( compressStream );

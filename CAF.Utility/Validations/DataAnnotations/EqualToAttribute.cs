@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace System.ComponentModel.DataAnnotations
 {
-    using CAF.Validations.DataAnnotations;
+    using CAF.Utility.Validations.DataAnnotations;
 
     /// <summary>
     /// Validates that the property has the same value as the given 'otherProperty' 

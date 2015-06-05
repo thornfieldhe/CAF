@@ -2,9 +2,11 @@
 using System.IO;
 using System.Text;
 
-namespace CAF.Utility
+namespace CAF.Files
 {
     using System.Text.RegularExpressions;
+
+    using CAF.Utility;
 
     /// <summary>
     /// 文件信息

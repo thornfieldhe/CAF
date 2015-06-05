@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CAF.Tests.Lambdas {
     using CAF;
+    using CAF.Lambdas;
     using CAF.Tests.Samples;
     using CAF.Utility;
 

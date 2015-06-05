@@ -1,4 +1,4 @@
-﻿namespace CAF.Utility
+﻿namespace CAF.Files
 {
     /// <summary>
     /// 文件及流操作 - 文件路径操作
