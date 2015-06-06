@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace CAF
 {
+    /// <summary>
+    /// 确保是业务类
+    /// </summary>
     public interface IEntityBase
     {
+
     }
 }

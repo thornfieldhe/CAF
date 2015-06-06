@@ -157,12 +157,12 @@ namespace CAF.Web
         /// 获取用户所有目录列表
         /// </summary>
         /// <returns></returns>
-        private void GetDirLevels(List<KeyValueItem<Guid, string>> dirs)
+        private void GetDirLevels(List<Kuple<Guid, string>> dirs)
         {
             this.dirLevels = new List<string>();
             foreach (var item in dirs)
             {
-                this.dirLevels.AddRange(this.GetEachLevel(item.Value));
+                this.dirLevels.AddRange(this.GetEachLevel(item.Value1));
             }
             this.dirLevels = this.dirLevels.Distinct().ToList();
         }

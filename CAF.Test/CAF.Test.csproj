@@ -128,6 +128,7 @@
     <Compile Include="Utility\FluentTest.cs" />
     <Compile Include="Utility\SpecificationTest.cs" />
     <Compile Include="Utility\RandomsTest.cs" />
+    <Compile Include="Utility\MapperTest.cs" />
     <Compile Include="Utility\ValidateionTest.cs" />
   </ItemGroup>
   <ItemGroup>

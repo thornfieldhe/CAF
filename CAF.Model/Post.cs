@@ -9,12 +9,12 @@ namespace CAF.Model
 
     public partial class Post
     {
-        public static List<KeyValueItem<Guid, string>> GetSimpleRoleList()
+        public static List<Kuple<Guid, string>> GetSimpleRoleList()
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
                 const string query = "Select Id as [Key],Name as [Value] From Sys_Posts Where Status<>-1";
-                return conn.Query<KeyValueItem<Guid, string>>(query, null).ToList();
+                return conn.Query<Kuple<Guid, string>>(query).ToList();
             }
         }
     }

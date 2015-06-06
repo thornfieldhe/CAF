@@ -1,91 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Reflection;
+using System.Linq;
 
-namespace CAF.Data
+namespace CAF
 {
-    using System.Linq;
+    using System.Data;
+    using System.Reflection;
 
-    public static class DataMap
+    /// <summary>
+    /// 自定义映射
+    /// 包括字典到实体
+    /// 包括实体到DataTable
+    /// </summary>
+    /// <typeparam name="TSource"></typeparam>
+    /// <typeparam name="TDestination"></typeparam>
+    public static class Mapper2
     {
-        public static K Map<T, K>(T source)
-            where T : class
-            where K : class
+
+
+        public static TDestination Map<TDestination>(IDictionary<string, string> source, TDestination target) where TDestination : class
         {
-            var t = typeof(T);
-            var k = typeof(K);
-            //K target = Activator.CreateInstance<K>();
+            var k = typeof(TDestination);
             if (source == null)
             {
                 return null;
             }
-            var target = (K)Activator.CreateInstance(k, true);
-            foreach (var info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(info => k.GetProperty(info.Name) != null && k.GetProperty(info.Name).CanWrite && info.CanWrite && info.Name != "Item")) {
-                k.GetProperty(info.Name).SetValue(target, info.GetValue(source, null), BindingFlags.NonPublic | BindingFlags.Public, null, null, null);
-                //            myFieldInfo.SetValue(myObject, "New value", BindingFlags.Public, null, null);
-            }
-            return target;
-        }
-
-        public static K Map<T, K>(T source, K target)
-            where T : class
-            where K : class
-        {
-            var t = typeof(T);
-            var k = typeof(K);
-            if (source == null)
+            foreach (var item in source.Where(item => k.GetProperty(item.Key) != null && k.GetProperty(item.Key).CanWrite))
             {
-                return null;
-            }
-            if (target==null)
-            {
-                target = (K)Activator.CreateInstance(k, true);
-            }
-            foreach (var info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.NonPublic).Where(info => k.GetProperty(info.Name) != null && k.GetProperty(info.Name).CanWrite && info.CanWrite && info.Name != "Item")) {
-                k.GetProperty(info.Name).SetValue(target, info.GetValue(source, null), BindingFlags.NonPublic | BindingFlags.Public, null, null, null);
-                //            myFieldInfo.SetValue(myObject, "New value", BindingFlags.Public, null, null);
-            }
-            return target;
-        }
-
-        public static List<K> Map<T, K>(List<T> sources)
-            where T : class
-            where K : class
-        {
-            var targets = new List<K>();
-            if (sources == null)
-            {
-                return targets;
-            }
-            foreach (var source in sources)
-            {
-                var t = typeof(T);
-                var k = typeof(K);
-                //K target = Activator.CreateInstance<K>();
-                var target = (K)Activator.CreateInstance(k, true);
-                foreach (var info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(info => k.GetProperty(info.Name) != null && k.GetProperty(info.Name).CanWrite && info.Name != "Item")) {
-                    k.GetProperty(info.Name).SetValue(target, info.GetValue(source, null), BindingFlags.NonPublic | BindingFlags.Public, null, null, null);
-                }
-                targets.Add(target);
-            }
-            return targets;
-        }
-
-        public static K Map<K>(IDictionary<string, string> source, K target) where K : class
-        {
-            var k = typeof(K);
-            if (source == null)
-            {
-                return null;
-            }
-            foreach (var item in source.Where(item => k.GetProperty(item.Key) != null && k.GetProperty(item.Key).CanWrite)) {
                 k.GetProperty(item.Key).SetValue(target, GetType(k.GetProperty(item.Key), item.Value), BindingFlags.NonPublic | BindingFlags.Public, null, null, null);
             }
             return target;
         }
 
-        public static DataTable Map<T>(IEnumerable<T> sourcelist)
+        public static DataTable Map<TSource>(IEnumerable<TSource> sourcelist) where TSource : class
         {
             var dtReturn = new DataTable();
 
@@ -141,7 +88,9 @@ namespace CAF.Data
                 }
                 else if (Info.PropertyType == typeof(int) || Info.PropertyType == typeof(int?))
                 {
-                    switch (val.ToLower()) { case "true":
+                    switch (val.ToLower())
+                    {
+                        case "true":
                             val = "1";
                             break;
                         case "false":
@@ -203,5 +152,6 @@ namespace CAF.Data
         {
             return obj == null ? "" : obj.ToString();
         }
+
     }
 }

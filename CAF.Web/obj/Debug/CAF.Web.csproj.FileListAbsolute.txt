@@ -152,3 +152,5 @@ D:\WorkStation\CAF\CAF.Web\bin\AutoMapper.xml
 D:\WorkStation\CAF\CAF.Web\bin\AutoMapper.Net4.pdb
 D:\WorkStation\CAF\CAF.Web\bin\CAF.Utility.dll
 D:\WorkStation\CAF\CAF.Web\bin\CAF.Utility.pdb
+D:\WorkStation\CAF\CAF.Web\bin\Microsoft.Practices.EnterpriseLibrary.Validation.dll
+D:\WorkStation\CAF\CAF.Web\bin\Microsoft.Practices.EnterpriseLibrary.Validation.xml

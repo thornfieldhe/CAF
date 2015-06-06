@@ -5,7 +5,7 @@ namespace CAF.ObjectBusiness
     /// <summary>
     /// 要输出实体的状态
     /// </summary>
-    public abstract class StatusDescription
+    public abstract class StatusDescription : IEntityBase
     {
         /// <summary>
         /// 描述

@@ -40,6 +40,10 @@ namespace CAF
         public DateTime ChangedDate { get { return this._changedDate; } protected set { this.SetProperty("ChangedDate", ref this._changedDate, value); } }
         public string Note { get { return this._note; } set { this.SetProperty("Note", ref this._note, value); } }
 
+        /// <summary>
+        /// 版本号(乐观锁)
+        /// </summary>
+        byte[] Version { get; set; }
         public string TableName { get; protected set; }
 
         public string[] SkipedProperties { get; private set; }

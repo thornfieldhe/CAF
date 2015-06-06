@@ -69,7 +69,7 @@ namespace CAF.Model
             }
         }
 
-        public static List<KeyValueItem<Guid, string>> GetDirectories(Guid userId)
+        public static List<Kuple<Guid, string>> GetDirectories(Guid userId)
         {
             const string query = @"select distinct t1.Id as UserId,t5.Id as [Key],t5.Level as Value from Sys_Users t1 inner join Sys_R_User_Role t2 on t1.Id=t2.UserId
                                 inner join Sys_Roles t3 on t2.RoleId=t3.Id
@@ -80,7 +80,7 @@ namespace CAF.Model
 
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                return conn.Query<KeyValueItem<Guid, string>>(query, new { Id = userId }).ToList();
+                return conn.Query<Kuple<Guid, string>>(query, new { Id = userId }).ToList();
             }
         }
     }

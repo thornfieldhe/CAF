@@ -8,7 +8,7 @@ namespace CAF
 
 
     public abstract partial class BaseEntity<T> : StatusDescription, IEqualityComparer<T>, IBusinessBase, IComparable<IBusinessBase>,
-        IBaseStatus, CAF.ObjectBusiness.IValidationEntity where T : class,IBusinessBase
+        IBaseStatus, IValidationEntity where T : class,IBusinessBase
     {
         #region 属性验证
 

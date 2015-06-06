@@ -6,11 +6,13 @@ namespace CAF
     using CAF.Validations;
     using System.Collections.Generic;
 
+    using CAF.ObjectBusiness;
+
     /// <summary>
     /// 值对象
     /// </summary>
     /// <typeparam name="TValueObject">值对象类型</typeparam>
-    public abstract class ValueObjectBase<TValueObject> : IEquatable<TValueObject> where TValueObject : ValueObjectBase<TValueObject>
+    public abstract class ValueObjectBase<TValueObject> :StatusDescription, IEquatable<TValueObject> where TValueObject : ValueObjectBase<TValueObject>
     {
 
         #region 属性验证

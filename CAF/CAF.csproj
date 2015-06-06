@@ -82,6 +82,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mapper\IMapper.cs" />
+    <Compile Include="Mapper\IMapper`.cs" />
+    <Compile Include="Mapper\Mapper2.cs" />
     <Compile Include="ObjectBusiness\BaseEntity.Base.cs" />
     <Compile Include="ObjectBusiness\BaseEntity.cs" />
     <Compile Include="ObjectBusiness\IEntityBase.cs" />
@@ -113,7 +116,7 @@
     <Compile Include="未整理\CoRHandlerBase.cs" />
     <Compile Include="未整理\Data\BussinessEntityBase.cs" />
     <Compile Include="未整理\Data\Dapper.cs" />
-    <Compile Include="未整理\Data\DataMap.cs" />
+    <Compile Include="Mapper\Mapper.cs" />
     <Compile Include="未整理\Data\DbPropertyAttribute.cs" />
     <Compile Include="未整理\Data\SqlDataPortal.cs" />
     <Compile Include="未整理\LinqExt.cs" />

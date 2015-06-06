@@ -31,7 +31,7 @@ namespace CAF.Web.WebForm.Common
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("txt", ""));
                     if (Info != null)
                     {
-                        ctrl.Text = DataMap.GetStr(Info.GetValue(model, null));
+                        ctrl.Text = Mapper2.GetStr(Info.GetValue(model, null));
                     }
                 }
                 if (item is Label)
@@ -40,62 +40,62 @@ namespace CAF.Web.WebForm.Common
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("lbl", ""));
                     if (Info != null)
                     {
-                        ctrl.Text = DataMap.GetStr(Info.GetValue(model, null));
+                        ctrl.Text = Mapper2.GetStr(Info.GetValue(model, null));
                     }
                 }
                 if (item is DropDownList)
                 {
-                    DropDownList ctrl = item as DropDownList;
+                    var ctrl = item as DropDownList;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("drop", ""));
                     if (Info != null)
                     {
-                        ctrl.SelectedValue = DataMap.GetStr(Info.GetValue(model, null));
+                        ctrl.SelectedValue = Mapper2.GetStr(Info.GetValue(model, null));
                     }
                 }
                 if (item is CheckBox)
                 {
-                    CheckBox ctrl = item as CheckBox;
+                    var ctrl = item as CheckBox;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("chk", ""));
                     if (Info != null)
                     {
-                        ctrl.Checked = DataMap.GetStr(Info.GetValue(model, null)) == "False" ||
-                        DataMap.GetStr(Info.GetValue(model, null)) == "0" ? false : true;
+                        ctrl.Checked = Mapper2.GetStr(Info.GetValue(model, null)) != "False"
+                            && Mapper2.GetStr(Info.GetValue(model, null)) != "0";
                     }
                 }
                 if (item is CheckBoxList)
                 {
-                    CheckBoxList ctrl = item as CheckBoxList;
+                    var ctrl = item as CheckBoxList;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("chk", ""));
                     if (Info != null)
                     {
-                        PageTools.CheckBoxList(ctrl, DataMap.GetStr(Info.GetValue(model, null)));
+                        PageTools.CheckBoxList(ctrl, Mapper2.GetStr(Info.GetValue(model, null)));
                     }
                 }
                 if (item is RadioButton)
                 {
-                    RadioButton ctrl = item as RadioButton;
+                    var ctrl = item as RadioButton;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("radio", ""));
                     if (Info != null)
                     {
-                        ctrl.Checked = DataMap.GetStr(Info.GetValue(model, null)) == "-1" ? false : true;
+                        ctrl.Checked = Mapper2.GetStr(Info.GetValue(model, null)) != "-1";
                     }
                 }
                 if (item is RadioButtonList)
                 {
-                    RadioButtonList ctrl = item as RadioButtonList;
+                    var ctrl = item as RadioButtonList;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("radio", ""));
                     if (Info != null)
                     {
-                        ctrl.SelectedValue = DataMap.GetStr(Info.GetValue(model, null));
+                        ctrl.SelectedValue = Mapper2.GetStr(Info.GetValue(model, null));
                     }
                 }
                 if (item is DatePicker)
                 {
-                    DatePicker ctrl = item as DatePicker;
+                    var ctrl = item as DatePicker;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("date", ""));
                     if (Info != null)
                     {
-                        ctrl.Text = (DateTime.Parse(DataMap.GetStr(Info.GetValue(model, null)))).ToString("yyyy-MM-dd");
+                        ctrl.Text = (DateTime.Parse(Mapper2.GetStr(Info.GetValue(model, null)))).ToString("yyyy-MM-dd");
                     }
                 }
             }
@@ -129,7 +129,7 @@ namespace CAF.Web.WebForm.Common
                             && ((Info.Name == "Id" && ctrl.Text.ToGuid() != Guid.Empty)
                             || Info.Name != "Id"))
                         {
-                            Info.SetValue(model, DataMap.GetType(Info, ctrl.Text), null);
+                            Info.SetValue(model, Mapper2.GetType(Info, ctrl.Text), null);
                         }
                     }
                 }
@@ -140,7 +140,7 @@ namespace CAF.Web.WebForm.Common
                     if (Info != null && ctrl.Text != "" && skipProperties(model, Info) &&
                         !(Info.Name == "Id" && String.IsNullOrWhiteSpace(ctrl.Text)))
                     {
-                        Info.SetValue(model, DataMap.GetType(Info, ctrl.Text), null);
+                        Info.SetValue(model, Mapper2.GetType(Info, ctrl.Text), null);
                     }
                 }
                 if (item is DatePicker)
@@ -149,7 +149,7 @@ namespace CAF.Web.WebForm.Common
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("date", ""));
                     if (Info != null && ctrl.Text != "" && skipProperties(model, Info))
                     {
-                        Info.SetValue(model, DataMap.GetType(Info, ctrl.SelectedDate.Value.ToShortDateString()), null);
+                        Info.SetValue(model, Mapper2.GetType(Info, ctrl.SelectedDate.Value.ToShortDateString()), null);
                     }
                 }
                 if (item is DropDownList)
@@ -159,7 +159,7 @@ namespace CAF.Web.WebForm.Common
                     if (Info != null && !String.IsNullOrWhiteSpace(ctrl.SelectedValue)
                         && skipProperties(model, Info))
                     {
-                        Info.SetValue(model, DataMap.GetType(Info, ctrl.SelectedValue), null);
+                        Info.SetValue(model, Mapper2.GetType(Info, ctrl.SelectedValue), null);
                     }
                 }
                 if (item is CheckBox)
@@ -172,15 +172,15 @@ namespace CAF.Web.WebForm.Common
                         {
                             Info.SetValue(model,
                                 Info.PropertyType == typeof(Boolean)
-                                    ? DataMap.GetType(Info, "True")
-                                    : DataMap.GetType(Info, "1"), null);
+                                    ? Mapper2.GetType(Info, "True")
+                                    : Mapper2.GetType(Info, "1"), null);
                         }
                         else
                         {
                             Info.SetValue(model,
                                 Info.PropertyType == typeof(Boolean)
-                                    ? DataMap.GetType(Info, "False")
-                                    : DataMap.GetType(Info, "0"), null);
+                                    ? Mapper2.GetType(Info, "False")
+                                    : Mapper2.GetType(Info, "0"), null);
                         }
                     }
                 }
@@ -190,7 +190,7 @@ namespace CAF.Web.WebForm.Common
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("chk", ""));
                     if (Info != null && skipProperties(model, Info))
                     {
-                        Info.SetValue(model, DataMap.GetType(Info, PageTools.CheckBoxList(ctrl, "")), null);
+                        Info.SetValue(model, Mapper2.GetType(Info, PageTools.CheckBoxList(ctrl, "")), null);
                     }
                 }
                 if (item is RadioButton)
@@ -199,7 +199,7 @@ namespace CAF.Web.WebForm.Common
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("radio", ""));
                     if (Info != null && skipProperties(model, Info))
                     {
-                        Info.SetValue(model, ctrl.Checked ? DataMap.GetType(Info, "1") : DataMap.GetType(Info, "0"),
+                        Info.SetValue(model, ctrl.Checked ? Mapper2.GetType(Info, "1") : Mapper2.GetType(Info, "0"),
                             null);
                     }
                 }
@@ -209,7 +209,7 @@ namespace CAF.Web.WebForm.Common
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("radio", ""));
                     if (Info != null && skipProperties(model, Info))
                     {
-                        Info.SetValue(model, DataMap.GetType(Info, ctrl.SelectedValue), null);
+                        Info.SetValue(model, Mapper2.GetType(Info, ctrl.SelectedValue), null);
                     }
                 }
             }
@@ -237,10 +237,10 @@ namespace CAF.Web.WebForm.Common
         /// <returns></returns>
         public static string CheckBoxList(CheckBoxList chkl, string chklCheck)
         {
-            string temp = "";
+            var temp = "";
             if (chklCheck == "")
             {
-                for (int i = 0; i < chkl.Items.Count; i++)
+                for (var i = 0; i < chkl.Items.Count; i++)
                 {
                     if (chkl.Items[i].Selected)
                     {
@@ -254,7 +254,7 @@ namespace CAF.Web.WebForm.Common
             }
             else
             {
-                for (int j = 0; j < chkl.Items.Count; j++)
+                for (var j = 0; j < chkl.Items.Count; j++)
                 {
                     if (chklCheck.IsInArryString(chkl.Items[j].Value, ','))
                     {
@@ -274,7 +274,7 @@ namespace CAF.Web.WebForm.Common
             {
                 if (item is ControlBase)
                 {
-                    ControlBase ctrl = item as ControlBase;
+                    var ctrl = item as ControlBase;
                     ctrl.Enabled = false;
                 }
             }
@@ -297,37 +297,37 @@ namespace CAF.Web.WebForm.Common
 
                 if (item is RealTextField)
                 {
-                    RealTextField ctrl = item as RealTextField;
+                    var ctrl = item as RealTextField;
                     ctrl.Text = "";
                     ctrl.ClearInvalid();
                 }
                 if (item is Label)
                 {
-                    Label ctrl = item as Label;
+                    var ctrl = item as Label;
                     ctrl.Text = "";
                     ctrl.ClearInvalid();
                 }
                 if (item is DropDownList)
                 {
-                    DropDownList ctrl = item as DropDownList;
+                    var ctrl = item as DropDownList;
                     ctrl.SelectedIndex = 0;
                     ctrl.ClearInvalid();
                 }
                 if (item is Tree)
                 {
-                    Tree ctrl = item as Tree;
+                    var ctrl = item as Tree;
                     ctrl.Nodes.Clear();
                 }
                 if (item is CheckBox)
                 {
-                    CheckBox ctrl = item as CheckBox;
+                    var ctrl = item as CheckBox;
                     ctrl.Checked = false;
                     ctrl.ClearInvalid();
                 }
                 if (item is CheckBoxList)
                 {
-                    CheckBoxList ctrl = item as CheckBoxList;
-                    foreach (CheckItem i in ctrl.Items)
+                    var ctrl = item as CheckBoxList;
+                    foreach (var i in ctrl.Items)
                     {
                         i.Selected = false;
                     }
@@ -335,14 +335,14 @@ namespace CAF.Web.WebForm.Common
                 }
                 if (item is RadioButton)
                 {
-                    RadioButton ctrl = item as RadioButton;
+                    var ctrl = item as RadioButton;
                     ctrl.Checked = false;
                     ctrl.ClearInvalid();
                 }
                 if (item is RadioButtonList)
                 {
-                    RadioButtonList ctrl = item as RadioButtonList;
-                    foreach (RadioItem i in ctrl.Items)
+                    var ctrl = item as RadioButtonList;
+                    foreach (var i in ctrl.Items)
                     {
                         i.Selected = false;
                     }
@@ -357,7 +357,7 @@ namespace CAF.Web.WebForm.Common
             {
                 if (item is Grid)
                 {
-                    Grid ctrl = item as Grid;
+                    var ctrl = item as Grid;
                     ctrl.DataSource = null;
                     ctrl.DataBind();
                 }
@@ -436,14 +436,14 @@ namespace CAF.Web.WebForm.Common
         /// <param name="drop"></param>
         /// <param name="selectItem"></param>
         /// <param name="defaultitemValue"></param>
-        public static void BindDropdownList(List<KeyValueItem<Guid, string>> items, DropDownList drop, string selectItem,
+        public static void BindDropdownList(List<Kuple<Guid, string>> items, DropDownList drop, string selectItem,
             string defaultitemValue = "00000000-0000-0000-0000-000000000000")
         {
 
             drop.Items.Clear();
             var item = new ListItem { Text = "请选择", Value = defaultitemValue };
             drop.Items.Add(item);
-            items.ForEach(i => drop.Items.Add(new ListItem { Text = i.Value, Value = i.Key.ToString() }));
+            items.ForEach(i => drop.Items.Add(new ListItem { Text = i.Value1, Value = i.Key.ToString() }));
             drop.SelectedValue = selectItem;
         }
 
@@ -467,9 +467,9 @@ namespace CAF.Web.WebForm.Common
         /// <returns></returns>
         public static string GenerateRandomCode()
         {
-            string s = String.Empty;
-            Random random = new Random();
-            for (int i = 0; i < 6; i++)
+            var s = String.Empty;
+            var random = new Random();
+            for (var i = 0; i < 6; i++)
             {
                 s += random.Next(10).ToString();
             }

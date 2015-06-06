@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public interface IBusinessBase : IEntityBase, ITableName
+    public interface IBusinessBase :  ITableName
     {
 
         string[] SkipedProperties { get; }

@@ -18,9 +18,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkFlow", "CAF.Workflow\Wo
 		{ED5CE7E2-3513-46B0-8B90-0DFCD043309E} = {ED5CE7E2-3513-46B0-8B90-0DFCD043309E}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CAF.Core", "CAF.Core", "{4FCF5B68-BBDA-4033-BE7B-18B95A94A914}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-CAF.Core", "01-CAF.Core", "{4FCF5B68-BBDA-4033-BE7B-18B95A94A914}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAF.Utility", "CAF.Utility\CAF.Utility.csproj", "{ADF4FDBB-1377-4D72-8356-E61DB18AB1B5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-CAF.Datas", "02-CAF.Datas", "{9FAFC418-E652-4619-A9E4-B4C1482E8614}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,8 +67,8 @@ Global
 		{ADF4FDBB-1377-4D72-8356-E61DB18AB1B5} = {4FCF5B68-BBDA-4033-BE7B-18B95A94A914}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Caching.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Caching.Database.5.0.505.0\lib\NET35
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Validation.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.Database.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Caching.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Caching.Database.5.0.505.0\lib\NET35
 	EndGlobalSection
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true

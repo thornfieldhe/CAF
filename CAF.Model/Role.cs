@@ -15,12 +15,12 @@ namespace CAF.Model
         /// 获取角色列表
         /// </summary>
         /// <returns></returns>
-        public static List<KeyValueItem<Guid, string>> GetSimpleRoleList()
+        public static List<Kuple<Guid, string>> GetSimpleRoleList()
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {
                 const string query = "Select Id as [Key],Name as [Value] From Sys_Roles Where Status<>-1";
-                return conn.Query<KeyValueItem<Guid, string>>(query, null).ToList();
+                return conn.Query<Kuple<Guid, string>>(query, null).ToList();
             }
         }
     }

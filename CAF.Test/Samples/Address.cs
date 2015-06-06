@@ -74,5 +74,6 @@ namespace CAF.Tests.Samples
         [NotMapped]
         public Address Child { get; private set; }
 
+        protected override void AddDescriptions() { throw new System.NotImplementedException(); }
     }
 }
