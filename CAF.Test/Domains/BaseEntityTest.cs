@@ -45,7 +45,6 @@ namespace CAF.Tests.Domains.BaseEntity
             var u1 = new User();
             var r1 = new Role { Name = "r1" };
             u1.Roles.Add(r1);
-            u1.Name = "u1";
             Assert.AreEqual(u1.Roles[0].Name, "r1");
             var u2 = u1.GetShallowCopy();
             u2.Roles[0].Name = "r2";

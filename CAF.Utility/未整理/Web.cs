@@ -8,7 +8,6 @@ namespace CAF.Webs
 {
     using System;
 
-    using CAF.Utility;
 
     /// <summary>
     /// Web操作
@@ -224,7 +223,7 @@ namespace CAF.Webs
         /// <param name="encoding">字符编码</param>
         public static void DownloadFile(string filePath, string fileName, Encoding encoding)
         {
-            var bytes =Files.File.ReadToBytes(filePath);
+            var bytes = Files.File.ReadToBytes(filePath);
             Download(bytes, fileName, encoding);
         }
 
@@ -408,6 +407,18 @@ namespace CAF.Webs
         }
 
         #endregion
+
+        #region 获取根目录下App_Data的路径
+        /// <summary>
+        /// 获取系统路径
+        /// </summary>
+        public static string AppData
+        {
+            get { return AppDomain.CurrentDomain.BaseDirectory + "\\App_Data\\"; }
+        }
+
+        #endregion
+
 
     }
 }

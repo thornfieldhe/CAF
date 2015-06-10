@@ -9,6 +9,8 @@ using System.Reflection;
 
 namespace CAF.Data
 {
+    using CAF.Mapper;
+
     public class SqlDataPortal
     {
         /// <summary>

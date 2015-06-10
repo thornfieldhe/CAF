@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace CAF
 {
+    using CAF.Data;
     using System.Data;
     using System.Reflection;
 
@@ -11,9 +12,8 @@ namespace CAF
     /// 自定义映射
     /// 包括字典到实体
     /// 包括实体到DataTable
+    /// IDataReader到Entity
     /// </summary>
-    /// <typeparam name="TSource"></typeparam>
-    /// <typeparam name="TDestination"></typeparam>
     public static class Mapper2
     {
 
@@ -71,6 +71,46 @@ namespace CAF
                 dtReturn.Rows.Add(dr);
             }
             return dtReturn;
+        }
+
+        /// <summary>
+        /// 从Reader填写类的内容
+        /// </summary>
+        public static List<TDestination> Map<TDestination>(IDataReader reader) where TDestination : class
+        {
+            List<string> set = null;
+            var t = typeof(TDestination);
+            var entities = new List<TDestination>();
+
+            using (reader)
+            {
+                while (reader.Read())
+                {
+                    var entity = Activator.CreateInstance<TDestination>();
+                    foreach (var info in t.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
+                    {
+                        // Auto load fields which has a DbFieldAttribute
+                        var attr =
+                            Attribute.GetCustomAttribute(info, typeof(DbPropertyAttribute)) as DbPropertyAttribute;
+                        if (attr == null)
+                        {
+                            continue;
+                        }
+                        if (set == null)
+                        {
+                            var schema = reader.GetSchemaTable();
+                            set = new List<string>(schema.Rows.Count);
+                            set.AddRange(from DataRow row in schema.Rows let prop = schema.Columns["ColumnName"] select row[prop].ToString().ToLower());
+                        }
+                        if (set.Contains(attr.FieldName.ToLower()) && !Convert.IsDBNull(reader[attr.FieldName]))
+                        {
+                            info.SetValue(entity, GetValueInType(reader[attr.FieldName], info.PropertyType, info.Name), null);
+                        }
+                    }
+                    entities.Add(entity);
+                }
+            }
+            return entities;
         }
 
         public static object GetType(PropertyInfo Info, string val)
@@ -151,6 +191,24 @@ namespace CAF
         public static string GetStr(object obj)
         {
             return obj == null ? "" : obj.ToString();
+        }
+
+
+        private static object GetValueInType(object value, Type type, string fieldName)
+        {
+            try
+            {
+                return Convert.ChangeType(value, type);
+            }
+            catch (FormatException ex)
+            {
+                var message =
+                    string.Format(
+                        "System.FormatException: Input ({0}) was not in a correct format of type ({1}) when loading field ({2})",
+                        value.ToString(), type.ToString(), fieldName);
+
+                throw new Exception(message, ex);
+            }
         }
 
     }

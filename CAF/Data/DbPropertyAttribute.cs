@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace CAF.Data
 {
@@ -12,19 +9,11 @@ namespace CAF.Data
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class DbPropertyAttribute : Attribute
     {
-        private string fieldName;
-
         public DbPropertyAttribute(string fieldName)
         {
-            this.fieldName = fieldName;
+            this.FieldName = fieldName;
         }
 
-        public string FieldName
-        {
-            get
-            {
-                return fieldName;
-            }
-        }
+        public string FieldName { get; private set; }
     }
 }

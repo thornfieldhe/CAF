@@ -81,6 +81,8 @@
     <Compile Include="Fluent\Fluent.cs" />
     <Compile Include="Fluent\FluentInterface.cs" />
     <Compile Include="Specification\Specifications.cs" />
+    <Compile Include="Tests\Test.cs" />
+    <Compile Include="Tests\UnitTest.cs" />
     <Compile Include="Validations\DataAnnotations\DateTimeRequiredAttribute.cs" />
     <Compile Include="Validations\DataAnnotations\EqualToAttribute.cs" />
     <Compile Include="Validations\DataAnnotations\GuidRequiredAttribute.cs" />
