@@ -252,7 +252,7 @@ namespace CAF.Web.WebForm.CAFControl
             this.DataBind();
         }
 
-        public void Delete<T>() where T : IBusinessBase
+        public void Delete<T>() where T : IBusinessBase,IEntityBase
         {
             try
             {
@@ -281,7 +281,7 @@ namespace CAF.Web.WebForm.CAFControl
             }
         }
 
-        public void Excute<T>(GridCommandEventArgs e) where T : IBusinessBase
+        public void Excute<T>(GridCommandEventArgs e) where T : IBusinessBase,IEntityBase
         {
             switch (e.CommandName)
             {

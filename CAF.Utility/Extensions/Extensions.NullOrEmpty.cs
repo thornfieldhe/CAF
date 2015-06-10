@@ -154,7 +154,7 @@ namespace CAF
         /// <typeparam name="T"></typeparam>
         /// <param name="this"></param>
         /// <returns></returns>
-        public static T As<T>(this T @this) where T : class
+        public static T As<T>(this T @this) where T :class
         {
             return @this as T;
         }

@@ -7,7 +7,7 @@
     {
 
         string[] SkipedProperties { get; }
-        Guid Id { get; set; }
+     
 
         int Create();
 

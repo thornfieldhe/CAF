@@ -1,12 +1,21 @@
-﻿namespace CAF.Validations {
+﻿namespace CAF.Validations
+{
     /// <summary>
     /// 验证操作
     /// </summary>
-    public interface IValidation {
+    public interface IValidation
+    {
         /// <summary>
         /// 验证
         /// </summary>
         /// <param name="target">验证目标</param>
-        ValidationResultCollection Validate( object target );
+        ValidationResultCollection Validate(object target);
+
+        /// <summary>
+        /// 是否通过验证
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        bool IsValidate(object target);
     }
 }

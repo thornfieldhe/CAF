@@ -5,112 +5,12 @@ namespace CAF.Test
 {
 
     using CAF.Model;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using CAF.Exceptions;
     using CAF.Utility;
+    using System.Linq;
 
     [TestClass]
     public class UnitModel
     {
-        /// <summary>
-        /// 是否相等
-        /// </summary>
-        [TestMethod]
-        public void TestMethod1()
-        {
-            var id = Guid.NewGuid();
-            var u1 = new User() { Id = id, Name = "u1" };
-            var u2 = new User() { Id = id, Name = "u2" };
-            var users = new List<User> { u2 };
-            Assert.AreEqual(u1, u2);//Id相等即为相等
-            Assert.IsTrue(u1 == u2);
-            Assert.IsFalse(u1 != u2);
-            Assert.IsTrue(users.Contains(u1));
-        }
-
-        /// <summary>
-        /// 拷贝
-        /// </summary>
-        [TestMethod]
-        public void TestMethod2()
-        {
-            var u1 = new User();
-            var r1 = new Role { Name = "r1" };
-            u1.Roles.Add(r1);
-            u1.Name = "u1";
-            Assert.AreEqual(u1.Roles[0].Name, "r1");
-            var u2 = u1.GetShallowCopy();
-            u2.Roles[0].Name = "r2";
-            Assert.AreEqual(u2.Roles[0].Name, "r2");
-            Assert.AreEqual(u2.Roles[0].Name, u1.Roles[0].Name);//浅拷贝引用相等
-            var u3 = u1.Clone();
-            u3.Roles[0].Name = "r3";
-            Assert.AreEqual(u3.Roles[0].Name, "r3");
-            Assert.AreNotEqual(u3.Roles[0].Name, u1.Roles[0].Name);//深拷贝引用不等
-            Assert.AreNotEqual(u3.Roles[0].Name, u2.Roles[0].Name);
-            Assert.AreEqual(u1, u2);
-            Assert.AreEqual(u1, u3);
-            Assert.AreEqual(u2, u3);
-        }
-
-        /// <summary>
-        /// 测试初始化状态
-        /// </summary>
-        [TestMethod]
-        public void TestMethod3()
-        {
-            User u = new User();
-            Assert.AreNotEqual(u.Id, Guid.Empty);
-            Assert.AreEqual(u.Status, 1);
-            Assert.AreEqual(u.CreatedDate.ToShortDateString(), DateTime.Now.ToShortDateString());
-            Assert.AreEqual(u.ChangedDate.ToShortDateString(), DateTime.Now.ToShortDateString());
-        }
-
-        /// <summary>
-        /// 属性有效性验证
-        /// </summary>
-        [TestMethod]
-        [ExpectedException(typeof(Warning))]
-        public void TestMethod4()
-        {
-            try
-            {
-                User u = new User { Abb = "hxh", Email = "hxh@126.com", OrganizeId = Guid.NewGuid(), Pass = "pass" };
-                u.Create();
-            }
-            catch (Warning ex)
-            {
-                
-               Assert.IsNotNull(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// 属性有效性验证
-        /// </summary>
-        [TestMethod]
-        [ExpectedException(typeof(Warning))]
-        public void TestMethod41()
-        {
-            try
-            {
-                User u = new User { Abb = "hxh", Email = "hxh@126.com", OrganizeId = Guid.NewGuid(), Pass = "pass" };
-                u.PhoneNum = "13666188693";
-                u.Name = "何翔华";
-                u.LoginName = "00001";
-                u.Create();
-                Assert.IsTrue(true);
-            }
-            catch (Warning ex)
-            {
-                
-                throw ex;
-            }
-    
-        }
-
         /// <summary>
         /// 简单增删改查
         /// </summary>
@@ -119,8 +19,8 @@ namespace CAF.Test
         {
             var u = CreateUser();
             u.OrganizeId = Guid.NewGuid();
-  
-                u.Create();//创建
+
+            u.Create();//创建
 
             var newUser = User.Get(u.Id);
             Assert.IsNotNull(newUser);//读取
@@ -144,8 +44,8 @@ namespace CAF.Test
             var u = CreateUser();
             o.Users.Add(u);
 
-                o.Create();
-   
+            o.Create();
+
             var o1 = Organize.Get(o.Id);
             Assert.AreEqual(o1.Users.Count, 1);
             //新增子项列表中子项
@@ -153,22 +53,22 @@ namespace CAF.Test
             u1.OrganizeId = o1.Id;
             //todo 未实现增加子项
             o1.Users.Add(u1);
-       
-                o1.Save();
- 
+
+            o1.Save();
+
             var o2 = Organize.Get(o.Id);
             Assert.AreEqual(o2.Users.Count, 2);//检查用户信息是否延迟加载
             //编辑子项列表中子项
             o2.Users[0].Note = "ttttttttt";//检查用户信息是否延迟加载
 
-                o2.Save();
+            o2.Save();
 
             //编辑with子项列表中的子项
             var o3 = Organize.Get(o.Id);
             o3.Users[1].Note = "kkk";//检查用户信息是否延迟加载
             o3.Note = "12345";
 
-                o3.Save();
+            o3.Save();
 
             var o4 = Organize.Get(o.Id);
             Assert.AreEqual(o4.Users[1].Note, "kkk");
@@ -192,16 +92,16 @@ namespace CAF.Test
             o.UserSetting.Settings = "nomal";
             o.OrganizeId = Guid.NewGuid();
 
-                o.Create();
+            o.Create();
 
             var o1 = User.Get(o.Id);
             Assert.AreEqual(o1.UserSetting.Settings, "nomal");
             //编辑子项
             var o3 = User.Get(o.Id);
             o3.UserSetting.Note = "ppppppp";//检查用户信息是否延迟加载
-     
-                o3.Save();
-  
+
+            o3.Save();
+
             var o2 = User.Get(o.Id);
             Assert.AreEqual(o2.UserSetting.Note, "ppppppp");
         }
@@ -305,23 +205,7 @@ namespace CAF.Test
 
         }
 
-        /// <summary>
-        /// 测试列表增减项
-        /// </summary>
-        [TestMethod]
-        public void TestMethod11()
-        {
-            var list = new UserList();
-            User b = new User();
-            b.Name = "name1";
-            User c = new User();
-            b.Name = "name1";
-            list.Add(b);
-            list.Add(c);
-            Assert.AreEqual(list.Count, 2);
-            list.RemoveAt(1);
-            Assert.AreEqual(list.Count, 1);
-        }
+
 
         /// <summary>
         /// 集合列表查询
@@ -339,8 +223,8 @@ namespace CAF.Test
                 var u = CreateUser();
                 u.Name = "user" + i;
                 u.OrganizeId = Guid.NewGuid();
-         
-                    u.Create();
+
+                u.Create();
 
             }
             var list = User.Query(u => u.Where(i => i.Name.Contains("user")));
@@ -365,7 +249,7 @@ namespace CAF.Test
                 u.OrganizeId = Guid.NewGuid();
                 o.Users.Add(u);
             }
-             o.Create();
+            o.Create();
             //            var readOlyBookList = ReadOnlyCollectionBase<ReadOnlyUser>.Query("Name", 2, new { OrganizeId = o.Id },
             //                   sum: "Status", average: "Status", queryWhere: "   OrganizeId =@OrganizeId", pageIndex: 2);
             //            Assert.AreEqual(10, readOlyBookList.TotalCount);

@@ -2,10 +2,14 @@
 
 namespace CAF.ObjectBusiness
 {
+    using System;
+
+
     /// <summary>
     /// 要输出实体的状态
     /// </summary>
-    public abstract class StatusDescription : IEntityBase
+    [Serializable]
+    public abstract class StatusDescription 
     {
         /// <summary>
         /// 描述

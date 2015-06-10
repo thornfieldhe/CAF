@@ -9,6 +9,8 @@ namespace CAF.Model
     using System.Data;
     using System.Linq.Expressions;
 
+    using CAF.Caches;
+
     [Serializable]
 	public partial class User :  BaseEntity<User>
 	{   
@@ -149,7 +151,7 @@ namespace CAF.Model
                 {
                     return;
                 }
-                this. _userSetting.OnPropertyChange += this.MarkDirty;
+                this. _userSetting.PropertyChanged += this.MarkDirty;
                 this. _userSetting.UserId = this.Id;
             }
         }
@@ -250,8 +252,8 @@ namespace CAF.Model
                 return item;
             }
 		}
-		 
-		public static UserList GetAll()
+
+        public static UserList GetAll()
 		{
 			using (IDbConnection conn = SqlService.Instance.Connection)
             {               
@@ -567,7 +569,7 @@ namespace CAF.Model
                 return null;
             }
             item.UserId = user.Id;
-			item.OnPropertyChange += user.MarkDirty;
+            item.PropertyChanged += user.MarkDirty;
             return item;
         }
         

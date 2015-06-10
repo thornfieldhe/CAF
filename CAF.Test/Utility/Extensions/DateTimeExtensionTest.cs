@@ -3,6 +3,8 @@
 namespace CAF.Tests.Extensions {
     using System;
 
+    using CAF.Utility;
+
     /// <summary>
     /// 日期时间扩展测试
     /// </summary>
@@ -135,7 +137,7 @@ namespace CAF.Tests.Extensions {
         [TestMethod]
         public void TestToAgo()
         {
-            var toAgo = new DateTime(2015, 6, 6).ToAgo();
+            var toAgo = new DateTime(2025, 6, 6).ToAgo();
             Assert.AreEqual("未来", toAgo);
         }
 

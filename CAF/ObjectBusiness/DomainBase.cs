@@ -5,11 +5,62 @@ namespace CAF
 {
     using CAF.ObjectBusiness;
     using CAF.Validations;
-
-
-    public abstract partial class BaseEntity<T> : StatusDescription, IEqualityComparer<T>, IBusinessBase, IComparable<IBusinessBase>,
-        IBaseStatus, IValidationEntity where T : class,IBusinessBase
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
+    [Serializable]
+    public abstract class DomainBase<T> : StatusDescription, IEqualityComparer<T>, IComparable<T>,
+        IBaseStatus, IValidationEntity, INotifyPropertyChanged where T : class,IEntityBase
     {
+        #region 基本属性
+        protected Guid _id;
+        protected int _status;
+        protected DateTime _createdDate;
+        protected DateTime _changedDate;
+        protected string _note;
+        protected byte[] _version;
+
+        public Guid Id { get { return this._id; } set { this.SetProperty("Id", ref this._id, value); } }
+        public int Status { get { return this._status; } set { this.SetProperty("Status", ref this._status, value); } }
+        public DateTime CreatedDate { get { return this._createdDate; } protected set { this.SetProperty("CreatedDate", ref this._createdDate, value); } }
+        public DateTime ChangedDate { get { return this._changedDate; } protected set { this.SetProperty("ChangedDate", ref this._changedDate, value); } }
+        public string Note { get { return this._note; } set { this.SetProperty("Note", ref this._note, value); } }
+
+        /// <summary>
+        /// 版本号(乐观锁)
+        /// </summary>
+        byte[] Version { get { return this._version; } set { this.SetProperty("Version", ref this._version, value); } }
+
+        public DomainBase()
+            : this(Guid.NewGuid())
+        {
+
+        }
+
+        protected DomainBase(Guid id)
+        {
+            this._id = id;
+            this._status = 1;
+            this._createdDate = DateTime.Now;
+            this._changedDate = DateTime.Now;
+
+            this._rules = new List<IValidationRule>();
+            this._handler = TypeCreater.IocBuildUp<IValidationHandler>(); this.Id = Guid.NewGuid();
+        }
+
+        protected virtual bool SetProperty<K>(string propertyName, ref K oldValue, K newValue)
+        {
+            if ((oldValue == null && newValue == null) || (oldValue != null && oldValue.Equals(newValue)))
+            { return false; }
+            this.MarkDirty();
+            oldValue = newValue;
+            if (this.PropertyChanged != null)
+            {
+                this.OnPropertyChanged(propertyName);
+            }
+            return true;
+        }
+        #endregion
+
         #region 属性验证
 
         #region 字段
@@ -17,11 +68,13 @@ namespace CAF
         /// <summary>
         /// 验证规则集合
         /// </summary>
-        private readonly List<IValidationRule> _rules;
+        protected List<IValidationRule> _rules;
         /// <summary>
         /// 验证处理器
         /// </summary>
-        private IValidationHandler _handler;
+        [NonSerialized]
+
+        protected IValidationHandler _handler;
 
         #endregion
 
@@ -139,7 +192,6 @@ namespace CAF
         public virtual void MarkOld()
         {
             this._isNew = false;
-            this._updateParameters = "";
             this.MarkClean();
         }
 
@@ -160,10 +212,27 @@ namespace CAF
         {
             this._isDelete = true;
             this.MarkDirty();
-            if (this.OnPropertyChange != null)
+            if (this.PropertyChanged != null)
             {
-                this.OnPropertyChange();
+                this.OnPropertyChanged();
             }
+        }
+
+        //属性改变事件，用于通知列表，修改状态为Dity
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            var handler = this.PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        public virtual void MarkDirty(object sender, PropertyChangedEventArgs args)
+        {
+            this.MarkDirty();
         }
 
         #endregion
@@ -189,12 +258,13 @@ namespace CAF
             return this.Id.GetHashCode();
         }
 
+
         public override string ToString()
         {
             return this.Id.ToString();
         }
 
-        public static bool operator ==(BaseEntity<T> lhs, BaseEntity<T> rhs)
+        public static bool operator ==(DomainBase<T> lhs, DomainBase<T> rhs)
         {
             if ((lhs as object) != null && (rhs as object) != null)
             {
@@ -207,7 +277,7 @@ namespace CAF
             return false;
         }
 
-        public static bool operator !=(BaseEntity<T> lhs, BaseEntity<T> rhs)
+        public static bool operator !=(DomainBase<T> lhs, DomainBase<T> rhs)
         {
             if ((lhs as object) != null && (rhs as object) != null)
             {
@@ -245,9 +315,9 @@ namespace CAF
 
         #endregion
 
-        #region IComparable<IBusinessBase> 成员
+        #region IComparable<IEntityBase> 成员
 
-        public int CompareTo(IBusinessBase other)
+        public int CompareTo(T other)
         {
             return this.Id.CompareTo(other.Id);
         }

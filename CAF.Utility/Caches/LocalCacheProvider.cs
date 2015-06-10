@@ -4,6 +4,8 @@ using System.Web.Caching;
 
 namespace CAF.Caches
 {
+    using CAF.Utility;
+
     /// <summary>
     /// 本地缓存提供程序
     /// </summary>
@@ -13,9 +15,12 @@ namespace CAF.Caches
         /// </summary>        
         /// <param name="key">缓存键</param>
         /// <param name="target">缓存对象</param>
-        /// <param name="time">缓存过期时间，单位:秒</param>
+        /// <param name="time">缓存过期时间，单位:秒.time=0永不过期</param>
         protected override void AddCache( string key, object target, int time ) {
-            HttpRuntime.Cache.Insert( key, target, null, DateTime.Now.AddSeconds( time ), Cache.NoSlidingExpiration );
+            
+            Fx.If(time > 0)
+                .Then(() =>HttpRuntime.Cache.Insert( key, target, null, DateTime.Now.AddSeconds( time ), Cache.NoSlidingExpiration ) )
+                .Else(() => HttpRuntime.Cache.Insert( key, target ));
         }
 
         /// <summary>
@@ -23,9 +28,17 @@ namespace CAF.Caches
         /// </summary>
         /// <param name="key">缓存键</param>
         /// <param name="target">缓存对象</param>
-        /// <param name="time">缓存过期时间，单位：秒</param>
-        protected override void UpdateCache( string key, object target, int time ) {
+        /// <param name="time">缓存过期时间，单位：秒.time=0永不过期</param>
+        protected override void UpdateCache( string key, object target, int time) {
             HttpRuntime.Cache.Insert( key, target, null, DateTime.Now.AddSeconds( time ), Cache.NoSlidingExpiration );
+            HttpRuntime.Cache.Insert( key, target, null, DateTime.Now.AddSeconds( time ), Cache.NoSlidingExpiration );
+            Fx.If(time> 0)
+                .Then(
+                    () =>
+                    HttpRuntime.Cache.Insert(key, target, null, DateTime.Now.AddSeconds(time), Cache.NoSlidingExpiration))
+                .Else(
+                    () =>
+                    HttpRuntime.Cache.Insert(key, target));
         }
 
         /// <summary>

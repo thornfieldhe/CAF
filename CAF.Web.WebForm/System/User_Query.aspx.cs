@@ -3,10 +3,10 @@
 namespace CAF.Web.WebForm
 {
     using CAF;
-    using CAF.Ext;
     using CAF.Model;
     using CAF.Web.WebForm.Common;
     using FineUI;
+
     using global::System.Linq;
 
     public partial class User_Query : BasePage
@@ -24,7 +24,7 @@ namespace CAF.Web.WebForm
             base.Bind();
             PageHelper.BindOrganizes(new Guid(), this.dropDeps, new Guid().ToString(), true);
             PageTools.BindDropdownList(Role.GetSimpleRoleList(), this.dropRoles, new Guid().ToString());
-            PageTools.BindDropdownList<UserStatusEnum>( this.dropStatus);
+            PageTools.BindDropdownList<UserStatusEnum>(this.dropStatus);
             this.grid_OnQuery();
             this.btnNew.OnClientClick = this.winEdit.GetShowReference("User_Edit.aspx", "新增");
         }
@@ -54,7 +54,7 @@ namespace CAF.Web.WebForm
                     u.Level.Contains(r)));
 
             this.dropRoles.SelectedValue.ToGuid().IsEmpty()
-                .IfFalse(()=>exp.AndWhere(u => u.Roles.Contains(this.dropRoles.SelectedValue)));
+                .IfFalse(() => exp.AndWhere(u => u.Roles.Contains(this.dropRoles.SelectedValue)));
 
             this.dropStatus.SelectedValue.IfIsNotNullOrEmpty(r =>
                 exp.AndWhere(u => u.Status == int.Parse(r)));
@@ -64,8 +64,8 @@ namespace CAF.Web.WebForm
                     r =>
                     exp.AndWhere(u =>
                         u.Name.Contains(r.Trim()) || u.Abb.Contains(r.Trim().ToUpper())));
-
             this.grid.BindDataSource(exp);
+
         }
 
 

@@ -245,7 +245,7 @@ namespace CAF.Model
             var item = Role.Get(directory_role.RoleId);
             if (item != null)
             {
-                item.OnPropertyChange += item.MarkDirty;
+                item.PropertyChanged += item.MarkDirty;
             }
             return item;
         }
@@ -255,7 +255,7 @@ namespace CAF.Model
             var item = Directory.Get(directory_role.DirectoryId);
             if (item != null)
             {
-                item.OnPropertyChange += item.MarkDirty;
+                item.PropertyChanged += item.MarkDirty;
             }
             return item;
         }

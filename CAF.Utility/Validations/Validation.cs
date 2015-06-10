@@ -25,5 +25,18 @@ namespace CAF.Validations
                 result.AddResults(validationResults);
             return result;
         }
+
+        #region IValidation 成员
+
+
+        public bool IsValidate(object target)
+        {
+            target.CheckNull("target");
+            var validationResults = new List<ValidationResult>();
+            var context = new ValidationContext(target, null, null);
+            return Validator.TryValidateObject(target, context, validationResults, true);
+        }
+
+        #endregion
     }
 }

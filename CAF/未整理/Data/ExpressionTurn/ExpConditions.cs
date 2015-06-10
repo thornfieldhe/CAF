@@ -14,7 +14,8 @@ namespace CAF
     {
         And,
         Or,
-        OrderBy
+        OrderBy,
+        Select
     }
 
     /// <summary>
@@ -147,6 +148,11 @@ namespace CAF
             this.SetOneConditionStr(aiExp, ExpUnion.And);
         }
 
+        public void Select<K>(Func<T,T> aiExp)
+        {
+//            this.SetOneConditionStr(aiExp, ExpUnion.Select);
+        }
+
         /// <summary>
         /// 当给定条件满足时,添加一个Where条件语句，如果语句存在，则以 And 相联接
         /// </summary>
@@ -190,6 +196,8 @@ namespace CAF
         {
             this.AndWhere(aiCondition(), aiExpWhenTrue, aiExpWhenFalse);
         }
+
+      
 
         #endregion
 
@@ -336,6 +344,23 @@ namespace CAF
                 case ExpUnion.OrderBy:
                     this.SetOrderBy(aiExp);//Order by 语句
                     break;
+                case ExpUnion.Select:
+                    this.SetOrderBy(aiExp);//Order by 语句
+                    break;
+            }
+        }
+
+        private void SetSelect(Expression aiExp)
+        {
+            var itemstr = ExpressionWriterSql.BizWhereWriteToString(aiExp, ExpSqlType.aiOrder);
+            if (string.IsNullOrWhiteSpace(this._aiOrderByStr))
+            {
+                this._aiOrderByStr = itemstr;
+            }
+            else
+            {
+                this._aiOrderByStr = this._aiOrderByStr + "," + itemstr;
+
             }
         }
 

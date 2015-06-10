@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 namespace CAF
 {
+    using CAF.Utility;
+
     public class BuilderBase
     {
         public BuilderBase()
@@ -13,14 +15,14 @@ namespace CAF
         /// </summary>
         private void DiscoveryBuildSteps()
         {
-            var methods = AttributeHelper.GetMethodsWithCustomAttribute<BuildStepAttribute>(this.GetType());
+            var methods = Reflection.GetMethodsWithCustomAttribute<BuildStepAttribute>(this.GetType());
             if (methods != null && methods.Count > 0)
             {
                 var attributes = new BuildStepAttribute[methods.Count];
                 var buildSetupAttributes = SingletonBase<CAFConfiguration>.Instance.ObjectBuilders;
                 for (var i = 0; i < methods.Count; i++)
                 {
-                    var attribute = AttributeHelper.GetMethodCustomAttribute<BuildStepAttribute>(methods[i]);
+                    var attribute = Reflection.GetMethodCustomAttribute<BuildStepAttribute>(methods[i]);
                     IList<BuildStepAttribute> steps = new List<BuildStepAttribute>();
                     buildSetupAttributes.TryGetValue(this.GetType(), out steps);
                     foreach (var item in steps)

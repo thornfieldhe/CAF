@@ -94,8 +94,8 @@ namespace CAF.Tests.Extensions
         public void TestIsAs()
         {
             var user = new User();
-            Assert.IsNotNull(user.As<IBusinessBase>().Id);
-            Assert.IsTrue(user.Is<IBusinessBase>());
+            Assert.IsNotNull(user.As<IEntityBase>().Id);
+            Assert.IsTrue(user.Is<IEntityBase>());
         }
 
         /// <summary>

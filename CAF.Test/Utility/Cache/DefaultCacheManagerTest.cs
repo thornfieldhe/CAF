@@ -62,7 +62,6 @@ namespace CAF.Tests.Cache
             this._signKey = "CacheKey_Sign_a";
             this._testA = new User(){Id=Guid.NewGuid(),Name = "A"};
 
-
         }
 
         #endregion

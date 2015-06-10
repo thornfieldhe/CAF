@@ -66,6 +66,26 @@ namespace CAF.Caches {
         }
 
         /// <summary>
+        /// 获取缓存对象
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="key">缓存键</param>
+        public T Get<T>(string key)
+        {
+            var lockKey = this.GetKey(key);
+            var signKey = this.GetSignKey(key);
+            var result = this.CacheProvider.Get<T>(lockKey);
+            var sign = this.CacheProvider.Get<string>(signKey);
+            if (!sign.IsEmpty())
+                return result;
+            lock (signKey)
+            {
+                sign = this.CacheProvider.Get<string>(signKey);
+                return !sign.IsEmpty() ? result : default(T);
+            }
+        }
+
+        /// <summary>
         /// 获取缓存键
         /// </summary>
         private string GetKey( string key ) {

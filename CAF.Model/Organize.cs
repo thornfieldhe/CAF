@@ -65,22 +65,13 @@ namespace CAF.Model
                 {
                     return "01";
                 }
-                else
-                {
-                    return parentCode + "01";//父级存在，即为父级下第一条数据
-                }
+                return parentCode + "01";//父级存在，即为父级下第一条数据
             }
-            else
+            if (maxCode.TrimStart('0').Length % 2 == 0 || maxCode.ToInt() == 9)//当前层级最大编号>=9,层级编号直接+1
             {
-                if (maxCode.TrimStart('0').Length % 2 == 0 || maxCode.ToInt() == 9)//当前层级最大编号>=9,层级编号直接+1
-                {
-                    return (maxCode.ToInt() + 1).ToString();
-                }
-                else
-                {
-                    return (maxCode.ToInt() + 1).ToString().PadLeft(maxCode.Length, '0');
-                }
+                return (maxCode.ToInt() + 1).ToString();
             }
+            return (maxCode.ToInt() + 1).ToString().PadLeft(maxCode.Length, '0');
         }
 
         protected override void PreInsert(IDbConnection conn, IDbTransaction transaction)

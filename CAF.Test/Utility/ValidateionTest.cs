@@ -45,6 +45,14 @@ namespace CAF.Tests.Utility
             return this.GetResult(results);
 
         }
+
+        public bool IsValidate(object target)
+        {
+            var validator = ValidationFactory.CreateValidator(target.GetType());
+            var results = validator.Validate(target);
+            return results.IsValid;
+        }
+
         /// <summary>
         /// 获取验证结果
         /// </summary>

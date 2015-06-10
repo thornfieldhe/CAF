@@ -84,6 +84,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Domains\BaseEntityTest.cs" />
     <Compile Include="Domains\ValueObjectBaseTest.cs" />
     <Compile Include="Samples\Address.cs" />
     <Compile Include="Domains\Validations\ValidateTest.cs" />
@@ -102,7 +103,6 @@
     <Compile Include="Utility\Md5Test.cs" />
     <Compile Include="Utility\Enums\EnumTest.cs" />
     <Compile Include="Utility\Enums\FlagsTest.cs" />
-    <Compile Include="Old\Fluentest.cs" />
     <Compile Include="Old\UnitCore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Old\UnitModel.cs" />

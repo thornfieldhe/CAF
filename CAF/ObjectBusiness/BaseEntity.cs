@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 
 namespace CAF
 {
-    using CAF.Validations;
+
+    using CAF.Exceptions;
 
 
     [Serializable]
-    public partial class BaseEntity<T>
+    public abstract class BaseEntity<T> : DomainBase<T>, IBusinessBase, IEntityBase where T : class,IEntityBase
     {
-        protected Guid _id;
-        protected int _status;
-        protected DateTime _createdDate;
-        protected DateTime _changedDate;
-        protected string _note;
+
         [NonSerialized]
         protected IDbConnection _connection;
 
@@ -30,20 +26,16 @@ namespace CAF
         //        protected DeleteDelegate _deleteDelegate;
         //        public delegate int DeleteDelegate(IDbConnection conn, IDbTransaction transaction);
 
-        //属性改变事件，用于通知列表，修改状态为Dity
-        public delegate void PropertyChangeHandler();
-        public event PropertyChangeHandler OnPropertyChange;
 
-        public Guid Id { get { return this._id; } set { this.SetProperty("Id", ref this._id, value); } }
-        public int Status { get { return this._status; } set { this.SetProperty("Status", ref this._status, value); } }
-        public DateTime CreatedDate { get { return this._createdDate; } protected set { this.SetProperty("CreatedDate", ref this._createdDate, value); } }
-        public DateTime ChangedDate { get { return this._changedDate; } protected set { this.SetProperty("ChangedDate", ref this._changedDate, value); } }
-        public string Note { get { return this._note; } set { this.SetProperty("Note", ref this._note, value); } }
 
-        /// <summary>
-        /// 版本号(乐观锁)
-        /// </summary>
-        byte[] Version { get; set; }
+        public override void MarkOld()
+        {
+            this._isNew = false;
+            this._updateParameters = "";
+
+            this.MarkClean();
+        }
+
         public string TableName { get; protected set; }
 
         public string[] SkipedProperties { get; private set; }
@@ -67,16 +59,13 @@ namespace CAF
         /// </summary>
         public bool IsChangeRelationship { get; set; }
 
-        public BaseEntity(Guid id)
+        protected BaseEntity() : this(new Guid()) { }
+
+        protected BaseEntity(Guid id)
+            : base(id)
         {
-            this._id = id;
-            this._status = 1;
-            this._createdDate = DateTime.Now;
-            this._changedDate = DateTime.Now;
             this.IsChangeRelationship = false;//默认进行标识删除
 
-            this._rules = new List<IValidationRule>();
-            this._handler = TypeCreater.IocBuildUp<IValidationHandler>();
 
             //初始化方法注册
             //            _insertDelegate = PreInsert;
@@ -90,25 +79,6 @@ namespace CAF
             //            _deleteDelegate += PostDelete;
         }
 
-        public BaseEntity() : this(Guid.NewGuid()) { }
-
-
-        protected bool SetProperty<K>(string propertyName, ref K oldValue, K newValue)
-        {
-            if ((oldValue == null && newValue == null)
-                || (oldValue != null && oldValue.Equals(newValue)))
-            { return false; }
-            this.MarkDirty();
-            var parameter = string.Format(", [{0}] =  @{0}", propertyName);
-            if (!this._updateParameters.Contains(parameter))
-                this._updateParameters += parameter;
-            oldValue = newValue;
-            if (this.OnPropertyChange != null)
-            {
-                this.OnPropertyChange();
-            }
-            return true;
-        }
 
         #region  数据库操作方法
 
@@ -143,6 +113,11 @@ namespace CAF
                     transaction.Commit();
                     this.MarkOld();
                 }
+                catch (Warning ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
@@ -170,6 +145,11 @@ namespace CAF
                         this.MarkOld();
                     }
                 }
+                catch (Warning ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
@@ -192,6 +172,11 @@ namespace CAF
                     this.PostDelete(conn, transaction);
                     transaction.Commit();
                     this.MarkDelete();
+                }
+                catch (Warning ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
                 }
                 catch (Exception ex)
                 {
@@ -217,6 +202,11 @@ namespace CAF
                 {
                     this._changedRows += this.SaveChange(conn, transaction);
                     transaction.Commit();
+                }
+                catch (Warning ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
                 }
                 catch (Exception ex)
                 {
@@ -285,6 +275,15 @@ namespace CAF
         protected virtual void PostInsert(IDbConnection conn, IDbTransaction transaction) { }
 
         #endregion
+
+
+        protected override bool SetProperty<K>(string propertyName, ref K oldValue, K newValue)
+        {
+            var parameter = string.Format(", [{0}] =  @{0}", propertyName);
+            if (!this._updateParameters.Contains(parameter))
+                this._updateParameters += parameter;
+            return base.SetProperty(propertyName, ref oldValue, newValue);
+        }
 
 
     }

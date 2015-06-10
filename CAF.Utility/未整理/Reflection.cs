@@ -7,6 +7,8 @@ using System.Reflection;
 
 namespace CAF.Utility
 {
+    using System.ComponentModel.DataAnnotations.Schema;
+
     /// <summary>
     /// 反射操作
     /// </summary>
@@ -22,51 +24,6 @@ namespace CAF.Utility
         public static Assembly GetAssembly(string assemblyName)
         {
             return Assembly.Load(assemblyName);
-        }
-
-        #endregion
-
-        #region GetDescription(获取描述)
-
-        /// <summary>
-        /// 获取描述
-        /// </summary>
-        /// <typeparam name="T">类型</typeparam>
-        /// <param name="memberName">成员名称</param>
-        public static string GetDescription<T>(string memberName)
-        {
-            return GetDescription(Sys.GetType<T>(), memberName);
-        }
-
-        /// <summary>
-        /// 获取描述
-        /// </summary>
-        /// <param name="type">类型</param>
-        /// <param name="memberName">成员名称</param>
-        public static string GetDescription(Type type, string memberName)
-        {
-            if (type == null)
-                return string.Empty;
-            if (string.IsNullOrWhiteSpace(memberName))
-                return string.Empty;
-            return GetDescription(type, type.GetField(memberName));
-        }
-
-        /// <summary>
-        /// 获取描述
-        /// </summary>
-        /// <param name="type">类型</param>
-        /// <param name="field">成员</param>
-        public static string GetDescription(Type type, FieldInfo field)
-        {
-            if (type == null)
-                return string.Empty;
-            if (field == null)
-                return string.Empty;
-            var attribute = field.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault() as DescriptionAttribute;
-            if (attribute == null)
-                return field.Name;
-            return attribute.Description;
         }
 
         #endregion
@@ -313,6 +270,137 @@ namespace CAF.Utility
             var filePaths = File.GetAllFiles(directoryPath).Where(t => t.EndsWith(".exe") || t.EndsWith(".dll"));
             return filePaths.Select(Assembly.LoadFile).ToList();
         }
+
+        #endregion
+
+        #region 获取Attribute属性
+
+        /// <summary>
+        /// 获取某个类型包括指定属性的集合
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        internal static IList<T> GetCustomAttributes<T>(Type type) where T : Attribute
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException("type");
+            }
+            var attributes = (T[])(type.GetCustomAttributes(typeof(T), false));
+            return (attributes.Length == 0) ? new List<T>() : new List<T>(attributes);
+        }
+
+        /// <summary>
+        /// 获取某个类型包括指定属性的所有方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static IList<MethodInfo> GetMethodsWithCustomAttribute<T>(Type type) where T : Attribute
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException("type");
+            }
+            var methods = type.GetMethods();
+            if ((methods == null) || (methods.Length == 0))
+            {
+                return null;
+            }
+            IList<MethodInfo> result = new List<MethodInfo>();
+            foreach (var method in methods)
+            {
+                if (method.IsDefined(typeof(T), false))
+                {
+                    result.Add(method);
+                }
+            }
+            return result.Count == 0 ? null : result;
+        }
+
+        /// <summary>
+        /// 获取某个方法指定类型的集合
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        public static IList<T> GetMethodCustomAttributes<T>(MethodInfo method) where T : Attribute
+        {
+            if (method == null)
+            {
+                throw new ArgumentNullException("method");
+            }
+            var attributes = (T[])(method.GetCustomAttributes(typeof(T), false));
+            return (attributes.Length == 0) ? null : new List<T>(attributes);
+        }
+
+        /// <summary>
+        /// 获取某个方法指定类型的属性
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        public static T GetMethodCustomAttribute<T>(MethodInfo method) where T : Attribute
+        {
+            var attributes = GetMethodCustomAttributes<T>(method);
+            return (attributes == null) ? null : attributes[0];
+        }
+
+        /// <summary>
+        /// 获取表名
+        /// </summary>
+        public static string GetTableName<T>()
+        {
+            var attribute = GetCustomAttributes<TableAttribute>(typeof(T)).FirstOrDefault();
+
+            return attribute != null ? attribute.Name : "";
+        }
+
+        #region GetDescription(获取描述)
+
+        /// <summary>
+        /// 获取描述
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        /// <param name="memberName">成员名称</param>
+        public static string GetDescription<T>(string memberName)
+        {
+            return GetDescription(Sys.GetType<T>(), memberName);
+        }
+
+        /// <summary>
+        /// 获取描述
+        /// </summary>
+        /// <param name="type">类型</param>
+        /// <param name="memberName">成员名称</param>
+        public static string GetDescription(Type type, string memberName)
+        {
+            if (type == null)
+                return string.Empty;
+            if (string.IsNullOrWhiteSpace(memberName))
+                return string.Empty;
+            return GetDescription(type, type.GetField(memberName));
+        }
+
+        /// <summary>
+        /// 获取描述
+        /// </summary>
+        /// <param name="type">类型</param>
+        /// <param name="field">成员</param>
+        public static string GetDescription(Type type, FieldInfo field)
+        {
+            if (type == null)
+                return string.Empty;
+            if (field == null)
+                return string.Empty;
+            var attribute = field.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault() as DescriptionAttribute;
+            if (attribute == null)
+                return field.Name;
+            return attribute.Description;
+        }
+
+        #endregion
 
         #endregion
     }

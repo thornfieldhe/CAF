@@ -66,10 +66,6 @@ namespace CAF.Tests.Utility
             Assert.AreEqual(vmOne.X3.X11.X21, 99);
         }
 
-        public void Test_Mapper2()
-        {
-            
-        }
 
         private class One
         {

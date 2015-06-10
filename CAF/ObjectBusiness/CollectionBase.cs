@@ -4,10 +4,11 @@ using System.Collections.Generic;
 
 namespace CAF
 {
-    using CAF.Data;
+    using System.Collections.Specialized;
+    using System.ComponentModel;
     using System.Data;
     using System.Linq;
-
+    using System.Runtime.CompilerServices;
 
     /// <summary>
     /// 集合业务对象
@@ -16,7 +17,7 @@ namespace CAF
     /// <typeparam name="TMember"></typeparam>
     [Serializable]
     public abstract class CollectionBase<TCollection, TMember> : IList<TMember>, ITableName, IBaseStatus, ICollectionBase<TCollection, TMember>
-
+        , IDisposable,INotifyCollectionChanged
         where TCollection : CollectionBase<TCollection, TMember>
         where TMember : BaseEntity<TMember>
     {
@@ -50,8 +51,8 @@ namespace CAF
 
         bool IBaseStatus.IsDirty
         {
-            get { return IsDirty; }
-            set { IsDirty = value; }
+            get { return this.IsDirty; }
+            set { this.IsDirty = value; }
         }
 
         internal bool IsDirty { get { return this._isDirty; } set { this._isDirty = value; } }
@@ -78,6 +79,15 @@ namespace CAF
         public delegate void OnInsertHandler(TMember member);//插入集合对象时执行父对象的PostInsert方法
         public event OnInsertHandler OnInsert;
 
+        public void MarkDirty()
+        {
+            this._isDirty = true;
+            if (this.OnMarkDirty != null)
+            {
+                this.OnMarkDirty();
+            }
+        }
+
         public virtual void MarkNew()
         {
             this._isNew = true;
@@ -101,7 +111,7 @@ namespace CAF
             this._isDirty = false;
         }
 
-        public virtual void MarkDirty()
+        public virtual void OnItemChanged(object sender,PropertyChangedEventArgs args)
         {
             this._isDirty = true;
             if (this.OnMarkDirty != null)
@@ -132,7 +142,7 @@ namespace CAF
             {
                 this.OnInsert(member);
             }
-            member.OnPropertyChange += this.MarkDirty;
+            member.PropertyChanged += this.OnItemChanged;
             this.MarkDirty();
         }
 
@@ -152,7 +162,7 @@ namespace CAF
             {
                 member.IsChangeRelationship = this.IsChangeRelationship;
                 this.Add(member);
-                member.OnPropertyChange += this.MarkDirty;
+                member.PropertyChanged += this.OnItemChanged;
             }
             this.MarkDirty();
         }
@@ -169,7 +179,7 @@ namespace CAF
                 {
                     member.IsChangeRelationship = this.IsChangeRelationship;
                     this.Add(member);
-                    member.OnPropertyChange += this.MarkDirty;
+                    member.PropertyChanged += this.OnItemChanged;
                 }
                 this.MarkDirty();
             }
@@ -185,7 +195,7 @@ namespace CAF
             {
                 member.IsChangeRelationship = this.IsChangeRelationship;
                 this.Add(member);
-                member.OnPropertyChange += this.MarkDirty;
+                member.PropertyChanged += this.OnItemChanged;
             }
             this.MarkDirty();
         }
@@ -205,6 +215,19 @@ namespace CAF
             return true;
         }
 
+        public int Add(object value)
+        {
+            var member = value as TMember;
+            this.Add(member);
+            return this.Members.Length - 1;
+        }
+
+        public bool Contains(object value)
+        {
+            var member = value as TMember;
+            return this.Members.Contains(member);
+        }
+
         /// <summary>
         /// 清除集合内所有成员
         /// </summary>
@@ -218,10 +241,29 @@ namespace CAF
             this.MarkDirty();
         }
 
+        public int IndexOf(object value)
+        {
+            var member = value as TMember;
+            return Array.IndexOf(this.Members, member);
+        }
+
+        public void Insert(int index, object value)
+        {
+            var member = value as TMember;
+            this.Insert(index,member);
+        }
+
+        public void Remove(object value)
+        {
+            var member = value as TMember;
+            this.Remove(member); 
+            
+        }
+
         public void Insert(int index, TMember member)
         {
             this._items.Insert(index, member);
-            member.OnPropertyChange += this.MarkDirty;
+            member.PropertyChanged += this.OnItemChanged;
             this.MarkDirty();
         }
 
@@ -268,6 +310,7 @@ namespace CAF
             }
         }
 
+
         /// <summary>
         /// 集合内成员数量
         /// </summary>
@@ -276,7 +319,9 @@ namespace CAF
             get { return this._items.Count(member => !member.IsDelete); }
         }
 
+
         public bool IsReadOnly { get; private set; }
+
 
         /// <summary>
         /// 是否包含
@@ -315,7 +360,7 @@ namespace CAF
             var i = 0;
             if (this.IsDirty)
             {
-                using (IDbConnection conn = this.Connection)
+                using (var conn = this.Connection)
                 {
                     var transaction = conn.BeginTransaction();
                     try
@@ -365,7 +410,7 @@ namespace CAF
                     member =>
                     {
                         member.Validate();
-                            isValid = false;
+                        isValid = false;
                     });
                 if (isValid)
                 {
@@ -385,6 +430,18 @@ namespace CAF
 
         #endregion
 
+        /// <summary>
+        /// 释放资源
+        /// </summary>
+        public void Dispose()
+        {
+            for (var i = 0; i < this.Count; i++)
+            {
+                this[i] = default(TMember);
+            }
+            this.Clear();
+        }
 
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
     }
 }
