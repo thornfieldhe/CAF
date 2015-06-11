@@ -25,6 +25,7 @@ namespace CAF.Model
 		#region 公共属性
 
         private string _name = String.Empty;
+        private string _note = String.Empty;
         private byte[] _vesion;
         private UserList  _userList;
         private Lazy<UserList>  _userListInitalizer;       
@@ -38,6 +39,15 @@ namespace CAF.Model
 		{
 			get {return this._name;} 
             set {this.SetProperty("Name",ref this._name, value);}           	
+		}
+        
+        /// <summary>
+        /// 备注
+        /// </summary>
+		public string Note
+		{
+			get {return this._note;} 
+            set {this.SetProperty("Note",ref this._note, value);}           	
 		}
         
         [Required(ErrorMessage="Vesion不允许为空")]

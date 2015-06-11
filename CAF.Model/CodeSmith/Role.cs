@@ -26,12 +26,22 @@ namespace CAF.Model
             
 		#region 公共属性
 
+        private string _note = String.Empty;
         private string _name = String.Empty;
-        private byte[] _version;
         private OrganizeList  _organizeList;
         private Lazy<OrganizeList>  _organizeListInitalizer;       
         private UserList  _userList;
         private Lazy<UserList>  _userListInitalizer;       
+        
+        /// <summary>
+        /// 备注
+        /// </summary>
+        [StringLength(500,ErrorMessage="备注长度不能超过500")]
+		public string Note
+		{
+			get {return this._note;} 
+            set {this.SetProperty("Note",ref this._note, value);}           	
+		}
         
         /// <summary>
         /// 角色名称
@@ -41,13 +51,6 @@ namespace CAF.Model
 		{
 			get {return this._name;} 
             set {this.SetProperty("Name",ref this._name, value);}           	
-		}
-        
-        [Required(ErrorMessage="Version不允许为空")]
-		public byte[] Version
-		{
-			get {return this._version;} 
-            set {this.SetProperty("Version",ref this._version, value);}           	
 		}
         
         public OrganizeList Organizes
@@ -118,7 +121,7 @@ namespace CAF.Model
         const string QUERY_CONTAINSUSERROLE = "SELECT COUNT(*) FROM Sys_R_User_Role WHERE  RoleId = @RoleId AND UserId=@UserId";
         const string QUERY_ADDRELARIONSHIPWITHUSERROLE = "INSERT INTO Sys_R_User_Role (RoleId,UserId,Status)VALUES(@RoleId, @UserId,0)";
         const string QUERY_DELETERELARIONSHIPWITHUSERROLE = "UPDATE Sys_R_User_Role SET Status=-1 WHERE RoleId=@RoleId AND UserId=@UserId AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_Roles ([Id], [Status], [CreatedDate], [ChangedDate], [Note], [Name], [Version]) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name, @Version)";
+        const string QUERY_INSERT="INSERT INTO Sys_Roles ([Id], [Status], [CreatedDate], [ChangedDate], [Note], [Name]) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name)";
         const string QUERY_UPDATE = "UPDATE Sys_Roles SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion

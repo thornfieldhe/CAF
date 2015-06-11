@@ -22,9 +22,16 @@ namespace CAF.Model
             
 		#region 公共属性
 
+        private string _note = String.Empty;
         private string _settings = String.Empty;
         private Guid _userId = Guid.Empty;
-        private byte[] _version;
+        
+        [StringLength(500,ErrorMessage="Note长度不能超过500")]
+		public string Note
+		{
+			get {return this._note;} 
+            set {this.SetProperty("Note",ref this._note, value);}           	
+		}
         
         /// <summary>
         /// 配置文件
@@ -57,13 +64,6 @@ namespace CAF.Model
 		}
 
         
-        [Required(ErrorMessage="Version不允许为空")]
-		public byte[] Version
-		{
-			get {return this._version;} 
-            set {this.SetProperty("Version",ref this._version, value);}           	
-		}
-        
         
 		#endregion
         
@@ -74,7 +74,7 @@ namespace CAF.Model
         const string QUERY_DELETE = "UPDATE Sys_UserSettings SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_UserSettings WHERE Id = @Id AND Status!=-1";
         const string QUERY_GETBYUSERID = "SELECT Top 1 * FROM Sys_UserSettings WHERE Status!=-1 And UserId=@UserId";
-        const string QUERY_INSERT="INSERT INTO Sys_UserSettings ([Id], [Status], [CreatedDate], [ChangedDate], [Note], [Settings], [UserId], [Version]) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Settings, @UserId, @Version)";
+        const string QUERY_INSERT="INSERT INTO Sys_UserSettings ([Id], [Status], [CreatedDate], [ChangedDate], [Note], [Settings], [UserId]) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Settings, @UserId)";
         const string QUERY_UPDATE = "UPDATE Sys_UserSettings SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion

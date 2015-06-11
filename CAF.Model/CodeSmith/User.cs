@@ -27,6 +27,7 @@ namespace CAF.Model
             
 		#region 公共属性
 
+        private string _note = String.Empty;
         private string _loginName = String.Empty;
         private string _abb = String.Empty;
         private string _name = String.Empty;
@@ -34,13 +35,22 @@ namespace CAF.Model
         private string _phoneNum = String.Empty;
         private Guid _organizeId = Guid.Empty;
         private string _email = String.Empty;
-        private byte[] _version;
         private UserSetting  _userSetting;
         private Lazy<UserSetting>  _userSettingInitalizer;       
         private RoleList  _roleList;
         private Lazy<RoleList>  _roleListInitalizer;       
         private PostList  _postList;
         private Lazy<PostList>  _postListInitalizer;       
+        
+        /// <summary>
+        /// 备注
+        /// </summary>
+        [StringLength(500,ErrorMessage="备注长度不能超过500")]
+		public string Note
+		{
+			get {return this._note;} 
+            set {this.SetProperty("Note",ref this._note, value);}           	
+		}
         
         /// <summary>
         /// 登录名
@@ -127,13 +137,6 @@ namespace CAF.Model
 		{
 			get {return this._email;} 
             set {this.SetProperty("Email",ref this._email, value);}           	
-		}
-        
-        [Required(ErrorMessage="Version不允许为空")]
-		public byte[] Version
-		{
-			get {return this._version;} 
-            set {this.SetProperty("Version",ref this._version, value);}           	
 		}
         
         public UserSetting UserSetting
@@ -234,7 +237,7 @@ namespace CAF.Model
         const string QUERY_CONTAINSUSERPOST = "SELECT COUNT(*) FROM Sys_R_User_Post WHERE  UserId = @UserId AND PostId=@PostId";
         const string QUERY_ADDRELARIONSHIPWITHUSERPOST = "INSERT INTO Sys_R_User_Post (UserId,PostId,Status)VALUES(@UserId, @PostId,0)";
         const string QUERY_DELETERELARIONSHIPWITHUSERPOST = "UPDATE Sys_R_User_Post SET Status=-1 WHERE UserId=@UserId AND PostId=@PostId AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_Users ([Id], [Status], [CreatedDate], [ChangedDate], [Note], [LoginName], [Abb], [Name], [Pass], [PhoneNum], [OrganizeId], [Email], [Version]) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @LoginName, @Abb, @Name, @Pass, @PhoneNum, @OrganizeId, @Email, @Version)";
+        const string QUERY_INSERT="INSERT INTO Sys_Users ([Id], [Status], [CreatedDate], [ChangedDate], [Note], [LoginName], [Abb], [Name], [Pass], [PhoneNum], [OrganizeId], [Email]) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @LoginName, @Abb, @Name, @Pass, @PhoneNum, @OrganizeId, @Email)";
         const string QUERY_UPDATE = "UPDATE Sys_Users SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion

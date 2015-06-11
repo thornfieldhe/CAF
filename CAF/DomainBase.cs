@@ -4,12 +4,32 @@ using System.Collections.Generic;
 namespace CAF.Farseer
 {
     using CAF.FS.Mapping.Context.Attribute;
+    using CAF.Logs;
     using CAF.ObjectBusiness;
     using CAF.Validations;
 
     public abstract class DomainBase<T> : StatusDescription, IEqualityComparer<T>, IComparable<IEntityBase>,
        IBaseStatus, IValidationEntity where T : class,IEntityBase
     {
+        protected DomainBase() : this(new Guid()) { }
+
+        protected DomainBase(Guid id)
+        {
+            this._id = id;
+            this._status = 1;
+            this._createdDate = DateTime.Now;
+            this._changedDate = DateTime.Now;
+
+            this._rules = new List<IValidationRule>();
+            this._handler = TypeCreater.IocBuildUp<IValidationHandler>();
+            this.Init();
+        }
+
+        /// <summary>
+        /// 初始化操作
+        /// </summary>
+        protected virtual void Init() { }
+
         #region 基本属性
 
         protected Guid _id;
@@ -23,6 +43,7 @@ namespace CAF.Farseer
         //属性改变事件，用于通知列表，修改状态为Dity
         public delegate void PropertyChangeHandler();
         public event PropertyChangeHandler OnPropertyChanged;
+
         [Field(UpdateStatusType = StatusType.ReadCondition)]
         public Guid Id { get { return this._id; } set { this.SetProperty("Id", ref this._id, value); } }
         public int Status { get { return this._status; } set { this.SetProperty("Status", ref this._status, value); } }
@@ -51,6 +72,14 @@ namespace CAF.Farseer
             return true;
         }
 
+        #endregion
+
+        #region Log(日志操作)
+
+        /// <summary>
+        /// 日志操作
+        /// </summary>
+        protected ILog Log { get; set; }
         #endregion
 
         #region 属性验证

@@ -25,7 +25,7 @@ namespace CAF.Model
         private Guid _postId = Guid.Empty;
         private Guid _userId = Guid.Empty;
         private Guid _organizeId = Guid.Empty;
-        private byte[] _version;
+        private string _note = String.Empty;
         
         /// <summary>
         /// 岗位Id
@@ -93,11 +93,13 @@ namespace CAF.Model
 		}
 
         
-        [Required(ErrorMessage="Version不允许为空")]
-		public byte[] Version
+        /// <summary>
+        /// 备注
+        /// </summary>
+		public string Note
 		{
-			get {return this._version;} 
-            set {this.SetProperty("Version",ref this._version, value);}           	
+			get {return this._note;} 
+            set {this.SetProperty("Note",ref this._note, value);}           	
 		}
         
         
@@ -109,7 +111,7 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_PostUserOrganizes WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_PostUserOrganizes SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_PostUserOrganizes WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_PostUserOrganizes ([Id], [PostId], [UserId], [OrganizeId], [Status], [CreatedDate], [ChangedDate], [Note], [Version]) VALUES (@Id, @PostId, @UserId, @OrganizeId, @Status, @CreatedDate, @ChangedDate, @Note, @Version)";
+        const string QUERY_INSERT="INSERT INTO Sys_PostUserOrganizes ([Id], [PostId], [UserId], [OrganizeId], [Status], [CreatedDate], [ChangedDate], [Note]) VALUES (@Id, @PostId, @UserId, @OrganizeId, @Status, @CreatedDate, @ChangedDate, @Note)";
         const string QUERY_UPDATE = "UPDATE Sys_PostUserOrganizes SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion

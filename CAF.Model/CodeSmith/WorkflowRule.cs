@@ -27,8 +27,8 @@ namespace CAF.Model
         private Guid? _endActivityID = Guid.Empty;
         private string _type = String.Empty;
         private string _condition = String.Empty;
+        private string _note = String.Empty;
         private Guid _workflowProcessId = Guid.Empty;
-        private byte[] _version;
         
         /// <summary>
         /// 规则名称
@@ -77,6 +77,13 @@ namespace CAF.Model
             set {this.SetProperty("Condition",ref this._condition, value);}           	
 		}
         
+        [StringLength(10,ErrorMessage="Note长度不能超过10")]
+		public string Note
+		{
+			get {return this._note;} 
+            set {this.SetProperty("Note",ref this._note, value);}           	
+		}
+        
         /// <summary>
         /// 工作流Id
         /// </summary>
@@ -99,13 +106,6 @@ namespace CAF.Model
 		}
 
         
-        [Required(ErrorMessage="Version不允许为空")]
-		public byte[] Version
-		{
-			get {return this._version;} 
-            set {this.SetProperty("Version",ref this._version, value);}           	
-		}
-        
         
 		#endregion
         
@@ -116,7 +116,7 @@ namespace CAF.Model
         const string QUERY_DELETE = "UPDATE Sys_WorkflowRules SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WorkflowRules WHERE Id = @Id AND Status!=-1";
         const string QUERY_GETALLBYWORKFLOWPROCESSID = "SELECT * FROM Sys_WorkflowRules WHERE  Status!=-1 And WorkflowProcessId=@WorkflowProcessId";
-        const string QUERY_INSERT="INSERT INTO Sys_WorkflowRules ([Id], [Name], [BeginActivityID], [EndActivityID], [Type], [Condition], [CreatedDate], [ChangedDate], [Status], [Note], [WorkflowProcessId], [Version]) VALUES (@Id, @Name, @BeginActivityID, @EndActivityID, @Type, @Condition, @CreatedDate, @ChangedDate, @Status, @Note, @WorkflowProcessId, @Version)";
+        const string QUERY_INSERT="INSERT INTO Sys_WorkflowRules ([Id], [Name], [BeginActivityID], [EndActivityID], [Type], [Condition], [CreatedDate], [ChangedDate], [Status], [Note], [WorkflowProcessId]) VALUES (@Id, @Name, @BeginActivityID, @EndActivityID, @Type, @Condition, @CreatedDate, @ChangedDate, @Status, @Note, @WorkflowProcessId)";
         const string QUERY_UPDATE = "UPDATE Sys_WorkflowRules SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion

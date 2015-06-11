@@ -30,30 +30,9 @@ namespace CAF.Exceptions
         /// </summary>
         /// <param name="message">错误消息</param>
         /// <param name="exception">异常</param>
-        public ConcurrencyException(string message, Exception exception)
-            : this(message, exception, "")
-        {
-        }
-
-        /// <summary>
-        /// 初始化并发异常
-        /// </summary>
-        /// <param name="message">错误消息</param>
-        /// <param name="exception">异常</param>
-        /// <param name="code">错误码</param>
-        public ConcurrencyException(string message, Exception exception, string code)
-            : this(message, exception, code, CAF.Logs.LogLevel.Warning)
-        {
-        }
-
-        /// <summary>
-        /// 初始化并发异常
-        /// </summary>
-        /// <param name="message">错误消息</param>
-        /// <param name="exception">异常</param>
         /// <param name="code">错误码</param>
         /// <param name="level">日志级别</param>
-        public ConcurrencyException(string message, Exception exception, string code, CAF.Logs.LogLevel level)
+        public ConcurrencyException(string message, Exception exception, string code = "", CAF.Logs.LogLevel level = CAF.Logs.LogLevel.Warning)
             : base(message, code, level, exception)
         {
         }

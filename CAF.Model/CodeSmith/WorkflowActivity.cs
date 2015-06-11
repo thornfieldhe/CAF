@@ -26,7 +26,7 @@ namespace CAF.Model
         private Guid _workflowProcessId = Guid.Empty;
         private string _type = String.Empty;
         private Guid? _post = Guid.Empty;
-        private byte[] _version;
+        private string _note = String.Empty;
         
         /// <summary>
         /// 活动名称
@@ -80,11 +80,11 @@ namespace CAF.Model
             set {this.SetProperty("Post",ref this._post, value);}           	
 		}
         
-        [Required(ErrorMessage="Version不允许为空")]
-		public byte[] Version
+        [StringLength(10,ErrorMessage="Note长度不能超过10")]
+		public string Note
 		{
-			get {return this._version;} 
-            set {this.SetProperty("Version",ref this._version, value);}           	
+			get {return this._note;} 
+            set {this.SetProperty("Note",ref this._note, value);}           	
 		}
         
         
@@ -97,7 +97,7 @@ namespace CAF.Model
         const string QUERY_DELETE = "UPDATE Sys_WorkflowActivities SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WorkflowActivities WHERE Id = @Id AND Status!=-1";
         const string QUERY_GETALLBYWORKFLOWPROCESSID = "SELECT * FROM Sys_WorkflowActivities WHERE  Status!=-1 And WorkflowProcessId=@WorkflowProcessId";
-        const string QUERY_INSERT="INSERT INTO Sys_WorkflowActivities ([Id], [Name], [WorkflowProcessId], [Type], [Post], [CreatedDate], [ChangedDate], [Status], [Note], [Version]) VALUES (@Id, @Name, @WorkflowProcessId, @Type, @Post, @CreatedDate, @ChangedDate, @Status, @Note, @Version)";
+        const string QUERY_INSERT="INSERT INTO Sys_WorkflowActivities ([Id], [Name], [WorkflowProcessId], [Type], [Post], [CreatedDate], [ChangedDate], [Status], [Note]) VALUES (@Id, @Name, @WorkflowProcessId, @Type, @Post, @CreatedDate, @ChangedDate, @Status, @Note)";
         const string QUERY_UPDATE = "UPDATE Sys_WorkflowActivities SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion

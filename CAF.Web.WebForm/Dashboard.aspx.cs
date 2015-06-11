@@ -162,7 +162,7 @@ namespace CAF.Web
             this.dirLevels = new List<string>();
             foreach (var item in dirs)
             {
-                this.dirLevels.AddRange(this.GetEachLevel(item.Value1));
+                this.dirLevels.AddRange(this.GetEachLevel(item.Value));
             }
             this.dirLevels = this.dirLevels.Distinct().ToList();
         }

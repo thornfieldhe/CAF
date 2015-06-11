@@ -28,7 +28,7 @@ namespace CAF.Model
 
         private string _name = String.Empty;
         private string _document = String.Empty;
-        private byte[] _version;
+        private string _note = String.Empty;
         private WorkflowActivityList  _workflowActivityList;
         private Lazy<WorkflowActivityList>  _workflowActivityListInitalizer;       
         private WorkflowRuleList  _workflowRuleList;
@@ -55,11 +55,11 @@ namespace CAF.Model
             set {this.SetProperty("Document",ref this._document, value);}           	
 		}
         
-        [Required(ErrorMessage="Version不允许为空")]
-		public byte[] Version
+        [StringLength(50,ErrorMessage="Note长度不能超过50")]
+		public string Note
 		{
-			get {return this._version;} 
-            set {this.SetProperty("Version",ref this._version, value);}           	
+			get {return this._note;} 
+            set {this.SetProperty("Note",ref this._note, value);}           	
 		}
         
         public WorkflowActivityList WorkflowActivitys
@@ -116,7 +116,7 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_WorkflowProcesses WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_WorkflowProcesses SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WorkflowProcesses WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_WorkflowProcesses ([Id], [Name], [Document], [CreatedDate], [ChangedDate], [Status], [Note], [Version]) VALUES (@Id, @Name, @Document, @CreatedDate, @ChangedDate, @Status, @Note, @Version)";
+        const string QUERY_INSERT="INSERT INTO Sys_WorkflowProcesses ([Id], [Name], [Document], [CreatedDate], [ChangedDate], [Status], [Note]) VALUES (@Id, @Name, @Document, @CreatedDate, @ChangedDate, @Status, @Note)";
         const string QUERY_UPDATE = "UPDATE Sys_WorkflowProcesses SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion

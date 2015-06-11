@@ -443,7 +443,7 @@ namespace CAF.Web.WebForm.Common
             drop.Items.Clear();
             var item = new ListItem { Text = "请选择", Value = defaultitemValue };
             drop.Items.Add(item);
-            items.ForEach(i => drop.Items.Add(new ListItem { Text = i.Value1, Value = i.Key.ToString() }));
+            items.ForEach(i => drop.Items.Add(new ListItem { Text = i.Value, Value = i.Key.ToString() }));
             drop.SelectedValue = selectItem;
         }
 

@@ -24,7 +24,7 @@ namespace CAF.Model
 
         private string _userName = String.Empty;
         private string _ip = String.Empty;
-        private byte[] _version;
+        private string _note = String.Empty;
         
         /// <summary>
         /// 用户名
@@ -45,11 +45,11 @@ namespace CAF.Model
             set {this.SetProperty("Ip",ref this._ip, value);}           	
 		}
         
-        [Required(ErrorMessage="Version不允许为空")]
-		public byte[] Version
+        [StringLength(500,ErrorMessage="Note长度不能超过500")]
+		public string Note
 		{
-			get {return this._version;} 
-            set {this.SetProperty("Version",ref this._version, value);}           	
+			get {return this._note;} 
+            set {this.SetProperty("Note",ref this._note, value);}           	
 		}
         
         
@@ -61,7 +61,7 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_LoginLogs WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_LoginLogs SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_LoginLogs WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_LoginLogs ([Id], [UserName], [Ip], [CreatedDate], [ChangedDate], [Status], [Note], [Version]) VALUES (@Id, @UserName, @Ip, @CreatedDate, @ChangedDate, @Status, @Note, @Version)";
+        const string QUERY_INSERT="INSERT INTO Sys_LoginLogs ([Id], [UserName], [Ip], [CreatedDate], [ChangedDate], [Status], [Note]) VALUES (@Id, @UserName, @Ip, @CreatedDate, @ChangedDate, @Status, @Note)";
         const string QUERY_UPDATE = "UPDATE Sys_LoginLogs SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion

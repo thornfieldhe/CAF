@@ -10,120 +10,123 @@ namespace CAF.Model
     using System.Linq.Expressions;
 
     [Serializable]
-	public partial class Ccsq :  BaseEntity<Ccsq>,IEntityBase
-	{   
+    public partial class Ccsq :  BaseEntity<Ccsq>,IEntityBase
+    {   
         public Ccsq()
-		{
+        {
             this.Connection = SqlService.Instance.Connection;
             this.TableName = "Wf_Ccsq";
             base.MarkNew();
-		}
-		
+        }
+        
             
-		#region 公共属性
+        #region 公共属性
 
         private DateTime _ccsjq;
         private DateTime _ccsjz;
         private string _ccdd = String.Empty;
         private int? _jtgj;
+        private string _note = String.Empty;
         private Guid _createdBy = Guid.Empty;
         private Guid _modifyBy = Guid.Empty;
         private Guid _organizeId = Guid.Empty;
-        private byte[] _version;
         
         /// <summary>
         /// 出差起始时间
         /// </summary>
         [Required(ErrorMessage="出差起始时间不允许为空")]
         [DateTimeRequired(ErrorMessage="出差起始时间不允许为空")]
-		public DateTime Ccsjq
-		{
-			get {return this._ccsjq;} 
+        public DateTime Ccsjq
+        {
+            get {return this._ccsjq;} 
             set {this.SetProperty("Ccsjq",ref this._ccsjq, value);}           	
-		}
+        }
         
         /// <summary>
         /// 出差截止时间
         /// </summary>
         [Required(ErrorMessage="出差截止时间不允许为空")]
         [DateTimeRequired(ErrorMessage="出差截止时间不允许为空")]
-		public DateTime Ccsjz
-		{
-			get {return this._ccsjz;} 
+        public DateTime Ccsjz
+        {
+            get {return this._ccsjz;} 
             set {this.SetProperty("Ccsjz",ref this._ccsjz, value);}           	
-		}
+        }
         
         /// <summary>
         /// 目的地
         /// </summary>
         [Required(ErrorMessage="目的地不允许为空")]
         [StringLength(50,ErrorMessage="目的地长度不能超过50")]
-		public string Ccdd
-		{
-			get {return this._ccdd;} 
+        public string Ccdd
+        {
+            get {return this._ccdd;} 
             set {this.SetProperty("Ccdd",ref this._ccdd, value);}           	
-		}
+        }
         
         /// <summary>
         /// 交通工具
         /// </summary>
-		public int? jtgj
-		{
-			get {return this._jtgj;} 
+        public int? jtgj
+        {
+            get {return this._jtgj;} 
             set {this.SetProperty("jtgj",ref this._jtgj, value);}           	
-		}
+        }
+        
+        /// <summary>
+        /// 说明
+        /// </summary>
+        [StringLength(500,ErrorMessage="说明长度不能超过500")]
+        public string Note
+        {
+            get {return this._note;} 
+            set {this.SetProperty("Note",ref this._note, value);}           	
+        }
         
         /// <summary>
         /// 创建者
         /// </summary>
         [GuidRequired(ErrorMessage="创建者不允许为空")]
-		public Guid CreatedBy
-		{
-			get {return this._createdBy;} 
+        public Guid CreatedBy
+        {
+            get {return this._createdBy;} 
             set {this.SetProperty("CreatedBy",ref this._createdBy, value);}           	
-		}
+        }
         
         /// <summary>
         /// 更新者
         /// </summary>
         [GuidRequired(ErrorMessage="更新者不允许为空")]
-		public Guid ModifyBy
-		{
-			get {return this._modifyBy;} 
+        public Guid ModifyBy
+        {
+            get {return this._modifyBy;} 
             set {this.SetProperty("ModifyBy",ref this._modifyBy, value);}           	
-		}
+        }
         
         /// <summary>
         /// 创建者所属部门
         /// </summary>
         [GuidRequired(ErrorMessage="创建者所属部门不允许为空")]
-		public Guid OrganizeId
-		{
-			get {return this._organizeId;} 
+        public Guid OrganizeId
+        {
+            get {return this._organizeId;} 
             set {this.SetProperty("OrganizeId",ref this._organizeId, value);}           	
-		}
+        }
         
         /// <summary>
         /// 创建者所属部门
         /// </summary>
         public Organize Organize
-		{
-			get
-			{ 
-				return Organize.Get(this.OrganizeId);
-			}        	
-		}
+        {
+            get
+            { 
+                return Organize.Get(this.OrganizeId);
+            }        	
+        }
 
         
-        [Required(ErrorMessage="Version不允许为空")]
-		public byte[] Version
-		{
-			get {return this._version;} 
-            set {this.SetProperty("Version",ref this._version, value);}           	
-		}
         
-        
-		#endregion
+        #endregion
         
         #region 常量定义
         protected const string QUERY_COUNT = "SELECT COUNT(*) AS COUNT FROM Wf_Ccsq Where Status!=-1 ";
@@ -131,16 +134,16 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Wf_Ccsq WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Wf_Ccsq SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Wf_Ccsq WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Wf_Ccsq ([Id], [Ccsjq], [Ccsjz], [Ccdd], [jtgj], [Note], [CreatedDate], [ChangedDate], [Status], [CreatedBy], [ModifyBy], [OrganizeId], [Version]) VALUES (@Id, @Ccsjq, @Ccsjz, @Ccdd, @jtgj, @Note, @CreatedDate, @ChangedDate, @Status, @CreatedBy, @ModifyBy, @OrganizeId, @Version)";
+        const string QUERY_INSERT="INSERT INTO Wf_Ccsq ([Id], [Ccsjq], [Ccsjz], [Ccdd], [jtgj], [Note], [CreatedDate], [ChangedDate], [Status], [CreatedBy], [ModifyBy], [OrganizeId]) VALUES (@Id, @Ccsjq, @Ccsjz, @Ccdd, @jtgj, @Note, @CreatedDate, @ChangedDate, @Status, @CreatedBy, @ModifyBy, @OrganizeId)";
         const string QUERY_UPDATE = "UPDATE Wf_Ccsq SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion
-        		
+                
         #region 静态方法
         
-		public static Ccsq Get(Guid id)
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
+        public static Ccsq Get(Guid id)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
             {
                 var item= conn.Query<Ccsq>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<Ccsq>();
                 if (item == null)
@@ -151,11 +154,11 @@ namespace CAF.Model
                 item.MarkOld();
                 return item;
             }
-		}
-		 
-		public static CcsqList GetAll()
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
+        }
+         
+        public static CcsqList GetAll()
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
             {               
                 var items = conn.Query<Ccsq>(QUERY_GETAll, null).ToList();                
                 var list=new CcsqList();
@@ -168,20 +171,20 @@ namespace CAF.Model
                 list.MarkOld();
                 return list;
             }
-		}        
-		
+        }        
+        
         
         /// <summary>
         /// 直接删除
         /// </summary>
         /// <returns></returns>
-		public static int Delete(Guid id)
-		{
+        public static int Delete(Guid id)
+        {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {                
                 return conn.Execute(QUERY_DELETE, new { Id = id });
             }
-		}   
+        }   
         
         /// <summary>
         /// 是否存在
@@ -215,7 +218,7 @@ namespace CAF.Model
                     item.MarkOld();
                     list.Add(item);
                 }
-				list.MarkOld();
+                list.MarkOld();
                 return list;
             }
         }
@@ -241,7 +244,7 @@ namespace CAF.Model
                 item.MarkOld();
                 list.Add(item);
             }
-			list.MarkOld();
+            list.MarkOld();
             return list;
         }
 
@@ -277,57 +280,57 @@ namespace CAF.Model
         
         #endregion
         
-		
-		public override int Delete(IDbConnection conn, IDbTransaction transaction)
-		{
+        
+        public override int Delete(IDbConnection conn, IDbTransaction transaction)
+        {
             base.MarkDelete();
             return conn.Execute(QUERY_DELETE, new { Id = this.Id }, transaction, null, null);
-		}
-		
-		public override int Update(IDbConnection conn, IDbTransaction transaction)
-		{
+        }
+        
+        public override int Update(IDbConnection conn, IDbTransaction transaction)
+        {
              if (!this.IsDirty)
              {
                 return this._changedRows;
              }  
             this._updateParameters+=", ChangedDate = GetDate()";
-			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
-			this._changedRows+= conn.Execute(query, this, transaction, null, null);
+            var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
+            this._changedRows+= conn.Execute(query, this, transaction, null, null);
             return this._changedRows;
-		}
-		
-		public override int Insert(IDbConnection conn, IDbTransaction transaction)
-		{
+        }
+        
+        public override int Insert(IDbConnection conn, IDbTransaction transaction)
+        {
             this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
             return this._changedRows;
-		}
-		
-		#region 私有方法
-		
+        }
+        
+        #region 私有方法
+        
         
         /// <summary>
         /// 添加描述
         /// </summary>
         protected override void AddDescriptions() {
-		    this.AddDescription( "Id:"+ this.Id + "," );        
-		    this.AddDescription( "Ccsjq:"+ this.Ccsjq + "," );        
-		    this.AddDescription( "Ccsjz:"+ this.Ccsjz + "," );        
-		    this.AddDescription( "Ccdd:"+ this.Ccdd + "," );        
-		    this.AddDescription( "jtgj:"+ this.jtgj + "," );        
-		    this.AddDescription( "Note:"+ this.Note + "," );        
-		    this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
-		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
-		    this.AddDescription( "Status:"+ this.Status + "," );        
-		    this.AddDescription( "CreatedBy:"+ this.CreatedBy + "," );        
-		    this.AddDescription( "ModifyBy:"+ this.ModifyBy + "," );        
-		    this.AddDescription( "OrganizeId:"+ this.OrganizeId + "," );        
-		    this.AddDescription( "Version:"+ this.Version + "," );        
+            this.AddDescription( "Id:"+ this.Id + "," );        
+            this.AddDescription( "Ccsjq:"+ this.Ccsjq + "," );        
+            this.AddDescription( "Ccsjz:"+ this.Ccsjz + "," );        
+            this.AddDescription( "Ccdd:"+ this.Ccdd + "," );        
+            this.AddDescription( "jtgj:"+ this.jtgj + "," );        
+            this.AddDescription( "Note:"+ this.Note + "," );        
+            this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
+            this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
+            this.AddDescription( "Status:"+ this.Status + "," );        
+            this.AddDescription( "CreatedBy:"+ this.CreatedBy + "," );        
+            this.AddDescription( "ModifyBy:"+ this.ModifyBy + "," );        
+            this.AddDescription( "OrganizeId:"+ this.OrganizeId + "," );        
+            this.AddDescription( "Version:"+ this.Version + "," );        
         }
-		#endregion
-				
-	}
+        #endregion
+                
+    }
     
-	[Serializable]
+    [Serializable]
     public class CcsqList:CollectionBase<CcsqList,Ccsq>
     {
         public CcsqList() 

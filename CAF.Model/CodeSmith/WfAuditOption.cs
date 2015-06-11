@@ -26,8 +26,8 @@ namespace CAF.Model
         private Guid _wfActivityId = Guid.Empty;
         private string _postName = String.Empty;
         private string _auditOpinion = String.Empty;
+        private string _note = String.Empty;
         private string _auditName = String.Empty;
-        private byte[] _version;
         
         /// <summary>
         /// 工作流Id
@@ -94,6 +94,13 @@ namespace CAF.Model
             set {this.SetProperty("AuditOpinion",ref this._auditOpinion, value);}           	
 		}
         
+        [StringLength(500,ErrorMessage="Note长度不能超过500")]
+		public string Note
+		{
+			get {return this._note;} 
+            set {this.SetProperty("Note",ref this._note, value);}           	
+		}
+        
         /// <summary>
         /// 审核者
         /// </summary>
@@ -102,13 +109,6 @@ namespace CAF.Model
 		{
 			get {return this._auditName;} 
             set {this.SetProperty("AuditName",ref this._auditName, value);}           	
-		}
-        
-        [Required(ErrorMessage="Version不允许为空")]
-		public byte[] Version
-		{
-			get {return this._version;} 
-            set {this.SetProperty("Version",ref this._version, value);}           	
 		}
         
         
@@ -120,7 +120,7 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_WfAuditOptions WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_WfAuditOptions SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WfAuditOptions WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_WfAuditOptions ([Id], [WfProcessId], [WfActivityId], [PostName], [AuditOpinion], [CreatedDate], [ChangedDate], [Status], [Note], [AuditName], [Version]) VALUES (@Id, @WfProcessId, @WfActivityId, @PostName, @AuditOpinion, @CreatedDate, @ChangedDate, @Status, @Note, @AuditName, @Version)";
+        const string QUERY_INSERT="INSERT INTO Sys_WfAuditOptions ([Id], [WfProcessId], [WfActivityId], [PostName], [AuditOpinion], [CreatedDate], [ChangedDate], [Status], [Note], [AuditName]) VALUES (@Id, @WfProcessId, @WfActivityId, @PostName, @AuditOpinion, @CreatedDate, @ChangedDate, @Status, @Note, @AuditName)";
         const string QUERY_UPDATE = "UPDATE Sys_WfAuditOptions SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion

@@ -15,6 +15,7 @@ namespace CAF
         protected DateTime _createdDate;
         protected DateTime _changedDate;
         protected string _note;
+        protected byte[] _version;
         [NonSerialized]
         protected IDbConnection _connection;
 
@@ -39,11 +40,13 @@ namespace CAF
         public DateTime CreatedDate { get { return this._createdDate; } protected set { this.SetProperty("CreatedDate", ref this._createdDate, value); } }
         public DateTime ChangedDate { get { return this._changedDate; } protected set { this.SetProperty("ChangedDate", ref this._changedDate, value); } }
         public string Note { get { return this._note; } set { this.SetProperty("Note", ref this._note, value); } }
-
         /// <summary>
         /// 版本号(乐观锁)
         /// </summary>
-        byte[] Version { get; set; }
+        public byte[] Version { get { return this._version; } set { this.SetProperty("Version", ref this._version, value); } }
+
+  
+ 
         public string TableName { get; protected set; }
 
         public string[] SkipedProperties { get; private set; }

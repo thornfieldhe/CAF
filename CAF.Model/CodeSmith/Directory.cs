@@ -27,7 +27,7 @@ namespace CAF.Model
         private Guid? _parentId = Guid.Empty;
         private string _level = String.Empty;
         private int _sort;
-        private byte[] _version;
+        private string _note = String.Empty;
         
         /// <summary>
         /// 名称
@@ -91,11 +91,14 @@ namespace CAF.Model
             set {this.SetProperty("Sort",ref this._sort, value);}           	
 		}
         
-        [Required(ErrorMessage="Version不允许为空")]
-		public byte[] Version
+        /// <summary>
+        /// 备注
+        /// </summary>
+        [StringLength(200,ErrorMessage="备注长度不能超过200")]
+		public string Note
 		{
-			get {return this._version;} 
-            set {this.SetProperty("Version",ref this._version, value);}           	
+			get {return this._note;} 
+            set {this.SetProperty("Note",ref this._note, value);}           	
 		}
         
         
@@ -108,7 +111,7 @@ namespace CAF.Model
         const string QUERY_DELETE = "UPDATE Sys_Directories SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_Directories WHERE Id = @Id AND Status!=-1";
         const string QUERY_GETALLBYPARENTID = "SELECT * FROM Sys_Directories WHERE  Status!=-1 And ParentId=@ParentId";
-        const string QUERY_INSERT="INSERT INTO Sys_Directories ([Id], [Name], [Url], [ParentId], [Level], [Sort], [Note], [Status], [CreatedDate], [ChangedDate], [Version]) VALUES (@Id, @Name, @Url, @ParentId, @Level, @Sort, @Note, @Status, @CreatedDate, @ChangedDate, @Version)";
+        const string QUERY_INSERT="INSERT INTO Sys_Directories ([Id], [Name], [Url], [ParentId], [Level], [Sort], [Note], [Status], [CreatedDate], [ChangedDate]) VALUES (@Id, @Name, @Url, @ParentId, @Level, @Sort, @Note, @Status, @CreatedDate, @ChangedDate)";
         const string QUERY_UPDATE = "UPDATE Sys_Directories SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion

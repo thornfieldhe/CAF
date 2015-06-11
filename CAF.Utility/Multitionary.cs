@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CAF.Utility
 {
@@ -211,13 +208,13 @@ namespace CAF.Utility
     public class Kuple<TKey, T1, T2, T3, T4, T5, T6, T7> : IKuple<TKey>
     {
         public TKey Key { get; set; }
-        public T1 Value1 { get; private set; }
-        public T2 Value2 { get; private set; }
-        public T3 Value3 { get; private set; }
-        public T4 Value4 { get; private set; }
-        public T5 Value5 { get; private set; }
-        public T6 Value6 { get; private set; }
-        public T7 Value7 { get; private set; }
+        public T1 Value1 { get; set; }
+        public T2 Value2 { get; set; }
+        public T3 Value3 { get; set; }
+        public T4 Value4 { get; set; }
+        public T5 Value5 { get; set; }
+        public T6 Value6 { get; set; }
+        public T7 Value7 { get; set; }
 
         public Kuple(TKey key, T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6, T7 value7)
         {
@@ -230,6 +227,7 @@ namespace CAF.Utility
             this.Value6 = value6;
             this.Value7 = value7;
         }
+        public Kuple() { }
     }
     /// <summary>
     /// Interface to represent multivalue data structures identified by a key
@@ -245,12 +243,12 @@ namespace CAF.Utility
     public class Kuple<TKey, T1, T2, T3, T4, T5, T6> : IKuple<TKey>
     {
         public TKey Key { get; set; }
-        public T1 Value1 { get; private set; }
-        public T2 Value2 { get; private set; }
-        public T3 Value3 { get; private set; }
-        public T4 Value4 { get; private set; }
-        public T5 Value5 { get; private set; }
-        public T6 Value6 { get; private set; }
+        public T1 Value1 { get; set; }
+        public T2 Value2 { get; set; }
+        public T3 Value3 { get; set; }
+        public T4 Value4 { get; set; }
+        public T5 Value5 { get; set; }
+        public T6 Value6 { get; set; }
 
         public Kuple(TKey key, T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6)
         {
@@ -262,6 +260,7 @@ namespace CAF.Utility
             this.Value5 = value5;
             this.Value6 = value6;
         }
+        public Kuple() { }
     }
     /// <summary>
     /// Interface to represent multivalue data structures identified by a key
@@ -276,11 +275,11 @@ namespace CAF.Utility
     public class Kuple<TKey, T1, T2, T3, T4, T5> : IKuple<TKey>
     {
         public TKey Key { get; set; }
-        public T1 Value1 { get; private set; }
-        public T2 Value2 { get; private set; }
-        public T3 Value3 { get; private set; }
-        public T4 Value4 { get; private set; }
-        public T5 Value5 { get; private set; }
+        public T1 Value1 { get; set; }
+        public T2 Value2 { get; set; }
+        public T3 Value3 { get; set; }
+        public T4 Value4 { get; set; }
+        public T5 Value5 { get; set; }
 
         public Kuple(TKey key, T1 value1, T2 value2, T3 value3, T4 value4, T5 value5)
         {
@@ -291,6 +290,7 @@ namespace CAF.Utility
             this.Value4 = value4;
             this.Value5 = value5;
         }
+        public Kuple() { }
     }
     /// <summary>
     /// Interface to represent multivalue data structures identified by a key
@@ -304,10 +304,10 @@ namespace CAF.Utility
     public class Kuple<TKey, T1, T2, T3, T4> : IKuple<TKey>
     {
         public TKey Key { get; set; }
-        public T1 Value1 { get; private set; }
-        public T2 Value2 { get; private set; }
-        public T3 Value3 { get; private set; }
-        public T4 Value4 { get; private set; }
+        public T1 Value1 { get; set; }
+        public T2 Value2 { get; set; }
+        public T3 Value3 { get; set; }
+        public T4 Value4 { get; set; }
         public Kuple(TKey key, T1 value1, T2 value2, T3 value3, T4 value4)
         {
             this.Key = key;
@@ -316,6 +316,7 @@ namespace CAF.Utility
             this.Value3 = value3;
             this.Value4 = value4;
         }
+        public Kuple() { }
     }
     /// <summary>
     /// Interface to represent multivalue data structures identified by a key
@@ -328,9 +329,9 @@ namespace CAF.Utility
     public class Kuple<TKey, T1, T2, T3> : IKuple<TKey>
     {
         public TKey Key { get; set; }
-        public T1 Value1 { get; private set; }
-        public T2 Value2 { get; private set; }
-        public T3 Value3 { get; private set; }
+        public T1 Value1 { get; set; }
+        public T2 Value2 { get; set; }
+        public T3 Value3 { get; set; }
         public Kuple(TKey key, T1 value1, T2 value2, T3 value3)
         {
             this.Key = key;
@@ -338,6 +339,7 @@ namespace CAF.Utility
             this.Value2 = value2;
             this.Value3 = value3;
         }
+        public Kuple() { }
     }
     /// <summary>
     /// Interface to represent multivalue data structures identified by a key
@@ -349,14 +351,15 @@ namespace CAF.Utility
     public class Kuple<TKey, T1, T2> : IKuple<TKey>
     {
         public TKey Key { get; set; }
-        public T1 Value1 { get; private set; }
-        public T2 Value2 { get; private set; }
+        public T1 Value1 { get; set; }
+        public T2 Value2 { get; set; }
         public Kuple(TKey key, T1 value1, T2 value2)
         {
             this.Key = key;
             this.Value1 = value1;
             this.Value2 = value2;
         }
+        public Kuple() { }
     }
     /// <summary>
     /// Interface to represent multivalue data structures identified by a key
@@ -364,14 +367,15 @@ namespace CAF.Utility
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="T1"></typeparam>
     [Serializable]
-    public class Kuple<TKey, T1> : IKuple<TKey>
+    public class Kuple<TKey, TValue> : IKuple<TKey>
     {
         public TKey Key { get; set; }
-        public T1 Value1 { get; private set; }
-        public Kuple(TKey key, T1 value1)
+        public TValue Value { get; set; }
+        public Kuple(TKey key, TValue value1)
         {
             this.Key = key;
-            this.Value1 = value1;
+            this.Value = value1;
         }
+        public Kuple() { }
     }
 }

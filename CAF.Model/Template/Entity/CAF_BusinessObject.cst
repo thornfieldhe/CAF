@@ -731,7 +731,7 @@ private string GetMemberVariableDeclarationStatement(string protectionLevel, Col
 private bool IsSystemFiled(ColumnSchema column)
 {
    string name= GetPropertyName(column);
-    return name=="CreatedDate" || name=="ChangedDate" || name=="Status" ||name=="Note";
+    return name=="CreatedDate" || name=="ChangedDate" || name=="Status" ||name=="Version";
 }
 
 private bool ColumnIsString(ColumnSchema column)
@@ -889,7 +889,10 @@ private string GetInsertQueryString()
       queryParameters.Append("@["+SourceTable.PrimaryKey.MemberColumns[0].Name+"]");
 	  for (int i = 0; i < SourceTable.NonPrimaryKeyColumns.Count; i++)
       {
-       		queryParameters.Append(", @["+GetPropertyName(SourceTable.NonPrimaryKeyColumns[i])+"]");
+          if(GetPropertyName(SourceTable.NonPrimaryKeyColumns[i])!="Version")
+          {
+       	    queryParameters.Append(", @["+GetPropertyName(SourceTable.NonPrimaryKeyColumns[i])+"]");
+          }
       }
       return String.Format("INSERT INTO "+SourceTable.Name +" ({0}) VALUES ({1})", queryParameters.ToString().Replace("@", ""), queryParameters.ToString().Replace("[","").Replace("]",""));
 }

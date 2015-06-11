@@ -28,7 +28,7 @@ namespace CAF.Model
         private string _ip = String.Empty;
         private string _message = String.Empty;
         private string _details = String.Empty;
-        private byte[] _version;
+        private string _note = String.Empty;
         
         /// <summary>
         /// 用户名
@@ -90,11 +90,11 @@ namespace CAF.Model
             set {this.SetProperty("Details",ref this._details, value);}           	
 		}
         
-        [Required(ErrorMessage="Version不允许为空")]
-		public byte[] Version
+        [StringLength(500,ErrorMessage="Note长度不能超过500")]
+		public string Note
 		{
-			get {return this._version;} 
-            set {this.SetProperty("Version",ref this._version, value);}           	
+			get {return this._note;} 
+            set {this.SetProperty("Note",ref this._note, value);}           	
 		}
         
         
@@ -106,7 +106,7 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_ErrorLogs WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_ErrorLogs SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_ErrorLogs WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_ErrorLogs ([Id], [UserName], [PageCode], [Page], [Ip], [Message], [Details], [CreatedDate], [ChangedDate], [Status], [Note], [Version]) VALUES (@Id, @UserName, @PageCode, @Page, @Ip, @Message, @Details, @CreatedDate, @ChangedDate, @Status, @Note, @Version)";
+        const string QUERY_INSERT="INSERT INTO Sys_ErrorLogs ([Id], [UserName], [PageCode], [Page], [Ip], [Message], [Details], [CreatedDate], [ChangedDate], [Status], [Note]) VALUES (@Id, @UserName, @PageCode, @Page, @Ip, @Message, @Details, @CreatedDate, @ChangedDate, @Status, @Note)";
         const string QUERY_UPDATE = "UPDATE Sys_ErrorLogs SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion

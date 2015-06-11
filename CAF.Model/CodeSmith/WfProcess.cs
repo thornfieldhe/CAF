@@ -31,8 +31,8 @@ namespace CAF.Model
         private string _document = String.Empty;
         private Guid _organizeId = Guid.Empty;
         private Guid _createdBy = Guid.Empty;
+        private string _note = String.Empty;
         private Guid _modifyBy = Guid.Empty;
-        private byte[] _version;
         private WfActivityList  _wfActivityList;
         private Lazy<WfActivityList>  _wfActivityListInitalizer;       
         private WfRuleList  _wfRuleList;
@@ -58,6 +58,7 @@ namespace CAF.Model
 			get {return this._modulelId;} 
             set {this.SetProperty("ModulelId",ref this._modulelId, value);}           	
 		}
+        
         
         /// <summary>
         /// 文档
@@ -102,18 +103,18 @@ namespace CAF.Model
             set {this.SetProperty("CreatedBy",ref this._createdBy, value);}           	
 		}
         
+        [StringLength(50,ErrorMessage="Note长度不能超过50")]
+		public string Note
+		{
+			get {return this._note;} 
+            set {this.SetProperty("Note",ref this._note, value);}           	
+		}
+        
         [GuidRequired(ErrorMessage="ModifyBy不允许为空")]
 		public Guid ModifyBy
 		{
 			get {return this._modifyBy;} 
             set {this.SetProperty("ModifyBy",ref this._modifyBy, value);}           	
-		}
-        
-        [Required(ErrorMessage="Version不允许为空")]
-		public byte[] Version
-		{
-			get {return this._version;} 
-            set {this.SetProperty("Version",ref this._version, value);}           	
 		}
         
         public WfActivityList WfActivitys
@@ -170,7 +171,7 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_WfProcesses WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_WfProcesses SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WfProcesses WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_WfProcesses ([ID], [Name], [ModulelId], [Document], [OrganizeId], [Status], [CreatedBy], [CreatedDate], [ChangedDate], [Note], [ModifyBy], [Version]) VALUES (@ID, @Name, @ModulelId, @Document, @OrganizeId, @Status, @CreatedBy, @CreatedDate, @ChangedDate, @Note, @ModifyBy, @Version)";
+        const string QUERY_INSERT="INSERT INTO Sys_WfProcesses ([ID], [Name], [ModulelId], [Document], [OrganizeId], [Status], [CreatedBy], [CreatedDate], [ChangedDate], [Note], [ModifyBy]) VALUES (@ID, @Name, @ModulelId, @Document, @OrganizeId, @Status, @CreatedBy, @CreatedDate, @ChangedDate, @Note, @ModifyBy)";
         const string QUERY_UPDATE = "UPDATE Sys_WfProcesses SET {0} WHERE  ID = @ID  AND Version=@Version";
                 
         #endregion
@@ -402,7 +403,7 @@ namespace CAF.Model
         /// 添加描述
         /// </summary>
         protected override void AddDescriptions() {
-		    this.AddDescription( "Id:"+ this.Id + "," );        
+            this.AddDescription("Id:" + this.Id + ",");        
 		    this.AddDescription( "Name:"+ this.Name + "," );        
 		    this.AddDescription( "ModulelId:"+ this.ModulelId + "," );        
 		    this.AddDescription( "Document:"+ this.Document + "," );        
