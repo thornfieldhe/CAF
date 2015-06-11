@@ -10,7 +10,7 @@ namespace CAF.Model
     using System.Linq.Expressions;
 
     [Serializable]
-	public partial class WfActivity :  BaseEntity<WfActivity>
+	public partial class WfActivity :  BaseEntity<WfActivity>,IEntityBase
 	{   
         public WfActivity()
 		{
@@ -28,6 +28,7 @@ namespace CAF.Model
         private Guid? _post = Guid.Empty;
         private int _statuse;
         private Guid _activityId = Guid.Empty;
+        private byte[] _version;
         
         /// <summary>
         /// 工作流Id
@@ -96,7 +97,16 @@ namespace CAF.Model
 			get {return this._activityId;} 
             set {this.SetProperty("ActivityId",ref this._activityId, value);}           	
 		}
-    
+       
+        
+        [Required(ErrorMessage="Version不允许为空")]
+		public byte[] Version
+		{
+			get {return this._version;} 
+            set {this.SetProperty("Version",ref this._version, value);}           	
+		}
+        
+        
 		#endregion
         
         #region 常量定义
@@ -106,8 +116,8 @@ namespace CAF.Model
         const string QUERY_DELETE = "UPDATE Sys_WfActivities SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WfActivities WHERE Id = @Id AND Status!=-1";
         const string QUERY_GETALLBYWFPROCESSID = "SELECT * FROM Sys_WfActivities WHERE  Status!=-1 And WfProcessId=@WfProcessId";
-        const string QUERY_INSERT="INSERT INTO Sys_WfActivities ([Id], [WfProcessId], [Name], [Type], [Post], [Statuse], [CreatedDate], [ChangedDate], [Note], [ActivityId]) VALUES (@Id, @WfProcessId, @Name, @Type, @Post, @Statuse, @CreatedDate, @ChangedDate, @Note, @ActivityId)";
-        const string QUERY_UPDATE = "UPDATE Sys_WfActivities SET {0} WHERE  Id = @Id";
+        const string QUERY_INSERT="INSERT INTO Sys_WfActivities ([Id], [WfProcessId], [Name], [Type], [Post], [Statuse], [CreatedDate], [ChangedDate], [Note], [ActivityId], [Version]) VALUES (@Id, @WfProcessId, @Name, @Type, @Post, @Statuse, @CreatedDate, @ChangedDate, @Note, @ActivityId, @Version)";
+        const string QUERY_UPDATE = "UPDATE Sys_WfActivities SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion
         		
@@ -311,6 +321,7 @@ namespace CAF.Model
 		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
 		    this.AddDescription( "Note:"+ this.Note + "," );        
 		    this.AddDescription( "ActivityId:"+ this.ActivityId + "," );        
+		    this.AddDescription( "Version:"+ this.Version + "," );        
         }
 		#endregion
 				

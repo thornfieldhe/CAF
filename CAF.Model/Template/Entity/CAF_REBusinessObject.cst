@@ -25,7 +25,7 @@ namespace <%= ClassNamespace %>.Model
     using System.Data;
 
     [Serializable]
-	public partial class <%= GetClassName(SourceTable) %> :  BaseEntity<<%= GetClassName(SourceTable) %>>
+	public partial class <%= GetClassName(SourceTable) %> :  BaseEntity<<%= GetClassName(SourceTable) %>>,IEntityBase
 	{   
         public <%= GetClassName(SourceTable) %>()
         {
@@ -276,7 +276,7 @@ namespace <%= ClassNamespace %>.Model
             var item = <%=TableA%>.Get(<%= GetClassName(SourceTable).ToLower() %>.<%=TableA%>Id);
             if (item != null)
             {
-                item.OnPropertyChange += item.MarkDirty;
+                item.OnPropertyChanged += item.MarkDirty;
             }
             return item;
         }
@@ -286,7 +286,7 @@ namespace <%= ClassNamespace %>.Model
             var item = <%=TableB%>.Get(<%= GetClassName(SourceTable).ToLower() %>.<%=TableB%>Id);
             if (item != null)
             {
-                item.OnPropertyChange += item.MarkDirty;
+                item.OnPropertyChanged += item.MarkDirty;
             }
             return item;
         }

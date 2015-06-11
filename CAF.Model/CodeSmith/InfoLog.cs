@@ -10,7 +10,7 @@ namespace CAF.Model
     using System.Linq.Expressions;
 
     [Serializable]
-	public partial class InfoLog :  BaseEntity<InfoLog>
+	public partial class InfoLog :  BaseEntity<InfoLog>,IEntityBase
 	{   
         public InfoLog()
 		{
@@ -25,6 +25,7 @@ namespace CAF.Model
         private string _userName = String.Empty;
         private string _page = String.Empty;
         private string _action = String.Empty;
+        private byte[] _version;
         
         /// <summary>
         /// 用户名
@@ -59,6 +60,13 @@ namespace CAF.Model
             set {this.SetProperty("Action",ref this._action, value);}           	
 		}
         
+        [Required(ErrorMessage="Version不允许为空")]
+		public byte[] Version
+		{
+			get {return this._version;} 
+            set {this.SetProperty("Version",ref this._version, value);}           	
+		}
+        
         
 		#endregion
         
@@ -68,8 +76,8 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_InfoLogs WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_InfoLogs SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_InfoLogs WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_InfoLogs ([Id], [UserName], [Page], [Action], [ChangedDate], [CreatedDate], [Status], [Note]) VALUES (@Id, @UserName, @Page, @Action, @ChangedDate, @CreatedDate, @Status, @Note)";
-        const string QUERY_UPDATE = "UPDATE Sys_InfoLogs SET {0} WHERE  Id = @Id";
+        const string QUERY_INSERT="INSERT INTO Sys_InfoLogs ([Id], [UserName], [Page], [Action], [ChangedDate], [CreatedDate], [Status], [Note], [Version]) VALUES (@Id, @UserName, @Page, @Action, @ChangedDate, @CreatedDate, @Status, @Note, @Version)";
+        const string QUERY_UPDATE = "UPDATE Sys_InfoLogs SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion
         		
@@ -254,6 +262,7 @@ namespace CAF.Model
 		    this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
 		    this.AddDescription( "Status:"+ this.Status + "," );        
 		    this.AddDescription( "Note:"+ this.Note + "," );        
+		    this.AddDescription( "Version:"+ this.Version + "," );        
         }
 		#endregion
 				

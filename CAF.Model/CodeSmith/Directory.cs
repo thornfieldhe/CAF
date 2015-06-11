@@ -10,7 +10,7 @@ namespace CAF.Model
     using System.Linq.Expressions;
 
     [Serializable]
-	public partial class Directory :  BaseEntity<Directory>
+	public partial class Directory :  BaseEntity<Directory>,IEntityBase
 	{   
         public Directory()
 		{
@@ -27,6 +27,7 @@ namespace CAF.Model
         private Guid? _parentId = Guid.Empty;
         private string _level = String.Empty;
         private int _sort;
+        private byte[] _version;
         
         /// <summary>
         /// 名称
@@ -90,6 +91,13 @@ namespace CAF.Model
             set {this.SetProperty("Sort",ref this._sort, value);}           	
 		}
         
+        [Required(ErrorMessage="Version不允许为空")]
+		public byte[] Version
+		{
+			get {return this._version;} 
+            set {this.SetProperty("Version",ref this._version, value);}           	
+		}
+        
         
 		#endregion
         
@@ -100,8 +108,8 @@ namespace CAF.Model
         const string QUERY_DELETE = "UPDATE Sys_Directories SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_Directories WHERE Id = @Id AND Status!=-1";
         const string QUERY_GETALLBYPARENTID = "SELECT * FROM Sys_Directories WHERE  Status!=-1 And ParentId=@ParentId";
-        const string QUERY_INSERT="INSERT INTO Sys_Directories ([Id], [Name], [Url], [ParentId], [Level], [Sort], [Note], [Status], [CreatedDate], [ChangedDate]) VALUES (@Id, @Name, @Url, @ParentId, @Level, @Sort, @Note, @Status, @CreatedDate, @ChangedDate)";
-        const string QUERY_UPDATE = "UPDATE Sys_Directories SET {0} WHERE  Id = @Id";
+        const string QUERY_INSERT="INSERT INTO Sys_Directories ([Id], [Name], [Url], [ParentId], [Level], [Sort], [Note], [Status], [CreatedDate], [ChangedDate], [Version]) VALUES (@Id, @Name, @Url, @ParentId, @Level, @Sort, @Note, @Status, @CreatedDate, @ChangedDate, @Version)";
+        const string QUERY_UPDATE = "UPDATE Sys_Directories SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion
         		
@@ -305,6 +313,7 @@ namespace CAF.Model
 		    this.AddDescription( "Status:"+ this.Status + "," );        
 		    this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
 		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
+		    this.AddDescription( "Version:"+ this.Version + "," );        
         }
 		#endregion
 				

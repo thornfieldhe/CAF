@@ -10,7 +10,7 @@ namespace CAF.Model
     using System.Linq.Expressions;
 
     [Serializable]
-	public partial class Organize :  BaseEntity<Organize>
+	public partial class Organize :  BaseEntity<Organize>,IEntityBase
 	{   
         public Organize()
 		{
@@ -31,6 +31,7 @@ namespace CAF.Model
         private int _sort;
         private string _level = String.Empty;
         private string _code = String.Empty;
+        private byte[] _version;
         private UserList  _userList;
         private Lazy<UserList>  _userListInitalizer;       
         private RoleList  _roleList;
@@ -100,6 +101,13 @@ namespace CAF.Model
             set {this.SetProperty("Code",ref this._code, value);}           	
 		}
         
+        [Required(ErrorMessage="Version不允许为空")]
+		public byte[] Version
+		{
+			get {return this._version;} 
+            set {this.SetProperty("Version",ref this._version, value);}           	
+		}
+        
         public UserList Users
         {
             get
@@ -162,8 +170,8 @@ namespace CAF.Model
         const string QUERY_CONTAINSORGANIZEROLE = "SELECT COUNT(*) FROM Sys_R_Organize_Role WHERE  OrganizeId = @OrganizeId AND RoleId=@RoleId";
         const string QUERY_ADDRELARIONSHIPWITHORGANIZEROLE = "INSERT INTO Sys_R_Organize_Role (OrganizeId,RoleId,Status)VALUES(@OrganizeId, @RoleId,0)";
         const string QUERY_DELETERELARIONSHIPWITHORGANIZEROLE = "UPDATE Sys_R_Organize_Role SET Status=-1 WHERE OrganizeId=@OrganizeId AND RoleId=@RoleId AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_Organizes ([Id], [Status], [CreatedDate], [ChangedDate], [Note], [Name], [ParentId], [Sort], [Level], [Code]) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name, @ParentId, @Sort, @Level, @Code)";
-        const string QUERY_UPDATE = "UPDATE Sys_Organizes SET {0} WHERE  Id = @Id";
+        const string QUERY_INSERT="INSERT INTO Sys_Organizes ([Id], [Status], [CreatedDate], [ChangedDate], [Note], [Name], [ParentId], [Sort], [Level], [Code], [Version]) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name, @ParentId, @Sort, @Level, @Code, @Version)";
+        const string QUERY_UPDATE = "UPDATE Sys_Organizes SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion
         		
@@ -459,6 +467,7 @@ namespace CAF.Model
 		    this.AddDescription( "Sort:"+ this.Sort + "," );        
 		    this.AddDescription( "Level:"+ this.Level + "," );        
 		    this.AddDescription( "Code:"+ this.Code + "," );        
+		    this.AddDescription( "Version:"+ this.Version + "," );        
         }
 		#endregion
 				

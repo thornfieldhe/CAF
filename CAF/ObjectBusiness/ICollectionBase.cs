@@ -2,7 +2,7 @@
 {
     public interface ICollectionBase<in TCollection, TMember>
         where TCollection : CollectionBase<TCollection, TMember>
-        where TMember : BaseEntity<TMember>
+        where TMember : BaseEntity<TMember>,IEntityBase
     {
         void Add(TMember member);
         void AddRange(System.Collections.Generic.List<TMember> members);

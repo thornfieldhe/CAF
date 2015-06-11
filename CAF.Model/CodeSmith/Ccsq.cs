@@ -10,7 +10,7 @@ namespace CAF.Model
     using System.Linq.Expressions;
 
     [Serializable]
-	public partial class Ccsq :  BaseEntity<Ccsq>
+	public partial class Ccsq :  BaseEntity<Ccsq>,IEntityBase
 	{   
         public Ccsq()
 		{
@@ -29,6 +29,7 @@ namespace CAF.Model
         private Guid _createdBy = Guid.Empty;
         private Guid _modifyBy = Guid.Empty;
         private Guid _organizeId = Guid.Empty;
+        private byte[] _version;
         
         /// <summary>
         /// 出差起始时间
@@ -114,6 +115,13 @@ namespace CAF.Model
 		}
 
         
+        [Required(ErrorMessage="Version不允许为空")]
+		public byte[] Version
+		{
+			get {return this._version;} 
+            set {this.SetProperty("Version",ref this._version, value);}           	
+		}
+        
         
 		#endregion
         
@@ -123,8 +131,8 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Wf_Ccsq WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Wf_Ccsq SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Wf_Ccsq WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Wf_Ccsq ([Id], [Ccsjq], [Ccsjz], [Ccdd], [jtgj], [Note], [CreatedDate], [ChangedDate], [Status], [CreatedBy], [ModifyBy], [OrganizeId]) VALUES (@Id, @Ccsjq, @Ccsjz, @Ccdd, @jtgj, @Note, @CreatedDate, @ChangedDate, @Status, @CreatedBy, @ModifyBy, @OrganizeId)";
-        const string QUERY_UPDATE = "UPDATE Wf_Ccsq SET {0} WHERE  Id = @Id";
+        const string QUERY_INSERT="INSERT INTO Wf_Ccsq ([Id], [Ccsjq], [Ccsjz], [Ccdd], [jtgj], [Note], [CreatedDate], [ChangedDate], [Status], [CreatedBy], [ModifyBy], [OrganizeId], [Version]) VALUES (@Id, @Ccsjq, @Ccsjz, @Ccdd, @jtgj, @Note, @CreatedDate, @ChangedDate, @Status, @CreatedBy, @ModifyBy, @OrganizeId, @Version)";
+        const string QUERY_UPDATE = "UPDATE Wf_Ccsq SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion
         		
@@ -313,6 +321,7 @@ namespace CAF.Model
 		    this.AddDescription( "CreatedBy:"+ this.CreatedBy + "," );        
 		    this.AddDescription( "ModifyBy:"+ this.ModifyBy + "," );        
 		    this.AddDescription( "OrganizeId:"+ this.OrganizeId + "," );        
+		    this.AddDescription( "Version:"+ this.Version + "," );        
         }
 		#endregion
 				

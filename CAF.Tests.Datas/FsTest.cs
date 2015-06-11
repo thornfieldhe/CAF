@@ -18,8 +18,8 @@ namespace CAF.Tests.Datas
         public void TestGetFromDb()
         {
             var db = new Table();
-            var list = db.Users.Where(r=>r.Abb=="HXH").ToList();
-            Assert.IsTrue(list.Count==1);
+            var list = db.Posts.Where(r => r.Name == "部门经理").ToList();
+            Assert.IsTrue(list.Count == 1);
             
         }
 
@@ -27,11 +27,11 @@ namespace CAF.Tests.Datas
         public void TestUpdate()
         {
             var db = new Table();
-            var list = db.Users.ToList();
-            var user=list.Where(u => u.Abb == "HXH").First();
-            user.Note = "xxxxx";
-            db.Users.Update(user);
-            db.Users.Insert(this.NewUser());
+            var list = db.Posts.ToList();
+            var post = list.Where(u => u.Name == "部门经理").ToList().First();
+            post.Note = "xxxxx";
+            db.Posts.Update(post);
+            db.Posts.Insert(new Post() { Name = "xxx" });
             db.SaveChanges();
             Assert.IsTrue(list.Count == 7);
 
@@ -48,9 +48,9 @@ namespace CAF.Tests.Datas
         public void TestEqual()
         {
             var id = Guid.NewGuid();
-            var u1 = new User() { Id = id, Name = "u1" };
-            var u2 = new User() { Id = id, Name = "u2" };
-            var users = new List<User> { u2 };
+            var u1 = new Post() { Id = id, Name = "u1" };
+            var u2 = new Post() { Id = id, Name = "u2" };
+            var users = new List<Post> { u2 };
             Assert.AreEqual(u1, u2);//Id相等即为相等
             Assert.IsTrue(u1 == u2);
             Assert.IsFalse(u1 != u2);
@@ -65,7 +65,7 @@ namespace CAF.Tests.Datas
         [TestMethod]
         public void TestDefaultStatus()
         {
-            User u = new User();
+            Post u = new Post();
             Assert.AreNotEqual(u.Id, Guid.Empty);
             Assert.AreEqual(u.Status, 1);
             Assert.AreEqual(u.CreatedDate.ToShortDateString(), DateTime.Now.ToShortDateString());
@@ -80,7 +80,7 @@ namespace CAF.Tests.Datas
         {
             try
             {
-                User u = new User { Abb = "hxh", Email = "hxh@126.com", OrganizeId = Guid.NewGuid(), Pass = "pass" };
+                Post u = new Post ();
                 u.Validate();
             }
             catch (Warning ex)
@@ -90,20 +90,7 @@ namespace CAF.Tests.Datas
             }
         }
 
-        private User NewUser()
-        {
-            return   new User
-                         {
-                             Abb = "hxh",
-                             Email = "hxh@126.com"+Randoms.GetRandomInt(1,10),
-                             Pass = "pass",
-                             PhoneNum = "13666188693",
-                             Name = "何翔华",
-                             LoginName = "00001",
-                             OrganizeId = Guid.NewGuid()
-                             
-                         };
-        }
+      
 
     }
 }

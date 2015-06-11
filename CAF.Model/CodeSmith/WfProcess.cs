@@ -10,7 +10,7 @@ namespace CAF.Model
     using System.Linq.Expressions;
 
     [Serializable]
-	public partial class WfProcess :  BaseEntity<WfProcess>
+	public partial class WfProcess :  BaseEntity<WfProcess>,IEntityBase
 	{   
         public WfProcess()
 		{
@@ -32,6 +32,7 @@ namespace CAF.Model
         private Guid _organizeId = Guid.Empty;
         private Guid _createdBy = Guid.Empty;
         private Guid _modifyBy = Guid.Empty;
+        private byte[] _version;
         private WfActivityList  _wfActivityList;
         private Lazy<WfActivityList>  _wfActivityListInitalizer;       
         private WfRuleList  _wfRuleList;
@@ -57,7 +58,7 @@ namespace CAF.Model
 			get {return this._modulelId;} 
             set {this.SetProperty("ModulelId",ref this._modulelId, value);}           	
 		}
-       
+        
         /// <summary>
         /// 文档
         /// </summary>
@@ -106,6 +107,13 @@ namespace CAF.Model
 		{
 			get {return this._modifyBy;} 
             set {this.SetProperty("ModifyBy",ref this._modifyBy, value);}           	
+		}
+        
+        [Required(ErrorMessage="Version不允许为空")]
+		public byte[] Version
+		{
+			get {return this._version;} 
+            set {this.SetProperty("Version",ref this._version, value);}           	
 		}
         
         public WfActivityList WfActivitys
@@ -162,8 +170,8 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_WfProcesses WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_WfProcesses SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WfProcesses WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_WfProcesses ([ID], [Name], [ModulelId], [Document], [OrganizeId], [Status], [CreatedBy], [CreatedDate], [ChangedDate], [Note], [ModifyBy]) VALUES (@ID, @Name, @ModulelId, @Document, @OrganizeId, @Status, @CreatedBy, @CreatedDate, @ChangedDate, @Note, @ModifyBy)";
-        const string QUERY_UPDATE = "UPDATE Sys_WfProcesses SET {0} WHERE  ID = @ID";
+        const string QUERY_INSERT="INSERT INTO Sys_WfProcesses ([ID], [Name], [ModulelId], [Document], [OrganizeId], [Status], [CreatedBy], [CreatedDate], [ChangedDate], [Note], [ModifyBy], [Version]) VALUES (@ID, @Name, @ModulelId, @Document, @OrganizeId, @Status, @CreatedBy, @CreatedDate, @ChangedDate, @Note, @ModifyBy, @Version)";
+        const string QUERY_UPDATE = "UPDATE Sys_WfProcesses SET {0} WHERE  ID = @ID  AND Version=@Version";
                 
         #endregion
         		
@@ -405,6 +413,7 @@ namespace CAF.Model
 		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
 		    this.AddDescription( "Note:"+ this.Note + "," );        
 		    this.AddDescription( "ModifyBy:"+ this.ModifyBy + "," );        
+		    this.AddDescription( "Version:"+ this.Version + "," );        
         }
 		#endregion
 				

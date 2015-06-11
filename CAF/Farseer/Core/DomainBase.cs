@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CAF
+namespace CAF.Farseer
 {
+    using CAF.FS.Mapping.Context.Attribute;
     using CAF.ObjectBusiness;
     using CAF.Validations;
-    using System.ComponentModel;
-    using System.Runtime.CompilerServices;
-    [Serializable]
-    public abstract class DomainBase<T> : StatusDescription, IEqualityComparer<T>, IComparable<T>,
-        IBaseStatus, IValidationEntity, INotifyPropertyChanged where T : class,IEntityBase
+
+    public abstract class DomainBase<T> : StatusDescription, IEqualityComparer<T>, IComparable<IEntityBase>,
+       IBaseStatus, IValidationEntity where T : class,IEntityBase
     {
         #region 基本属性
+
         protected Guid _id;
         protected int _status;
         protected DateTime _createdDate;
@@ -19,46 +19,38 @@ namespace CAF
         protected string _note;
         protected byte[] _version;
 
+
+        //属性改变事件，用于通知列表，修改状态为Dity
+        public delegate void PropertyChangeHandler();
+        public event PropertyChangeHandler OnPropertyChanged;
+        [Field(UpdateStatusType = StatusType.ReadCondition)]
         public Guid Id { get { return this._id; } set { this.SetProperty("Id", ref this._id, value); } }
         public int Status { get { return this._status; } set { this.SetProperty("Status", ref this._status, value); } }
         public DateTime CreatedDate { get { return this._createdDate; } protected set { this.SetProperty("CreatedDate", ref this._createdDate, value); } }
         public DateTime ChangedDate { get { return this._changedDate; } protected set { this.SetProperty("ChangedDate", ref this._changedDate, value); } }
         public string Note { get { return this._note; } set { this.SetProperty("Note", ref this._note, value); } }
-
         /// <summary>
         /// 版本号(乐观锁)
         /// </summary>
-        byte[] Version { get { return this._version; } set { this.SetProperty("Version", ref this._version, value); } }
+        [Field(UpdateStatusType = StatusType.ReadCondition)]
+        public byte[] Version { get { return this._version; } set { this.SetProperty("Version", ref this._version, value); } }
 
-        public DomainBase()
-            : this(Guid.NewGuid())
+
+
+        protected bool SetProperty<K>(string propertyName, ref K oldValue, K newValue)
         {
-
-        }
-
-        protected DomainBase(Guid id)
-        {
-            this._id = id;
-            this._status = 1;
-            this._createdDate = DateTime.Now;
-            this._changedDate = DateTime.Now;
-
-            this._rules = new List<IValidationRule>();
-            this._handler = TypeCreater.IocBuildUp<IValidationHandler>(); this.Id = Guid.NewGuid();
-        }
-
-        protected virtual bool SetProperty<K>(string propertyName, ref K oldValue, K newValue)
-        {
-            if ((oldValue == null && newValue == null) || (oldValue != null && oldValue.Equals(newValue)))
+            if ((oldValue == null && newValue == null)
+                || (oldValue != null && oldValue.Equals(newValue)))
             { return false; }
             this.MarkDirty();
             oldValue = newValue;
-            if (this.PropertyChanged != null)
+            if (this.OnPropertyChanged != null)
             {
-                this.OnPropertyChanged(propertyName);
+                this.OnPropertyChanged();
             }
             return true;
         }
+
         #endregion
 
         #region 属性验证
@@ -68,13 +60,11 @@ namespace CAF
         /// <summary>
         /// 验证规则集合
         /// </summary>
-        protected List<IValidationRule> _rules;
+        private readonly List<IValidationRule> _rules;
         /// <summary>
         /// 验证处理器
         /// </summary>
-        [NonSerialized]
-
-        protected IValidationHandler _handler;
+        private IValidationHandler _handler;
 
         #endregion
 
@@ -212,27 +202,10 @@ namespace CAF
         {
             this._isDelete = true;
             this.MarkDirty();
-            if (this.PropertyChanged != null)
+            if (this.OnPropertyChanged != null)
             {
                 this.OnPropertyChanged();
             }
-        }
-
-        //属性改变事件，用于通知列表，修改状态为Dity
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var handler = this.PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        public virtual void MarkDirty(object sender, PropertyChangedEventArgs args)
-        {
-            this.MarkDirty();
         }
 
         #endregion
@@ -257,7 +230,6 @@ namespace CAF
         {
             return this.Id.GetHashCode();
         }
-
 
         public override string ToString()
         {
@@ -317,11 +289,12 @@ namespace CAF
 
         #region IComparable<IEntityBase> 成员
 
-        public int CompareTo(T other)
+        public int CompareTo(IEntityBase other)
         {
             return this.Id.CompareTo(other.Id);
         }
 
         #endregion
+
     }
 }

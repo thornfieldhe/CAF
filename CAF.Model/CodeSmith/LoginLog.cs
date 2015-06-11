@@ -10,7 +10,7 @@ namespace CAF.Model
     using System.Linq.Expressions;
 
     [Serializable]
-	public partial class LoginLog :  BaseEntity<LoginLog>
+	public partial class LoginLog :  BaseEntity<LoginLog>,IEntityBase
 	{   
         public LoginLog()
 		{
@@ -24,6 +24,7 @@ namespace CAF.Model
 
         private string _userName = String.Empty;
         private string _ip = String.Empty;
+        private byte[] _version;
         
         /// <summary>
         /// 用户名
@@ -44,6 +45,13 @@ namespace CAF.Model
             set {this.SetProperty("Ip",ref this._ip, value);}           	
 		}
         
+        [Required(ErrorMessage="Version不允许为空")]
+		public byte[] Version
+		{
+			get {return this._version;} 
+            set {this.SetProperty("Version",ref this._version, value);}           	
+		}
+        
         
 		#endregion
         
@@ -53,8 +61,8 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_LoginLogs WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_LoginLogs SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_LoginLogs WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_LoginLogs ([Id], [UserName], [Ip], [CreatedDate], [ChangedDate], [Status], [Note]) VALUES (@Id, @UserName, @Ip, @CreatedDate, @ChangedDate, @Status, @Note)";
-        const string QUERY_UPDATE = "UPDATE Sys_LoginLogs SET {0} WHERE  Id = @Id";
+        const string QUERY_INSERT="INSERT INTO Sys_LoginLogs ([Id], [UserName], [Ip], [CreatedDate], [ChangedDate], [Status], [Note], [Version]) VALUES (@Id, @UserName, @Ip, @CreatedDate, @ChangedDate, @Status, @Note, @Version)";
+        const string QUERY_UPDATE = "UPDATE Sys_LoginLogs SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion
         		
@@ -238,6 +246,7 @@ namespace CAF.Model
 		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
 		    this.AddDescription( "Status:"+ this.Status + "," );        
 		    this.AddDescription( "Note:"+ this.Note + "," );        
+		    this.AddDescription( "Version:"+ this.Version + "," );        
         }
 		#endregion
 				

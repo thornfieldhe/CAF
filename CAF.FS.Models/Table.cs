@@ -6,7 +6,7 @@ namespace CAF.FS.Models
 
     public class Table : TableContext<Table>
     {
-        [Set(Name = "Sys_Users")]
-        public TableSet<User> Users { get; set; }
+        [Set(Name = "Sys_Posts")]
+        public TableSet<Post> Posts { get; set; }
     }
 }

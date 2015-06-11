@@ -9,7 +9,7 @@ namespace CAF.Model
     using System.Data;
 
     [Serializable]
-	public partial class Directory_Role :  BaseEntity<Directory_Role>
+	public partial class Directory_Role :  BaseEntity<Directory_Role>,IEntityBase
 	{   
         public Directory_Role()
         {
@@ -24,6 +24,7 @@ namespace CAF.Model
 
         private Guid _roleId = Guid.Empty;
         private Guid _directoryId = Guid.Empty;
+        private byte[] _version;
         private Lazy<Role>  _roleInitalizer;
         private Role _role;
         private Lazy<Directory>  _directoryInitalizer;
@@ -78,6 +79,13 @@ namespace CAF.Model
                 return this._directory;
             }
         }
+        [Required(ErrorMessage="Version不允许为空")]
+		public byte[] Version
+		{
+			get {return this._version;} 
+            set {this.SetProperty("Version",ref this._version, value);}           	
+		}
+        
         
 		#endregion
         
@@ -91,7 +99,7 @@ namespace CAF.Model
         const string QUERY_DELETE2 = "UPDATE Sys_RE_Directory_Role SET Status=-1 WHERE Id = @Id  AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_RE_Directory_Role WHERE RoleId = @RoleId  AND DirectoryId = @DirectoryId AND Status!=-1";
         const string QUERY_EXISTS2 = "SELECT Count(*) FROM Sys_RE_Directory_Role WHERE Id = @Id  AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_RE_Directory_Role (Id, Status, CreatedDate, ChangedDate, Note, RoleId, DirectoryId) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @RoleId, @DirectoryId)";
+        const string QUERY_INSERT="INSERT INTO Sys_RE_Directory_Role (Id, Status, CreatedDate, ChangedDate, Note, RoleId, DirectoryId, Version) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @RoleId, @DirectoryId, @Version)";
         const string QUERY_UPDATE = "UPDATE Sys_RE_Directory_Role SET {0} WHERE  RoleId = @RoleId  AND DirectoryId = @DirectoryId";
                 
         #endregion
@@ -245,7 +253,7 @@ namespace CAF.Model
             var item = Role.Get(directory_role.RoleId);
             if (item != null)
             {
-                item.PropertyChanged += item.MarkDirty;
+                item.OnPropertyChanged += item.MarkDirty;
             }
             return item;
         }
@@ -255,7 +263,7 @@ namespace CAF.Model
             var item = Directory.Get(directory_role.DirectoryId);
             if (item != null)
             {
-                item.PropertyChanged += item.MarkDirty;
+                item.OnPropertyChanged += item.MarkDirty;
             }
             return item;
         }
@@ -272,6 +280,7 @@ namespace CAF.Model
 		    this.AddDescription( "RoleId:"+ this.RoleId + "," );        
 		    this.AddDescription( "DirectoryId:"+ this.DirectoryId + "," );        
 		    this.AddDescription( "Id:"+ this.Id + "," );        
+		    this.AddDescription( "Version:"+ this.Version + "," );        
         }
         #endregion
 

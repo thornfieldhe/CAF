@@ -10,7 +10,7 @@ namespace CAF.Model
     using System.Linq.Expressions;
 
     [Serializable]
-	public partial class WfAuditOption :  BaseEntity<WfAuditOption>
+	public partial class WfAuditOption :  BaseEntity<WfAuditOption>,IEntityBase
 	{   
         public WfAuditOption()
 		{
@@ -27,6 +27,7 @@ namespace CAF.Model
         private string _postName = String.Empty;
         private string _auditOpinion = String.Empty;
         private string _auditName = String.Empty;
+        private byte[] _version;
         
         /// <summary>
         /// 工作流Id
@@ -103,6 +104,13 @@ namespace CAF.Model
             set {this.SetProperty("AuditName",ref this._auditName, value);}           	
 		}
         
+        [Required(ErrorMessage="Version不允许为空")]
+		public byte[] Version
+		{
+			get {return this._version;} 
+            set {this.SetProperty("Version",ref this._version, value);}           	
+		}
+        
         
 		#endregion
         
@@ -112,8 +120,8 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_WfAuditOptions WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_WfAuditOptions SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WfAuditOptions WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_WfAuditOptions ([Id], [WfProcessId], [WfActivityId], [PostName], [AuditOpinion], [CreatedDate], [ChangedDate], [Status], [Note], [AuditName]) VALUES (@Id, @WfProcessId, @WfActivityId, @PostName, @AuditOpinion, @CreatedDate, @ChangedDate, @Status, @Note, @AuditName)";
-        const string QUERY_UPDATE = "UPDATE Sys_WfAuditOptions SET {0} WHERE  Id = @Id";
+        const string QUERY_INSERT="INSERT INTO Sys_WfAuditOptions ([Id], [WfProcessId], [WfActivityId], [PostName], [AuditOpinion], [CreatedDate], [ChangedDate], [Status], [Note], [AuditName], [Version]) VALUES (@Id, @WfProcessId, @WfActivityId, @PostName, @AuditOpinion, @CreatedDate, @ChangedDate, @Status, @Note, @AuditName, @Version)";
+        const string QUERY_UPDATE = "UPDATE Sys_WfAuditOptions SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion
         		
@@ -300,6 +308,7 @@ namespace CAF.Model
 		    this.AddDescription( "Status:"+ this.Status + "," );        
 		    this.AddDescription( "Note:"+ this.Note + "," );        
 		    this.AddDescription( "AuditName:"+ this.AuditName + "," );        
+		    this.AddDescription( "Version:"+ this.Version + "," );        
         }
 		#endregion
 				

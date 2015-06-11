@@ -10,7 +10,7 @@ namespace CAF.Model
     using System.Linq.Expressions;
 
     [Serializable]
-	public partial class WfRule :  BaseEntity<WfRule>
+	public partial class WfRule :  BaseEntity<WfRule>,IEntityBase
 	{   
         public WfRule()
 		{
@@ -29,6 +29,7 @@ namespace CAF.Model
         private string _type = String.Empty;
         private string _condition = String.Empty;
         private Guid _ruleId = Guid.Empty;
+        private byte[] _version;
         
         [GuidRequired(ErrorMessage="WfProcess不允许为空")]
 		public Guid WfProcessId
@@ -102,7 +103,17 @@ namespace CAF.Model
 			get {return this._ruleId;} 
             set {this.SetProperty("RuleId",ref this._ruleId, value);}           	
 		}
-  
+        
+ 
+        
+        [Required(ErrorMessage="Version不允许为空")]
+		public byte[] Version
+		{
+			get {return this._version;} 
+            set {this.SetProperty("Version",ref this._version, value);}           	
+		}
+        
+        
 		#endregion
         
         #region 常量定义
@@ -112,8 +123,8 @@ namespace CAF.Model
         const string QUERY_DELETE = "UPDATE Sys_WfRules SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WfRules WHERE Id = @Id AND Status!=-1";
         const string QUERY_GETALLBYWFPROCESSID = "SELECT * FROM Sys_WfRules WHERE  Status!=-1 And WfProcessId=@WfProcessId";
-        const string QUERY_INSERT="INSERT INTO Sys_WfRules ([Id], [WfProcessId], [Name], [BeginActivityID], [EndActivityID], [Type], [Condition], [CreatedDate], [ChangedDate], [Status], [Note], [RuleId]) VALUES (@Id, @WfProcessId, @Name, @BeginActivityID, @EndActivityID, @Type, @Condition, @CreatedDate, @ChangedDate, @Status, @Note, @RuleId)";
-        const string QUERY_UPDATE = "UPDATE Sys_WfRules SET {0} WHERE  Id = @Id";
+        const string QUERY_INSERT="INSERT INTO Sys_WfRules ([Id], [WfProcessId], [Name], [BeginActivityID], [EndActivityID], [Type], [Condition], [CreatedDate], [ChangedDate], [Status], [Note], [RuleId], [Version]) VALUES (@Id, @WfProcessId, @Name, @BeginActivityID, @EndActivityID, @Type, @Condition, @CreatedDate, @ChangedDate, @Status, @Note, @RuleId, @Version)";
+        const string QUERY_UPDATE = "UPDATE Sys_WfRules SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion
         		
@@ -319,6 +330,7 @@ namespace CAF.Model
 		    this.AddDescription( "Status:"+ this.Status + "," );        
 		    this.AddDescription( "Note:"+ this.Note + "," );        
 		    this.AddDescription( "RuleId:"+ this.RuleId + "," );        
+		    this.AddDescription( "Version:"+ this.Version + "," );        
         }
 		#endregion
 				

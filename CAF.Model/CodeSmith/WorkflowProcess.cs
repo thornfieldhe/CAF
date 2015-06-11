@@ -10,7 +10,7 @@ namespace CAF.Model
     using System.Linq.Expressions;
 
     [Serializable]
-	public partial class WorkflowProcess :  BaseEntity<WorkflowProcess>
+	public partial class WorkflowProcess :  BaseEntity<WorkflowProcess>,IEntityBase
 	{   
         public WorkflowProcess()
 		{
@@ -28,6 +28,7 @@ namespace CAF.Model
 
         private string _name = String.Empty;
         private string _document = String.Empty;
+        private byte[] _version;
         private WorkflowActivityList  _workflowActivityList;
         private Lazy<WorkflowActivityList>  _workflowActivityListInitalizer;       
         private WorkflowRuleList  _workflowRuleList;
@@ -52,6 +53,13 @@ namespace CAF.Model
 		{
 			get {return this._document;} 
             set {this.SetProperty("Document",ref this._document, value);}           	
+		}
+        
+        [Required(ErrorMessage="Version不允许为空")]
+		public byte[] Version
+		{
+			get {return this._version;} 
+            set {this.SetProperty("Version",ref this._version, value);}           	
 		}
         
         public WorkflowActivityList WorkflowActivitys
@@ -108,8 +116,8 @@ namespace CAF.Model
         const string QUERY_GETAll = "SELECT * FROM Sys_WorkflowProcesses WHERE  Status!=-1";
         const string QUERY_DELETE = "UPDATE Sys_WorkflowProcesses SET Status=-1 WHERE Id = @Id AND  Status!=-1";
         const string QUERY_EXISTS = "SELECT Count(*) FROM Sys_WorkflowProcesses WHERE Id = @Id AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_WorkflowProcesses ([Id], [Name], [Document], [CreatedDate], [ChangedDate], [Status], [Note]) VALUES (@Id, @Name, @Document, @CreatedDate, @ChangedDate, @Status, @Note)";
-        const string QUERY_UPDATE = "UPDATE Sys_WorkflowProcesses SET {0} WHERE  Id = @Id";
+        const string QUERY_INSERT="INSERT INTO Sys_WorkflowProcesses ([Id], [Name], [Document], [CreatedDate], [ChangedDate], [Status], [Note], [Version]) VALUES (@Id, @Name, @Document, @CreatedDate, @ChangedDate, @Status, @Note, @Version)";
+        const string QUERY_UPDATE = "UPDATE Sys_WorkflowProcesses SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion
         		
@@ -347,6 +355,7 @@ namespace CAF.Model
 		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
 		    this.AddDescription( "Status:"+ this.Status + "," );        
 		    this.AddDescription( "Note:"+ this.Note + "," );        
+		    this.AddDescription( "Version:"+ this.Version + "," );        
         }
 		#endregion
 				

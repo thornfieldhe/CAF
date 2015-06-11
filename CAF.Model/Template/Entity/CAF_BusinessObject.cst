@@ -29,7 +29,7 @@ namespace <%= ClassNamespace %>.Model
     using System.Linq.Expressions;
 
     [Serializable]
-	public partial class <%= GetClassName(SourceTable) %> :  BaseEntity<<%= GetClassName(SourceTable) %>>
+	public partial class <%= GetClassName(SourceTable) %> :  BaseEntity<<%= GetClassName(SourceTable) %>>,IEntityBase
 	{   
         public <%= GetClassName(SourceTable) %>()
 		{
@@ -174,7 +174,7 @@ namespace <%= ClassNamespace %>.Model
                 {
                     return;
                 }
-                this.<%= GetListMember4(item)%>.OnPropertyChange += this.MarkDirty;
+                this.<%= GetListMember4(item)%>.OnPropertyChanged += this.MarkDirty;
                 this.<%= GetListMember4(item)%>.<%= GetClassName(SourceTable) %>Id = this.Id;
             }
         }
@@ -632,7 +632,7 @@ namespace <%= ClassNamespace %>.Model
                 return null;
             }
             item.<%=GetClassName(SourceTable)%>Id = <%=GetCamelCaseName(GetClassName(SourceTable))%>.Id;
-			item.OnPropertyChange += <%=GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;
+			item.OnPropertyChanged += <%=GetCamelCaseName(GetClassName(SourceTable))%>.MarkDirty;
             return item;
         }
 		<%} %>

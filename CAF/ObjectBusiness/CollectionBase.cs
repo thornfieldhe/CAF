@@ -19,7 +19,7 @@ namespace CAF
     public abstract class CollectionBase<TCollection, TMember> : IList<TMember>, ITableName, IBaseStatus, ICollectionBase<TCollection, TMember>
         , IDisposable,INotifyCollectionChanged
         where TCollection : CollectionBase<TCollection, TMember>
-        where TMember : BaseEntity<TMember>
+        where TMember : BaseEntity<TMember>,IEntityBase
     {
         protected List<TMember> _items;
 
@@ -111,15 +111,6 @@ namespace CAF
             this._isDirty = false;
         }
 
-        public virtual void OnItemChanged(object sender,PropertyChangedEventArgs args)
-        {
-            this._isDirty = true;
-            if (this.OnMarkDirty != null)
-            {
-                this.OnMarkDirty();
-            }
-        }
-
         #endregion
 
         #region 表达式
@@ -142,7 +133,7 @@ namespace CAF
             {
                 this.OnInsert(member);
             }
-            member.PropertyChanged += this.OnItemChanged;
+            member.OnPropertyChanged += this.MarkDirty;
             this.MarkDirty();
         }
 
@@ -162,7 +153,7 @@ namespace CAF
             {
                 member.IsChangeRelationship = this.IsChangeRelationship;
                 this.Add(member);
-                member.PropertyChanged += this.OnItemChanged;
+                member.OnPropertyChanged += this.MarkDirty;
             }
             this.MarkDirty();
         }
@@ -179,7 +170,7 @@ namespace CAF
                 {
                     member.IsChangeRelationship = this.IsChangeRelationship;
                     this.Add(member);
-                    member.PropertyChanged += this.OnItemChanged;
+                    member.OnPropertyChanged += this.MarkDirty;
                 }
                 this.MarkDirty();
             }
@@ -195,7 +186,7 @@ namespace CAF
             {
                 member.IsChangeRelationship = this.IsChangeRelationship;
                 this.Add(member);
-                member.PropertyChanged += this.OnItemChanged;
+                member.OnPropertyChanged += this.MarkDirty;
             }
             this.MarkDirty();
         }
@@ -263,7 +254,7 @@ namespace CAF
         public void Insert(int index, TMember member)
         {
             this._items.Insert(index, member);
-            member.PropertyChanged += this.OnItemChanged;
+            member.OnPropertyChanged += this.MarkDirty;
             this.MarkDirty();
         }
 
