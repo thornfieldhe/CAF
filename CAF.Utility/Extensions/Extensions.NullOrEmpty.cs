@@ -220,6 +220,7 @@ namespace CAF
             }
         }
 
+
         /// <summary>
         /// 安全创建对象
         /// </summary>

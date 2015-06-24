@@ -122,8 +122,6 @@
     <Compile Include="Validations\ValidationResultCollection.cs" />
     <Compile Include="未整理\CAFException.cs" />
     <Compile Include="未整理\CAFLogging.cs" />
-    <Compile Include="未整理\Tests\Test.cs" />
-    <Compile Include="未整理\Tests\UnitTest.cs" />
     <Compile Include="未整理\BuilderBase.cs" />
     <Compile Include="未整理\BusinessChangedEventArgs.cs" />
     <Compile Include="CAFConfiguration.cs" />
