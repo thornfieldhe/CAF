@@ -1,9 +1,10 @@
-﻿using System;
-namespace CAF.ObjectBusiness
+﻿namespace CAF.ObjectBusiness
 {
-    interface IValidationEntity
+    public interface IValidationEntity
     {
         void AddValidationRule(CAF.Validations.IValidationRule rule);
         void Validate();
+
+        bool IsValidated();
     }
 }

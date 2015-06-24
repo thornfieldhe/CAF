@@ -1,10 +1,11 @@
 ﻿
-namespace CAF.FS.Models
+namespace CAF.FSModels
 {
-    using CAF.FS.Core.Data.Table;
-    using CAF.FS.Mapping.Context.Attribute;
+    using FS.Core.Data.Table;
+    using FS.Mapping.Context.Attribute;
 
-    public class Table : TableContext<Table>
+
+    public class Table : BaseTableContext<Table>
     {
         [Set(Name = "Sys_Posts")]
         public TableSet<Post> Posts { get; set; }

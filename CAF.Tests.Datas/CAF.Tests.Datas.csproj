@@ -55,9 +55,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CAF.Farseer\CAF.Farseer.csproj">
-      <Project>{3ff026e5-ad0b-490d-8be9-7f7283419e81}</Project>
-      <Name>CAF.Farseer</Name>
+    <ProjectReference Include="..\CAF.Farseer\Farseer.Net.csproj">
+      <Project>{4f393e31-dfcd-434a-a350-53d635a99317}</Project>
+      <Name>Farseer.Net</Name>
     </ProjectReference>
     <ProjectReference Include="..\CAF.FS.Models\CAF.FS.Models.csproj">
       <Project>{4be62055-240b-4019-8576-1147ecf35967}</Project>

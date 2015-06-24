@@ -1,15 +1,12 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace CAF.Tests.Datas
 {
+    using CAF.Exceptions;
+    using CAF.FSModels;
     using System.Collections.Generic;
     using System.Linq;
-
-    using CAF.Exceptions;
-    using CAF.FS.Core.Data.Table;
-    using CAF.FS.Models;
-    using CAF.Utility;
 
     [TestClass]
     public class FsTest
@@ -20,7 +17,7 @@ namespace CAF.Tests.Datas
             var db = new Table();
             var list = db.Posts.Where(r => r.Name == "部门经理").ToList();
             Assert.IsTrue(list.Count == 1);
-            
+
         }
 
         [TestMethod]
@@ -80,7 +77,7 @@ namespace CAF.Tests.Datas
         {
             try
             {
-                Post u = new Post ();
+                Post u = new Post();
                 u.Validate();
             }
             catch (Warning ex)
@@ -90,7 +87,7 @@ namespace CAF.Tests.Datas
             }
         }
 
-      
+
 
     }
 }

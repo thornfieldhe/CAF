@@ -45,15 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Caches\CacheManagerBase.cs" />
-    <Compile Include="Caches\CacheProviderBase.cs" />
-    <Compile Include="Caches\DefaultCacheKey.cs" />
-    <Compile Include="Caches\DefaultCacheManager.cs" />
-    <Compile Include="Caches\Interfaces\ICacheConfig.cs" />
-    <Compile Include="Caches\Interfaces\ICacheKey.cs" />
-    <Compile Include="Caches\Interfaces\ICacheManager.cs" />
-    <Compile Include="Caches\Interfaces\ICacheProvider.cs" />
-    <Compile Include="Caches\LocalCacheProvider.cs" />
     <Compile Include="ChinaDate.cs" />
     <Compile Include="Compress\GZip.cs" />
     <Compile Include="Compress\ICompress.cs" />
@@ -83,28 +74,7 @@
     <Compile Include="Specification\Specifications.cs" />
     <Compile Include="Tests\Test.cs" />
     <Compile Include="Tests\UnitTest.cs" />
-    <Compile Include="Validations\DataAnnotations\DateTimeRequiredAttribute.cs" />
-    <Compile Include="Validations\DataAnnotations\EqualToAttribute.cs" />
-    <Compile Include="Validations\DataAnnotations\GuidRequiredAttribute.cs" />
-    <Compile Include="Validations\DataAnnotations\IntegerAttribute.cs" />
-    <Compile Include="Validations\DataAnnotations\MaxAttribute.cs" />
-    <Compile Include="Validations\DataAnnotations\MinAttribute.cs" />
-    <Compile Include="Validations\DataAnnotations\MobilePhoneAttribute.cs" />
-    <Compile Include="Validations\DataAnnotations\ValidatorResources.Designer.cs">
-      <DependentUpon>ValidatorResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Validations\EmptyErrorValidateionRule.cs" />
-    <Compile Include="Validations\IValidation.cs" />
-    <Compile Include="Validations\IValidationHandler.cs" />
-    <Compile Include="Validations\IValidationRule.cs" />
-    <Compile Include="Validations\NothingValidationHandler.cs" />
-    <Compile Include="Validations\Validation.cs" />
-    <Compile Include="Validations\Validation2.cs" />
-    <Compile Include="Validations\ValidationHandler.cs" />
-    <Compile Include="Validations\ValidationResultCollection.cs" />
-    <Compile Include="未整理\Validation\StringReg.cs" />
+    <Compile Include="Reg\StringReg.cs" />
     <Compile Include="未整理\Time.cs" />
     <Compile Include="未整理\Config.cs" />
     <Compile Include="Encrypt.cs" />
@@ -172,21 +142,17 @@
     <Compile Include="String\Str`.cs" />
     <Compile Include="未整理\Sys.cs" />
     <Compile Include="未整理\Thread.cs" />
-    <Compile Include="未整理\Validation\IExpression.cs" />
-    <Compile Include="未整理\Validation\IRegExpression.cs" />
-    <Compile Include="未整理\Validation\RegexContex.cs" />
-    <Compile Include="未整理\Validation\RegexExpression.cs" />
-    <Compile Include="未整理\Validation\RegexOperator.cs" />
+    <Compile Include="Reg\IExpression.cs" />
+    <Compile Include="Reg\IRegExpression.cs" />
+    <Compile Include="Reg\RegexContex.cs" />
+    <Compile Include="Reg\RegexExpression.cs" />
+    <Compile Include="Reg\RegexOperator.cs" />
     <Compile Include="未整理\Web.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="R.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>R.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Validations\DataAnnotations\ValidatorResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ValidatorResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

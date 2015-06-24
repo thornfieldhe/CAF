@@ -8,7 +8,7 @@ namespace CAF.Tests.Samples
     using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 
-    public class Customer2 : BaseEntity<Customer2>
+    public class Customer2 : BaseEntity<Customer2>,IEntityBase
     {
         [Required(ErrorMessage = "姓名不能为空")]
         public string Name { get; set; }

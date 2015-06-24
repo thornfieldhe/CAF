@@ -65,7 +65,11 @@ namespace CAF
         {
             var result = this.GetValidationResult();
             this.HandleValidationResult(result);
+        }
 
+        public bool IsValidated()
+        {
+            return this.GetValidationResult().IsValid;
         }
 
         /// <summary>

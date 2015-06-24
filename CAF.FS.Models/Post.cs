@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CAF.FS.Models
+namespace CAF.FSModels
 {
     using CAF.Farseer;
     using System.ComponentModel.DataAnnotations;

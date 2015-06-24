@@ -51,8 +51,7 @@
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.1.2\lib\Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="FineUI, Version=4.1.6.0, Culture=neutral, PublicKeyToken=0ff1835d01c384a9, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="FineUI">
       <HintPath>..\packages\FineUI.4.1.6\lib\FineUI.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />

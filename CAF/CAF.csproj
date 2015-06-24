@@ -76,11 +76,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caches\CacheManagerBase.cs" />
+    <Compile Include="Caches\CacheProviderBase.cs" />
+    <Compile Include="Caches\DefaultCacheKey.cs" />
+    <Compile Include="Caches\DefaultCacheManager.cs" />
+    <Compile Include="Caches\Interfaces\ICacheConfig.cs" />
+    <Compile Include="Caches\Interfaces\ICacheKey.cs" />
+    <Compile Include="Caches\Interfaces\ICacheManager.cs" />
+    <Compile Include="Caches\Interfaces\ICacheProvider.cs" />
+    <Compile Include="Caches\LocalCacheProvider.cs" />
     <Compile Include="Configuration\ConfigurationSection.cs" />
     <Compile Include="Configuration\ConfigurationSectionGroup.cs" />
     <Compile Include="Configuration\NamedConfigurationElement.cs" />
     <Compile Include="Configuration\NamedConfigurationElementCollection.cs" />
-    <Compile Include="DomainBase.cs" />
     <Compile Include="Mapper\IMapper.cs" />
     <Compile Include="Mapper\IMapper`.cs" />
     <Compile Include="Mapper\Mapper2.cs" />
@@ -90,6 +98,28 @@
     <Compile Include="ObjectBusiness\IValidationEntity.cs" />
     <Compile Include="ObjectBusiness\StatusDescription.cs" />
     <Compile Include="ObjectBusiness\ValueObjectBase.cs" />
+    <Compile Include="Validations\DataAnnotations\BaseRegValidateAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\DateTimeRequiredAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\EqualToAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\GuidRequiredAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\IntegerAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\MaxAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\MinAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\RegAttribute.cs" />
+    <Compile Include="Validations\DataAnnotations\ValidatorResources.Designer.cs">
+      <DependentUpon>ValidatorResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Validations\EmptyErrorValidateionRule.cs" />
+    <Compile Include="Validations\IValidation.cs" />
+    <Compile Include="Validations\IValidationHandler.cs" />
+    <Compile Include="Validations\IValidationRule.cs" />
+    <Compile Include="Validations\NothingValidationHandler.cs" />
+    <Compile Include="Validations\Validation.cs" />
+    <Compile Include="Validations\Validation2.cs" />
+    <Compile Include="Validations\ValidationHandler.cs" />
+    <Compile Include="Validations\ValidationResultCollection.cs" />
     <Compile Include="未整理\CAFException.cs" />
     <Compile Include="未整理\CAFLogging.cs" />
     <Compile Include="未整理\Tests\Test.cs" />
@@ -107,18 +137,18 @@
     <Compile Include="Core\IProperty.cs" />
     <Compile Include="Core\IUndoBase.cs" />
     <Compile Include="未整理\CoRHandlerBase.cs" />
-    <Compile Include="Data\Dapper.cs" />
+    <Compile Include="ObjectBusiness\Data\Dapper.cs" />
     <Compile Include="Mapper\Mapper.cs" />
-    <Compile Include="Data\DbPropertyAttribute.cs" />
+    <Compile Include="ObjectBusiness\Data\DbPropertyAttribute.cs" />
     <Compile Include="未整理\LinqExt.cs" />
     <Compile Include="未整理\PredicateBuilder.cs" />
     <Compile Include="未整理\GenericContex.cs" />
-    <Compile Include="Data\ExpressionTurn\ExpConditions.cs" />
-    <Compile Include="Data\ExpressionTurn\Base\ExpressionVisitor.cs" />
-    <Compile Include="Data\ExpressionTurn\Base\ExpressionWriterSql.cs" />
-    <Compile Include="Data\ExpressionTurn\Base\PartialEvaluator.cs" />
-    <Compile Include="Data\ExpressionTurn\Base\ReflectionExtensions.cs" />
-    <Compile Include="Data\ExpressionTurn\Base\TypeHelper.cs" />
+    <Compile Include="ObjectBusiness\Data\ExpressionTurn\ExpConditions.cs" />
+    <Compile Include="ObjectBusiness\Data\ExpressionTurn\Base\ExpressionVisitor.cs" />
+    <Compile Include="ObjectBusiness\Data\ExpressionTurn\Base\ExpressionWriterSql.cs" />
+    <Compile Include="ObjectBusiness\Data\ExpressionTurn\Base\PartialEvaluator.cs" />
+    <Compile Include="ObjectBusiness\Data\ExpressionTurn\Base\ReflectionExtensions.cs" />
+    <Compile Include="ObjectBusiness\Data\ExpressionTurn\Base\TypeHelper.cs" />
     <Compile Include="ObjectBusiness\CollectionBase.cs" />
     <Compile Include="ObjectBusiness\IBaseStatus.cs" />
     <Compile Include="ObjectBusiness\ICollectionBase.cs" />
@@ -156,6 +186,12 @@
       <Project>{adf4fdbb-1377-4d72-8356-e61db18ab1b5}</Project>
       <Name>CAF.Utility</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Validations\DataAnnotations\ValidatorResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidatorResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
