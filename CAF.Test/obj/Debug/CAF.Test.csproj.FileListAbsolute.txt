@@ -100,15 +100,12 @@ D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Model.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.Unity.dll
-D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
-D:\WorkStation\CAF\CAF.Test\bin\Debug\Newtonsoft.Json.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.Model.pdb
 D:\WorkStation\CAF\CAF.Test\bin\Debug\CAF.pdb
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.xml
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.Unity.xml
-D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
 D:\WorkStation\CAF\CAF.Test\bin\Debug\AutoMapper.Net4.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\AutoMapper.dll
@@ -128,3 +125,7 @@ D:\WorkStation\CAF\CAF.Test\obj\Debug\CAF.Tests.dll
 D:\WorkStation\CAF\CAF.Test\obj\Debug\CAF.Tests.pdb
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
 D:\WorkStation\CAF\CAF.Test\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
+D:\WorkStation\CAF\CAF.Test\bin\Debug\Autofac.dll
+D:\WorkStation\CAF\CAF.Test\bin\Debug\Autofac.Integration.Mvc.dll
+D:\WorkStation\CAF\CAF.Test\bin\Debug\Autofac.xml
+D:\WorkStation\CAF\CAF.Test\bin\Debug\Autofac.Integration.Mvc.xml

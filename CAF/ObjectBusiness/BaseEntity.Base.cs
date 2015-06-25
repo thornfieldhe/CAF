@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CAF
 {
-
+    using CAF.DI;
     using CAF.ObjectBusiness;
     using CAF.Validations;
 
@@ -19,6 +19,7 @@ namespace CAF
         /// 验证规则集合
         /// </summary>
         private readonly List<IValidationRule> _rules;
+
         /// <summary>
         /// 验证处理器
         /// </summary>
@@ -77,7 +78,7 @@ namespace CAF
         /// </summary>
         private ValidationResultCollection GetValidationResult()
         {
-            var result = TypeCreater.IocBuildUp<IValidation>().Validate(this);
+            var result = Ioc.Create<IValidation>().Validate(this);
             this.Validate(result);
             foreach (var rule in this._rules)
                 result.Add(rule.Validate());

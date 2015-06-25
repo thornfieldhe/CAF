@@ -2,7 +2,7 @@
 
 namespace CAF.Tests.Domains.Validations
 {
-
+    using CAF.DI;
     using CAF.Exceptions;
     using CAF.Tests.Samples;
     using CAF.Validations;
@@ -23,7 +23,9 @@ namespace CAF.Tests.Domains.Validations
         [TestInitialize]
         public void TestInit()
         {
+            Ioc.Register(new IocConfig());
             this._customer2 = new Customer2();
+       
         }
 
         /// <summary>

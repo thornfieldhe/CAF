@@ -102,8 +102,6 @@ D:\WorkStation\CAF\CAF.Model\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Com
 D:\WorkStation\CAF\CAF.Model\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.dll
 D:\WorkStation\CAF\CAF.Model\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
 D:\WorkStation\CAF\CAF.Model\bin\Debug\Microsoft.Practices.Unity.dll
-D:\WorkStation\CAF\CAF.Model\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
-D:\WorkStation\CAF\CAF.Model\bin\Debug\Newtonsoft.Json.dll
 D:\WorkStation\CAF\CAF.Model\bin\Debug\CAF.Utility.pdb
 D:\WorkStation\CAF\CAF.Model\bin\Debug\CAF.pdb
 D:\WorkStation\CAF\CAF.Model\bin\Debug\AutoMapper.pdb
@@ -113,9 +111,12 @@ D:\WorkStation\CAF\CAF.Model\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Com
 D:\WorkStation\CAF\CAF.Model\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.xml
 D:\WorkStation\CAF\CAF.Model\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
 D:\WorkStation\CAF\CAF.Model\bin\Debug\Microsoft.Practices.Unity.xml
-D:\WorkStation\CAF\CAF.Model\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
 D:\WorkStation\CAF\CAF.Model\obj\Debug\CAF.Model.csprojResolveAssemblyReference.cache
 D:\WorkStation\CAF\CAF.Model\obj\Debug\CAF.Model.Resource.Resource.resources
 D:\WorkStation\CAF\CAF.Model\obj\Debug\CAF.Model.csproj.GenerateResource.Cache
 D:\WorkStation\CAF\CAF.Model\obj\Debug\CAF.Model.dll
 D:\WorkStation\CAF\CAF.Model\obj\Debug\CAF.Model.pdb
+D:\WorkStation\CAF\CAF.Model\bin\Debug\Autofac.dll
+D:\WorkStation\CAF\CAF.Model\bin\Debug\Autofac.Integration.Mvc.dll
+D:\WorkStation\CAF\CAF.Model\bin\Debug\Autofac.xml
+D:\WorkStation\CAF\CAF.Model\bin\Debug\Autofac.Integration.Mvc.xml

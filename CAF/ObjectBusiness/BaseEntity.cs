@@ -4,6 +4,7 @@ using System.Data;
 
 namespace CAF
 {
+    using CAF.DI;
     using CAF.Validations;
 
 
@@ -45,8 +46,8 @@ namespace CAF
         /// </summary>
         public byte[] Version { get { return this._version; } set { this.SetProperty("Version", ref this._version, value); } }
 
-  
- 
+
+
         public string TableName { get; protected set; }
 
         public string[] SkipedProperties { get; private set; }
@@ -79,7 +80,7 @@ namespace CAF
             this.IsChangeRelationship = false;//默认进行标识删除
 
             this._rules = new List<IValidationRule>();
-            this._handler = TypeCreater.IocBuildUp<IValidationHandler>();
+            this._handler = Ioc.Create<IValidationHandler>();
 
             //初始化方法注册
             //            _insertDelegate = PreInsert;
