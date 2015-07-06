@@ -78,7 +78,7 @@ namespace CAF
         /// </summary>
         private ValidationResultCollection GetValidationResult()
         {
-            var result = Ioc.Create<IValidation>().Validate(this);
+            var result = TypeCreater.IocBuildUp<IValidation>().Validate(this);
             this.Validate(result);
             foreach (var rule in this._rules)
                 result.Add(rule.Validate());

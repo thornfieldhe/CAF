@@ -1,8 +1,8 @@
 ﻿using CAF.Logs;
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using System.Text;
-
 
 namespace CAF.Exceptions
 {
@@ -267,5 +267,21 @@ namespace CAF.Exceptions
         }
 
         #endregion
+
+        #region 打印错误信息
+
+        void ShowDetail(Exception ex, [CallerFilePath] string path = null, [CallerMemberName] string name = null)
+        {
+            Console.WriteLine("文件路径：" + path);
+            Console.WriteLine("调用者的名字：" + name);
+            Console.WriteLine("发生异常的行号：" + ex.StackTrace.Substring(ex.StackTrace.Length - 3, 3));
+            Console.WriteLine("异常信息：" + ex.Message);
+
+        }
+
+        #endregion
     }
+
+
+
 }

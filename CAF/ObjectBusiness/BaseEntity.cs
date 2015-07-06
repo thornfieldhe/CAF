@@ -80,7 +80,7 @@ namespace CAF
             this.IsChangeRelationship = false;//默认进行标识删除
 
             this._rules = new List<IValidationRule>();
-            this._handler = Ioc.Create<IValidationHandler>();
+            this._handler = TypeCreater.IocBuildUp<IValidationHandler>();
 
             //初始化方法注册
             //            _insertDelegate = PreInsert;

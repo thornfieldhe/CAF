@@ -11,6 +11,7 @@ namespace CAF.Utility
     public class Randoms
     {
         #region 生成一个指定范围的随机整数
+
         /// <summary>
         /// 生成一个指定范围的随机整数，该随机数范围包括最小值，但不包括最大值
         /// </summary>
@@ -18,7 +19,7 @@ namespace CAF.Utility
         /// <param name="maxNum">最大值</param>
         public static int GetRandomInt(int minNum, int maxNum)
         {
-            var random = new Random();
+            var random = new Random(Guid.NewGuid().GetHashCode());
             return random.Next(minNum, maxNum);
         }
         #endregion
@@ -29,7 +30,7 @@ namespace CAF.Utility
         /// </summary>
         public static double GetRandomDouble()
         {
-            var random = new Random();
+            var random = new Random(Guid.NewGuid().GetHashCode());
             return random.NextDouble();
         }
         #endregion
@@ -117,9 +118,9 @@ namespace CAF.Utility
         /// 生成随机常用汉字
         /// </summary>
         /// <param name="maxLength">最大长度</param>
-        public  static string GenerateChinese(int maxLength)
+        public static string GenerateChinese(int maxLength)
         {
-            return  GetRandomCode(maxLength, Const.SimplifiedChinese);
+            return GetRandomCode(maxLength, Const.SimplifiedChinese);
         }
 
 
@@ -296,7 +297,7 @@ namespace CAF.Utility
         /// </summary>
         private async static Task<string> Generate(int maxLength, string text)
         {
-            var length = GetRandomInt(1,maxLength);
+            var length = GetRandomInt(1, maxLength);
             var result = new StringBuilder();
             for (int i = 0; i < length; i++)
             {
@@ -311,6 +312,6 @@ namespace CAF.Utility
             return result.ToString();
         }
 
-    
+
     }
 }

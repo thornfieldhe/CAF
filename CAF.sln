@@ -36,6 +36,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAF.FS.Models", "CAF.FS.Mod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Farseer.Net", "CAF.Farseer\Farseer.Net.csproj", "{4F393E31-DFCD-434A-A350-53D635A99317}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06-CAF.Abp", "06-CAF.Abp", "{81D0BD7C-F53C-4D98-BAEF-D38A7311A036}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAF.Abp.Core", "CAF.Abp.Core\CAF.Abp.Core.csproj", "{178B9B68-0B49-4015-B429-4D0ACECD3BC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAF.Abp.EF", "CAF.Abp.EF\CAF.Abp.EF.csproj", "{0B2C57EF-07E0-472B-A559-4FDAB9F8175B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAF.Abp.Application", "CAF.Abp.Application\CAF.Abp.Application.csproj", "{AC6E3B4F-3479-45B9-9064-868F8C2A399D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAF.Abp.WebApi", "CAF.ABp.WebApi\CAF.Abp.WebApi.csproj", "{606D6EA4-EA33-4F60-A322-C8C8683576E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAF.Abp.Web", "CAF.Abp.Web\CAF.Abp.Web.csproj", "{886A33AE-CADF-4DF5-A34B-A521A0109917}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +94,26 @@ Global
 		{4F393E31-DFCD-434A-A350-53D635A99317}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F393E31-DFCD-434A-A350-53D635A99317}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F393E31-DFCD-434A-A350-53D635A99317}.Release|Any CPU.Build.0 = Release|Any CPU
+		{178B9B68-0B49-4015-B429-4D0ACECD3BC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{178B9B68-0B49-4015-B429-4D0ACECD3BC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{178B9B68-0B49-4015-B429-4D0ACECD3BC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{178B9B68-0B49-4015-B429-4D0ACECD3BC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B2C57EF-07E0-472B-A559-4FDAB9F8175B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B2C57EF-07E0-472B-A559-4FDAB9F8175B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B2C57EF-07E0-472B-A559-4FDAB9F8175B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B2C57EF-07E0-472B-A559-4FDAB9F8175B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC6E3B4F-3479-45B9-9064-868F8C2A399D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC6E3B4F-3479-45B9-9064-868F8C2A399D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC6E3B4F-3479-45B9-9064-868F8C2A399D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC6E3B4F-3479-45B9-9064-868F8C2A399D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{606D6EA4-EA33-4F60-A322-C8C8683576E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{606D6EA4-EA33-4F60-A322-C8C8683576E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{606D6EA4-EA33-4F60-A322-C8C8683576E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{606D6EA4-EA33-4F60-A322-C8C8683576E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{886A33AE-CADF-4DF5-A34B-A521A0109917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{886A33AE-CADF-4DF5-A34B-A521A0109917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{886A33AE-CADF-4DF5-A34B-A521A0109917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{886A33AE-CADF-4DF5-A34B-A521A0109917}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,10 +129,15 @@ Global
 		{823E3AE4-3F5A-4289-BC49-00B671655B04} = {D7EA5138-6F65-4AF2-9316-BE2D5ADA3365}
 		{4BE62055-240B-4019-8576-1147ECF35967} = {CC480EEA-774F-4A9B-BE11-EFAADF295B27}
 		{4F393E31-DFCD-434A-A350-53D635A99317} = {9FAFC418-E652-4619-A9E4-B4C1482E8614}
+		{178B9B68-0B49-4015-B429-4D0ACECD3BC9} = {81D0BD7C-F53C-4D98-BAEF-D38A7311A036}
+		{0B2C57EF-07E0-472B-A559-4FDAB9F8175B} = {81D0BD7C-F53C-4D98-BAEF-D38A7311A036}
+		{AC6E3B4F-3479-45B9-9064-868F8C2A399D} = {81D0BD7C-F53C-4D98-BAEF-D38A7311A036}
+		{606D6EA4-EA33-4F60-A322-C8C8683576E1} = {81D0BD7C-F53C-4D98-BAEF-D38A7311A036}
+		{886A33AE-CADF-4DF5-A34B-A521A0109917} = {81D0BD7C-F53C-4D98-BAEF-D38A7311A036}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Validation.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.Database.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Caching.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Caching.Database.5.0.505.0\lib\NET35
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Validation.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.Database.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
 	EndGlobalSection
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true

@@ -9,6 +9,7 @@ Description:
 <%@ Assembly Name="SchemaExplorer" %>
 <%@ Import Namespace="SchemaExplorer" %>
 <%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Linq" %>
 <%@ Register Name="BusinessObject" Template="Entity/CAF_BusinessObject.cst" MergeProperties="Flase" ExcludeProperties=""%>
 <%@ Register Name="REBusinessObject" Template="Entity/CAF_REBusinessObject.cst" MergeProperties="Flase" ExcludeProperties=""%>
 <%@ Register Name="ReadOnlyBusinessObject" Template="Entity/CAF_ReadOnlyBusinessObject.cst" MergeProperties="Flase" ExcludeProperties=""%>
@@ -18,7 +19,8 @@ Description:
 //生成实体Entity类
 private void GenerateEntityClasses()
 {
-    foreach(TableSchema table in this.Db.Tables)
+    var skipTables=new string[]{"ELMAH_Error"};
+    foreach(TableSchema table in this.Db.Tables.Where(r=>!skipTables.Contains( r.Name)))
     {
         RenderToFileByTable(table);
     }
