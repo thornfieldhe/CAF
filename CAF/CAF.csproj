@@ -92,8 +92,8 @@
     <Compile Include="Mapper\Mapper2.cs" />
     <Compile Include="ObjectBusiness\BaseEntity.Base.cs" />
     <Compile Include="ObjectBusiness\BaseEntity.cs" />
-    <Compile Include="ObjectBusiness\IEntityBase.cs" />
-    <Compile Include="ObjectBusiness\IValidationEntity.cs" />
+    <Compile Include="ObjectBusiness\Core\IValidationEntity.cs" />
+    <Compile Include="ObjectBusiness\PropertyChanged.cs" />
     <Compile Include="ObjectBusiness\StatusDescription.cs" />
     <Compile Include="ObjectBusiness\ValueObjectBase.cs" />
     <Compile Include="Validations\DataAnnotations\BaseRegValidateAttribute.cs" />
@@ -126,7 +126,7 @@
     <Compile Include="未整理\CommandInvoker.cs" />
     <Compile Include="Core\BuildStepAttribute.cs" />
     <Compile Include="Core\CallHandlerEventArgs.cs" />
-    <Compile Include="ObjectBusiness\IBusinessBase.cs" />
+    <Compile Include="ObjectBusiness\Core\IBusinessBase.cs" />
     <Compile Include="Core\ICorRequest.cs" />
     <Compile Include="Core\IDictionaryStore.cs" />
     <Compile Include="Core\IFactory.cs" />
@@ -146,9 +146,8 @@
     <Compile Include="ObjectBusiness\Data\ExpressionTurn\Base\ReflectionExtensions.cs" />
     <Compile Include="ObjectBusiness\Data\ExpressionTurn\Base\TypeHelper.cs" />
     <Compile Include="ObjectBusiness\CollectionBase.cs" />
-    <Compile Include="ObjectBusiness\IBaseStatus.cs" />
-    <Compile Include="ObjectBusiness\ICollectionBase.cs" />
-    <Compile Include="ObjectBusiness\ReadOnlyBase.cs" />
+    <Compile Include="ObjectBusiness\Core\IBaseStatus.cs" />
+    <Compile Include="ObjectBusiness\Core\ICollectionBase.cs" />
     <Compile Include="ObjectBusiness\ReadOnlyCollectionBase.cs" />
     <Compile Include="ObjectBusiness\ReadOnlyCollectionQueryResult.cs" />
     <Compile Include="ObjectBusiness\SortLevelItem.cs" />
@@ -178,6 +177,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Farseer.Net\Source\Farseer.Net\Farseer.Net.csproj">
+      <Project>{4f393e31-dfcd-434a-a350-53d635a99317}</Project>
+      <Name>Farseer.Net</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CAF.Utility\CAF.Utility.csproj">
       <Project>{adf4fdbb-1377-4d72-8356-e61db18ab1b5}</Project>
       <Name>CAF.Utility</Name>
@@ -189,6 +192,7 @@
       <LastGenOutput>ValidatorResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -20,12 +20,12 @@ namespace CAF.Model
                 foreach (var item in items)
                 {
                     item.Connection = SqlService.Instance.Connection;
-                    item.MarkOld();
+                    item.MarkClean();
                     item._wfActivityListInitalizer = new Lazy<WfActivityList>(() => InitWfActivitys(item), isThreadSafe: true);
                     item._wfRuleListInitalizer = new Lazy<WfRuleList>(() => InitWfRules(item), isThreadSafe: true);
                     list.Add(item);
                 }
-                list.MarkOld();
+                list.MarkClean();
                 return list;
             }
         }

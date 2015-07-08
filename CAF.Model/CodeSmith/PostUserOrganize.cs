@@ -128,7 +128,7 @@ namespace CAF.Model
                     return null;
                 }
                 item.Connection = SqlService.Instance.Connection;
-                item.MarkOld();
+                item.MarkClean();
                 return item;
             }
 		}
@@ -142,10 +142,10 @@ namespace CAF.Model
                 foreach (var item in items)
                 {
                     item.Connection = SqlService.Instance.Connection;
-                    item.MarkOld();
+                    item.MarkClean();
                     list.Add(item);
                 }
-                list.MarkOld();
+                list.MarkClean();
                 return list;
             }
 		}        
@@ -192,10 +192,10 @@ namespace CAF.Model
                 foreach (var item in items)
                 {
                     item.Connection = SqlService.Instance.Connection;
-                    item.MarkOld();
+                    item.MarkClean();
                     list.Add(item);
                 }
-				list.MarkOld();
+				list.MarkClean();
                 return list;
             }
         }
@@ -218,10 +218,10 @@ namespace CAF.Model
             foreach (var item in items)
             {
                 item.Connection = SqlService.Instance.Connection;
-                item.MarkOld();
+                item.MarkClean();
                 list.Add(item);
             }
-			list.MarkOld();
+			list.MarkClean();
             return list;
         }
 

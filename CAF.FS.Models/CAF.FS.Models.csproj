@@ -41,12 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Table.cs" />
-    <Compile Include="Post.cs" />
+    <Compile Include="CodeSmith\Directory_Role.cs" />
+    <Compile Include="Context.cs" />
+    <Compile Include="FarseerCollection.cs" />
+    <Compile Include="FarseerEntity.cs" />
+    <Compile Include="IFarseerEntityBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CodeSmith\Directory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CAF.Farseer\Farseer.Net.csproj">
+    <ProjectReference Include="..\..\Farseer.Net\Source\Farseer.Net\Farseer.Net.csproj">
       <Project>{4f393e31-dfcd-434a-a350-53d635a99317}</Project>
       <Name>Farseer.Net</Name>
     </ProjectReference>

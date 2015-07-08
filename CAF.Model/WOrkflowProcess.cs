@@ -23,7 +23,7 @@ namespace CAF.Model
                    return null;
                }
                item.Connection = SqlService.Instance.Connection;
-               item.MarkOld();
+               item.MarkClean();
                item._workflowActivityListInitalizer = new Lazy<WorkflowActivityList>(() => InitWorkflowActivitys(item), isThreadSafe: true);
                item._workflowRuleListInitalizer = new Lazy<WorkflowRuleList>(() => InitWorkflowRules(item), isThreadSafe: true);
                return item;

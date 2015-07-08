@@ -4,11 +4,9 @@ using System.Collections.Generic;
 
 namespace CAF
 {
-    using System.Collections.Specialized;
-    using System.ComponentModel;
-    using System.Data;
+    using FS.Core.Infrastructure;
     using System.Linq;
-    using System.Runtime.CompilerServices;
+
 
     /// <summary>
     /// 集合业务对象
@@ -16,68 +14,50 @@ namespace CAF
     /// <typeparam name="TCollection"></typeparam>
     /// <typeparam name="TMember"></typeparam>
     [Serializable]
-    public abstract class CollectionBase<TCollection, TMember> : IList<TMember>, ITableName, IBaseStatus, ICollectionBase<TCollection, TMember>
-        , IDisposable,INotifyCollectionChanged
+    public abstract class CollectionBase<TCollection, TMember> : IList<TMember>, IBaseStatus, ICollectionBase<TCollection, TMember>
+        , IDisposable
         where TCollection : CollectionBase<TCollection, TMember>
-        where TMember : BaseEntity<TMember>,IEntityBase
+        where TMember : class, IEntityStatus, IBusinessBase, IEntityBase
     {
         protected List<TMember> _items;
 
-        public CollectionBase()
+        #region 构造函数
+
+        protected CollectionBase()
         {
+            this.IsReadOnly = false;
             this._items = new List<TMember>();
         }
 
-        internal CollectionBase(List<TMember> items)
+        protected CollectionBase(bool isReadOnly)
         {
-            this._items = items;
+            this.IsReadOnly = isReadOnly;
+            this._items = new List<TMember>();
         }
 
-        [NonSerialized]
-        protected IDbConnection _connection;
-        public IDbConnection Connection { get { return this._connection; } set { this._connection = value; } }
+        internal CollectionBase(List<TMember> items, bool isReadOnly)
+        {
+            this._items = items;
+            this.IsReadOnly = isReadOnly;
+        }
 
+        #endregion
 
         #region 基本状态
+
         internal bool _isNew = false;
         internal bool _isDirty = false;
 
-        internal bool IsNew { get { return this._isNew; } set { this._isNew = value; } }
+        public bool IsNew { get { return this._isNew; } set { this._isNew = value; } }
+
 
         public bool IsClean
         {
             get { throw new NotImplementedException(); }
         }
 
-        bool IBaseStatus.IsDirty
-        {
-            get { return this.IsDirty; }
-            set { this.IsDirty = value; }
-        }
+        public bool IsDirty { get { return this._isDirty; } set { this._isDirty = value; } }
 
-        internal bool IsDirty { get { return this._isDirty; } set { this._isDirty = value; } }
-
-        internal bool _isChangeRelationship;
-        /// <summary>
-        /// true：只更新关系
-        /// false：标记删除
-        /// </summary>
-        public bool IsChangeRelationship
-        {
-            get { return this._isChangeRelationship; }
-            set
-            {
-                this._isChangeRelationship = value;
-                this._isChangeRelationship.IfTrue(() => this._items.ForEach(i => i.IsChangeRelationship = true));
-            }
-        }
-
-        public delegate int OnSaveHandler(IDbConnection conn, IDbTransaction transaction);        //属性改变事件，用于通知列表，修改状态为Dity
-        public event OnSaveHandler OnSaved;
-        public delegate void OnDirtyHandler();//更新当前Dirty属性同时更新订阅的父对象的Dity属性
-        public event OnDirtyHandler OnMarkDirty;
-        public delegate void OnInsertHandler(TMember member);//插入集合对象时执行父对象的PostInsert方法
-        public event OnInsertHandler OnInsert;
 
         public void MarkDirty()
         {
@@ -95,31 +75,33 @@ namespace CAF
         }
 
 
-        public virtual void MarkOld()
-        {
-            this._isNew = false;
-            this.MarkClean();
-        }
-
-        public bool IsValid
-        {
-            get { throw new NotImplementedException(); }
-        }
-
         public virtual void MarkClean()
         {
+            this._isNew = false;
             this._isDirty = false;
         }
 
         #endregion
 
-        #region 表达式
+        internal bool _isChangeRelationship;
+        /// <summary>
+        /// true：只更新关系
+        /// false：标记删除
+        /// </summary>
+        public bool IsChangeRelationship
+        {
+            get { return this._isChangeRelationship; }
+            set
+            {
+                this._isChangeRelationship = value;
+                this._isChangeRelationship.IfTrue(() => this._items.ForEach(i => i.IsChangeRelationship = true));
+            }
+        }
 
-        protected const string QUERY = "SELECT * FROM {0} Where Status!=-1 AND {1} ";
-        protected const string COUNT = "SELECT COUNT(*) AS COUNT FROM {0} Where Status!=-1 AND {1} ";
 
+        public delegate void OnDirtyHandler();//更新当前Dirty属性同时更新订阅的父对象的Dity属性
+        public event OnDirtyHandler OnMarkDirty;
 
-        #endregion
 
         /// <summary>
         /// 添加一个成员岛集合
@@ -129,10 +111,6 @@ namespace CAF
         {
             member.IsChangeRelationship = this.IsChangeRelationship;
             this._items.Add(member);
-            if (this.OnInsert != null)
-            {
-                this.OnInsert(member);
-            }
             member.OnPropertyChanged += this.MarkDirty;
             this.MarkDirty();
         }
@@ -209,7 +187,12 @@ namespace CAF
         public int Add(object value)
         {
             var member = value as TMember;
+            if (member == null)
+            {
+                return this.Members.Length;
+            }
             this.Add(member);
+            member.OnPropertyChanged += this.MarkDirty;
             return this.Members.Length - 1;
         }
 
@@ -241,14 +224,14 @@ namespace CAF
         public void Insert(int index, object value)
         {
             var member = value as TMember;
-            this.Insert(index,member);
+            this.Insert(index, member);
         }
 
         public void Remove(object value)
         {
             var member = value as TMember;
-            this.Remove(member); 
-            
+            this.Remove(member);
+
         }
 
         public void Insert(int index, TMember member)
@@ -273,6 +256,7 @@ namespace CAF
         {
             this._items.CopyTo(array, arrayIndex);
         }
+
 
         /// <summary>
         /// 集合成员列表
@@ -310,9 +294,7 @@ namespace CAF
             get { return this._items.Count(member => !member.IsDelete); }
         }
 
-
-        public bool IsReadOnly { get; private set; }
-
+        public bool IsReadOnly { get; protected set; }
 
         /// <summary>
         /// 是否包含
@@ -343,83 +325,7 @@ namespace CAF
             return this._items.IndexOf(member);
         }
 
-        public string TableName { get; protected set; }
-        #region 数据库操作方法
 
-        public int Save()
-        {
-            var i = 0;
-            if (this.IsDirty)
-            {
-                using (var conn = this.Connection)
-                {
-                    var transaction = conn.BeginTransaction();
-                    try
-                    {
-                        i = this.SaveChanges(conn, transaction);
-                        transaction.Commit();
-                        return i;
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw ex;
-                    }
-                }
-            }
-            return i;
-        }
-
-        public int SaveChanges(IDbConnection conn, IDbTransaction transaction)
-        {
-            var i = 0;
-            if (this.IsDirty)
-            {
-                i += this.PreSubmit(conn, transaction);
-                i += this.Submit(conn, transaction);
-                i += this.PostSubmit(conn, transaction);
-                if (this.OnSaved != null)
-                {
-                    i += this.OnSaved(conn, transaction);
-                }
-            }
-            return i;
-        }
-
-        protected virtual int PreSubmit(IDbConnection conn, IDbTransaction transaction)
-        {
-            return 0;
-        }
-
-        protected virtual int Submit(IDbConnection conn, IDbTransaction transaction)
-        {
-            var rows = 0;
-            if (this._isDirty)
-            {
-                var isValid = true;
-                this._items.ForEach(
-                    member =>
-                    {
-                        member.Validate();
-                        isValid = false;
-                    });
-                if (isValid)
-                {
-                    this._items.ForEach(
-                        member =>
-                        {
-                            rows += member.SaveChange(conn, transaction);
-                        });
-                }
-            }
-            return rows;
-        }
-        protected virtual int PostSubmit(IDbConnection conn, IDbTransaction transaction)
-        {
-            return 0;
-        }
-
-        #endregion
 
         /// <summary>
         /// 释放资源
@@ -433,6 +339,5 @@ namespace CAF
             this.Clear();
         }
 
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
     }
 }

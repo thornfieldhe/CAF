@@ -34,7 +34,7 @@ namespace CAF.Model
                 {
                     return null;
                 }
-                item.MarkOld();
+                item.MarkClean();
                 item._userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);
                 item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                 return item;
@@ -52,7 +52,7 @@ namespace CAF.Model
                 {
                     return null;
                 }
-                item.MarkOld();
+                item.MarkClean();
                 item._userSettingInitalizer = new Lazy<UserSetting>(() => InitUserSetting(item), isThreadSafe: true);
                 item._roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                 return item;

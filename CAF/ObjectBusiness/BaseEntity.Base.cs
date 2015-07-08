@@ -3,13 +3,14 @@ using System.Collections.Generic;
 
 namespace CAF
 {
-    using CAF.DI;
     using CAF.ObjectBusiness;
     using CAF.Validations;
 
+    using FS.Core.Infrastructure;
+    using FS.Mapping.Context.Attribute;
 
     public abstract partial class BaseEntity<T> : StatusDescription, IEqualityComparer<T>, IBusinessBase, IComparable<IEntityBase>,
-        IBaseStatus, IValidationEntity where T : class,IEntityBase
+        IEntityStatus, IValidationEntity where T : class,IEntityBase
     {
         #region 属性验证
 
@@ -112,47 +113,33 @@ namespace CAF
         protected bool _isNew = false;
         protected bool _isDirty = false;
         protected bool _isDelete = false;
-        protected bool _isChild = false;
-        protected bool _isRoot = false;
 
-        public bool IsNew { get { return this._isNew; } set { this._isNew = value; } }
-
-        public bool IsDelete { get { return this._isDelete; } set { this._isDelete = value; } }
-
-        public bool IsDirty { get { return this._isDirty; } set { this._isDirty = value; } }
-
+        [Field(IsMap = false)]
+        public bool IsNew { get { return this._isNew; } protected set { this._isNew = value; } }
+        [Field(IsMap = false)]
+        public bool IsDelete { get { return this._isDelete; } protected set { this._isDelete = value; } }
+        [Field(IsMap = false)]
+        public bool IsDirty { get { return this._isDirty; } protected set { this._isDirty = value; } }
+        [Field(IsMap = false)]
         public bool IsClean { get { return !this._isDirty && !this._isNew; } }
 
 
         public virtual void MarkNew()
         {
             this._isNew = true;
+            this._isDelete = false;
             this.MarkDirty();
         }
 
-        public virtual void MarkChild()
-        {
-            this._isChild = true;
-            this._isRoot = false;
-        }
-
-        public virtual void MarkRoot()
-        {
-            this._isChild = false;
-            this._isRoot = true;
-        }
-
-        public virtual void MarkOld()
-        {
-            this._isNew = false;
-            this._updateParameters = "";
-            this.MarkClean();
-        }
 
         public virtual void MarkClean()
         {
+            this._isNew = false;
             this._isDirty = false;
+            this._isDelete = false;
         }
+
+
 
         public virtual void MarkDirty()
         {
@@ -165,6 +152,7 @@ namespace CAF
         public virtual void MarkDelete()
         {
             this._isDelete = true;
+            this._isNew = false;
             this.MarkDirty();
             if (this.OnPropertyChanged != null)
             {

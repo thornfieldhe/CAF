@@ -190,7 +190,7 @@ namespace CAF.Model
                     return null;
                 }
                 item.Connection = SqlService.Instance.Connection;
-                item.MarkOld();
+                item.MarkClean();
                 item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                 item. _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                 return item;
@@ -206,12 +206,12 @@ namespace CAF.Model
                 foreach (var item in items)
                 {
                     item.Connection = SqlService.Instance.Connection;
-                    item.MarkOld();
+                    item.MarkClean();
                     item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                      item. _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                     list.Add(item);
                 }
-                list.MarkOld();
+                list.MarkClean();
                 return list;
             }
 		}        
@@ -225,12 +225,12 @@ namespace CAF.Model
                 foreach (var item in items)
                 {
                     item.Connection = SqlService.Instance.Connection;
-                    item.MarkOld();
+                    item.MarkClean();
 					item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);                 
                      item. _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                     list.Add(item);
                 }
-				list.MarkOld();
+				list.MarkClean();
                 return list;
             }
 		}
@@ -245,12 +245,12 @@ namespace CAF.Model
                 foreach (var item in items)
                 {
                     item.Connection = SqlService.Instance.Connection;
-                    item.MarkOld();
+                    item.MarkClean();
                     item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);                 
                     item. _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                     list.Add(item);
                 }
-				list.MarkOld();
+				list.MarkClean();
                 return list;
             }
 		}
@@ -297,12 +297,12 @@ namespace CAF.Model
                 foreach (var item in items)
                 {
                     item.Connection = SqlService.Instance.Connection;
-                    item.MarkOld();
+                    item.MarkClean();
                     item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                      item. _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                     list.Add(item);
                 }
-				list.MarkOld();
+				list.MarkClean();
                 return list;
             }
         }
@@ -325,12 +325,12 @@ namespace CAF.Model
             foreach (var item in items)
             {
                 item.Connection = SqlService.Instance.Connection;
-                item.MarkOld();
+                item.MarkClean();
                 item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                  item. _roleListInitalizer = new Lazy<RoleList>(() => InitRoles(item), isThreadSafe: true);
                 list.Add(item);
             }
-			list.MarkOld();
+			list.MarkClean();
             return list;
         }
 
