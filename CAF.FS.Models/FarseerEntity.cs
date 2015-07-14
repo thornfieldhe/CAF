@@ -1,9 +1,9 @@
 ﻿
 namespace CAF.FSModels
 {
-    using FS.Core.Infrastructure;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Linq.Expressions;
 
     public abstract class FarseerEntity<T, K> : BaseEntity<FarseerEntity<T, K>>,
@@ -13,8 +13,8 @@ namespace CAF.FSModels
     {
         #region 构造函数
 
-        protected FarseerEntity(Guid id):base(id){} 
-        protected FarseerEntity():this(Guid.NewGuid()){} 
+        protected FarseerEntity(Guid id) : base(id) { }
+        protected FarseerEntity() : this(Guid.NewGuid()) { }
 
         #endregion
 
@@ -117,25 +117,28 @@ namespace CAF.FSModels
             {
                 return this.Update(contex);
             }
+            contex.SaveChanges();
             return this._changedRows;
+
         }
 
 
         protected virtual int Update(Context contex)
         {
-            contex.TableSet<T>().Update(this as T);
+            this.ChangedDate = DateTime.Now;
             return 0;
         }
 
         protected virtual int Insert(Context contex)
         {
-            contex.TableSet<T>().Insert(this as T);
+            contex.Set<T>().Add(this as T);
             return 0;
         }
 
         protected virtual int Remove(Context contex)
         {
-            contex.TableSet<T>().Delete(this as T);
+            this.Status = -1;
+            this.ChangedDate = DateTime.Now;
             return 0;
         }
 
@@ -164,7 +167,7 @@ namespace CAF.FSModels
         {
             using (var contex = new Context())
             {
-                var item = contex.TableSet<T>().Where(t => t.Id == id).ToEntity();
+                var item = contex.Set<T>().SingleOrDefault(t => t.Id == id);
                 if (item == null)
                 {
                     return null;
@@ -177,7 +180,7 @@ namespace CAF.FSModels
         {
             using (var contex = new Context())
             {
-                var items = contex.TableSet<T>().ToList();
+                var items = contex.Set<T>().ToList();
                 return GetList(items, contex);
             }
         }
@@ -185,14 +188,13 @@ namespace CAF.FSModels
         {
             using (var contex = new Context())
             {
-                var items = contex.TableSet<T>().Where(func).ToList();
+                var items = contex.Set<T>().Where(func).ToList();
                 return GetList(items, contex);
             }
         }
 
-        public static bool Exist(Expression<Func<T, bool>> func) { return Context.Data.TableSet<T>().Where(func).IsHaving(); }
-        public static void Delete(Expression<Func<T, bool>> func) { Context.Data.TableSet<T>().Where(func).Delete(); }
-        public static int Count(Expression<Func<T, bool>> func) { return Context.Data.TableSet<T>().Where(func).Count(); }
+        public static bool Exist(Expression<Func<T, bool>> func) { return new Context().Set<T>().Any(func); }
+        public static int Count(Expression<Func<T, bool>> func) { return new Context().Set<T>().Where(func).Count(); }
 
         private static K GetList(List<T> items, Context contex)
         {

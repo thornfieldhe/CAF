@@ -1,12 +1,10 @@
 ﻿
 namespace CAF.FSModels
 {
-    using FS.Core.Data;
-    using FS.Mapping.Context.Attribute;
+    using System.Data.Entity;
 
-    public class Context : DbContext<Context>
+    public class Context : DbContext
     {
-        [Set(Name = "Sys_Directories")]
-        public TableSet<Directory> Directories { get; set; }
+        public DbSet<Directory> Directories { get; set; }
     }
 }
