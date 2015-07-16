@@ -9,8 +9,8 @@ namespace CAF.Model
     using System.Data;
 
     [Serializable]
-	public partial class Directory_Role :  BaseEntity<Directory_Role>,IEntityBase
-	{   
+    public partial class Directory_Role :  BaseEntity<Directory_Role>,IEntityBase
+    {   
         public Directory_Role()
         {
             this.Connection = SqlService.Instance.Connection;
@@ -34,11 +34,11 @@ namespace CAF.Model
         /// 角色Id
         /// </summary>
         [GuidRequired(ErrorMessage="角色不允许为空")]
-		public Guid RoleId
-		{
-			get {return this._roleId;} 
+        public Guid RoleId
+        {
+            get {return this._roleId;} 
             set {this.SetProperty("RoleId",ref this._roleId, value);}           	
-		}
+        }
         
         /// <summary>
         /// 角色
@@ -59,11 +59,11 @@ namespace CAF.Model
         /// 目录Id
         /// </summary>
         [GuidRequired(ErrorMessage="目录不允许为空")]
-		public Guid DirectoryId
-		{
-			get {return this._directoryId;} 
+        public Guid DirectoryId
+        {
+            get {return this._directoryId;} 
             set {this.SetProperty("DirectoryId",ref this._directoryId, value);}           	
-		}
+        }
         
         /// <summary>
         /// 目录
@@ -80,14 +80,14 @@ namespace CAF.Model
             }
         }
         [Required(ErrorMessage="Version不允许为空")]
-		public byte[] Version
-		{
-			get {return this._version;} 
+        public byte[] Version
+        {
+            get {return this._version;} 
             set {this.SetProperty("Version",ref this._version, value);}           	
-		}
+        }
         
         
-		#endregion
+        #endregion
         
         #region 常量定义
         
@@ -107,8 +107,8 @@ namespace CAF.Model
         #region 静态方法
         
         public static Directory_Role Get(Guid roleId,Guid directoryId)
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
             {
                 var item= conn.Query<Directory_Role>(QUERY_GETBYID, new { RoleId = roleId,DirectoryId = directoryId }).SingleOrDefault<Directory_Role>();
                 if (item == null)
@@ -121,11 +121,11 @@ namespace CAF.Model
                 item. _directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
                 return item;
             }
-		}
+        }
         
         public static Directory_Role Get(Guid id)
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
             {
                 var item= conn.Query<Directory_Role>(QUERY_GETBYID2, new { Id = id }).SingleOrDefault<Directory_Role>();
                 if (item == null)
@@ -138,7 +138,7 @@ namespace CAF.Model
                 item. _directoryInitalizer = new Lazy<Directory>(() => InitDirectory(item), isThreadSafe: true);
                 return item;
             }
-		}
+        }
         
         public static Directory_RoleList GetAllByRoleId(Guid roleId)
         {
@@ -273,20 +273,20 @@ namespace CAF.Model
         /// 添加描述
         /// </summary>
         protected override void AddDescriptions() {
-		    this.AddDescription( "Status:"+ this.Status + "," );        
-		    this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
-		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
-		    this.AddDescription( "Note:"+ this.Note + "," );        
-		    this.AddDescription( "RoleId:"+ this.RoleId + "," );        
-		    this.AddDescription( "DirectoryId:"+ this.DirectoryId + "," );        
-		    this.AddDescription( "Id:"+ this.Id + "," );        
-		    this.AddDescription( "Version:"+ this.Version + "," );        
+            this.AddDescription( "Status:"+ this.Status + "," );        
+            this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
+            this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
+            this.AddDescription( "Note:"+ this.Note + "," );        
+            this.AddDescription( "RoleId:"+ this.RoleId + "," );        
+            this.AddDescription( "DirectoryId:"+ this.DirectoryId + "," );        
+            this.AddDescription( "Id:"+ this.Id + "," );        
+            this.AddDescription( "Version:"+ this.Version + "," );        
         }
         #endregion
 
     }
     
-	[Serializable]
+    [Serializable]
     public class Directory_RoleList:CollectionBase<Directory_RoleList,Directory_Role>
     {
         public Directory_RoleList() { this.Connection = SqlService.Instance.Connection;}

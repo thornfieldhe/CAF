@@ -6,11 +6,9 @@ namespace CAF
     using CAF.ObjectBusiness;
     using CAF.Validations;
 
-    using FS.Core.Infrastructure;
-    using FS.Mapping.Context.Attribute;
 
-    public abstract partial class BaseEntity<T> : StatusDescription, IEqualityComparer<T>, IBusinessBase, IComparable<IEntityBase>,
-        IEntityStatus, IValidationEntity where T : class,IEntityBase
+    public abstract partial class BaseEntity<T> : StatusDescription, IEqualityComparer<T>, IEntityBase, IComparable<IEntityBase>,
+         IValidationEntity where T : class,IEntityBase
     {
         #region 属性验证
 
@@ -106,59 +104,6 @@ namespace CAF
 
         #endregion
 
-
-        #endregion
-
-        #region 基本状态
-        protected bool _isNew = false;
-        protected bool _isDirty = false;
-        protected bool _isDelete = false;
-
-        [Field(IsMap = false)]
-        public bool IsNew { get { return this._isNew; } protected set { this._isNew = value; } }
-        [Field(IsMap = false)]
-        public bool IsDelete { get { return this._isDelete; } protected set { this._isDelete = value; } }
-        [Field(IsMap = false)]
-        public bool IsDirty { get { return this._isDirty; } protected set { this._isDirty = value; } }
-        [Field(IsMap = false)]
-        public bool IsClean { get { return !this._isDirty && !this._isNew; } }
-
-
-        public virtual void MarkNew()
-        {
-            this._isNew = true;
-            this._isDelete = false;
-            this.MarkDirty();
-        }
-
-
-        public virtual void MarkClean()
-        {
-            this._isNew = false;
-            this._isDirty = false;
-            this._isDelete = false;
-        }
-
-
-
-        public virtual void MarkDirty()
-        {
-            this._isDirty = true;
-        }
-
-        /// <summary>
-        /// 适用于作为子对象进行标记删除
-        /// </summary>
-        public virtual void MarkDelete()
-        {
-            this._isDelete = true;
-            this._isNew = false;
-            this.MarkDirty();
-            if (this.OnPropertyChanged != null)
-            {
-                this.OnPropertyChanged();
-            }
-        }
 
         #endregion
 

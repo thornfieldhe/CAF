@@ -357,5 +357,5 @@ D:\WorkStation\CAF\CAF\bin\Debug\Autofac.dll
 D:\WorkStation\CAF\CAF\bin\Debug\Autofac.Integration.Mvc.dll
 D:\WorkStation\CAF\CAF\bin\Debug\Autofac.xml
 D:\WorkStation\CAF\CAF\bin\Debug\Autofac.Integration.Mvc.xml
-D:\WorkStation\CAF\CAF\bin\Debug\Farseer.Net.dll
-D:\WorkStation\CAF\CAF\bin\Debug\Farseer.Net.pdb
+D:\WorkStation\CAF\CAF\bin\Debug\EntityFramework.dll
+D:\WorkStation\CAF\CAF\bin\Debug\EntityFramework.xml

@@ -10,19 +10,19 @@ namespace CAF.Model
     using System.Linq.Expressions;
 
     [Serializable]
-	public partial class Post :  BaseEntity<Post>,IEntityBase
-	{   
+    public partial class Post :  BaseEntity<Post>,IEntityBase
+    {   
         public Post()
-		{
+        {
             this.Connection = SqlService.Instance.Connection;
             this.TableName = "Sys_Posts";
             base.MarkNew();
-    		this. _userListInitalizer = new Lazy<UserList>(() => InitUsers(this), isThreadSafe: true);
+            this. _userListInitalizer = new Lazy<UserList>(() => InitUsers(this), isThreadSafe: true);
             this.Users= new UserList();        
-		}
-		
+        }
+        
             
-		#region 公共属性
+        #region 公共属性
 
         private string _name = String.Empty;
         private string _note = String.Empty;
@@ -35,27 +35,27 @@ namespace CAF.Model
         /// </summary>
         [Required(ErrorMessage="岗位名称不允许为空")]
         [StringLength(50,ErrorMessage="岗位名称长度不能超过50")]
-		public string Name
-		{
-			get {return this._name;} 
+        public string Name
+        {
+            get {return this._name;} 
             set {this.SetProperty("Name",ref this._name, value);}           	
-		}
+        }
         
         /// <summary>
         /// 备注
         /// </summary>
-		public string Note
-		{
-			get {return this._note;} 
+        public string Note
+        {
+            get {return this._note;} 
             set {this.SetProperty("Note",ref this._note, value);}           	
-		}
+        }
         
         [Required(ErrorMessage="Vesion不允许为空")]
-		public byte[] Vesion
-		{
-			get {return this._vesion;} 
+        public byte[] Vesion
+        {
+            get {return this._vesion;} 
             set {this.SetProperty("Vesion",ref this._vesion, value);}           	
-		}
+        }
         
         public UserList Users
         {
@@ -74,7 +74,7 @@ namespace CAF.Model
         }
         public override void Validate()
         {
-			this. _userListInitalizer.IsValueCreated.IfTrue(
+            this. _userListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
                 foreach (var item in this.Users)
@@ -86,7 +86,7 @@ namespace CAF.Model
         }
         
         
-		#endregion
+        #endregion
         
         #region 常量定义
         protected const string QUERY_COUNT = "SELECT COUNT(*) AS COUNT FROM Sys_Posts Where Status!=-1 ";
@@ -102,12 +102,12 @@ namespace CAF.Model
         const string QUERY_UPDATE = "UPDATE Sys_Posts SET {0} WHERE  Id = @Id  AND Version=@Version";
                 
         #endregion
-        		
+                
         #region 静态方法
         
-		public static Post Get(Guid id)
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
+        public static Post Get(Guid id)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
             {
                 var item= conn.Query<Post>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<Post>();
                 if (item == null)
@@ -119,11 +119,11 @@ namespace CAF.Model
                 item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                 return item;
             }
-		}
-		 
-		public static PostList GetAll()
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
+        }
+         
+        public static PostList GetAll()
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
             {               
                 var items = conn.Query<Post>(QUERY_GETAll, null).ToList();                
                 var list=new PostList();
@@ -137,11 +137,11 @@ namespace CAF.Model
                 list.MarkClean();
                 return list;
             }
-		}        
-		
+        }        
+        
        public static PostList GetAllByUserId(Guid userId)
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
             {                
                 var items = conn.Query<Post>(QUERY_GETALLBYUSERID, new { UserId = userId }).ToList();
                 
@@ -153,23 +153,23 @@ namespace CAF.Model
                     item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                     list.Add(item);
                 }
-				list.MarkClean();
+                list.MarkClean();
                 return list;
             }
-		}
-		
+        }
+        
         
         /// <summary>
         /// 直接删除
         /// </summary>
         /// <returns></returns>
-		public static int Delete(Guid id)
-		{
+        public static int Delete(Guid id)
+        {
             using (IDbConnection conn = SqlService.Instance.Connection)
             {                
                 return conn.Execute(QUERY_DELETE, new { Id = id });
             }
-		}   
+        }   
         
         /// <summary>
         /// 是否存在
@@ -204,7 +204,7 @@ namespace CAF.Model
                      item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                     list.Add(item);
                 }
-				list.MarkClean();
+                list.MarkClean();
                 return list;
             }
         }
@@ -231,7 +231,7 @@ namespace CAF.Model
                  item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                 list.Add(item);
             }
-			list.MarkClean();
+            list.MarkClean();
             return list;
         }
 
@@ -267,44 +267,44 @@ namespace CAF.Model
         
         #endregion
         
-		
-		public override int Delete(IDbConnection conn, IDbTransaction transaction)
-		{
+        
+        public override int Delete(IDbConnection conn, IDbTransaction transaction)
+        {
             base.MarkDelete();
             return conn.Execute(QUERY_DELETE, new { Id = this.Id }, transaction, null, null);
-		}
-		
-		public override int Update(IDbConnection conn, IDbTransaction transaction)
-		{
+        }
+        
+        public override int Update(IDbConnection conn, IDbTransaction transaction)
+        {
              if (!this.IsDirty)
              {
                 return this._changedRows;
              }  
             this._updateParameters+=", ChangedDate = GetDate()";
-			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
-			this._changedRows+= conn.Execute(query, this, transaction, null, null);
-			this. _userListInitalizer.IsValueCreated.IfTrue(
+            var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
+            this._changedRows+= conn.Execute(query, this, transaction, null, null);
+            this. _userListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
- 				this._changedRows+=this.Users.SaveChanges(conn,transaction);
+                this._changedRows+=this.Users.SaveChanges(conn,transaction);
             });
             return this._changedRows;
-		}
-		
-		public override int Insert(IDbConnection conn, IDbTransaction transaction)
-		{
+        }
+        
+        public override int Insert(IDbConnection conn, IDbTransaction transaction)
+        {
             this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-			this. _userListInitalizer.IsValueCreated.IfTrue(
+            this. _userListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
- 				this._changedRows+=this.Users.SaveChanges(conn,transaction);
+                this._changedRows+=this.Users.SaveChanges(conn,transaction);
             });
             return this._changedRows;
-		}
-		
-		#region 私有方法
-		
-		protected  int RelationshipWithUser(IDbConnection conn, IDbTransaction transaction)
+        }
+        
+        #region 私有方法
+        
+        protected  int RelationshipWithUser(IDbConnection conn, IDbTransaction transaction)
         {
             foreach (var user in this.Users.Members)
             {
@@ -330,27 +330,27 @@ namespace CAF.Model
             list.OnSaved += post.RelationshipWithUser;
             list.OnMarkDirty += post.MarkDirty;
             list.IsChangeRelationship = true;
-			return list;
+            return list;
         }
-		
+        
         
         /// <summary>
         /// 添加描述
         /// </summary>
         protected override void AddDescriptions() {
-		    this.AddDescription( "Id:"+ this.Id + "," );        
-		    this.AddDescription( "Name:"+ this.Name + "," );        
-		    this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
-		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
-		    this.AddDescription( "Status:"+ this.Status + "," );        
-		    this.AddDescription( "Note:"+ this.Note + "," );        
-		    this.AddDescription( "Vesion:"+ this.Vesion + "," );        
+            this.AddDescription( "Id:"+ this.Id + "," );        
+            this.AddDescription( "Name:"+ this.Name + "," );        
+            this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
+            this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
+            this.AddDescription( "Status:"+ this.Status + "," );        
+            this.AddDescription( "Note:"+ this.Note + "," );        
+            this.AddDescription( "Vesion:"+ this.Vesion + "," );        
         }
-		#endregion
-				
-	}
+        #endregion
+                
+    }
     
-	[Serializable]
+    [Serializable]
     public class PostList:CollectionBase<PostList,Post>
     {
         public PostList() 

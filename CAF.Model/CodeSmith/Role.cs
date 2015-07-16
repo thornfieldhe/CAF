@@ -1,91 +1,89 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace CAF.Model
 {
-    using CAF.Data;
     using System.ComponentModel.DataAnnotations;
     using System.Data;
     using System.Linq.Expressions;
 
     [Serializable]
-	public partial class Role :  BaseEntity<Role>,IEntityBase
-	{   
+    public partial class Role : BaseEntity<Role>, IEntityBase
+    {
         public Role()
-		{
+        {
             this.Connection = SqlService.Instance.Connection;
             this.TableName = "Sys_Roles";
             base.MarkNew();
-    		this. _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(this), isThreadSafe: true);
-    		this. _userListInitalizer = new Lazy<UserList>(() => InitUsers(this), isThreadSafe: true);
-            this.Organizes= new OrganizeList();        
-            this.Users= new UserList();        
-		}
-		
-            
-		#region 公共属性
+            this._organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(this), isThreadSafe: true);
+            this._userListInitalizer = new Lazy<UserList>(() => InitUsers(this), isThreadSafe: true);
+            this.Organizes = new OrganizeList();
+            this.Users = new UserList();
+        }
+
+
+        #region 公共属性
 
         private string _note = String.Empty;
         private string _name = String.Empty;
-        private OrganizeList  _organizeList;
-        private Lazy<OrganizeList>  _organizeListInitalizer;       
-        private UserList  _userList;
-        private Lazy<UserList>  _userListInitalizer;       
-        
+        private OrganizeList _organizeList;
+        private Lazy<OrganizeList> _organizeListInitalizer;
+        private UserList _userList;
+        private Lazy<UserList> _userListInitalizer;
+
         /// <summary>
         /// 备注
         /// </summary>
-        [StringLength(500,ErrorMessage="备注长度不能超过500")]
-		public string Note
-		{
-			get {return this._note;} 
-            set {this.SetProperty("Note",ref this._note, value);}           	
-		}
-        
+        [StringLength(500, ErrorMessage = "备注长度不能超过500")]
+        public string Note
+        {
+            get { return this._note; }
+            set { this.SetProperty("Note", ref this._note, value); }
+        }
+
         /// <summary>
         /// 角色名称
         /// </summary>
-        [StringLength(20,ErrorMessage="角色名称长度不能超过20")]
-		public string Name
-		{
-			get {return this._name;} 
-            set {this.SetProperty("Name",ref this._name, value);}           	
-		}
-        
+        [StringLength(20, ErrorMessage = "角色名称长度不能超过20")]
+        public string Name
+        {
+            get { return this._name; }
+            set { this.SetProperty("Name", ref this._name, value); }
+        }
+
         public OrganizeList Organizes
         {
             get
             {
-                if (!this. _organizeListInitalizer.IsValueCreated)
+                if (!this._organizeListInitalizer.IsValueCreated)
                 {
-                    this. _organizeList = this. _organizeListInitalizer.Value;
+                    this._organizeList = this._organizeListInitalizer.Value;
                 }
-                return this. _organizeList;
+                return this._organizeList;
             }
-             set
+            set
             {
-                this. _organizeList = value;
+                this._organizeList = value;
             }
         }
         public UserList Users
         {
             get
             {
-                if (!this. _userListInitalizer.IsValueCreated)
+                if (!this._userListInitalizer.IsValueCreated)
                 {
-                    this. _userList = this. _userListInitalizer.Value;
+                    this._userList = this._userListInitalizer.Value;
                 }
-                return this. _userList;
+                return this._userList;
             }
-             set
+            set
             {
-                this. _userList = value;
+                this._userList = value;
             }
         }
         public override void Validate()
         {
-			this. _organizeListInitalizer.IsValueCreated.IfTrue(
+            this._organizeListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
                 foreach (var item in this.Organizes)
@@ -93,7 +91,7 @@ namespace CAF.Model
                     item.Validate();
                 }
             });
-			this. _userListInitalizer.IsValueCreated.IfTrue(
+            this._userListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
                 foreach (var item in this.Users)
@@ -101,12 +99,12 @@ namespace CAF.Model
                     item.Validate();
                 }
             });
-           base.Validate();
+            base.Validate();
         }
-        
-        
-		#endregion
-        
+
+
+        #endregion
+
         #region 常量定义
         protected const string QUERY_COUNT = "SELECT COUNT(*) AS COUNT FROM Sys_Roles Where Status!=-1 ";
         const string QUERY_GETBYID = "SELECT Top 1 * FROM Sys_Roles WHERE Id = @Id  AND Status!=-1";
@@ -121,102 +119,102 @@ namespace CAF.Model
         const string QUERY_CONTAINSUSERROLE = "SELECT COUNT(*) FROM Sys_R_User_Role WHERE  RoleId = @RoleId AND UserId=@UserId";
         const string QUERY_ADDRELARIONSHIPWITHUSERROLE = "INSERT INTO Sys_R_User_Role (RoleId,UserId,Status)VALUES(@RoleId, @UserId,0)";
         const string QUERY_DELETERELARIONSHIPWITHUSERROLE = "UPDATE Sys_R_User_Role SET Status=-1 WHERE RoleId=@RoleId AND UserId=@UserId AND Status!=-1";
-        const string QUERY_INSERT="INSERT INTO Sys_Roles ([Id], [Status], [CreatedDate], [ChangedDate], [Note], [Name]) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name)";
+        const string QUERY_INSERT = "INSERT INTO Sys_Roles ([Id], [Status], [CreatedDate], [ChangedDate], [Note], [Name]) VALUES (@Id, @Status, @CreatedDate, @ChangedDate, @Note, @Name)";
         const string QUERY_UPDATE = "UPDATE Sys_Roles SET {0} WHERE  Id = @Id  AND Version=@Version";
-                
+
         #endregion
-        		
+
         #region 静态方法
-        
-		public static Role Get(Guid id)
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
+
+        public static Role Get(Guid id)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
             {
-                var item= conn.Query<Role>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<Role>();
+                var item = conn.Query<Role>(QUERY_GETBYID, new { Id = id }).SingleOrDefault<Role>();
                 if (item == null)
                 {
                     return null;
                 }
                 item.Connection = SqlService.Instance.Connection;
                 item.MarkClean();
-                item. _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
-                item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                item._organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
+                item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                 return item;
             }
-		}
-		 
-		public static RoleList GetAll()
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
-            {               
-                var items = conn.Query<Role>(QUERY_GETAll, null).ToList();                
-                var list=new RoleList();
+        }
+
+        public static RoleList GetAll()
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
+                var items = conn.Query<Role>(QUERY_GETAll, null).ToList();
+                var list = new RoleList();
                 foreach (var item in items)
                 {
                     item.Connection = SqlService.Instance.Connection;
                     item.MarkClean();
-                     item. _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
-                     item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                    item._organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
+                    item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                     list.Add(item);
                 }
                 list.MarkClean();
                 return list;
             }
-		}        
-		
-       public static RoleList GetAllByOrganizeId(Guid organizeId)
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
-            {                
+        }
+
+        public static RoleList GetAllByOrganizeId(Guid organizeId)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
                 var items = conn.Query<Role>(QUERY_GETALLBYORGANIZEID, new { OrganizeId = organizeId }).ToList();
-                
-                var list=new RoleList();
+
+                var list = new RoleList();
                 foreach (var item in items)
                 {
                     item.Connection = SqlService.Instance.Connection;
                     item.MarkClean();
-                    item. _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
-                    item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                    item._organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
+                    item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                     list.Add(item);
                 }
-				list.MarkClean();
+                list.MarkClean();
                 return list;
             }
-		}
-		
-       public static RoleList GetAllByUserId(Guid userId)
-		{
-			using (IDbConnection conn = SqlService.Instance.Connection)
-            {                
+        }
+
+        public static RoleList GetAllByUserId(Guid userId)
+        {
+            using (IDbConnection conn = SqlService.Instance.Connection)
+            {
                 var items = conn.Query<Role>(QUERY_GETALLBYUSERID, new { UserId = userId }).ToList();
-                
-                var list=new RoleList();
+
+                var list = new RoleList();
                 foreach (var item in items)
                 {
                     item.Connection = SqlService.Instance.Connection;
                     item.MarkClean();
-                    item. _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
-                    item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                    item._organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
+                    item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                     list.Add(item);
                 }
-				list.MarkClean();
+                list.MarkClean();
                 return list;
             }
-		}
-		
-        
+        }
+
+
         /// <summary>
         /// 直接删除
         /// </summary>
         /// <returns></returns>
-		public static int Delete(Guid id)
-		{
+        public static int Delete(Guid id)
+        {
             using (IDbConnection conn = SqlService.Instance.Connection)
-            {                
+            {
                 return conn.Execute(QUERY_DELETE, new { Id = id });
             }
-		}   
-        
+        }
+
         /// <summary>
         /// 是否存在
         /// </summary>
@@ -224,11 +222,11 @@ namespace CAF.Model
         public static bool Exists(Guid id)
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
-            {                
+            {
                 return conn.Query<int>(QUERY_EXISTS, new { Id = id }).Single() >= 1;
             }
-        }      
-        
+        }
+
         /// <summary>
         /// 表达式查询
         /// </summary>
@@ -237,26 +235,26 @@ namespace CAF.Model
         public static RoleList Query(Expression<Func<IQueryable<Role>, IQueryable<Role>>> exp)
         {
             using (IDbConnection conn = SqlService.Instance.Connection)
-            {                
+            {
                 var expc = new ExpConditions<Role>();
                 expc.Add(exp);
                 var items = conn.Query<Role>(string.Format("{0} {1} {2}", QUERY_GETAll, expc.Where(), expc.OrderBy())).ToList();
-                
-                var list=new RoleList();
+
+                var list = new RoleList();
                 foreach (var item in items)
                 {
                     item.Connection = SqlService.Instance.Connection;
                     item.MarkClean();
-                     item. _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
-                     item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                    item._organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
+                    item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                     list.Add(item);
                 }
-				list.MarkClean();
+                list.MarkClean();
                 return list;
             }
         }
-        
-                /// <summary>
+
+        /// <summary>
         /// 表达式查询
         /// </summary>
         /// <param name="exp">表达式</param>
@@ -269,17 +267,17 @@ namespace CAF.Model
             var expc = new ExpConditions<Role>();
             expc.Add(exp);
             var items = conn.Query<Role>(string.Format("{0} {1} {2}", QUERY_GETAll, expc.Where(), expc.OrderBy())).ToList();
-            
-            var list=new RoleList();
+
+            var list = new RoleList();
             foreach (var item in items)
             {
                 item.Connection = SqlService.Instance.Connection;
                 item.MarkClean();
-                 item. _organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
-                 item. _userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
+                item._organizeListInitalizer = new Lazy<OrganizeList>(() => InitOrganizes(item), isThreadSafe: true);
+                item._userListInitalizer = new Lazy<UserList>(() => InitUsers(item), isThreadSafe: true);
                 list.Add(item);
             }
-			list.MarkClean();
+            list.MarkClean();
             return list;
         }
 
@@ -309,70 +307,70 @@ namespace CAF.Model
             {
                 var expc = new ExpConditions<Role>();
                 expc.Add(exp);
-               return conn.Query<int>(string.Format(string.Format("{0} {1}", QUERY_COUNT, expc.Where()))).Single()>0;
+                return conn.Query<int>(string.Format(string.Format("{0} {1}", QUERY_COUNT, expc.Where()))).Single() > 0;
             }
         }
-        
+
         #endregion
-        
-		
-		public override int Delete(IDbConnection conn, IDbTransaction transaction)
-		{
+
+
+        public override int Delete(IDbConnection conn, IDbTransaction transaction)
+        {
             base.MarkDelete();
             return conn.Execute(QUERY_DELETE, new { Id = this.Id }, transaction, null, null);
-		}
-		
-		public override int Update(IDbConnection conn, IDbTransaction transaction)
-		{
-             if (!this.IsDirty)
-             {
+        }
+
+        public override int Update(IDbConnection conn, IDbTransaction transaction)
+        {
+            if (!this.IsDirty)
+            {
                 return this._changedRows;
-             }  
-            this._updateParameters+=", ChangedDate = GetDate()";
-			var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
-			this._changedRows+= conn.Execute(query, this, transaction, null, null);
-			this. _organizeListInitalizer.IsValueCreated.IfTrue(
+            }
+            this._updateParameters += ", ChangedDate = GetDate()";
+            var query = String.Format(QUERY_UPDATE, this._updateParameters.TrimStart(','));
+            this._changedRows += conn.Execute(query, this, transaction, null, null);
+            this._organizeListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
- 				this._changedRows+=this.Organizes.SaveChanges(conn,transaction);
+                this._changedRows += this.Organizes.SaveChanges(conn, transaction);
             });
-			this. _userListInitalizer.IsValueCreated.IfTrue(
+            this._userListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
- 				this._changedRows+=this.Users.SaveChanges(conn,transaction);
+                this._changedRows += this.Users.SaveChanges(conn, transaction);
             });
             return this._changedRows;
-		}
-		
-		public override int Insert(IDbConnection conn, IDbTransaction transaction)
-		{
+        }
+
+        public override int Insert(IDbConnection conn, IDbTransaction transaction)
+        {
             this._changedRows += conn.Execute(QUERY_INSERT, this, transaction, null, null);
-			this. _organizeListInitalizer.IsValueCreated.IfTrue(
+            this._organizeListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
- 				this._changedRows+=this.Organizes.SaveChanges(conn,transaction);
+                this._changedRows += this.Organizes.SaveChanges(conn, transaction);
             });
-			this. _userListInitalizer.IsValueCreated.IfTrue(
+            this._userListInitalizer.IsValueCreated.IfTrue(
             () =>
             {
- 				this._changedRows+=this.Users.SaveChanges(conn,transaction);
+                this._changedRows += this.Users.SaveChanges(conn, transaction);
             });
             return this._changedRows;
-		}
-		
-		#region 私有方法
-		
-		protected  int RelationshipWithOrganize(IDbConnection conn, IDbTransaction transaction)
+        }
+
+        #region 私有方法
+
+        protected int RelationshipWithOrganize(IDbConnection conn, IDbTransaction transaction)
         {
             foreach (var organize in this.Organizes.Members)
             {
                 if (organize.IsDelete && this.Organizes.IsChangeRelationship)
                 {
-                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHORGANIZEROLE, new { RoleId = this.Id,  OrganizeId = organize.Id }, transaction, null, null);
+                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHORGANIZEROLE, new { RoleId = this.Id, OrganizeId = organize.Id }, transaction, null, null);
                 }
                 else
                 {
-                    var isExist = conn.Query<int>(QUERY_CONTAINSORGANIZEROLE , new { RoleId = this.Id, OrganizeId = organize.Id },transaction).Single() >= 1;
+                    var isExist = conn.Query<int>(QUERY_CONTAINSORGANIZEROLE, new { RoleId = this.Id, OrganizeId = organize.Id }, transaction).Single() >= 1;
                     if (!isExist)
                     {
                         this._changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHORGANIZEROLE, new { RoleId = this.Id, OrganizeId = organize.Id }, transaction, null, null);
@@ -388,20 +386,20 @@ namespace CAF.Model
             list.OnSaved += role.RelationshipWithOrganize;
             list.OnMarkDirty += role.MarkDirty;
             list.IsChangeRelationship = true;
-			return list;
+            return list;
         }
-		
-		protected  int RelationshipWithUser(IDbConnection conn, IDbTransaction transaction)
+
+        protected int RelationshipWithUser(IDbConnection conn, IDbTransaction transaction)
         {
             foreach (var user in this.Users.Members)
             {
                 if (user.IsDelete && this.Users.IsChangeRelationship)
                 {
-                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHUSERROLE, new { RoleId = this.Id,  UserId = user.Id }, transaction, null, null);
+                    this._changedRows += conn.Execute(QUERY_DELETERELARIONSHIPWITHUSERROLE, new { RoleId = this.Id, UserId = user.Id }, transaction, null, null);
                 }
                 else
                 {
-                    var isExist = conn.Query<int>(QUERY_CONTAINSUSERROLE , new { RoleId = this.Id, UserId = user.Id },transaction).Single() >= 1;
+                    var isExist = conn.Query<int>(QUERY_CONTAINSUSERROLE, new { RoleId = this.Id, UserId = user.Id }, transaction).Single() >= 1;
                     if (!isExist)
                     {
                         this._changedRows += conn.Execute(QUERY_ADDRELARIONSHIPWITHUSERROLE, new { RoleId = this.Id, UserId = user.Id }, transaction, null, null);
@@ -417,30 +415,31 @@ namespace CAF.Model
             list.OnSaved += role.RelationshipWithUser;
             list.OnMarkDirty += role.MarkDirty;
             list.IsChangeRelationship = true;
-			return list;
+            return list;
         }
-		
-        
+
+
         /// <summary>
         /// 添加描述
         /// </summary>
-        protected override void AddDescriptions() {
-		    this.AddDescription( "Id:"+ this.Id + "," );        
-		    this.AddDescription( "Status:"+ this.Status + "," );        
-		    this.AddDescription( "CreatedDate:"+ this.CreatedDate + "," );        
-		    this.AddDescription( "ChangedDate:"+ this.ChangedDate + "," );        
-		    this.AddDescription( "Note:"+ this.Note + "," );        
-		    this.AddDescription( "Name:"+ this.Name + "," );        
-		    this.AddDescription( "Version:"+ this.Version + "," );        
+        protected override void AddDescriptions()
+        {
+            this.AddDescription("Id:" + this.Id + ",");
+            this.AddDescription("Status:" + this.Status + ",");
+            this.AddDescription("CreatedDate:" + this.CreatedDate + ",");
+            this.AddDescription("ChangedDate:" + this.ChangedDate + ",");
+            this.AddDescription("Note:" + this.Note + ",");
+            this.AddDescription("Name:" + this.Name + ",");
+            this.AddDescription("Version:" + this.Version + ",");
         }
-		#endregion
-				
-	}
-    
-	[Serializable]
-    public class RoleList:CollectionBase<RoleList,Role>
+        #endregion
+
+    }
+
+    [Serializable]
+    public class RoleList : CollectionBase<RoleList, Role>
     {
-        public RoleList() 
+        public RoleList()
         {
             this.Connection = SqlService.Instance.Connection;
             this.TableName = "Sys_Roles";

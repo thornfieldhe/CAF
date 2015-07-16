@@ -2,10 +2,12 @@
 
 namespace CAF.FSModels
 {
-    using CAF.ObjectBusiness;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    [Serializable]
-    public partial class Directory : FarseerEntity<Directory, DirectoryList>
+    using System.Data.Entity;
+    using System.Linq;
+
+    public class Directory : EFEntity<Directory>
     {
         #region 构造函数
 
@@ -16,96 +18,69 @@ namespace CAF.FSModels
 
         #region 公共属性
 
-        protected Property<string> NameProperty = new Property<string>("Name");
-        protected Property<string> UrlProperty = new Property<string>("Url");
-        protected Property<Guid?> ParentIdProperty = new Property<Guid?>("ParentId");
-        protected Property<string> LevelProperty = new Property<string>("Level");
-        protected Property<int> SortProperty = new Property<int>("Sort");
-
         /// <summary>
         /// 名称
         /// </summary>
         [Required(ErrorMessage = "名称不允许为空")]
         [StringLength(50, ErrorMessage = "名称长度不能超过50")]
-        public string Name
-        {
-            get { return this.NameProperty.GetValue(); }
-            set { this.SetProperty(ref this.NameProperty, value); }
-        }
+        public string Name { get; set; }
 
         /// <summary>
         /// Url地址
         /// </summary>
         [StringLength(100, ErrorMessage = "Url地址长度不能超过100")]
-        public string Url
-        {
-            get { return this.UrlProperty.GetValue(); }
-            set { this.SetProperty(ref this.UrlProperty, value); }
-        }
+        public string Url { get; set; }
 
         /// <summary>
         /// 父目录
         /// </summary>
-        public Guid? ParentId
-        {
-            get { return this.ParentIdProperty.GetValue(); }
-            set { this.SetProperty(ref this.ParentIdProperty, value); }
-        }
+        public Guid? ParentId { get; set; }
 
         /// <summary>
         /// 父目录
         /// </summary>
-        public Directory Parent
-        {
-            get
-            {
-                return !this.ParentId.HasValue ? null : Directory.Get(this.ParentId.Value);
-            }
-        }
+        public virtual Directory Parent { get; set; }
 
+        /// <summary>
+        /// 子目录
+        /// </summary>
+        public virtual List<Directory> Children { get; set; }
         /// <summary>
         /// 层级
         /// </summary>
-        [StringLength(20, ErrorMessage = "层级长度不能超过20")]
-        public string Level
-        {
-            get { return this.LevelProperty.GetValue(); }
-            set { this.SetProperty(ref this.LevelProperty, value); }
-        }
+        public string Level { get; set; }
 
         /// <summary>
         /// 排序
         /// </summary>
         [Required(ErrorMessage = "排序不允许为空")]
-        public int Sort
-        {
-            get { return this.SortProperty.GetValue(); }
-            set { this.SetProperty(ref this.SortProperty, value); }
-        }
+        public int Sort { get; set; }
+
+        public virtual List<DirectoryRole> DirectoryRoles { get; set; }
 
         #endregion
 
-        #region 静态方法
+        #region 扩展方法
 
-
+        public override Directory PostQuerySingle(IQueryable<Directory> query)
+        {
+            query = query.Include(i => i.Children).Include(i => i.DirectoryRoles);
+            return base.PostQuerySingle(query);
+        }
 
         #endregion
 
         protected override void AddDescriptions()
         {
             base.AddDescriptions();
-            this.AddDescription("Name:" + this.Name + ",");
-            this.AddDescription("Url:" + this.Url + ",");
-            this.AddDescription("ParentId:" + this.ParentId + ",");
-            this.AddDescription("Level:" + this.Level + ",");
+            this.AddDescription("Name:" + this.Name);
+            this.AddDescription("Url:" + this.Url);
+            this.AddDescription("ParentId:" + this.ParentId);
+            this.AddDescription("Level:" + this.Level);
             this.AddDescription("Sort:" + this.Sort);
         }
 
     }
 
-    [Serializable]
-    public class DirectoryList : FarseerCollection<DirectoryList, Directory>
-    {
-        public DirectoryList() { }
-    }
+
 }

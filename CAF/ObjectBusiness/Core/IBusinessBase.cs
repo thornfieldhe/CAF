@@ -2,15 +2,6 @@
 {
     using System;
 
-    public delegate void PropertyChangeHandler();
-
-
-    public interface IBusinessBase
-    {
-
-        event PropertyChangeHandler OnPropertyChanged;
-        bool IsChangeRelationship { get; set; }
-    }
 
     /// <summary>
     /// 确保是业务类
@@ -18,5 +9,10 @@
     public interface IEntityBase
     {
         Guid Id { get; }
+        DateTime CreatedDate { get; }
+        DateTime ChangedDate { get; }
+        string Note { get; }
+        int Status { get; set; }
+        byte[] Version { get; }
     }
 }

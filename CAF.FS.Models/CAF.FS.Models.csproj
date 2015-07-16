@@ -34,8 +34,20 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework.Extended">
+      <HintPath>..\packages\EntityFramework.Extended.6.1.0.168\lib\net45\EntityFramework.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.Filters">
+      <HintPath>..\packages\EntityFramework.Filters.0.3.0.0\lib\net40\EntityFramework.Filters.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.EntityFramework">
+      <HintPath>..\packages\PagedList.EntityFramework.1.0.1\lib\net45\PagedList.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -47,11 +59,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeSmith\Directory_Role.cs" />
-    <Compile Include="Context.cs" />
-    <Compile Include="FarseerCollection.cs" />
-    <Compile Include="FarseerEntity.cs" />
-    <Compile Include="IFarseerEntityBusiness.cs" />
+    <Compile Include="CodeSmith\Maps.cs" />
+    <Compile Include="CodeSmith\DirectoryRole.cs" />
+    <Compile Include="CodeSmith\ErrorLog.cs" />
+    <Compile Include="CodeSmith\InfoLog.cs" />
+    <Compile Include="CodeSmith\Organize.cs" />
+    <Compile Include="CodeSmith\Post.cs" />
+    <Compile Include="CodeSmith\Role.cs" />
+    <Compile Include="CodeSmith\Test.cs" />
+    <Compile Include="CodeSmith\User.cs" />
+    <Compile Include="CodeSmith\UserSetting.cs" />
+    <Compile Include="Common\Context.cs" />
+    <Compile Include="Common\EFEntity.cs" />
+    <Compile Include="Common\IMap.cs" />
+    <Compile Include="Migrations\201507160510231_init.cs" />
+    <Compile Include="Migrations\201507160510231_init.Designer.cs">
+      <DependentUpon>201507160510231_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CodeSmith\Directory.cs" />
   </ItemGroup>
@@ -68,6 +93,11 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201507160510231_init.resx">
+      <DependentUpon>201507160510231_init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
