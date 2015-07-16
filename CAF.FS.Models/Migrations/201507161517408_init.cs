@@ -38,8 +38,8 @@ namespace CAF.FSModels.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false),
-                        RoleId = c.Guid(nullable: false),
-                        DirectoryId = c.Guid(nullable: false),
+                        Role_Id = c.Guid(nullable: false),
+                        Directory_Id = c.Guid(nullable: false),
                         Status = c.Int(nullable: false),
                         CreatedDate = c.DateTime(nullable: false),
                         ChangedDate = c.DateTime(nullable: false),
@@ -51,10 +51,10 @@ namespace CAF.FSModels.Migrations
                     { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
                 })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Directories", t => t.DirectoryId, cascadeDelete: true)
-                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: true)
-                .Index(t => t.RoleId)
-                .Index(t => t.DirectoryId);
+                .ForeignKey("dbo.Directories", t => t.Directory_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Roles", t => t.Role_Id, cascadeDelete: true)
+                .Index(t => t.Role_Id)
+                .Index(t => t.Directory_Id);
             
             CreateTable(
                 "dbo.Roles",
@@ -67,18 +67,101 @@ namespace CAF.FSModels.Migrations
                         ChangedDate = c.DateTime(nullable: false),
                         Version = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         Note = c.String(),
-                        Organize_Id = c.Guid(),
-                        User_Id = c.Guid(),
+                    },
+                annotations: new Dictionary<string, object>
+                {
+                    { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
+                })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Organizes",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        Name = c.String(nullable: false, maxLength: 50),
+                        ParentId = c.Guid(),
+                        Sort = c.Int(nullable: false),
+                        Level = c.String(nullable: false, maxLength: 20),
+                        Code = c.String(nullable: false, maxLength: 20),
+                        Status = c.Int(nullable: false),
+                        CreatedDate = c.DateTime(nullable: false),
+                        ChangedDate = c.DateTime(nullable: false),
+                        Version = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        Note = c.String(),
                     },
                 annotations: new Dictionary<string, object>
                 {
                     { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
                 })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Organizes", t => t.Organize_Id)
-                .ForeignKey("dbo.Users", t => t.User_Id)
-                .Index(t => t.Organize_Id)
-                .Index(t => t.User_Id);
+                .ForeignKey("dbo.Organizes", t => t.ParentId)
+                .Index(t => t.ParentId);
+            
+            CreateTable(
+                "dbo.Users",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        Description_Name = c.String(nullable: false, maxLength: 20),
+                        LoginName = c.String(nullable: false, maxLength: 20),
+                        Abb = c.String(nullable: false, maxLength: 20),
+                        Name = c.String(nullable: false, maxLength: 20),
+                        Pass = c.String(nullable: false, maxLength: 50),
+                        PhoneNum = c.String(nullable: false, maxLength: 30),
+                        Organize_Id = c.Guid(nullable: false),
+                        Email = c.String(nullable: false, maxLength: 50),
+                        Status = c.Int(nullable: false),
+                        CreatedDate = c.DateTime(nullable: false),
+                        ChangedDate = c.DateTime(nullable: false),
+                        Version = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        Note = c.String(),
+                    },
+                annotations: new Dictionary<string, object>
+                {
+                    { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Organizes", t => t.Organize_Id, cascadeDelete: true)
+                .Index(t => t.Organize_Id);
+            
+            CreateTable(
+                "dbo.Posts",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        Name = c.String(nullable: false, maxLength: 50),
+                        Status = c.Int(nullable: false),
+                        CreatedDate = c.DateTime(nullable: false),
+                        ChangedDate = c.DateTime(nullable: false),
+                        Version = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        Note = c.String(),
+                    },
+                annotations: new Dictionary<string, object>
+                {
+                    { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
+                })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.UserSettings",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        Name = c.String(nullable: false, maxLength: 20),
+                        Status = c.Int(nullable: false),
+                        CreatedDate = c.DateTime(nullable: false),
+                        ChangedDate = c.DateTime(nullable: false),
+                        Version = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        Note = c.String(),
+                    },
+                annotations: new Dictionary<string, object>
+                {
+                    { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Users", t => t.Id)
+                .Index(t => t.Id);
             
             CreateTable(
                 "dbo.ErrorLogs",
@@ -124,87 +207,26 @@ namespace CAF.FSModels.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Organizes",
-                c => new
-                    {
-                        Id = c.Guid(nullable: false),
-                        Name = c.String(nullable: false, maxLength: 50),
-                        ParentId = c.Guid(),
-                        Sort = c.Int(nullable: false),
-                        Level = c.String(nullable: false, maxLength: 20),
-                        Code = c.String(nullable: false, maxLength: 20),
-                        Status = c.Int(nullable: false),
-                        CreatedDate = c.DateTime(nullable: false),
-                        ChangedDate = c.DateTime(nullable: false),
-                        Version = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        Note = c.String(),
-                    },
-                annotations: new Dictionary<string, object>
-                {
-                    { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
-                })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Organizes", t => t.ParentId)
-                .Index(t => t.ParentId);
-            
-            CreateTable(
-                "dbo.Users",
-                c => new
-                    {
-                        Id = c.Guid(nullable: false),
-                        LoginName = c.String(nullable: false, maxLength: 20),
-                        Abb = c.String(nullable: false, maxLength: 20),
-                        Name = c.String(nullable: false, maxLength: 20),
-                        Pass = c.String(nullable: false, maxLength: 50),
-                        PhoneNum = c.String(nullable: false, maxLength: 30),
-                        OrganizeId = c.Guid(nullable: false),
-                        Email = c.String(nullable: false, maxLength: 50),
-                        Status = c.Int(nullable: false),
-                        CreatedDate = c.DateTime(nullable: false),
-                        ChangedDate = c.DateTime(nullable: false),
-                        Version = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        Note = c.String(),
-                    },
-                annotations: new Dictionary<string, object>
-                {
-                    { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
-                })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Organizes", t => t.OrganizeId, cascadeDelete: true)
-                .Index(t => t.OrganizeId);
-            
-            CreateTable(
-                "dbo.Posts",
-                c => new
-                    {
-                        Id = c.Guid(nullable: false),
-                        Name = c.String(nullable: false, maxLength: 50),
-                        Status = c.Int(nullable: false),
-                        CreatedDate = c.DateTime(nullable: false),
-                        ChangedDate = c.DateTime(nullable: false),
-                        Version = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        Note = c.String(),
-                    },
-                annotations: new Dictionary<string, object>
-                {
-                    { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
-                })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.Tests",
+                "dbo.Messages",
                 c => new
                     {
                         Id = c.Guid(nullable: false),
                         Name = c.String(),
-                        Age = c.Int(),
-                        Class = c.String(),
                         From = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.PostUsers",
+                "dbo.Test",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.R_PostUsers",
                 c => new
                     {
                         Post_Id = c.Guid(nullable: false),
@@ -216,30 +238,108 @@ namespace CAF.FSModels.Migrations
                 .Index(t => t.Post_Id)
                 .Index(t => t.User_Id);
             
+            CreateTable(
+                "dbo.R_RoleUsers",
+                c => new
+                    {
+                        Role_Id = c.Guid(nullable: false),
+                        User_Id = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Role_Id, t.User_Id })
+                .ForeignKey("dbo.Users", t => t.Role_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Roles", t => t.User_Id, cascadeDelete: true)
+                .Index(t => t.Role_Id)
+                .Index(t => t.User_Id);
+            
+            CreateTable(
+                "dbo.R_RoleOrganizes",
+                c => new
+                    {
+                        Role_Id = c.Guid(nullable: false),
+                        Organize_Id = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Role_Id, t.Organize_Id })
+                .ForeignKey("dbo.Roles", t => t.Role_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Organizes", t => t.Organize_Id, cascadeDelete: true)
+                .Index(t => t.Role_Id)
+                .Index(t => t.Organize_Id);
+            
+            CreateTable(
+                "dbo.Test1",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        Age = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Test", t => t.Id)
+                .Index(t => t.Id);
+            
+            CreateTable(
+                "dbo.Test2",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        Class = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Test", t => t.Id)
+                .Index(t => t.Id);
+            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Roles", "User_Id", "dbo.Users");
-            DropForeignKey("dbo.PostUsers", "User_Id", "dbo.Users");
-            DropForeignKey("dbo.PostUsers", "Post_Id", "dbo.Posts");
-            DropForeignKey("dbo.Users", "OrganizeId", "dbo.Organizes");
-            DropForeignKey("dbo.Roles", "Organize_Id", "dbo.Organizes");
-            DropForeignKey("dbo.Organizes", "ParentId", "dbo.Organizes");
+            DropForeignKey("dbo.Test2", "Id", "dbo.Test");
+            DropForeignKey("dbo.Test1", "Id", "dbo.Test");
             DropForeignKey("dbo.Directories", "ParentId", "dbo.Directories");
-            DropForeignKey("dbo.DirectoryRoles", "RoleId", "dbo.Roles");
-            DropForeignKey("dbo.DirectoryRoles", "DirectoryId", "dbo.Directories");
-            DropIndex("dbo.PostUsers", new[] { "User_Id" });
-            DropIndex("dbo.PostUsers", new[] { "Post_Id" });
-            DropIndex("dbo.Users", new[] { "OrganizeId" });
+            DropForeignKey("dbo.DirectoryRoles", "Role_Id", "dbo.Roles");
+            DropForeignKey("dbo.R_RoleOrganizes", "Organize_Id", "dbo.Organizes");
+            DropForeignKey("dbo.R_RoleOrganizes", "Role_Id", "dbo.Roles");
+            DropForeignKey("dbo.UserSettings", "Id", "dbo.Users");
+            DropForeignKey("dbo.R_RoleUsers", "User_Id", "dbo.Roles");
+            DropForeignKey("dbo.R_RoleUsers", "Role_Id", "dbo.Users");
+            DropForeignKey("dbo.R_PostUsers", "User_Id", "dbo.Users");
+            DropForeignKey("dbo.R_PostUsers", "Post_Id", "dbo.Posts");
+            DropForeignKey("dbo.Users", "Organize_Id", "dbo.Organizes");
+            DropForeignKey("dbo.Organizes", "ParentId", "dbo.Organizes");
+            DropForeignKey("dbo.DirectoryRoles", "Directory_Id", "dbo.Directories");
+            DropIndex("dbo.Test2", new[] { "Id" });
+            DropIndex("dbo.Test1", new[] { "Id" });
+            DropIndex("dbo.R_RoleOrganizes", new[] { "Organize_Id" });
+            DropIndex("dbo.R_RoleOrganizes", new[] { "Role_Id" });
+            DropIndex("dbo.R_RoleUsers", new[] { "User_Id" });
+            DropIndex("dbo.R_RoleUsers", new[] { "Role_Id" });
+            DropIndex("dbo.R_PostUsers", new[] { "User_Id" });
+            DropIndex("dbo.R_PostUsers", new[] { "Post_Id" });
+            DropIndex("dbo.UserSettings", new[] { "Id" });
+            DropIndex("dbo.Users", new[] { "Organize_Id" });
             DropIndex("dbo.Organizes", new[] { "ParentId" });
-            DropIndex("dbo.Roles", new[] { "User_Id" });
-            DropIndex("dbo.Roles", new[] { "Organize_Id" });
-            DropIndex("dbo.DirectoryRoles", new[] { "DirectoryId" });
-            DropIndex("dbo.DirectoryRoles", new[] { "RoleId" });
+            DropIndex("dbo.DirectoryRoles", new[] { "Directory_Id" });
+            DropIndex("dbo.DirectoryRoles", new[] { "Role_Id" });
             DropIndex("dbo.Directories", new[] { "ParentId" });
-            DropTable("dbo.PostUsers");
-            DropTable("dbo.Tests");
+            DropTable("dbo.Test2");
+            DropTable("dbo.Test1");
+            DropTable("dbo.R_RoleOrganizes");
+            DropTable("dbo.R_RoleUsers");
+            DropTable("dbo.R_PostUsers");
+            DropTable("dbo.Test");
+            DropTable("dbo.Messages");
+            DropTable("dbo.InfoLogs",
+                removedAnnotations: new Dictionary<string, object>
+                {
+                    { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
+                });
+            DropTable("dbo.ErrorLogs",
+                removedAnnotations: new Dictionary<string, object>
+                {
+                    { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
+                });
+            DropTable("dbo.UserSettings",
+                removedAnnotations: new Dictionary<string, object>
+                {
+                    { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
+                });
             DropTable("dbo.Posts",
                 removedAnnotations: new Dictionary<string, object>
                 {
@@ -251,16 +351,6 @@ namespace CAF.FSModels.Migrations
                     { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
                 });
             DropTable("dbo.Organizes",
-                removedAnnotations: new Dictionary<string, object>
-                {
-                    { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
-                });
-            DropTable("dbo.InfoLogs",
-                removedAnnotations: new Dictionary<string, object>
-                {
-                    { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
-                });
-            DropTable("dbo.ErrorLogs",
                 removedAnnotations: new Dictionary<string, object>
                 {
                     { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },

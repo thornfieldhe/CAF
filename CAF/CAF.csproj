@@ -95,6 +95,7 @@
     <Compile Include="Mapper\Mapper2.cs" />
     <Compile Include="ObjectBusiness\BaseEntity.Base.cs" />
     <Compile Include="ObjectBusiness\BaseEntity.cs" />
+    <Compile Include="ObjectBusiness\Core\IDbAction.cs" />
     <Compile Include="ObjectBusiness\Core\IValidationEntity.cs" />
     <Compile Include="ObjectBusiness\Data\DbPropertyAttribute.cs" />
     <Compile Include="ObjectBusiness\StatusDescription.cs" />

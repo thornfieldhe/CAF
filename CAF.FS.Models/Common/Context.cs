@@ -13,7 +13,7 @@ namespace CAF.FSModels
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             DbInterception.Add(new FilterInterceptor());
-
+            modelBuilder.Configurations.Add(new DescriptionMap());
             modelBuilder.Configurations.Add(new DirectoryMap());
             modelBuilder.Configurations.Add(new RoleMap());
             modelBuilder.Configurations.Add(new DirectoryRoleMap());
@@ -22,14 +22,15 @@ namespace CAF.FSModels
             modelBuilder.Configurations.Add(new OrganizeMap());
             modelBuilder.Configurations.Add(new PostMap());
             modelBuilder.Configurations.Add(new UserMap());
+            modelBuilder.Configurations.Add(new UserSettingMap());
+            //TPH基类和继承类显示在同一张表
+            modelBuilder.Entity<Message>().Map(r => { r.Requires("From").HasValue("message"); });
+            modelBuilder.Entity<Message1>().Map(r => { r.Requires("From").HasValue("message1"); });
+            modelBuilder.Entity<Message2>().Map(r => { r.Requires("From").HasValue("message2"); });
             //TPT继承类和基类分多表显示
-            //            modelBuilder.Entity<Test>().Map(r => r.ToTable("t"));
-            //            modelBuilder.Entity<Test1>().Map(r => r.ToTable("t1"));
-            //            modelBuilder.Entity<Test2>().Map(r => r.ToTable("t2"));
-            //TPH
-            modelBuilder.Entity<Test>().Map(r => { r.Requires("From").HasValue("t"); });
-            modelBuilder.Entity<Test1>().Map(r => { r.Requires("From").HasValue("t1"); });
-            modelBuilder.Entity<Test2>().Map(r => { r.Requires("From").HasValue("t2"); });
+            modelBuilder.Entity<Test>().Map(r => r.ToTable("Test"));
+            modelBuilder.Entity<Test1>().Map(r => r.ToTable("Test1"));
+            modelBuilder.Entity<Test2>().Map(r => r.ToTable("Test2"));
             base.OnModelCreating(modelBuilder);
         }
     }

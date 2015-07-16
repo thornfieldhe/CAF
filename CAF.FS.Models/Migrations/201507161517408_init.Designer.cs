@@ -13,7 +13,7 @@ namespace CAF.FSModels.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201507160510231_init"; }
+            get { return "201507161517408_init"; }
         }
         
         string IMigrationMetadata.Source

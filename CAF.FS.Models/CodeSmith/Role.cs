@@ -26,6 +26,7 @@ namespace CAF.FSModels
 
         public virtual List<DirectoryRole> DirectoryRoles { get; set; }
         public virtual List<User> Users { get; set; }
+        public virtual List<Organize> Organizes { get; set; }
 
         protected override void AddDescriptions()
         {

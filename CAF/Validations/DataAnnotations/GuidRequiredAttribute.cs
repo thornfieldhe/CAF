@@ -24,7 +24,7 @@ namespace System.ComponentModel.DataAnnotations
 
         public override bool IsValid(object value)
         {
-            return value == null || Convert.ToString(value).ToGuid().IsEmpty();
+            return !(value == null || Convert.ToString(value).ToGuid().IsEmpty());
         }
     }
 }

@@ -59,22 +59,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeSmith\Maps.cs" />
     <Compile Include="CodeSmith\DirectoryRole.cs" />
+    <Compile Include="CodeSmith\Maps.cs" />
     <Compile Include="CodeSmith\ErrorLog.cs" />
     <Compile Include="CodeSmith\InfoLog.cs" />
     <Compile Include="CodeSmith\Organize.cs" />
     <Compile Include="CodeSmith\Post.cs" />
     <Compile Include="CodeSmith\Role.cs" />
+    <Compile Include="CodeSmith\Message.cs" />
     <Compile Include="CodeSmith\Test.cs" />
     <Compile Include="CodeSmith\User.cs" />
+    <Compile Include="CodeSmith\UserDescription.cs" />
     <Compile Include="CodeSmith\UserSetting.cs" />
     <Compile Include="Common\Context.cs" />
     <Compile Include="Common\EFEntity.cs" />
+    <Compile Include="Common\IDbAction.cs" />
     <Compile Include="Common\IMap.cs" />
-    <Compile Include="Migrations\201507160510231_init.cs" />
-    <Compile Include="Migrations\201507160510231_init.Designer.cs">
-      <DependentUpon>201507160510231_init.cs</DependentUpon>
+    <Compile Include="Migrations\201507161517408_init.cs" />
+    <Compile Include="Migrations\201507161517408_init.Designer.cs">
+      <DependentUpon>201507161517408_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,8 +98,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201507160510231_init.resx">
-      <DependentUpon>201507160510231_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507161517408_init.resx">
+      <DependentUpon>201507161517408_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

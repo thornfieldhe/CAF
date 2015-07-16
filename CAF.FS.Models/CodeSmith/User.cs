@@ -1,16 +1,73 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CAF.FSModels
+﻿namespace CAF.FSModels
 {
+    using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity;
+    using System.Linq;
 
     public class User : EFEntity<User>
     {
+        public virtual List<Role> Roles { get; set; }
+
+        public virtual List<Post> Posts { get; set; }
+
+        public virtual UserSetting UserSetting { get; set; }
+        public Description Description { get; set; }
+
+        public override void Validate()
+        {
+            this.Posts.IfNotNull(r =>
+                {
+                    foreach (var item in this.Posts)
+                    {
+                        item.Validate();
+                    }
+                });
+            this.Roles.IfNotNull(r =>
+                {
+                    foreach (var item in this.Roles)
+                    {
+                        item.Validate();
+                    }
+                });
+
+            base.Validate();
+        }
+
+
+        protected override List<User> PreQuery(IQueryable<User> query, bool useCache = false)
+        {
+            query = query.Include(i => i.Organize).Include(i => i.Posts).Include(i => i.Roles);
+            return base.PreQuery(query, useCache);
+        }
+
+
+        protected override User PreQuerySingle(IQueryable<User> query)
+        {
+            query = query.Include(i => i.Organize).Include(i => i.Posts).Include(i => i.Roles);
+            return base.PreQuerySingle(query);
+        }
+
+        protected override void Init() { this.Abb = "aa"; }
+
+        protected override void AddDescriptions()
+        {
+            base.AddDescriptions();
+            this.AddDescription("Name:" + this.Name);
+            this.AddDescription("LoginName:" + this.LoginName);
+            this.AddDescription("Abb:" + this.Abb);
+            this.AddDescription("PhoneNum:" + this.PhoneNum);
+            this.AddDescription("Pass:" + this.Pass);
+            this.AddDescription("PhoneNum:" + this.PhoneNum);
+            this.AddDescription("OrganizeId:" + this.Organize_Id);
+            this.AddDescription("Email:" + this.Email);
+        }
+
         #region 构造函数
 
         public User(Guid id) : base(id) { }
+
         public User() : this(Guid.NewGuid()) { }
 
         #endregion
@@ -30,6 +87,7 @@ namespace CAF.FSModels
         [Required(ErrorMessage = "用户简称不允许为空")]
         [StringLength(20, ErrorMessage = "用户简称长度不能超过20")]
         public string Abb { get; protected set; }
+
         /// <summary>
         /// 用户姓名
         /// </summary>
@@ -49,16 +107,22 @@ namespace CAF.FSModels
         /// </summary>
         [StringLength(30, ErrorMessage = "电话长度不能超过30")]
         public string PhoneNum { get; set; }
+
         /// <summary>
         /// 组织架构Id
         /// </summary>
-        [GuidRequired(ErrorMessage = "组织架构不允许为空")]
-        public Guid OrganizeId { get; set; }
+        //        [GuidRequired(ErrorMessage = "组织架构不允许为空")]
+        public Guid Organize_Id { get; set; }
+
+        /// <summary>
+        /// 组织架构Id
+        /// </summary>
+        //        [GuidRequired(ErrorMessage = "组织架构不允许为空")]
+        //public Guid? Organize_Id { get; set; }
 
         /// <summary>
         /// 组织架构
         /// </summary>
-        [ForeignKey("OrganizeId")]
         public virtual Organize Organize { get; set; }
 
         /// <summary>
@@ -69,36 +133,5 @@ namespace CAF.FSModels
         public string Email { get; set; }
 
         #endregion
-
-        public virtual List<Role> Roles { get; set; }
-
-        public virtual List<Post> Posts { get; set; }
-        public virtual UserSetting UserSetting { get; set; }
-
-        public override void Validate()
-        {
-            foreach (var item in this.Posts)
-            {
-                item.Validate();
-            }
-            foreach (var item in this.Roles)
-            {
-                item.Validate();
-            }
-            base.Validate();
-        }
-
-        protected override void AddDescriptions()
-        {
-            base.AddDescriptions();
-            this.AddDescription("Name:" + this.Name);
-            this.AddDescription("LoginName:" + this.LoginName);
-            this.AddDescription("Abb:" + this.Abb);
-            this.AddDescription("PhoneNum:" + this.PhoneNum);
-            this.AddDescription("Pass:" + this.Pass);
-            this.AddDescription("PhoneNum:" + this.PhoneNum);
-            this.AddDescription("OrganizeId:" + this.OrganizeId);
-            this.AddDescription("Email:" + this.Email);
-        }
     }
 }

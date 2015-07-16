@@ -62,10 +62,10 @@ namespace CAF.FSModels
 
         #region 扩展方法
 
-        public override Directory PostQuerySingle(IQueryable<Directory> query)
+        protected override Directory PreQuerySingle(IQueryable<Directory> query)
         {
             query = query.Include(i => i.Children).Include(i => i.DirectoryRoles);
-            return base.PostQuerySingle(query);
+            return base.PreQuerySingle(query);
         }
 
         #endregion

@@ -8,14 +8,19 @@
     using System.Linq;
     using System.Linq.Expressions;
 
-    public abstract class EFEntity<K> : BaseEntity<K>, IEntityBase where K : EFEntity<K>, IEntityBase, new()
+    public abstract class EFEntity<K> : BaseEntity<K>, IDbAction where K : EFEntity<K>, IEntityBase, new()
     {
         [NotMapped]
         internal Context DbContex { get; set; }
 
         #region 构造函数
 
-        protected EFEntity(Guid id) : base(id) { this.InitContex(); }
+        protected EFEntity(Guid id)
+            : base(id)
+        {
+            this.DbContex = ContextWapper.Instance.Context;
+            this.Init();
+        }
 
         protected EFEntity() : this(Guid.NewGuid()) { }
 
@@ -23,36 +28,38 @@
 
         #region 实例方法
 
-        protected void InitContex()
-        {
-            this.DbContex = ContextWapper.Instance.Context;
-        }
 
-        public override int Create() { return this.Create(this.DbContex); }
+        public  int Create() { return this.Create(this.DbContex); }
 
-        public override int Save() { return this.Save(this.DbContex); }
+        public  int Save() { return this.Save(this.DbContex); }
 
-        public override int Delete() { return this.Delete(this.DbContex); }
+        public  int Delete() { return this.Delete(this.DbContex); }
+
+        public virtual void Remove() { }
+
+
+        #region 模块内部方法
 
         internal List<K> Query(Expression<Func<K, bool>> func, bool useCache = false)
         {
             var query = this.DbContex.Set<K>().Where(func);
-            return this.PostQuery(query, useCache);
+            var items = this.PreQuery(query, useCache);
+            return this.PostQuery(items);
         }
-
 
         internal List<K> Query(bool useCache = false)
         {
             var query = this.DbContex.Set<K>();
-            return this.PostQuery(query, useCache);
+            var items = this.PreQuery(query, useCache);
+            return this.PostQuery(items);
         }
 
         internal K QuerySingle(Expression<Func<K, bool>> func)
         {
             var query = this.DbContex.Set<K>().Where(func);
-            return this.PostQuerySingle(query);
+            var item = this.PreQuerySingle(query);
+            return this.PostQuerySingle(item);
         }
-
 
         internal virtual int Create(Context context)
         {
@@ -80,6 +87,13 @@
             return context.SaveChanges();
         }
 
+        #endregion
+
+
+        #region 继承方法
+
+        protected virtual void Init() { }
+
         protected virtual void Update(Context context) { this.ChangedDate = DateTime.Now; }
 
         protected virtual void Insert(Context context) { context.Set<K>().Add(this as K); }
@@ -94,6 +108,20 @@
 
         protected virtual void PreUpdate(Context context) { this.ChangedDate = DateTime.Now; }
 
+        protected virtual List<K> PreQuery(IQueryable<K> query, bool useCache = false)
+        {
+            var items = useCache
+                            ? query.FromCache(CachePolicy.WithDurationExpiration(TimeSpan.FromSeconds(60))).ToList()
+                            : query.ToList();
+            return this.PostQuery(items);
+        }
+
+        protected virtual K PreQuerySingle(IQueryable<K> query)
+        {
+            var item = query.FirstOrDefault();
+            return item;
+        }
+
         protected virtual int PreRemove(Context context) { return 0; }
 
         protected virtual int PostUpdate(Context context) { return 0; }
@@ -102,21 +130,20 @@
 
         protected virtual int PostInsert(Context context) { return 0; }
 
-        public virtual List<K> PostQuery(IQueryable<K> query, bool useCache = false)
-        {
-            var items = new List<K>();
-            items = useCache ? query.FromCache(CachePolicy.WithDurationExpiration(TimeSpan.FromSeconds(60))).ToList() : query.ToList();
 
+        protected virtual List<K> PostQuery(List<K> items)
+        {
             items.ForEach(i => i.DbContex = this.DbContex);
             return items;
         }
 
-        public virtual K PostQuerySingle(IQueryable<K> query)
+        protected virtual K PostQuerySingle(K item)
         {
-            var item = query.FirstOrDefault();
             item.IfNotNull(i => i.DbContex = this.DbContex);
             return item;
         }
+
+        #endregion
 
         #endregion
 

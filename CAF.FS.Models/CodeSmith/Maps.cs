@@ -35,6 +35,12 @@ namespace CAF.FSModels
             : base()
         {
             this.Property(i => i.Name).IsRequired().HasMaxLength(20);
+            this.HasMany(i => i.Organizes).WithMany(l => l.Roles).Map(m =>
+            {
+                m.ToTable("R_RoleOrganizes");
+                m.MapLeftKey("Role_Id");
+                m.MapRightKey("Organize_Id");
+            });
         }
     }
 
@@ -43,10 +49,10 @@ namespace CAF.FSModels
         public DirectoryRoleMap()
             : base()
         {
-            this.Property(i => i.RoleId).IsRequired();
-            this.Property(i => i.DirectoryId).IsRequired();
-            this.HasRequired(i => i.Role).WithMany(r => r.DirectoryRoles).HasForeignKey(i => i.RoleId);
-            this.HasRequired(i => i.Directory).WithMany(r => r.DirectoryRoles).HasForeignKey(i => i.DirectoryId);
+            this.Property(i => i.Role_Id).IsRequired();
+            this.Property(i => i.Directory_Id).IsRequired();
+            this.HasRequired(i => i.Role).WithMany(r => r.DirectoryRoles).HasForeignKey(i => i.Role_Id);
+            this.HasRequired(i => i.Directory).WithMany(r => r.DirectoryRoles).HasForeignKey(i => i.Directory_Id);
         }
     }
 
@@ -96,7 +102,7 @@ namespace CAF.FSModels
             this.Property(i => i.Name).IsRequired().HasMaxLength(50);
             this.HasMany(i => i.Users).WithMany(l => l.Posts).Map(m =>
             {
-                m.ToTable("PostUsers");
+                m.ToTable("R_PostUsers");
                 m.MapLeftKey("Post_Id");
                 m.MapRightKey("User_Id");
             });
@@ -113,13 +119,15 @@ namespace CAF.FSModels
             this.Property(i => i.LoginName).IsRequired().HasMaxLength(20);
             this.Property(i => i.Pass).IsRequired().HasMaxLength(50);
             this.Property(i => i.PhoneNum).IsRequired().HasMaxLength(30);
-            this.Property(i => i.OrganizeId).IsRequired();
+            this.Property(i => i.Email).IsRequired().HasMaxLength(50);
             this.HasMany(i => i.Roles).WithMany(l => l.Users).Map(m =>
             {
-                m.ToTable("RoleUsers");
+                m.ToTable("R_RoleUsers");
                 m.MapLeftKey("Role_Id");
                 m.MapRightKey("User_Id");
             });
+            this.HasRequired(i => i.Organize).WithMany(l => l.Users).HasForeignKey(i => i.Organize_Id);
+            //this.HasOptional(i => i.Organize).WithMany(l => l.Users).HasForeignKey(i=>i.Organize_Id);
         }
     }
     public class UserSettingMap : BaseMap<UserSetting>
@@ -129,6 +137,16 @@ namespace CAF.FSModels
         {
             this.Property(i => i.Name).IsRequired().HasMaxLength(20);
             this.HasRequired(i => i.User).WithOptional(l => l.UserSetting);
+        }
+    }
+
+    public class DescriptionMap : ComplexTypeConfiguration<Description>
+    {
+        public DescriptionMap()
+            : base()
+        {
+            this.Property(i => i.Name).IsRequired().HasMaxLength(20);
+
         }
     }
 }

@@ -13,7 +13,7 @@ namespace CAF.FSModels
         /// 角色Id
         /// </summary>
         [GuidRequired(ErrorMessage = "角色不允许为空")]
-        public Guid RoleId { get; set; }
+        public Guid Role_Id { get; set; }
 
         /// <summary>
         /// 角色
@@ -25,7 +25,7 @@ namespace CAF.FSModels
         /// 目录Id
         /// </summary>
         [GuidRequired(ErrorMessage = "目录不允许为空")]
-        public Guid DirectoryId { get; set; }
+        public Guid Directory_Id { get; set; }
 
         /// <summary>
         /// 目录

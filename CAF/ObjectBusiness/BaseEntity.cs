@@ -47,12 +47,6 @@ namespace CAF
         #endregion
 
 
-        public abstract int Create();
-
-        public abstract int Save();
-
-        public abstract int Delete();
-
         protected override void AddDescriptions()
         {
             this.AddDescription("Id:" + this.Id);
