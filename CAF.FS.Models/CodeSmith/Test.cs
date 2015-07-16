@@ -6,23 +6,30 @@ using System.Threading.Tasks;
 
 namespace CAF.FSModels
 {
-    public class Test
+    public partial class Test : EFEntity<Role>
     {
-        public Guid Id { get; set; }
 
-        public string Name { get; set; }
-
+        protected override void AddDescriptions()
+        {
+            base.AddDescriptions();
+            this.AddDescription("Name:" + this.Name);
+        }
     }
 
-    public class Test1 : Test
+    public partial class Test1 : Test
     {
-        public int Age { get; set; }
-
-        
+        protected override void AddDescriptions()
+        {
+            base.AddDescriptions();
+            this.AddDescription("Age:" + this.Age);
+        }
     }
-    public class Test2 : Test
+    public partial class Test2 : Test
     {
-        public string Class { get; set; }
-        
+        protected override void AddDescriptions()
+        {
+            base.AddDescriptions();
+            this.AddDescription("Class:" + this.Class);
+        } 
     }
 }

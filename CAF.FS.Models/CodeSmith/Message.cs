@@ -2,14 +2,15 @@
 
 namespace CAF.FSModels
 {
-    public class Message
+    public partial class Message: EFEntity<InfoLog>
     {
-        public Guid Id { get; set; }
-
-        public string Name { get; set; }
-
+        protected override void AddDescriptions()
+        {
+            base.AddDescriptions();
+            this.AddDescription("Name:" + this.Name);
+        }
     }
 
-    public class Message1 : Message { }
-    public class Message2 : Message { }
+    public partial class Message1 : Message { }
+    public partial class Message2 : Message { }
 }
