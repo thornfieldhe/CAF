@@ -1,7 +1,6 @@
 ﻿
 namespace CAF.Web.WebForm.CAFControl
 {
-    using CAF.Model;
     using CAF.Web.WebForm.Common;
     using FineUI;
 
@@ -61,7 +60,7 @@ namespace CAF.Web.WebForm.CAFControl
 
         }
 
-        public void Create(IBusinessBase business)
+        public void Create(IDbAction business)
         {
             if (!this.PreCreate(business))
             {
@@ -73,7 +72,7 @@ namespace CAF.Web.WebForm.CAFControl
                 this.PostCreate(business);
             }
         }
-        public void Update(IBusinessBase business)
+        public void Update(IDbAction business)
         {
             if (!this.PreUpdate(business))
             {
@@ -85,7 +84,7 @@ namespace CAF.Web.WebForm.CAFControl
                 this.PostUpdate(business);
             }
         }
-        public void Delete(IBusinessBase business)
+        public void Delete(IDbAction business)
         {
             if (!this.PreDelete(business))
             {
@@ -99,26 +98,26 @@ namespace CAF.Web.WebForm.CAFControl
         }
 
 
-        public bool PreCreate(IBusinessBase business)
+        public bool PreCreate(IDbAction business)
         {
             return this.OnPreCreated == null || this.OnPreCreated(business);
         }
 
-        public void PostCreate(IBusinessBase business) { if (this.OnPostCreated != null) { this.OnPostCreated(business); } }
+        public void PostCreate(IDbAction business) { if (this.OnPostCreated != null) { this.OnPostCreated(business); } }
 
-        public bool PreDelete(IBusinessBase business) { return this.OnPreDelete == null || this.OnPreDelete(business); }
+        public bool PreDelete(IDbAction business) { return this.OnPreDelete == null || this.OnPreDelete(business); }
 
-        public void PostDelete(IBusinessBase business) { if (this.OnPostDelete != null) { this.OnPostDelete(business); } }
+        public void PostDelete(IDbAction business) { if (this.OnPostDelete != null) { this.OnPostDelete(business); } }
 
-        public bool PreUpdate(IBusinessBase business)
+        public bool PreUpdate(IDbAction business)
         {
 
             return this.OnPreUpdated == null || this.OnPreUpdated(business);
         }
 
-        public void PostUpdate(IBusinessBase business) { if (this.OnPostUpdated != null) { this.OnPostUpdated(business); } }
+        public void PostUpdate(IDbAction business) { if (this.OnPostUpdated != null) { this.OnPostUpdated(business); } }
 
-        public bool OnCreate(IBusinessBase business)
+        public bool OnCreate(IDbAction business)
         {
             try
             {
@@ -133,7 +132,7 @@ namespace CAF.Web.WebForm.CAFControl
             return false;
         }
 
-        public bool OnDelete(IBusinessBase business)
+        public bool OnDelete(IDbAction business)
         {
             PageTools.BindModel(this, business);
             business.Delete();
@@ -141,7 +140,7 @@ namespace CAF.Web.WebForm.CAFControl
             return true;
         }
 
-        public bool OnUpdate(IBusinessBase business)
+        public bool OnUpdate<T>(IDbAction<T> business) where T : IDbAction<T>, IEntityBase, new()
         {
             try
             {
@@ -156,13 +155,13 @@ namespace CAF.Web.WebForm.CAFControl
             return false;
         }
 
-        public void LoadEntity(IBusinessBase business)
+        public void LoadEntity(IDbAction business)
         {
             PageTools.BindControls(this, business);
         }
 
-        public delegate bool PerExcuteHandler(IBusinessBase business);
-        public delegate void PostExcuteHandler(IBusinessBase business);
+        public delegate bool PerExcuteHandler(IDbAction business);
+        public delegate void PostExcuteHandler(IDbAction business);
         public event PerExcuteHandler OnPreCreated;
         public event PostExcuteHandler OnPostCreated;
         public event PerExcuteHandler OnPreDelete;
@@ -252,7 +251,7 @@ namespace CAF.Web.WebForm.CAFControl
             this.DataBind();
         }
 
-        public void Delete<T>() where T : IBusinessBase,IEntityBase
+        public void Delete<T>() where T : IDbAction<T>, IEntityBase, new()
         {
             try
             {
@@ -265,8 +264,7 @@ namespace CAF.Web.WebForm.CAFControl
                 {
                     foreach (var id in list.Select(i => (this.Rows[i].DataKeys[0].ToString().ToGuid())))
                     {
-                        var item = (T)Activator.CreateInstance(typeof(T), true);
-                        item.Id = id;
+                        var item = new T().Find(id);
                         item.Delete();
                     }
                     if (this.OnQuery != null)
@@ -281,14 +279,13 @@ namespace CAF.Web.WebForm.CAFControl
             }
         }
 
-        public void Excute<T>(GridCommandEventArgs e) where T : IBusinessBase,IEntityBase
+        public void Excute<T>(GridCommandEventArgs e) where T : IDbAction<T>, IEntityBase, new()
         {
             switch (e.CommandName)
             {
                 case "Delete":
                     var id = this.Rows[e.RowIndex].DataKeys[0].ToString().ToGuid();
-                    var item = (T)Activator.CreateInstance(typeof(T), true);
-                    item.Id = id;
+                    var item = new T().Find(id);
                     item.Delete();
                     break;
             }

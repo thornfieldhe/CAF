@@ -5,11 +5,9 @@ using System.Web;
 using System.Web.UI;
 namespace CAF.Web.WebForm
 {
-    using CAF.Model;
     using CAF.Web.WebForm.Common;
     using CAF.Webs;
 
-    using global::System.Linq;
 
     public class BasePage : Page
     {
@@ -51,7 +49,7 @@ namespace CAF.Web.WebForm
         {
             get
             {
-                return Model.User.Get(this.User.Identity.Name);
+                return FSModels.User.Get(this.User.Identity.Name);
             }
         }
 
@@ -184,7 +182,7 @@ namespace CAF.Web.WebForm
         protected virtual bool CanRead(List<Guid> roles)
         {
             return
-                Directory_Role.GetAllByDirectoryId(this.pageId).Where(r => r.Status == (int)RightStatusEnum.Read)
+                DirectoryRole.GetAllByDirectoryId(this.pageId).Where(r => r.Status == (int)RightStatusEnum.Read)
                 .Select(r => r.RoleId).ToList().Intersect(roles).Count() > 0;
         }
 

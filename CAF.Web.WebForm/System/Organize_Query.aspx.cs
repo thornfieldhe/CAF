@@ -2,11 +2,8 @@
 
 namespace CAF.Web.WebForm
 {
-    using CAF.Model;
     using FineUI;
 
-    using global::System.Linq;
-    using global::System.Linq.Expressions;
 
     public partial class Organize_Query : BasePage
     {

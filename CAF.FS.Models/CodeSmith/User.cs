@@ -1,4 +1,4 @@
-﻿namespace CAF.FSModels
+﻿namespace CAF.Models
 {
     using System;
     using System.Collections.Generic;

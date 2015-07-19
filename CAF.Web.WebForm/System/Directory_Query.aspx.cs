@@ -2,8 +2,6 @@
 
 namespace CAF.Web.WebForm
 {
-    using CAF.Model;
-
     using FineUI;
 
     public partial class Directory_Query : BasePage

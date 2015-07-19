@@ -1,6 +1,8 @@
-namespace CAF.FSModels
+namespace CAF.Models
 {
-    public interface IDbAction
+    using System;
+
+    public interface IDbAction<T> where T : new()
     {
         int Create();
 
@@ -9,5 +11,6 @@ namespace CAF.FSModels
         int Delete();
 
         void Remove();
+        T Find(Guid id);
     }
 }

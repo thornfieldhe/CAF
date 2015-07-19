@@ -2,7 +2,6 @@
 
 namespace CAF.Web.WebForm
 {
-    using CAF.Model;
     using FineUI;
 
 

@@ -4,7 +4,7 @@ using System;
 namespace CAF.Tests.Datas
 {
     using CAF.Exceptions;
-    using CAF.FSModels;
+    using CAF.Models;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -98,7 +98,7 @@ namespace CAF.Tests.Datas
                                 Pass = "ddd",
                                 PhoneNum = "111111111111",
                                 UserSetting = new UserSetting { Name = "s1" },
-                                Description = new Description{Name = "p"},
+                                Description = new Description { Name = "p" },
                                 Organize_Id = o1.Id
                             };
 
@@ -160,14 +160,14 @@ namespace CAF.Tests.Datas
             //移除子对象
             //如果user表中organize_id不允许为空则不允许移除
             //否则可以移除
-//            o3.Users.RemoveAt(0);
-//            o3.Save();
-//            var o4 = Organize.Get(o2.Id);
-//            Assert.AreEqual(0, o4.Users.Count);
-//            var u1 = User.Get(o2.Id);
-//            Assert.IsNull(u1);
+            //            o3.Users.RemoveAt(0);
+            //            o3.Save();
+            //            var o4 = Organize.Get(o2.Id);
+            //            Assert.AreEqual(0, o4.Users.Count);
+            //            var u1 = User.Get(o2.Id);
+            //            Assert.IsNull(u1);
             //删除子对象
-           
+
             Assert.AreEqual(1, o3.Users.Count);
             var u2 = User.Get(o3.Users[0].Id);
             u2.Delete();//子对象执行删除后，父对象就查询不到了
@@ -209,7 +209,7 @@ namespace CAF.Tests.Datas
             u1.Organize.Name = "pp";
             u1.Save();
             var o2 = Organize.Get(id);
-            Assert.AreEqual(o2.Name,"pp");
+            Assert.AreEqual(o2.Name, "pp");
         }
 
 
@@ -222,7 +222,7 @@ namespace CAF.Tests.Datas
             var o1 = new Organize() { Name = "o1", Code = "01" };
             o1.Create();
             //新增关系对象
-            var id= Guid.NewGuid();
+            var id = Guid.NewGuid();
             var u1 = new User(id)
                          {
                              Name = "001",
@@ -236,18 +236,18 @@ namespace CAF.Tests.Datas
                          };
             u1.Create();
             var u2 = User.Get(id);
-            Assert.AreEqual(u2.Roles.Count,1);
+            Assert.AreEqual(u2.Roles.Count, 1);
             //更新关系对象
             u2.Roles[0].Name = "r2";
             u2.Save();
             var u3 = User.Get(id);
-            Assert.AreEqual(u3.Roles[0].Name,"r2");
+            Assert.AreEqual(u3.Roles[0].Name, "r2");
             var rid = u3.Roles[0].Id;
             //删除关系
             u3.Roles.RemoveAt(0);
             u3.Save();
             var u4 = User.Get(id);
-            Assert.AreEqual(u4.Roles.Count,0);
+            Assert.AreEqual(u4.Roles.Count, 0);
             var r1 = Role.Get(rid);
             Assert.IsNotNull(r1);//只删除关系不删除对象
         }

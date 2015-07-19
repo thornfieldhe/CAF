@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CAF.FSModels
+﻿
+namespace CAF.Models
 {
     public partial class Test : EFEntity<Role>
     {
@@ -30,6 +25,6 @@ namespace CAF.FSModels
         {
             base.AddDescriptions();
             this.AddDescription("Class:" + this.Class);
-        } 
+        }
     }
 }

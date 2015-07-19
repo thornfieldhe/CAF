@@ -2,7 +2,6 @@
 
 namespace CAF.Web.WebForm.System
 {
-    using CAF.Model;
     using CAF.Web.WebForm.Common;
 
     using FineUI;
@@ -34,7 +33,7 @@ namespace CAF.Web.WebForm.System
             this.BindScripts();
             PageHelper.BindDirectories(Guid.Empty, this.dropDirs, Guid.Empty.ToString(), false);
             PageHelper.BindRoles(this.dropRoles, Guid.Empty.ToString());
-            PageTools.BindDropdownList<RightStatusEnum>( this.dropStatus);
+            PageTools.BindDropdownList<RightStatusEnum>(this.dropStatus);
             this.grid_OnQuery();
         }
 

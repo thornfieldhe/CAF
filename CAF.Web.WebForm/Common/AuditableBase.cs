@@ -2,11 +2,10 @@
 
 namespace CAF.Web.WebForm
 {
-    using CAF.Model;
 
     using FineUI;
 
-    public abstract class AuditableBase 
+    public abstract class AuditableBase
     {
         protected void btnApprove_Click(object sender, EventArgs e)
         {

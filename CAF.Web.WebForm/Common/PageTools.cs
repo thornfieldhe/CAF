@@ -7,8 +7,6 @@ using System.Web.UI;
 
 namespace CAF.Web.WebForm.Common
 {
-
-    using CAF.Data;
     using CAF.Utility;
 
     public class PageTools
@@ -113,7 +111,7 @@ namespace CAF.Web.WebForm.Common
         /// </summary>
         /// <param name="item"></param>
         /// <param name="model"></param>
-        public static void BindModel(Control item, IBusinessBase model)
+        public static void BindModel<T>(Control item, IDbAction<T> model) where T : IDbAction<T>, IEntityBase, new()
         {
 
             if (!item.HasControls())
@@ -125,7 +123,7 @@ namespace CAF.Web.WebForm.Common
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("txt", ""));
                     if (Info != null)
                     {
-                        if (!(item is HiddenField) && skipProperties(model, Info)
+                        if (!(item is HiddenField)
                             && ((Info.Name == "Id" && ctrl.Text.ToGuid() != Guid.Empty)
                             || Info.Name != "Id"))
                         {
@@ -137,7 +135,7 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (Label)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("lbl", ""));
-                    if (Info != null && ctrl.Text != "" && skipProperties(model, Info) &&
+                    if (Info != null && ctrl.Text != "" &&
                         !(Info.Name == "Id" && String.IsNullOrWhiteSpace(ctrl.Text)))
                     {
                         Info.SetValue(model, Mapper2.GetType(Info, ctrl.Text), null);
@@ -147,7 +145,7 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (DatePicker)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("date", ""));
-                    if (Info != null && ctrl.Text != "" && skipProperties(model, Info))
+                    if (Info != null && ctrl.Text != "")
                     {
                         Info.SetValue(model, Mapper2.GetType(Info, ctrl.SelectedDate.Value.ToShortDateString()), null);
                     }
@@ -156,8 +154,7 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (DropDownList)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("drop", ""));
-                    if (Info != null && !String.IsNullOrWhiteSpace(ctrl.SelectedValue)
-                        && skipProperties(model, Info))
+                    if (Info != null && !String.IsNullOrWhiteSpace(ctrl.SelectedValue))
                     {
                         Info.SetValue(model, Mapper2.GetType(Info, ctrl.SelectedValue), null);
                     }
@@ -166,7 +163,7 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (CheckBox)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("chk", ""));
-                    if (Info != null && skipProperties(model, Info))
+                    if (Info != null)
                     {
                         if (ctrl.Checked)
                         {
@@ -188,7 +185,7 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (CheckBoxList)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("chk", ""));
-                    if (Info != null && skipProperties(model, Info))
+                    if (Info != null)
                     {
                         Info.SetValue(model, Mapper2.GetType(Info, PageTools.CheckBoxList(ctrl, "")), null);
                     }
@@ -197,7 +194,7 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (RadioButton)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("radio", ""));
-                    if (Info != null && skipProperties(model, Info))
+                    if (Info != null)
                     {
                         Info.SetValue(model, ctrl.Checked ? Mapper2.GetType(Info, "1") : Mapper2.GetType(Info, "0"),
                             null);
@@ -207,7 +204,7 @@ namespace CAF.Web.WebForm.Common
                 {
                     var ctrl = (RadioButtonList)item;
                     Info = model.GetType().GetProperty(ctrl.ID.Replace("radio", ""));
-                    if (Info != null && skipProperties(model, Info))
+                    if (Info != null)
                     {
                         Info.SetValue(model, Mapper2.GetType(Info, ctrl.SelectedValue), null);
                     }
@@ -222,12 +219,7 @@ namespace CAF.Web.WebForm.Common
             }
         }
 
-        private static bool skipProperties(IBusinessBase model, PropertyInfo Info)
-        {
-            return model.SkipedProperties == null ||
-                   (model.SkipedProperties != null && !model.SkipedProperties.Contains(Info.Name))
-            ;
-        }
+
 
         /// <summary>
         /// 复选框列表操作

@@ -2,7 +2,6 @@
 
 namespace CAF.Web.WebForm
 {
-    using CAF.Model;
 
 
     public partial class ErrorLog_Query : BasePage

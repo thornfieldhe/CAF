@@ -7,7 +7,5 @@ namespace CAF
         int Save();
 
         int Delete();
-
-        void Remove();
     }
 }

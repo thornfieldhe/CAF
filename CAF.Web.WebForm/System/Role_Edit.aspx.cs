@@ -2,7 +2,6 @@
 
 namespace CAF.Web.WebForm
 {
-    using CAF.Model;
     using CAF.Web.WebForm.Common;
 
     public partial class Role_Edit : BasePage

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CAF.FSModels
+namespace CAF.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;

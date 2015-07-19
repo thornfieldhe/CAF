@@ -1,5 +1,5 @@
 ﻿
-namespace CAF.FSModels
+namespace CAF.Models
 {
     using EntityFramework.Filters;
     using System.Data.Entity;
@@ -23,6 +23,7 @@ namespace CAF.FSModels
             modelBuilder.Configurations.Add(new PostMap());
             modelBuilder.Configurations.Add(new UserMap());
             modelBuilder.Configurations.Add(new UserSettingMap());
+            modelBuilder.Configurations.Add(new PostUserOrganizeMap());
             //TPH基类和继承类显示在同一张表
             modelBuilder.Entity<Message>().Map(r => { r.Requires("From").HasValue("message"); });
             modelBuilder.Entity<Message1>().Map(r => { r.Requires("From").HasValue("message1"); });

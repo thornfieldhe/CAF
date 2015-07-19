@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace CAF.Web.WebForm
 {
-    using CAF.Model;
+    using CAF.Models;
     using CAF.Web.WebForm.Common;
 
     using FineUI;
@@ -22,9 +22,9 @@ namespace CAF.Web.WebForm
             this.submitForm.OnPreUpdated += this.submitForm_OnPreUpdated;
         }
 
-        private bool submitForm_OnPreCreated(IBusinessBase business)
+        private bool submitForm_OnPreCreated(IDbAction business)
         {
-            var item = business as Model.User;
+            var item = business as Models.User;
             if (item == null)
             {
                 return false;
@@ -40,7 +40,7 @@ namespace CAF.Web.WebForm
                 Alert.ShowInTop("密码两次输入不一致！");
                 return false;
             }
-            if (Model.User.Exists(this.txtLoginName.Text))
+            if (Models.User.Exist(r => r.Name.Contains(this.txtLoginName.Text.Trim()) || r.Abb.Contains(this.txtLoginName.Text.Trim())))
             {
                 Alert.ShowInTop("用户已存在");
                 return false;
@@ -53,10 +53,10 @@ namespace CAF.Web.WebForm
             return true;
         }
 
-        private bool submitForm_OnPreUpdated(IBusinessBase business)
+        private bool submitForm_OnPreUpdated(IDbAction business)
         {
 
-            var item = business as Model.User;
+            var item = business as Models.User;
             if (item == null)
             {
                 return false;
@@ -69,26 +69,22 @@ namespace CAF.Web.WebForm
                     return false;
                 }
             }
-            else
-            {
-                item.SkipProperties("Pass");
-            }
 
             var ids = this.chkUserRoles.SelectedValueArray.Select(d => new Guid(d)).ToList();
             var userRoles = item.Roles.Select(r => r.Id).ToList();
-            userRoles.Except(ids).ToList().ForEach(i => item.Roles.First(r => r.Id == i).MarkDelete());
+            userRoles.Except(ids).ToList().ForEach(i => item.Roles.Remove(item.Roles.First(r => r.Id == i)));
             ids.Except(userRoles).ToList().ForEach(i => item.Roles.Add(Role.Get(i)));
 
             var ids2 = this.chkUserPosts.SelectedValueArray.Select(d => new Guid(d)).ToList();
             var userPosts = item.Posts.Select(r => r.Id).ToList();
-            userPosts.Except(ids2).ToList().ForEach(i => item.Posts.First(r => r.Id == i).MarkDelete());
+            userPosts.Except(ids2).ToList().ForEach(i => item.Posts.Remove(item.Posts.First(r => r.Id == i)));
             ids2.Except(userPosts).ToList().ForEach(i => item.Posts.Add(Post.Get(i)));
 
 
             return true;
         }
 
-        private void submitForm_OnPostExcute(IBusinessBase business)
+        private void submitForm_OnPostExcute(IDbAction business)
         {
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
@@ -100,7 +96,7 @@ namespace CAF.Web.WebForm
             PageTools.BindRadioButton<UserStatusEnum>(this.radioStatus);
             PageHelper.BindRoles(this.chkUserRoles);
             PageHelper.BindPosts(this.chkUserPosts);
-            var item = Model.User.Get(this.Id);
+            var item = Models.User.Get(this.Id);
             if (item == null)
             {
                 this.btnDelete.Hidden = true;
@@ -126,13 +122,13 @@ namespace CAF.Web.WebForm
 
         protected override void Delete()
         {
-            var item = Model.User.Get(this.Id);
+            var item = Models.User.Get(this.Id);
             this.submitForm.Delete(item);
         }
 
         protected override void Update()
         {
-            var item = Model.User.Get(this.Id);
+            var item = Models.User.Get(this.Id);
             this.submitForm.Update(item);
         }
 

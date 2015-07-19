@@ -2,7 +2,6 @@
 using System.Linq;
 namespace CAF.Web.WebForm.Common
 {
-    using CAF.Model;
     using FineUI;
 
     using global::System.Collections.Generic;
@@ -62,7 +61,7 @@ namespace CAF.Web.WebForm.Common
         public static void BindPostUsers(Guid id, DropDownList drop, string selectItem)
         {
             var users = new List<User>();
-            var items = id!=Guid.Empty ? Post.Get(id).Users.Distinct().Select(u => new ListItem { Text = u.Name, Value = u.Id.ToString() }).ToList() 
+            var items = id != Guid.Empty ? Post.Get(id).Users.Distinct().Select(u => new ListItem { Text = u.Name, Value = u.Id.ToString() }).ToList()
                              : Post.GetAll().SelectMany(p => p.Users).Distinct().Select(u => new ListItem { Text = u.Name, Value = u.Id.ToString() }).ToList();
             PageTools.BindDropdownList(items, drop, selectItem);
         }

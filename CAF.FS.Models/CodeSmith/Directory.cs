@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CAF.FSModels
+namespace CAF.Models
 {
     using System.Collections.Generic;
     using System.Data.Entity;
@@ -30,7 +30,6 @@ namespace CAF.FSModels
             return base.PreQuery(query, useCache);
         }
 
-        #endregion
 
         protected override void AddDescriptions()
         {
@@ -41,5 +40,7 @@ namespace CAF.FSModels
             this.AddDescription("Level:" + this.Level);
             this.AddDescription("Sort:" + this.Sort);
         }
+
+        #endregion
     }
 }

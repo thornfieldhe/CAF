@@ -1,18 +1,16 @@
 ﻿using System;
 namespace CAF.Web.WebForm
 {
-    using CAF.Model;
-    using CAF.Web.WebForm.Common;
     using FineUI;
 
     public partial class WorkflowProcess_Edit : BasePage
     {
         #region 系统生成
-        
+
         protected override void Bind()
         {
             //绑定查询条件
-            
+
             var item = WorkflowProcess.Get(this.Id);
             if (item == null)
             {
@@ -24,8 +22,8 @@ namespace CAF.Web.WebForm
                 this.submitForm.LoadEntity(item);
             }
         }
-        
-        
+
+
         protected override void OnLoad(EventArgs e)
         {
             this.pageId = new Guid("d6dd9474-72ab-4872-8e30-2e50669b0dca");
@@ -35,7 +33,7 @@ namespace CAF.Web.WebForm
             this.submitForm.OnPostDelete += this.submitForm_OnPostExcute;
             this.submitForm.OnPostUpdated += this.submitForm_OnPostExcute;
         }
-        
+
         protected void submitForm_OnPostExcute(IBusinessBase business)
         {
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
@@ -58,7 +56,7 @@ namespace CAF.Web.WebForm
             var item = new WorkflowProcess();
             this.submitForm.Create(item);
         }
-        
-        #endregion 
+
+        #endregion
     }
 }

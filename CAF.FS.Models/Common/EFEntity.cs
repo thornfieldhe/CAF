@@ -1,9 +1,10 @@
-﻿namespace CAF.FSModels
+﻿namespace CAF.Models
 {
     using EntityFramework.Caching;
     using EntityFramework.Extensions;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Linq.Expressions;
@@ -29,14 +30,36 @@
         #region 实例方法
 
 
-        public  int Create() { return this.Create(this.DbContex); }
+        public int Create()
+        {
+            this.PreInsert();
+            this.Validate();
+            this.Insert();
+            this.PostInsert();
+            return this.DbContex.SaveChanges();
+        }
 
-        public  int Save() { return this.Save(this.DbContex); }
+        public int Save()
+        {
+            this.PreUpdate();
+            this.Validate();
+            this.Update();
+            this.PostUpdate();
+            return this.DbContex.SaveChanges();
+        }
 
-        public  int Delete() { return this.Delete(this.DbContex); }
+        public int Delete()
+        {
+            this.PreRemove();
+            this.Remove();
+            this.PostRemove();
+            return this.DbContex.SaveChanges();
+        }
 
-        public virtual void Remove() { }
-
+        public K Find(Guid id)
+        {
+            return this.QuerySingle(i => i.Id == id);
+        }
 
         #region 模块内部方法
 
@@ -61,32 +84,6 @@
             return this.PostQuerySingle(item);
         }
 
-        internal virtual int Create(Context context)
-        {
-            this.PreInsert(context);
-            this.Validate();
-            this.Insert(context);
-            this.PostInsert(context);
-            return context.SaveChanges();
-        }
-
-        internal virtual int Save(Context context)
-        {
-            this.PreUpdate(context);
-            this.Validate();
-            this.Update(context);
-            this.PostUpdate(context);
-            return context.SaveChanges();
-        }
-
-        internal virtual int Delete(Context context)
-        {
-            this.PreRemove(context);
-            this.Remove(context);
-            this.PostRemove(context);
-            return context.SaveChanges();
-        }
-
         #endregion
 
 
@@ -94,19 +91,19 @@
 
         protected virtual void Init() { }
 
-        protected virtual void Update(Context context) { this.ChangedDate = DateTime.Now; }
+        protected virtual void Update() { this.ChangedDate = DateTime.Now; }
 
-        protected virtual void Insert(Context context) { context.Set<K>().Add(this as K); }
+        protected virtual void Insert() { this.DbContex.Set<K>().Add(this as K); }
 
-        protected virtual void Remove(Context context)
+        protected virtual void Remove()
         {
             this.Status = -1;
             this.ChangedDate = DateTime.Now;
         }
 
-        protected virtual void PreInsert(Context context) { }
+        protected virtual void PreInsert() { }
 
-        protected virtual void PreUpdate(Context context) { this.ChangedDate = DateTime.Now; }
+        protected virtual void PreUpdate() { this.ChangedDate = DateTime.Now; }
 
         protected virtual List<K> PreQuery(IQueryable<K> query, bool useCache = false)
         {
@@ -122,14 +119,14 @@
             return item;
         }
 
-        protected virtual int PreRemove(Context context) { return 0; }
+        protected virtual int PreRemove() { return 0; }
 
-        protected virtual int PostUpdate(Context context) { return 0; }
+        protected virtual int PostUpdate() { return 0; }
 
-        protected virtual int PostRemove(Context context) { return 0; }
+        protected virtual int PostRemove() { return 0; }
 
-        protected virtual int PostInsert(Context context) { return 0; }
-
+        protected virtual int PostInsert() { return 0; }
+  
 
         protected virtual List<K> PostQuery(List<K> items)
         {

@@ -1,5 +1,5 @@
 ﻿
-namespace CAF.FSModels
+namespace CAF.Models
 {
     using System;
 
@@ -12,6 +12,8 @@ namespace CAF.FSModels
 
         #endregion
 
+        #region 覆写基类方法
+
         public override void Validate()
         {
             this.User.IfNotNull(r => this.User.Validate());
@@ -23,5 +25,8 @@ namespace CAF.FSModels
             base.AddDescriptions();
             this.AddDescription("Name:" + this.Name);
         }
+
+        #endregion
+
     }
 }

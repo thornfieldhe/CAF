@@ -1,9 +1,7 @@
 ﻿
-namespace CAF.FSModels
+namespace CAF.Models
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
 
 
     public partial class Post : EFEntity<Post>
@@ -15,10 +13,15 @@ namespace CAF.FSModels
 
         #endregion
 
+        #region 覆写基类方法
+
         protected override void AddDescriptions()
         {
             base.AddDescriptions();
             this.AddDescription("Name:" + this.Name);
         }
+
+        #endregion
+
     }
 }

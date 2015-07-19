@@ -1,7 +1,6 @@
 ﻿using System;
 namespace CAF.Web.WebForm
 {
-    using CAF.Model;
     using CAF.Web.WebForm.Common;
     using FineUI;
 

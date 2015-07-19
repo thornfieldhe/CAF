@@ -13,7 +13,7 @@ namespace CAF.Web.WebForm.System
 
         protected override void Bind()
         {
-            var item = Model.User.Get(this.Id);
+            var item = Models.User.Get(this.Id);
             this.submitForm.LoadEntity(item);
 
         }
@@ -28,9 +28,9 @@ namespace CAF.Web.WebForm.System
             this.submitForm.OnPreUpdated += this.submitForm_OnPreUpdated;
         }
 
-        bool submitForm_OnPreUpdated(IBusinessBase business)
+        bool submitForm_OnPreUpdated(IDbAction business)
         {
-            var user = business as Model.User;
+            var user = business as Models.User;
             if (this.txtOldPassword.Text.Trim() == string.Empty)
             {
                 Alert.ShowInTop("原密码不允许为空！");
@@ -49,14 +49,14 @@ namespace CAF.Web.WebForm.System
             return false;
         }
 
-        protected void submitForm_OnPostExcute(IBusinessBase business)
+        protected void submitForm_OnPostExcute(IDbAction business)
         {
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
 
         protected override void Update()
         {
-            var item = Model.User.Get(this.Id);
+            var item = Models.User.Get(this.Id);
             this.submitForm.Update(item);
         }
 

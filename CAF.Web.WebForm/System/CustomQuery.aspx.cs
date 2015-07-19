@@ -2,7 +2,6 @@
 
 namespace CAF.Web.WebForm.System
 {
-    using CAF.Model;
 
     using global::System.Data.SqlClient;
 

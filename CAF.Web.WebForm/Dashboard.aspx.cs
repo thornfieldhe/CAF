@@ -1,16 +1,13 @@
-﻿using System;
+﻿using FineUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Xml;
-using CAF.Model;
-using FineUI;
 
 namespace CAF.Web
 {
-    using CAF;
     using CAF.Utility;
-    using CAF.Web;
     using CAF.Webs;
 
     using Newtonsoft.Json.Linq;
@@ -25,11 +22,11 @@ namespace CAF.Web
             {
                 this.Response.Redirect("Login.aspx");
             }
-            var u = CAF.Model.User.Get(this.User.Identity.Name);
+            var u = CAF.Models.User.Get(r => r.LoginName == this.User.Identity.Name).First();
             if (u != null)
             {
                 this.lblUserName.Text = u.Name;
-                this.GetDirLevels(CAF.Model.User.GetDirectories(u.Id));
+                this.GetDirLevels(CAF.Models.User.GetDirectories(u.Id));
                 var ids = this.GetClientIDS(this.mainTabStrip);
                 var accordionMenu = this.InitAccordionMenu();
                 ids.Add("mainMenu", accordionMenu.ClientID);

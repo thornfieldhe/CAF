@@ -7,8 +7,8 @@
     <ProjectGuid>{4BE62055-240B-4019-8576-1147ECF35967}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CAF.FSModels</RootNamespace>
-    <AssemblyName>CAF.FSModels</AssemblyName>
+    <RootNamespace>CAF.Models</RootNamespace>
+    <AssemblyName>CAF.Models</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -60,7 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeSmith\DirectoryRole.cs" />
-    <Compile Include="CodeSmith\Maps.cs" />
+    <Compile Include="CodeSmith\LoginLog.cs" />
+    <Compile Include="Common\Maps.cs" />
     <Compile Include="CodeSmith\ErrorLog.cs" />
     <Compile Include="CodeSmith\InfoLog.cs" />
     <Compile Include="CodeSmith\Organize.cs" />
@@ -69,19 +70,28 @@
     <Compile Include="CodeSmith\Message.cs" />
     <Compile Include="CodeSmith\Test.cs" />
     <Compile Include="CodeSmith\User.cs" />
-    <Compile Include="CodeSmith\UserDescription.cs" />
+    <Compile Include="Models\PostUserOrganize.cs" />
+    <Compile Include="Models\UserDescription.cs" />
     <Compile Include="CodeSmith\UserSetting.cs" />
     <Compile Include="Common\Context.cs" />
     <Compile Include="Common\EFEntity.cs" />
     <Compile Include="Common\IDbAction.cs" />
-    <Compile Include="Common\IMap.cs" />
+    <Compile Include="Common\Resource.Designer.cs">
+      <DependentUpon>Resource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Migrations\201507161517408_init.cs" />
     <Compile Include="Migrations\201507161517408_init.Designer.cs">
       <DependentUpon>201507161517408_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Directory.cs" />
+    <Compile Include="Models\LoginLog.cs" />
+    <Compile Include="ViewModels\DirectoryListView.cs" />
     <Compile Include="Models\DirectoryRole.cs" />
+    <Compile Include="ViewModels\DirectoryRoleListView.cs" />
+    <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\ErrorLog.cs" />
     <Compile Include="Models\InfoLog.cs" />
     <Compile Include="Models\Message.cs" />
@@ -109,6 +119,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Common\Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507161517408_init.resx">
       <DependentUpon>201507161517408_init.cs</DependentUpon>
     </EmbeddedResource>

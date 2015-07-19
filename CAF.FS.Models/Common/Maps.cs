@@ -1,5 +1,5 @@
 ﻿
-namespace CAF.FSModels
+namespace CAF.Models
 {
     using EntityFramework.Filters;
     using System.Data.Entity.ModelConfiguration;
@@ -146,7 +146,17 @@ namespace CAF.FSModels
             : base()
         {
             this.Property(i => i.Name).IsRequired().HasMaxLength(20);
+        }
+    }
 
+    public class PostUserOrganizeMap : ComplexTypeConfiguration<PostUserOrganize>
+    {
+        public PostUserOrganizeMap()
+            : base()
+        {
+            this.Property(i => i.UserId).IsRequired();
+            this.Property(i => i.PostId).IsRequired();
+            this.Property(i => i.OrganizeId).IsRequired();
         }
     }
 }

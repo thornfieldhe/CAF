@@ -1,12 +1,17 @@
 ﻿using System;
 
-namespace CAF.FSModels
+namespace CAF.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+
+    using CAF.Utility;
 
     public sealed partial class User
     {
+
+        #region 公共属性
 
         /// <summary>
         /// 登录名
@@ -75,6 +80,44 @@ namespace CAF.FSModels
         public List<Post> Posts { get; set; }
 
         public UserSetting UserSetting { get; set; }
+
         public Description Description { get; set; }
+
+        #endregion
+
+        #region 扩展方法
+
+        public static List<Directory> GetDirectories(Guid uderId)
+        {
+            var contex = ContextWapper.Instance.Context;
+            return
+                contex.Set<User>()
+                    .Where(i => i.Id == uderId)
+                    .SelectMany(r => r.Roles.SelectMany(d => d.DirectoryRoles.Select(p => p.Directory))).ToList();
+        }
+
+        #endregion
+
+        #region 重载
+
+        protected override void PreInsert()
+        {
+            this.Abb = this.Name.GetChineseSpell();
+            this.Pass = Encrypt.DesEncrypt(this.Pass);
+            base.PreInsert();
+        }
+
+        protected override void PreUpdate()
+        {
+            var currentValue = this.DbContex.Entry(this).CurrentValues.GetValue<Guid>("Name");
+            var orignialValue = this.DbContex.Entry(this).OriginalValues.GetValue<Guid>("Name");
+            if (currentValue != orignialValue)
+            {
+                this.Abb = this.Name.GetChineseSpell();
+            }
+            base.PreUpdate();
+        }
+
+        #endregion
     }
 }

@@ -1,11 +1,11 @@
-﻿namespace CAF.FSModels
+﻿namespace CAF.Models
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
 
     public partial class Organize : EFEntity<Organize>
     {
+        #region 覆写基类方法
+
         public override void Validate()
         {
             this.Users.IfNotNull(r =>
@@ -26,19 +26,7 @@
             base.Validate();
         }
 
-        protected override void Init() { this.Level = "aa"; }
-
-        protected override void PreInsert(Context context)
-        {
-            this.Level = "xxx";
-            base.PreInsert(context);
-        }
-
-        protected override void PreUpdate(Context context)
-        {
-            this.Level = "xxx";
-            base.PreInsert(context);
-        }
+        protected override void Init() { }
 
         protected override void AddDescriptions()
         {
@@ -49,6 +37,9 @@
             this.AddDescription("Level:" + this.Level);
             this.AddDescription("Sort:" + this.Sort);
         }
+
+        #endregion
+
 
         #region 构造函数
 

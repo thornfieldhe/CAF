@@ -1,10 +1,10 @@
 ﻿
-namespace CAF.FSModels
+namespace CAF.Models
 {
     using System.ComponentModel.DataAnnotations;
 
 
-    public partial class InfoLog 
+    public partial class InfoLog
     {
         /// <summary>
         /// 用户名

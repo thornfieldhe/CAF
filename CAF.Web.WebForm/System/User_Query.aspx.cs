@@ -3,11 +3,10 @@
 namespace CAF.Web.WebForm
 {
     using CAF;
-    using CAF.Model;
+    using CAF.Models;
     using CAF.Web.WebForm.Common;
     using FineUI;
 
-    using global::System.Linq;
 
     public partial class User_Query : BasePage
     {

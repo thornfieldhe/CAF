@@ -1,8 +1,7 @@
-﻿using System;
-
-namespace CAF.FSModels
+﻿
+namespace CAF.Models
 {
-    public partial class Message: EFEntity<InfoLog>
+    public partial class Message : EFEntity<InfoLog>
     {
         protected override void AddDescriptions()
         {

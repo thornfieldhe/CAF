@@ -1,7 +1,6 @@
 ﻿using System;
 namespace CAF.Web.WebForm
 {
-    using CAF.Model;
     using FineUI;
 
     public partial class ErrorLog_Details : BasePage

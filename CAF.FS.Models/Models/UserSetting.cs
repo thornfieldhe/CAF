@@ -1,7 +1,6 @@
 ﻿
-namespace CAF.FSModels
+namespace CAF.Models
 {
-    using System;
     using System.ComponentModel.DataAnnotations;
 
     public partial class UserSetting

@@ -2,7 +2,6 @@
 
 namespace CAF.Web.WebForm
 {
-    using CAF.Model;
 
 
     public partial class LoginLog_Query : BasePage
@@ -21,7 +20,7 @@ namespace CAF.Web.WebForm
         protected void grid_OnQuery(object sender = null, EventArgs e = null)
         {
             var exp = new ExpConditions<LoginLog>();
-            this.txtName.Text.Trim().IfIsNotNullOrEmpty(r=> exp.AndWhere(ex => ex.UserName == r.Trim()));
+            this.txtName.Text.Trim().IfIsNotNullOrEmpty(r => exp.AndWhere(ex => ex.UserName == r.Trim()));
             this.dateFrom.SelectedDate.HasValue.IfTrue(() => exp.AndWhere(ex => ex.CreatedDate >= this.dateFrom.Text.ToDate()));
             this.dateTo.SelectedDate.HasValue.IfTrue(() => exp.AndWhere(ex => ex.CreatedDate >= this.dateTo.Text.ToDate().AddDays(1)));
             this.grid.BindDataSource(exp);

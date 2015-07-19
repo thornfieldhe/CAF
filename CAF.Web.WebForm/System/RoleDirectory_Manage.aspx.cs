@@ -3,12 +3,11 @@ using System;
 
 namespace CAF.Web.WebForm
 {
-    using CAF.Model;
+    using CAF.Models;
     using CAF.Utility;
     using CAF.Web.WebForm.CAFControl;
     using CAF.Web.WebForm.Common;
 
-    using global::System.Linq;
     using global::System.Text.RegularExpressions;
 
     public partial class RoleDirectory_Manage : BasePage
@@ -32,7 +31,7 @@ namespace CAF.Web.WebForm
             }
             else
             {
-                var dics = Directory_Role.GetAllByRoleId(this.dropRoles.SelectedValue.ToGuid());
+                var dics = DirectoryRole.Get(r => r.Role_Id == this.dropRoles.SelectedValue.ToGuid());
                 this.GetSelectdTreeNode(this.treeDirs.Nodes, ref dics);
                 dics.Save();
                 this.Initialization();
@@ -48,13 +47,13 @@ namespace CAF.Web.WebForm
         }
 
 
-        private void GetSelectdTreeNode(TreeNodeCollection nodes, ref Directory_RoleList dics)
+        private void GetSelectdTreeNode(TreeNodeCollection nodes, ref DirectoryRoleListView dics)
         {
             foreach (var item in nodes)
             {
                 if (item.Checked)
                 {
-                    var selected = dics.FirstOrDefault(d => d.DirectoryId == item.NodeID.ToGuid());
+                    var selected = dics.FirstOrDefault(d => d.Directory_Id == item.NodeID.ToGuid());
                     if (selected == null)
                     {
                         var dir = new Directory_Role

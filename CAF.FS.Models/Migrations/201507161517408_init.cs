@@ -1,10 +1,8 @@
-namespace CAF.FSModels.Migrations
+namespace CAF.Models.Migrations
 {
-    using System;
     using System.Collections.Generic;
-    using System.Data.Entity.Infrastructure.Annotations;
     using System.Data.Entity.Migrations;
-    
+
     public partial class init : DbMigration
     {
         public override void Up()
@@ -32,7 +30,7 @@ namespace CAF.FSModels.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Directories", t => t.ParentId)
                 .Index(t => t.ParentId);
-            
+
             CreateTable(
                 "dbo.DirectoryRoles",
                 c => new
@@ -55,7 +53,7 @@ namespace CAF.FSModels.Migrations
                 .ForeignKey("dbo.Roles", t => t.Role_Id, cascadeDelete: true)
                 .Index(t => t.Role_Id)
                 .Index(t => t.Directory_Id);
-            
+
             CreateTable(
                 "dbo.Roles",
                 c => new
@@ -73,7 +71,7 @@ namespace CAF.FSModels.Migrations
                     { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
                 })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.Organizes",
                 c => new
@@ -97,7 +95,7 @@ namespace CAF.FSModels.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Organizes", t => t.ParentId)
                 .Index(t => t.ParentId);
-            
+
             CreateTable(
                 "dbo.Users",
                 c => new
@@ -124,7 +122,7 @@ namespace CAF.FSModels.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Organizes", t => t.Organize_Id, cascadeDelete: true)
                 .Index(t => t.Organize_Id);
-            
+
             CreateTable(
                 "dbo.Posts",
                 c => new
@@ -142,7 +140,7 @@ namespace CAF.FSModels.Migrations
                     { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
                 })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.UserSettings",
                 c => new
@@ -162,7 +160,7 @@ namespace CAF.FSModels.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.Id)
                 .Index(t => t.Id);
-            
+
             CreateTable(
                 "dbo.ErrorLogs",
                 c => new
@@ -185,7 +183,7 @@ namespace CAF.FSModels.Migrations
                     { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
                 })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.InfoLogs",
                 c => new
@@ -205,7 +203,7 @@ namespace CAF.FSModels.Migrations
                     { "globalFilter_Status", "EntityFramework.Filters.FilterDefinition" },
                 })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.Messages",
                 c => new
@@ -215,7 +213,7 @@ namespace CAF.FSModels.Migrations
                         From = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.Test",
                 c => new
@@ -224,7 +222,7 @@ namespace CAF.FSModels.Migrations
                         Name = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.R_PostUsers",
                 c => new
@@ -237,7 +235,7 @@ namespace CAF.FSModels.Migrations
                 .ForeignKey("dbo.Users", t => t.User_Id, cascadeDelete: true)
                 .Index(t => t.Post_Id)
                 .Index(t => t.User_Id);
-            
+
             CreateTable(
                 "dbo.R_RoleUsers",
                 c => new
@@ -250,7 +248,7 @@ namespace CAF.FSModels.Migrations
                 .ForeignKey("dbo.Roles", t => t.User_Id, cascadeDelete: true)
                 .Index(t => t.Role_Id)
                 .Index(t => t.User_Id);
-            
+
             CreateTable(
                 "dbo.R_RoleOrganizes",
                 c => new
@@ -263,7 +261,7 @@ namespace CAF.FSModels.Migrations
                 .ForeignKey("dbo.Organizes", t => t.Organize_Id, cascadeDelete: true)
                 .Index(t => t.Role_Id)
                 .Index(t => t.Organize_Id);
-            
+
             CreateTable(
                 "dbo.Test1",
                 c => new
@@ -274,7 +272,7 @@ namespace CAF.FSModels.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Test", t => t.Id)
                 .Index(t => t.Id);
-            
+
             CreateTable(
                 "dbo.Test2",
                 c => new
@@ -285,9 +283,9 @@ namespace CAF.FSModels.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Test", t => t.Id)
                 .Index(t => t.Id);
-            
+
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Test2", "Id", "dbo.Test");

@@ -5,10 +5,11 @@ using System.Web.UI;
 
 namespace CAF.Web
 {
-    using CAF.Model;
+    using CAF.Models;
     using CAF.Utility;
     using CAF.Web.WebForm.Common;
     using CAF.Webs;
+    using System.Linq;
 
     public partial class Login : Page
     {
@@ -32,7 +33,7 @@ namespace CAF.Web
             if (this.User.Identity.IsAuthenticated)
             {
                 this.btnLogin.OnClientClick = Confirm.GetShowReference(
-                    string.Format("用户[{0}]已在本机登录，是否强制登录？", CAF.Model.User.Get(this.User.Identity.Name).Name), String.Empty, MessageBoxIcon.Question, this.btnLogin.GetPostBackEventReference(), String.Empty);
+                    string.Format("用户[{0}]已在本机登录，是否强制登录？", Models.User.Get(r => r.LoginName == this.User.Identity.Name).First().Name), String.Empty, MessageBoxIcon.Question, this.btnLogin.GetPostBackEventReference(), String.Empty);
                 this.btnLogin.EnablePostBack = false;
             }
             else
@@ -72,7 +73,7 @@ namespace CAF.Web
                 System.Web.Security.FormsAuthentication.SetAuthCookie(this.txtUserName.Text, true);
                 var referrer = this.Request["referrer"];
                 HttpContext.Current.Session["Principal"] = HttpContext.Current.User;
-                this.Session["User"] = CAF.Model.User.Get(this.User.Identity.Name);
+                this.Session["User"] = Models.User.Get(r => r.LoginName == this.User.Identity.Name).First();
                 var log = new LoginLog { UserName = this.User.Identity.Name, Ip = Web.GetClientIP() };
 
                 log.Create();

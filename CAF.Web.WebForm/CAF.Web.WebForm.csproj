@@ -3724,6 +3724,8 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Common\CAFControl.cs" />
+    <Compile Include="Common\CAFIdentity.cs" />
+    <Compile Include="Common\CAFPrincipal.cs" />
     <Compile Include="Common\EditableBase.cs" />
     <Compile Include="Common\EditebleListBase.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -3911,9 +3913,9 @@
     <Folder Include="extjs\src\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CAF.Model\CAF.Model.csproj">
-      <Project>{08bb19e7-c84f-4ff1-b3e9-dd7018edd6c7}</Project>
-      <Name>CAF.Model</Name>
+    <ProjectReference Include="..\CAF.FS.Models\CAF.Models.csproj">
+      <Project>{4be62055-240b-4019-8576-1147ecf35967}</Project>
+      <Name>CAF.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\CAF.Utility\CAF.Utility.csproj">
       <Project>{adf4fdbb-1377-4d72-8356-e61db18ab1b5}</Project>

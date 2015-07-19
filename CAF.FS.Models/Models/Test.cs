@@ -1,5 +1,5 @@
 ﻿
-namespace CAF.FSModels
+namespace CAF.Models
 {
     public partial class Test
     {
