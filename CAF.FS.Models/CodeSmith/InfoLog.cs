@@ -1,10 +1,16 @@
 ﻿
 namespace CAF.Models
 {
-
+    using System;
 
     public partial class InfoLog : EFEntity<InfoLog>
     {
+                #region 构造函数
+
+        public InfoLog(Guid id) : base(id) { }
+        public InfoLog() : this(Guid.NewGuid()) { }
+
+        #endregion
 
         #region 覆写基类方法
 

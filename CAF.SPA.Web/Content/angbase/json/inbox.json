@@ -1,0 +1,17 @@
+﻿[
+    {
+        "id": 1,
+        "subject": "Phone hack",
+        "from": "nokia"
+    },
+    {
+        "id": 2,
+        "subject": "Macbook pro",
+        "from": "Apple"
+    },
+    {
+        "id": 3,
+        "subject": "Chrome extensions",
+        "from": "Google"
+    }
+]

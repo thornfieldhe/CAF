@@ -5,7 +5,7 @@
     using System.Data.Entity;
     using System.Linq;
 
-    public sealed partial class User : EFEntity<User>
+    public partial class User : EFEntity<User>
     {
         #region 覆写基类方法
 
@@ -31,17 +31,20 @@
 
         protected override List<User> PreQuery(IQueryable<User> query, bool useCache = false)
         {
-            query = query.Include(i => i.Organize).Include(i => i.Posts).Include(i => i.Roles);
+            query = query.Include(i => i.Roles)
+                .Include(i => i.Posts)
+                .Include(i => i.UserSetting).Include(i => i.UserNotes);
             return base.PreQuery(query, useCache);
         }
 
         protected override User PreQuerySingle(IQueryable<User> query)
         {
-            query = query.Include(i => i.Organize).Include(i => i.Posts).Include(i => i.Roles);
+            query = query.Include(i => i.Roles)
+                .Include(i => i.Posts)
+                .Include(i => i.UserSetting).Include(i => i.UserNotes);
             return base.PreQuerySingle(query);
-        }
 
-        protected override void Init() { this.Abb = "aa"; }
+        }
 
         protected override void AddDescriptions()
         {
@@ -52,7 +55,6 @@
             this.AddDescription("PhoneNum:" + this.PhoneNum);
             this.AddDescription("Pass:" + this.Pass);
             this.AddDescription("PhoneNum:" + this.PhoneNum);
-            this.AddDescription("OrganizeId:" + this.Organize_Id);
             this.AddDescription("Email:" + this.Email);
         }
 

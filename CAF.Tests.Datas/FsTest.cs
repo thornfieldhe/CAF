@@ -16,33 +16,33 @@ namespace CAF.Tests.Datas
         public void TestInsert()
         {
             var id = Guid.NewGuid();
-            var test = new Directory(id) { Name = "mmm", Level = "" };
+            var test = new Post(id) { Name = "mmm" };
             test.Create();
-            Assert.AreEqual(1, Directory.Get(r => r.Id == id).Count());
+            Assert.AreEqual(1, Post.Get(r => r.Id == id).Count());
         }
 
         [TestMethod]
         public void TestUpdate()
         {
             var id = Guid.NewGuid();
-            var t1 = new Directory(id) { Name = "tttt", Level = "" };
+            var t1 = new Post(id) { Name = "tttt" };
             t1.Create();
-            var t2 = Directory.Get(id);
+            var t2 = Post.Get(id);
             t2.Name = "11111";
             t2.Save();
-            Assert.AreEqual(Directory.Get(id).Name, "11111");
+            Assert.AreEqual(Post.Get(id).Name, "11111");
         }
 
         [TestMethod]
         public void TestDelete()
         {
             var id = Guid.NewGuid();
-            var t1 = new Directory(id) { Name = "tttt", Level = "" };
+            var t1 = new Post(id) { Name = "tttt" };
             t1.Create();
-            var t2 = Directory.Get(id);
+            var t2 = Post.Get(id);
             Assert.IsNotNull(t2);
             t2.Delete();
-            Assert.IsNull(Directory.Get(t2.Id));//实例删除
+            Assert.IsNull(Post.Get(t2.Id));//实例删除
 
 
             var t21 = new Post() { Name = "tttt" };
@@ -58,10 +58,10 @@ namespace CAF.Tests.Datas
         public void TestGet()
         {
             var id = Guid.NewGuid();
-            var test = new Directory(id) { Name = "xxxx", Level = "" };
+            var test = new Post(id) { Name = "xxxx" };
             test.Create();
-            Assert.IsNotNull(Directory.Get(id));//获取单条数据
-            Assert.IsTrue(Directory.GetAll().Any());//获取条件数据
+            Assert.IsNotNull(Post.Get(id));//获取单条数据
+            Assert.IsTrue(Post.GetAll().Any());//获取条件数据
         }
 
         /// <summary>
@@ -70,13 +70,13 @@ namespace CAF.Tests.Datas
         [TestMethod]
         public void TestCache()
         {
-            var count1 = Directory.GetAll(true).Count;
-            Assert.IsTrue(count1 > 0);//缓存读取
-            var d = new Directory() { Name = "abc", Level = "" };
+            var count1 = Post.GetAll(true).Count;
+            Assert.IsTrue(count1 == 0);//缓存读取
+            var d = new Post() { Name = "abc" };
             d.Create();//新增
-            var count2 = Directory.GetAll(true).Count;
+            var count2 = Post.GetAll(true).Count;
             Assert.AreEqual(count1, count2);//缓存未更新
-            var count3 = Directory.GetAll(false).Count;
+            var count3 = Post.GetAll(false).Count;
             Assert.AreNotEqual(count1, count3);//数据库值
         }
 
@@ -87,8 +87,7 @@ namespace CAF.Tests.Datas
         [TestMethod]
         public void TestUpdate2()
         {
-            var o1 = new Organize() { Name = "o1", Code = "01" };
-            o1.Create();
+
             //新增子对象
             var u1 = new User()
                             {
@@ -98,8 +97,7 @@ namespace CAF.Tests.Datas
                                 Pass = "ddd",
                                 PhoneNum = "111111111111",
                                 UserSetting = new UserSetting { Name = "s1" },
-                                Description = new Description { Name = "p" },
-                                Organize_Id = o1.Id
+                                Description = new Description { Name = "p" }
                             };
 
             u1.Create();
@@ -118,7 +116,7 @@ namespace CAF.Tests.Datas
             var uu2 = UserSetting.Get(uu1.Id);
             Assert.IsNull(uu2);
             var u4 = User.Get(u1.Id);
-            Assert.IsNull(u4.UserSetting);//支持子对象自身删除
+            Assert.IsNotNull(u4.UserSetting);//不支持子对象自身删除
 
         }
 
@@ -129,50 +127,48 @@ namespace CAF.Tests.Datas
         public void TestUpdate3()
         {
             var id = Guid.NewGuid();
+            var id2 = Guid.NewGuid();
             //新增子对象
-            var o1 = new Organize(id)
-                         {
-                             Name = "o1",
-                             Code = "01",
-                             Users =
-                                 new List<User>
-                                     {
-                                         new User()
-                                             {
-                                                 Name = "001",
-                                                 LoginName = "11",
-                                                 Email = "a@123.com",
-                                                 Pass = "ddd",
-                                                 PhoneNum = "111111111111",
-                                                 Organize_Id = id,
-                                                 Description = new Description(){Name = "op"}
-                                             }
-                                     }
-                         };
-            o1.Create();
-            var o2 = Organize.Get(o1.Id);
-            Assert.AreEqual(1, o1.Users.Count);
-            //更新子对象
-            o1.Users[0].Name = "002";
-            o1.Save();
-            var o3 = Organize.Get(o2.Id);
-            Assert.AreEqual("002", o1.Users[0].Name);
-            //移除子对象
-            //如果user表中organize_id不允许为空则不允许移除
-            //否则可以移除
-            //            o3.Users.RemoveAt(0);
-            //            o3.Save();
-            //            var o4 = Organize.Get(o2.Id);
-            //            Assert.AreEqual(0, o4.Users.Count);
-            //            var u1 = User.Get(o2.Id);
-            //            Assert.IsNull(u1);
-            //删除子对象
+            var u1 = new User(id)
 
-            Assert.AreEqual(1, o3.Users.Count);
-            var u2 = User.Get(o3.Users[0].Id);
-            u2.Delete();//子对象执行删除后，父对象就查询不到了
-            var o6 = Organize.Get(o2.Id);
-            Assert.AreEqual(0, o6.Users.Count);
+                        {
+                            Name = "001",
+                            LoginName = "11",
+                            Email = "a@123.com",
+                            Pass = "ddd",
+                            PhoneNum = "111111111111",
+                            Description = new Description() { Name = "op" },
+                            UserNotes = new List<UserNote> { new UserNote(id2) { Desc = "pp", User_Id = id2 } }
+                        };
+            u1.Create();
+            var u2 = User.Get(u1.Id);
+            Assert.AreEqual(1, u2.UserNotes.Count);
+            //更新子对象
+            u2.UserNotes[0].Desc = "002";
+            u2.Save();
+            var u3 = User.Get(u2.Id);
+            Assert.AreEqual("002", u3.UserNotes[0].Desc);
+            //只支持移除子对象
+            //如果usernote表中user_id允许为空
+            //移除只是去掉关系，不删除对象
+            var n0 = u3.UserNotes[0].Id;
+            u3.UserNotes.RemoveAt(0);
+            u3.Save();
+            var u4 = User.Get(u2.Id);
+            Assert.AreEqual(0, u4.UserNotes.Count);//移除关系
+            var n1 = UserNote.Get(n0);
+            Assert.IsNotNull(n1);
+            n1.User_Id = u2.Id;
+            n1.Save();
+            var u5 = User.Get(u2.Id);
+            Assert.AreEqual(1, u5.UserNotes.Count);
+            var n2 = UserNote.Get(u5.UserNotes[0].Id);
+            n2.Delete();
+            var n3 = UserNote.Get(n0);
+            Assert.IsNull(n3);
+            var u6 = User.Get(u2.Id);
+            Assert.AreEqual(1, u6.UserNotes.Count);//状态为-1的只要关系存在就不意味着删除
+           
 
         }
 
@@ -185,30 +181,22 @@ namespace CAF.Tests.Datas
             //更新父对象
             var id = Guid.NewGuid();
             var id2 = Guid.NewGuid();
-            var o1 = new Organize(id)
-            {
-                Name = "o1",
-                Code = "01",
-                Users =
-                    new List<User>
-                                     {
-                                         new User(id2)
+            var o1 =
+                                         new User(id)
                                              {
                                                  Name = "001",
                                                  LoginName = "11",
                                                  Email = "a@123.com",
                                                  Pass = "ddd",
                                                  PhoneNum = "111111111111",
-                                                 Organize_Id = id,
-                                                 Description = new Description(){Name = "op"}
-                                             }
-                                     }
-            };
+                                                 Description = new Description() { Name = "op" },
+                                                 UserNotes = new List<UserNote> { new UserNote(id2) { Desc = "pp", User_Id = id } }
+                                             };
             o1.Create();
-            var u1 = User.Get(id2);
-            u1.Organize.Name = "pp";
+            var u1 = UserNote.Get(id2);
+            u1.User.Name = "pp";
             u1.Save();
-            var o2 = Organize.Get(id);
+            var o2 = User.Get(id);
             Assert.AreEqual(o2.Name, "pp");
         }
 
@@ -219,8 +207,6 @@ namespace CAF.Tests.Datas
         [TestMethod]
         public void TestUpdate5()
         {
-            var o1 = new Organize() { Name = "o1", Code = "01" };
-            o1.Create();
             //新增关系对象
             var id = Guid.NewGuid();
             var u1 = new User(id)
@@ -232,7 +218,6 @@ namespace CAF.Tests.Datas
                              PhoneNum = "111111111111",
                              Description = new Description() { Name = "dfd" },
                              Roles = new List<Role>() { new Role() { Name = "r1" } },
-                             Organize_Id = o1.Id
                          };
             u1.Create();
             var u2 = User.Get(id);
@@ -259,9 +244,9 @@ namespace CAF.Tests.Datas
         public void TestEqual()
         {
             var id = Guid.NewGuid();
-            var t1 = new Directory(id) { Name = "u1" };
-            var t2 = new Directory(id) { Name = "u2" };
-            var users = new List<Directory> { t2 };
+            var t1 = new User(id) { Name = "u1" };
+            var t2 = new User(id) { Name = "u2" };
+            var users = new List<User> { t2 };
             Assert.AreEqual(t1, t2);//Id相等即为相等
             Assert.IsTrue(t1 == t2);
             Assert.IsFalse(t1 != t2);
@@ -276,7 +261,7 @@ namespace CAF.Tests.Datas
         [TestMethod]
         public void TestDefaultStatus()
         {
-            var u = new Directory();
+            var u = new User();
             Assert.AreNotEqual(u.Id, Guid.Empty);
             Assert.AreEqual(u.Status, 0);
             Assert.AreEqual(u.CreatedDate.ToShortDateString(), DateTime.Now.ToShortDateString());
@@ -291,7 +276,7 @@ namespace CAF.Tests.Datas
         {
             try
             {
-                var u = new Directory();
+                var u = new User();
                 u.Validate();
             }
             catch (Warning ex)

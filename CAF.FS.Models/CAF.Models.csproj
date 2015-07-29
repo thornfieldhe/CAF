@@ -59,50 +59,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeSmith\DirectoryRole.cs" />
     <Compile Include="CodeSmith\LoginLog.cs" />
+    <Compile Include="CodeSmith\UserNote.cs" />
     <Compile Include="Common\Maps.cs" />
     <Compile Include="CodeSmith\ErrorLog.cs" />
     <Compile Include="CodeSmith\InfoLog.cs" />
-    <Compile Include="CodeSmith\Organize.cs" />
     <Compile Include="CodeSmith\Post.cs" />
     <Compile Include="CodeSmith\Role.cs" />
     <Compile Include="CodeSmith\Message.cs" />
     <Compile Include="CodeSmith\Test.cs" />
     <Compile Include="CodeSmith\User.cs" />
-    <Compile Include="Models\PostUserOrganize.cs" />
+    <Compile Include="Migrations\201507200129013_init.cs" />
+    <Compile Include="Migrations\201507200129013_init.Designer.cs">
+      <DependentUpon>201507200129013_init.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserDescription.cs" />
     <Compile Include="CodeSmith\UserSetting.cs" />
     <Compile Include="Common\Context.cs" />
     <Compile Include="Common\EFEntity.cs" />
-    <Compile Include="Common\IDbAction.cs" />
     <Compile Include="Common\Resource.Designer.cs">
       <DependentUpon>Resource.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Migrations\201507161517408_init.cs" />
-    <Compile Include="Migrations\201507161517408_init.Designer.cs">
-      <DependentUpon>201507161517408_init.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Directory.cs" />
     <Compile Include="Models\LoginLog.cs" />
-    <Compile Include="ViewModels\DirectoryListView.cs" />
-    <Compile Include="Models\DirectoryRole.cs" />
-    <Compile Include="ViewModels\DirectoryRoleListView.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\ErrorLog.cs" />
     <Compile Include="Models\InfoLog.cs" />
     <Compile Include="Models\Message.cs" />
-    <Compile Include="Models\Organize.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Test.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserNote.cs" />
     <Compile Include="Models\UserSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CodeSmith\Directory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CAF.Utility\CAF.Utility.csproj">
@@ -124,9 +116,12 @@
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507161517408_init.resx">
-      <DependentUpon>201507161517408_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507200129013_init.resx">
+      <DependentUpon>201507200129013_init.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -14,16 +14,13 @@ namespace CAF.Models
         {
             DbInterception.Add(new FilterInterceptor());
             modelBuilder.Configurations.Add(new DescriptionMap());
-            modelBuilder.Configurations.Add(new DirectoryMap());
             modelBuilder.Configurations.Add(new RoleMap());
-            modelBuilder.Configurations.Add(new DirectoryRoleMap());
             modelBuilder.Configurations.Add(new ErrorLogMap());
             modelBuilder.Configurations.Add(new InfoLogMap());
-            modelBuilder.Configurations.Add(new OrganizeMap());
             modelBuilder.Configurations.Add(new PostMap());
             modelBuilder.Configurations.Add(new UserMap());
             modelBuilder.Configurations.Add(new UserSettingMap());
-            modelBuilder.Configurations.Add(new PostUserOrganizeMap());
+            modelBuilder.Configurations.Add(new UserNoteMap());
             //TPH基类和继承类显示在同一张表
             modelBuilder.Entity<Message>().Map(r => { r.Requires("From").HasValue("message"); });
             modelBuilder.Entity<Message1>().Map(r => { r.Requires("From").HasValue("message1"); });
@@ -39,7 +36,7 @@ namespace CAF.Models
     /// <summary>
     /// 上下文包装类用于封装Contex
     /// </summary>
-    public class ContextWapper : SingletonBase<ContextWapper>
+    internal class ContextWapper : SingletonBase<ContextWapper>
     {
         public Context Context
         {
@@ -47,6 +44,7 @@ namespace CAF.Models
             {
                 var context = new Context();
                 context.EnableFilter("Status");
+                context.EnableFilter("XXX");
                 return context;
             }
         }

@@ -1,0 +1,66 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>XX系统 | 登陆</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/main.css" rel="stylesheet" />
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div>
+        <div>
+
+            <h1 class="logo-name">XX</h1>
+            
+        </div>
+        <h3>欢迎登陆管理平台后台</h3>
+        <p>
+            这是一个开放的平台。。。
+        </p>
+        <div >
+            @using (Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post",  OnFailure = "alert('error')" }))
+            {
+                <form class="m-t" role="form">
+                    <div class="form-group">
+                        <input type="number" name="phoneNumber" class="form-control" placeholder="PhoneNumber">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Password" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary block full-width m-b">登陆</button>
+
+                    <a href="#"><small>忘记密码?</small></a>
+                    <p class="text-muted text-center">
+                        <small>还未注册账号?</small>
+                    </p>
+                    <a class="btn btn-sm btn-white btn-block" href="@Url.Action("Register", "Pages")">注册</a>
+                </form>
+            }
+            <p class="m-t">
+                <small>Inspinia we app framework base on Bootstrap 3 &copy; 2015</small>
+            </p>
+        </div>
+        </div>
+</div>
+    <script src="~/Scripts/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+   
+</body>
+
+</html>
+
+

@@ -1,0 +1,29 @@
+﻿<h2>Required Directive.</h2>
+<p>
+    Bu sayfadaki direktive ve filter required ile lazy yüklenmiştir. (manyFilter.js,dateDirective.js) <br/>
+    app.js dosyasındaki configuration ile "/home/requiredDirective" route u için required ile "js/directives/dateDirective.js","js/filters/manyFilter" dosyalarının yüklenmesini istedik.
+    <pre>
+    when("/home/requiredDirective", {
+        templateUrl: "views/home/requiredDirective.html",
+        controller: "HomeCtrl",
+        resolve: {
+            load: function ($q, $rootScope) {
+                var defer = $q.defer();
+                require(["js/controllers/homeController", "js/directives/dateDirective.js", "js/filters/manyFilter"], function () {
+                    defer.resolve();
+                    $rootScope.$apply();
+                });
+                return defer.promise;
+            }
+        }
+    }).
+    </pre>
+</p>
+
+<h3>Çıktı:</h3>
+
+<ng-year-directive></ng-year-directive>
+<br />
+<div ng-minute-directive></div>
+
+<div>{{ many | dolarToTL }}</div>

@@ -1,0 +1,77 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>XX系统 | 登陆</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/main.css" rel="stylesheet" />
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+
+<div class="middle-box text-center loginscreen  animated fadeInDown" ng-app="app" ng-controller="loginCtrl">
+    <div>
+        <div>
+
+            <h1 class="logo-name">XX</h1>
+
+        </div>
+        <h3>欢迎登陆管理平台后台</h3>
+        <p>
+            这是一个开放的平台。。。
+        </p>
+
+
+        <form name="form" class="m-t" role="form" ng-submit="submit()">
+            <div class="form-group state-error">
+                <em class="invalid text-left" ng-show="user.errors!==null ">{{user.errors}}</em>
+            </div>
+            <div class="form-group" ng-class="{'state-error':form.phoneNumber.$invalid && form.phoneNumber.$dirty,'state-success':form.phoneNumber.$valid && form.phoneNumber.$dirty}">
+                <input type="number" name="phoneNumber" class="form-control" placeholder="手机号码" ng-class="{'invalid':form.phoneNumber.$invalid,'valid':form.phoneNumber.$valid}"
+                       ng-model="user.phoneNumber" required>
+                <div ng-show="form.phoneNumber.$invalid && form.phoneNumber.$dirty">
+                    <em for="phoneNumber" class="invalid text-left" ng-show="form.phoneNumber.$error.required ">手机号码不能为空</em>
+                    <em for="phoneNumber" class="invalid text-left" ng-show="form.phoneNumber.$error.number ">请输入手机号码</em>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'state-error':form.password.$invalid && form.password.$dirty,'state-success':form.password.$valid && form.password.$dirty}">
+                <input type="password" class="form-control" ng-class="{'invalid':form.password.$invalid,'valid':form.password.$valid}"
+                       placeholder="密码" name="password" ng-model="user.password" required>
+                <div ng-show="form.password.$invalid && form.password.$dirty">
+                    <em for="password" class="invalid text-left" ng-show="form.password.$error.required ">密码不能为空</em>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary block full-width m-b" id="login" ng-disabled="form.$invalid">登陆</button>
+
+            <a href="#"><small>忘记密码?</small></a>
+            <p class="text-muted text-center">
+                <small>还未注册账号?</small>
+            </p>
+            <a class="btn btn-sm btn-white btn-block" href="@Url.Action("Register", "User","Manage")">注册</a>
+        </form>
+        <p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2015</small>
+        </p>
+    </div>
+</div>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-messages.min.js"></script>
+    <script src="~/Scripts/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Areas/Manage/Scripts/login.js"></script>
+
+</body>
+
+</html>
+
+

@@ -2,13 +2,11 @@
 
 namespace CAF.Models
 {
+    using CAF.Utility;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
 
-    using CAF.Utility;
-
-    public sealed partial class User
+    public  partial class User
     {
 
         #region 公共属性
@@ -48,27 +46,6 @@ namespace CAF.Models
         public string PhoneNum { get; set; }
 
         /// <summary>
-        /// 组织架构Id
-        /// </summary>
-        [GuidRequired(ErrorMessage = "组织架构不允许为空")]
-        public Guid Organize_Id { get; set; }
-
-        #region 1:n子对象允许remove时配置为可空对象
-
-        /// <summary>
-        /// 组织架构Id
-        /// </summary>
-        // [GuidRequired(ErrorMessage = "组织架构不允许为空")]
-        //public Guid? Organize_Id { get; set; }
-
-        #endregion
-
-        /// <summary>
-        /// 组织架构
-        /// </summary>
-        public Organize Organize { get; set; }
-
-        /// <summary>
         /// 电子邮件
         /// </summary>
         [Required(ErrorMessage = "电子邮件不允许为空")]
@@ -80,23 +57,13 @@ namespace CAF.Models
         public List<Post> Posts { get; set; }
 
         public UserSetting UserSetting { get; set; }
+        public List<UserNote> UserNotes { get; set; }
 
         public Description Description { get; set; }
 
         #endregion
 
-        #region 扩展方法
 
-        public static List<Directory> GetDirectories(Guid uderId)
-        {
-            var contex = ContextWapper.Instance.Context;
-            return
-                contex.Set<User>()
-                    .Where(i => i.Id == uderId)
-                    .SelectMany(r => r.Roles.SelectMany(d => d.DirectoryRoles.Select(p => p.Directory))).ToList();
-        }
-
-        #endregion
 
         #region 重载
 
@@ -109,8 +76,8 @@ namespace CAF.Models
 
         protected override void PreUpdate()
         {
-            var currentValue = this.DbContex.Entry(this).CurrentValues.GetValue<Guid>("Name");
-            var orignialValue = this.DbContex.Entry(this).OriginalValues.GetValue<Guid>("Name");
+            var currentValue = this.DbContex.Entry(this).CurrentValues.GetValue<string>("Name");
+            var orignialValue = this.DbContex.Entry(this).OriginalValues.GetValue<string>("Name");
             if (currentValue != orignialValue)
             {
                 this.Abb = this.Name.GetChineseSpell();
