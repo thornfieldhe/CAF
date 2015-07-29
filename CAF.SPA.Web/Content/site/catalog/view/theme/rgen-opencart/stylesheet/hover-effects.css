@@ -1,0 +1,446 @@
+/* BANNER HOVER EFFECTS CSS
+********************************************/
+/* Common style */
+.h-effect {
+	position: relative;
+	overflow: hidden;
+	background: #434444;
+	text-align: center;
+}
+.h-effect * {
+	-webkit-transition: all 0.35s;
+	-moz-transition: all 0.35s;
+	-o-transition: all 0.35s;
+	-ms-transition: all 0.35s;
+	transition: all 0.35s;
+}
+
+.h-effect img {
+	position: relative;
+	display: block;
+	opacity: 0.8;
+}
+
+.h-effect figcaption {
+	color: #fff;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+.h-effect figcaption::before,
+.h-effect figcaption::after {
+	pointer-events: none;
+}
+.h-effect figcaption,
+.h-effect figcaption > a {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.h-effect figcaption > a {
+	z-index: 1000;
+	text-indent: 200%;
+	white-space: nowrap;
+	font-size: 0;
+	opacity: 0;
+}
+.h-effect h2,
+.h-effect p {
+	margin: 0;
+}
+
+/* Hover effect 1
+------------------------*/
+.h-effect.effect-1 { text-align: left; }
+.h-effect.effect-1 img {
+	width: 100%;
+	opacity: 0.7;
+	transform: scale(1.2);
+	-webkit-transform: scale(1.2);
+}
+.h-effect.effect-1 figcaption > div {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding: 20px;
+	width: 100%;
+	height: 100%;
+}
+.h-effect.effect-1 h2,
+.h-effect.effect-1 p { position: absolute; width: 80%; }
+.h-effect.effect-1 h2{ bottom: 20px; }
+.h-effect.effect-1 p {
+	color: rgba(255,255,255,0.8);
+	opacity: 0;
+	bottom: 50%;
+}
+.h-effect.effect-1:hover figcaption { background-color: rgba(0,0,0,0.5); }
+.h-effect.effect-1:hover img { opacity: 1; transform: scale(1); -webkit-transform: scale(1); }
+.h-effect.effect-1:hover h2 { bottom: 40%; }
+.h-effect.effect-1:hover p {	bottom: 20px; opacity: 1; }
+
+.h-effect.effect-1 figcaption,
+.h-effect.effect-1 img,
+.h-effect.effect-1 h2,
+.h-effect.effect-1 p {
+	-webkit-transition: all 0.35s;
+	-moz-transition: all 0.35s;
+	-o-transition: all 0.35s;
+	-ms-transition: all 0.35s;
+	transition: all 0.35s;
+}
+
+/* Hover effect 2
+------------------------*/
+.h-effect.effect-2 img {
+	width: 100%;
+	opacity: 0.7;
+	transform: scale(1.2);
+	-webkit-transform: scale(1.2);
+}
+.h-effect.effect-2 figcaption::before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.4);
+	content: '';
+	opacity: 0;
+	-webkit-transform: translate3d(0,50%,0);
+	transform: translate3d(0,50%,0);
+}
+.h-effect.effect-2 h2 {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 100%;
+	color: #fff;
+	padding: 0 20px;
+	-webkit-transition: -webkit-transform 0.35s, color 0.35s;
+	transition: transform 0.35s, color 0.35s;
+	-webkit-transform: translate3d(0,-50%,0);
+	transform: translate3d(0,-50%,0);
+}
+.h-effect.effect-2 figcaption::before,
+.h-effect.effect-2 p {
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+}
+.h-effect.effect-2 p {
+	position: absolute;
+	bottom: 20px;
+	left: 0;
+	padding: 0 20px;
+	width: 100%;
+	opacity: 0;
+	-webkit-transform: translate3d(0,10px,0);
+	transform: translate3d(0,10px,0);
+}
+.h-effect.effect-2:hover img {
+	transform: scale(1);
+	-webkit-transform: scale(1);
+}
+.h-effect.effect-2:hover h2 {
+	color: #fff;
+	-webkit-transform: translate3d(0,-40px,0);
+	transform: translate3d(0,-40px,0);
+}
+.h-effect.effect-2:hover figcaption::before ,
+.h-effect.effect-2:hover p {
+	opacity: 1;
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+.h-effect.effect-2 figcaption,
+.h-effect.effect-2 img,
+.h-effect.effect-2 h2,
+.h-effect.effect-2 p {
+	-webkit-transition: all 0.35s;
+	-moz-transition: all 0.35s;
+	-o-transition: all 0.35s;
+	-ms-transition: all 0.35s;
+	transition: all 0.35s;
+}
+
+/* Hover effect 3
+------------------------*/
+.h-effect.effect-3 { text-align: center; }
+.h-effect.effect-3 img {
+	width: 100%;
+	opacity: 0.7;
+	transform: scale(1.2);
+	-webkit-transform: scale(1.2);
+}
+.h-effect.effect-3 figcaption { padding: 0;}
+
+.h-effect.effect-3 figcaption::before,
+.h-effect.effect-3 figcaption::after {
+	position: absolute;
+	content: '';
+	opacity: 0;
+}
+
+.h-effect.effect-3 figcaption::before {
+	top: 20px;
+	right: 10px;
+	bottom: 20px;
+	left: 10px;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	-webkit-transform: scale(0,1);
+	transform: scale(0,1);
+	-webkit-transform-origin: 0 0;
+	transform-origin: 0 0;
+}
+
+.h-effect.effect-3 figcaption::after {
+	top: 10px;
+	right: 20px;
+	bottom: 10px;
+	left: 20px;
+	border-right: 1px solid #fff;
+	border-left: 1px solid #fff;
+	-webkit-transform: scale(1,0);
+	transform: scale(1,0);
+	-webkit-transform-origin: 100% 0;
+	transform-origin: 100% 0;
+}
+
+.h-effect.effect-3 p,
+.h-effect.effect-3 h2 {
+	position: absolute;
+	top: 50%;
+	left: 0px;
+	width: 100%;
+	padding: 0 30px;
+	-webkit-transform: translate3d(0,-50%,0);
+	transform: translate3d(0,-50%,0);
+}
+.h-effect.effect-3 p {
+	text-transform: none;
+	opacity: 0;
+}
+.h-effect.effect-3:hover img {
+	opacity: 0.7;
+	transform: scale(1);
+	-webkit-transform: scale(1);
+}
+.h-effect.effect-3:hover figcaption::before,
+.h-effect.effect-3:hover figcaption::after {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+.h-effect.effect-3:hover h2 {
+	opacity: 1;
+	top: 40%;
+	-webkit-transform: translate3d(0,-60%,0);
+	transform: translate3d(0,-60%,0);
+}
+.h-effect.effect-3:hover p {
+	opacity: 1;
+	-webkit-transform: translate3d(0,60%,0);
+	transform: translate3d(0,60%,0);
+}
+.h-effect.effect-3:hover figcaption { background-color: rgba(0,0,0,0.2); }
+.h-effect.effect-3 figcaption::before,
+.h-effect.effect-3 figcaption::after,
+.h-effect.effect-3 figcaption,
+.h-effect.effect-3 img,
+.h-effect.effect-3 h2,
+.h-effect.effect-3 p {
+	-webkit-transition: all 0.35s;
+	-moz-transition: all 0.35s;
+	-o-transition: all 0.35s;
+	-ms-transition: all 0.35s;
+	transition: all 0.35s;
+}
+
+/* Hover effect 4
+------------------------*/
+.h-effect.effect-4 img { 
+	width: 100%;
+	opacity: 0.9;
+	transform: scale(1.2);
+	-webkit-transform: scale(1.2);
+}
+.h-effect.effect-4 > a {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0px; left: 0px;
+	z-index: 99;
+}
+.h-effect.effect-4 figcaption {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	color: #fff;
+}
+.h-effect.effect-4 h2 {	
+	text-align: center;
+	padding: 10px 15px;
+	position: absolute;
+	bottom: -100%;
+	left: 0px;
+	width: 100%;
+	background-color: rgba(0,0,0,0.5);
+}
+.h-effect.effect-4 p.description {
+	position: absolute;
+	bottom: 0;
+	left: 0px;
+	width: 100%;
+	padding: 0 30px;
+	opacity: 0;
+	-webkit-transform: translate3d(0,-50%,0);
+	transform: translate3d(0,-50%,0);
+}
+.h-effect.effect-4:hover figcaption { background-color: rgba(0,0,0,0.2); }
+.h-effect.effect-4:hover h2 { bottom: 0%; }
+.h-effect.effect-4:hover p.description { opacity: 1; bottom: 50%; }
+.h-effect.effect-4:hover img { transform: scale(1); -webkit-transform: scale(1); }
+.h-effect.effect-4 figcaption,
+.h-effect.effect-4 img,
+.h-effect.effect-4 h2,
+.h-effect.effect-4 p {
+	-webkit-transition: all 0.35s;
+	-moz-transition: all 0.35s;
+	-o-transition: all 0.35s;
+	-ms-transition: all 0.35s;
+	transition: all 0.35s;
+}
+
+/* Hover effect 5
+------------------------*/
+.h-effect.effect-5 img {
+	width: 100%;
+	opacity: 0.7;
+	transform: scale(1.2);
+	-webkit-transform: scale(1.2);
+}
+.h-effect.effect-5 figcaption::before,
+.h-effect.effect-5 figcaption::after {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 80%;
+	height: 1px;
+	background: #fff;
+	content: '';
+	-webkit-transform: translate3d(-50%,-50%,0);
+	transform: translate3d(-50%,-50%,0);
+}
+.h-effect.effect-5 h2,
+.h-effect.effect-5 p {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 100%;
+	padding: 0 20px;
+}
+.h-effect.effect-5 h2 {
+	-webkit-transform: translate3d(0,-125%,0);
+	transform: translate3d(0,-125%,0);
+}
+.h-effect.effect-5 p {
+	-webkit-transform: translate3d(0,25%,0);
+	transform: translate3d(0,25%,0);
+}
+.h-effect.effect-5:hover h2 {
+	-webkit-transform: translate3d(0,-130%,0);
+	transform: translate3d(0,-130%,0);
+}
+.h-effect.effect-5:hover p {
+	-webkit-transform: translate3d(0,90%,0);
+	transform: translate3d(0,90%,0);
+}
+.h-effect.effect-5:hover figcaption::before {
+	opacity: 0.5;
+	-webkit-transform: translate3d(-50%,-50%,0) rotate(45deg);
+	transform: translate3d(-50%,-50%,0) rotate(45deg);
+}
+.h-effect.effect-5:hover figcaption::after {
+	opacity: 0.5;
+	-webkit-transform: translate3d(-50%,-50%,0) rotate(-45deg);
+	transform: translate3d(-50%,-50%,0) rotate(-45deg);
+}
+.h-effect.effect-5:hover figcaption { background-color: rgba(0,0,0,0.3); }
+.h-effect.effect-5:hover img { transform: scale(1); -webkit-transform: scale(1); }
+.h-effect.effect-5 figcaption::before,
+.h-effect.effect-5 figcaption::after,
+.h-effect.effect-5 figcaption,
+.h-effect.effect-5 img,
+.h-effect.effect-5 h2,
+.h-effect.effect-5 p {
+	-webkit-transition: all 0.35s;
+	-moz-transition: all 0.35s;
+	-o-transition: all 0.35s;
+	-ms-transition: all 0.35s;
+	transition: all 0.35s;
+}
+
+
+/* Hover effect 6
+------------------------*/
+.h-effect.effect-6 { text-align: center; }
+.h-effect.effect-6 img {
+	width: 100%;
+	opacity: 0.7;
+	transform: scale(1.2);
+	-webkit-transform: scale(1.2);
+}
+.h-effect.effect-6 figcaption::before {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	bottom: 15px;
+	left: 15px;
+	border: 2px solid #fff;
+	content: '';
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+.h-effect.effect-6 figcaption::before,
+.h-effect.effect-6 p { opacity: 0; }
+
+.h-effect.effect-6 p,
+.h-effect.effect-6 h2{
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 100%;
+	padding: 0 20px;
+	-webkit-transform: translate3d(0,-50%,0);
+	transform: translate3d(0,-50%,0);
+}
+.h-effect.effect-6 p {
+	-webkit-transform: scale(1.5);
+	transform: scale(1.5);
+}
+.h-effect.effect-6:hover h2 {
+	-webkit-transform: translate3d(0,-100%,0);
+	transform: translate3d(0,-100%,0);
+}
+.h-effect.effect-6:hover figcaption::before { opacity: 1; -webkit-transform: scale(1); transform: scale(1); }
+.h-effect.effect-6:hover p {
+	opacity: 1;
+	-webkit-transform: translate3d(0,50%,0) scale(1);
+	transform: translate3d(0,50%,0) scale(1);
+}
+.h-effect.effect-6:hover figcaption { background-color: rgba(0,0,0,0.3); }
+.h-effect.effect-6:hover img { transform: scale(1); -webkit-transform: scale(1); }
+.h-effect.effect-6 figcaption::before,
+.h-effect.effect-6 figcaption::after,
+.h-effect.effect-6 figcaption,
+.h-effect.effect-6 img,
+.h-effect.effect-6 h2,
+.h-effect.effect-6 p {
+	-webkit-transition: all 0.35s;
+	-moz-transition: all 0.35s;
+	-o-transition: all 0.35s;
+	-ms-transition: all 0.35s;
+	transition: all 0.35s;
+}

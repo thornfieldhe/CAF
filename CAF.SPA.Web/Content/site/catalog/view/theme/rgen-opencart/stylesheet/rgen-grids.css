@@ -1,0 +1,152 @@
+/* 
+rw - Row
+cl - Column : Common for large devices;
+gt - Gutter
+---------------
+Flexible grids
+--------------
+cl = common for all layout
+m-xs >= 320
+m-sm >= 480
+m-xl >= 600
+t-xl >= 768
+d-xl >= 980
+
+Equal grids
+--------------
+cl 				= column class
+eq12 > cl 		= 12 grids
+d-eq12 > cl 	= 12 grids >= 980
+t-eq12 > cl 	= 12 grids >= 768
+mxl-eq12 > cl 	= 12 grids >= 600
+msm-eq12 > cl 	= 12 grids >= 480
+mxs-eq12 > cl 	= 12 grids >= 320
+
+
+LAYOUT STRUCTURE 
+********************************************/
+.rw { 
+	margin-right: 0px;
+	margin-left: 0px;
+}
+.cfix,
+.rw:after, 
+.rw:before  { 
+	content: '';
+	display: table;
+	clear: both;
+	height: 0px;
+}
+.rw > [class*="cl"] { 
+	float: left;
+	padding-right: 0px;
+	padding-left: 0px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	min-height: 5px;
+}
+.preview > [class*="cl"] > div { background-color: rgba(0,0,0,0.2); padding: 15px; }
+.cl-sep > [class*="cl"] { border-right: 1px solid rgba(0,0,0,0.05); }
+.cl-sep > [class*="cl"]:last-child { border-right: none; }
+
+.gt0	{ margin-right: 0px; margin-left: 0px; }
+.gt1	{ margin-right: -1px; margin-left: 0px; }
+.gt2	{ margin-right: -1px;  margin-left: -1px; }
+.gt4	{ margin-right: -2px;  margin-left: -2px; }
+.gt10	{ margin-right: -5px;  margin-left: -5px; }
+.gt12	{ margin-right: -6px;  margin-left: -6px; }
+.gt14	{ margin-right: -7px;  margin-left: -7px; }
+.gt16	{ margin-right: -8px;  margin-left: -8px; }
+.gt18	{ margin-right: -9px;  margin-left: -9px; }
+.gt20	{ margin-right: -10px; margin-left: -10px; }
+.gt22	{ margin-right: -11px; margin-left: -11px; }
+.gt24	{ margin-right: -12px; margin-left: -12px; }
+.gt26	{ margin-right: -13px; margin-left: -13px; }
+.gt28	{ margin-right: -14px; margin-left: -14px; }
+.gt30	{ margin-right: -15px; margin-left: -15px; }
+.gt40	{ margin-right: -20px; margin-left: -20px; }
+.gt50	{ margin-right: -25px; margin-left: -25px; }
+.gt60	{ margin-right: -30px; margin-left: -30px; }
+.gt70	{ margin-right: -35px; margin-left: -35px; }
+.gt80	{ margin-right: -40px; margin-left: -40px; }
+.gt90	{ margin-right: -45px; margin-left: -45px; }
+.gt100	{ margin-right: -50px; margin-left: -50px; }
+
+.gt0 > [class*="cl"] 	{ padding-right: 0px;  padding-left: 0px; }
+.gt1 > [class*="cl"] 	{ padding-right: 1px;  padding-left: 0px; }
+.gt2 > [class*="cl"] 	{ padding-right: 1px;  padding-left: 1px; }
+.gt4 > [class*="cl"] 	{ padding-right: 2px;  padding-left: 2px; }
+.gt10 > [class*="cl"] 	{ padding-right: 5px;  padding-left: 5px; }
+.gt12 > [class*="cl"] 	{ padding-right: 6px;  padding-left: 6px; }
+.gt14 > [class*="cl"] 	{ padding-right: 7px;  padding-left: 7px; }
+.gt16 > [class*="cl"] 	{ padding-right: 8px;  padding-left: 8px; }
+.gt18 > [class*="cl"] 	{ padding-right: 9px;  padding-left: 9px; }
+.gt20 > [class*="cl"] 	{ padding-right: 10px; padding-left: 10px; }
+.gt22 > [class*="cl"] 	{ padding-right: 11px; padding-left: 11px; }
+.gt24 > [class*="cl"] 	{ padding-right: 12px; padding-left: 12px; }
+.gt26 > [class*="cl"] 	{ padding-right: 13px; padding-left: 13px; }
+.gt28 > [class*="cl"] 	{ padding-right: 14px; padding-left: 14px; }
+.gt30 > [class*="cl"] 	{ padding-right: 15px; padding-left: 15px; }
+.gt40 > [class*="cl"] 	{ padding-right: 20px; padding-left: 20px; }
+.gt50 > [class*="cl"] 	{ padding-right: 25px; padding-left: 25px; }
+.gt60 > [class*="cl"] 	{ padding-right: 30px; padding-left: 30px; }
+.gt70 > [class*="cl"] 	{ padding-right: 35px; padding-left: 35px; }
+.gt80 > [class*="cl"] 	{ padding-right: 40px; padding-left: 40px; }
+.gt90 > [class*="cl"] 	{ padding-right: 45px; padding-left: 45px; }
+.gt100 > [class*="cl"] 	{ padding-right: 50px; padding-left: 50px; }
+
+/* Grid bottom margin
+------------------------*/
+.mb0 > [class*="cl"] 	{ margin-bottom: 0px;  }
+.mb1 > [class*="cl"] 	{ margin-bottom: 1px;  }
+.mb2 > [class*="cl"] 	{ margin-bottom: 2px;  }
+.mb4 > [class*="cl"] 	{ margin-bottom: 4px;  }
+.mb10 > [class*="cl"] 	{ margin-bottom: 10px; }
+.mb12 > [class*="cl"] 	{ margin-bottom: 12px; }
+.mb14 > [class*="cl"] 	{ margin-bottom: 14px; }
+.mb16 > [class*="cl"] 	{ margin-bottom: 16px; }
+.mb18 > [class*="cl"] 	{ margin-bottom: 18px; }
+.mb20 > [class*="cl"] 	{ margin-bottom: 20px; }
+.mb22 > [class*="cl"] 	{ margin-bottom: 22px; }
+.mb24 > [class*="cl"] 	{ margin-bottom: 24px; }
+.mb26 > [class*="cl"] 	{ margin-bottom: 26px; }
+.mb28 > [class*="cl"] 	{ margin-bottom: 28px; }
+.mb30 > [class*="cl"] 	{ margin-bottom: 30px; }
+.mb40 > [class*="cl"] 	{ margin-bottom: 40px; }
+.mb50 > [class*="cl"] 	{ margin-bottom: 50px; }
+.mb60 > [class*="cl"] 	{ margin-bottom: 60px; }
+.mb70 > [class*="cl"] 	{ margin-bottom: 70px; }
+.mb80 > [class*="cl"] 	{ margin-bottom: 80px; }
+.mb90 > [class*="cl"] 	{ margin-bottom: 90px; }
+.mb100 > [class*="cl"] 	{ margin-bottom: 100px; }
+
+/* Flexible grid system
+------------------------*/
+.cl12 { width: 100%; }
+.cl11 { width: 91.66666667%; }
+.cl10 { width: 83.33333333%; }
+.cl9 { width: 75%; }
+.cl8 { width: 66.66666667%; }
+.cl7 { width: 58.33333333%; }
+.cl6 { width: 50%; }
+.cl5 { width: 41.66666667%; }
+.cl4 { width: 33.33333333%; }
+.cl3 { width: 25%; }
+.cl2 { width: 16.66666667%; }
+.cl1 { width: 8.33333333%; }
+
+/* Equal grid system
+------------------------*/
+.eq1 > .cl { width: 100%; }
+.eq2 > .cl { width: 50%; }
+.eq3 > .cl { width: 33.33333333333333%; }
+.eq4 > .cl { width: 25%; }
+.eq5 > .cl { width: 20%; }
+.eq6 > .cl { width: 16.66666666666667%; }
+.eq7 > .cl { width: 14.28571428571429%; }
+.eq8 > .cl { width: 12.5%; }
+.eq9 > .cl { width: 11.11111111111111%; }
+.eq10 > .cl { width: 10%; }
+.eq11 > .cl { width: 9.090909090909091%; }
+.eq12 > .cl { width: 8.333333333333333%; }

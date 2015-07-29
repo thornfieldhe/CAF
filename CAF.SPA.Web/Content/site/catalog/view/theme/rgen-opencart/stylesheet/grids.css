@@ -1,0 +1,47 @@
+/* grids */
+.row > [class*=col] { float: left; }
+.gut-0	{ margin-right: 0px; margin-left: 0px; }
+.gut-1	{ margin-right: -1px; margin-left: 0px; }
+.gut-2	{ margin-right: -1px;  margin-left: -1px; }
+.gut-4	{ margin-right: -2px;  margin-left: -2px; }
+.gut-10	{ margin-right: -5px;  margin-left: -5px; }
+.gut-12	{ margin-right: -6px;  margin-left: -6px; }
+.gut-14	{ margin-right: -7px;  margin-left: -7px; }
+.gut-16	{ margin-right: -8px;  margin-left: -8px; }
+.gut-18	{ margin-right: -9px;  margin-left: -9px; }
+.gut-20	{ margin-right: -10px; margin-left: -10px; }
+.gut-22	{ margin-right: -11px; margin-left: -11px; }
+.gut-24	{ margin-right: -12px; margin-left: -12px; }
+.gut-26	{ margin-right: -13px; margin-left: -13px; }
+.gut-28	{ margin-right: -14px; margin-left: -14px; }
+.gut-30	{ margin-right: -15px; margin-left: -15px; }
+.gut-40	{ margin-right: -20px; margin-left: -20px; }
+.gut-50	{ margin-right: -25px; margin-left: -25px; }
+.gut-60	{ margin-right: -30px; margin-left: -30px; }
+.gut-70	{ margin-right: -35px; margin-left: -35px; }
+.gut-80	{ margin-right: -40px; margin-left: -40px; }
+.gut-90	{ margin-right: -45px; margin-left: -45px; }
+.gut-100{ margin-right: -50px; margin-left: -50px; }
+
+.gut-0 > [class*="col"] 	{ padding-right: 0px;  padding-left: 0px; margin-bottom: 0px; }
+.gut-1 > [class*="col"] 	{ padding-right: 1px;  padding-left: 0px; margin-bottom: 1px; }
+.gut-2 > [class*="col"] 	{ padding-right: 1px;  padding-left: 1px; margin-bottom: 2px; }
+.gut-4 > [class*="col"] 	{ padding-right: 2px;  padding-left: 2px; margin-bottom: 4px; }
+.gut-10 > [class*="col"] 	{ padding-right: 5px;  padding-left: 5px; margin-bottom: 10px; }
+.gut-12 > [class*="col"] 	{ padding-right: 6px;  padding-left: 6px; margin-bottom: 6px; }
+.gut-14 > [class*="col"] 	{ padding-right: 7px;  padding-left: 7px; margin-bottom: 14px; }
+.gut-16 > [class*="col"] 	{ padding-right: 8px;  padding-left: 8px; margin-bottom: 16px; }
+.gut-18 > [class*="col"] 	{ padding-right: 9px;  padding-left: 9px; margin-bottom: 18px; }
+.gut-20 > [class*="col"] 	{ padding-right: 10px; padding-left: 10px; margin-bottom: 20px; }
+.gut-22 > [class*="col"] 	{ padding-right: 11px; padding-left: 11px; margin-bottom: 22px; }
+.gut-24 > [class*="col"] 	{ padding-right: 12px; padding-left: 12px; margin-bottom: 24px; }
+.gut-26 > [class*="col"] 	{ padding-right: 13px; padding-left: 13px; margin-bottom: 26px; }
+.gut-28 > [class*="col"] 	{ padding-right: 14px; padding-left: 14px; margin-bottom: 28px; }
+.gut-30 > [class*="col"] 	{ padding-right: 15px; padding-left: 15px; margin-bottom: 30px; }
+.gut-40 > [class*="col"] 	{ padding-right: 20px; padding-left: 20px; margin-bottom: 40px; }
+.gut-50 > [class*="col"] 	{ padding-right: 25px; padding-left: 25px; margin-bottom: 50px; }
+.gut-60 > [class*="col"] 	{ padding-right: 30px; padding-left: 30px; margin-bottom: 60px; }
+.gut-70 > [class*="col"] 	{ padding-right: 35px; padding-left: 35px; margin-bottom: 70px; }
+.gut-80 > [class*="col"] 	{ padding-right: 40px; padding-left: 40px; margin-bottom: 80px; }
+.gut-90 > [class*="col"] 	{ padding-right: 45px; padding-left: 45px; margin-bottom: 90px; }
+.gut-100 > [class*="col"] 	{ padding-right: 50px; padding-left: 50px; margin-bottom: 100px; }
