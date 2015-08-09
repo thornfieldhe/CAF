@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CAF.Tests.Extensions
+﻿namespace CAF.Tests.Extensions
 {
-    using CAF.Model;
+    using CAF.Models;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,17 +11,17 @@ namespace CAF.Tests.Extensions
         /// 截断小数位数
         /// </summary>
         [TestMethod]
-        
+
         public void TestFixed()
         {
-            Assert.AreEqual(2.23,(2.2358).ToFixed(2));
+            Assert.AreEqual(2.23, (2.2358).ToFixed(2));
         }
 
         /// <summary>
         /// 四舍五入
         /// </summary>
         [TestMethod]
-        
+
         public void TestRound()
         {
             Assert.AreEqual(2.24, (2.2358).Round(2));
@@ -37,10 +31,10 @@ namespace CAF.Tests.Extensions
         /// 是否在区间内
         /// </summary>
         [TestMethod]
-        
+
         public void TestBetween()
         {
-            Assert.IsTrue((2.2358).IsBetween(3.0,2.0));
+            Assert.IsTrue((2.2358).IsBetween(3.0, 2.0));
         }
 
         /// <summary>

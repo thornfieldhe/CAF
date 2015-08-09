@@ -1,11 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.ComponentModel.DataAnnotations;
 
 namespace CAF.Tests.Extensions
 {
-    using CAF.Model;
-    using CAF.Tests.Samples;
-    using CAF.Utility;
+    using CAF.Models;
+
+    using Test2 = CAF.Tests.Samples.Test2;
 
     /// <summary>
     /// 验证特性扩展
@@ -19,9 +18,9 @@ namespace CAF.Tests.Extensions
         [TestMethod]
         public void TestSoapSerialize()
         {
-            var user=new User(){Name = "xxx"};
-            var serialize=user.SerializeObjectToString();
-            Assert.AreEqual(serialize.DeserializeStringToObject<User>().Name,user.Name);
+            var user = new User() { Name = "xxx" };
+            var serialize = user.SerializeObjectToString();
+            Assert.AreEqual(serialize.DeserializeStringToObject<User>().Name, user.Name);
         }
         /// <summary>
         /// xml序列化

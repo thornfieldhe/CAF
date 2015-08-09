@@ -3,13 +3,22 @@ namespace CAF.Models
 {
     using System;
 
-
+    /// <summary>
+    /// The post.
+    /// </summary>
     public partial class Post : EFEntity<Post>
     {
         #region 构造函数
 
-        public Post(Guid id) : base(id) { }
-        public Post() : this(Guid.NewGuid()) { }
+        public Post(Guid id)
+            : base(id)
+        {
+        }
+
+        public Post()
+            : this(Guid.NewGuid())
+        {
+        }
 
         #endregion
 

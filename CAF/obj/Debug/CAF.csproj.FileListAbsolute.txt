@@ -354,8 +354,6 @@ D:\WorkStation\CAF\CAF\obj\Debug\CAF.csproj.GenerateResource.Cache
 D:\WorkStation\CAF\CAF\obj\Debug\CAF.dll
 D:\WorkStation\CAF\CAF\obj\Debug\CAF.pdb
 D:\WorkStation\CAF\CAF\bin\Debug\Autofac.dll
-D:\WorkStation\CAF\CAF\bin\Debug\Autofac.Integration.Mvc.dll
 D:\WorkStation\CAF\CAF\bin\Debug\Autofac.xml
-D:\WorkStation\CAF\CAF\bin\Debug\Autofac.Integration.Mvc.xml
 D:\WorkStation\CAF\CAF\bin\Debug\EntityFramework.dll
 D:\WorkStation\CAF\CAF\bin\Debug\EntityFramework.xml

@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CAF.DI
 {
     using System.Reflection;
-    using System.Web.Mvc;
 
     using Autofac;
     using Autofac.Core;
-    using Autofac.Integration.Mvc;
+
 
     /// <summary>
     /// Autofac对象容器
@@ -104,10 +99,10 @@ namespace CAF.DI
         /// <param name="modules">依赖配置</param>
         public static void RegisterMvc(Assembly mvcAssembly, Action<ContainerBuilder> action, params IModule[] modules)
         {
-            var builder = CreateBuilder(action, modules);
-            builder.RegisterControllers(mvcAssembly);
-            _container = builder.Build();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(_container));
+//            var builder = CreateBuilder(action, modules);
+//            builder.Reg(mvcAssembly);
+//            _container = builder.Build();
+//            DependencyResolver.SetResolver(new AutofacDependencyResolver(_container));
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 namespace CAF.Test.Samples
 {
-    using CAF.Model;
+    using CAF.Models;
 
     public interface ITest3Repository
     {

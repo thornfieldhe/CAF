@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace CAF.Tests.Extensions
 {
-    using CAF.Model;
+    using CAF.Models;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 

@@ -4,7 +4,7 @@
 namespace CAF.Tests.Cache
 {
     using CAF.Caches;
-    using CAF.Model;
+    using CAF.Models;
     using CAF.Utility;
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace CAF.Tests.Cache
         public void TestInit()
         {
             this._cache = new LocalCacheProvider();
-            this._user = new User { Name = "A"};
+            this._user = new User { Name = "A" };
             this._key = "a";
         }
 

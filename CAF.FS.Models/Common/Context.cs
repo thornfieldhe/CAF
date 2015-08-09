@@ -21,10 +21,12 @@ namespace CAF.Models
             modelBuilder.Configurations.Add(new UserMap());
             modelBuilder.Configurations.Add(new UserSettingMap());
             modelBuilder.Configurations.Add(new UserNoteMap());
+
             //TPH基类和继承类显示在同一张表
             modelBuilder.Entity<Message>().Map(r => { r.Requires("From").HasValue("message"); });
             modelBuilder.Entity<Message1>().Map(r => { r.Requires("From").HasValue("message1"); });
             modelBuilder.Entity<Message2>().Map(r => { r.Requires("From").HasValue("message2"); });
+
             //TPT继承类和基类分多表显示
             modelBuilder.Entity<Test>().Map(r => r.ToTable("Test"));
             modelBuilder.Entity<Test1>().Map(r => r.ToTable("Test1"));

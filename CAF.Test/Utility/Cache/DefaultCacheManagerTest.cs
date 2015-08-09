@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CAF.Tests.Cache
 {
     using CAF.Caches;
-    using CAF.Model;
+    using CAF.Models;
     using CAF.Test.Samples;
     using CAF.Utility;
 
@@ -60,7 +60,7 @@ namespace CAF.Tests.Cache
             this._key = "a";
             this._cacheKey = "CacheKey_a";
             this._signKey = "CacheKey_Sign_a";
-            this._testA = new User(){Id=Guid.NewGuid(),Name = "A"};
+            this._testA = new User() { Name = "A" };
 
         }
 
@@ -83,7 +83,7 @@ namespace CAF.Tests.Cache
                 .Do(invocation => this._mockCacheProvider.Get<string>(this._signKey).Returns("a"));
 
             //首次读取缓存
-            var result0=this._manager.Get(this._key, () => this._mockRepository.GetTest3(), 10);
+            var result0 = this._manager.Get(this._key, () => this._mockRepository.GetTest3(), 10);
             //第二次读取缓存
             var result = this._manager.Get(this._key, () => this._mockRepository.GetTest3(), 10);
 
@@ -92,7 +92,7 @@ namespace CAF.Tests.Cache
             //验证缓存只被添加一次
             this._mockCacheProvider.Received(1).Add(this._cacheKey, this._testA, 20);
             //验证结果
-            Assert.AreEqual(result,result0);
+            Assert.AreEqual(result, result0);
             Assert.IsNotNull(result);
             Assert.AreEqual("A", result.Name);
         }
@@ -207,8 +207,8 @@ namespace CAF.Tests.Cache
             this._manager.GetByHours(this._key, () => this._mockRepository.GetTest3(), 1);
             //验证读取和添加缓存
             this._mockCacheProvider.Received().Add(this._cacheKey, this._testA, 7200);
-            this._manager.Get<User>(this._cacheKey,()=>new User(),1000);
-            this._manager.Update(this._cacheKey,new User(),1);
+            this._manager.Get<User>(this._cacheKey, () => new User(), 1000);
+            this._manager.Update(this._cacheKey, new User(), 1);
         }
 
         #endregion

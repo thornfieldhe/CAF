@@ -4,8 +4,6 @@ namespace CAF.Tests.Fluent
 {
     using System;
     using System.Collections.Generic;
-
-    using CAF.Model;
     using CAF.Tests.Samples;
     using CAF.Utility;
 
@@ -21,7 +19,16 @@ namespace CAF.Tests.Fluent
         {
             bool result = false;
 
-            Fx.If(() => { return true; }).Then(() => { result = true; }).Else(() => { result = false; });
+            Fx.If(() =>
+            {
+                return true;
+            }).Then(() =>
+            {
+                result = true;
+            }).Else(() =>
+            {
+                result = false;
+            });
 
             Assert.IsTrue(result);
         }
@@ -29,7 +36,16 @@ namespace CAF.Tests.Fluent
         public void Test_Conditional_2_Else_Excuted()
         {
             bool result = false;
-            Fx.If(() => { return false; }).Then(() => { result = true; }).Else(() => { result = false; });
+            Fx.If(() =>
+            {
+                return false;
+            }).Then(() =>
+            {
+                result = true;
+            }).Else(() =>
+            {
+                result = false;
+            });
             Assert.IsFalse(result);
         }
 
@@ -39,8 +55,20 @@ namespace CAF.Tests.Fluent
             int result = 0;
             int expected = 3;
             Fx
-                .If(() => { return expected == 997; }).Then(() => { result = 1; })
-                .ElseIf(() => { return expected == 998; }).Then(() => { result = 2; })
+                .If(() =>
+                {
+                    return expected == 997;
+                }).Then(() =>
+                {
+                    result = 1;
+                })
+                .ElseIf(() =>
+                {
+                    return expected == 998;
+                }).Then(() =>
+                {
+                    result = 2;
+                })
                 .Else(() => result = 3);
             Assert.AreEqual(expected, result);
         }
@@ -51,8 +79,23 @@ namespace CAF.Tests.Fluent
             int result = 0;
             int expected = 1;
             Fx
-                .If(() => { return true; }).And(() => { return true; }).Then(() => { result = 1; })
-                .ElseIf(() => { return expected == 998; }).Then(() => { result = 2; })
+                .If(() =>
+                {
+                    return true;
+                }).And(() =>
+                {
+                    return true;
+                }).Then(() =>
+                {
+                    result = 1;
+                })
+                .ElseIf(() =>
+                {
+                    return expected == 998;
+                }).Then(() =>
+                {
+                    result = 2;
+                })
                 .Else(() => result = 3);
             Assert.AreEqual(expected, result);
         }
@@ -63,8 +106,26 @@ namespace CAF.Tests.Fluent
             int result = 0;
             int expected = 2;
             Fx
-                .If(() => { return true; }).And(() => { return false; }).Then(() => { result = 1; })
-                .ElseIf(() => { return expected == 998; }).OrNot(() => { return false; }).Then(() => { result = 2; })
+                .If(() =>
+                {
+                    return true;
+                }).And(() =>
+                {
+                    return false;
+                }).Then(() =>
+                {
+                    result = 1;
+                })
+                .ElseIf(() =>
+                {
+                    return expected == 998;
+                }).OrNot(() =>
+                {
+                    return false;
+                }).Then(() =>
+                {
+                    result = 2;
+                })
                 .Else(() => result = 3);
             Assert.AreEqual(expected, result);
         }
@@ -75,8 +136,35 @@ namespace CAF.Tests.Fluent
             int result = 0;
             int expected = 1;
             Fx
-                .If(() => { return true; }).And(() => { return true; }).Or(() => { return false; }).Xor(() => { return false; }).AndNot(() => { return false; }).Then(() => { result = 1; })
-                .ElseIf(() => { return expected == 998; }).OrNot(() => { return false; }).Then(() => { result = 2; })
+                .If(() =>
+                {
+                    return true;
+                }).And(() =>
+                {
+                    return true;
+                }).Or(() =>
+                {
+                    return false;
+                }).Xor(() =>
+                {
+                    return false;
+                }).AndNot(() =>
+                {
+                    return false;
+                }).Then(() =>
+                {
+                    result = 1;
+                })
+                .ElseIf(() =>
+                {
+                    return expected == 998;
+                }).OrNot(() =>
+                {
+                    return false;
+                }).Then(() =>
+                {
+                    result = 2;
+                })
                 .Else(() => result = 3);
             Assert.AreEqual(expected, result);
         }
@@ -112,7 +200,13 @@ namespace CAF.Tests.Fluent
         {
             int result = 0;
 
-            Fx.While(() => { return result < 6; }).Do(() => { ++result; });
+            Fx.While(() =>
+            {
+                return result < 6;
+            }).Do(() =>
+            {
+                ++result;
+            });
 
             Assert.AreEqual(result, 6);
         }
@@ -122,10 +216,17 @@ namespace CAF.Tests.Fluent
         {
             int result = 0;
             int conditionEvaluationCount = 0;
-            Fx.While(() => { ++conditionEvaluationCount; return result < 6; }).EarlyBreakOn(() => { return result == 4; }).Do(() =>
+            Fx.While(() =>
             {
-                ++result;
-            });
+                ++conditionEvaluationCount;
+                return result < 6;
+            }).EarlyBreakOn(() =>
+            {
+                return result == 4;
+            }).Do(() =>
+{
+++result;
+});
 
             Assert.AreEqual(conditionEvaluationCount, 5);
         }
@@ -136,10 +237,17 @@ namespace CAF.Tests.Fluent
             int result = 0;
             int conditionEvaluationCount = 0;
 
-            Fx.While(() => { ++conditionEvaluationCount; return result < 6; }).LateBreakOn(() => { return result == 4; }).Do(() =>
+            Fx.While(() =>
             {
-                ++result;
-            });
+                ++conditionEvaluationCount;
+                return result < 6;
+            }).LateBreakOn(() =>
+            {
+                return result == 4;
+            }).Do(() =>
+{
+++result;
+});
 
             Assert.AreEqual(conditionEvaluationCount, 4);
         }
@@ -152,7 +260,10 @@ namespace CAF.Tests.Fluent
             Fx.Do(() =>
             {
                 ++result;
-            }).While(() => { return result < 5; });
+            }).While(() =>
+            {
+                return result < 5;
+            });
 
             Assert.AreEqual(result, 5);
         }
@@ -162,7 +273,12 @@ namespace CAF.Tests.Fluent
         {
             bool exceptionOccured = false;
 
-            Fx.Try(() => { }).Catch<Exception>(ex => { exceptionOccured = true; });
+            Fx.Try(() =>
+            {
+            }).Catch<Exception>(ex =>
+            {
+                exceptionOccured = true;
+            });
 
             Assert.IsFalse(exceptionOccured);
         }
@@ -172,7 +288,13 @@ namespace CAF.Tests.Fluent
         {
             bool exceptionOccured = false;
 
-            Fx.Try(() => { throw new NotImplementedException(); }).Catch<NotImplementedException>(ex => { exceptionOccured = true; });
+            Fx.Try(() =>
+            {
+                throw new NotImplementedException();
+            }).Catch<NotImplementedException>(ex =>
+            {
+                exceptionOccured = true;
+            });
 
             Assert.IsTrue(exceptionOccured);
         }
@@ -182,7 +304,15 @@ namespace CAF.Tests.Fluent
         {
             bool exceptionOccured = false;
 
-            Fx.Try(() => { throw new NotImplementedException(); }).Catch<NotImplementedException, Exception>(ex1 => { exceptionOccured = true; }, ex2 => { });
+            Fx.Try(() =>
+            {
+                throw new NotImplementedException();
+            }).Catch<NotImplementedException, Exception>(ex1 =>
+            {
+                exceptionOccured = true;
+            }, ex2 =>
+            {
+            });
 
             Assert.IsTrue(exceptionOccured);
         }
@@ -204,7 +334,10 @@ namespace CAF.Tests.Fluent
         public void Test_ForEach()
         {
             int result = 0;
-            Fx.ForEach(new List<int>() { 1, 2, 3, 4 }, current => { result += current; });
+            Fx.ForEach(new List<int>() { 1, 2, 3, 4 }, current =>
+            {
+                result += current;
+            });
 
             Assert.AreEqual(result, 10);
         }
@@ -229,9 +362,18 @@ namespace CAF.Tests.Fluent
             int result = -1;
 
             Fx.Switch<string>()
-               .Case<int>().Execute(() => { result = 1; })
-               .Case<string>().Execute(() => { result = 2; })
-               .Default(() => { result = 0; });
+               .Case<int>().Execute(() =>
+               {
+                   result = 1;
+               })
+               .Case<string>().Execute(() =>
+               {
+                   result = 2;
+               })
+               .Default(() =>
+               {
+                   result = 0;
+               });
 
             Assert.AreEqual(result, 2);
         }
@@ -242,9 +384,18 @@ namespace CAF.Tests.Fluent
             int result = -1;
             Fx
                .Switch<short>()
-               .Case<int>().Execute(() => { result = 1; })
-               .Case<string>().Execute(() => { result = 2; })
-               .Default(() => { result = 0; });
+               .Case<int>().Execute(() =>
+               {
+                   result = 1;
+               })
+               .Case<string>().Execute(() =>
+               {
+                   result = 2;
+               })
+               .Default(() =>
+               {
+                   result = 0;
+               });
 
             Assert.AreEqual(result, 0);
         }
@@ -256,9 +407,18 @@ namespace CAF.Tests.Fluent
             int result = -1;
 
             Fx.Switch(condition)
-               .Case("one").Execute(() => { result = 1; })
-               .Case("two").Execute(() => { result = 2; })
-               .Default(() => { result = 0; });
+               .Case("one").Execute(() =>
+               {
+                   result = 1;
+               })
+               .Case("two").Execute(() =>
+               {
+                   result = 2;
+               })
+               .Default(() =>
+               {
+                   result = 0;
+               });
 
             Assert.AreEqual(result, 2);
         }
@@ -270,9 +430,18 @@ namespace CAF.Tests.Fluent
             int result = -1;
             Fx
                .Switch(condition)
-               .Case("one").Execute(() => { result = 1; })
-               .Case("two").Execute(() => { result = 2; })
-               .Default(() => { result = 0; });
+               .Case("one").Execute(() =>
+               {
+                   result = 1;
+               })
+               .Case("two").Execute(() =>
+               {
+                   result = 2;
+               })
+               .Default(() =>
+               {
+                   result = 0;
+               });
 
             Assert.AreEqual(result, 0);
         }

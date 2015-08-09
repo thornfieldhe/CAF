@@ -1,17 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="UserNote.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   Defines the UserNote type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace CAF.Models
 {
+    using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Linq;
 
+    /// <summary>
+    /// The user note.
+    /// </summary>
     public partial class UserNote : EFEntity<UserNote>
     {
         #region 构造函数
 
-        public UserNote(Guid id) : base(id) { }
-        public UserNote() : this(Guid.NewGuid()) { }
+        public UserNote(Guid id)
+            : base(id)
+        {
+        }
+
+        public UserNote()
+            : this(Guid.NewGuid())
+        {
+        }
 
         #endregion
 

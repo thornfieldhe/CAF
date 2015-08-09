@@ -1,13 +1,26 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="BaseEntityTest.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The base entity test.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace CAF.Tests.Domains.BaseEntity
 {
-    using CAF.Exceptions;
-    using CAF.Model;
-    using CAF.Utility;
+    using System;
     using System.Collections.Generic;
 
+    using CAF.Exceptions;
+    using CAF.Models;
+    using CAF.Utility;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    /// <summary>
+    /// The base entity test.
+    /// </summary>
     [TestClass]
     public class BaseEntityTest
     {
@@ -17,7 +30,6 @@ namespace CAF.Tests.Domains.BaseEntity
         [TestInitialize]
         public void TestInit()
         {
-
         }
 
         /// <summary>
@@ -27,10 +39,10 @@ namespace CAF.Tests.Domains.BaseEntity
         public void TestEqual()
         {
             var id = Guid.NewGuid();
-            var u1 = new User() { Id = id, Name = "u1" };
-            var u2 = new User() { Id = id, Name = "u2" };
+            var u1 = new User(id) { Name = "u1" };
+            var u2 = new User(id) { Name = "u2" };
             var users = new List<User> { u2 };
-            Assert.AreEqual(u1, u2);//Id相等即为相等
+            Assert.AreEqual(u1, u2); // Id相等即为相等
             Assert.IsTrue(u1 == u2);
             Assert.IsFalse(u1 != u2);
             Assert.IsTrue(users.Contains(u1));
@@ -49,11 +61,11 @@ namespace CAF.Tests.Domains.BaseEntity
             var u2 = u1.GetShallowCopy();
             u2.Roles[0].Name = "r2";
             Assert.AreEqual(u2.Roles[0].Name, "r2");
-            Assert.AreEqual(u2.Roles[0].Name, u1.Roles[0].Name);//浅拷贝引用相等
+            Assert.AreEqual(u2.Roles[0].Name, u1.Roles[0].Name); // 浅拷贝引用相等
             var u3 = u1.Clone();
             u3.Roles[0].Name = "r3";
             Assert.AreEqual(u3.Roles[0].Name, "r3");
-            Assert.AreNotEqual(u3.Roles[0].Name, u1.Roles[0].Name);//深拷贝引用不等
+            Assert.AreNotEqual(u3.Roles[0].Name, u1.Roles[0].Name); // 深拷贝引用不等
             Assert.AreNotEqual(u3.Roles[0].Name, u2.Roles[0].Name);
             Assert.AreEqual(u1, u2);
             Assert.AreEqual(u1, u3);
@@ -81,34 +93,14 @@ namespace CAF.Tests.Domains.BaseEntity
         {
             try
             {
-                User u = new User { Abb = "hxh", Email = "hxh@126.com", OrganizeId = Guid.NewGuid(), Pass = "pass" };
+                User u = new User { Email = "hxh@126.com", Pass = "pass" };
                 u.Create();
             }
             catch (Warning ex)
             {
-
                 Assert.IsNotNull(ex.Message);
             }
         }
-
-        /// <summary>
-        /// 测试列表增减项
-        /// </summary>
-        [TestMethod]
-        public void TestCollectionAddRemove()
-        {
-            var list = new UserList();
-            User b = new User();
-            b.Name = "name1";
-            User c = new User();
-            b.Name = "name1";
-            list.Add(b);
-            list.Add(c);
-            Assert.AreEqual(list.Count, 2);
-            list.RemoveAt(1);
-            Assert.AreEqual(list.Count, 1);
-        }
-
 
         /// <summary>
         /// 测试数据库表名
@@ -116,8 +108,9 @@ namespace CAF.Tests.Domains.BaseEntity
         [TestMethod]
         public void TestTableAttribute()
         {
-            Assert.AreEqual(Reflection.GetTableName<Post>(), "");
-            //                        Assert.AreEqual(Reflection.GetTableName<Post>(), "Sys_Posts");
+            Assert.AreEqual(Reflection.GetTableName<Post>(), string.Empty);
+
+            // Assert.AreEqual(Reflection.GetTableName<Post>(), "Sys_Posts");
         }
     }
 }
