@@ -1,14 +1,29 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="RandomsTest.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The randoms test.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace CAF.Tests.Randoms
 {
+    using System;
 
     using CAF.Utility;
 
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    /// <summary>
+    /// The randoms test.
+    /// </summary>
     [TestClass]
     public class RandomsTest
     {
+        /// <summary>
+        /// The test randoms int.
+        /// </summary>
         [TestMethod]
         public void TestRandomsInt()
         {
@@ -16,19 +31,30 @@ namespace CAF.Tests.Randoms
             Assert.IsTrue(a.Between(10, 20));
         }
 
+        /// <summary>
+        /// The test randoms double.
+        /// </summary>
         [TestMethod]
         public void TestRandomsDouble()
         {
             var a = Randoms.GetRandomDouble();
             Assert.IsTrue(a.Between(0.0, 1.0));
         }
+
+        /// <summary>
+        /// The test randoms random array.
+        /// </summary>
         [TestMethod]
         public void TestRandomsRandomArray()
         {
-            var a = new int[] { 1, 2, 3, 4, 5, 6 };
+            var a = new[] { 1, 2, 3, 4, 5, 6 };
             Randoms.GetRandomArray(a);
             Assert.IsFalse(a[0] != 1);
         }
+
+        /// <summary>
+        /// The test randoms generate check code num.
+        /// </summary>
         [TestMethod]
         public void TestRandomsGenerateCheckCodeNum()
         {
@@ -48,6 +74,10 @@ namespace CAF.Tests.Randoms
             Console.WriteLine(e);
             Assert.IsNotNull(e);
         }
+
+        /// <summary>
+        /// The test rnd.
+        /// </summary>
         [TestMethod]
         public void TestRnd()
         {
@@ -60,7 +90,7 @@ namespace CAF.Tests.Randoms
             var c = Randoms.GetRndNum(5, true);
             Console.WriteLine(c);
             Assert.IsNotNull(c);
-            var d = Randoms.GetRndNum(5, false);
+            var d = Randoms.GetRndNum(5);
             Console.WriteLine(d);
             Assert.IsNotNull(d);
             var e = Randoms.GenerateDate();
@@ -77,15 +107,16 @@ namespace CAF.Tests.Randoms
             Assert.IsNotNull(h);
         }
 
+        /// <summary>
+        /// The test get rnd next.
+        /// </summary>
         [TestMethod]
         public void TestGetRndNext()
         {
             var a = Randoms.GetRndNext(10, 15);
-            var b = new int[] { 11, 12, 13, 14 };
+            var b = new[] { 11, 12, 13, 14 };
             Console.WriteLine(a);
             Assert.IsTrue(a.In(b));
-
-
         }
     }
 }

@@ -5,10 +5,12 @@ namespace CAF.Models
 
     public partial class InfoLog : EFEntity<InfoLog>
     {
-                #region 构造函数
-
+        #region 构造函数
+        public InfoLog() : this(Guid.NewGuid())
+        {
+        }
         public InfoLog(Guid id) : base(id) { }
-        public InfoLog() : this(Guid.NewGuid()) { }
+
 
         #endregion
 

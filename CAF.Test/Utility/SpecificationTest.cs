@@ -1,12 +1,27 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="SpecificationTest.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The specification test.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace CAF.Tests.Specifications
 {
     using CAF.Utility;
 
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    /// <summary>
+    /// The specification test.
+    /// </summary>
     [TestClass]
     public class SpecificationTest
     {
+        /// <summary>
+        /// The test_ and_ specification.
+        /// </summary>
         [TestMethod]
         public void Test_And_Specification()
         {

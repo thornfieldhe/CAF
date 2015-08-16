@@ -13,7 +13,7 @@ namespace CAF.Models
         [StringLength(20, ErrorMessage = "用户名长度不能超过20")]
         public string UserName { get; set; }
 
-
+        
         /// <summary>
         /// 操作页
         /// </summary>

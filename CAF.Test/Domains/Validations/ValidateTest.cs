@@ -2,7 +2,7 @@
 
 namespace CAF.Tests.Domains.Validations
 {
-    using CAF.DI;
+//    using CAF.DI;
     using CAF.Exceptions;
     using CAF.Tests.Samples;
     using CAF.Validations;
@@ -17,16 +17,16 @@ namespace CAF.Tests.Domains.Validations
         /// 客户
         /// </summary>
         private Customer2 _customer2;
-        /// <summary>
-        /// 测试初始化
-        /// </summary>
-        [TestInitialize]
-        public void TestInit()
-        {
-            Ioc.Register(new IocConfig());
-            this._customer2 = new Customer2();
-       
-        }
+//        /// <summary>
+//        /// 测试初始化
+//        /// </summary>
+//        [TestInitialize]
+//        public void TestInit()
+//        {
+//            Ioc.Register(new IocConfig());
+//            this._customer2 = new Customer2();
+//       
+//        }
 
         /// <summary>
         /// 基本验证
