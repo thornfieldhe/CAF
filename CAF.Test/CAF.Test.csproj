@@ -94,6 +94,7 @@
     <Compile Include="Domains\Validations\ValidateTest.cs" />
     <Compile Include="Domains\WarningTest.cs" />
     <Compile Include="Samples\Customer.cs" />
+    <Compile Include="Test.cs" />
     <Compile Include="Utility\Lambdas\ExpressionBuilderTest.cs" />
     <Compile Include="Utility\Lambdas\ExpressionTest.cs" />
     <Compile Include="Utility\Lambdas\ParseTest.cs" />

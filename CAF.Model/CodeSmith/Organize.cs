@@ -10,7 +10,7 @@ namespace CAF.Model
     using System.Linq.Expressions;
 
     [Serializable]
-	public partial class Organize :  BaseEntity<Organize>,IEntityBase
+	public partial class Organize : BaseBusiness<Organize>,IEntityBase
 	{   
         public Organize()
 		{

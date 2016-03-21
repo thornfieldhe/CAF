@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CAF</RootNamespace>
     <AssemblyName>CAF</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SccProjectName>SAK</SccProjectName>
@@ -90,7 +90,14 @@
     <Compile Include="ObjectBusiness\BaseEntity.cs" />
     <Compile Include="ObjectBusiness\Core\IDbAction.cs" />
     <Compile Include="ObjectBusiness\Core\IValidationEntity.cs" />
+    <Compile Include="ObjectBusiness\Data\Dapper.cs" />
     <Compile Include="ObjectBusiness\Data\DbPropertyAttribute.cs" />
+    <Compile Include="ObjectBusiness\Data\ExpressionTurn\Base\ExpressionVisitor.cs" />
+    <Compile Include="ObjectBusiness\Data\ExpressionTurn\Base\ExpressionWriterSql.cs" />
+    <Compile Include="ObjectBusiness\Data\ExpressionTurn\Base\PartialEvaluator.cs" />
+    <Compile Include="ObjectBusiness\Data\ExpressionTurn\Base\ReflectionExtensions.cs" />
+    <Compile Include="ObjectBusiness\Data\ExpressionTurn\Base\TypeHelper.cs" />
+    <Compile Include="ObjectBusiness\Data\ExpressionTurn\ExpConditions.cs" />
     <Compile Include="ObjectBusiness\StatusDescription.cs" />
     <Compile Include="ObjectBusiness\ValueObjectBase.cs" />
     <Compile Include="Validations\DataAnnotations\BaseRegValidateAttribute.cs" />

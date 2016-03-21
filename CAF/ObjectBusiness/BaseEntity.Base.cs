@@ -7,8 +7,8 @@ namespace CAF
     using CAF.Validations;
 
 
-    public abstract partial class BaseEntity<T> : StatusDescription, IEqualityComparer<T>, IEntityBase, IComparable<IEntityBase>,
-         IValidationEntity where T : class,IEntityBase
+    public abstract partial class BaseBusiness<T> : StatusDescription, IEqualityComparer<T>, IBusinessBase, IComparable<IBusinessBase>,
+         IValidationEntity where T : class,IBusinessBase
     {
         #region 属性验证
 
@@ -133,7 +133,7 @@ namespace CAF
             return this.Id.ToString();
         }
 
-        public static bool operator ==(BaseEntity<T> lhs, BaseEntity<T> rhs)
+        public static bool operator ==(BaseBusiness<T> lhs, BaseBusiness<T> rhs)
         {
             if ((lhs as object) != null && (rhs as object) != null)
             {
@@ -146,7 +146,7 @@ namespace CAF
             return false;
         }
 
-        public static bool operator !=(BaseEntity<T> lhs, BaseEntity<T> rhs)
+        public static bool operator !=(BaseBusiness<T> lhs, BaseBusiness<T> rhs)
         {
             if ((lhs as object) != null && (rhs as object) != null)
             {
@@ -184,9 +184,9 @@ namespace CAF
 
         #endregion
 
-        #region IComparable<IEntityBase> 成员
+        #region IComparable<IBusinessBase> 成员
 
-        public int CompareTo(IEntityBase other)
+        public int CompareTo(IBusinessBase other)
         {
             return this.Id.CompareTo(other.Id);
         }

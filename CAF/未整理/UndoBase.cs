@@ -6,7 +6,7 @@
 //{
 //
 //    [Serializable()]
-//    public class UndoBase<T> : BaseEntity<T>, IUndoBase where T : IBusinessBase
+//    public class UndoBase<T> : BaseBusiness<T>, IUndoBase where T : IBusinessBase
 //    {
 //        [NonSerialized]
 //        protected Dictionary<int, T> dic = new Dictionary<int, T>();

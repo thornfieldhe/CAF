@@ -5,11 +5,14 @@ namespace CAF
 {
     using CAF.Validations;
 
+    /// <summary>
+    /// The base entity.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
     [Serializable]
-    public abstract partial class BaseEntity<T>
+    public abstract partial class BaseBusiness<T> : IBusinessBase
     {
-
-
         #region 基本属性
 
         public Guid Id { get; protected set; }
@@ -31,7 +34,7 @@ namespace CAF
 
         #region 构造函数
 
-        protected BaseEntity(Guid id)
+        protected BaseBusiness(Guid id)
         {
             this.Id = id;
             this.Status = 0;
@@ -42,7 +45,7 @@ namespace CAF
             this._handler = TypeCreater.IocBuildUp<IValidationHandler>();
         }
 
-        protected BaseEntity() : this(Guid.NewGuid()) { }
+        protected BaseBusiness() : this(Guid.NewGuid()) { }
 
         #endregion
 
